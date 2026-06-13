@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Classroom Toolkit — Matt's Apps</title>
+<style>
+:root{--ink:#15203a;--acc:#c2410c;--accSoft:#fde3d3;--stage:#eef1f5;--panel:#fff;--line:#d8dde6;--mut:#5b6678;--good:#16a34a;--amber:#f0a226;--shadow:0 6px 18px rgba(21,32,58,.13)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--stage);display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:12px;background:#fff;color:var(--ink);font-weight:700;font-size:15px;min-height:46px;padding:0 16px;box-shadow:0 2px 8px rgba(21,32,58,.08)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+button:disabled{opacity:.4;cursor:default}
+.hidden{display:none!important}
+#top{background:var(--ink);color:#fff;display:flex;align-items:center;gap:9px;padding:8px 12px;flex:0 0 auto;flex-wrap:wrap}
+#brand{display:flex;align-items:center;gap:9px}
+#brand svg{width:30px;height:30px}
+#brand .wm{display:flex;flex-direction:column;line-height:1.04}
+#brand .wm b{font-size:16px}
+#brand .wm span{font-size:9px;letter-spacing:2.2px;opacity:.72;font-weight:700}
+#top .sp{flex:1}
+#top button{background:rgba(255,255,255,.13);color:#fff;box-shadow:none;min-width:46px}
+#tabs{display:flex;gap:5px;padding:8px 10px 0;flex:0 0 auto;overflow-x:auto;background:var(--stage)}
+#tabs button{flex:1;min-height:44px;font-size:13.5px;border-radius:12px 12px 0 0;background:#dde3ea;box-shadow:none;color:#5b6678;white-space:nowrap;min-width:96px}
+#tabs button.on{background:var(--panel);color:var(--ink);font-weight:800}
+#main{flex:1;min-height:0;overflow-y:auto;background:var(--panel);padding:18px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.card{background:#f7f8fa;border:1px solid var(--line);border-radius:16px;padding:16px}
+.card h3{margin:0 0 11px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--mut)}
+.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.row+.row{margin-top:9px}
+textarea,input[type=text]{width:100%;border:2px solid var(--line);border-radius:10px;padding:11px;font-size:15px;font-family:inherit;resize:vertical}
+.chip{border-radius:999px;background:#eef1f7;min-height:42px;padding:0 15px;font-size:14px;box-shadow:none}
+.chip.on{background:var(--accSoft);box-shadow:inset 0 0 0 2px var(--acc)}
+.big{font-size:17px;min-height:56px;font-weight:800}
+.go{background:var(--acc);color:#fff}
+/* picker */
+#pickStage{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;min-height:230px;text-align:center}
+#pickName{font-size:clamp(36px,11vw,84px);font-weight:900;line-height:1.05;word-break:break-word}
+#pickName.spin{opacity:.5}
+#pickSub{font-size:15px;color:var(--mut);font-weight:700}
+.tagWrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.nameTag{background:#eef1f7;border-radius:999px;padding:5px 12px;font-size:13px;font-weight:700}
+.nameTag.used{opacity:.4;text-decoration:line-through}
+/* timer */
+#timerStage{display:flex;flex-direction:column;align-items:center;gap:14px}
+#ringWrap{position:relative;width:min(70vw,300px);height:min(70vw,300px)}
+#ringWrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+#ringT{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(40px,12vw,72px);font-weight:900;font-variant-numeric:tabular-nums}
+.presetBtns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+#timerStage.done #ringT{color:var(--good)}
+#timerMsg{font-size:18px;font-weight:800;min-height:24px;text-align:center}
+/* groups */
+#groupOut{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:11px;margin-top:6px}
+.group{background:#fff;border:2px solid var(--line);border-radius:13px;padding:11px}
+.group h4{margin:0 0 7px;font-size:14px;color:var(--acc)}
+.group .m{font-size:14px;padding:3px 0;font-weight:600}
+/* noise */
+#ncv{width:100%;height:240px;background:#0d1722;border-radius:14px;display:block}
+.note{font-size:12.5px;color:var(--mut);line-height:1.5;margin-top:8px}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal.open{display:flex}
+.sheet{background:#fff;border-radius:18px;padding:20px;max-width:480px;width:100%;max-height:88vh;overflow-y:auto}
+.sheet h3{margin:0 0 12px;font-size:18px}
+.sheet ol{padding-left:20px;line-height:1.6;font-size:14px;margin:8px 0}
+.sheet .tips{background:#f1f3f8;border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.5;color:var(--mut);margin-top:8px}
+.acts{display:flex;gap:8px;margin-top:16px}
+.acts button{flex:1}
+.acts .primary{background:var(--acc);color:#fff}
+#toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:700;display:none;z-index:80;box-shadow:var(--shadow)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:.01s!important}}
+</style>
+</head>
+<body>
+<header id="top">
+  <div id="brand">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="15" fill="none" stroke="#c2410c" stroke-width="3"/>
+      <path d="M20 11v9l6 4" fill="none" stroke="#c2410c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="wm"><b>Classroom Toolkit</b><span>MATT'S APPS</span></div>
+  </div>
+  <div class="sp"></div>
+  <button id="fsB" title="Full screen">⛶</button>
+  <button id="helpB" aria-label="Help">?</button>
+</header>
+<div id="tabs">
+  <button id="tabPick" class="on">🎯 Name picker</button>
+  <button id="tabTimer">⏲ Timer</button>
+  <button id="tabGroups">👥 Groups</button>
+  <button id="tabNoise">📊 Noise</button>
+</div>
+<div id="main">
+
+ <div class="wrap" id="secPick">
+  <div class="card">
+   <div id="pickStage">
+    <div id="pickName">Add names below</div>
+    <div id="pickSub"></div>
+   </div>
+   <div class="row" style="justify-content:center;margin-top:8px">
+    <button id="pickB" class="big go" style="min-width:180px">🎯 Pick someone</button>
+    <button id="pickResetB" class="chip">↺ Reset turns</button>
+   </div>
+   <div class="row" style="justify-content:center">
+    <button class="chip on" id="noRepeatChip">🔁 No repeats until all picked</button>
+   </div>
+  </div>
+  <div class="card">
+   <h3>Class list</h3>
+   <textarea id="pickNames" rows="5" placeholder="One name per line"></textarea>
+   <div class="tagWrap" id="pickTags"></div>
+   <div class="note">Fair picking — when “no repeats” is on, everyone gets a turn before anyone repeats. No winners or losers, just whose turn it is.</div>
+  </div>
+ </div>
+
+ <div class="wrap hidden" id="secTimer">
+  <div class="card">
+   <div id="timerStage">
+    <div id="ringWrap">
+     <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="#e3e8ef" stroke-width="7"/><circle id="ringC" cx="50" cy="50" r="45" fill="none" stroke="#c2410c" stroke-width="7" stroke-linecap="round" stroke-dasharray="282.7" stroke-dashoffset="0"/></svg>
+     <div id="ringT">5:00</div>
+    </div>
+    <div id="timerMsg"></div>
+    <div class="presetBtns">
+     <button class="chip" data-sec="60">1 min</button>
+     <button class="chip" data-sec="120">2 min</button>
+     <button class="chip on" data-sec="300">5 min</button>
+     <button class="chip" data-sec="600">10 min</button>
+     <button class="chip" data-sec="900">15 min</button>
+    </div>
+    <div class="row" style="justify-content:center">
+     <span class="note" style="margin:0">Custom:</span>
+     <input type="text" id="customMin" inputmode="numeric" placeholder="min" style="width:70px;text-align:center">
+     <button class="chip" id="setCustomB">Set</button>
+    </div>
+    <div class="row" style="justify-content:center;margin-top:6px">
+     <button id="startB" class="big go" style="min-width:150px">▶ Start</button>
+     <button id="pauseTB" class="big hidden" style="min-width:120px">⏸ Pause</button>
+     <button id="resetTB" class="chip">↺ Reset</button>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="wrap hidden" id="secGroups">
+  <div class="card">
+   <h3>Make groups</h3>
+   <textarea id="grpNames" rows="5" placeholder="One name per line"></textarea>
+   <div class="row" style="margin-top:9px">
+    <span class="chip on" id="byCountChip">By group size</span>
+    <span class="chip" id="byNumChip">By number of groups</span>
+   </div>
+   <div class="row">
+    <span class="note" style="margin:0" id="grpValLab">People per group:</span>
+    <input type="text" id="grpVal" inputmode="numeric" value="3" style="width:70px;text-align:center">
+    <button id="makeGroupsB" class="go">👥 Make groups</button>
+    <button id="reshuffleB" class="chip hidden">🔀 Reshuffle</button>
+   </div>
+   <div id="groupOut"></div>
+   <div class="note">Groups are random and balanced. Made on this device — nobody sees them but you.</div>
+  </div>
+ </div>
+
+ <div class="wrap hidden" id="secNoise">
+  <div class="card">
+   <h3>Noise level</h3>
+   <canvas id="ncv"></canvas>
+   <div class="row" style="margin-top:11px;justify-content:center">
+    <button id="noiseB" class="big go" style="min-width:160px">▶ Start meter</button>
+   </div>
+   <div class="row" style="justify-content:center"><span class="note" style="margin:0">Sensitivity</span><input type="range" id="senR" min="1" max="10" value="5" style="width:140px;accent-color:var(--acc)"></div>
+   <div class="note">Green = working volume, amber = getting loud, red = too loud. Visual only — no sound, no recording.</div>
+  </div>
+ </div>
+
+</div>
+
+<div class="modal" id="helpModal">
+  <div class="sheet">
+    <h3>Classroom Toolkit</h3>
+    <ol>
+      <li><b>🎯 Name picker</b> — paste your class, tap to pick fairly. “No repeats” gives everyone a turn before anyone goes twice.</li>
+      <li><b>⏲ Timer</b> — calm visual countdown for the projector. It fades to a gentle “Time's up”, no jarring alarm.</li>
+      <li><b>👥 Groups</b> — paste names, choose group size or number of groups, get balanced random groups.</li>
+      <li><b>📊 Noise</b> — a calm green/amber/red volume display. Visual only.</li>
+    </ol>
+    <div class="tips">Everything stays on this device and autosaves. Designed to be fair and low-stress — no winners, no losers.</div>
+    <div class="acts"><button class="primary" id="helpClose">Got it</button></div>
+  </div>
+</div>
+<div id="toast" role="status"></div>
+
+<script id="app">
+"use strict";
+/* ===================== Classroom Toolkit ===================== */
+function $(id){return document.getElementById(id);}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function fmtMMSS(s){s=Math.max(0,Math.ceil(s));var m=Math.floor(s/60),ss=s%60;return m+":"+(ss<10?"0":"")+ss;}
+/* ---- pure helpers (unit-tested) ---- */
+function parseNames(text){
+ return (text||"").split("\n").map(function(s){return s.trim();}).filter(Boolean);
+}
+function shuffle(arr,rnd){
+ rnd=rnd||Math.random;
+ var a=arr.slice();
+ for(var i=a.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}
+ return a;
+}
+/* fair pick: choose from names not in `used`; if all used, reset. returns {pick, usedAfter} */
+function fairPick(names,used,noRepeat,rnd){
+ rnd=rnd||Math.random;
+ if(!names.length)return{pick:null,usedAfter:used};
+ if(!noRepeat){
+  return{pick:names[Math.floor(rnd()*names.length)],usedAfter:used};
+ }
+ var pool=names.filter(function(n){return used.indexOf(n)<0;});
+ if(!pool.length){used=[];pool=names.slice();}
+ var pick=pool[Math.floor(rnd()*pool.length)];
+ return{pick:pick,usedAfter:used.concat([pick])};
+}
+/* groups: by size -> chunks of size n (last may be smaller, then balanced); returns array of arrays */
+function makeGroupsBySize(names,size,rnd){
+ size=Math.max(1,size|0);
+ var sh=shuffle(names,rnd),n=sh.length;
+ if(!n)return[];
+ var nGroups=Math.ceil(n/size);
+ return distribute(sh,nGroups);
+}
+function makeGroupsByCount(names,count,rnd){
+ count=Math.max(1,count|0);
+ var sh=shuffle(names,rnd);
+ return distribute(sh,Math.min(count,sh.length||1));
+}
+/* spread names as evenly as possible across g groups (round-robin = balanced) */
+function distribute(arr,g){
+ if(g<=0)return[];
+ var out=[];for(var i=0;i<g;i++)out.push([]);
+ for(var k=0;k<arr.length;k++)out[k%g].push(arr[k]);
+ return out.filter(function(x){return x.length;});
+}
+function rmsDb(samples){
+ var s=0,i;for(i=0;i<samples.length;i++)s+=samples[i]*samples[i];
+ if(!samples.length)return -90;
+ var r=Math.sqrt(s/samples.length);
+ if(r<1e-5)return -90;
+ return Math.max(-90,20*Math.log10(r));
+}
+/* ===================== state ===================== */
+var used=[],noRepeat=true,lastPick=null;
+var grpMode="size",lastGroups=null;
+var tSec=300,tLeft=300,tRunning=false,tRaf=null,tEnd=0,tPausedAt=0;
+var noiseOn=false,noiseStream=null,noiseAnal=null,noiseRaf=null,AC=null,noiseLv=0;
+var toastT=null;
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toastT);toastT=setTimeout(function(){t.style.display="none";},2600);}
+function persist(){try{localStorage.setItem("toolkit",JSON.stringify({pickNames:$("pickNames").value,grpNames:$("grpNames").value,noRepeat:noRepeat,grpMode:grpMode,grpVal:$("grpVal").value,used:used}));}catch(e){}}
+
+function setTab(k){
+ [["Pick","secPick"],["Timer","secTimer"],["Groups","secGroups"],["Noise","secNoise"]].forEach(function(d){
+  $("tab"+d[0]).classList.toggle("on",k===d[0]);$(d[1]).classList.toggle("hidden",k!==d[0]);
+ });
+ if(k!=="Noise"&&noiseOn)stopNoise();
+ if(k==="Pick")renderTags();
+}
+
+/* ---- name picker ---- */
+function names(){return parseNames($("pickNames").value);}
+function renderTags(){
+ var box=$("pickTags");box.innerHTML="";
+ names().forEach(function(n){
+  var t=document.createElement("span");t.className="nameTag"+(used.indexOf(n)>=0?" used":"");t.textContent=n;box.appendChild(t);
+ });
+}
+function doPick(){
+ var ns=names();
+ if(!ns.length){toast("Add some names first");return;}
+ var stage=$("pickName");
+ stage.classList.add("spin");
+ var ticks=0,iv=setInterval(function(){
+  stage.textContent=ns[Math.floor(Math.random()*ns.length)];
+  if(++ticks>11){
+   clearInterval(iv);
+   var r=fairPick(ns,used,noRepeat);
+   used=r.usedAfter;lastPick=r.pick;
+   stage.textContent=r.pick;stage.classList.remove("spin");
+   var left=noRepeat?ns.filter(function(n){return used.indexOf(n)<0;}).length:null;
+   $("pickSub").textContent=noRepeat?(left+" still to have a turn"):"";
+   renderTags();persist();
+  }
+ },70);
+}
+
+/* ---- timer ---- */
+function setTimer(sec){
+ tSec=sec;tLeft=sec;tRunning=false;
+ $("timerStage").classList.remove("done");$("timerMsg").textContent="";
+ $("ringT").textContent=fmtMMSS(sec);$("ringC").style.strokeDashoffset=0;
+ $("startB").classList.remove("hidden");$("pauseTB").classList.add("hidden");$("pauseTB").textContent="⏸ Pause";
+}
+function timerTick(){
+ if(!tRunning)return;
+ tRaf=requestAnimationFrame(timerTick);
+ tLeft=(tEnd-performance.now())/1000;
+ if(tLeft<=0){
+  tLeft=0;tRunning=false;
+  $("ringT").textContent="0:00";$("ringC").style.strokeDashoffset=282.7;
+  $("timerStage").classList.add("done");$("timerMsg").textContent="Time's up ✓";
+  $("startB").classList.remove("hidden");$("pauseTB").classList.add("hidden");
+  pulseDone();
+  return;
+ }
+ $("ringT").textContent=fmtMMSS(tLeft);
+ $("ringC").style.strokeDashoffset=(282.7*(1-tLeft/tSec)).toFixed(1);
+}
+function pulseDone(){
+ /* gentle visual only — no audio alarm */
+ var n=0,el=$("ringT"),iv=setInterval(function(){el.style.opacity=el.style.opacity==="0.3"?"1":"0.3";if(++n>5){clearInterval(iv);el.style.opacity="1";}},420);
+}
+function startTimer(){
+ if(tRunning||tLeft<=0)return;
+ tRunning=true;tEnd=performance.now()+tLeft*1000;
+ $("startB").classList.add("hidden");$("pauseTB").classList.remove("hidden");
+ $("timerStage").classList.remove("done");$("timerMsg").textContent="";
+ timerTick();
+}
+function pauseTimer(){
+ if(!tRunning)return;
+ tRunning=false;if(tRaf)cancelAnimationFrame(tRaf);
+ $("startB").classList.remove("hidden");$("pauseTB").classList.add("hidden");
+}
+
+/* ---- groups ---- */
+function renderGroups(groups){
+ lastGroups=groups;
+ var out=$("groupOut");out.innerHTML="";
+ groups.forEach(function(g,i){
+  var d=document.createElement("div");d.className="group";
+  d.innerHTML="<h4>Group "+(i+1)+"</h4>"+g.map(function(m){return '<div class="m">'+escapeHtml(m)+'</div>';}).join("");
+  out.appendChild(d);
+ });
+ $("reshuffleB").classList.toggle("hidden",!groups.length);
+}
+function escapeHtml(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+function doGroups(){
+ var ns=parseNames($("grpNames").value);
+ if(ns.length<2){toast("Add at least two names");return;}
+ var val=parseInt($("grpVal").value,10)||3;
+ renderGroups(grpMode==="size"?makeGroupsBySize(ns,val):makeGroupsByCount(ns,val));
+ persist();
+}
+
+/* ---- noise meter ---- */
+function ensureAC(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}if(AC&&AC.state==="suspended")AC.resume();return AC;}
+function drawNoise(lv){
+ var cv=$("ncv"),dpr=Math.min(window.devicePixelRatio||1,2);
+ var w=Math.max(2,cv.clientWidth),h=Math.max(2,cv.clientHeight);
+ if(cv.width!==Math.round(w*dpr)){cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);}
+ var x=cv.getContext("2d"),W=cv.width,H=cv.height;
+ x.fillStyle="#0d1722";x.fillRect(0,0,W,H);
+ var zones=[[0,0.45,"#2fd394","Lovely"],[0.45,0.72,"#ffd166","Getting loud"],[0.72,1,"#ff6b5e","Too loud"]];
+ var pad=W*0.08,bw=W-pad*2,bh=H*0.34,by=H*0.5-bh/2,i;
+ for(i=0;i<3;i++){x.globalAlpha=0.22;x.fillStyle=zones[i][2];x.fillRect(pad+zones[i][0]*bw,by,(zones[i][1]-zones[i][0])*bw,bh);}
+ x.globalAlpha=1;
+ var zi=lv<0.45?0:lv<0.72?1:2;
+ x.fillStyle=zones[zi][2];x.fillRect(pad,by,clamp(lv,0,1)*bw,bh);
+ x.strokeStyle="rgba(255,255,255,0.5)";x.lineWidth=2;x.strokeRect(pad,by,bw,bh);
+ x.fillStyle=zones[zi][2];x.font="800 "+Math.round(H*0.15)+"px Arial";x.textAlign="center";x.textBaseline="middle";
+ x.fillText(zones[zi][3],W/2,H*0.2);
+}
+function startNoise(){
+ if(noiseOn)return;
+ if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)){toast("This browser can't use the microphone");return;}
+ navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+  noiseStream=stream;ensureAC();noiseAnal=AC.createAnalyser();noiseAnal.fftSize=2048;
+  AC.createMediaStreamSource(stream).connect(noiseAnal);
+  noiseOn=true;noiseLv=0;$("noiseB").textContent="⏹ Stop meter";
+  var loop=function(){
+   if(!noiseOn)return;noiseRaf=requestAnimationFrame(loop);
+   var a=new Uint8Array(noiseAnal.fftSize);noiseAnal.getByteTimeDomainData(a);
+   var f=new Float32Array(a.length);for(var i=0;i<a.length;i++)f[i]=(a[i]-128)/128;
+   var sen=+($("senR").value||5),lv=clamp((rmsDb(f)+62)/50*(sen/5),0,1);
+   noiseLv=noiseLv*0.85+lv*0.15;drawNoise(noiseLv);
+  };loop();
+ }).catch(function(){toast("Mic blocked — allow microphone access");});
+}
+function stopNoise(){
+ noiseOn=false;if(noiseRaf)cancelAnimationFrame(noiseRaf);noiseRaf=null;
+ if(noiseStream)noiseStream.getTracks().forEach(function(t){t.stop();});noiseStream=null;noiseAnal=null;
+ $("noiseB").textContent="▶ Start meter";drawNoise(0);
+}
+
+/* ===================== init ===================== */
+function init(){
+ $("tabPick").onclick=function(){setTab("Pick");};
+ $("tabTimer").onclick=function(){setTab("Timer");};
+ $("tabGroups").onclick=function(){setTab("Groups");};
+ $("tabNoise").onclick=function(){setTab("Noise");};
+ $("pickB").onclick=doPick;
+ $("pickResetB").onclick=function(){used=[];lastPick=null;$("pickSub").textContent="";renderTags();persist();toast("Turns reset — everyone's back in");};
+ $("noRepeatChip").onclick=function(){noRepeat=!noRepeat;this.classList.toggle("on",noRepeat);if(!noRepeat){used=[];renderTags();}persist();};
+ $("pickNames").addEventListener("input",function(){used=used.filter(function(n){return names().indexOf(n)>=0;});renderTags();persist();});
+ document.querySelectorAll("[data-sec]").forEach(function(b){b.onclick=function(){document.querySelectorAll("[data-sec]").forEach(function(x){x.classList.toggle("on",x===b);});setTimer(+b.dataset.sec);};});
+ $("setCustomB").onclick=function(){var m=parseInt($("customMin").value,10);if(m>0){document.querySelectorAll("[data-sec]").forEach(function(x){x.classList.remove("on");});setTimer(m*60);}};
+ $("startB").onclick=startTimer;
+ $("pauseTB").onclick=function(){tRunning?pauseTimer():startTimer();};
+ $("resetTB").onclick=function(){pauseTimer();setTimer(tSec);$("ringT").style.opacity="1";};
+ $("byCountChip").onclick=function(){grpMode="size";$("byCountChip").classList.add("on");$("byNumChip").classList.remove("on");$("grpValLab").textContent="People per group:";persist();};
+ $("byNumChip").onclick=function(){grpMode="num";$("byNumChip").classList.add("on");$("byCountChip").classList.remove("on");$("grpValLab").textContent="Number of groups:";persist();};
+ $("makeGroupsB").onclick=doGroups;
+ $("reshuffleB").onclick=doGroups;
+ $("noiseB").onclick=function(){noiseOn?stopNoise():startNoise();};
+ $("senR").addEventListener("input",function(){if(!noiseOn)drawNoise(0);});
+ $("fsB").onclick=function(){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();};
+ $("helpB").onclick=function(){$("helpModal").classList.add("open");};
+ $("helpClose").onclick=function(){$("helpModal").classList.remove("open");};
+ $("helpModal").addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});
+ document.addEventListener("visibilitychange",function(){if(document.hidden&&noiseOn)stopNoise();});
+ window.addEventListener("resize",function(){if(!noiseOn)drawNoise(0);});
+ setTimer(300);drawNoise(0);
+ try{var s=JSON.parse(localStorage.getItem("toolkit")||"null");if(s){$("pickNames").value=s.pickNames||"";$("grpNames").value=s.grpNames||"";noRepeat=s.noRepeat!==false;$("noRepeatChip").classList.toggle("on",noRepeat);used=(s.used||[]).filter(function(n){return parseNames(s.pickNames||"").indexOf(n)>=0;});$("grpVal").value=s.grpVal||"3";if(s.grpMode==="num"){grpMode="num";$("byNumChip").classList.add("on");$("byCountChip").classList.remove("on");$("grpValLab").textContent="Number of groups:";}}}catch(e){}
+ renderTags();
+}
+init();
+
+</script>
+</body>
+</html>

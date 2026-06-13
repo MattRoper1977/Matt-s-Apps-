@@ -2,7 +2,7 @@
 
 by **Matt Roper**
 
-A collection of **17 self-contained, offline, single-file web tools** for the classroom. Every tool is one `.html` file with no installation, no accounts, no servers and no internet required after download — just open it in a browser (Chromebook, phone, tablet or desktop). Nothing a pupil makes ever leaves the device.
+A collection of **21 self-contained, offline, single-file web tools** for the classroom. Every tool is one `.html` file with no installation, no accounts, no servers and no internet required after download — just open it in a browser (Chromebook, phone, tablet or desktop). Nothing a pupil makes ever leaves the device.
 
 Built by Matt Roper for an SEMH alternative-provision setting: big touch targets, calm visuals, no leaderboards, and accessibility (reduced-motion support, keyboard handling) as defaults.
 
@@ -50,7 +50,15 @@ Share that single link with staff or pupils and bookmark it.
 | **Graph & Data Studio** | Turn a results table into a labelled bar/line/scatter/pie chart, with mean, median, range and more worked out automatically. |
 | **Typing Tutor** | Build typing speed and accuracy across home/top/bottom rows, words, sentences and capitals, with an on-screen guide keyboard. |
 | **Message & Email Studio** | Coaches clear, polite, well-structured messages for real situations (emailing a teacher, replying to a college, asking for help, apologising, making a fair complaint), with a live checklist. Never sends anything. |
+| **Writing Frames Studio** | Scaffolded writing for any genre (recount, persuasive, story mountain, science write-up, comic-to-paragraph, formal letter): each frame breaks the task into boxes with sentence starters and word banks, then stitches them into a finished piece to copy or save. |
+| **Flashcards & Quiz Studio** | Make revision decks (term + meaning) for any subject, then revise with spaced-repetition flip-cards (tricky cards return sooner) or auto-generated multiple-choice quizzes. Pupils can build their own decks. |
 | **Now / Next Board** | A calm visual schedule for transitions — Now / Next / Then cards with pictures. |
+
+### Teacher tools
+| Tool | What it does |
+|---|---|
+| **Classroom Toolkit** | Four classroom utilities in one: a fair random name picker (no repeats until everyone's had a turn), a balanced group maker, a calm visual countdown timer, and a class noise meter. |
+| **Seating Plan Studio** | Drag pupils onto a desk layout (rows, pairs, group tables or U-shape), flag "keep apart" pairs that warn if seated together, auto-fill fairly, and export the plan as a picture to print. |
 
 ### Calm corner
 | Tool | What it does |

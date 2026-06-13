@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Writing Frames Studio — Matt's Apps</title>
+<style>
+:root{--ink:#15203a;--acc:#0d9488;--accSoft:#cdeee9;--stage:#eef3f2;--panel:#fff;--line:#d8dde6;--mut:#5b6678;--good:#16a34a;--shadow:0 5px 16px rgba(21,32,58,.13)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--stage);display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:11px;background:#fff;color:var(--ink);font-weight:700;font-size:14px;min-height:42px;padding:0 14px;box-shadow:0 2px 8px rgba(21,32,58,.08)}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+button:disabled{opacity:.4;cursor:default}
+.hidden{display:none!important}
+#top{background:var(--ink);color:#fff;display:flex;align-items:center;gap:9px;padding:8px 12px;flex:0 0 auto;flex-wrap:wrap}
+#brand{display:flex;align-items:center;gap:9px}
+#brand svg{width:30px;height:30px}
+#brand .wm{display:flex;flex-direction:column;line-height:1.04}
+#brand .wm b{font-size:16px}
+#brand .wm span{font-size:9px;letter-spacing:2.2px;opacity:.72;font-weight:700}
+#top .sp{flex:1}
+#top button{background:rgba(255,255,255,.13);color:#fff;box-shadow:none}
+#top button.primary{background:var(--acc);color:#fff}
+#main{flex:1;min-height:0;overflow-y:auto;padding:16px}
+.wrap{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.frameCard{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);margin-top:0;min-height:66px;padding:14px 16px;border-radius:14px}
+.frameCard .fe{font-size:28px;flex:0 0 auto}
+.frameCard .ft b{display:block;font-size:16px}
+.frameCard .ft span{font-size:12.5px;color:var(--mut);line-height:1.35}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--shadow)}
+.box .bhead{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.box .bnum{width:26px;height:26px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;flex:0 0 auto}
+.box h3{margin:0;font-size:15px}
+.box .prompt{font-size:13px;color:var(--mut);margin:0 0 8px;line-height:1.4}
+.box textarea{width:100%;border:2px solid var(--line);border-radius:10px;padding:11px;font-size:15px;font-family:inherit;line-height:1.55;resize:vertical;min-height:74px}
+.starters{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.starter{background:var(--accSoft);border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600;box-shadow:none;min-height:34px;color:#0a5c54}
+.wordbank{margin-top:8px}
+.wordbank .wlbl{font-size:11px;font-weight:800;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+.words{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.word{background:#f1f3f8;border-radius:8px;padding:4px 9px;font-size:12.5px;font-weight:600;box-shadow:none;min-height:30px;color:#3c4961}
+#topBar{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+#frameTitle{font-weight:800;font-size:16px;flex:1;min-width:120px}
+.chip{border-radius:999px;background:#eef1f7;min-height:40px;padding:0 14px;font-size:13.5px;box-shadow:none}
+#previewBox{white-space:pre-wrap;font-size:15px;line-height:1.7;background:#fbfcfe;border:1px solid var(--line);border-radius:12px;padding:16px}
+.wcount{font-size:12.5px;color:var(--mut);font-weight:700}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.acts button{flex:1;min-width:130px}
+.acts .primary{background:var(--acc);color:#fff}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal.open{display:flex}
+.sheet{background:#fff;border-radius:18px;padding:20px;max-width:520px;width:100%;max-height:88vh;overflow-y:auto}
+.sheet h3{margin:0 0 12px;font-size:18px}
+.sheet ol{padding-left:20px;line-height:1.6;font-size:14px;margin:8px 0}
+.sheet .tips{background:#f1f3f8;border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.5;color:var(--mut);margin-top:8px}
+#toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:700;display:none;z-index:80;box-shadow:var(--shadow)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header id="top">
+  <div id="brand">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <rect x="8" y="5" width="24" height="30" rx="3" fill="#0d9488"/><rect x="8" y="5" width="24" height="30" rx="3" fill="#fff" opacity=".92" transform="translate(2,2)"/>
+      <path d="M13 13h12M13 19h12M13 25h7" stroke="#0d9488" stroke-width="2.4" stroke-linecap="round"/>
+    </svg>
+    <div class="wm"><b>Writing Frames Studio</b><span>MATT'S APPS</span></div>
+  </div>
+  <div class="sp"></div>
+  <button id="homeB" title="Choose a frame" class="hidden">⌂</button>
+  <button id="helpB" aria-label="Help">?</button>
+</header>
+<div id="main">
+ <div class="wrap" id="chooser">
+  <p style="font-size:15px;color:var(--mut);margin:4px 0 0;line-height:1.5">Pick a writing frame. Each one breaks your writing into easy steps, with sentence starters and word banks so you're never staring at a blank page.</p>
+  <div id="frameList"></div>
+ </div>
+ <div class="wrap hidden" id="editor">
+  <div id="topBar">
+   <span id="frameTitle"></span>
+   <button class="chip" id="changeFrameB">↺ Change frame</button>
+  </div>
+  <div id="boxes"></div>
+  <div class="box">
+   <div class="bhead"><h3>✍ Your finished writing</h3></div>
+   <div id="previewBox"></div>
+   <div class="row" style="margin-top:8px"><span class="wcount" id="wcount"></span></div>
+   <div class="acts">
+    <button id="copyB" class="primary">📋 Copy</button>
+    <button id="saveB">⬇ Save as text</button>
+    <button id="clearB">🧹 Clear</button>
+   </div>
+  </div>
+ </div>
+</div>
+
+<div class="modal" id="helpModal">
+  <div class="sheet">
+    <h3>How to use Writing Frames Studio</h3>
+    <ol>
+      <li>Pick a <b>frame</b> that matches what you're writing — a recount, a story, a persuasive piece, a science method, and more.</li>
+      <li>Each <b>box</b> is one part of your writing. Read the hint, and tap a <b>sentence starter</b> to drop it straight in — then keep going in your own words.</li>
+      <li>The <b>word bank</b> gives useful words to tap in too.</li>
+      <li>Your <b>finished writing</b> builds up at the bottom as you go. <b>📋 Copy</b> or <b>⬇ Save</b> it when you're done.</li>
+    </ol>
+    <div class="tips">There's no rush and no wrong answer — the frame is just there to help you start. Your work autosaves on this device.</div>
+    <div class="acts"><button class="primary" id="helpClose" style="flex:1">Got it</button></div>
+  </div>
+</div>
+<div id="toast" role="status"></div>
+
+<script id="app">
+"use strict";
+/* ===================== Writing Frames Studio ===================== */
+function $(id){return document.getElementById(id);}
+/* Each frame: id, emoji, title, blurb, boxes[]. Box: {h, prompt, starters[], words[]} */
+var FRAMES=[
+ {id:"recount",emoji:"📰",title:"Recount (what happened)",blurb:"Tell about something that happened, in order.",
+  boxes:[
+   {h:"Beginning",prompt:"When and where did it happen? Who was there?",starters:["Last week,","On Monday,","It all started when","First of all,"],words:["yesterday","morning","suddenly","we arrived"]},
+   {h:"What happened next",prompt:"Tell the main events in the order they happened.",starters:["After that,","Then","Next,","A little later,"],words:["because","so","while","after"]},
+   {h:"The best/important bit",prompt:"What stood out? How did it feel?",starters:["The best part was","I really enjoyed","Surprisingly,","I felt"],words:["amazing","nervous","excited","proud"]},
+   {h:"Ending",prompt:"How did it end? What do you think now?",starters:["In the end,","Finally,","Looking back,","Overall,"],words:["pleased","tired","glad","memorable"]}
+  ]},
+ {id:"persuade",emoji:"📢",title:"Persuasive writing",blurb:"Argue for your point of view and convince the reader.",
+  boxes:[
+   {h:"Your big opinion",prompt:"State clearly what you think.",starters:["I strongly believe","In my opinion,","It is clear that","Everyone should"],words:["important","must","should","clearly"]},
+   {h:"Reason 1 + evidence",prompt:"Give a reason, then back it up.",starters:["Firstly,","One reason is","This is because","For example,"],words:["because","proves","shows","research"]},
+   {h:"Reason 2 + evidence",prompt:"Add a second reason with proof.",starters:["Secondly,","Another reason is","Furthermore,","In addition,"],words:["also","moreover","benefit","improve"]},
+   {h:"Answer the other side",prompt:"What might someone disagree with? Reply to it.",starters:["Some people say","Although","However,","Even though"],words:["but","instead","still","whereas"]},
+   {h:"Strong ending",prompt:"Repeat your opinion powerfully.",starters:["To sum up,","Therefore,","This is why","Surely it is time to"],words:["must","now","change","clearly"]}
+  ]},
+ {id:"story",emoji:"📖",title:"Story mountain",blurb:"Build a story with a beginning, problem and ending.",
+  boxes:[
+   {h:"Opening",prompt:"Introduce a character and the setting.",starters:["Once,","In a faraway","There was a","Long ago,"],words:["quiet","gloomy","brave","tiny"]},
+   {h:"Build-up",prompt:"Something starts to happen.",starters:["One day,","Suddenly,","Without warning,","As the sun set,"],words:["strange","noise","shadow","whispered"]},
+   {h:"Problem (the peak)",prompt:"The big problem or exciting moment.",starters:["All at once,","Disaster!","To make things worse,","Just then,"],words:["trapped","raced","heart pounding","desperate"]},
+   {h:"Resolution",prompt:"How is the problem solved?",starters:["At last,","Bravely,","With a deep breath,","Slowly,"],words:["finally","relief","escaped","solved"]},
+   {h:"Ending",prompt:"How does it all settle down?",starters:["From that day,","In the end,","Everything was","At last, peace"],words:["safe","happy","changed","home"]}
+  ]},
+ {id:"science",emoji:"🔬",title:"Science method (practical)",blurb:"Write up an experiment the proper way.",
+  boxes:[
+   {h:"Aim",prompt:"What were you trying to find out?",starters:["The aim was to","I wanted to find out","This experiment tested","We investigated"],words:["measure","investigate","effect","compare"]},
+   {h:"Prediction (hypothesis)",prompt:"What did you think would happen, and why?",starters:["I predicted that","I think","This is because","If... then..."],words:["increase","decrease","because","variable"]},
+   {h:"Method",prompt:"What did you do, step by step?",starters:["First,","Next,","Then,","After that,"],words:["measured","recorded","repeated","carefully"]},
+   {h:"Results",prompt:"What did you observe or measure?",starters:["I found that","The results show","As the... increased,","The data shows"],words:["increased","decreased","table","graph"]},
+   {h:"Conclusion",prompt:"What does it mean? Did it match your prediction?",starters:["In conclusion,","This shows that","My prediction was","The results suggest"],words:["proves","supports","because","therefore"]},
+   {h:"Evaluation",prompt:"What went well? What could be improved?",starters:["The experiment was","To improve it,","One problem was","Next time I would"],words:["accurate","fair test","repeat","reliable"]}
+  ]},
+ {id:"comic",emoji:"💬",title:"Comic to paragraph",prompt:"",blurb:"Turn pictures or a comic into written sentences.",
+  boxes:[
+   {h:"Panel 1 — what's happening",prompt:"Describe the first picture.",starters:["In the first picture,","At the start,","To begin,","The scene shows"],words:["standing","holding","looking","busy"]},
+   {h:"Panel 2 — next",prompt:"What happens in the next picture?",starters:["Next,","After that,","Then,","Suddenly,"],words:["moved","said","because","quickly"]},
+   {h:"Panel 3 — then",prompt:"Keep the story going.",starters:["Following this,","Later,","Meanwhile,","As a result,"],words:["surprised","decided","ran","laughed"]},
+   {h:"Last panel — how it ends",prompt:"Describe the final picture.",starters:["Finally,","In the end,","At last,","To finish,"],words:["happy","solved","together","home"]}
+  ]},
+ {id:"letter",emoji:"✉️",title:"Formal letter / email",blurb:"Write a clear, polite letter or email.",
+  boxes:[
+   {h:"Greeting",prompt:"Who are you writing to?",starters:["Dear Sir or Madam,","Dear","To whom it may concern,","Hello"],words:["Mr","Mrs","Team","Manager"]},
+   {h:"Why you're writing",prompt:"Say your reason in the first line.",starters:["I am writing to","I would like to","I am contacting you about","The reason I am writing is"],words:["request","ask","inform","regarding"]},
+   {h:"The details",prompt:"Explain clearly and politely.",starters:["Firstly,","I would be grateful if","Could you please","In addition,"],words:["please","kindly","because","information"]},
+   {h:"Sign off",prompt:"End politely with your name.",starters:["Thank you for your time.","I look forward to hearing from you.","Yours faithfully,","Best wishes,"],words:["sincerely","regards","thank you"]}
+  ]}
+];
+/* ---- pure: stitch box texts into one piece ---- */
+function stitch(texts){
+ return texts.map(function(t){return (t||"").trim();}).filter(Boolean).join("\n\n");
+}
+function wordCount(s){var t=(s||"").trim();return t?t.split(/\s+/).length:0;}
+/* ---- pure: insert text at a caret position within existing value ---- */
+function insertAt(value,caret,insertText){
+ var pre=value.slice(0,caret),post=value.slice(caret);
+ var needSpace=pre.length&&!/\s$/.test(pre)?" ":"";
+ var out=pre+needSpace+insertText;
+ var newCaret=out.length;
+ /* add a trailing space after starters/words for flow */
+ if(!/\s$/.test(out)){out+=" ";newCaret=out.length;}
+ return{value:out+post,caret:newCaret};
+}
+/* ===================== state ===================== */
+var curFrame=null,texts={};
+var toastT=null;
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toastT);toastT=setTimeout(function(){t.style.display="none";},2400);}
+function frameById(id){for(var i=0;i<FRAMES.length;i++)if(FRAMES[i].id===id)return FRAMES[i];return null;}
+function persist(){try{localStorage.setItem("wframes",JSON.stringify({curFrame:curFrame,texts:texts}));}catch(e){}}
+
+function showChooser(){
+ $("chooser").classList.remove("hidden");$("editor").classList.add("hidden");$("homeB").classList.add("hidden");
+ var box=$("frameList");box.innerHTML="";
+ FRAMES.forEach(function(f){
+  var b=document.createElement("button");b.className="frameCard";
+  b.innerHTML='<span class="fe">'+f.emoji+'</span><span class="ft"><b>'+f.title+'</b><span>'+f.blurb+'</span></span>';
+  b.onclick=function(){openFrame(f.id);};
+  box.appendChild(b);
+ });
+}
+function openFrame(id){
+ curFrame=id;
+ var f=frameById(id);
+ texts[id]=texts[id]||f.boxes.map(function(){return "";});
+ $("chooser").classList.add("hidden");$("editor").classList.remove("hidden");$("homeB").classList.remove("hidden");
+ $("frameTitle").textContent=f.emoji+" "+f.title;
+ buildBoxes();refreshPreview();persist();
+}
+function buildBoxes(){
+ var f=frameById(curFrame),host=$("boxes");host.innerHTML="";
+ f.boxes.forEach(function(b,i){
+  var card=document.createElement("div");card.className="box";
+  var head='<div class="bhead"><span class="bnum">'+(i+1)+'</span><h3>'+b.h+'</h3></div>';
+  card.innerHTML=head+'<p class="prompt">'+b.prompt+'</p>';
+  var ta=document.createElement("textarea");ta.value=texts[curFrame][i]||"";ta.placeholder="Write here…";
+  ta.dataset.i=i;
+  ta.addEventListener("input",function(){texts[curFrame][i]=ta.value;refreshPreview();persist();});
+  card.appendChild(ta);
+  if(b.starters&&b.starters.length){
+   var st=document.createElement("div");st.className="starters";
+   b.starters.forEach(function(s){
+    var chip=document.createElement("button");chip.className="starter";chip.textContent=s;
+    chip.onclick=function(){doInsert(ta,i,s);};
+    st.appendChild(chip);
+   });
+   card.appendChild(st);
+  }
+  if(b.words&&b.words.length){
+   var wb=document.createElement("div");wb.className="wordbank";
+   wb.innerHTML='<span class="wlbl">Word bank</span>';
+   var ws=document.createElement("div");ws.className="words";
+   b.words.forEach(function(w){
+    var chip=document.createElement("button");chip.className="word";chip.textContent=w;
+    chip.onclick=function(){doInsert(ta,i,w);};
+    ws.appendChild(chip);
+   });
+   wb.appendChild(ws);card.appendChild(wb);
+  }
+  host.appendChild(card);
+ });
+}
+function doInsert(ta,i,text){
+ var caret=ta.selectionStart!=null?ta.selectionStart:ta.value.length;
+ var r=insertAt(ta.value,caret,text);
+ ta.value=r.value;texts[curFrame][i]=r.value;
+ ta.focus();
+ try{ta.setSelectionRange(r.caret,r.caret);}catch(e){}
+ refreshPreview();persist();
+}
+function refreshPreview(){
+ var piece=stitch(texts[curFrame]||[]);
+ $("previewBox").textContent=piece||"Your writing will appear here as you fill in the boxes above.";
+ $("wcount").textContent=wordCount(piece)+" words";
+}
+
+function init(){
+ $("homeB").onclick=showChooser;
+ $("changeFrameB").onclick=showChooser;
+ $("copyB").onclick=function(){
+  var piece=stitch(texts[curFrame]||[]);
+  if(!piece){toast("Write something first");return;}
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(piece).then(function(){toast("Copied — paste it into your document ✓");},function(){fallbackCopy(piece);});
+  else fallbackCopy(piece);
+ };
+ $("saveB").onclick=function(){
+  var piece=stitch(texts[curFrame]||[]);
+  if(!piece){toast("Write something first");return;}
+  var f=frameById(curFrame);
+  var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([piece],{type:"text/plain"}));
+  a.download=(f.id+"-writing").toLowerCase()+".txt";
+  document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},3000);
+  toast("Saved as a text file ✓");
+ };
+ $("clearB").onclick=function(){
+  if(!confirm("Clear all the boxes in this frame?"))return;
+  var f=frameById(curFrame);texts[curFrame]=f.boxes.map(function(){return "";});
+  buildBoxes();refreshPreview();persist();
+ };
+ $("helpB").onclick=function(){$("helpModal").classList.add("open");};
+ $("helpClose").onclick=function(){$("helpModal").classList.remove("open");};
+ $("helpModal").addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});
+ try{var s=JSON.parse(localStorage.getItem("wframes")||"null");if(s){texts=s.texts||{};if(s.curFrame&&frameById(s.curFrame)){openFrame(s.curFrame);return;}}}catch(e){}
+ showChooser();
+}
+function fallbackCopy(text){var ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.left="-9999px";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast("Copied ✓");}catch(e){toast("Press and hold to copy");}ta.remove();}
+init();
+
+</script>
+</body>
+</html>

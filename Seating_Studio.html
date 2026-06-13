@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Seating Plan Studio — Matt's Apps</title>
+<style>
+:root{--ink:#15203a;--acc:#7c3aed;--accSoft:#ede4fc;--stage:#eef1f5;--panel:#fff;--line:#d8dde6;--mut:#5b6678;--warn:#e2554f;--shadow:0 5px 16px rgba(21,32,58,.13)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--stage);display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:11px;background:#fff;color:var(--ink);font-weight:700;font-size:14px;min-height:42px;padding:0 13px;box-shadow:0 2px 8px rgba(21,32,58,.08)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+button:disabled{opacity:.4;cursor:default}
+.hidden{display:none!important}
+#top{background:var(--ink);color:#fff;display:flex;align-items:center;gap:8px;padding:7px 11px;flex:0 0 auto;flex-wrap:wrap}
+#brand{display:flex;align-items:center;gap:9px}
+#brand svg{width:30px;height:30px}
+#brand .wm{display:flex;flex-direction:column;line-height:1.04}
+#brand .wm b{font-size:16px}
+#brand .wm span{font-size:9px;letter-spacing:2.2px;opacity:.72;font-weight:700}
+#top .sp{flex:1}
+#top button{background:rgba(255,255,255,.13);color:#fff;box-shadow:none}
+#top button.primary{background:var(--acc);color:#fff}
+#toolbar{background:var(--panel);border-bottom:1px solid var(--line);padding:8px 11px;display:flex;gap:7px;align-items:center;flex-wrap:wrap;flex:0 0 auto}
+.tbtn{min-height:38px;font-size:13px;background:#eef1f7;box-shadow:none}
+.tbtn.on{background:var(--accSoft);box-shadow:inset 0 0 0 2px var(--acc)}
+.grp{display:flex;gap:6px;align-items:center;background:var(--stage);border-radius:10px;padding:4px 8px}
+.grp .lbl{font-size:10.5px;font-weight:800;color:var(--mut);text-transform:uppercase;letter-spacing:.5px}
+input[type=text],select{font-family:inherit;font-size:14px;border:2px solid var(--line);border-radius:9px;padding:7px;background:#fff}
+#stageWrap{flex:1;min-height:0;overflow:auto;background:#e7ebf0;padding:16px}
+#room{position:relative;background:#fff;margin:0 auto;border-radius:10px;box-shadow:var(--shadow)}
+#board{position:absolute;left:50%;top:10px;transform:translateX(-50%);background:#15203a;color:#fff;font-weight:800;font-size:13px;padding:6px 26px;border-radius:6px;letter-spacing:1px}
+.desk{position:absolute;width:104px;height:60px;border-radius:10px;border:2px dashed #c4ccd8;background:#f7f8fa;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;touch-action:none;font-size:13px;font-weight:700;color:#8b97ad;padding:4px;overflow:hidden}
+.desk.filled{border-style:solid;border-color:var(--acc);background:var(--accSoft);color:var(--ink)}
+.desk.clash{border-color:var(--warn);background:#fde7e9;box-shadow:0 0 0 3px rgba(226,85,79,.25)}
+.desk.sel{outline:3px solid #f59e0b;outline-offset:2px}
+.desk .x{position:absolute;top:2px;right:5px;font-size:14px;color:var(--mut);font-weight:900}
+#palette{flex:0 0 auto;background:var(--panel);border-top:1px solid var(--line);padding:9px 11px;max-height:34vh;overflow-y:auto}
+#palette h3{margin:0 0 8px;font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut)}
+#unseated{display:flex;flex-wrap:wrap;gap:6px}
+.pupil{background:#eef1f7;border-radius:999px;padding:7px 13px;font-size:13.5px;font-weight:700;cursor:pointer;box-shadow:none;min-height:38px}
+.pupil.on{background:var(--accSoft);box-shadow:inset 0 0 0 2px var(--acc)}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal.open{display:flex}
+.sheet{background:#fff;border-radius:18px;padding:20px;max-width:500px;width:100%;max-height:88vh;overflow-y:auto}
+.sheet h3{margin:0 0 12px;font-size:18px}
+.sheet label{display:block;font-size:12px;font-weight:800;margin:12px 0 5px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px}
+.sheet textarea,.sheet input[type=text]{width:100%;border:2px solid var(--line);border-radius:10px;padding:10px;font-size:15px;font-family:inherit}
+.sheet ol{padding-left:20px;line-height:1.6;font-size:14px;margin:8px 0}
+.sheet .tips{background:#f1f3f8;border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.5;color:var(--mut);margin-top:8px}
+.keepRow{display:flex;align-items:center;gap:8px;background:#fde7e9;border-radius:10px;padding:8px 11px;margin-top:7px;font-size:14px;font-weight:600}
+.keepRow .x{margin-left:auto;cursor:pointer;color:var(--warn);font-weight:900;font-size:17px}
+.pairPick{display:flex;gap:8px;margin-top:8px}
+.pairPick select{flex:1}
+.acts{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.acts button{flex:1;min-width:120px}
+.acts .primary{background:var(--acc);color:#fff}
+#busy{position:fixed;inset:0;background:rgba(16,20,29,.8);display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:70;font-weight:700;color:#fff;text-align:center;padding:18px}
+#busy.open{display:flex}
+#busy .spin{width:42px;height:42px;border-radius:50%;border:5px solid rgba(255,255,255,.2);border-top-color:var(--acc);animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+#toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:700;display:none;z-index:80;box-shadow:var(--shadow);max-width:92vw;text-align:center}
+@media (max-width:760px){.grp .lbl{display:none}#top .lbl2{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:.01s!important}}
+</style>
+</head>
+<body>
+<header id="top">
+  <div id="brand">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <rect x="5" y="14" width="11" height="8" rx="2" fill="#7c3aed"/><rect x="24" y="14" width="11" height="8" rx="2" fill="#7c3aed"/>
+      <rect x="5" y="26" width="11" height="8" rx="2" fill="#a784f0"/><rect x="24" y="26" width="11" height="8" rx="2" fill="#a784f0"/>
+      <rect x="13" y="5" width="14" height="4" rx="2" fill="#15203a"/>
+    </svg>
+    <div class="wm"><b>Seating Plan Studio</b><span>MATT'S APPS</span></div>
+  </div>
+  <div class="sp"></div>
+  <button id="exportB" class="primary">⬇<span class="lbl2"> Save</span></button>
+  <button id="helpB" aria-label="Help">?</button>
+</header>
+<div id="toolbar">
+  <div class="grp"><span class="lbl">Class</span>
+   <input type="text" id="className" placeholder="Class name" style="width:130px">
+  </div>
+  <div class="grp"><span class="lbl">Layout</span>
+   <button class="tbtn" id="layoutB">▦ Desks</button>
+   <button class="tbtn" id="pupilsB">👤 Pupils</button>
+   <button class="tbtn" id="keepApartB">⚠ Keep apart</button>
+  </div>
+  <div class="grp">
+   <button class="tbtn" id="autoB">🎲 Auto-fill</button>
+   <button class="tbtn" id="clearSeatsB">↺ Clear seats</button>
+  </div>
+</div>
+<div id="stageWrap"><div id="room"><div id="board">FRONT</div></div></div>
+<div id="palette">
+  <h3>Unseated pupils — tap a pupil then tap a desk (or drag)</h3>
+  <div id="unseated"></div>
+</div>
+
+<div class="modal" id="layoutModal">
+  <div class="sheet">
+    <h3>Desk layout</h3>
+    <label>Quick layouts</label>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="tbtn" data-grid="rows">Rows (5×4)</button>
+      <button class="tbtn" data-grid="pairs">Paired (3×4)</button>
+      <button class="tbtn" data-grid="groups">Group tables</button>
+      <button class="tbtn" data-grid="ushape">U-shape</button>
+    </div>
+    <label>Or set your own grid</label>
+    <div style="display:flex;gap:8px;align-items:center">
+      <input type="text" id="cols" inputmode="numeric" value="5" style="width:64px;text-align:center"> columns ×
+      <input type="text" id="rows" inputmode="numeric" value="4" style="width:64px;text-align:center"> rows
+      <button class="tbtn" id="makeGridB">Make</button>
+    </div>
+    <div class="tips">Making a new layout keeps any pupils already seated where it can.</div>
+    <div class="acts"><button id="layoutClose" class="primary">Done</button></div>
+  </div>
+</div>
+
+<div class="modal" id="pupilsModal">
+  <div class="sheet">
+    <h3>Class list</h3>
+    <label for="pupilsText">One name per line</label>
+    <textarea id="pupilsText" rows="9" placeholder="Sam Ahmed&#10;Jo Bell&#10;..."></textarea>
+    <div class="acts"><button id="pupilsCancel">Cancel</button><button class="primary" id="pupilsSave">Save list</button></div>
+  </div>
+</div>
+
+<div class="modal" id="keepModal">
+  <div class="sheet">
+    <h3>Keep apart</h3>
+    <p style="font-size:13px;color:var(--mut);margin:0">Pick two pupils who shouldn't sit next to each other. They'll flash red if placed side by side.</p>
+    <div class="pairPick"><select id="pairA"></select><select id="pairB"></select><button class="tbtn" id="addPairB">＋ Add</button></div>
+    <div id="pairList" style="margin-top:8px"></div>
+    <div class="acts"><button id="keepClose" class="primary">Done</button></div>
+  </div>
+</div>
+
+<div class="modal" id="helpModal">
+  <div class="sheet">
+    <h3>How to use Seating Plan Studio</h3>
+    <ol>
+      <li>Add your <b>class list</b> (👤 Pupils) and choose a <b>desk layout</b> (▦ Desks).</li>
+      <li>Tap a pupil in the tray, then tap a desk to seat them — or drag them onto a desk.</li>
+      <li>Set <b>⚠ Keep apart</b> pairs; desks flash red if those two end up side by side.</li>
+      <li><b>🎲 Auto-fill</b> seats everyone randomly (respecting keep-apart where it can).</li>
+      <li><b>⬇ Save</b> downloads your plan as a picture to print or display.</li>
+    </ol>
+    <div class="tips">Your plan autosaves on this device, so it's here next lesson. Everything stays private to you.</div>
+    <div class="acts"><button class="primary" id="helpClose">Got it</button></div>
+  </div>
+</div>
+
+<div id="busy"><div class="spin"></div><div id="busyMsg">Working…</div></div>
+<div id="toast" role="status"></div>
+
+<script id="app">
+"use strict";
+/* ===================== Seating Plan Studio ===================== */
+function $(id){return document.getElementById(id);}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+var _id=0;function uid(){return "d"+(++_id);}
+function parseNames(text){return (text||"").split("\n").map(function(s){return s.trim();}).filter(Boolean);}
+function shuffle(arr,rnd){rnd=rnd||Math.random;var a=arr.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+/* ---- desk layout geometry (pure) ---- */
+var DESK_W=104,DESK_H=60,GAPX=26,GAPY=34,MARGIN_X=40,MARGIN_TOP=58;
+function gridDesks(cols,rows){
+ var out=[];
+ for(var r=0;r<rows;r++)for(var c=0;c<cols;c++){
+  out.push({id:uid(),x:MARGIN_X+c*(DESK_W+GAPX),y:MARGIN_TOP+r*(DESK_H+GAPY),who:null});
+ }
+ return out;
+}
+function pairedDesks(pairCols,rows){
+ /* pairs of desks with a small gap inside a pair, bigger gap between pairs */
+ var out=[],innerGap=8,pairGap=46;
+ for(var r=0;r<rows;r++){
+  var x=MARGIN_X;
+  for(var p=0;p<pairCols;p++){
+   out.push({id:uid(),x:x,y:MARGIN_TOP+r*(DESK_H+GAPY),who:null});
+   out.push({id:uid(),x:x+DESK_W+innerGap,y:MARGIN_TOP+r*(DESK_H+GAPY),who:null});
+   x+=2*DESK_W+innerGap+pairGap;
+  }
+ }
+ return out;
+}
+function groupDesks(){
+ /* four tables of 4 (2x2 clusters) */
+ var out=[],clusterGapX=70,clusterGapY=58,inner=6;
+ var tables=[[0,0],[1,0],[0,1],[1,1]];
+ tables.forEach(function(t){
+  var bx=MARGIN_X+t[0]*(2*DESK_W+inner+clusterGapX);
+  var by=MARGIN_TOP+t[1]*(2*DESK_H+inner+clusterGapY);
+  [[0,0],[1,0],[0,1],[1,1]].forEach(function(o){
+   out.push({id:uid(),x:bx+o[0]*(DESK_W+inner),y:by+o[1]*(DESK_H+inner),who:null});
+  });
+ });
+ return out;
+}
+function uShape(){
+ var out=[],n=0;
+ /* left column (4 down), top row (4 across), right column (4 down) */
+ for(var i=0;i<4;i++)out.push({id:uid(),x:MARGIN_X,y:MARGIN_TOP+40+i*(DESK_H+GAPY),who:null});
+ for(var c=0;c<4;c++)out.push({id:uid(),x:MARGIN_X+(c+1)*(DESK_W+GAPX),y:MARGIN_TOP,who:null});
+ for(var j=0;j<4;j++)out.push({id:uid(),x:MARGIN_X+5*(DESK_W+GAPX),y:MARGIN_TOP+40+j*(DESK_H+GAPY),who:null});
+ return out;
+}
+function roomSize(desks){
+ var maxX=0,maxY=0;
+ desks.forEach(function(d){maxX=Math.max(maxX,d.x+DESK_W);maxY=Math.max(maxY,d.y+DESK_H);});
+ return{w:maxX+MARGIN_X,h:maxY+40};
+}
+/* two desks adjacent if centres are within ~1.3 desk widths horizontally and same row band */
+function adjacent(d1,d2){
+ var c1x=d1.x+DESK_W/2,c1y=d1.y+DESK_H/2,c2x=d2.x+DESK_W/2,c2y=d2.y+DESK_H/2;
+ var dx=Math.abs(c1x-c2x),dy=Math.abs(c1y-c2y);
+ return dy<DESK_H*0.8 && dx<(DESK_W+GAPX+12);
+}
+/* find clashes: pairs in keepApart sitting adjacent. returns set of desk ids involved */
+function findClashes(desks,keepApart){
+ var bad={};
+ var seated=desks.filter(function(d){return d.who;});
+ for(var i=0;i<seated.length;i++)for(var j=i+1;j<seated.length;j++){
+  if(!adjacent(seated[i],seated[j]))continue;
+  var a=seated[i].who,b=seated[j].who;
+  var clash=keepApart.some(function(p){return (p[0]===a&&p[1]===b)||(p[0]===b&&p[1]===a);});
+  if(clash){bad[seated[i].id]=1;bad[seated[j].id]=1;}
+ }
+ return bad;
+}
+/* auto-fill: seat pupils trying to avoid keep-apart adjacency (greedy with retries) */
+function autoFill(desks,pupils,keepApart,rnd){
+ rnd=rnd||Math.random;
+ var best=null,bestClash=1e9;
+ for(var attempt=0;attempt<40;attempt++){
+  var order=shuffle(pupils,rnd),slots=shuffle(desks.map(function(d){return d.id;}),rnd);
+  var map={};
+  for(var i=0;i<order.length&&i<slots.length;i++)map[slots[i]]=order[i];
+  var trial=desks.map(function(d){return{id:d.id,x:d.x,y:d.y,who:map[d.id]||null};});
+  var clashes=Object.keys(findClashes(trial,keepApart)).length;
+  if(clashes<bestClash){bestClash=clashes;best=map;if(clashes===0)break;}
+ }
+ return best;
+}
+/* ===================== state ===================== */
+var desks=[],pupils=[],keepApart=[],selPupil=null,selDesk=null;
+var toastT=null;
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toastT);toastT=setTimeout(function(){t.style.display="none";},2600);}
+function busy(m){var b=$("busy");if(m){$("busyMsg").textContent=m;b.classList.add("open");}else b.classList.remove("open");}
+function persist(){try{localStorage.setItem("seating",JSON.stringify({className:$("className").value,desks:desks,pupils:pupils,keepApart:keepApart}));}catch(e){}}
+function seatedNames(){return desks.filter(function(d){return d.who;}).map(function(d){return d.who;});}
+function unseated(){return pupils.filter(function(p){return seatedNames().indexOf(p)<0;});}
+function escapeHtml(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+
+/* ===================== render ===================== */
+function render(){
+ var room=$("room"),sz=roomSize(desks.length?desks:[{x:0,y:0}]);
+ sz.w=Math.max(sz.w,420);sz.h=Math.max(sz.h,260);
+ room.style.width=sz.w+"px";room.style.height=sz.h+"px";
+ /* clear desks (keep board) */
+ Array.prototype.slice.call(room.querySelectorAll(".desk")).forEach(function(e){e.remove();});
+ var clashes=findClashes(desks,keepApart);
+ desks.forEach(function(d){
+  var el=document.createElement("div");
+  el.className="desk"+(d.who?" filled":"")+(clashes[d.id]?" clash":"")+(d.id===selDesk?" sel":"");
+  el.style.left=d.x+"px";el.style.top=d.y+"px";
+  el.dataset.id=d.id;
+  el.innerHTML=d.who?('<span>'+escapeHtml(d.who)+'</span><span class="x">×</span>'):"";
+  el.addEventListener("pointerdown",function(e){deskDown(e,d,el);});
+  room.appendChild(el);
+ });
+ renderTray();persist();
+}
+function renderTray(){
+ var box=$("unseated");box.innerHTML="";
+ var us=unseated();
+ if(!pupils.length){box.innerHTML='<span style="color:var(--mut);font-size:13px">Add your class list with the 👤 Pupils button.</span>';return;}
+ if(!us.length){box.innerHTML='<span style="color:var(--mut);font-size:13px">Everyone is seated 🎉</span>';return;}
+ us.forEach(function(p){
+  var b=document.createElement("button");b.className="pupil"+(p===selPupil?" on":"");b.textContent=p;
+  b.onclick=function(){selPupil=(selPupil===p?null:p);selDesk=null;renderTray();highlightDesks();};
+  box.appendChild(b);
+ });
+}
+function highlightDesks(){
+ $("room").querySelectorAll(".desk").forEach(function(e){
+  var d=deskById(e.dataset.id);
+  e.classList.toggle("sel",d&&d.id===selDesk);
+ });
+}
+function deskById(id){for(var i=0;i<desks.length;i++)if(desks[i].id===id)return desks[i];return null;}
+
+/* tap-to-seat + drag */
+function deskDown(e,d,el){
+ if(e.target.className==="x"){d.who=null;render();return;}
+ if(selPupil){
+  /* if desk occupied, swap into tray */
+  d.who=selPupil;selPupil=null;render();return;
+ }
+ if(d.who){
+  /* start dragging this seated pupil */
+  startDeskDrag(e,d,el);
+ }else{
+  selDesk=d.id;highlightDesks();
+ }
+}
+function startDeskDrag(e,d,el){
+ e.preventDefault();
+ var room=$("room").getBoundingClientRect();
+ try{el.setPointerCapture(e.pointerId);}catch(_){}
+ var moved=false,sx=e.clientX,sy=e.clientY,ox=d.x,oy=d.y;
+ function mv(ev){
+  if(Math.abs(ev.clientX-sx)+Math.abs(ev.clientY-sy)>5)moved=true;
+  d.x=clamp(ox+(ev.clientX-sx),0,room.width-DESK_W);
+  d.y=clamp(oy+(ev.clientY-sy),0,room.height-DESK_H);
+  el.style.left=d.x+"px";el.style.top=d.y+"px";
+ }
+ function up(ev){
+  el.removeEventListener("pointermove",mv);el.removeEventListener("pointerup",up);
+  if(!moved){
+   /* a tap on a seated pupil: drop them back to the tray */
+   d.who=null;
+  }
+  render();
+ }
+ el.addEventListener("pointermove",mv);
+ el.addEventListener("pointerup",up);
+}
+
+/* ===================== layouts ===================== */
+function applyDesks(newDesks){
+ /* preserve who-sits-where by index where possible */
+ var old=desks;
+ newDesks.forEach(function(nd,i){if(old[i]&&old[i].who)nd.who=old[i].who;});
+ desks=newDesks;
+ /* anyone who lost a seat returns to tray automatically via unseated() */
+ selDesk=null;render();
+}
+
+/* ===================== pupils & pairs ===================== */
+function refreshPairSelects(){
+ [$("pairA"),$("pairB")].forEach(function(sel){
+  var v=sel.value;sel.innerHTML="";
+  pupils.forEach(function(p){var o=document.createElement("option");o.value=p;o.textContent=p;sel.appendChild(o);});
+  if(v)sel.value=v;
+ });
+}
+function renderPairs(){
+ var box=$("pairList");box.innerHTML="";
+ keepApart.forEach(function(p,i){
+  var d=document.createElement("div");d.className="keepRow";
+  d.innerHTML="⚠ "+escapeHtml(p[0])+" &amp; "+escapeHtml(p[1])+'<span class="x" data-i="'+i+'">×</span>';
+  d.querySelector(".x").onclick=function(){keepApart.splice(i,1);renderPairs();render();};
+  box.appendChild(d);
+ });
+}
+
+/* ===================== export ===================== */
+function exportPng(){
+ if(!desks.length){toast("Make a desk layout first");return;}
+ busy("Drawing your plan\u2026");
+ var sz=roomSize(desks),scale=1.6,pad=20;
+ var titleH=46;
+ var c=document.createElement("canvas");c.width=Math.round(sz.w*scale);c.height=Math.round(sz.h*scale)+titleH;
+ var x=c.getContext("2d");
+ x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);
+ x.fillStyle="#15203a";x.font="800 "+Math.round(22)+"px Arial";x.textAlign="left";x.textBaseline="middle";
+ x.fillText(($("className").value||"Seating plan")+" — "+new Date().toLocaleDateString(),16,titleH/2);
+ x.save();x.translate(0,titleH);x.scale(scale,scale);
+ /* board */
+ x.fillStyle="#15203a";var bw=150,bx=sz.w/2-bw/2;x.fillRect(bx,8,bw,26);
+ x.fillStyle="#fff";x.font="800 13px Arial";x.textAlign="center";x.textBaseline="middle";x.fillText("FRONT",sz.w/2,21);
+ var clashes=findClashes(desks,keepApart);
+ desks.forEach(function(d){
+  x.fillStyle=d.who?"#ede4fc":"#f7f8fa";
+  x.strokeStyle=clashes[d.id]?"#e2554f":(d.who?"#7c3aed":"#c4ccd8");
+  x.lineWidth=2;
+  roundRect(x,d.x,d.y,DESK_W,DESK_H,10);x.fill();x.stroke();
+  if(d.who){x.fillStyle="#15203a";x.font="700 13px Arial";x.textAlign="center";x.textBaseline="middle";
+   wrapText(x,d.who,d.x+DESK_W/2,d.y+DESK_H/2,DESK_W-12,15);}
+ });
+ x.restore();
+ var a=document.createElement("a");a.href=c.toDataURL("image/png");
+ a.download=(($("className").value||"seating-plan").replace(/[^\w\- ]+/g,"").replace(/\s+/g,"-").toLowerCase())+".png";
+ document.body.appendChild(a);a.click();setTimeout(function(){a.remove();busy(false);},800);
+ toast("Seating plan saved ✓");
+}
+function roundRect(x,rx,ry,w,h,r){x.beginPath();x.moveTo(rx+r,ry);x.arcTo(rx+w,ry,rx+w,ry+h,r);x.arcTo(rx+w,ry+h,rx,ry+h,r);x.arcTo(rx,ry+h,rx,ry,r);x.arcTo(rx,ry,rx+w,ry,r);x.closePath();}
+function wrapText(x,text,cx,cy,maxW,lh){
+ var words=String(text).split(/\s+/),lines=[],cur="";
+ words.forEach(function(w){var t=cur?cur+" "+w:w;if(x.measureText(t).width>maxW&&cur){lines.push(cur);cur=w;}else cur=t;});
+ if(cur)lines.push(cur);
+ var y=cy-(lines.length-1)*lh/2;
+ lines.forEach(function(l,i){x.fillText(l,cx,y+i*lh);});
+}
+
+/* ===================== init ===================== */
+function init(){
+ $("className").addEventListener("input",persist);
+ $("layoutB").onclick=function(){$("layoutModal").classList.add("open");};
+ $("layoutClose").onclick=function(){$("layoutModal").classList.remove("open");};
+ document.querySelectorAll("[data-grid]").forEach(function(b){
+  b.onclick=function(){
+   var g=b.dataset.grid;
+   if(g==="rows")applyDesks(gridDesks(5,4));
+   else if(g==="pairs")applyDesks(pairedDesks(3,4));
+   else if(g==="groups")applyDesks(groupDesks());
+   else applyDesks(uShape());
+  };
+ });
+ $("makeGridB").onclick=function(){var c=clamp(parseInt($("cols").value,10)||5,1,8),r=clamp(parseInt($("rows").value,10)||4,1,8);applyDesks(gridDesks(c,r));};
+ $("pupilsB").onclick=function(){$("pupilsText").value=pupils.join("\n");$("pupilsModal").classList.add("open");};
+ $("pupilsCancel").onclick=function(){$("pupilsModal").classList.remove("open");};
+ $("pupilsSave").onclick=function(){
+  pupils=parseNames($("pupilsText").value);
+  /* drop seated pupils no longer in list */
+  desks.forEach(function(d){if(d.who&&pupils.indexOf(d.who)<0)d.who=null;});
+  /* drop pairs referencing removed pupils */
+  keepApart=keepApart.filter(function(p){return pupils.indexOf(p[0])>=0&&pupils.indexOf(p[1])>=0;});
+  $("pupilsModal").classList.remove("open");refreshPairSelects();render();toast(pupils.length+" pupils saved");
+ };
+ $("keepApartB").onclick=function(){if(pupils.length<2){toast("Add your class list first");return;}refreshPairSelects();renderPairs();$("keepModal").classList.add("open");};
+ $("keepClose").onclick=function(){$("keepModal").classList.remove("open");};
+ $("addPairB").onclick=function(){
+  var a=$("pairA").value,b=$("pairB").value;
+  if(!a||!b||a===b){toast("Pick two different pupils");return;}
+  if(keepApart.some(function(p){return (p[0]===a&&p[1]===b)||(p[0]===b&&p[1]===a);})){toast("That pair's already added");return;}
+  keepApart.push([a,b]);renderPairs();render();
+ };
+ $("autoB").onclick=function(){
+  if(!pupils.length){toast("Add your class list first");return;}
+  if(!desks.length){toast("Make a desk layout first");return;}
+  var map=autoFill(desks,pupils,keepApart);
+  desks.forEach(function(d){d.who=map[d.id]||null;});
+  var left=Object.keys(findClashes(desks,keepApart)).length;
+  render();
+  toast(left?"Seated — but some keep-apart pairs couldn't be separated":"Everyone seated ✓");
+ };
+ $("clearSeatsB").onclick=function(){desks.forEach(function(d){d.who=null;});selPupil=null;render();};
+ $("exportB").onclick=exportPng;
+ $("helpB").onclick=function(){$("helpModal").classList.add("open");};
+ $("helpClose").onclick=function(){$("helpModal").classList.remove("open");};
+ ["layoutModal","pupilsModal","keepModal","helpModal"].forEach(function(id){$(id).addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});});
+ /* restore */
+ try{var s=JSON.parse(localStorage.getItem("seating")||"null");
+  if(s){$("className").value=s.className||"";desks=s.desks||[];pupils=s.pupils||[];keepApart=s.keepApart||[];
+   /* repair _id counter so new desks don't collide */
+   desks.forEach(function(d){var n=parseInt((d.id||"d0").replace("d",""),10);if(n>_id)_id=n;});
+  }}catch(e){}
+ if(!desks.length)desks=gridDesks(5,4);
+ refreshPairSelects();render();
+}
+init();
+
+</script>
+</body>
+</html>

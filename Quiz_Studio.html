@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Flashcards &amp; Quiz Studio — Matt's Apps</title>
+<style>
+:root{--ink:#15203a;--acc:#2563eb;--accSoft:#dbe6fb;--stage:#eef1f6;--panel:#fff;--line:#d8dde6;--mut:#5b6678;--good:#16a34a;--bad:#e2554f;--amber:#f0a226;--shadow:0 6px 18px rgba(21,32,58,.13)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--stage);display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:12px;background:#fff;color:var(--ink);font-weight:700;font-size:15px;min-height:46px;padding:0 16px;box-shadow:0 2px 8px rgba(21,32,58,.08)}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+button:disabled{opacity:.4;cursor:default}
+.hidden{display:none!important}
+#top{background:var(--ink);color:#fff;display:flex;align-items:center;gap:9px;padding:8px 12px;flex:0 0 auto;flex-wrap:wrap}
+#brand{display:flex;align-items:center;gap:9px}
+#brand svg{width:30px;height:30px}
+#brand .wm{display:flex;flex-direction:column;line-height:1.04}
+#brand .wm b{font-size:16px}
+#brand .wm span{font-size:9px;letter-spacing:2.2px;opacity:.72;font-weight:700}
+#top .sp{flex:1}
+#top button{background:rgba(255,255,255,.13);color:#fff;box-shadow:none}
+#top button.primary{background:var(--acc);color:#fff}
+#main{flex:1;min-height:0;overflow-y:auto;padding:16px}
+.wrap{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+.card h3{margin:0 0 11px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--mut)}
+.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.row+.row{margin-top:9px}
+input[type=text],textarea{width:100%;border:2px solid var(--line);border-radius:10px;padding:11px;font-size:15px;font-family:inherit;resize:vertical}
+.chip{border-radius:999px;background:#eef1f7;min-height:42px;padding:0 15px;font-size:14px;box-shadow:none}
+.chip.on{background:var(--accSoft);box-shadow:inset 0 0 0 2px var(--acc)}
+.big{font-size:16px;min-height:54px;font-weight:800}
+.go{background:var(--acc);color:#fff}
+/* deck list */
+.deckRow{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:#f7f8fa;box-shadow:none;margin-top:8px;min-height:60px;padding:13px 15px;border-radius:13px}
+.deckRow .de{font-size:24px}
+.deckRow .dt{flex:1}
+.deckRow .dt b{display:block;font-size:15px}
+.deckRow .dt span{font-size:12.5px;color:var(--mut)}
+.deckRow .dgo{min-height:38px;font-size:13px;background:var(--accSoft);color:#1746a8}
+/* flashcard */
+#flashStage{display:flex;flex-direction:column;align-items:center;gap:16px}
+#flashcard{width:100%;max-width:480px;min-height:230px;border-radius:20px;background:#fff;border:2px solid var(--line);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;text-align:center;padding:26px;cursor:pointer;position:relative;transition:transform .15s}
+#flashcard:active{transform:scale(.99)}
+#flashcard .side{font-size:clamp(20px,5vw,30px);font-weight:800;line-height:1.35}
+#flashcard .tag{position:absolute;top:12px;left:16px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--mut)}
+#flashHint{font-size:13px;color:var(--mut);font-weight:700}
+.gradeBtns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:100%}
+.gradeBtns button{flex:1;min-width:120px;min-height:52px}
+.gAgain{background:#fde7e9;color:#a31621}.gHard{background:#fdecd3;color:#8a4b00}.gGood{background:#dbeafe;color:#1746a8}.gEasy{background:#dcfce7;color:#14532d}
+#flashProg{font-size:13px;color:var(--mut);font-weight:700}
+/* quiz */
+#quizStage{display:flex;flex-direction:column;gap:14px}
+#qQuestion{font-size:clamp(19px,4.5vw,26px);font-weight:800;line-height:1.35}
+.opt{display:block;width:100%;text-align:left;background:#f7f8fa;box-shadow:none;min-height:54px;font-size:15.5px;border:2px solid var(--line)}
+.opt.correct{background:#dcfce7;border-color:var(--good);color:#14532d}
+.opt.wrong{background:#fde7e9;border-color:var(--bad);color:#a31621}
+.opt:disabled{opacity:1}
+#qFeedback{font-size:15px;font-weight:700;min-height:22px}
+#qProg{font-size:13px;color:var(--mut);font-weight:700}
+#scoreBig{font-size:48px;font-weight:900;text-align:center}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.acts button{flex:1;min-width:120px}
+.acts .primary{background:var(--acc);color:#fff}
+.editRow{display:flex;gap:8px;align-items:flex-start;margin-top:8px}
+.editRow textarea{flex:1}
+.editRow .del{min-height:44px;width:44px;padding:0;background:#fde7e9;color:#a31621;box-shadow:none;flex:0 0 auto}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal.open{display:flex}
+.sheet{background:#fff;border-radius:18px;padding:20px;max-width:520px;width:100%;max-height:88vh;overflow-y:auto}
+.sheet h3{margin:0 0 12px;font-size:18px}
+.sheet label{display:block;font-size:12px;font-weight:800;margin:12px 0 5px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px}
+.sheet input[type=text],.sheet textarea{width:100%;border:2px solid var(--line);border-radius:10px;padding:10px;font-size:15px;font-family:inherit}
+.sheet ol{padding-left:20px;line-height:1.6;font-size:14px;margin:8px 0}
+.sheet .tips{background:#f1f3f8;border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.5;color:var(--mut);margin-top:8px}
+#toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:700;display:none;z-index:80;box-shadow:var(--shadow);max-width:92vw;text-align:center}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header id="top">
+  <div id="brand">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <rect x="6" y="10" width="22" height="16" rx="3" fill="#93b4f5"/><rect x="11" y="14" width="22" height="16" rx="3" fill="#2563eb"/>
+      <path d="M16 22l3 3 6-7" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="wm"><b>Flashcards &amp; Quiz</b><span>MATT'S APPS</span></div>
+  </div>
+  <div class="sp"></div>
+  <button id="homeB" title="My decks" class="hidden">⌂</button>
+  <button id="helpB" aria-label="Help">?</button>
+</header>
+<div id="main">
+
+ <div class="wrap" id="decksView">
+  <div class="card">
+   <h3>My decks</h3>
+   <div id="deckList"></div>
+   <div class="row" style="margin-top:11px"><button id="newDeckB" class="go big">＋ New deck</button></div>
+   <div class="note" style="font-size:12.5px;color:var(--mut);margin-top:8px;line-height:1.5">Make a deck for any subject — a term and its meaning on each card. Then revise with flip-cards or test yourself with a quiz. Everything saves on this device.</div>
+  </div>
+ </div>
+
+ <div class="wrap hidden" id="deckView">
+  <div class="row"><span id="deckName" style="font-weight:800;font-size:17px;flex:1;min-width:120px"></span><button class="chip" id="backToDecksB">↺ All decks</button></div>
+  <div class="card">
+   <div class="row">
+    <button id="studyB" class="go big" style="flex:1;min-width:140px">🔁 Flashcards</button>
+    <button id="quizB" class="big" style="flex:1;min-width:140px">✅ Quiz me</button>
+   </div>
+   <div class="row" style="margin-top:6px"><span class="note" id="deckStat" style="font-size:12.5px;color:var(--mut)"></span></div>
+  </div>
+  <div class="card">
+   <h3>Cards</h3>
+   <div id="cardEditor"></div>
+   <div class="row" style="margin-top:9px"><button id="addCardB" class="chip">＋ Add card</button><button id="pasteB" class="chip">📋 Paste many</button></div>
+  </div>
+ </div>
+
+ <div class="wrap hidden" id="studyView">
+  <div id="flashStage">
+   <div id="flashProg"></div>
+   <div id="flashcard"><span class="tag" id="flashTag">Term</span><span class="side" id="flashSide"></span></div>
+   <div id="flashHint">Tap the card to flip it</div>
+   <div class="gradeBtns hidden" id="gradeBtns">
+    <button class="gAgain" data-g="0">Again</button>
+    <button class="gHard" data-g="1">Hard</button>
+    <button class="gGood" data-g="2">Good</button>
+    <button class="gEasy" data-g="3">Easy</button>
+   </div>
+   <button class="chip" id="endStudyB">Finish</button>
+  </div>
+ </div>
+
+ <div class="wrap hidden" id="quizView">
+  <div id="quizStage">
+   <div id="qProg"></div>
+   <div id="qQuestion"></div>
+   <div id="qOpts"></div>
+   <div id="qFeedback"></div>
+   <button class="go big hidden" id="qNextB">Next →</button>
+   <button class="chip" id="endQuizB">Stop</button>
+  </div>
+ </div>
+
+ <div class="wrap hidden" id="resultView">
+  <div class="card" style="text-align:center">
+   <div id="scoreBig"></div>
+   <div id="scoreMsg" style="font-size:16px;color:var(--mut);margin-top:6px"></div>
+   <div class="acts" style="margin-top:16px"><button class="primary" id="againB">Try again</button><button id="resultHomeB">Back to deck</button></div>
+  </div>
+ </div>
+
+</div>
+
+<div class="modal" id="deckModal">
+  <div class="sheet">
+    <h3 id="deckModalTitle">New deck</h3>
+    <label for="deckTitleIn">Deck name</label>
+    <input type="text" id="deckTitleIn" placeholder="e.g. Biology — Cells" maxlength="50">
+    <div class="acts" style="margin-top:14px"><button id="deckModalDel" class="hidden" style="background:#fde7e9;color:#a31621">Delete deck</button><button id="deckModalCancel">Cancel</button><button class="primary" id="deckModalSave">Save</button></div>
+  </div>
+</div>
+
+<div class="modal" id="pasteModal">
+  <div class="sheet">
+    <h3>Paste many cards</h3>
+    <p style="font-size:13px;color:var(--mut);margin:0">One card per line. Put the term and meaning separated by a <b>tab</b> or a <b>comma</b>.</p>
+    <label for="pasteText">Cards</label>
+    <textarea id="pasteText" rows="8" placeholder="Mitochondria, the powerhouse of the cell&#10;Nucleus, controls the cell"></textarea>
+    <div class="acts"><button id="pasteCancel">Cancel</button><button class="primary" id="pasteSave">Add cards</button></div>
+  </div>
+</div>
+
+<div class="modal" id="helpModal">
+  <div class="sheet">
+    <h3>How to use Flashcards &amp; Quiz</h3>
+    <ol>
+      <li>Make a <b>deck</b> and add <b>cards</b> — a term and its meaning. Use <b>📋 Paste many</b> to add a whole list at once.</li>
+      <li><b>🔁 Flashcards</b> shows a card; tap to flip, then say how well you knew it. Tricky cards come back sooner.</li>
+      <li><b>✅ Quiz me</b> builds a multiple-choice test from your deck and marks it as you go.</li>
+      <li>Make decks for any subject — or get pupils to make their own; that's great revision in itself.</li>
+    </ol>
+    <div class="tips">No pressure and no leaderboard — just your own progress. Everything saves on this device.</div>
+    <div class="acts"><button class="primary" id="helpClose" style="flex:1">Got it</button></div>
+  </div>
+</div>
+<div id="toast" role="status"></div>
+
+<script id="app">
+"use strict";
+/* ===================== Flashcards & Quiz Studio ===================== */
+function $(id){return document.getElementById(id);}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+var _id=0;function uid(){return "x"+(++_id)+"_"+Date.now().toString(36);}
+function shuffle(arr,rnd){rnd=rnd||Math.random;var a=arr.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function escapeHtml(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+
+/* ---- paste parser: one card per line, split on tab OR first comma ---- */
+function parseCards(text){
+ var out=[];
+ (text||"").split("\n").forEach(function(line){
+  var l=line.trim();if(!l)return;
+  var term,def;
+  if(l.indexOf("\t")>=0){var p=l.split("\t");term=p[0];def=p.slice(1).join(" ");}
+  else{var ci=l.indexOf(",");if(ci<0){term=l;def="";}else{term=l.slice(0,ci);def=l.slice(ci+1);}}
+  term=(term||"").trim();def=(def||"").trim();
+  if(term)out.push({term:term,def:def});
+ });
+ return out;
+}
+
+/* ---- spaced repetition: grade 0=Again 1=Hard 2=Good 3=Easy ----
+   each card has {box} 0..5 (Leitner-style). Higher box = seen less often.
+   reschedule returns the new box. Within a session we order by box asc (low box = due sooner). */
+function reschedule(box,grade){
+ box=box||0;
+ if(grade===0)return 0;            /* Again -> back to start */
+ if(grade===1)return Math.max(0,box); /* Hard -> stay */
+ if(grade===2)return Math.min(5,box+1); /* Good -> step up */
+ return Math.min(5,box+2);          /* Easy -> jump up */
+}
+/* pick the next card index for study: lowest box first; ties broken by least-recently-seen (seq) */
+function nextStudyIndex(cards){
+ if(!cards.length)return -1;
+ var best=-1,bestBox=99,bestSeq=Infinity;
+ for(var i=0;i<cards.length;i++){
+  var b=cards[i].box||0,seq=cards[i].seq||0;
+  if(b<bestBox||(b===bestBox&&seq<bestSeq)){bestBox=b;bestSeq=seq;best=i;}
+ }
+ return best;
+}
+/* a session is "done" when every card has reached box>=target (default 2 = answered Good once) */
+function studyComplete(cards,target){
+ target=target==null?2:target;
+ return cards.length>0&&cards.every(function(c){return (c.box||0)>=target;});
+}
+
+/* ---- quiz generation: build MCQ from a card. correct=def; distractors=other defs ---- */
+function buildQuestion(cards,correctIdx,rnd){
+ rnd=rnd||Math.random;
+ var card=cards[correctIdx];
+ var others=[];
+ for(var i=0;i<cards.length;i++){
+  if(i===correctIdx)continue;
+  var d=(cards[i].def||"").trim();
+  if(d&&d!==card.def&&others.indexOf(d)<0)others.push(d);
+ }
+ others=shuffle(others,rnd).slice(0,3);
+ var opts=shuffle([card.def].concat(others),rnd);
+ return{q:card.term,answer:card.def,options:opts};
+}
+/* can we even make a quiz? need >=2 cards with non-empty defs */
+function canQuiz(cards){
+ var withDef=cards.filter(function(c){return (c.def||"").trim();});
+ return withDef.length>=2;
+}
+function scoreMessage(score,total){
+ if(total===0)return "";
+ var pct=score/total*100;
+ if(pct>=90)return "Brilliant — you really know this deck!";
+ if(pct>=70)return "Great work — nearly there.";
+ if(pct>=50)return "Good effort — a few more goes will nail it.";
+ return "Keep going — try the flashcards, then test again.";
+}
+/* ===================== state ===================== */
+var decks=[],curDeck=null;
+/* deck: {id,name,cards:[{id,term,def,box,seq}]} */
+var studyCards=null,studyShowingBack=false,studyIdx=-1,seqCounter=0;
+var quizQueue=null,quizPos=0,quizScore=0,quizCur=null;
+var toastT=null;
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toastT);toastT=setTimeout(function(){t.style.display="none";},2600);}
+function deckById(id){for(var i=0;i<decks.length;i++)if(decks[i].id===id)return decks[i];return null;}
+function persist(){try{localStorage.setItem("quizdecks",JSON.stringify(decks));}catch(e){}}
+
+function show(view){
+ ["decksView","deckView","studyView","quizView","resultView"].forEach(function(v){$(v).classList.toggle("hidden",v!==view);});
+ $("homeB").classList.toggle("hidden",view==="decksView");
+}
+
+/* ===================== decks list ===================== */
+function renderDecks(){
+ var box=$("deckList");box.innerHTML="";
+ if(!decks.length){box.innerHTML='<div style="color:var(--mut);font-size:13.5px;padding:6px 2px">No decks yet — tap “New deck” to make your first one.</div>';return;}
+ decks.forEach(function(d){
+  var b=document.createElement("button");b.className="deckRow";
+  b.innerHTML='<span class="de">🗂️</span><span class="dt"><b>'+escapeHtml(d.name)+'</b><span>'+d.cards.length+' card'+(d.cards.length===1?"":"s")+'</span></span><span class="dgo">Open</span>';
+  b.onclick=function(){openDeck(d.id);};
+  box.appendChild(b);
+ });
+}
+
+/* ===================== deck view ===================== */
+function openDeck(id){
+ curDeck=id;var d=deckById(id);
+ $("deckName").textContent=d.name;
+ renderCardEditor();updateDeckStat();show("deckView");
+}
+function updateDeckStat(){
+ var d=deckById(curDeck);if(!d)return;
+ var withDef=d.cards.filter(function(c){return (c.def||"").trim();}).length;
+ $("deckStat").textContent=d.cards.length+" cards · "+withDef+" ready for quiz";
+ $("quizB").disabled=!canQuiz(d.cards);
+ $("studyB").disabled=d.cards.length===0;
+}
+function renderCardEditor(){
+ var d=deckById(curDeck),host=$("cardEditor");host.innerHTML="";
+ if(!d.cards.length){host.innerHTML='<div style="color:var(--mut);font-size:13.5px">No cards yet — add one below, or paste a list.</div>';}
+ d.cards.forEach(function(c,i){
+  var row=document.createElement("div");row.className="editRow";
+  var wrap=document.createElement("div");wrap.style.flex="1";
+  var t=document.createElement("textarea");t.rows=1;t.value=c.term;t.placeholder="Term / question";t.style.marginBottom="6px";
+  t.addEventListener("input",function(){c.term=t.value;persist();updateDeckStat();});
+  var df=document.createElement("textarea");df.rows=1;df.value=c.def;df.placeholder="Meaning / answer";
+  df.addEventListener("input",function(){c.def=df.value;persist();updateDeckStat();});
+  wrap.appendChild(t);wrap.appendChild(df);
+  var del=document.createElement("button");del.className="del";del.textContent="×";
+  del.onclick=function(){d.cards.splice(i,1);renderCardEditor();updateDeckStat();persist();};
+  row.appendChild(wrap);row.appendChild(del);
+  host.appendChild(row);
+ });
+}
+
+/* ===================== flashcards ===================== */
+function startStudy(){
+ var d=deckById(curDeck);
+ if(!d.cards.length){toast("Add some cards first");return;}
+ studyCards=d.cards.map(function(c){return{term:c.term,def:c.def,box:0,seq:0};});
+ seqCounter=0;studyShowingBack=false;
+ show("studyView");nextFlash();
+}
+function nextFlash(){
+ if(studyComplete(studyCards,2)){endStudy(true);return;}
+ studyIdx=nextStudyIndex(studyCards);
+ if(studyIdx<0){endStudy(true);return;}
+ var c=studyCards[studyIdx];
+ studyShowingBack=false;
+ $("flashTag").textContent="Term";
+ $("flashSide").textContent=c.term||"(blank)";
+ $("flashHint").classList.remove("hidden");
+ $("gradeBtns").classList.add("hidden");
+ var done=studyCards.filter(function(x){return (x.box||0)>=2;}).length;
+ $("flashProg").textContent="Known "+done+" / "+studyCards.length;
+}
+function flipFlash(){
+ if(studyIdx<0)return;
+ var c=studyCards[studyIdx];
+ if(!studyShowingBack){
+  studyShowingBack=true;
+  $("flashTag").textContent="Meaning";
+  $("flashSide").textContent=c.def||"(no meaning written)";
+  $("flashHint").classList.add("hidden");
+  $("gradeBtns").classList.remove("hidden");
+ }else{
+  /* flip back to term */
+  studyShowingBack=false;
+  $("flashTag").textContent="Term";
+  $("flashSide").textContent=c.term||"(blank)";
+  $("flashHint").classList.remove("hidden");
+  $("gradeBtns").classList.add("hidden");
+ }
+}
+function gradeFlash(g){
+ if(studyIdx<0)return;
+ var c=studyCards[studyIdx];
+ c.box=reschedule(c.box,g);
+ c.seq=++seqCounter;
+ nextFlash();
+}
+function endStudy(done){
+ studyCards=null;studyIdx=-1;
+ if(done)toast("Great revising! 🎉");
+ openDeck(curDeck);
+}
+
+/* ===================== quiz ===================== */
+function startQuiz(){
+ var d=deckById(curDeck);
+ if(!canQuiz(d.cards)){toast("Add at least 2 cards with meanings");return;}
+ var idxWithDef=[];d.cards.forEach(function(c,i){if((c.def||"").trim())idxWithDef.push(i);});
+ quizQueue=shuffle(idxWithDef);quizPos=0;quizScore=0;
+ show("quizView");nextQuiz();
+}
+function nextQuiz(){
+ var d=deckById(curDeck);
+ if(quizPos>=quizQueue.length){endQuiz();return;}
+ quizCur=buildQuestion(d.cards,quizQueue[quizPos]);
+ $("qProg").textContent="Question "+(quizPos+1)+" / "+quizQueue.length+"  ·  Score "+quizScore;
+ $("qQuestion").textContent="What does this mean:  “"+quizCur.q+"”?";
+ $("qFeedback").textContent="";
+ $("qNextB").classList.add("hidden");
+ var box=$("qOpts");box.innerHTML="";
+ quizCur.options.forEach(function(opt){
+  var b=document.createElement("button");b.className="opt";b.textContent=opt;
+  b.onclick=function(){answerQuiz(b,opt);};
+  box.appendChild(b);
+ });
+}
+function answerQuiz(btn,opt){
+ var correct=opt===quizCur.answer;
+ var btns=$("qOpts").querySelectorAll(".opt");
+ btns.forEach(function(b){
+  b.disabled=true;
+  if(b.textContent===quizCur.answer)b.classList.add("correct");
+  else if(b===btn)b.classList.add("wrong");
+ });
+ if(correct){quizScore++;$("qFeedback").style.color="var(--good)";$("qFeedback").textContent="✓ Correct!";}
+ else{$("qFeedback").style.color="var(--bad)";$("qFeedback").textContent="The answer is: "+quizCur.answer;}
+ $("qNextB").classList.remove("hidden");
+}
+function endQuiz(){
+ show("resultView");
+ $("scoreBig").textContent=quizScore+" / "+quizQueue.length;
+ $("scoreMsg").textContent=scoreMessage(quizScore,quizQueue.length);
+}
+
+/* ===================== deck CRUD modals ===================== */
+var editingDeckId=null;
+function openDeckModal(id){
+ editingDeckId=id;
+ $("deckModalTitle").textContent=id?"Edit deck":"New deck";
+ $("deckTitleIn").value=id?deckById(id).name:"";
+ $("deckModalDel").classList.toggle("hidden",!id);
+ $("deckModal").classList.add("open");
+ setTimeout(function(){$("deckTitleIn").focus();},50);
+}
+function saveDeck(){
+ var name=($("deckTitleIn").value||"").trim();
+ if(!name){toast("Give the deck a name");return;}
+ if(editingDeckId){deckById(editingDeckId).name=name;}
+ else{var d={id:uid(),name:name,cards:[]};decks.push(d);curDeck=d.id;}
+ $("deckModal").classList.remove("open");persist();
+ if(editingDeckId){renderDecks();if(curDeck===editingDeckId)$("deckName").textContent=name;}
+ else{openDeck(curDeck);}
+ editingDeckId=null;
+}
+
+/* ===================== init ===================== */
+function init(){
+ $("newDeckB").onclick=function(){openDeckModal(null);};
+ $("homeB").onclick=function(){renderDecks();show("decksView");};
+ $("backToDecksB").onclick=function(){renderDecks();show("decksView");};
+ $("studyB").onclick=startStudy;
+ $("quizB").onclick=startQuiz;
+ $("addCardB").onclick=function(){var d=deckById(curDeck);d.cards.push({id:uid(),term:"",def:"",box:0,seq:0});renderCardEditor();updateDeckStat();persist();
+  var tas=$("cardEditor").querySelectorAll("textarea");if(tas.length)tas[tas.length-2].focus();};
+ $("pasteB").onclick=function(){$("pasteText").value="";$("pasteModal").classList.add("open");};
+ $("pasteCancel").onclick=function(){$("pasteModal").classList.remove("open");};
+ $("pasteSave").onclick=function(){
+  var cards=parseCards($("pasteText").value);
+  if(!cards.length){toast("Nothing to add — check the format");return;}
+  var d=deckById(curDeck);
+  cards.forEach(function(c){d.cards.push({id:uid(),term:c.term,def:c.def,box:0,seq:0});});
+  $("pasteModal").classList.remove("open");renderCardEditor();updateDeckStat();persist();toast(cards.length+" cards added");
+ };
+ $("flashcard").onclick=flipFlash;
+ document.querySelectorAll("#gradeBtns [data-g]").forEach(function(b){b.onclick=function(){gradeFlash(+b.dataset.g);};});
+ $("endStudyB").onclick=function(){endStudy(false);};
+ $("qNextB").onclick=function(){quizPos++;nextQuiz();};
+ $("endQuizB").onclick=function(){if(quizQueue&&quizPos>0){endQuiz();}else{openDeck(curDeck);}};
+ $("againB").onclick=startQuiz;
+ $("resultHomeB").onclick=function(){openDeck(curDeck);};
+ $("deckModalSave").onclick=saveDeck;
+ $("deckModalCancel").onclick=function(){$("deckModal").classList.remove("open");editingDeckId=null;};
+ $("deckModalDel").onclick=function(){
+  if(!editingDeckId)return;
+  if(!confirm("Delete this whole deck and its cards?"))return;
+  decks=decks.filter(function(d){return d.id!==editingDeckId;});
+  $("deckModal").classList.remove("open");editingDeckId=null;curDeck=null;persist();renderDecks();show("decksView");
+ };
+ /* long-press / double-tap deck name to rename — simple: a rename via the deck header */
+ $("deckName").addEventListener("dblclick",function(){if(curDeck)openDeckModal(curDeck);});
+ $("helpB").onclick=function(){$("helpModal").classList.add("open");};
+ $("helpClose").onclick=function(){$("helpModal").classList.remove("open");};
+ ["deckModal","pasteModal","helpModal"].forEach(function(id){$(id).addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});});
+ document.addEventListener("keydown",function(e){
+  if($("studyView").classList.contains("hidden"))return;
+  var t=e.target;if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"))return;
+  if(e.key===" "||e.key==="Enter"){e.preventDefault();flipFlash();}
+  if(!$("gradeBtns").classList.contains("hidden")){if(e.key==="1")gradeFlash(0);if(e.key==="2")gradeFlash(1);if(e.key==="3")gradeFlash(2);if(e.key==="4")gradeFlash(3);}
+ });
+ try{var s=JSON.parse(localStorage.getItem("quizdecks")||"null");if(s&&Array.isArray(s)){decks=s;decks.forEach(function(d){var n=parseInt((d.id||"x0").replace(/\D/g,""),10);if(n>_id)_id=n;d.cards.forEach(function(c){if(c.box==null)c.box=0;if(c.seq==null)c.seq=0;});});}}catch(e){}
+ renderDecks();show("decksView");
+}
+init();
+
+</script>
+</body>
+</html>
