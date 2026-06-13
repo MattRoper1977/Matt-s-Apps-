@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Craft Studio — Matt's Apps</title>
+<style>
+:root{--ink:#15203a;--acc:#6abe30;--accSoft:#e4f5d7;--stage:#cfe7f5;--panel:#ffffff;--line:#d8dde6;--warn:#e2554f;--shadow:0 5px 16px rgba(21,32,58,.14)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:#eef1f4;display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:11px;background:#fff;color:var(--ink);font-weight:700;font-size:14px;min-height:42px;padding:0 13px;box-shadow:0 2px 8px rgba(21,32,58,.08)}
+button:focus-visible,textarea:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
+button:disabled{opacity:.45;cursor:default}
+.hidden{display:none!important}
+#top{background:var(--ink);color:#fff;display:flex;align-items:center;gap:8px;padding:7px 11px;flex:0 0 auto;flex-wrap:wrap}
+#brand{display:flex;align-items:center;gap:9px}
+#brand svg{width:30px;height:30px}
+#brand .wm{display:flex;flex-direction:column;line-height:1.04}
+#brand .wm b{font-size:16px}
+#brand .wm span{font-size:9px;letter-spacing:2.2px;opacity:.72;font-weight:700}
+#top .sp{flex:1}
+#top button{background:rgba(255,255,255,.13);color:#fff;box-shadow:none}
+#top button.on{background:var(--acc);color:#10250a}
+#body{flex:1;min-height:0;display:flex;gap:0}
+#left{flex:1.15;min-width:0;display:flex;flex-direction:column;background:var(--stage)}
+#worldWrap{flex:1;min-height:0;position:relative;display:flex;align-items:center;justify-content:center}
+#world{max-width:100%;max-height:100%}
+#msg{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);background:rgba(21,32,58,.88);color:#fff;font-weight:700;font-size:14.5px;padding:10px 16px;border-radius:999px;display:none;max-width:92%;text-align:center}
+#right{flex:1;min-width:330px;max-width:520px;display:flex;flex-direction:column;background:var(--panel);border-left:1px solid var(--line)}
+#lvlBar{padding:10px 13px;border-bottom:1px solid var(--line)}
+#lvlName{font-weight:800;font-size:15px}
+#lvlGoal{font-size:13px;color:#5b6678;margin-top:3px;line-height:1.45}
+#hintB{margin-top:7px;background:var(--accSoft);min-height:34px;font-size:12.5px;box-shadow:inset 0 0 0 2px var(--acc)}
+#hintTx{font-size:13px;color:#3c6b1f;margin-top:7px;display:none;line-height:1.45;background:var(--accSoft);border-radius:10px;padding:8px 11px}
+#edWrap{flex:1;min-height:120px;position:relative;display:flex;flex-direction:column;padding:10px 13px 0}
+#code{flex:1;width:100%;resize:none;border:2px solid var(--line);border-radius:12px;padding:10px;font-family:Consolas,Menlo,monospace;font-size:14.5px;line-height:1.5;color:#15203a;background:#fbfcfe}
+#runView{flex:1;overflow-y:auto;border:2px solid var(--acc);border-radius:12px;padding:10px;font-family:Consolas,Menlo,monospace;font-size:14.5px;line-height:1.5;background:#fbfcfe;white-space:pre;display:none}
+#runView .ln{display:block;padding:0 6px;border-radius:6px}
+#runView .ln.cur{background:var(--accSoft);outline:2px solid var(--acc)}
+#palette{padding:9px 13px;display:flex;flex-wrap:wrap;gap:6px;border-top:1px solid var(--line)}
+#palette button{min-height:38px;font-size:13px;font-family:Consolas,Menlo,monospace;background:#eef1f7;box-shadow:none}
+#blocksRow{padding:0 13px 9px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+#blocksRow .lbl{font-size:11.5px;font-weight:800;color:#5b6678;text-transform:uppercase;letter-spacing:.5px}
+.bchip{width:38px;height:38px;border-radius:9px;padding:0;min-height:38px;border:2px solid rgba(0,0,0,.12);box-shadow:none}
+.bchip.on{outline:3px solid var(--ink)}
+#runBar{padding:10px 13px;border-top:1px solid var(--line);display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+#runB{background:var(--acc);color:#10250a;font-size:16px;min-height:50px;min-width:120px;border-radius:14px}
+#stopB{min-height:50px}
+#resetB{min-height:50px}
+.spd{border-radius:999px;background:#eef1f7;min-height:38px;padding:0 12px;font-size:14px;box-shadow:none}
+.spd.on{background:var(--accSoft);box-shadow:inset 0 0 0 2px var(--acc)}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal.open{display:flex}
+.sheet{background:#fff;border-radius:18px;padding:20px;max-width:560px;width:100%;max-height:88vh;overflow-y:auto}
+.sheet h3{margin:0 0 12px;font-size:18px}
+.sheet ol{padding-left:20px;line-height:1.65;font-size:14px;margin:8px 0}
+.sheet .tips{background:#f1f3f8;border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.5;color:#3c4961;margin-top:8px}
+.acts{display:flex;gap:8px;margin-top:16px}
+.acts button{flex:1}
+.acts .primary{background:var(--acc);color:#10250a}
+#lvlGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.lvlCard{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-height:78px;padding:11px 13px;text-align:left;background:#f4f6f9;box-shadow:none;border:2px solid transparent}
+.lvlCard.done{border-color:var(--acc)}
+.lvlCard b{font-size:14px}
+.lvlCard span{font-size:11.5px;color:#5b6678;font-weight:600}
+.lvlCard .tick{margin-left:auto;color:var(--acc);font-weight:900}
+#winSheet h3{font-size:22px}
+#toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:700;display:none;z-index:80;max-width:92vw;text-align:center}
+@media (max-width:900px){
+ #body{flex-direction:column}
+ #left{flex:0 0 42%}
+ #right{max-width:none;min-width:0;border-left:0;border-top:1px solid var(--line)}
+ #top .lbl2{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header id="top">
+  <div id="brand">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <path d="M20 4l13 7.5v15L20 34 7 26.5v-15z" fill="#6abe30"/>
+      <path d="M20 4l13 7.5L20 19 7 11.5z" fill="#8fdb55"/>
+      <path d="M20 19v15L7 26.5v-15z" fill="#4f8f24"/>
+      <path d="M16 14l4 2.3v4.6l-4-2.3z" fill="#10250a" opacity=".7"/>
+    </svg>
+    <div class="wm"><b>Craft Studio</b><span>MATT'S APPS</span></div>
+  </div>
+  <div class="sp"></div>
+  <button id="lvlB">🗺<span class="lbl2"> Levels</span></button>
+  <button id="sandB">🧱<span class="lbl2"> Sandbox</span></button>
+  <button id="evB" title="Save code + world as a picture">📷<span class="lbl2"> Evidence</span></button>
+  <button id="helpB" aria-label="Help">?</button>
+</header>
+
+<div id="body">
+  <div id="left">
+    <div id="worldWrap"><canvas id="world" width="900" height="640"></canvas><div id="msg"></div></div>
+  </div>
+  <div id="right">
+    <div id="lvlBar">
+      <div id="lvlName"></div>
+      <div id="lvlGoal"></div>
+      <button id="hintB">💡 Hint</button>
+      <div id="hintTx"></div>
+    </div>
+    <div id="edWrap">
+      <textarea id="code" spellcheck="false" aria-label="Your code"></textarea>
+      <div id="runView" aria-hidden="true"></div>
+    </div>
+    <div id="palette"></div>
+    <div id="blocksRow"><span class="lbl">Block</span></div>
+    <div id="runBar">
+      <button id="runB">▶ Run</button>
+      <button id="stopB" class="hidden">⏹ Stop</button>
+      <button id="resetB">↺ Reset</button>
+      <button class="spd" data-ms="450">🐢</button>
+      <button class="spd on" data-ms="240">▶</button>
+      <button class="spd" data-ms="90">⚡</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="lvlModal">
+  <div class="sheet">
+    <h3>Levels</h3>
+    <div id="lvlGrid"></div>
+    <div class="acts"><button class="primary" id="lvlClose">Close</button></div>
+  </div>
+</div>
+
+<div class="modal" id="winModal">
+  <div class="sheet" id="winSheet">
+    <h3>Level complete ✓</h3>
+    <p id="winTx" style="font-size:15px;line-height:1.55"></p>
+    <div class="acts">
+      <button id="winStay">Stay here</button>
+      <button class="primary" id="winNext">Next level ➜</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="helpModal">
+  <div class="sheet">
+    <h3>How to code the bot</h3>
+    <ol>
+      <li>Tap the <b>code buttons</b> to drop real commands into your program — or just type them. <code>move(3)</code> walks three squares; <code>turnLeft()</code> and <code>turnRight()</code> spin the bot.</li>
+      <li><code>place("stone")</code> puts a block on the square in front; <code>mine()</code> digs one away. Place onto the same square again and again to build a tower.</li>
+      <li><code>repeat 4 { … }</code> runs the bit inside four times — the secret to short, clever programs. <code>if (blocked) { … }</code> only runs when there's a wall in front.</li>
+      <li>The bot climbs one block up, drops any distance, bonks off tall walls, and <b>can't swim</b> — bridge water with planks.</li>
+      <li><b>▶ Run</b> plays your program line by line. Step on the gold and you win instantly. <b>📷 Evidence</b> saves your code and your build as one picture.</li>
+    </ol>
+    <div class="tips">Your code is saved on this device for every level, so you can pick up where you left off. Ctrl+Enter also runs.</div>
+    <div class="acts"><button class="primary" id="helpClose">Got it</button></div>
+  </div>
+</div>
+
+<div id="toast" role="status"></div>
+
+<script id="app">
+"use strict";
+/* ===================== Craft Studio: language + world (pure core) ===================== */
+function $(id){return document.getElementById(id);}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+
+/* ---- tokenizer ---- */
+function tokenize(src){
+ var toks=[],line=1,i=0,n=src.length;
+ function err(m){return{err:"Line "+line+": "+m};}
+ while(i<n){
+  var c=src[i];
+  if(c==="\n"){line++;i++;continue;}
+  if(c===" "||c==="\t"||c==="\r"||c===";"){i++;continue;}
+  if(c==="/"&&src[i+1]==="/"){while(i<n&&src[i]!=="\n")i++;continue;}
+  if(/[A-Za-z_]/.test(c)){
+   var s=i;while(i<n&&/[A-Za-z_0-9]/.test(src[i]))i++;
+   toks.push({t:"id",v:src.slice(s,i),l:line});continue;
+  }
+  if(/[0-9]/.test(c)){
+   var s2=i;while(i<n&&/[0-9]/.test(src[i]))i++;
+   toks.push({t:"num",v:+src.slice(s2,i),l:line});continue;
+  }
+  if(c==='"'||c==="'"){
+   var q=c,s3=++i;
+   while(i<n&&src[i]!==q&&src[i]!=="\n")i++;
+   if(src[i]!==q)return err("missing closing "+q+" on a word");
+   toks.push({t:"str",v:src.slice(s3,i),l:line});i++;continue;
+  }
+  if("(){}".indexOf(c)>=0){toks.push({t:c,l:line});i++;continue;}
+  return err("I don't understand the character \u201c"+c+"\u201d");
+ }
+ return{toks:toks};
+}
+
+/* ---- parser ---- */
+var COMMANDS={move:1,turnLeft:0,turnRight:0,place:1,mine:0};
+function parse(src){
+ var tk=tokenize(src);
+ if(tk.err)return{err:tk.err};
+ var toks=tk.toks,p=0;
+ function peek(){return toks[p];}
+ function next(){return toks[p++];}
+ function expect(t,m){var x=next();if(!x||x.t!==t)return null;return x;}
+ function errAt(tok,m){return{err:"Line "+(tok?tok.l:"?")+": "+m};}
+ function block(){
+  var open=next();
+  if(!open||open.t!=="{")return errAt(open||toks[p-2],"expected { here");
+  var body=stmts(true);
+  if(body.err)return body;
+  var close=next();
+  if(!close||close.t!=="}")return errAt(close||toks[toks.length-1],"missing a closing }");
+  return{body:body.list};
+ }
+ function stmts(inBlock){
+  var list=[];
+  for(;;){
+   var t=peek();
+   if(!t)return inBlock?{err:"Line "+(toks[toks.length-1]?toks[toks.length-1].l:1)+": missing a closing }"}:{list:list};
+   if(t.t==="}"){if(inBlock)return{list:list};return errAt(t,"there\u2019s a } with no matching {");}
+   if(t.t==="id"&&t.v==="repeat"){
+    next();
+    var num=peek();
+    if(!num||num.t!=="num")return errAt(t,"repeat needs a number, like repeat 4 { \u2026 }");
+    next();
+    var b=block();if(b.err)return b;
+    list.push({k:"repeat",n:num.v,body:b.body,l:t.l});
+    continue;
+   }
+   if(t.t==="id"&&t.v==="if"){
+    next();
+    if(!expect("("))return errAt(t,"if needs brackets: if (blocked) { \u2026 }");
+    var cond=next();
+    if(!cond||cond.t!=="id"||cond.v!=="blocked")return errAt(t,"the only test the bot knows is blocked");
+    if(!expect(")"))return errAt(t,"missing ) after blocked");
+    var b2=block();if(b2.err)return b2;
+    var node={k:"if",cond:"blocked",body:b2.body,elseBody:null,l:t.l};
+    var e=peek();
+    if(e&&e.t==="id"&&e.v==="else"){next();var b3=block();if(b3.err)return b3;node.elseBody=b3.body;}
+    list.push(node);
+    continue;
+   }
+   if(t.t==="id"&&COMMANDS.hasOwnProperty(t.v)){
+    next();
+    if(!expect("("))return errAt(t,t.v+" needs brackets: "+t.v+"()");
+    var arg=null,nx=peek();
+    if(nx&&(nx.t==="num"||nx.t==="str")){arg=next().v;}
+    if(!expect(")"))return errAt(t,"missing ) after "+t.v);
+    if(t.v==="move"&&arg!=null&&(typeof arg!=="number"||arg<1))return errAt(t,"move needs a number of steps, like move(3)");
+    if(t.v==="place"&&arg!=null&&typeof arg!=="string")return errAt(t,'place needs a block name in quotes, like place("stone")');
+    list.push({k:"call",name:t.v,arg:arg,l:t.l});
+    continue;
+   }
+   if(t.t==="id")return errAt(t,"I don\u2019t know the command \u201c"+t.v+"\u201d \u2014 try the buttons below");
+   return errAt(t,"I wasn\u2019t expecting \u201c"+t.t+"\u201d here");
+  }
+ }
+ var r=stmts(false);
+ if(r.err)return r;
+ return{ast:r.list};
+}
+
+/* ---- world ---- */
+var BLOCKS={grass:1,dirt:1,stone:1,wood:1,plank:1,water:1,gold:1,brick:1};
+var DIRS=[[0,-1],[1,0],[0,1],[-1,0]]; /* N E S W */
+function buildWorld(rows){
+ /* '.'=grass1  digits 2-5 = stone column of that height  w=water  g=gold  #=brick wall h2 */
+ var w=rows[0].length,h=rows.length,cells=[];
+ for(var y=0;y<h;y++){
+  var row=[];
+  for(var x=0;x<w;x++){
+   var ch=rows[y][x],st;
+   if(ch===".")st=["grass"];
+   else if(ch==="w")st=["water"];
+   else if(ch==="g")st=["gold"];
+   else if(ch==="#")st=["brick","brick","brick"];
+   else if(ch==="G")st=["grass","stone","stone","gold"];
+   else if(ch>="2"&&ch<="5"){st=["grass"];for(var k=1;k<+ch;k++)st.push("stone");}
+   else st=["grass"];
+   row.push(st);
+  }
+  cells.push(row);
+ }
+ return{w:w,h:h,cells:cells};
+}
+function cloneWorld(wd){
+ return{w:wd.w,h:wd.h,cells:wd.cells.map(function(r){return r.map(function(s){return s.slice();});})};
+}
+function topOf(wd,x,y){var s=wd.cells[y][x];return s[s.length-1];}
+function hgt(wd,x,y){return wd.cells[y][x].length;}
+function inB(wd,x,y){return x>=0&&y>=0&&x<wd.w&&y<wd.h;}
+function frontOf(a){return{x:a.x+DIRS[a.dir][0],y:a.y+DIRS[a.dir][1]};}
+function isBlocked(wd,a){
+ var f=frontOf(a);
+ if(!inB(wd,f.x,f.y))return true;
+ if(topOf(wd,f.x,f.y)==="water")return false;
+ return hgt(wd,f.x,f.y)-hgt(wd,a.x,a.y)>=2;
+}
+
+/* ---- simulator ---- */
+var STEP_CAP=2000;
+function simulate(ast,world0,agent0,goal){
+ var wd=cloneWorld(world0),a={x:agent0.x,y:agent0.y,dir:agent0.dir};
+ var ops=[],count=0,halted=false;
+ function op(o){ops.push(o);}
+ function tooMany(l){op({k:"err",l:l,msg:"That\u2019s over "+STEP_CAP+" steps \u2014 check your repeat numbers!"});halted=true;}
+ function won(){
+  if(goal&&goal.type==="reach"&&a.x===goal.x&&a.y===goal.y&&topOf(wd,a.x,a.y)==="gold"){
+   op({k:"win"});halted=true;return true;
+  }
+  return false;
+ }
+ function exec(list){
+  for(var i=0;i<list.length&&!halted;i++){
+   var s=list[i];
+   if(++count>STEP_CAP){tooMany(s.l);return;}
+   if(s.k==="repeat"){
+    for(var r=0;r<s.n&&!halted;r++){
+     if(++count>STEP_CAP){tooMany(s.l);return;}
+     exec(s.body);
+    }
+   }else if(s.k==="if"){
+    if(isBlocked(wd,a)){if(s.body)exec(s.body);}
+    else if(s.elseBody)exec(s.elseBody);
+   }else if(s.k==="call"){
+    var nm=s.name;
+    if(nm==="turnLeft"){a.dir=(a.dir+3)%4;op({k:"turn",l:s.l,dir:a.dir});}
+    else if(nm==="turnRight"){a.dir=(a.dir+1)%4;op({k:"turn",l:s.l,dir:a.dir});}
+    else if(nm==="move"){
+     var nsteps=s.arg==null?1:s.arg;
+     for(var m=0;m<nsteps&&!halted;m++){
+      if(++count>STEP_CAP){tooMany(s.l);return;}
+      var f=frontOf(a);
+      if(!inB(wd,f.x,f.y)||hgt(wd,f.x,f.y)-hgt(wd,a.x,a.y)>=2){op({k:"bump",l:s.l});continue;}
+      if(topOf(wd,f.x,f.y)==="water"){
+       op({k:"move",l:s.l,to:{x:f.x,y:f.y},dir:a.dir});
+       op({k:"splash",l:s.l,x:f.x,y:f.y,msg:"Splash! The bot can\u2019t swim \u2014 bridge water with place(\"plank\")."});
+       halted=true;break;
+      }
+      a.x=f.x;a.y=f.y;
+      op({k:"move",l:s.l,to:{x:a.x,y:a.y},dir:a.dir});
+      if(won())break;
+     }
+    }
+    else if(nm==="place"){
+     var b=s.arg==null?"stone":s.arg;
+     if(!BLOCKS[b]||b==="water"){op({k:"err",l:s.l,msg:"\u201c"+b+"\u201d isn\u2019t a block the bot carries"});halted=true;}
+     else{
+      var f2=frontOf(a);
+      if(!inB(wd,f2.x,f2.y)||hgt(wd,f2.x,f2.y)>=6)op({k:"bump",l:s.l});
+      else{wd.cells[f2.y][f2.x].push(b);op({k:"place",l:s.l,x:f2.x,y:f2.y,z:hgt(wd,f2.x,f2.y)-1,b:b});}
+     }
+    }
+    else if(nm==="mine"){
+     var f3=frontOf(a);
+     if(!inB(wd,f3.x,f3.y)||hgt(wd,f3.x,f3.y)<=1||topOf(wd,f3.x,f3.y)==="water")op({k:"bump",l:s.l});
+     else{var rb=wd.cells[f3.y][f3.x].pop();op({k:"mine",l:s.l,x:f3.x,y:f3.y,z:hgt(wd,f3.x,f3.y),b:rb});}
+    }
+   }
+  }
+ }
+ won();
+ if(!halted)exec(ast);
+ var winNow=ops.some(function(o){return o.k==="win";});
+ if(!winNow&&goal&&goal.type==="build"&&!halted){
+  var all=goal.blocks.every(function(g){
+   var st=wd.cells[g.y][g.x];
+   return st.length>g.z&&st[g.z]===g.b;
+  });
+  if(all){ops.push({k:"win"});winNow=true;}
+ }
+ return{ops:ops,world:wd,agent:a,win:winNow};
+}
+function checkGhostsLeft(goal,wd){
+ if(!goal||goal.type!=="build")return[];
+ return goal.blocks.filter(function(g){
+  var st=wd.cells[g.y][g.x];
+  return !(st.length>g.z&&st[g.z]===g.b);
+ });
+}
+
+/* ---- levels ---- */
+var LEVELS=[
+ {id:"l1",name:"1 \u00b7 First steps",teach:"sequence",
+  goal:{type:"reach",x:5,y:2},agent:{x:1,y:2,dir:1},
+  rows:["#######","#.....#","#.\u00b7..g#".replace("\u00b7","."),"#.....#","#######"],
+  goalTx:"Walk the bot onto the gold block.",hint:"move(1) walks one square. The gold is 4 squares ahead \u2014 or try move(4).",
+  starter:"// Tap the buttons or type!\nmove(1)\n"},
+ {id:"l2",name:"2 \u00b7 Round the corner",teach:"sequence",
+  goal:{type:"reach",x:5,y:1},agent:{x:1,y:4,dir:1},
+  rows:["#######","#.333g#","#.333.#","#.333.#","#.....#","#######"],
+  goalTx:"The stone hill is too tall to climb. Go round it.",hint:"Walk along the bottom, turnLeft(), walk up, then think about which way the gold is.",
+  starter:""},
+ {id:"l3",name:"3 \u00b7 The long road",teach:"loops",
+  goal:{type:"reach",x:8,y:2},agent:{x:1,y:2,dir:1},
+  rows:["##########","#........#","#.......g#","#........#","##########"],
+  goalTx:"Seven squares to walk. You could type move() seven times\u2026 or use repeat.",hint:"repeat 7 { move(1) } \u2014 the buttons will build it for you.",
+  starter:"repeat 7 {\n  \n}\n"},
+ {id:"l4",name:"4 \u00b7 Square dance",teach:"loops",
+  goal:{type:"reach",x:2,y:2},agent:{x:2,y:6,dir:1},
+  rows:["#########","#.......#","#.g333..#","#..333..#","#..333..#","#.......#","#.......#","#########"],
+  goalTx:"Loop right round the hill and land on the gold.",hint:"repeat 4 { move(4) turnLeft() } nearly works \u2014 watch where the bot stops and tweak the end.",
+  starter:""},
+ {id:"l5",name:"5 \u00b7 Bridge the water",teach:"loops + place",
+  goal:{type:"reach",x:6,y:2},agent:{x:1,y:2,dir:1},
+  rows:["#########","#.......#","#..wwwg.#","#.......#","#########"],
+  goalTx:"The bot can\u2019t swim! Lay planks ahead as you cross.",hint:"repeat 3 { place(\"plank\") move(1) } \u2014 place, step on, repeat.",
+  starter:"move(1)\n"},
+ {id:"l6",name:"6 \u00b7 Mine through",teach:"loops + mine",
+  goal:{type:"reach",x:6,y:2},agent:{x:1,y:2,dir:1},
+  rows:["#########","#3333333#","#.3333g.#".replace("3333g","3333g"),"#3333333#","#########"],
+  goalTx:"A stone wall bars the way. Dig through it.",hint:"repeat 4 { mine() mine() move(1) } digs the tunnel \u2014 then one last move(1) onto the gold.",
+  starter:""},
+ {id:"l7",name:"7 \u00b7 Staircase",teach:"loops + climbing",
+  goal:{type:"reach",x:5,y:2},agent:{x:1,y:2,dir:1},
+  rows:["########","#......#","#....G.#","#......#","########"],
+  goalTx:"The gold sits on a high plateau. Build a staircase \u2014 the bot climbs one block at a time.",hint:"place(\"stone\") raises the square in front, then move(1) climbs on. The next step needs place() twice, the one after three times \u2014 each stair is one higher.",
+  starter:"place(\"stone\")\nmove(1)\n// keep the staircase rising!\n"},
+ {id:"l8",name:"8 \u00b7 Feel the way",teach:"selection",
+  goal:{type:"reach",x:1,y:3},agent:{x:1,y:1,dir:1},
+  rows:["#########","#.......#","#######.#","#g#####.#","#.#####.#","#.......#","#########"],
+  goalTx:"A twisty maze. Teach the bot to react: if it\u2019s blocked, try turning.",hint:"repeat 24 { if (blocked) { turnRight() } else { move(1) } } \u2014 a bot that hugs the walls.",
+  starter:"repeat 24 {\n  if (blocked) {\n    \n  } else {\n    \n  }\n}\n"},
+ {id:"l9",name:"9 \u00b7 Three towers",teach:"loops + building",
+  goal:{type:"build",blocks:[{x:3,y:2,z:1,b:"stone"},{x:3,y:2,z:2,b:"stone"},{x:5,y:2,z:1,b:"stone"},{x:5,y:2,z:2,b:"stone"},{x:7,y:2,z:1,b:"stone"},{x:7,y:2,z:2,b:"stone"}]},
+  agent:{x:1,y:3,dir:1},
+  rows:["##########","#........#","#........#","#........#","##########"],
+  goalTx:"Build a 2-high stone tower on each of the three ghost squares.",hint:"Walk under a ghost square, turnLeft() to face it, repeat 2 { place(\"stone\") } \u2014 then turnRight() and move(2) to the next.",
+  starter:""},
+ {id:"l10",name:"10 \u00b7 The gold vault",teach:"everything",
+  goal:{type:"reach",x:8,y:6},agent:{x:1,y:1,dir:1},
+  rows:["##########","#....w...#","#.22.w.2.#","#.22.w.2.#","#....w...#","#..2.w22.#","#....w..g#","##########"],
+  goalTx:"Water, walls and a long way down. Use everything you\u2019ve learned.",hint:"Bridge the water where the walls leave a gap, then work down the far side. There\u2019s more than one answer!",
+  starter:""}
+];
+/* ===================== isometric renderer ===================== */
+var CW=900,CH=640;
+var COLS={
+ grass:{t:"#7ec850",l:"#8a6a42",r:"#75582f"},
+ dirt:{t:"#9b7653",l:"#84603f",r:"#6f4f33"},
+ stone:{t:"#9aa3ad",l:"#7c858f",r:"#6a727b"},
+ wood:{t:"#a07a4a",l:"#7c5c34",r:"#6a4d2a"},
+ plank:{t:"#c9a064",l:"#a87f49",r:"#926c3c"},
+ water:{t:"#4d84e0",l:"#3f76d4",r:"#3263b8"},
+ gold:{t:"#f5c542",l:"#d6a32e",r:"#b88a22"},
+ brick:{t:"#b5524b",l:"#93403a",r:"#7d3631"}
+};
+function geom(wd){
+ var tw=Math.min(76,(CW-70)/((wd.w+wd.h)/2));
+ var th=tw/2,bh=tw*0.42;
+ var ox=CW/2-(wd.w-wd.h)*tw/4;
+ var oy=Math.max(96,(CH-(wd.w+wd.h)/2*th)/2+30);
+ return{tw:tw,th:th,bh:bh,ox:ox,oy:oy};
+}
+function proj(g,x,y,z){
+ return[g.ox+(x-y)*g.tw/2,g.oy+(x+y)*g.th/2-z*g.bh];
+}
+function facePath(x,pts){
+ x.beginPath();x.moveTo(pts[0][0],pts[0][1]);
+ for(var i=1;i<pts.length;i++)x.lineTo(pts[i][0],pts[i][1]);
+ x.closePath();
+}
+function drawBlock(x,g,px,py,c,opts){
+ opts=opts||{};
+ var tw=g.tw,th=g.th,bh=opts.bh!=null?opts.bh:g.bh;
+ var T=[[px,py],[px+tw/2,py+th/2],[px,py+th],[px-tw/2,py+th/2]];
+ var a=opts.alpha!=null?opts.alpha:1;
+ x.globalAlpha=a;
+ facePath(x,[T[3],T[2],[T[2][0],T[2][1]+bh],[T[3][0],T[3][1]+bh]]);
+ x.fillStyle=c.l;x.fill();
+ facePath(x,[T[2],T[1],[T[1][0],T[1][1]+bh],[T[2][0],T[2][1]+bh]]);
+ x.fillStyle=c.r;x.fill();
+ facePath(x,T);
+ x.fillStyle=c.t;x.fill();
+ x.globalAlpha=1;
+ if(opts.stroke){x.strokeStyle="rgba(16,37,10,.18)";x.lineWidth=1;facePath(x,T);x.stroke();}
+}
+function drawGhost(x,g,px,py){
+ var tw=g.tw,th=g.th,bh=g.bh;
+ var T=[[px,py],[px+tw/2,py+th/2],[px,py+th],[px-tw/2,py+th/2]];
+ x.save();
+ x.setLineDash([5,4]);x.strokeStyle="rgba(255,255,255,.85)";x.lineWidth=2;
+ facePath(x,T);x.stroke();
+ x.beginPath();x.moveTo(T[3][0],T[3][1]);x.lineTo(T[3][0],T[3][1]+bh);
+ x.moveTo(T[2][0],T[2][1]);x.lineTo(T[2][0],T[2][1]+bh);
+ x.moveTo(T[1][0],T[1][1]);x.lineTo(T[1][0],T[1][1]+bh);
+ x.stroke();
+ x.restore();
+}
+function drawBot(x,g,px,py,dir,wob){
+ var tw=g.tw,th=g.th;
+ x.save();
+ if(wob)x.translate((Math.random()*4-2),0);
+ /* shadow */
+ x.globalAlpha=.25;x.fillStyle="#10250a";
+ x.beginPath();x.ellipse(px,py+th/2,tw*0.3,th*0.3,0,0,Math.PI*2);x.fill();x.globalAlpha=1;
+ /* body */
+ var bg=Object.create(g);
+ drawBlock(x,{tw:tw*0.5,th:th*0.5,bh:g.bh*0.62,ox:0,oy:0},px,py-g.bh*0.55,{t:"#6b7894",l:"#5b6678",r:"#4c576f"},{bh:g.bh*0.62});
+ /* head */
+ drawBlock(x,{tw:tw*0.42,th:th*0.42,bh:g.bh*0.5,ox:0,oy:0},px,py-g.bh*1.06,{t:"#e6eaf2",l:"#d9dee6",r:"#c4cbd8"},{bh:g.bh*0.5});
+ /* visor on the camera-facing faces */
+ x.fillStyle="#19c2b8";
+ var vy=py-g.bh*1.06+th*0.21+g.bh*0.12;
+ if(dir===1)x.fillRect(px+tw*0.03,vy,tw*0.13,g.bh*0.16);
+ else if(dir===2)x.fillRect(px-tw*0.16,vy,tw*0.13,g.bh*0.16);
+ else{x.fillRect(px-tw*0.06,py-g.bh*1.18,tw*0.12,g.bh*0.1);}
+ /* direction arrow on the ground in front */
+ var f=[px+ (dir===1?tw*0.5:dir===3?-tw*0.5:dir===2?-tw*0.5:tw*0.5)*0, 0];
+ x.restore();
+}
+function drawArrow(x,g,a){
+ var f=frontOf(a);
+ var p=proj(g,f.x+0.5,f.y+0.5,0);
+ /* arrowhead pointing along dir, drawn on ground plane near agent edge */
+ var c=proj(g,a.x+0.5+DIRS[a.dir][0]*0.62,a.y+0.5+DIRS[a.dir][1]*0.62,0);
+ x.save();x.globalAlpha=.8;x.fillStyle="#ffd166";
+ x.beginPath();
+ var dx=DIRS[a.dir][0],dy=DIRS[a.dir][1];
+ var tip=proj(g,a.x+0.5+dx*0.78,a.y+0.5+dy*0.78,0);
+ var l=proj(g,a.x+0.5+dx*0.5-dy*0.16,a.y+0.5+dy*0.5-dx*0.16,0);
+ var r=proj(g,a.x+0.5+dx*0.5+dy*0.16,a.y+0.5+dy*0.5+dx*0.16,0);
+ x.moveTo(tip[0],tip[1]);x.lineTo(l[0],l[1]);x.lineTo(r[0],r[1]);x.closePath();x.fill();
+ x.restore();
+}
+function drawWorld(wd,a,ghosts,wob){
+ var cv=$("world"),x=cv.getContext("2d"),g=geom(wd);
+ x.clearRect(0,0,CW,CH);
+ /* sky gradient backdrop */
+ var bg=x.createLinearGradient(0,0,0,CH);
+ bg.addColorStop(0,"#cfe7f5");bg.addColorStop(1,"#e8f2f9");
+ x.fillStyle=bg;x.fillRect(0,0,CW,CH);
+ var gmap={};
+ (ghosts||[]).forEach(function(gh){(gmap[gh.x+","+gh.y]=gmap[gh.x+","+gh.y]||[]).push(gh);});
+ for(var s=0;s<=wd.w+wd.h-2;s++){
+  for(var y2=0;y2<wd.h;y2++){
+   var x2=s-y2;
+   if(x2<0||x2>=wd.w)continue;
+   var st=wd.cells[y2][x2];
+   for(var z=0;z<st.length;z++){
+    var b=st[z],p=proj(g,x2+0.5,y2+0.5,z+1);
+    if(b==="water")drawBlock(x,g,p[0]+0,p[1]+g.bh*0.45,COLS.water,{alpha:.82,bh:g.bh*0.55});
+    else drawBlock(x,g,p[0],p[1],COLS[b]||COLS.stone,{stroke:true});
+   }
+   (gmap[x2+","+y2]||[]).forEach(function(gh){
+    var pg=proj(g,x2+0.5,y2+0.5,gh.z+1);
+    drawGhost(x,g,pg[0],pg[1]);
+   });
+   if(a&&a.x===x2&&a.y===y2){
+    var pa=proj(g,x2+0.5,y2+0.5,st.length);
+    drawBot(x,g,pa[0],pa[1]-g.th*0.0,a.dir,wob);
+   }
+  }
+ }
+ if(a)drawArrow(x,g,a);
+}
+
+/* ===================== app state ===================== */
+var curI=0,sandbox=false;
+var baseWorld=null,baseAgent=null,liveWorld=null,liveAgent=null;
+var running=false,opQ=[],opI=0,timer=null,speedMs=240,curBlock="stone";
+var DONE={};
+try{(JSON.parse(localStorage.getItem("craft_done")||"[]")).forEach(function(id){DONE[id]=1;});}catch(e){}
+function saveDone(){try{localStorage.setItem("craft_done",JSON.stringify(Object.keys(DONE)));}catch(e){}}
+var toastT=null;
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toastT);toastT=setTimeout(function(){t.style.display="none";},3200);}
+var msgT=null;
+function showMsg(m,ms){
+ var e=$("msg");
+ if(!m){e.style.display="none";return;}
+ e.textContent=m;e.style.display="block";
+ clearTimeout(msgT);
+ if(ms!==0)msgT=setTimeout(function(){e.style.display="none";},ms||4200);
+}
+function lvl(){return LEVELS[curI];}
+function codeKey(){return sandbox?"craft_sandbox":"craft_code_"+lvl().id;}
+function saveDraft(){try{localStorage.setItem(codeKey(),$("code").value);}catch(e){}}
+function ghostsNow(){
+ if(sandbox)return[];
+ var l=lvl();
+ return l.goal.type==="build"?checkGhostsLeft(l.goal,liveWorld):[];
+}
+function redraw(wob){drawWorld(liveWorld,liveAgent,ghostsNow(),wob);}
+
+/* ===================== level loading ===================== */
+var SAND_ROWS=(function(){var r=[];for(var i=0;i<12;i++)r.push("............");return r;})();
+function loadLevel(i){
+ stopRun(true);
+ sandbox=false;curI=i;
+ var l=lvl();
+ baseWorld=buildWorld(l.rows);
+ baseAgent={x:l.agent.x,y:l.agent.y,dir:l.agent.dir};
+ resetWorld();
+ $("lvlName").textContent=l.name+"  \u00b7  "+l.teach;
+ $("lvlGoal").textContent=l.goalTx;
+ $("hintTx").style.display="none";$("hintTx").textContent=l.hint;
+ var draft=null;
+ try{draft=localStorage.getItem(codeKey());}catch(e){}
+ $("code").value=draft!=null?draft:(l.starter||"");
+ $("sandB").classList.remove("on");
+ showMsg(null);
+}
+function loadSandbox(){
+ stopRun(true);
+ sandbox=true;
+ baseWorld=buildWorld(SAND_ROWS);
+ baseAgent={x:5,y:5,dir:1};
+ resetWorld();
+ $("lvlName").textContent="Sandbox \u00b7 free build";
+ $("lvlGoal").textContent="No goal \u2014 program the bot to build whatever you can imagine. \u21ba Reset flattens the land.";
+ $("hintTx").style.display="none";$("hintTx").textContent="Towers: face a square and repeat 5 { place(\"stone\") }. Walls: place then move. Go wild.";
+ var draft=null;
+ try{draft=localStorage.getItem(codeKey());}catch(e){}
+ $("code").value=draft!=null?draft:"// Free build! Try:\nrepeat 4 {\n  repeat 3 { place(\"brick\") move(1) }\n  turnRight()\n}\n";
+ $("sandB").classList.add("on");
+ showMsg(null);
+}
+function resetWorld(){
+ liveWorld=cloneWorld(baseWorld);
+ liveAgent={x:baseAgent.x,y:baseAgent.y,dir:baseAgent.dir};
+ redraw();
+}
+
+/* ===================== running ===================== */
+function setRunningUI(on){
+ running=on;
+ $("runB").classList.toggle("hidden",on);
+ $("stopB").classList.toggle("hidden",!on);
+ $("code").style.display=on?"none":"block";
+ $("runView").style.display=on?"block":"none";
+ $("resetB").disabled=on;
+}
+function renderRunView(){
+ var rv=$("runView");rv.innerHTML="";
+ $("code").value.split("\n").forEach(function(ln,i){
+  var s=document.createElement("span");
+  s.className="ln";s.dataset.l=i+1;
+  s.textContent=(i+1<10?" ":"")+(i+1)+"  "+ln;
+  rv.appendChild(s);
+ });
+}
+function highlightLine(l){
+ var rv=$("runView"),cur=rv.querySelector(".ln.cur");
+ if(cur)cur.classList.remove("cur");
+ if(!l)return;
+ var e=rv.querySelector('.ln[data-l="'+l+'"]');
+ if(e){e.classList.add("cur");if(e.scrollIntoView)e.scrollIntoView({block:"nearest"});}
+}
+function run(){
+ if(running)return;
+ saveDraft();
+ var src=$("code").value;
+ if(!src.trim()){showMsg("Type some code first \u2014 the buttons below will help!");return;}
+ var P=parse(src);
+ if(P.err){showMsg(P.err,7000);return;}
+ var goal=sandbox?null:lvl().goal;
+ var R=simulate(P.ast,baseWorld,baseAgent,goal);
+ if(!R.ops.length){showMsg("That program didn\u2019t do anything \u2014 give the bot a command!");return;}
+ resetWorld();
+ renderRunView();
+ setRunningUI(true);
+ opQ=R.ops;opI=0;
+ stepOp();
+}
+function stepOp(){
+ if(!running)return;
+ if(opI>=opQ.length){finishRun(null);return;}
+ var o=opQ[opI++];
+ highlightLine(o.l);
+ var wob=false;
+ if(o.k==="move"){liveAgent.x=o.to.x;liveAgent.y=o.to.y;liveAgent.dir=o.dir;}
+ else if(o.k==="turn")liveAgent.dir=o.dir;
+ else if(o.k==="place")liveWorld.cells[o.y][o.x].push(o.b);
+ else if(o.k==="mine")liveWorld.cells[o.y][o.x].pop();
+ else if(o.k==="bump")wob=true;
+ else if(o.k==="splash"){redraw();showMsg(o.msg,0);finishRun("splash");return;}
+ else if(o.k==="win"){redraw();finishRun("win");return;}
+ else if(o.k==="err"){redraw();showMsg(o.msg,0);finishRun("err");return;}
+ redraw(wob);
+ timer=setTimeout(stepOp,o.k==="turn"?speedMs*0.6:speedMs);
+}
+function finishRun(how){
+ clearTimeout(timer);timer=null;
+ setRunningUI(false);
+ highlightLine(null);
+ if(how==="win"){
+  if(!sandbox){
+   DONE[lvl().id]=1;saveDone();
+   var last=curI>=LEVELS.length-1;
+   $("winTx").textContent=last
+    ?"That was the last level \u2014 you\u2019ve taught the bot everything. The Sandbox is all yours now: build something brilliant and save the evidence!"
+    :"Nice code! "+(lvl().teach==="loops"?"Loops make programs short and powerful.":lvl().teach==="selection"?"That\u2019s real decision-making \u2014 the bot reacted on its own.":"On to the next challenge.");
+   $("winNext").textContent=last?"Open the Sandbox \uD83E\uDDF1":"Next level \u279C";
+   $("winModal").classList.add("open");
+  }else showMsg("\u2728");
+ }else if(how===null&&!sandbox){
+  var l=lvl();
+  if(l.goal.type==="build"){
+   var left=checkGhostsLeft(l.goal,liveWorld).length;
+   showMsg(left?("So close \u2014 "+left+" ghost block"+(left===1?"":"s")+" still to fill. Tweak and run again!"):"");
+  }else showMsg("Not there yet \u2014 the bot stopped short of the gold. Tweak and run again!");
+ }
+}
+function stopRun(silent){
+ if(timer){clearTimeout(timer);timer=null;}
+ if(running){setRunningUI(false);highlightLine(null);}
+ if(!silent)showMsg("Stopped \u2014 \u21ba Reset puts everything back.");
+}
+
+/* ===================== editor & palette ===================== */
+function insertSnippet(txt,caretBack){
+ var ta=$("code"),s=ta.selectionStart,e=ta.selectionEnd,v=ta.value;
+ var pre=v.slice(0,s),post=v.slice(e);
+ var nl=(pre.length&&pre[pre.length-1]!=="\n")?"\n":"";
+ ta.value=pre+nl+txt+"\n"+post;
+ var pos=(pre+nl+txt).length-(caretBack||0);
+ ta.focus();ta.setSelectionRange(pos,pos);
+ saveDraft();
+}
+function buildPalette(){
+ var P=$("palette");P.innerHTML="";
+ [
+  ["move(1)",function(){insertSnippet("move(1)");}],
+  ["turnLeft()",function(){insertSnippet("turnLeft()");}],
+  ["turnRight()",function(){insertSnippet("turnRight()");}],
+  ["place(\u2026)",function(){insertSnippet('place("'+curBlock+'")');}],
+  ["mine()",function(){insertSnippet("mine()");}],
+  ["repeat 3 { }",function(){insertSnippet("repeat 3 {\n  \n}",2);}],
+  ["if (blocked) { }",function(){insertSnippet("if (blocked) {\n  \n} else {\n  \n}",13);}]
+ ].forEach(function(d){
+  var b=document.createElement("button");
+  b.textContent=d[0];b.onclick=d[1];
+  P.appendChild(b);
+ });
+}
+function buildBlockChips(){
+ var row=$("blocksRow");
+ ["stone","plank","wood","dirt","brick","gold","grass"].forEach(function(b){
+  var c=document.createElement("button");
+  c.className="bchip"+(b===curBlock?" on":"");
+  c.style.background=COLS[b].t;
+  c.title=b;c.setAttribute("aria-label","Use "+b);
+  c.onclick=function(){
+   curBlock=b;
+   row.querySelectorAll(".bchip").forEach(function(x){x.classList.toggle("on",x===c);});
+  };
+  row.appendChild(c);
+ });
+}
+
+/* ===================== levels modal / evidence ===================== */
+function openLevels(){
+ var g=$("lvlGrid");g.innerHTML="";
+ LEVELS.forEach(function(l,i){
+  var b=document.createElement("button");
+  b.className="lvlCard"+(DONE[l.id]?" done":"");
+  b.innerHTML="<b>"+l.name+(DONE[l.id]?' <span class="tick">\u2713</span>':"")+"</b><span>"+l.teach+"</span>";
+  b.onclick=function(){$("lvlModal").classList.remove("open");loadLevel(i);};
+  g.appendChild(b);
+ });
+ $("lvlModal").classList.add("open");
+}
+function saveEvidence(){
+ var code=$("code").value,lines=code.split("\n");
+ var lh=22,pad=26,codeH=Math.max(60,lines.length*lh+pad*2);
+ var c=document.createElement("canvas");
+ c.width=CW;c.height=CH+70+codeH;
+ var x=c.getContext("2d");
+ x.fillStyle="#ffffff";x.fillRect(0,0,c.width,c.height);
+ x.fillStyle="#15203a";x.fillRect(0,0,c.width,70);
+ x.fillStyle="#fff";x.font="800 26px Arial";x.textBaseline="middle";
+ var d=new Date();
+ x.fillText("Craft Studio \u2014 "+(sandbox?"Sandbox build":lvl().name)+"  \u00b7  "+d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear(),24,35);
+ x.drawImage($("world"),0,70);
+ x.fillStyle="#f4f6f9";x.fillRect(0,70+CH,c.width,codeH);
+ x.fillStyle="#15203a";x.font="15px Consolas, Menlo, monospace";x.textBaseline="top";
+ lines.forEach(function(ln,i){x.fillText(ln,pad,70+CH+pad+i*lh);});
+ var a=document.createElement("a");
+ a.href=c.toDataURL("image/png");
+ a.download="craft-evidence-"+(sandbox?"sandbox":lvl().id)+".png";
+ document.body.appendChild(a);a.click();
+ setTimeout(function(){a.remove();},2000);
+ toast("Evidence picture saved \u2014 tag it in the Evidence Binder \u2713");
+}
+
+/* ===================== init ===================== */
+function init(){
+ buildPalette();buildBlockChips();
+ $("runB").onclick=run;
+ $("stopB").onclick=function(){stopRun(false);};
+ $("resetB").onclick=function(){resetWorld();showMsg(null);};
+ document.querySelectorAll(".spd").forEach(function(b){
+  b.onclick=function(){
+   speedMs=+b.dataset.ms;
+   document.querySelectorAll(".spd").forEach(function(x){x.classList.toggle("on",x===b);});
+  };
+ });
+ $("hintB").onclick=function(){var h=$("hintTx");h.style.display=h.style.display==="none"?"block":"none";};
+ $("lvlB").onclick=openLevels;
+ $("lvlClose").onclick=function(){$("lvlModal").classList.remove("open");};
+ $("sandB").onclick=function(){sandbox?loadLevel(curI):loadSandbox();};
+ $("evB").onclick=saveEvidence;
+ $("winStay").onclick=function(){$("winModal").classList.remove("open");};
+ $("winNext").onclick=function(){
+  $("winModal").classList.remove("open");
+  if(curI>=LEVELS.length-1)loadSandbox();
+  else loadLevel(curI+1);
+ };
+ $("helpB").onclick=function(){$("helpModal").classList.add("open");};
+ $("helpClose").onclick=function(){$("helpModal").classList.remove("open");};
+ ["lvlModal","winModal","helpModal"].forEach(function(id){
+  $(id).addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});
+ });
+ $("code").addEventListener("change",saveDraft);
+ $("code").addEventListener("keydown",function(e){
+  if((e.ctrlKey||e.metaKey)&&e.key==="Enter"){e.preventDefault();run();}
+ });
+ document.addEventListener("keydown",function(e){
+  var t=e.target;
+  if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"||t.tagName==="SELECT"||t.isContentEditable))return;
+  if(e.key==="Escape")stopRun(false);
+  if((e.ctrlKey||e.metaKey)&&e.key==="Enter"){e.preventDefault();run();}
+ });
+ /* first incomplete level */
+ var first=0;
+ for(var i=0;i<LEVELS.length;i++){if(!DONE[LEVELS[i].id]){first=i;break;}first=i;}
+ loadLevel(first);
+}
+init();
+
+</script>
+</body>
+</html>

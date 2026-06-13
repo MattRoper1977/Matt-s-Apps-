@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Animation Studio — Matt's Apps</title>
+<style>
+:root{--ink:#15203a;--acc:#ef5d60;--accSoft:#fde3e3;--stage:#eef0f4;--panel:#ffffff;--line:#d8dde6;--shadow:0 5px 16px rgba(21,32,58,.14)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--stage);display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:12px;background:#fff;color:var(--ink);font-weight:700;font-size:14px;min-height:44px;padding:0 14px;box-shadow:0 2px 8px rgba(21,32,58,.08)}
+button:focus-visible,input:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
+button:disabled{opacity:.4;cursor:default}
+.hidden{display:none!important}
+#top{background:var(--ink);color:#fff;display:flex;align-items:center;gap:8px;padding:7px 11px;flex:0 0 auto}
+#brand{display:flex;align-items:center;gap:9px}
+#brand svg{width:30px;height:30px}
+#brand .wm{display:flex;flex-direction:column;line-height:1.04}
+#brand .wm b{font-size:16px}
+#brand .wm span{font-size:9px;letter-spacing:2.2px;opacity:.72;font-weight:700}
+#top .sp{flex:1}
+#top button{background:rgba(255,255,255,.13);color:#fff;min-width:42px;box-shadow:none}
+#top button.primary{background:var(--acc)}
+#stageWrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:10px;position:relative;background:#10141d}
+#stage{max-width:100%;max-height:100%;background:#000;border-radius:8px;box-shadow:var(--shadow)}
+#camMsg{position:absolute;color:#aab4c8;font-weight:700;text-align:center;padding:18px;max-width:420px;line-height:1.5}
+#modeTag{position:absolute;top:18px;left:22px;background:rgba(11,14,20,.72);color:#fff;font-size:12px;font-weight:800;letter-spacing:1px;padding:6px 12px;border-radius:999px}
+#transport{flex:0 0 auto;background:var(--panel);border-top:1px solid var(--line);padding:9px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center}
+#capB{background:var(--acc);color:#fff;font-size:17px;min-height:56px;min-width:170px;border-radius:16px}
+#playB{min-width:110px;min-height:56px;font-size:16px}
+.chip{border-radius:999px;background:#eef1f7;min-height:40px;padding:0 13px;font-size:13px;box-shadow:none}
+.chip.on{background:var(--accSoft);box-shadow:inset 0 0 0 2px var(--acc)}
+#countLab{font-size:13px;font-weight:800;color:#5b6678;min-width:150px;text-align:center}
+#stripWrap{flex:0 0 auto;background:#12161f;padding:8px 10px;display:flex;flex-direction:column;gap:7px}
+#frameOps{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+#frameOps button{min-height:38px;font-size:13px;background:#232c3b;color:#e8ecf4;box-shadow:none}
+#frameOps button.warn{background:rgba(226,85,99,.2);color:#ff9aa3}
+#strip{display:flex;gap:6px;overflow-x:auto;min-height:66px;align-items:center}
+.fr{flex:0 0 auto;width:96px;height:58px;border-radius:8px;overflow:hidden;border:2px solid #2a3344;padding:0;position:relative;background:#000;box-shadow:none}
+.fr img{width:100%;height:100%;object-fit:cover;display:block}
+.fr.on{border-color:var(--acc)}
+.fr .n{position:absolute;left:3px;top:2px;font-size:10px;font-weight:800;color:#fff;background:rgba(11,14,20,.7);border-radius:5px;padding:1px 5px}
+.modal{position:fixed;inset:0;background:rgba(10,13,20,.66);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal.open{display:flex}
+.sheet{background:#fff;border-radius:18px;padding:20px;max-width:440px;width:100%;max-height:88vh;overflow-y:auto}
+.sheet h3{margin:0 0 12px;font-size:18px}
+.sheet label{display:block;font-size:12px;font-weight:800;margin:12px 0 5px;color:#5b6678;text-transform:uppercase;letter-spacing:.5px}
+.sheet input[type=text]{width:100%;border:2px solid var(--line);border-radius:10px;padding:10px;font-size:15px;font-family:inherit}
+.sheet ol{padding-left:20px;line-height:1.6;font-size:14px;margin:8px 0}
+.sheet .tips{background:#f1f3f8;border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.5;color:#3c4961;margin-top:8px}
+.acts{display:flex;gap:8px;margin-top:16px}
+.acts button{flex:1}
+.acts .primary{background:var(--acc);color:#fff}
+#busy{position:fixed;inset:0;background:rgba(16,20,29,.82);display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:70;font-weight:700;color:#fff;text-align:center;padding:18px}
+#busy.open{display:flex}
+#busy .spin{width:42px;height:42px;border-radius:50%;border:5px solid rgba(255,255,255,.25);border-top-color:var(--acc);animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+#toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#e8ecf4;color:#101319;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:700;display:none;z-index:80;max-width:92vw;text-align:center}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header id="top">
+  <div id="brand">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <rect x="4" y="14" width="32" height="20" rx="3" fill="#ef5d60"/>
+      <path d="M4 14l4-8 7 3-4 8zM15 9l7 3-4 8-7-3zM26 12l7 3-4 8-7-3z" fill="#15203a"/>
+      <path d="M4 14l4-8 28 12" fill="none" stroke="#ef5d60" stroke-width="2"/>
+      <circle cx="20" cy="25" r="4.5" fill="#fff"/>
+    </svg>
+    <div class="wm"><b>Animation Studio</b><span>MATT'S APPS</span></div>
+  </div>
+  <div class="sp"></div>
+  <button id="impB" title="Add photos as frames" aria-label="Import photos">🖼</button>
+  <button id="newB" title="New film" aria-label="New film">✦</button>
+  <button id="exportB" class="primary" title="Export film">⬇ Export</button>
+  <button id="helpB" title="Help" aria-label="Help">?</button>
+</header>
+
+<div id="stageWrap">
+  <canvas id="stage" width="1280" height="720"></canvas>
+  <div id="camMsg" class="hidden"></div>
+  <div id="modeTag">LIVE</div>
+</div>
+
+<div id="transport">
+  <button id="capB">● Capture frame</button>
+  <button id="playB">▶ Play</button>
+  <button id="testB" class="chip" title="Play the last second">⟳ Test last second</button>
+  <span class="chip" style="background:transparent;box-shadow:none;font-weight:800;color:#5b6678">fps</span>
+  <button class="chip" data-fps="6">6</button>
+  <button class="chip" data-fps="8">8</button>
+  <button class="chip on" data-fps="12">12</button>
+  <button id="onionB" class="chip on">👻 Onion ×1</button>
+  <button id="gridB" class="chip">⊞ Grid</button>
+  <button id="camSwB" class="chip">🔄 Camera</button>
+  <button id="mirrorB" class="chip">↔ Mirror</button>
+  <span id="countLab">0 frames</span>
+</div>
+
+<div id="stripWrap">
+  <div id="frameOps" class="hidden">
+    <button id="fLeft">◀ Move</button>
+    <button id="fRight">Move ▶</button>
+    <button id="fHold">⧉ Hold ×2</button>
+    <button id="fDel" class="warn">🗑 Delete</button>
+    <button id="fLive">📷 Back to camera</button>
+  </div>
+  <div id="strip" aria-label="Frames"></div>
+</div>
+
+<div class="modal" id="expModal">
+  <div class="sheet">
+    <h3>Export film</h3>
+    <label for="expName">File name</label>
+    <input type="text" id="expName" value="my-animation">
+    <div class="tips" id="expInfo"></div>
+    <div class="acts"><button id="expCancel">Cancel</button><button class="primary" id="expGo">Export .webm ⬇</button></div>
+  </div>
+</div>
+
+<div class="modal" id="helpModal">
+  <div class="sheet">
+    <h3>How to make a film</h3>
+    <ol>
+      <li>Set your scene. Move your model a <b>tiny</b> bit, tap <b>● Capture</b>. Repeat. Small moves = smooth film.</li>
+      <li>The <b>👻 onion skin</b> shows a ghost of your last frame so you can line up the next move. <b>⟳ Test last second</b> checks how it's flowing.</li>
+      <li>Tap a frame in the strip to review it — move it, <b>⧉ Hold</b> it (doubles it, great for pauses), or delete it.</li>
+      <li><b>12fps</b> is smooth, <b>6fps</b> is chunky and charming. At 12fps you need 12 captures per second of film.</li>
+      <li><b>⬇ Export</b> saves a .webm — drop it straight into Video Studio for titles, music and credits.</li>
+    </ol>
+    <div class="tips">Your frames are saved on this device automatically, so a film can grow across several lessons. <b>✦ New</b> clears it — export first!</div>
+    <div class="acts"><button class="primary" id="helpClose">Got it</button></div>
+  </div>
+</div>
+
+<div id="busy"><div class="spin"></div><div id="busyMsg">Working…</div></div>
+<div id="toast" role="status"></div>
+<input type="file" id="picFile" accept="image/*" multiple hidden>
+
+<script id="app">
+"use strict";
+/* ===================== Animation Studio ===================== */
+function $(id){return document.getElementById(id);}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+var _id=0;function uid(){return "f"+(++_id)+"_"+Date.now().toString(36);}
+
+/* ---- pure helpers (unit-tested) ---- */
+function coverRect(sw,sh,dw,dh){
+ var s=Math.max(dw/sw,dh/sh),w=sw*s,h=sh*s;
+ return[(dw-w)/2,(dh-h)/2,w,h];
+}
+function scaleDims(w,h,max){
+ if(w<=max&&h<=max)return[w,h];
+ var f=max/Math.max(w,h);
+ return[Math.max(1,Math.round(w*f)),Math.max(1,Math.round(h*f))];
+}
+function filmLabel(n,fps){
+ if(!n)return "0 frames";
+ var s=n/fps;
+ return n+" frame"+(n===1?"":"s")+" \u00b7 "+(Math.round(s*10)/10)+"s @ "+fps+"fps";
+}
+function moveIdx(arr,i,d){
+ var j=i+d;
+ if(i<0||j<0||j>=arr.length)return i;
+ var t=arr[i];arr[i]=arr[j];arr[j]=t;
+ return j;
+}
+function evictCache(map,keep,max){
+ /* map: Map id->bitmap; keep: Set of ids to never evict; max entries */
+ if(map.size<=max)return 0;
+ var n=0,it=map.keys(),k;
+ while(map.size>max&&!(k=it.next()).done){
+  if(keep&&keep.has(k.value))continue;
+  var bm=map.get(k.value);
+  map.delete(k.value);
+  if(bm&&bm.close)try{bm.close();}catch(e){}
+  n++;
+ }
+ return n;
+}
+
+/* ===================== IndexedDB ===================== */
+var DBP=null;
+function db(){
+ if(DBP)return DBP;
+ DBP=new Promise(function(res){
+  try{
+   var rq=indexedDB.open("animstudio",1);
+   rq.onupgradeneeded=function(){
+    rq.result.createObjectStore("meta");
+    rq.result.createObjectStore("frames",{keyPath:"id"});
+   };
+   rq.onsuccess=function(){res(rq.result);};
+   rq.onerror=function(){res(null);};
+  }catch(e){res(null);}
+ });
+ return DBP;
+}
+function req(r){return new Promise(function(res,rej){r.onsuccess=function(){res(r.result);};r.onerror=function(){rej(r.error);};});}
+function saveMeta(){return db().then(function(d){if(!d)return;return req(d.transaction("meta","readwrite").objectStore("meta").put({order:ORDER,fps:FPS},"data"));});}
+function loadMeta(){return db().then(function(d){if(!d)return null;return req(d.transaction("meta","readonly").objectStore("meta").get("data"));});}
+function putFrame(f){return db().then(function(d){if(!d)return;return req(d.transaction("frames","readwrite").objectStore("frames").put(f));});}
+function delFrame(id){return db().then(function(d){if(!d)return;return req(d.transaction("frames","readwrite").objectStore("frames").delete(id));});}
+function allFrames(){return db().then(function(d){if(!d)return[];return req(d.transaction("frames","readonly").objectStore("frames").getAll());});}
+function clearFrames(){return db().then(function(d){if(!d)return;return req(d.transaction("frames","readwrite").objectStore("frames").clear());});}
+
+/* ===================== state ===================== */
+var W=1280,H=720;
+var stage=$("stage"),X=stage.getContext("2d");
+var FRAMES={};            /* id -> {id,blob,thumb} */
+var ORDER=[];             /* frame ids in sequence */
+var FPS=12;
+var MODE="live";          /* live | review | play */
+var selId=null,playI=0,playT=null;
+var onion=1,grid=false,mirror=false;
+var video=null,camStream=null,camIdx=0,camIds=[];
+var CACHE=new Map();      /* id -> ImageBitmap */
+var thumbUrls=new Map();
+var toastT=null;
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toastT);toastT=setTimeout(function(){t.style.display="none";},2800);}
+function busy(m){var b=$("busy");if(m){$("busyMsg").textContent=m;b.classList.add("open");}else b.classList.remove("open");}
+
+/* ===================== camera ===================== */
+function camMsg(m){var e=$("camMsg");if(m){e.textContent=m;e.classList.remove("hidden");}else e.classList.add("hidden");}
+function startCam(){
+ stopCam();
+ if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)){camMsg("This browser can't use a camera. You can still import photos as frames with \uD83D\uDDBC.");return;}
+ var c={video:{width:{ideal:1280},height:{ideal:720}}};
+ if(camIds.length)c.video.deviceId={exact:camIds[camIdx%camIds.length]};
+ navigator.mediaDevices.getUserMedia(c).then(function(stream){
+  camStream=stream;
+  video=document.createElement("video");
+  video.playsInline=true;video.muted=true;video.srcObject=stream;
+  video.play().catch(function(){});
+  camMsg(null);
+  if(!camIds.length&&navigator.mediaDevices.enumerateDevices){
+   navigator.mediaDevices.enumerateDevices().then(function(ds){
+    camIds=ds.filter(function(d){return d.kind==="videoinput";}).map(function(d){return d.deviceId;});
+    $("camSwB").classList.toggle("hidden",camIds.length<2);
+   }).catch(function(){});
+  }
+ }).catch(function(){
+  camMsg("Camera blocked or busy. Allow camera access and tap \uD83D\uDD04, or import photos as frames with \uD83D\uDDBC.");
+ });
+}
+function stopCam(){
+ if(camStream)camStream.getTracks().forEach(function(t){t.stop();});
+ camStream=null;video=null;
+}
+
+/* ===================== frame pixels ===================== */
+function getBitmap(id){
+ if(CACHE.has(id))return Promise.resolve(CACHE.get(id));
+ var f=FRAMES[id];
+ if(!f)return Promise.resolve(null);
+ return createImageBitmap(f.blob).then(function(bm){
+  CACHE.set(id,bm);
+  evictCache(CACHE,new Set([selId]),30);
+  return bm;
+ }).catch(function(){return null;});
+}
+function thumbSrc(f){
+ if(!thumbUrls.has(f.id))thumbUrls.set(f.id,URL.createObjectURL(f.thumb||f.blob));
+ return thumbUrls.get(f.id);
+}
+
+/* ===================== drawing ===================== */
+var RAF=null;
+function drawVideoFrame(ctx){
+ if(!video||video.readyState<2){ctx.fillStyle="#000";ctx.fillRect(0,0,W,H);return false;}
+ var r=coverRect(video.videoWidth||16,video.videoHeight||9,W,H);
+ ctx.save();
+ if(mirror){ctx.translate(W,0);ctx.scale(-1,1);}
+ ctx.drawImage(video,r[0],r[1],r[2],r[3]);
+ ctx.restore();
+ return true;
+}
+function drawGrid(ctx){
+ ctx.save();ctx.strokeStyle="rgba(255,255,255,0.35)";ctx.lineWidth=1.5;
+ [1,2].forEach(function(i){
+  ctx.beginPath();ctx.moveTo(W*i/3,0);ctx.lineTo(W*i/3,H);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(0,H*i/3);ctx.lineTo(W,H*i/3);ctx.stroke();
+ });
+ ctx.restore();
+}
+function liveLoop(){
+ RAF=requestAnimationFrame(liveLoop);
+ if(MODE!=="live")return;
+ drawVideoFrame(X);
+ if(onion&&ORDER.length){
+  var ghosts=onion===2?[ORDER.length-2,ORDER.length-1]:[ORDER.length-1];
+  ghosts.forEach(function(gi,k){
+   if(gi<0)return;
+   var id=ORDER[gi];
+   if(CACHE.has(id)){
+    X.globalAlpha=(k===ghosts.length-1)?0.34:0.16;
+    X.drawImage(CACHE.get(id),0,0,W,H);
+    X.globalAlpha=1;
+   }else getBitmap(id);
+  });
+ }
+ if(grid)drawGrid(X);
+}
+function showFrame(id){
+ return getBitmap(id).then(function(bm){
+  X.fillStyle="#000";X.fillRect(0,0,W,H);
+  if(bm)X.drawImage(bm,0,0,W,H);
+ });
+}
+function setMode(m){
+ MODE=m;
+ $("modeTag").textContent=m==="live"?"LIVE":m==="review"?"FRAME "+(ORDER.indexOf(selId)+1):"PLAYING";
+ $("capB").disabled=m!=="live";
+ $("frameOps").classList.toggle("hidden",m!=="review");
+ if(m!=="review"){selId=null;renderStrip();}
+}
+
+/* ===================== capture / frames ===================== */
+function capture(){
+ if(MODE!=="live"||!video||video.readyState<2){toast("Camera isn't ready yet");return;}
+ var c=document.createElement("canvas");c.width=W;c.height=H;
+ var x=c.getContext("2d");
+ var ok=drawVideoFrame(x);
+ if(!ok){toast("Camera isn't ready yet");return;}
+ var t=document.createElement("canvas");t.width=160;t.height=90;
+ t.getContext("2d").drawImage(c,0,0,160,90);
+ c.toBlob(function(big){
+  t.toBlob(function(small){
+   if(!big||!small){toast("Couldn't grab that frame");return;}
+   addFrame(big,small);
+  },"image/jpeg",0.75);
+ },"image/jpeg",0.9);
+}
+function addFrame(blob,thumb,quiet){
+ var f={id:uid(),blob:blob,thumb:thumb};
+ FRAMES[f.id]=f;
+ ORDER.push(f.id);
+ putFrame(f).then(saveMeta);
+ getBitmap(f.id);
+ renderStrip(true);updCount();
+ if(!quiet)flash();
+}
+function flash(){
+ X.save();X.fillStyle="rgba(255,255,255,0.55)";X.fillRect(0,0,W,H);X.restore();
+}
+function importPics(files){
+ var list=[];
+ for(var i=0;i<files.length;i++)if(/^image\//.test(files[i].type))list.push(files[i]);
+ if(!list.length){toast("No photos found there");return;}
+ busy("Adding "+list.length+" photo"+(list.length===1?"":"s")+"\u2026");
+ var seq=Promise.resolve();
+ list.forEach(function(file){
+  seq=seq.then(function(){
+   return new Promise(function(res){
+    var img=new Image();
+    img.onload=function(){
+     var c=document.createElement("canvas");c.width=W;c.height=H;
+     var x=c.getContext("2d");
+     x.fillStyle="#000";x.fillRect(0,0,W,H);
+     var r=coverRect(img.width,img.height,W,H);
+     x.drawImage(img,r[0],r[1],r[2],r[3]);
+     var t=document.createElement("canvas");t.width=160;t.height=90;
+     t.getContext("2d").drawImage(c,0,0,160,90);
+     c.toBlob(function(big){t.toBlob(function(small){
+      URL.revokeObjectURL(img.src);
+      if(big&&small)addFrame(big,small,true);
+      res();
+     },"image/jpeg",0.75);},"image/jpeg",0.9);
+    };
+    img.onerror=function(){res();};
+    img.src=URL.createObjectURL(file);
+   });
+  });
+ });
+ seq.then(function(){busy(false);toast("Photos added as frames \u2713");});
+}
+function renderStrip(scrollEnd){
+ var s=$("strip");s.innerHTML="";
+ ORDER.forEach(function(id,i){
+  var f=FRAMES[id];if(!f)return;
+  var b=document.createElement("button");b.className="fr"+(id===selId?" on":"");
+  var im=document.createElement("img");im.src=thumbSrc(f);im.alt="frame "+(i+1);b.appendChild(im);
+  var n=document.createElement("span");n.className="n";n.textContent=i+1;b.appendChild(n);
+  b.onclick=function(){
+   stopPlay();
+   selId=id;setMode("review");renderStrip();showFrame(id);
+   $("modeTag").textContent="FRAME "+(i+1);
+  };
+  s.appendChild(b);
+ });
+ if(scrollEnd)s.scrollLeft=s.scrollWidth;
+}
+function updCount(){$("countLab").textContent=filmLabel(ORDER.length,FPS);}
+function frameOp(op){
+ var i=ORDER.indexOf(selId);
+ if(i<0)return;
+ if(op==="left"||op==="right"){
+  moveIdx(ORDER,i,op==="left"?-1:1);
+  saveMeta();renderStrip();
+ }else if(op==="hold"){
+  var src=FRAMES[selId];
+  var f={id:uid(),blob:src.blob,thumb:src.thumb};
+  FRAMES[f.id]=f;ORDER.splice(i+1,0,f.id);
+  putFrame(f).then(saveMeta);
+  renderStrip();updCount();toast("Frame held \u2014 it now shows twice");
+ }else if(op==="del"){
+  ORDER.splice(i,1);
+  var dead=selId;
+  delete FRAMES[dead];
+  if(thumbUrls.has(dead)){URL.revokeObjectURL(thumbUrls.get(dead));thumbUrls.delete(dead);}
+  if(CACHE.has(dead)){var bm=CACHE.get(dead);CACHE.delete(dead);if(bm&&bm.close)try{bm.close();}catch(e){}}
+  delFrame(dead).then(saveMeta);
+  updCount();
+  if(ORDER.length){selId=ORDER[Math.min(i,ORDER.length-1)];renderStrip();showFrame(selId);$("modeTag").textContent="FRAME "+(ORDER.indexOf(selId)+1);}
+  else{setMode("live");renderStrip();}
+ }
+}
+
+/* ===================== playback ===================== */
+function stopPlay(){
+ if(playT){clearTimeout(playT);playT=null;}
+ if(MODE==="play")setMode("live");
+ $("playB").textContent="\u25b6 Play";
+}
+function playFilm(fromI,toI,thenLive){
+ if(!ORDER.length){toast("Capture some frames first");return;}
+ stopPlay();
+ setMode("play");
+ $("playB").textContent="\u25a0 Stop";
+ playI=fromI||0;
+ var end=toI==null?ORDER.length:toI;
+ function step(){
+  if(MODE!=="play")return;
+  if(playI>=end){
+   if(thenLive){stopPlay();return;}
+   playI=0; /* loop full plays */
+  }
+  showFrame(ORDER[playI]).then(function(){
+   if(playI+1<end&&playI+1<ORDER.length)getBitmap(ORDER[playI+1]);
+   playI++;
+   playT=setTimeout(step,1000/FPS);
+  });
+ }
+ step();
+}
+function testLast(){
+ if(!ORDER.length){toast("Capture some frames first");return;}
+ var n=Math.min(FPS,ORDER.length);
+ playFilm(ORDER.length-n,ORDER.length,true);
+}
+
+/* ===================== export ===================== */
+var expRec=null;
+function startExport(){
+ if(expRec)return;
+ if(!ORDER.length){toast("Capture some frames first");return;}
+ var name=($("expName").value||"my-animation").trim().replace(/\.webm$/i,"");
+ $("expModal").classList.remove("open");
+ stopPlay();MODE="play";$("modeTag").textContent="EXPORTING";
+ var stream,track,manual=false;
+ try{
+  stream=stage.captureStream(0);
+  track=stream.getVideoTracks()[0];
+  manual=!!(track&&track.requestFrame);
+  if(!manual)stream=stage.captureStream(FPS);
+ }catch(e){toast("This browser can't record the canvas");setMode("live");return;}
+ var chunks=[];
+ try{expRec=new MediaRecorder(stream,{mimeType:"video/webm",videoBitsPerSecond:8e6});}
+ catch(e){try{expRec=new MediaRecorder(stream);}catch(e2){toast("Recorder failed to start");setMode("live");return;}}
+ expRec.ondataavailable=function(ev){if(ev.data&&ev.data.size)chunks.push(ev.data);};
+ expRec.onstop=function(){
+  busy(false);
+  var blob=new Blob(chunks,{type:expRec.mimeType||"video/webm"});
+  expRec=null;
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download=name+".webm";
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},4000);
+  setMode("live");
+  toast("Saved "+name+".webm \u2014 ready for Video Studio \u2713");
+ };
+ busy("Exporting frame 1 of "+ORDER.length+"\u2026");
+ expRec.start(400);
+ var i=0;
+ function step(){
+  if(!expRec)return;
+  if(i>=ORDER.length){
+   /* hold last frame briefly so the recorder flushes it */
+   setTimeout(function(){if(expRec&&expRec.state!=="inactive")expRec.stop();},420);
+   return;
+  }
+  showFrame(ORDER[i]).then(function(){
+   if(manual)try{track.requestFrame();}catch(e){}
+   $("busyMsg").textContent="Exporting frame "+(i+1)+" of "+ORDER.length+"\u2026";
+   if(i+1<ORDER.length)getBitmap(ORDER[i+1]);
+   i++;
+   setTimeout(step,1000/FPS);
+  });
+ }
+ step();
+}
+
+/* ===================== init ===================== */
+function newFilm(){
+ if(ORDER.length&&!confirm("Start a new film? This deletes all "+ORDER.length+" frames. Export first if you want to keep it!"))return;
+ stopPlay();
+ ORDER=[];FRAMES={};selId=null;
+ thumbUrls.forEach(function(u){URL.revokeObjectURL(u);});thumbUrls.clear();
+ CACHE.forEach(function(bm){if(bm&&bm.close)try{bm.close();}catch(e){}});CACHE.clear();
+ clearFrames().then(saveMeta);
+ renderStrip();updCount();setMode("live");
+ toast("Fresh film \u2014 lights, camera\u2026");
+}
+function init(){
+ $("capB").onclick=capture;
+ $("playB").onclick=function(){MODE==="play"?stopPlay():playFilm(0,null,false);};
+ $("testB").onclick=testLast;
+ document.querySelectorAll("[data-fps]").forEach(function(b){
+  b.onclick=function(){
+   FPS=+b.dataset.fps;
+   document.querySelectorAll("[data-fps]").forEach(function(x){x.classList.toggle("on",x===b);});
+   updCount();saveMeta();
+  };
+ });
+ $("onionB").onclick=function(){
+  onion=(onion+1)%3;
+  this.textContent=onion===0?"\uD83D\uDC7B Onion off":onion===1?"\uD83D\uDC7B Onion \u00d71":"\uD83D\uDC7B Onion \u00d72";
+  this.classList.toggle("on",onion>0);
+ };
+ $("gridB").onclick=function(){grid=!grid;this.classList.toggle("on",grid);};
+ $("mirrorB").onclick=function(){mirror=!mirror;this.classList.toggle("on",mirror);};
+ $("camSwB").onclick=function(){camIdx++;startCam();};
+ $("fLeft").onclick=function(){frameOp("left");};
+ $("fRight").onclick=function(){frameOp("right");};
+ $("fHold").onclick=function(){frameOp("hold");};
+ $("fDel").onclick=function(){frameOp("del");};
+ $("fLive").onclick=function(){stopPlay();setMode("live");};
+ $("impB").onclick=function(){$("picFile").click();};
+ $("picFile").addEventListener("change",function(){if(this.files.length)importPics(this.files);this.value="";});
+ $("newB").onclick=newFilm;
+ $("exportB").onclick=function(){
+  if(!ORDER.length){toast("Capture some frames first");return;}
+  stopPlay();
+  $("expInfo").textContent=filmLabel(ORDER.length,FPS)+" \u2014 export takes about "+Math.max(1,Math.ceil(ORDER.length/FPS))+" seconds. The film plays through on screen while it records.";
+  $("expModal").classList.add("open");
+ };
+ $("expGo").onclick=startExport;
+ $("expCancel").onclick=function(){$("expModal").classList.remove("open");};
+ $("helpB").onclick=function(){$("helpModal").classList.add("open");};
+ $("helpClose").onclick=function(){$("helpModal").classList.remove("open");};
+ ["expModal","helpModal"].forEach(function(id){$(id).addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});});
+ document.addEventListener("keydown",function(e){
+  var t=e.target;
+  if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"||t.tagName==="SELECT"))return;
+  if(e.key===" "&&MODE==="live"){e.preventDefault();capture();}
+  if(e.key==="Escape"){stopPlay();setMode("live");}
+ });
+ window.addEventListener("beforeunload",function(e){if(expRec){e.preventDefault();e.returnValue="";}});
+ /* restore saved film */
+ loadMeta().then(function(m){
+  return allFrames().then(function(fs){
+   (fs||[]).forEach(function(f){FRAMES[f.id]=f;});
+   if(m&&m.order){
+    ORDER=m.order.filter(function(id){return FRAMES[id];});
+    FPS=m.fps||12;
+    document.querySelectorAll("[data-fps]").forEach(function(x){x.classList.toggle("on",+x.dataset.fps===FPS);});
+   }
+   renderStrip();updCount();
+   if(ORDER.length)toast("Welcome back \u2014 your film is right where you left it ("+ORDER.length+" frames)");
+  });
+ }).catch(function(){});
+ setMode("live");
+ startCam();
+ RAF=requestAnimationFrame(liveLoop);
+}
+init();
+
+</script>
+</body>
+</html>

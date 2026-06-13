@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Regulation Station — Matt's Apps</title>
+<style>
+:root{--bg:#f4f2f9;--card:#ffffff;--ink:#3a3654;--mut:#7d7898;--acc:#7c6fb0;--accSoft:#e9e5f6;--line:#e2def0;--shadow:0 8px 26px rgba(58,54,84,.10)}
+body.dusk{--bg:#171c2e;--card:#222942;--ink:#dcd9ee;--mut:#8f8cab;--acc:#9d92d6;--accSoft:#2d3452;--line:#323a58;--shadow:0 8px 26px rgba(0,0,0,.35)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--bg);display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden;transition:background .6s,color .6s}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:18px;background:var(--card);color:var(--ink);font-weight:600;font-size:16px;min-height:52px;padding:0 18px;box-shadow:var(--shadow);transition:transform .25s}
+button:active{transform:scale(.97)}
+button:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+.hidden{display:none!important}
+#top{display:flex;align-items:center;gap:10px;padding:12px 16px;flex:0 0 auto}
+#brand{display:flex;align-items:center;gap:10px}
+#brand svg{width:32px;height:32px}
+#brand .wm{display:flex;flex-direction:column;line-height:1.05}
+#brand .wm b{font-size:16px}
+#brand .wm span{font-size:9px;letter-spacing:2.2px;color:var(--mut);font-weight:700}
+#top .sp{flex:1}
+#top button{min-width:46px;min-height:46px;font-size:17px;border-radius:14px;padding:0}
+#scr{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;align-items:center;padding:10px 18px 30px}
+.pane{width:100%;max-width:660px;display:flex;flex-direction:column;align-items:center;gap:16px;animation:rise .5s ease}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1}}
+h1{font-size:clamp(24px,5vw,32px);font-weight:800;text-align:center;margin:8px 0 0;line-height:1.3}
+.sub{font-size:16px;color:var(--mut);text-align:center;line-height:1.55;margin:0;max-width:480px}
+.gridB{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;width:100%}
+.feel{display:flex;flex-direction:column;align-items:center;gap:6px;min-height:104px;font-size:16px;font-weight:700;justify-content:center}
+.feel .em{font-size:38px}
+.actCard{display:flex;align-items:center;gap:14px;width:100%;text-align:left;min-height:84px;padding:14px 18px}
+.actCard .em{font-size:34px;flex:0 0 auto}
+.actCard .tx b{display:block;font-size:17px}
+.actCard .tx span{font-size:13.5px;color:var(--mut);font-weight:500;line-height:1.35;display:block;margin-top:2px}
+.ghost{background:transparent;box-shadow:none;color:var(--mut);font-size:14.5px;min-height:44px}
+.primary{background:var(--acc);color:#fff}
+.chiprow{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.chip{border-radius:999px;min-height:44px;padding:0 16px;font-size:14.5px;box-shadow:none;background:var(--accSoft);color:var(--ink)}
+.chip.on{background:var(--acc);color:#fff;font-weight:700}
+/* breathing */
+#orbWrap{position:relative;width:min(64vw,320px);height:min(64vw,320px);display:flex;align-items:center;justify-content:center;margin:6px 0}
+#orb{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 38% 32%,var(--accSoft),var(--acc));opacity:.9;transform:scale(.55);box-shadow:0 0 60px rgba(124,111,176,.35)}
+#orbLab{position:relative;z-index:2;font-size:26px;font-weight:800;color:#fff;text-shadow:0 1px 8px rgba(58,54,84,.35);text-align:center}
+#orbSub{position:absolute;bottom:-38px;width:100%;text-align:center;color:var(--mut);font-weight:700;font-size:15px}
+body.still #orb{transition:opacity 1s;transform:scale(.85)!important}
+/* grounding dots */
+.dots{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+.dot{width:58px;height:58px;border-radius:50%;background:var(--accSoft);box-shadow:none;font-size:22px;min-height:58px;padding:0}
+.dot.on{background:var(--acc);color:#fff}
+/* timer ring */
+#ringWrap{position:relative;width:min(60vw,280px);height:min(60vw,280px);margin:8px 0}
+#ringWrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+#ringWrap .mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+#ringT{font-size:46px;font-weight:800;font-variant-numeric:tabular-nums}
+#ringSub{font-size:14px;color:var(--mut);font-weight:700}
+/* sounds */
+.sndRow{width:100%}
+input[type=range]{accent-color:var(--acc);width:100%;height:34px}
+.lbl{font-size:13px;font-weight:700;color:var(--mut)}
+/* muscle */
+#musEm{font-size:64px}
+#musPh{font-size:22px;font-weight:800;text-align:center}
+#musBar{width:100%;max-width:380px;height:12px;border-radius:999px;background:var(--accSoft);overflow:hidden}
+#musFill{height:100%;width:0%;background:var(--acc);border-radius:999px}
+.modal{position:fixed;inset:0;background:rgba(23,20,40,.5);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal.open{display:flex}
+.sheet{background:var(--card);border-radius:22px;padding:22px;max-width:460px;width:100%;max-height:88vh;overflow-y:auto;color:var(--ink)}
+.sheet h3{margin:0 0 10px;font-size:18px}
+.sheet p,.sheet li{font-size:14.5px;line-height:1.6;color:var(--ink)}
+.sheet .tips{background:var(--accSoft);border-radius:14px;padding:12px 14px;font-size:13.5px;line-height:1.55;margin-top:10px}
+.acts{display:flex;gap:10px;margin-top:16px}
+.acts button{flex:1}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header id="top">
+  <div id="brand">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="15" fill="none" stroke="#7c6fb0" stroke-width="3" opacity=".4"/>
+      <circle cx="20" cy="20" r="9" fill="#7c6fb0" opacity=".75"/>
+      <circle cx="20" cy="20" r="3.6" fill="#fff"/>
+    </svg>
+    <div class="wm"><b>Regulation Station</b><span>MATT'S APPS</span></div>
+  </div>
+  <div class="sp"></div>
+  <button id="homeB" title="Start again" aria-label="Back to start">⌂</button>
+  <button id="duskB" title="Dusk mode" aria-label="Dusk mode">🌙</button>
+  <button id="stillB" title="Still mode (less movement)" aria-label="Still mode">〜</button>
+  <button id="helpB" title="For staff" aria-label="Staff guidance">?</button>
+</header>
+
+<div id="scr"></div>
+
+<div class="modal" id="helpModal">
+  <div class="sheet">
+    <h3>For staff</h3>
+    <p>Regulation Station is a calm-corner aid for short, low-demand resets — usually 2–5 minutes, then a gentle return to learning. Let the pupil drive; sitting alongside quietly often helps more than talking.</p>
+    <ul>
+      <li><b>Nothing is recorded.</b> Whatever a pupil taps is forgotten when they leave the screen — there is no log for the next pupil (or anyone) to find.</li>
+      <li><b>Breathe</b> works well on the projector for a whole-class settle after break.</li>
+      <li><b>Still mode 〜</b> calms the animation right down; <b>Dusk 🌙</b> softens the screen for low-light spaces. Sounds are generated on the device and start silent until turned up.</li>
+      <li>This is a settling tool, not support in itself. A pupil in real distress needs an adult, not an app — follow the usual safeguarding route.</li>
+    </ul>
+    <div class="acts"><button class="primary" id="helpClose">Close</button></div>
+  </div>
+</div>
+
+<script id="app">
+"use strict";
+/* ===================== Regulation Station ===================== */
+function $(id){return document.getElementById(id);}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function fmtMMSS(s){s=Math.max(0,Math.ceil(s));var m=Math.floor(s/60),ss=s%60;return m+":"+(ss<10?"0":"")+ss;}
+function smooth(t){t=clamp(t,0,1);return t*t*(3-2*t);}
+
+/* ---- breathing maths (pure, unit-tested) ---- */
+var PATTERNS={
+ box:{name:"Square breathing",phases:[["Breathe in",4],["Hold",4],["Breathe out",4],["Hold",4]]},
+ 478:{name:"4 \u00b7 7 \u00b7 8",phases:[["Breathe in",4],["Hold",7],["Breathe out",8]]},
+ slow:{name:"Slow & easy",phases:[["Breathe in",5],["Breathe out",5]]}
+};
+function patternTotal(p){var t=0;for(var i=0;i<p.phases.length;i++)t+=p.phases[i][1];return t;}
+function breathPhase(t,p){
+ var tot=patternTotal(p),u=((t%tot)+tot)%tot,acc=0,i;
+ for(i=0;i<p.phases.length;i++){
+  var d=p.phases[i][1];
+  if(u<acc+d)return{label:p.phases[i][0],frac:(u-acc)/d,i:i};
+  acc+=d;
+ }
+ return{label:p.phases[0][0],frac:0,i:0};
+}
+function orbScale(label,frac,prevWasIn){
+ if(label==="Breathe in")return 0.55+0.45*smooth(frac);
+ if(label==="Breathe out")return 1-0.45*smooth(frac);
+ /* hold keeps whichever size we arrived at */
+ return prevWasIn?1:0.55;
+}
+/* ---- grounding ---- */
+var GROUND=[
+ ["\uD83D\uDC40","5 things you can SEE","Look around slowly. Tap a circle for each one you spot.",5],
+ ["\u270B","4 things you can FEEL","Your feet on the floor, the chair, your sleeves\u2026",4],
+ ["\uD83D\uDC42","3 things you can HEAR","Near or far. Quiet sounds count.",3],
+ ["\uD83D\uDC43","2 things you can SMELL","Or two smells you like, if the room is no help.",2],
+ ["\uD83D\uDC45","1 thing you can TASTE","Or one taste you enjoy.",1]
+];
+/* ---- muscle release ---- */
+var MUSCLE=[
+ ["\u270A","Hands","Squeeze your fists\u2026 and let them go soft.",5,9],
+ ["\uD83E\uDDB8","Shoulders","Lift your shoulders to your ears\u2026 and let them drop.",5,9],
+ ["\uD83D\uDE2C","Face","Scrunch your face up tight\u2026 and let it relax.",5,9],
+ ["\uD83E\uDDB5","Legs","Press your feet into the floor\u2026 and let them rest.",5,9]
+];
+var FEELINGS=[
+ ["angry","\uD83D\uDE20","Angry"],["worried","\uD83D\uDE1F","Worried"],["sad","\uD83D\uDE22","Sad"],
+ ["tired","\uD83E\uDD71","Tired"],["buzzing","\u26A1","Buzzing"],["okay","\uD83D\uDE42","Okay"]
+];
+var SUGGEST={
+ angry:{line:"That\u2019s okay. Anger lives in the body \u2014 let\u2019s help it loosen.",acts:["muscle","breathe","sounds"]},
+ worried:{line:"That\u2019s okay. Let\u2019s bring you back to right here.",acts:["ground","breathe"]},
+ sad:{line:"That\u2019s okay. Something gentle might help.",acts:["sounds","breathe"]},
+ tired:{line:"That\u2019s okay. A quiet few minutes can top you up.",acts:["breathe","timer"]},
+ buzzing:{line:"That\u2019s okay. Let\u2019s let some of that fizz out.",acts:["muscle","ground"]},
+ okay:{line:"Good to hear. Pick anything you fancy.",acts:["breathe","sounds","ground","muscle","timer"]}
+};
+var ACTS={
+ breathe:["\uD83C\uDF00","Breathe","Follow the circle \u2014 in, hold, out."],
+ ground:["\uD83E\uDDED","5\u20114\u20113\u20112\u20111","Notice the room with your senses."],
+ muscle:["\uD83E\uDDCA\u27A1\uFE0F\uD83D\uDCA7","Squeeze & let go","Tense each part, then let it melt."],
+ sounds:["\uD83C\uDF27","Calm sounds","Rain, waves, breeze or a soft hum."],
+ timer:["\u23F3","Quiet minutes","A gentle timer, nothing to do."]
+};
+
+/* ===================== sound engine (all synthesized) ===================== */
+var AC=null,SND={master:null,nodes:[],kind:null,fadeT:null};
+function ensureAC(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}if(AC&&AC.state==="suspended")AC.resume();return AC;}
+function noiseBuf(brown){
+ var sr=AC.sampleRate,n=sr*2,b=AC.createBuffer(1,n,sr),d=b.getChannelData(0),v=0,i;
+ for(i=0;i<n;i++){
+  var w=Math.random()*2-1;
+  if(brown){v+=0.02*(w-v);d[i]=v*3.5;}
+  else d[i]=w;
+ }
+ return b;
+}
+function startSound(kind,vol){
+ stopSound(true);
+ if(!ensureAC())return;
+ var m=AC.createGain();m.gain.value=0;m.connect(AC.destination);
+ SND.master=m;SND.kind=kind;SND.nodes=[];
+ function src(buf){var s=AC.createBufferSource();s.buffer=buf;s.loop=true;SND.nodes.push(s);return s;}
+ function lfo(rate,depth,base,param){
+  var o=AC.createOscillator(),g=AC.createGain();
+  o.frequency.value=rate;g.gain.value=depth;param.value=base;
+  o.connect(g);g.connect(param);o.start();SND.nodes.push(o);
+  return o;
+ }
+ if(kind==="rain"){
+  var s=src(noiseBuf(false)),hp=AC.createBiquadFilter(),lp=AC.createBiquadFilter(),g=AC.createGain();
+  hp.type="highpass";hp.frequency.value=350;lp.type="lowpass";lp.frequency.value=1400;
+  g.gain.value=0.5;
+  s.connect(hp);hp.connect(lp);lp.connect(g);g.connect(m);s.start();
+ }else if(kind==="waves"){
+  var s2=src(noiseBuf(true)),lp2=AC.createBiquadFilter(),g2=AC.createGain();
+  lp2.type="lowpass";lp2.frequency.value=500;
+  s2.connect(lp2);lp2.connect(g2);g2.connect(m);
+  lfo(0.08,0.3,0.5,g2.gain);
+  s2.start();
+ }else if(kind==="breeze"){
+  var s3=src(noiseBuf(false)),bp=AC.createBiquadFilter(),g3=AC.createGain();
+  bp.type="bandpass";bp.frequency.value=600;bp.Q.value=0.9;g3.gain.value=0.4;
+  s3.connect(bp);bp.connect(g3);g3.connect(m);
+  lfo(0.05,260,600,bp.frequency);
+  s3.start();
+ }else if(kind==="hum"){
+  [196,247,294].forEach(function(f,i){
+   var o=AC.createOscillator(),g4=AC.createGain();
+   o.type="sine";o.frequency.value=f;o.detune.value=i*3-3;
+   g4.gain.value=0.085;
+   o.connect(g4);g4.connect(m);o.start();SND.nodes.push(o);
+  });
+ }
+ m.gain.setTargetAtTime(vol,AC.currentTime,0.8);
+}
+function setSoundVol(v){if(SND.master&&AC)SND.master.gain.setTargetAtTime(v,AC.currentTime,0.2);}
+function stopSound(now){
+ if(!SND.master)return;
+ var m=SND.master,nodes=SND.nodes;
+ SND.master=null;SND.nodes=[];SND.kind=null;
+ if(AC){
+  m.gain.setTargetAtTime(0,AC.currentTime,now?0.05:0.6);
+  setTimeout(function(){
+   nodes.forEach(function(n){try{n.stop();}catch(e){}});
+   try{m.disconnect();}catch(e){}
+  },now?150:2200);
+ }
+}
+
+/* ===================== screen machine ===================== */
+var RAF=null,wakeLock=null;
+function stopLoop(){if(RAF)cancelAnimationFrame(RAF);RAF=null;}
+function getWake(){try{if(navigator.wakeLock)navigator.wakeLock.request("screen").then(function(w){wakeLock=w;}).catch(function(){});}catch(e){}}
+function dropWake(){if(wakeLock){try{wakeLock.release();}catch(e){}wakeLock=null;}}
+function pane(html){
+ stopLoop();dropWake();
+ var s=$("scr");s.innerHTML="";
+ var p=document.createElement("div");p.className="pane";p.innerHTML=html;
+ s.appendChild(p);
+ return p;
+}
+function btn(p,sel,fn){p.querySelector(sel).onclick=fn;return p.querySelector(sel);}
+
+/* ---- home / check-in ---- */
+function scrHome(){
+ stopSound(false);
+ var p=pane('<h1>Hello. How are you feeling?</h1>'+
+  '<p class="sub">There\u2019s no wrong answer \u2014 and nothing you tap is saved anywhere.</p>'+
+  '<div class="gridB" id="feels"></div>'+
+  '<button class="ghost" id="skipB">Skip \u2014 take me straight to an activity</button>');
+ var g=p.querySelector("#feels");
+ FEELINGS.forEach(function(f){
+  var b=document.createElement("button");b.className="feel";
+  b.innerHTML='<span class="em">'+f[1]+'</span>'+f[2];
+  b.onclick=function(){scrSuggest(f[0]);};
+  g.appendChild(b);
+ });
+ btn(p,"#skipB",function(){scrSuggest("okay");});
+}
+function actCard(key){
+ var a=ACTS[key];
+ return '<button class="actCard" data-act="'+key+'"><span class="em">'+a[0]+'</span><span class="tx"><b>'+a[1]+'</b><span>'+a[2]+'</span></span></button>';
+}
+function scrSuggest(feel){
+ var s=SUGGEST[feel]||SUGGEST.okay;
+ var html='<h1>'+s.line+'</h1><p class="sub">Choose what feels right. You can stop any time.</p>';
+ s.acts.forEach(function(k){html+=actCard(k);});
+ if(s.acts.length<5)html+='<button class="ghost" id="allB">Show everything</button>';
+ var p=pane(html);
+ p.querySelectorAll(".actCard").forEach(function(b){
+  b.onclick=function(){openAct(b.dataset.act);};
+ });
+ var ab=p.querySelector("#allB");
+ if(ab)ab.onclick=function(){scrSuggest("okay");};
+}
+function openAct(k){
+ if(k==="breathe")scrBreathe();
+ else if(k==="ground")scrGround();
+ else if(k==="muscle")scrMuscle();
+ else if(k==="sounds")scrSounds();
+ else scrTimer();
+}
+function scrDone(msg){
+ var p=pane('<h1>'+msg+'</h1>'+
+  '<p class="sub">Feeling steadier?</p>'+
+  '<div class="chiprow">'+
+   '<button class="chip" id="dYes">Yes, a bit \uD83D\uDC4D</button>'+
+   '<button class="chip" id="dNo">Not yet</button>'+
+  '</div>');
+ btn(p,"#dYes",function(){
+  pane('<h1>Nice one.</h1><p class="sub">Take one more slow breath, then head back when you\u2019re ready. This screen forgets everything now.</p>'+
+   '<button class="primary" id="hB" style="min-width:200px">Start fresh \u2934</button>');
+  $("scr").querySelector("#hB").onclick=scrHome;
+ });
+ btn(p,"#dNo",function(){
+  var p2=pane('<h1>That\u2019s alright \u2014 these things take time.</h1>'+
+   '<p class="sub">Try something different, or have a few quiet minutes. Asking an adult for help is always okay too.</p>'+
+   actCard("breathe")+actCard("sounds")+actCard("muscle")+actCard("ground")+actCard("timer"));
+  p2.querySelectorAll(".actCard").forEach(function(b){b.onclick=function(){openAct(b.dataset.act);};});
+ });
+}
+
+/* ---- breathe ---- */
+function scrBreathe(){
+ var p=pane('<h1>Breathe with the circle</h1>'+
+  '<div class="chiprow" id="patRow"></div>'+
+  '<div id="orbWrap"><div id="orb"></div><div id="orbLab">Ready\u2026</div><div id="orbSub"></div></div>'+
+  '<p class="sub" id="cyc" style="margin-top:34px"></p>'+
+  '<button class="ghost" id="doneB">I\u2019m done</button>');
+ var key="box",t0=null,still=document.body.classList.contains("still");
+ var row=p.querySelector("#patRow");
+ Object.keys(PATTERNS).forEach(function(k){
+  var b=document.createElement("button");b.className="chip"+(k===key?" on":"");
+  b.textContent=PATTERNS[k].name;
+  b.onclick=function(){
+   key=k;t0=null;
+   row.querySelectorAll(".chip").forEach(function(x){x.classList.toggle("on",x===b);});
+  };
+  row.appendChild(b);
+ });
+ getWake();
+ var orb=p.querySelector("#orb"),lab=p.querySelector("#orbLab"),sub=p.querySelector("#orbSub"),cyc=p.querySelector("#cyc");
+ var prevIn=false,lastLab="";
+ function loop(ts){
+  RAF=requestAnimationFrame(loop);
+  if(t0==null)t0=ts;
+  var pat=PATTERNS[key],t=(ts-t0)/1000;
+  var ph=breathPhase(t,pat);
+  if(ph.label!==lastLab){
+   if(lastLab==="Breathe in")prevIn=true;
+   if(lastLab==="Breathe out")prevIn=false;
+   lastLab=ph.label;
+  }
+  var sc=orbScale(ph.label,ph.frac,prevIn);
+  if(!still)orb.style.transform="scale("+sc.toFixed(3)+")";
+  else orb.style.opacity=(0.45+0.45*((sc-0.55)/0.45)).toFixed(2);
+  lab.textContent=ph.label;
+  sub.textContent=Math.ceil(pat.phases[ph.i][1]*(1-ph.frac))+"";
+  cyc.textContent="Round "+(Math.floor(t/patternTotal(pat))+1)+" \u00b7 stay as long as you like";
+ }
+ RAF=requestAnimationFrame(loop);
+ btn(p,"#doneB",function(){scrDone("Lovely, slow breathing.");});
+}
+
+/* ---- grounding ---- */
+function scrGround(){
+ var step=0,p;
+ function show(){
+  var g=GROUND[step];
+  p=pane('<h1>'+g[0]+' '+g[1]+'</h1>'+
+   '<p class="sub">'+g[2]+'</p>'+
+   '<div class="dots" id="dots"></div>'+
+   '<button class="ghost" id="skipB">Skip this one</button>');
+  var box=p.querySelector("#dots"),done=0;
+  for(var i=0;i<g[3];i++){
+   var d=document.createElement("button");d.className="dot";d.textContent="";
+   d.setAttribute("aria-label","Tap when you\u2019ve found one");
+   d.onclick=function(){
+    if(this.classList.contains("on"))return;
+    this.classList.add("on");this.textContent="\u2713";
+    if(++done>=g[3])setTimeout(next,650);
+   };
+   box.appendChild(d);
+  }
+  btn(p,"#skipB",next);
+ }
+ function next(){
+  step++;
+  if(step>=GROUND.length)scrDone("You found your way back to the room.");
+  else show();
+ }
+ show();
+}
+
+/* ---- muscle release ---- */
+function scrMuscle(){
+ var i=0;
+ getWake();
+ function show(){
+  var m=MUSCLE[i];
+  var p=pane('<h1>Squeeze & let go</h1>'+
+   '<div id="musEm">'+m[0]+'</div>'+
+   '<div id="musPh">'+m[1]+'</div>'+
+   '<p class="sub">'+m[2]+'</p>'+
+   '<div id="musBar"><div id="musFill"></div></div>'+
+   '<p class="sub" id="musLab"></p>'+
+   '<button class="ghost" id="skipB">Skip</button>');
+  var fill=p.querySelector("#musFill"),labE=p.querySelector("#musLab");
+  var t0=null,tense=m[3],rel=m[4],total=tense+rel;
+  function loop(ts){
+   RAF=requestAnimationFrame(loop);
+   if(t0==null)t0=ts;
+   var t=(ts-t0)/1000;
+   if(t<tense){labE.textContent="Squeeze\u2026 "+Math.ceil(tense-t);fill.style.width=(t/tense*100)+"%";fill.style.background="var(--acc)";}
+   else if(t<total){labE.textContent="And let it go soft\u2026 "+Math.ceil(total-t);fill.style.width=(100-(t-tense)/rel*100)+"%";fill.style.background="#7fb89a";}
+   else{stopLoop();next();}
+  }
+  RAF=requestAnimationFrame(loop);
+  btn(p,"#skipB",function(){stopLoop();next();});
+ }
+ function next(){
+  i++;
+  if(i>=MUSCLE.length)scrDone("All that squeeze, melted away.");
+  else show();
+ }
+ show();
+}
+
+/* ---- sounds ---- */
+function scrSounds(){
+ var p=pane('<h1>Calm sounds</h1>'+
+  '<p class="sub">Made by the device itself \u2014 turn the volume up gently.</p>'+
+  '<div class="chiprow" id="sndRow"></div>'+
+  '<div class="sndRow"><span class="lbl">Volume</span><input type="range" id="volR" min="0" max="100" value="0" aria-label="Volume"></div>'+
+  '<div class="chiprow" id="offRow"><button class="chip" data-m="0">Keep going</button><button class="chip" data-m="5">Stop after 5 min</button><button class="chip" data-m="10">Stop after 10 min</button></div>'+
+  '<button class="ghost" id="doneB">I\u2019m done</button>');
+ var kinds=[["rain","\uD83C\uDF27 Rain"],["waves","\uD83C\uDF0A Waves"],["breeze","\uD83C\uDF43 Breeze"],["hum","\uD83C\uDFB5 Soft hum"]];
+ var row=p.querySelector("#sndRow"),vol=p.querySelector("#volR"),offT=null;
+ kinds.forEach(function(k){
+  var b=document.createElement("button");b.className="chip";b.textContent=k[1];
+  b.onclick=function(){
+   row.querySelectorAll(".chip").forEach(function(x){x.classList.toggle("on",x===b);});
+   if(+vol.value===0)vol.value=45;
+   startSound(k[0],(+vol.value)/100*0.6);
+   getWake();
+  };
+  row.appendChild(b);
+ });
+ vol.oninput=function(){setSoundVol((+vol.value)/100*0.6);};
+ p.querySelector("#offRow").querySelectorAll(".chip").forEach(function(b,i){
+  if(i===0)b.classList.add("on");
+  b.onclick=function(){
+   p.querySelector("#offRow").querySelectorAll(".chip").forEach(function(x){x.classList.toggle("on",x===b);});
+   clearTimeout(offT);
+   var m=+b.dataset.m;
+   if(m)offT=setTimeout(function(){stopSound(false);},m*60000);
+  };
+ });
+ btn(p,"#doneB",function(){clearTimeout(offT);scrDone("Quiet restored.");});
+}
+
+/* ---- quiet timer ---- */
+function scrTimer(){
+ var p=pane('<h1>Quiet minutes</h1>'+
+  '<p class="sub">Nothing to do. The ring will let you know \u2014 gently.</p>'+
+  '<div class="chiprow" id="minRow"><button class="chip" data-m="2">2 min</button><button class="chip on" data-m="5">5 min</button><button class="chip" data-m="10">10 min</button></div>'+
+  '<div id="ringWrap"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="var(--accSoft)" stroke-width="8"/><circle id="ringC" cx="50" cy="50" r="44" fill="none" stroke="var(--acc)" stroke-width="8" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="0"/></svg>'+
+  '<div class="mid"><div id="ringT">5:00</div><div id="ringSub">when you\u2019re ready</div></div></div>'+
+  '<button class="primary" id="goB" style="min-width:180px">Begin</button>'+
+  '<button class="ghost hidden" id="doneB">Finish early</button>');
+ var mins=5,t0=null,run=false;
+ var ringC=p.querySelector("#ringC"),ringT=p.querySelector("#ringT"),ringSub=p.querySelector("#ringSub");
+ p.querySelector("#minRow").querySelectorAll(".chip").forEach(function(b){
+  b.onclick=function(){
+   if(run)return;
+   mins=+b.dataset.m;
+   p.querySelector("#minRow").querySelectorAll(".chip").forEach(function(x){x.classList.toggle("on",x===b);});
+   ringT.textContent=fmtMMSS(mins*60);
+  };
+ });
+ function loop(ts){
+  RAF=requestAnimationFrame(loop);
+  if(t0==null)t0=ts;
+  var left=mins*60-(ts-t0)/1000;
+  if(left<=0){
+   stopLoop();
+   ringT.textContent="0:00";ringC.style.strokeDashoffset=276.5;
+   ringSub.textContent="";
+   var d=p.querySelector("#doneB");
+   d.classList.remove("hidden");d.textContent="Ready to go back?";d.className="primary";
+   d.onclick=function(){scrDone("Quiet minutes, done.");};
+   var more=document.createElement("button");more.className="ghost";more.textContent="I need a little longer";
+   more.onclick=function(){t0=null;ringSub.textContent="take your time";d.className="ghost";d.textContent="Finish";RAF=requestAnimationFrame(loop);more.remove();};
+   d.after(more);
+   return;
+  }
+  ringT.textContent=fmtMMSS(left);
+  ringC.style.strokeDashoffset=(276.5*(1-left/(mins*60))).toFixed(1);
+ }
+ btn(p,"#goB",function(){
+  if(run)return;
+  run=true;this.classList.add("hidden");
+  p.querySelector("#doneB").classList.remove("hidden");
+  ringSub.textContent="nothing to do";
+  getWake();
+  RAF=requestAnimationFrame(loop);
+ });
+ btn(p,"#doneB",function(){stopLoop();scrDone("Quiet minutes, done.");});
+}
+
+/* ===================== chrome & init ===================== */
+function init(){
+ $("homeB").onclick=scrHome;
+ $("duskB").onclick=function(){
+  var on=!document.body.classList.contains("dusk");
+  document.body.classList.toggle("dusk",on);
+  this.textContent=on?"\u2600\uFE0F":"\uD83C\uDF19";
+  try{localStorage.setItem("regstation_dusk",on?"1":"0");}catch(e){}
+ };
+ $("stillB").onclick=function(){
+  var on=!document.body.classList.contains("still");
+  document.body.classList.toggle("still",on);
+  this.style.background=on?"var(--acc)":"";
+  this.style.color=on?"#fff":"";
+  try{localStorage.setItem("regstation_still",on?"1":"0");}catch(e){}
+ };
+ $("helpB").onclick=function(){$("helpModal").classList.add("open");};
+ $("helpClose").onclick=function(){$("helpModal").classList.remove("open");};
+ $("helpModal").addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});
+ document.addEventListener("keydown",function(e){
+  var t=e.target;
+  if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"||t.tagName==="SELECT"))return;
+  if(e.key==="Escape")scrHome();
+ });
+ try{
+  if(localStorage.getItem("regstation_dusk")==="1"){document.body.classList.add("dusk");$("duskB").textContent="\u2600\uFE0F";}
+  if(localStorage.getItem("regstation_still")==="1"){document.body.classList.add("still");$("stillB").style.background="var(--acc)";$("stillB").style.color="#fff";}
+ }catch(e){}
+ if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches)document.body.classList.add("still");
+ document.addEventListener("visibilitychange",function(){if(document.hidden)stopSound(true);});
+ scrHome();
+}
+init();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Graph &amp; Data Studio — Matt's Apps</title>
+<style>
+:root{--ink:#15203a;--acc:#137a63;--accSoft:#d4efe7;--stage:#eef3f1;--panel:#fff;--line:#d8dde6;--mut:#5b6678;--shadow:0 5px 16px rgba(21,32,58,.13)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--stage);display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:11px;background:#fff;color:var(--ink);font-weight:700;font-size:14px;min-height:42px;padding:0 13px;box-shadow:0 2px 8px rgba(21,32,58,.08)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.hidden{display:none!important}
+#top{background:var(--ink);color:#fff;display:flex;align-items:center;gap:9px;padding:8px 12px;flex:0 0 auto;flex-wrap:wrap}
+#brand{display:flex;align-items:center;gap:9px}
+#brand svg{width:30px;height:30px}
+#brand .wm{display:flex;flex-direction:column;line-height:1.04}
+#brand .wm b{font-size:16px}
+#brand .wm span{font-size:9px;letter-spacing:2.2px;opacity:.72;font-weight:700}
+#top .sp{flex:1}
+#top button{background:rgba(255,255,255,.13);color:#fff;box-shadow:none}
+#top button.primary{background:var(--acc);color:#fff}
+#body{flex:1;min-height:0;display:flex}
+#left{width:46%;min-width:300px;max-width:520px;display:flex;flex-direction:column;background:var(--panel);border-right:1px solid var(--line);overflow-y:auto;padding:14px}
+#right{flex:1;min-width:0;display:flex;flex-direction:column;padding:14px;overflow-y:auto}
+.card{background:#f7f8fa;border:1px solid var(--line);border-radius:14px;padding:13px;margin-bottom:12px}
+.card h3{margin:0 0 9px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--mut)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.row+.row{margin-top:8px}
+input[type=text],select{font-family:inherit;font-size:14px;border:2px solid var(--line);border-radius:9px;padding:8px;background:#fff}
+#dataTable{width:100%;border-collapse:collapse;font-size:14px}
+#dataTable th{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut);padding:4px 6px;text-align:left}
+#dataTable td{padding:3px 4px}
+#dataTable input{width:100%;border:1.5px solid var(--line);border-radius:7px;padding:7px;font-size:14px;font-family:inherit}
+#dataTable input.num{font-variant-numeric:tabular-nums}
+.delRow{min-height:36px;width:36px;padding:0;background:#fde7e9;color:#a31621;box-shadow:none}
+.chip{border-radius:999px;background:#eef1f7;min-height:38px;padding:0 13px;font-size:13px;box-shadow:none}
+.chip.on{background:var(--accSoft);box-shadow:inset 0 0 0 2px var(--acc)}
+.sw{width:30px;height:30px;border-radius:8px;padding:0;min-height:30px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+#chartWrap{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;box-shadow:var(--shadow)}
+#chart{width:100%;display:block}
+#statsCard .stat{display:inline-block;background:#f4f6f9;border-radius:11px;padding:9px 13px;margin:4px 6px 0 0;font-size:14px}
+#statsCard .stat b{font-size:18px}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.acts button{flex:1;min-width:130px}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal.open{display:flex}
+.sheet{background:#fff;border-radius:18px;padding:20px;max-width:480px;width:100%;max-height:88vh;overflow-y:auto}
+.sheet h3{margin:0 0 12px;font-size:18px}
+.sheet ol{padding-left:20px;line-height:1.6;font-size:14px;margin:8px 0}
+.sheet .tips{background:#f1f3f8;border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.5;color:var(--mut);margin-top:8px}
+#toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:700;display:none;z-index:80;box-shadow:var(--shadow)}
+@media (max-width:820px){#body{flex-direction:column}#left{width:auto;max-width:none;border-right:0;border-bottom:1px solid var(--line)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header id="top">
+  <div id="brand">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <path d="M7 33V7" stroke="#137a63" stroke-width="3" stroke-linecap="round"/><path d="M7 33h26" stroke="#137a63" stroke-width="3" stroke-linecap="round"/>
+      <rect x="12" y="22" width="5" height="8" fill="#137a63"/><rect x="20" y="16" width="5" height="14" fill="#2f9e8f"/><rect x="28" y="11" width="5" height="19" fill="#5fd0a0"/>
+    </svg>
+    <div class="wm"><b>Graph &amp; Data Studio</b><span>MATT'S APPS</span></div>
+  </div>
+  <div class="sp"></div>
+  <button id="sampleB" title="Load example data">📊 Example</button>
+  <button id="exportB" class="primary">⬇ Save chart</button>
+  <button id="helpB" aria-label="Help">?</button>
+</header>
+<div id="body">
+ <div id="left">
+  <div class="card">
+   <h3>Chart type</h3>
+   <div class="row" id="typeRow">
+    <button class="chip on" data-type="bar">📊 Bar</button>
+    <button class="chip" data-type="line">📈 Line</button>
+    <button class="chip" data-type="scatter">⦿ Scatter</button>
+    <button class="chip" data-type="pie">🥧 Pie</button>
+   </div>
+  </div>
+  <div class="card">
+   <h3>Labels</h3>
+   <div class="row"><input type="text" id="chartTitle" placeholder="Chart title" style="flex:1;min-width:160px"></div>
+   <div class="row">
+    <input type="text" id="xLabel" placeholder="X axis label (e.g. Time / s)" style="flex:1;min-width:130px">
+    <input type="text" id="yLabel" placeholder="Y axis label (e.g. Distance / m)" style="flex:1;min-width:130px">
+   </div>
+   <div class="row" id="colourRow"><span style="font-size:12px;font-weight:700;color:var(--mut)">Colour:</span></div>
+  </div>
+  <div class="card">
+   <h3>Your data</h3>
+   <table id="dataTable"></table>
+   <div class="row" style="margin-top:9px"><button id="addRowB" class="chip">＋ Add row</button><button id="clearB" class="chip">Clear</button></div>
+  </div>
+ </div>
+ <div id="right">
+  <div id="chartWrap"><canvas id="chart" width="900" height="560"></canvas></div>
+  <div class="card" id="statsCard" style="margin-top:12px">
+   <h3>What the numbers say</h3>
+   <div id="statsBox"></div>
+  </div>
+ </div>
+</div>
+
+<div class="modal" id="helpModal">
+  <div class="sheet">
+    <h3>How to use Graph &amp; Data Studio</h3>
+    <ol>
+      <li>Pick a <b>chart type</b>. Bar and pie suit categories; line and scatter suit measurements over something.</li>
+      <li>Type your <b>title</b> and <b>axis labels</b> — examiners love properly labelled axes with units.</li>
+      <li>Fill the <b>table</b>: a label and a number per row. The chart updates instantly.</li>
+      <li>Read <b>what the numbers say</b> — mean, range and more, worked out for you.</li>
+      <li><b>⬇ Save chart</b> downloads a PNG to drop into your write-up.</li>
+    </ol>
+    <div class="tips">Great for science practicals and maths. Everything stays on this device.</div>
+    <div class="acts"><button class="primary" id="helpClose" style="flex:1">Got it</button></div>
+  </div>
+</div>
+<div id="toast" role="status"></div>
+
+<script id="app">
+"use strict";
+/* ===================== Graph & Data Studio ===================== */
+function $(id){return document.getElementById(id);}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+/* ---- stats (pure, unit-tested) ---- */
+function mean(a){if(!a.length)return 0;return a.reduce(function(s,v){return s+v;},0)/a.length;}
+function median(a){if(!a.length)return 0;var s=a.slice().sort(function(x,y){return x-y;}),m=Math.floor(s.length/2);return s.length%2?s[m]:(s[m-1]+s[m])/2;}
+function mode(a){
+ if(!a.length)return null;
+ var c={},best=null,bc=0;
+ a.forEach(function(v){c[v]=(c[v]||0)+1;if(c[v]>bc){bc=c[v];best=v;}});
+ var ties=Object.keys(c).filter(function(k){return c[k]===bc;});
+ return (bc<=1||ties.length===Object.keys(c).length)?null:+best;
+}
+function range(a){if(!a.length)return 0;return Math.max.apply(null,a)-Math.min.apply(null,a);}
+function sum(a){return a.reduce(function(s,v){return s+v;},0);}
+function round(v,dp){var f=Math.pow(10,dp==null?2:dp);return Math.round(v*f)/f;}
+/* nice axis ticks */
+function niceMax(max){
+ if(max<=0)return 10;
+ var mag=Math.pow(10,Math.floor(Math.log10(max)));
+ var steps=[1,1.5,2,2.5,3,4,5,6,8,10];
+ for(var i=0;i<steps.length;i++){if(steps[i]*mag>=max)return steps[i]*mag;}
+ return 10*mag;
+}
+function axisTicks(max,n){
+ var nm=niceMax(max),out=[];
+ for(var i=0;i<=n;i++)out.push(round(nm*i/n,4));
+ return out;
+}
+/* ===================== state ===================== */
+var ctype="bar",color="#2f9e8f";
+var rows=[["",""],["",""],["",""]];
+var COLORS=["#2f9e8f","#3b6fe0","#e8516f","#f0a226","#9b8cf0","#137a63","#d9488b","#15203a"];
+var toastT=null;
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toastT);toastT=setTimeout(function(){t.style.display="none";},2600);}
+function persist(){try{localStorage.setItem("graph_state",JSON.stringify({ctype:ctype,color:color,rows:rows,title:$("chartTitle").value,x:$("xLabel").value,y:$("yLabel").value}));}catch(e){}}
+
+function dataPairs(){
+ var out=[];
+ rows.forEach(function(r){
+  var lab=(r[0]||"").trim(),num=parseFloat(r[1]);
+  if(!isNaN(num))out.push({label:lab||"?",value:num});
+ });
+ return out;
+}
+function buildTable(){
+ var t=$("dataTable");t.innerHTML="";
+ var head=document.createElement("tr");head.innerHTML="<th>Label</th><th>Value</th><th></th>";t.appendChild(head);
+ rows.forEach(function(r,i){
+  var tr=document.createElement("tr");
+  var td1=document.createElement("td"),i1=document.createElement("input");i1.type="text";i1.value=r[0];i1.placeholder="name";
+  i1.oninput=function(){rows[i][0]=i1.value;draw();persist();};td1.appendChild(i1);
+  var td2=document.createElement("td"),i2=document.createElement("input");i2.type="text";i2.inputMode="decimal";i2.className="num";i2.value=r[1];i2.placeholder="0";
+  i2.oninput=function(){rows[i][1]=i2.value;draw();persist();};td2.appendChild(i2);
+  var td3=document.createElement("td"),d=document.createElement("button");d.className="delRow";d.textContent="×";
+  d.onclick=function(){rows.splice(i,1);if(!rows.length)rows.push(["",""]);buildTable();draw();persist();};td3.appendChild(d);
+  tr.appendChild(td1);tr.appendChild(td2);tr.appendChild(td3);t.appendChild(tr);
+ });
+}
+function buildColours(){
+ var box=$("colourRow");
+ COLORS.forEach(function(c){
+  var b=document.createElement("button");b.className="sw";b.style.background=c;
+  if(c===color)b.style.boxShadow="inset 0 0 0 2px #15203a, inset 0 0 0 4px #fff";
+  b.onclick=function(){color=c;buildColours();draw();persist();};
+  box.appendChild(b);
+ });
+}
+function rebuildColourRow(){
+ var box=$("colourRow");box.innerHTML='<span style="font-size:12px;font-weight:700;color:var(--mut)">Colour:</span>';
+ buildColours();
+}
+
+/* ===================== drawing ===================== */
+var CW=900,CH=560;
+function draw(){
+ var cv=$("chart"),x=cv.getContext("2d");
+ cv.width=CW;cv.height=CH;
+ x.clearRect(0,0,CW,CH);x.fillStyle="#fff";x.fillRect(0,0,CW,CH);
+ var data=dataPairs(),title=$("chartTitle").value.trim();
+ var top=title?44:18;
+ if(title){x.fillStyle="#15203a";x.font="800 24px Arial";x.textAlign="center";x.textBaseline="middle";x.fillText(title,CW/2,24);}
+ if(!data.length){x.fillStyle="#9aa6c0";x.font="600 18px Arial";x.textAlign="center";x.fillText("Add some data on the left to see your chart",CW/2,CH/2);drawStats(data);return;}
+ if(ctype==="pie")drawPie(x,data,top);
+ else drawXY(x,data,top);
+ drawStats(data);
+}
+function drawXY(x,data,top){
+ var padL=70,padR=28,padB=64,padT=top+8;
+ var plotW=CW-padL-padR,plotH=CH-padT-padB;
+ var vals=data.map(function(d){return d.value;});
+ var maxV=Math.max.apply(null,vals),minV=Math.min.apply(null,vals);
+ if(ctype!=="scatter")minV=Math.min(0,minV);
+ var top0=niceMax(Math.max(maxV,0.0001));
+ var ticks=axisTicks(Math.max(maxV,0.0001),5);
+ /* axes */
+ x.strokeStyle="#c4ccd8";x.lineWidth=1;x.fillStyle="#5b6678";x.font="13px Arial";x.textAlign="right";x.textBaseline="middle";
+ ticks.forEach(function(tv){
+  var yy=padT+plotH-(tv/top0)*plotH;
+  x.strokeStyle="#eef1f5";x.beginPath();x.moveTo(padL,yy);x.lineTo(CW-padR,yy);x.stroke();
+  x.fillStyle="#5b6678";x.fillText(String(tv),padL-8,yy);
+ });
+ x.strokeStyle="#15203a";x.lineWidth=2;
+ x.beginPath();x.moveTo(padL,padT);x.lineTo(padL,padT+plotH);x.lineTo(CW-padR,padT+plotH);x.stroke();
+ var n=data.length,slot=plotW/n;
+ if(ctype==="bar"){
+  data.forEach(function(d,i){
+   var bw=slot*0.6,bx=padL+slot*i+(slot-bw)/2;
+   var bh=(d.value/top0)*plotH,by=padT+plotH-bh;
+   x.fillStyle=color;x.fillRect(bx,by,bw,bh);
+   x.fillStyle="#5b6678";x.font="13px Arial";x.textAlign="center";x.textBaseline="top";
+   x.fillText(d.label,padL+slot*i+slot/2,padT+plotH+8);
+   x.fillStyle="#15203a";x.textBaseline="bottom";x.font="700 12px Arial";x.fillText(String(d.value),bx+bw/2,by-3);
+  });
+ }else if(ctype==="line"){
+  x.strokeStyle=color;x.lineWidth=3;x.beginPath();
+  data.forEach(function(d,i){var px=padL+slot*i+slot/2,py=padT+plotH-(d.value/top0)*plotH;if(i===0)x.moveTo(px,py);else x.lineTo(px,py);});
+  x.stroke();
+  data.forEach(function(d,i){
+   var px=padL+slot*i+slot/2,py=padT+plotH-(d.value/top0)*plotH;
+   x.fillStyle=color;x.beginPath();x.arc(px,py,5,0,Math.PI*2);x.fill();
+   x.fillStyle="#5b6678";x.font="13px Arial";x.textAlign="center";x.textBaseline="top";x.fillText(d.label,px,padT+plotH+8);
+  });
+ }else{ /* scatter: x is index or numeric label */
+  var xs=data.map(function(d){return parseFloat(d.label);});
+  var numericX=xs.every(function(v){return !isNaN(v);});
+  var maxX=numericX?Math.max.apply(null,xs):n-1,minX=numericX?Math.min.apply(null,xs):0;
+  var spanX=maxX-minX||1;
+  data.forEach(function(d,i){
+   var fx=numericX?(parseFloat(d.label)-minX)/spanX:(i/(n-1||1));
+   var px=padL+fx*plotW,py=padT+plotH-(d.value/top0)*plotH;
+   x.fillStyle=color;x.beginPath();x.arc(px,py,6,0,Math.PI*2);x.fill();
+  });
+  if(numericX){
+   x.fillStyle="#5b6678";x.font="13px Arial";x.textAlign="center";x.textBaseline="top";
+   [minX,(minX+maxX)/2,maxX].forEach(function(tx){var px=padL+((tx-minX)/spanX)*plotW;x.fillText(String(round(tx,2)),px,padT+plotH+8);});
+  }
+ }
+ /* axis labels */
+ var xl=$("xLabel").value.trim(),yl=$("yLabel").value.trim();
+ x.fillStyle="#15203a";x.font="700 15px Arial";x.textAlign="center";x.textBaseline="bottom";
+ if(xl)x.fillText(xl,padL+plotW/2,CH-6);
+ if(yl){x.save();x.translate(18,padT+plotH/2);x.rotate(-Math.PI/2);x.textBaseline="top";x.fillText(yl,0,0);x.restore();}
+}
+function drawPie(x,data,top){
+ var cx=CW/2,cy=top+(CH-top)/2,r=Math.min(CW,CH-top)/2-70;
+ var total=sum(data.map(function(d){return Math.abs(d.value);}));
+ if(total<=0){x.fillStyle="#9aa6c0";x.textAlign="center";x.fillText("Values add up to zero",cx,cy);return;}
+ var ang=-Math.PI/2;
+ data.forEach(function(d,i){
+  var slice=Math.abs(d.value)/total*Math.PI*2;
+  x.fillStyle=COLORS[i%COLORS.length];
+  x.beginPath();x.moveTo(cx,cy);x.arc(cx,cy,r,ang,ang+slice);x.closePath();x.fill();
+  var mid=ang+slice/2,lx=cx+Math.cos(mid)*(r+24),ly=cy+Math.sin(mid)*(r+24);
+  x.fillStyle="#15203a";x.font="700 13px Arial";x.textAlign=Math.cos(mid)<0?"right":"left";x.textBaseline="middle";
+  x.fillText(d.label+" ("+Math.round(Math.abs(d.value)/total*100)+"%)",lx,ly);
+  ang+=slice;
+ });
+}
+function drawStats(data){
+ var box=$("statsBox");
+ var vals=data.map(function(d){return d.value;});
+ if(!vals.length){box.innerHTML='<span style="color:var(--mut);font-size:14px">Numbers will appear here once you add data.</span>';return;}
+ var md=mode(vals);
+ var items=[
+  ["Count",vals.length],["Total",round(sum(vals),2)],["Mean (average)",round(mean(vals),2)],
+  ["Median (middle)",round(median(vals),2)],["Range",round(range(vals),2)],
+  ["Biggest",Math.max.apply(null,vals)],["Smallest",Math.min.apply(null,vals)]
+ ];
+ if(md!=null)items.push(["Mode (most common)",md]);
+ box.innerHTML=items.map(function(it){return '<span class="stat">'+it[0]+': <b>'+it[1]+'</b></span>';}).join("");
+}
+
+/* ===================== export ===================== */
+function exportPng(){
+ var data=dataPairs();
+ if(!data.length){toast("Add some data first");return;}
+ var cv=$("chart");
+ var a=document.createElement("a");a.href=cv.toDataURL("image/png");
+ a.download=(($("chartTitle").value.trim()||"chart").replace(/[^\w\- ]+/g,"").replace(/\s+/g,"-").toLowerCase())+".png";
+ document.body.appendChild(a);a.click();setTimeout(function(){a.remove();},2500);
+ toast("Chart saved as PNG ✓");
+}
+
+/* ===================== init ===================== */
+function init(){
+ buildTable();rebuildColourRow();
+ document.querySelectorAll("[data-type]").forEach(function(b){
+  b.onclick=function(){ctype=b.dataset.type;document.querySelectorAll("[data-type]").forEach(function(x){x.classList.toggle("on",x===b);});draw();persist();};
+ });
+ $("addRowB").onclick=function(){rows.push(["",""]);buildTable();persist();};
+ $("clearB").onclick=function(){rows=[["",""],["",""],["",""]];buildTable();draw();persist();};
+ $("sampleB").onclick=function(){
+  $("chartTitle").value="Plant height over time";$("xLabel").value="Day";$("yLabel").value="Height / cm";
+  rows=[["1","2"],["3","5"],["5","9"],["7","14"],["9","19"],["11","23"]];ctype="line";
+  document.querySelectorAll("[data-type]").forEach(function(x){x.classList.toggle("on",x.dataset.type==="line");});
+  buildTable();draw();persist();toast("Example data loaded");
+ };
+ $("exportB").onclick=exportPng;
+ ["chartTitle","xLabel","yLabel"].forEach(function(id){$(id).addEventListener("input",function(){draw();persist();});});
+ $("helpB").onclick=function(){$("helpModal").classList.add("open");};
+ $("helpClose").onclick=function(){$("helpModal").classList.remove("open");};
+ $("helpModal").addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});
+ window.addEventListener("resize",draw);
+ try{var s=JSON.parse(localStorage.getItem("graph_state")||"null");if(s){ctype=s.ctype||"bar";color=s.color||"#2f9e8f";rows=s.rows&&s.rows.length?s.rows:rows;$("chartTitle").value=s.title||"";$("xLabel").value=s.x||"";$("yLabel").value=s.y||"";document.querySelectorAll("[data-type]").forEach(function(x){x.classList.toggle("on",x.dataset.type===ctype);});buildTable();rebuildColourRow();}}catch(e){}
+ draw();
+}
+init();
+
+</script>
+</body>
+</html>

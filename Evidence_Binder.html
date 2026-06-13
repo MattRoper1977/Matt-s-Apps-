@@ -1,0 +1,980 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Evidence Binder — Matt's Apps</title>
+<style>
+:root{--ink:#15203a;--acc:#b4892c;--accSoft:#f6ecd4;--stage:#f1f2f5;--line:#d8dde6;--good:#16a34a;--shadow:0 5px 16px rgba(21,32,58,.13)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--stage);display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:11px;background:#fff;color:var(--ink);font-weight:600;font-size:14px;min-height:42px;padding:0 14px;box-shadow:0 2px 8px rgba(21,32,58,.07)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
+button:disabled{opacity:.4;cursor:default}
+input[type=text],textarea,select{font-family:inherit;font-size:15px;border:2px solid var(--line);border-radius:10px;padding:9px;background:#fff;width:100%;color:var(--ink)}
+.hidden{display:none!important}
+#top{background:var(--ink);color:#fff;display:flex;align-items:center;gap:9px;padding:8px 12px;flex:0 0 auto}
+#brand{display:flex;align-items:center;gap:9px}
+#brand svg{width:30px;height:30px}
+#brand .wm{display:flex;flex-direction:column;line-height:1.04}
+#brand .wm b{font-size:16px}
+#brand .wm span{font-size:9px;letter-spacing:2.2px;opacity:.72;font-weight:700}
+#top .sp{flex:1}
+#top button{background:rgba(255,255,255,.13);color:#fff;min-width:42px;box-shadow:none}
+#tabs{display:flex;gap:4px;padding:8px 10px 0;flex:0 0 auto;overflow-x:auto}
+#tabs button{flex:1;min-height:42px;font-size:12.5px;border-radius:12px 12px 0 0;background:#dde3ea;box-shadow:none;color:#5b6678;white-space:nowrap;min-width:84px}
+#tabs button.on{background:#fff;color:var(--ink);font-weight:800}
+#main{flex:1;min-height:0;overflow-y:auto;background:#fff;padding:14px;padding-bottom:30px}
+.wrap{max-width:840px;margin:0 auto;display:flex;flex-direction:column;gap:13px}
+.card{background:#f7f8fa;border:1px solid var(--line);border-radius:16px;padding:15px}
+.card h3{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.6px;color:#5b6678}
+.row{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.row+.row{margin-top:9px}
+.lbl{font-size:12px;font-weight:700;color:#5b6678;min-width:62px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{border-radius:999px;background:#eef1f7;min-height:38px;padding:0 13px;font-size:13.5px;box-shadow:none}
+.chip.on{background:var(--accSoft);box-shadow:inset 0 0 0 2px var(--acc);font-weight:700}
+.big{font-size:15.5px;min-height:50px;font-weight:800}
+.gold{background:var(--acc);color:#fff}
+.warn{background:#fde7e9;color:#a31621}
+.note{font-size:12.5px;color:#5b6678;line-height:1.5;margin-top:7px}
+#pendStrip{display:flex;gap:8px;overflow-x:auto;padding:4px 0}
+#pendStrip img{height:74px;border-radius:10px;border:1px solid var(--line)}
+#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px}
+.ev{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;padding:0;display:flex;flex-direction:column;min-height:0;box-shadow:none}
+.ev img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.ev .cap{font-size:10.5px;font-weight:700;padding:5px 7px;text-align:left;color:#5b6678;line-height:1.3}
+#covTable{border-collapse:collapse;width:100%;font-size:13px}
+#covTable th,#covTable td{border:1px solid var(--line);padding:7px 6px;text-align:center}
+#covTable th{background:#eef1f7;font-size:11.5px}
+#covTable td:first-child,#covTable th:first-child{text-align:left;font-weight:700;white-space:nowrap}
+#covTable td.hit{background:#e2f5e9;color:var(--good);font-weight:800;cursor:pointer}
+#covTable td.miss{background:#fdf0f0;color:#c66;cursor:default}
+.li{background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 11px;display:flex;align-items:center;gap:8px;margin-top:8px}
+.li .t{flex:1;font-weight:700;font-size:14px}
+.li input{flex:1}
+.li button{min-height:36px;padding:0 10px;font-size:13px;background:#eef1f7;box-shadow:none}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:14px}
+.modal.open{display:flex}
+.sheet{background:#fff;border-radius:18px;padding:18px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto}
+.sheet h3{margin:0 0 12px;font-size:17px}
+.sheet img{max-width:100%;border-radius:12px;border:1px solid var(--line)}
+.sheet label{display:block;font-size:12px;font-weight:800;margin:11px 0 5px;color:#5b6678;text-transform:uppercase;letter-spacing:.5px}
+.sheet ol{padding-left:20px;line-height:1.6;font-size:14px;margin:8px 0}
+.sheet .tips{background:#f1f3f8;border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.5;color:#3c4961;margin-top:8px}
+.acts{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.acts button{flex:1;min-width:110px}
+.acts .primary{background:var(--acc);color:#fff}
+#busy{position:fixed;inset:0;background:rgba(255,255,255,.78);display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:70;font-weight:700;text-align:center;padding:18px}
+#busy.open{display:flex}
+#busy .spin{width:42px;height:42px;border-radius:50%;border:5px solid var(--accSoft);border-top-color:var(--acc);animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:600;display:none;z-index:80;max-width:92vw;text-align:center}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header id="top">
+  <div id="brand">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <rect x="7" y="5" width="26" height="30" rx="4" fill="#b4892c"/>
+      <rect x="12" y="5" width="17" height="30" rx="2" fill="#fff" opacity=".92"/>
+      <path d="M7 12h6M7 19h6M7 26h6" stroke="#15203a" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M16 17l3 3 6-7" fill="none" stroke="#16a34a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M16 26h9" stroke="#b4892c" stroke-width="2.6" stroke-linecap="round"/>
+    </svg>
+    <div class="wm"><b>Evidence Binder</b><span>MATT'S APPS</span></div>
+  </div>
+  <div class="sp"></div>
+  <button id="helpB" title="Help" aria-label="Help">?</button>
+</header>
+<div id="tabs">
+  <button id="tabCap" class="on">📷 Capture</button>
+  <button id="tabBrowse">🗂 Browse</button>
+  <button id="tabCov">✅ Coverage</button>
+  <button id="tabPort">📄 Portfolios</button>
+  <button id="tabSetup">⚙ Setup</button>
+</div>
+<div id="main">
+
+ <div class="wrap" id="secCap">
+  <div class="card">
+   <h3>Add evidence</h3>
+   <div class="row">
+    <button id="camB" class="big gold">📷 Camera</button>
+    <button id="fileB" class="big">🖼 From files</button>
+   </div>
+   <div class="note">Photos are kept on this device only and shrunk to a sensible size automatically.</div>
+  </div>
+  <div class="card hidden" id="tagCard">
+   <h3>Tag <span id="pendCount"></span></h3>
+   <div id="pendStrip"></div>
+   <label class="lbl" style="display:block;margin-top:8px">Unit</label>
+   <select id="unitSel"></select>
+   <label class="lbl" style="display:block;margin-top:10px">Outcomes shown in this work</label>
+   <div class="chips" id="outChips"></div>
+   <label class="lbl" style="display:block;margin-top:10px">Pupils</label>
+   <div class="chips" id="pupChips"></div>
+   <label class="lbl" style="display:block;margin-top:10px">Note (optional)</label>
+   <input type="text" id="noteIn" maxlength="140" placeholder="e.g. plotted the bearing unaided">
+   <div class="acts">
+    <button id="tagCancel">Cancel</button>
+    <button class="primary" id="tagSave">Save evidence ✓</button>
+   </div>
+  </div>
+ </div>
+
+ <div class="wrap hidden" id="secBrowse">
+  <div class="card">
+   <h3>Find evidence</h3>
+   <div class="row">
+    <select id="fUnit" style="flex:1;min-width:130px"></select>
+    <select id="fPupil" style="flex:1;min-width:130px"></select>
+    <select id="fOut" style="flex:1;min-width:110px"></select>
+   </div>
+  </div>
+  <div id="grid"></div>
+  <div class="note" id="browseNote"></div>
+ </div>
+
+ <div class="wrap hidden" id="secCov">
+  <div class="card">
+   <h3>Outcome coverage</h3>
+   <select id="covUnit"></select>
+   <div style="overflow-x:auto;margin-top:11px"><table id="covTable"></table></div>
+   <div class="note">Numbers = pieces of evidence. Tap a green cell to see them. Red = nothing yet.</div>
+  </div>
+ </div>
+
+ <div class="wrap hidden" id="secPort">
+  <div class="card">
+   <h3>Generate portfolios</h3>
+   <label class="lbl" style="display:block">Unit</label>
+   <select id="portUnit"></select>
+   <label class="lbl" style="display:block;margin-top:10px">Pupils</label>
+   <div class="chips" id="portPups"></div>
+   <div class="row" style="margin-top:8px"><button id="portAllB" class="chip">Select all with evidence</button></div>
+   <div class="acts"><button class="primary big" id="portGo">📄 Build PDF portfolios</button></div>
+   <div class="note">One PDF per pupil: cover sheet, outcome checklist with evidence counts, then one dated evidence photo per page. Ready to print or attach to a submission.</div>
+  </div>
+ </div>
+
+ <div class="wrap hidden" id="secSetup">
+  <div class="card">
+   <h3>Units &amp; outcomes</h3>
+   <select id="suUnit"></select>
+   <div class="row" style="margin-top:9px">
+    <input type="text" id="suName" placeholder="Unit name" style="flex:2;min-width:150px">
+    <input type="text" id="suCode" placeholder="AQA code" style="flex:1;min-width:90px">
+   </div>
+   <label class="lbl" style="display:block;margin-top:10px">Outcomes (one per line — paste from the unit spec)</label>
+   <textarea id="suOuts" rows="6"></textarea>
+   <div class="acts">
+    <button id="suNewB">＋ New unit</button>
+    <button id="suDelB" class="warn">Delete unit</button>
+    <button class="primary" id="suSaveB">Save unit</button>
+   </div>
+  </div>
+  <div class="card">
+   <h3>Pupils</h3>
+   <label class="lbl" style="display:block">Class list (one name per line)</label>
+   <textarea id="suPups" rows="6"></textarea>
+   <div class="acts"><button class="primary" id="suPupSaveB">Save pupils</button></div>
+   <div class="note">Removing a name keeps their existing evidence but hides them from new tagging.</div>
+  </div>
+  <div class="card">
+   <h3>Teacher &amp; school</h3>
+   <input type="text" id="suTeacher" placeholder="Teacher name (appears on portfolios)">
+   <input type="text" id="suSchool" style="margin-top:8px" placeholder="School name">
+   <div class="acts"><button class="primary" id="suMetaSaveB">Save</button></div>
+  </div>
+  <div class="card">
+   <h3>Backup</h3>
+   <div class="row">
+    <button id="bakB" class="big gold">💾 Backup binder (.zip)</button>
+    <button id="restB" class="big">📂 Restore from backup</button>
+   </div>
+   <div class="note" id="storeNote">Everything lives in this browser on this device. Back up weekly and after big capture sessions — the .zip holds every photo and tag and restores the lot.</div>
+  </div>
+ </div>
+
+</div>
+
+<div class="modal" id="evModal">
+  <div class="sheet">
+    <h3 id="evTitle">Evidence</h3>
+    <img id="evImg" alt="Evidence photo">
+    <div class="note" id="evMeta"></div>
+    <label>Note</label>
+    <input type="text" id="evNote" maxlength="140">
+    <label>Outcomes</label>
+    <div class="chips" id="evOuts"></div>
+    <label>Pupils</label>
+    <div class="chips" id="evPups"></div>
+    <div class="acts">
+      <button id="evDelB" class="warn">🗑 Delete</button>
+      <button id="evClose">Close</button>
+      <button class="primary" id="evSaveB">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="helpModal">
+  <div class="sheet">
+    <h3>How to use Evidence Binder</h3>
+    <ol>
+      <li><b>⚙ Setup first</b> — add your unit with its AQA code, paste the outcomes from the spec one per line, and paste your class list.</li>
+      <li><b>📷 Capture</b> — photograph the work, tick the outcomes it shows and the pupils it belongs to (group work can tag several), add a note, save.</li>
+      <li><b>✅ Coverage</b> shows pupils × outcomes at a glance — red cells are gaps to plug before submission.</li>
+      <li><b>📄 Portfolios</b> builds a print-ready PDF per pupil: cover, outcome checklist, dated evidence pages.</li>
+      <li><b>💾 Back up</b> from Setup regularly — everything lives only in this browser until you do.</li>
+    </ol>
+    <div class="tips"><b>Safeguarding note:</b> photos stay on this device — nothing is uploaded anywhere. Treat the device and backups with the same care as a paper portfolio.</div>
+    <div class="acts"><button class="primary" id="helpClose">Got it</button></div>
+  </div>
+</div>
+
+<div id="busy"><div class="spin"></div><div id="busyMsg">Working…</div></div>
+<div id="toast" role="status"></div>
+<input type="file" id="camFile" accept="image/*" capture="environment" multiple hidden>
+<input type="file" id="picFile" accept="image/*" multiple hidden>
+<input type="file" id="zipFile" accept=".zip" hidden>
+
+<script id="app">
+"use strict";
+function fitRect(sw,sh,dw,dh,mode){
+ var s=mode==="cover"?Math.max(dw/sw,dh/sh):Math.min(dw/sw,dh/sh);
+ var w=sw*s,h=sh*s;
+ return[(dw-w)/2,(dh-h)/2,w,h];
+}
+function strBytes(s){var u=new Uint8Array(s.length);for(var i=0;i<s.length;i++)u[i]=s.charCodeAt(i)&255;return u;}
+function pad10(n){var s=""+n;while(s.length<10)s="0"+s;return s;}
+function fmtN(v){return Math.round(v*100)/100;}
+function buildPdf(pages,ptW,ptH){
+ var chunks=[],pos=0,total=2+pages.length*3,offsets=new Array(total+1),i;
+ function push(u){if(typeof u==="string")u=strBytes(u);chunks.push(u);pos+=u.length;}
+ function obj(num,body){offsets[num]=pos;push(num+" 0 obj\n"+body+"\nendobj\n");}
+ push("%PDF-1.4\n%\u00e2\u00e3\u00cf\u00d3\n");
+ var kids=[];for(i=0;i<pages.length;i++)kids.push((3+i*3)+" 0 R");
+ obj(1,"<< /Type /Catalog /Pages 2 0 R >>");
+ obj(2,"<< /Type /Pages /Kids ["+kids.join(" ")+"] /Count "+pages.length+" >>");
+ for(i=0;i<pages.length;i++){
+  var p=pages[i],r=fitRect(p.w,p.h,ptW,ptH,"contain"),yb=ptH-r[1]-r[3];
+  var pn=3+i*3,cn=4+i*3,im=5+i*3;
+  obj(pn,"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 "+ptW+" "+ptH+"] /Resources << /XObject << /Im"+i+" "+im+" 0 R >> >> /Contents "+cn+" 0 R >>");
+  var content="q "+fmtN(r[2])+" 0 0 "+fmtN(r[3])+" "+fmtN(r[0])+" "+fmtN(yb)+" cm /Im"+i+" Do Q";
+  obj(cn,"<< /Length "+content.length+" >>\nstream\n"+content+"\nendstream");
+  offsets[im]=pos;
+  push(im+" 0 obj\n<< /Type /XObject /Subtype /Image /Width "+p.w+" /Height "+p.h+" /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length "+p.jpeg.length+" >>\nstream\n");
+  push(p.jpeg);
+  push("\nendstream\nendobj\n");
+ }
+ var xref=pos,x="xref\n0 "+(total+1)+"\n0000000000 65535 f \n";
+ for(i=1;i<=total;i++)x+=pad10(offsets[i])+" 00000 n \n";
+ x+="trailer\n<< /Size "+(total+1)+" /Root 1 0 R >>\nstartxref\n"+xref+"\n%%EOF";
+ push(x);
+ var out=new Uint8Array(pos),o=0;
+ for(i=0;i<chunks.length;i++){out.set(chunks[i],o);o+=chunks[i].length;}
+ return out;
+}
+/* ===================== Evidence Binder engine ===================== */
+function $(id){return document.getElementById(id);}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+var _id=0;function uid(){return "e"+(++_id)+"_"+Date.now().toString(36);}
+function fmtDate(ts){
+ var d=new Date(ts),M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+ return d.getDate()+" "+M[d.getMonth()]+" "+d.getFullYear();
+}
+function scaleDims(w,h,max){
+ if(w<=max&&h<=max)return[w,h];
+ var f=max/Math.max(w,h);
+ return[Math.max(1,Math.round(w*f)),Math.max(1,Math.round(h*f))];
+}
+/* coverage: items -> {pupilId:{outcomeId:count}} for one unit */
+function coverage(items,unitId,pupilIds,outcomeIds){
+ var g={};
+ pupilIds.forEach(function(p){g[p]={};outcomeIds.forEach(function(o){g[p][o]=0;});});
+ items.forEach(function(it){
+  if(it.unitId!==unitId)return;
+  it.pupilIds.forEach(function(p){
+   if(!g[p])return;
+   it.outcomeIds.forEach(function(o){if(o in g[p])g[p][o]++;});
+  });
+ });
+ return g;
+}
+
+/* ===================== minimal ZIP (store method) ===================== */
+var CRC_T=(function(){
+ var t=new Uint32Array(256),n,k,c;
+ for(n=0;n<256;n++){c=n;for(k=0;k<8;k++)c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);t[n]=c>>>0;}
+ return t;
+})();
+function crc32(bytes){
+ var c=0xFFFFFFFF,i;
+ for(i=0;i<bytes.length;i++)c=CRC_T[(c^bytes[i])&0xFF]^(c>>>8);
+ return (c^0xFFFFFFFF)>>>0;
+}
+function dosTime(d){
+ d=d||new Date(2026,0,1,12,0,0);
+ var time=((d.getHours()&31)<<11)|((d.getMinutes()&63)<<5)|((d.getSeconds()>>1)&31);
+ var date=(((d.getFullYear()-1980)&127)<<9)|(((d.getMonth()+1)&15)<<5)|(d.getDate()&31);
+ return[time,date];
+}
+function writeZip(files){
+ /* files: [{name:string, data:Uint8Array}] -> Uint8Array (store, no compression) */
+ var chunks=[],pos=0,central=[],td=dosTime(new Date());
+ function u16(v){return new Uint8Array([v&255,(v>>8)&255]);}
+ function u32(v){return new Uint8Array([v&255,(v>>8)&255,(v>>16)&255,(v>>24)&255]);}
+ function push(u){chunks.push(u);pos+=u.length;}
+ function nameBytes(s){var b=new Uint8Array(s.length);for(var i=0;i<s.length;i++)b[i]=s.charCodeAt(i)&0xFF;return b;}
+ files.forEach(function(f){
+  var nb=nameBytes(f.name),crc=crc32(f.data),off=pos;
+  push(new Uint8Array([0x50,0x4B,3,4]));push(u16(20));push(u16(0));push(u16(0));
+  push(u16(td[0]));push(u16(td[1]));push(u32(crc));push(u32(f.data.length));push(u32(f.data.length));
+  push(u16(nb.length));push(u16(0));push(nb);push(f.data);
+  central.push({nb:nb,crc:crc,size:f.data.length,off:off});
+ });
+ var cdStart=pos;
+ central.forEach(function(c){
+  push(new Uint8Array([0x50,0x4B,1,2]));push(u16(20));push(u16(20));push(u16(0));push(u16(0));
+  push(u16(td[0]));push(u16(td[1]));push(u32(c.crc));push(u32(c.size));push(u32(c.size));
+  push(u16(c.nb.length));push(u16(0));push(u16(0));push(u16(0));push(u16(0));push(u32(0));push(u32(c.off));push(c.nb);
+ });
+ var cdSize=pos-cdStart;
+ push(new Uint8Array([0x50,0x4B,5,6]));push(u16(0));push(u16(0));
+ push(u16(central.length));push(u16(central.length));push(u32(cdSize));push(u32(cdStart));push(u16(0));
+ var out=new Uint8Array(pos),o=0;
+ for(var i=0;i<chunks.length;i++){out.set(chunks[i],o);o+=chunks[i].length;}
+ return out;
+}
+function readZip(bytes){
+ /* returns {name:Uint8Array} for store-method zips (the ones we write) */
+ function u16(o){return bytes[o]|(bytes[o+1]<<8);}
+ function u32(o){return (bytes[o]|(bytes[o+1]<<8)|(bytes[o+2]<<16)|(bytes[o+3]<<24))>>>0;}
+ var eocd=-1,i;
+ for(i=bytes.length-22;i>=Math.max(0,bytes.length-66000);i--){
+  if(bytes[i]===0x50&&bytes[i+1]===0x4B&&bytes[i+2]===5&&bytes[i+3]===6){eocd=i;break;}
+ }
+ if(eocd<0)throw new Error("not a zip");
+ var n=u16(eocd+10),cd=u32(eocd+16),out={},p=cd,k;
+ for(k=0;k<n;k++){
+  if(!(bytes[p]===0x50&&bytes[p+1]===0x4B&&bytes[p+2]===1&&bytes[p+3]===2))throw new Error("bad central dir");
+  var method=u16(p+10),size=u32(p+24),nlen=u16(p+28),elen=u16(p+30),clen=u16(p+32),off=u32(p+42);
+  var name="";for(i=0;i<nlen;i++)name+=String.fromCharCode(bytes[p+46+i]);
+  if(method!==0)throw new Error("compressed entry not supported");
+  var lnlen=u16(off+26),lelen=u16(off+28),start=off+30+lnlen+lelen;
+  out[name]=bytes.slice(start,start+size);
+  p+=46+nlen+elen+clen;
+ }
+ return out;
+}
+function strToBytes(s){
+ /* UTF-8 encode */
+ return new TextEncoder().encode(s);
+}
+function bytesToStr(b){return new TextDecoder().decode(b);}
+
+/* ===================== portfolio page painters ===================== */
+var PG_W=1240,PG_H=1754,NAVY="#1e3a5f",GOLD="#b4892c";
+function pageCanvas(){
+ var c=document.createElement("canvas");c.width=PG_W;c.height=PG_H;
+ var x=c.getContext("2d");
+ x.fillStyle="#ffffff";x.fillRect(0,0,PG_W,PG_H);
+ return c;
+}
+function wrapText(x,text,maxW){
+ var words=String(text).split(/\s+/),lines=[],cur="";
+ words.forEach(function(w){
+  var t=cur?cur+" "+w:w;
+  if(x.measureText(t).width>maxW&&cur){lines.push(cur);cur=w;}
+  else cur=t;
+ });
+ if(cur)lines.push(cur);
+ return lines;
+}
+function paintCover(meta,unit,pupil,stats){
+ var c=pageCanvas(),x=c.getContext("2d");
+ x.fillStyle=NAVY;x.fillRect(0,0,PG_W,330);
+ x.fillStyle=GOLD;x.fillRect(0,330,PG_W,14);
+ x.fillStyle="#ffffff";x.textAlign="left";
+ x.font="800 44px Arial";x.fillText(meta.school||"Matt\u2019s Apps",70,120);
+ x.font="700 30px Arial";x.globalAlpha=0.85;x.fillText("Unit Award Scheme \u2014 Evidence Portfolio",70,175);x.globalAlpha=1;
+ x.font="800 52px Arial";
+ wrapText(x,unit.name+(unit.code?"  ("+unit.code+")":""),PG_W-140).forEach(function(l,i){x.fillText(l,70,255+i*60);});
+ x.fillStyle=NAVY;x.font="800 84px Arial";
+ x.fillText(pupil.name,70,560);
+ x.fillStyle="#5b6678";x.font="600 32px Arial";
+ x.fillText("Teacher: "+(meta.teacher||"________________"),70,650);
+ x.fillText("Evidence items: "+stats.count,70,710);
+ if(stats.first)x.fillText("Evidence dates: "+fmtDate(stats.first)+" \u2013 "+fmtDate(stats.last),70,770);
+ x.fillText("Generated: "+fmtDate(Date.now()),70,830);
+ x.fillStyle=GOLD;x.fillRect(70,900,260,8);
+ x.fillStyle="#8b97ad";x.font="600 24px Arial";
+ x.fillText("All evidence captured and stored on-device with Evidence Binder.",70,PG_H-80);
+ return c;
+}
+function paintChecklist(meta,unit,pupil,grid){
+ var c=pageCanvas(),x=c.getContext("2d");
+ x.fillStyle=NAVY;x.fillRect(0,0,PG_W,140);
+ x.fillStyle="#fff";x.font="800 40px Arial";x.textAlign="left";
+ x.fillText("Outcome checklist \u2014 "+pupil.name,70,90);
+ var y=230;
+ unit.outcomes.forEach(function(o,i){
+  var n=grid[o.id]||0,met=n>0;
+  x.fillStyle=met?"#16a34a":"#c66";
+  x.font="800 40px Arial";
+  x.fillText(met?"\u2713":"\u2014",70,y+8);
+  x.fillStyle=NAVY;x.font="800 30px Arial";
+  x.fillText("LO"+(i+1),130,y);
+  x.fillStyle="#15203a";x.font="500 28px Arial";
+  var lines=wrapText(x,o.text,PG_W-420);
+  lines.forEach(function(l,j){x.fillText(l,230,y+j*36);});
+  x.fillStyle="#5b6678";x.font="700 26px Arial";x.textAlign="right";
+  x.fillText(n+" item"+(n===1?"":"s"),PG_W-70,y);
+  x.textAlign="left";
+  y+=Math.max(1,lines.length)*36+34;
+  x.strokeStyle="#e4e8ef";x.beginPath();x.moveTo(70,y-26);x.lineTo(PG_W-70,y-26);x.stroke();
+ });
+ y=Math.max(y+60,PG_H-300);
+ x.fillStyle="#15203a";x.font="600 28px Arial";
+ x.fillText("Teacher signature: ______________________________",70,y);
+ x.fillText("Date: ____________________",70,y+70);
+ return c;
+}
+function paintEvidencePage(meta,unit,pupil,item,img,idx,total,outLabels){
+ var c=pageCanvas(),x=c.getContext("2d");
+ x.fillStyle=NAVY;x.fillRect(0,0,PG_W,110);
+ x.fillStyle="#fff";x.font="800 32px Arial";x.textAlign="left";
+ x.fillText(pupil.name+" \u2014 evidence "+idx+" of "+total,70,72);
+ var frame={x:70,y:160,w:PG_W-140,h:1150};
+ x.strokeStyle="#d8dde6";x.lineWidth=2;x.strokeRect(frame.x,frame.y,frame.w,frame.h);
+ var r=fitRect(img.width,img.height,frame.w-20,frame.h-20,"contain");
+ x.drawImage(img,frame.x+10+r[0],frame.y+10+r[1],r[2],r[3]);
+ var y=frame.y+frame.h+70;
+ x.fillStyle=GOLD;x.fillRect(70,y-44,10,150);
+ x.fillStyle=NAVY;x.font="800 30px Arial";
+ x.fillText("Outcomes: "+outLabels,100,y);
+ x.fillStyle="#15203a";x.font="500 28px Arial";
+ if(item.note)wrapText(x,"Note: "+item.note,PG_W-200).forEach(function(l,i){x.fillText(l,100,y+50+i*36);});
+ x.fillStyle="#5b6678";x.font="600 26px Arial";
+ x.fillText("Date: "+fmtDate(item.ts)+"    Unit: "+unit.name+(unit.code?" ("+unit.code+")":""),100,y+(item.note?160:60));
+ return c;
+}
+function b64ToBytes(b64){var bin=atob(b64),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return u;}
+function canvasJpeg(c){
+ return b64ToBytes(c.toDataURL("image/jpeg",0.88).split(",")[1]);
+}
+/* ===================== IndexedDB ===================== */
+var DBP=null;
+function db(){
+ if(DBP)return DBP;
+ DBP=new Promise(function(res){
+  try{
+   var rq=indexedDB.open("evbinder",1);
+   rq.onupgradeneeded=function(){
+    var d=rq.result;
+    d.createObjectStore("meta");
+    d.createObjectStore("items",{keyPath:"id"});
+   };
+   rq.onsuccess=function(){res(rq.result);};
+   rq.onerror=function(){res(null);};
+  }catch(e){res(null);}
+ });
+ return DBP;
+}
+function idbReq(r){return new Promise(function(res,rej){r.onsuccess=function(){res(r.result);};r.onerror=function(){rej(r.error);};});}
+function metaSave(){return db().then(function(d){if(!d)return;return idbReq(d.transaction("meta","readwrite").objectStore("meta").put(META,"data"));});}
+function metaLoad(){return db().then(function(d){if(!d)return null;return idbReq(d.transaction("meta","readonly").objectStore("meta").get("data"));});}
+function itemPut(it){return db().then(function(d){if(!d)return;return idbReq(d.transaction("items","readwrite").objectStore("items").put(it));});}
+function itemDel(id){return db().then(function(d){if(!d)return;return idbReq(d.transaction("items","readwrite").objectStore("items").delete(id));});}
+function itemsAll(){return db().then(function(d){if(!d)return[];return idbReq(d.transaction("items","readonly").objectStore("items").getAll());});}
+function itemsClear(){return db().then(function(d){if(!d)return;return idbReq(d.transaction("items","readwrite").objectStore("items").clear());});}
+
+/* ===================== state ===================== */
+var META={units:[],pupils:[],teacher:"",school:"Matt\u2019s Apps"};
+var ITEMS=[];          /* in-memory mirror of items store */
+var PEND=[];           /* pending photos awaiting tags: {blob,thumbUrl,w,h} */
+var tagSel={unit:null,outs:{},pups:{}};
+var evCur=null;        /* item open in detail modal */
+var URLS=new Map();    /* item id -> object URL for thumbs */
+
+function unitById(id){for(var i=0;i<META.units.length;i++)if(META.units[i].id===id)return META.units[i];return null;}
+function pupilById(id){for(var i=0;i<META.pupils.length;i++)if(META.pupils[i].id===id)return META.pupils[i];return null;}
+function outLabel(unit,oid){
+ for(var i=0;i<unit.outcomes.length;i++)if(unit.outcomes[i].id===oid)return "LO"+(i+1);
+ return "?";
+}
+function thumbUrl(it){
+ if(!URLS.has(it.id))URLS.set(it.id,URL.createObjectURL(it.thumb||it.blob));
+ return URLS.get(it.id);
+}
+var toastT=null;
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toastT);toastT=setTimeout(function(){t.style.display="none";},3000);}
+function busy(m){var b=$("busy");if(m){$("busyMsg").textContent=m;b.classList.add("open");}else b.classList.remove("open");}
+function setTab(k){
+ [["Cap","secCap"],["Browse","secBrowse"],["Cov","secCov"],["Port","secPort"],["Setup","secSetup"]].forEach(function(d){
+  $("tab"+d[0]).classList.toggle("on",k===d[0]);
+  $(d[1]).classList.toggle("hidden",k!==d[0]);
+ });
+ if(k==="Browse")renderGrid();
+ if(k==="Cov")renderCov();
+ if(k==="Port")renderPort();
+ if(k==="Setup")renderSetup();
+}
+
+/* ===================== capture & tagging ===================== */
+function importPics(files){
+ var jobs=[];
+ for(var i=0;i<files.length;i++)if(/^image\//.test(files[i].type))jobs.push(shrink(files[i]));
+ if(!jobs.length){toast("No photos found there");return;}
+ busy("Preparing photos\u2026");
+ Promise.all(jobs).then(function(res){
+  res.forEach(function(r){if(r)PEND.push(r);});
+  busy(false);
+  if(!PEND.length){toast("Couldn't read those photos");return;}
+  renderTagCard();
+ });
+}
+function shrink(file){
+ return new Promise(function(res){
+  var img=new Image();
+  img.onload=function(){
+   var d=scaleDims(img.width,img.height,1600);
+   var c=document.createElement("canvas");c.width=d[0];c.height=d[1];
+   c.getContext("2d").drawImage(img,0,0,d[0],d[1]);
+   var dt=scaleDims(img.width,img.height,260);
+   var tc=document.createElement("canvas");tc.width=dt[0];tc.height=dt[1];
+   tc.getContext("2d").drawImage(img,0,0,dt[0],dt[1]);
+   c.toBlob(function(big){
+    tc.toBlob(function(small){
+     URL.revokeObjectURL(img.src);
+     res(big&&small?{blob:big,thumb:small,thumbUrl:URL.createObjectURL(small)}:null);
+    },"image/jpeg",0.8);
+   },"image/jpeg",0.85);
+  };
+  img.onerror=function(){res(null);};
+  img.src=URL.createObjectURL(file);
+ });
+}
+function renderTagCard(){
+ var tc=$("tagCard");
+ if(!PEND.length){tc.classList.add("hidden");return;}
+ tc.classList.remove("hidden");
+ $("pendCount").textContent=PEND.length+" photo"+(PEND.length===1?"":"s");
+ var st=$("pendStrip");st.innerHTML="";
+ PEND.forEach(function(p){var im=document.createElement("img");im.src=p.thumbUrl;im.alt="pending photo";st.appendChild(im);});
+ var us=$("unitSel");us.innerHTML="";
+ META.units.forEach(function(u){
+  var o=document.createElement("option");o.value=u.id;o.textContent=u.name+(u.code?" ("+u.code+")":"");
+  us.appendChild(o);
+ });
+ if(!META.units.length){toast("Add a unit in \u2699 Setup first");setTab("Setup");return;}
+ if(!tagSel.unit||!unitById(tagSel.unit))tagSel.unit=META.units[0].id;
+ us.value=tagSel.unit;
+ us.onchange=function(){tagSel.unit=us.value;tagSel.outs={};renderTagChips();};
+ renderTagChips();
+}
+function chipRow(box,list,selMap,labelFn){
+ box.innerHTML="";
+ list.forEach(function(o){
+  var b=document.createElement("button");
+  b.className="chip"+(selMap[o.id]?" on":"");
+  b.textContent=labelFn(o);
+  b.onclick=function(){
+   if(selMap[o.id])delete selMap[o.id];else selMap[o.id]=true;
+   b.classList.toggle("on",!!selMap[o.id]);
+  };
+  box.appendChild(b);
+ });
+}
+function renderTagChips(){
+ var u=unitById(tagSel.unit);
+ chipRow($("outChips"),u?u.outcomes:[],tagSel.outs,function(o){
+  var i=u.outcomes.indexOf(o);
+  return "LO"+(i+1)+" \u00b7 "+(o.text.length>30?o.text.slice(0,30)+"\u2026":o.text);
+ });
+ chipRow($("pupChips"),META.pupils,tagSel.pups,function(p){return p.name;});
+}
+function saveTagged(){
+ var outs=Object.keys(tagSel.outs),pups=Object.keys(tagSel.pups);
+ if(!outs.length){toast("Tick at least one outcome");return;}
+ if(!pups.length){toast("Tick at least one pupil");return;}
+ busy("Saving evidence\u2026");
+ var seq=Promise.resolve();
+ PEND.forEach(function(p){
+  var it={id:uid(),blob:p.blob,thumb:p.thumb,pupilIds:pups.slice(),unitId:tagSel.unit,outcomeIds:outs.slice(),note:($("noteIn").value||"").trim(),ts:Date.now()};
+  ITEMS.push(it);
+  seq=seq.then(function(){return itemPut(it);});
+ });
+ seq.then(function(){
+  var n=PEND.length;
+  PEND.forEach(function(p){URL.revokeObjectURL(p.thumbUrl);});
+  PEND=[];$("noteIn").value="";tagSel.outs={};
+  renderTagCard();busy(false);
+  toast(n+" item"+(n===1?"":"s")+" saved \u2713");
+ });
+}
+
+/* ===================== browse ===================== */
+function selFill(sel,opts,allLabel){
+ var v=sel.value;
+ sel.innerHTML="";
+ var a=document.createElement("option");a.value="";a.textContent=allLabel;sel.appendChild(a);
+ opts.forEach(function(o){
+  var e=document.createElement("option");e.value=o.id;e.textContent=o.label;sel.appendChild(e);
+ });
+ sel.value=v&&Array.prototype.some.call(sel.options,function(op){return op.value===v;})?v:"";
+}
+function renderGrid(){
+ selFill($("fUnit"),META.units.map(function(u){return{id:u.id,label:u.name};}),"All units");
+ selFill($("fPupil"),META.pupils.map(function(p){return{id:p.id,label:p.name};}),"All pupils");
+ var u=unitById($("fUnit").value);
+ selFill($("fOut"),u?u.outcomes.map(function(o,i){return{id:o.id,label:"LO"+(i+1)};}):[],"All outcomes");
+ var fu=$("fUnit").value,fp=$("fPupil").value,fo=$("fOut").value;
+ var list=ITEMS.filter(function(it){
+  if(fu&&it.unitId!==fu)return false;
+  if(fp&&it.pupilIds.indexOf(fp)<0)return false;
+  if(fo&&it.outcomeIds.indexOf(fo)<0)return false;
+  return true;
+ }).sort(function(a,b){return b.ts-a.ts;});
+ var g=$("grid");g.innerHTML="";
+ list.forEach(function(it){
+  var unit=unitById(it.unitId);
+  var b=document.createElement("button");b.className="ev";
+  var im=document.createElement("img");im.src=thumbUrl(it);im.alt="evidence";b.appendChild(im);
+  var cp=document.createElement("div");cp.className="cap";
+  var who=it.pupilIds.map(function(p){var pp=pupilById(p);return pp?pp.name.split(" ")[0]:"?";}).join(", ");
+  var los=unit?it.outcomeIds.map(function(o){return outLabel(unit,o);}).join(" "):"";
+  cp.textContent=who+" \u00b7 "+los+" \u00b7 "+fmtDate(it.ts);
+  b.appendChild(cp);
+  b.onclick=function(){openEv(it);};
+  g.appendChild(b);
+ });
+ $("browseNote").textContent=list.length?list.length+" item"+(list.length===1?"":"s"):"No evidence matches \u2014 try widening the filters.";
+}
+function openEv(it){
+ evCur=it;
+ $("evTitle").textContent="Evidence \u00b7 "+fmtDate(it.ts);
+ $("evImg").src=URL.createObjectURL(it.blob);
+ var u=unitById(it.unitId);
+ $("evMeta").textContent=(u?u.name:"Unknown unit");
+ $("evNote").value=it.note||"";
+ var outs={},pups={};
+ it.outcomeIds.forEach(function(o){outs[o]=true;});
+ it.pupilIds.forEach(function(p){pups[p]=true;});
+ evCur._outs=outs;evCur._pups=pups;
+ chipRow($("evOuts"),u?u.outcomes:[],outs,function(o){return outLabel(u,o.id);});
+ chipRow($("evPups"),META.pupils,pups,function(p){return p.name;});
+ $("evModal").classList.add("open");
+}
+function closeEv(){
+ $("evModal").classList.remove("open");
+ var im=$("evImg");if(im.src)URL.revokeObjectURL(im.src);im.src="";
+ evCur=null;
+}
+function saveEv(){
+ if(!evCur)return;
+ var outs=Object.keys(evCur._outs),pups=Object.keys(evCur._pups);
+ if(!outs.length||!pups.length){toast("Keep at least one outcome and one pupil");return;}
+ evCur.outcomeIds=outs;evCur.pupilIds=pups;evCur.note=($("evNote").value||"").trim();
+ delete evCur._outs;delete evCur._pups;
+ itemPut(evCur).then(function(){toast("Updated \u2713");closeEv();renderGrid();});
+}
+function delEv(){
+ if(!evCur)return;
+ if(!confirm("Delete this piece of evidence? This can't be undone."))return;
+ var id=evCur.id;
+ ITEMS.splice(ITEMS.indexOf(evCur),1);
+ if(URLS.has(id)){URL.revokeObjectURL(URLS.get(id));URLS.delete(id);}
+ itemDel(id).then(function(){toast("Deleted");closeEv();renderGrid();});
+}
+
+/* ===================== coverage ===================== */
+function renderCov(){
+ selFill($("covUnit"),META.units.map(function(u){return{id:u.id,label:u.name+(u.code?" ("+u.code+")":"")};}),"Choose a unit\u2026");
+ var t=$("covTable");t.innerHTML="";
+ var u=unitById($("covUnit").value);
+ if(!u){return;}
+ var pupIds=META.pupils.map(function(p){return p.id;});
+ var outIds=u.outcomes.map(function(o){return o.id;});
+ var g=coverage(ITEMS,u.id,pupIds,outIds);
+ var tr=document.createElement("tr"),th0=document.createElement("th");th0.textContent="Pupil";tr.appendChild(th0);
+ u.outcomes.forEach(function(o,i){var th=document.createElement("th");th.textContent="LO"+(i+1);th.title=o.text;tr.appendChild(th);});
+ t.appendChild(tr);
+ META.pupils.forEach(function(p){
+  var r=document.createElement("tr"),td0=document.createElement("td");td0.textContent=p.name;r.appendChild(td0);
+  u.outcomes.forEach(function(o){
+   var td=document.createElement("td"),n=g[p.id][o.id];
+   td.textContent=n||"\u2014";
+   td.className=n?"hit":"miss";
+   if(n)td.onclick=function(){
+    setTab("Browse");
+    $("fUnit").value=u.id;$("fPupil").value=p.id;
+    renderGrid();
+    $("fOut").value=o.id;renderGrid();
+   };
+   r.appendChild(td);
+  });
+  t.appendChild(r);
+ });
+}
+
+/* ===================== portfolios ===================== */
+var portSel={};
+function renderPort(){
+ selFill($("portUnit"),META.units.map(function(u){return{id:u.id,label:u.name+(u.code?" ("+u.code+")":"")};}),"Choose a unit\u2026");
+ chipRow($("portPups"),META.pupils,portSel,function(p){return p.name;});
+}
+function pupilItems(unitId,pupilId){
+ return ITEMS.filter(function(it){return it.unitId===unitId&&it.pupilIds.indexOf(pupilId)>=0;})
+  .sort(function(a,b){return a.ts-b.ts;});
+}
+function loadImg(blob){
+ return new Promise(function(res,rej){
+  var im=new Image();
+  im.onload=function(){res(im);};
+  im.onerror=rej;
+  im.src=URL.createObjectURL(blob);
+ });
+}
+function buildPortfolio(unit,pupil){
+ var list=pupilItems(unit.id,pupil.id);
+ var grid={};
+ unit.outcomes.forEach(function(o){grid[o.id]=0;});
+ list.forEach(function(it){it.outcomeIds.forEach(function(o){if(o in grid)grid[o]++;});});
+ var stats={count:list.length,first:list.length?list[0].ts:0,last:list.length?list[list.length-1].ts:0};
+ var pages=[];
+ function pagePush(c){pages.push({jpeg:canvasJpeg(c),w:c.width,h:c.height});}
+ pagePush(paintCover(META,unit,pupil,stats));
+ pagePush(paintChecklist(META,unit,pupil,grid));
+ var seq=Promise.resolve();
+ list.forEach(function(it,i){
+  seq=seq.then(function(){
+   return loadImg(it.blob).then(function(img){
+    var labels=it.outcomeIds.map(function(o){return outLabel(unit,o);}).join(", ");
+    pagePush(paintEvidencePage(META,unit,pupil,it,img,i+1,list.length,labels));
+    URL.revokeObjectURL(img.src);
+   });
+  });
+ });
+ return seq.then(function(){return buildPdf(pages,595,842);});
+}
+function genPortfolios(){
+ var u=unitById($("portUnit").value);
+ if(!u){toast("Choose a unit first");return;}
+ var pups=META.pupils.filter(function(p){return portSel[p.id];});
+ if(!pups.length){toast("Tick at least one pupil");return;}
+ var seq=Promise.resolve(),done=0;
+ busy("Building portfolios\u2026");
+ pups.forEach(function(p){
+  seq=seq.then(function(){
+   $("busyMsg").textContent="Building "+p.name+"\u2019s portfolio ("+(done+1)+" of "+pups.length+")\u2026";
+   return buildPortfolio(u,p).then(function(bytes){
+    var safe=(p.name+" "+(u.code||u.name)).replace(/[^\w\- ]+/g,"").trim().replace(/\s+/g,"-").toLowerCase();
+    saveBytes(bytes,"application/pdf",safe+"-portfolio.pdf");
+    done++;
+   });
+  });
+ });
+ seq.then(function(){busy(false);toast(done+" portfolio"+(done===1?"":"s")+" saved \u2713");})
+  .catch(function(){busy(false);toast("Something went wrong building the PDF");});
+}
+function saveBytes(bytes,mime,name){
+ var a=document.createElement("a");
+ a.href=URL.createObjectURL(new Blob([bytes],{type:mime}));
+ a.download=name;
+ document.body.appendChild(a);a.click();
+ setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},5000);
+}
+
+/* ===================== setup ===================== */
+function renderSetup(){
+ var us=$("suUnit");
+ var v=us.value;
+ us.innerHTML="";
+ META.units.forEach(function(u){
+  var o=document.createElement("option");o.value=u.id;o.textContent=u.name+(u.code?" ("+u.code+")":"");us.appendChild(o);
+ });
+ if(META.units.length){
+  us.value=v&&unitById(v)?v:META.units[0].id;
+  fillUnitForm(unitById(us.value));
+ }else fillUnitForm(null);
+ $("suPups").value=META.pupils.map(function(p){return p.name;}).join("\n");
+ $("suTeacher").value=META.teacher||"";
+ $("suSchool").value=META.school||"";
+ if(navigator.storage&&navigator.storage.estimate){
+  navigator.storage.estimate().then(function(e){
+   var mb=Math.round((e.usage||0)/1048576*10)/10;
+   $("storeNote").textContent="Binder size: ~"+mb+" MB \u00b7 "+ITEMS.length+" evidence items. Everything lives in this browser on this device \u2014 back up weekly and after big capture sessions.";
+  }).catch(function(){});
+ }
+}
+function fillUnitForm(u){
+ $("suName").value=u?u.name:"";
+ $("suCode").value=u?u.code:"";
+ $("suOuts").value=u?u.outcomes.map(function(o){return o.text;}).join("\n"):"";
+}
+function saveUnit(){
+ var us=$("suUnit"),u=unitById(us.value);
+ var name=($("suName").value||"").trim();
+ if(!name){toast("Give the unit a name");return;}
+ var lines=($("suOuts").value||"").split("\n").map(function(s){return s.trim();}).filter(Boolean);
+ if(!lines.length){toast("Paste at least one outcome");return;}
+ if(!u){u={id:uid(),outcomes:[]};META.units.push(u);}
+ u.name=name;u.code=($("suCode").value||"").trim();
+ /* keep outcome ids stable where text order matches, so existing tags survive edits */
+ var old=u.outcomes;
+ u.outcomes=lines.map(function(txt,i){
+  return {id:(old[i]?old[i].id:uid()),text:txt};
+ });
+ metaSave().then(function(){toast("Unit saved \u2713");renderSetup();});
+}
+function newUnit(){
+ var u={id:uid(),name:"New unit",code:"",outcomes:[{id:uid(),text:"Paste the outcome wording from the unit spec"}]};
+ META.units.push(u);
+ metaSave().then(function(){renderSetup();$("suUnit").value=u.id;fillUnitForm(u);});
+}
+function delUnit(){
+ var u=unitById($("suUnit").value);
+ if(!u)return;
+ var n=ITEMS.filter(function(it){return it.unitId===u.id;}).length;
+ if(!confirm("Delete \u201c"+u.name+"\u201d? "+(n?n+" evidence items stay stored but lose their unit tags.":"")))return;
+ META.units.splice(META.units.indexOf(u),1);
+ metaSave().then(function(){toast("Unit deleted");renderSetup();});
+}
+function savePupils(){
+ var lines=($("suPups").value||"").split("\n").map(function(s){return s.trim();}).filter(Boolean);
+ var byName={};
+ META.pupils.forEach(function(p){byName[p.name.toLowerCase()]=p;});
+ META.pupils=lines.map(function(nm){
+  return byName[nm.toLowerCase()]||{id:uid(),name:nm};
+ });
+ metaSave().then(function(){toast(META.pupils.length+" pupils saved \u2713");renderSetup();});
+}
+function saveMeta(){
+ META.teacher=($("suTeacher").value||"").trim();
+ META.school=($("suSchool").value||"").trim();
+ metaSave().then(function(){toast("Saved \u2713");});
+}
+
+/* ===================== backup / restore ===================== */
+function doBackup(){
+ busy("Packing backup\u2026");
+ var files=[],manifest={meta:META,items:[]};
+ var seq=Promise.resolve();
+ ITEMS.forEach(function(it){
+  manifest.items.push({id:it.id,pupilIds:it.pupilIds,unitId:it.unitId,outcomeIds:it.outcomeIds,note:it.note,ts:it.ts});
+  seq=seq.then(function(){
+   return it.blob.arrayBuffer().then(function(ab){
+    files.push({name:"img/"+it.id+".jpg",data:new Uint8Array(ab)});
+    return it.thumb.arrayBuffer();
+   }).then(function(tb){
+    files.push({name:"thumb/"+it.id+".jpg",data:new Uint8Array(tb)});
+   });
+  });
+ });
+ seq.then(function(){
+  files.unshift({name:"binder.json",data:strToBytes(JSON.stringify(manifest))});
+  var zip=writeZip(files);
+  var d=new Date(),stamp=d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);
+  saveBytes(zip,"application/zip","evidence-binder-"+stamp+".zip");
+  busy(false);
+  toast("Backup saved \u2014 keep it somewhere safe \u2713");
+ }).catch(function(){busy(false);toast("Backup failed");});
+}
+function doRestore(file){
+ if(!confirm("Restore replaces EVERYTHING currently in the binder with the backup. Continue?"))return;
+ busy("Restoring\u2026");
+ file.arrayBuffer().then(function(ab){
+  var z=readZip(new Uint8Array(ab));
+  if(!z["binder.json"])throw new Error("no manifest");
+  var man=JSON.parse(bytesToStr(z["binder.json"]));
+  META=man.meta;
+  META.units=META.units||[];META.pupils=META.pupils||[];
+  URLS.forEach(function(u){URL.revokeObjectURL(u);});URLS.clear();
+  ITEMS=[];
+  return itemsClear().then(function(){
+   var seq=metaSave();
+   (man.items||[]).forEach(function(m){
+    var img=z["img/"+m.id+".jpg"],th=z["thumb/"+m.id+".jpg"];
+    if(!img)return;
+    var it={id:m.id,blob:new Blob([img],{type:"image/jpeg"}),thumb:new Blob([th||img],{type:"image/jpeg"}),
+     pupilIds:m.pupilIds||[],unitId:m.unitId,outcomeIds:m.outcomeIds||[],note:m.note||"",ts:m.ts||Date.now()};
+    ITEMS.push(it);
+    seq=seq.then(function(){return itemPut(it);});
+   });
+   return seq;
+  });
+ }).then(function(){
+  busy(false);
+  toast("Restored "+ITEMS.length+" items \u2713");
+  setTab("Setup");renderSetup();
+ }).catch(function(e){busy(false);toast("That doesn't look like an Evidence Binder backup");});
+}
+
+/* ===================== init ===================== */
+function init(){
+ $("tabCap").onclick=function(){setTab("Cap");};
+ $("tabBrowse").onclick=function(){setTab("Browse");};
+ $("tabCov").onclick=function(){setTab("Cov");};
+ $("tabPort").onclick=function(){setTab("Port");};
+ $("tabSetup").onclick=function(){setTab("Setup");};
+ $("camB").onclick=function(){$("camFile").click();};
+ $("fileB").onclick=function(){$("picFile").click();};
+ ["camFile","picFile"].forEach(function(id){
+  $(id).addEventListener("change",function(){if(this.files.length)importPics(this.files);this.value="";});
+ });
+ $("tagSave").onclick=saveTagged;
+ $("tagCancel").onclick=function(){
+  PEND.forEach(function(p){URL.revokeObjectURL(p.thumbUrl);});
+  PEND=[];renderTagCard();
+ };
+ ["fUnit","fPupil","fOut"].forEach(function(id){$(id).addEventListener("change",renderGrid);});
+ $("covUnit").addEventListener("change",renderCov);
+ $("portUnit").addEventListener("change",renderPort);
+ $("portAllB").onclick=function(){
+  var u=unitById($("portUnit").value);
+  if(!u){toast("Choose a unit first");return;}
+  portSel={};
+  META.pupils.forEach(function(p){if(pupilItems(u.id,p.id).length)portSel[p.id]=true;});
+  renderPort();
+ };
+ $("portGo").onclick=genPortfolios;
+ $("suUnit").addEventListener("change",function(){fillUnitForm(unitById(this.value));});
+ $("suSaveB").onclick=saveUnit;
+ $("suNewB").onclick=newUnit;
+ $("suDelB").onclick=delUnit;
+ $("suPupSaveB").onclick=savePupils;
+ $("suMetaSaveB").onclick=saveMeta;
+ $("bakB").onclick=doBackup;
+ $("restB").onclick=function(){$("zipFile").click();};
+ $("zipFile").addEventListener("change",function(){if(this.files.length)doRestore(this.files[0]);this.value="";});
+ $("evClose").onclick=closeEv;
+ $("evSaveB").onclick=saveEv;
+ $("evDelB").onclick=delEv;
+ $("helpB").onclick=function(){$("helpModal").classList.add("open");};
+ $("helpClose").onclick=function(){$("helpModal").classList.remove("open");};
+ ["evModal","helpModal"].forEach(function(id){$(id).addEventListener("click",function(e){if(e.target===this){if(id==="evModal")closeEv();else this.classList.remove("open");}});});
+ /* load persisted data */
+ metaLoad().then(function(m){
+  if(m)META=m;
+  else{
+   META.units=[{id:uid(),name:"Tees Trekkers",code:"113789",outcomes:[
+    {id:uid(),text:"Edit me in Setup \u2014 paste outcome 1 from the unit spec"},
+    {id:uid(),text:"Edit me \u2014 outcome 2"},
+    {id:uid(),text:"Edit me \u2014 outcome 3"}]}];
+   metaSave();
+  }
+  return itemsAll();
+ }).then(function(its){
+  ITEMS=its||[];
+  renderSetup();renderTagCard();
+ });
+}
+init();
+
+</script>
+</body>
+</html>

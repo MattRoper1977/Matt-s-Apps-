@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Now / Next Board — Matt's Apps</title>
+<style>
+:root{--ink:#15203a;--acc:#2f9e8f;--accSoft:#d6f0eb;--stage:#eef3f2;--panel:#fff;--line:#d8dde6;--mut:#5b6678;--now:#2f7fe8;--next:#f0a226;--then:#9b8cf0;--shadow:0 6px 18px rgba(21,32,58,.13)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--stage);display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:12px;background:#fff;color:var(--ink);font-weight:700;font-size:15px;min-height:46px;padding:0 15px;box-shadow:0 2px 8px rgba(21,32,58,.08)}
+button:focus-visible,input:focus-visible{outline:3px solid #2f7fe8;outline-offset:2px}
+button:disabled{opacity:.4;cursor:default}
+.hidden{display:none!important}
+#top{background:var(--ink);color:#fff;display:flex;align-items:center;gap:9px;padding:8px 13px;flex:0 0 auto;flex-wrap:wrap}
+#brand{display:flex;align-items:center;gap:9px}
+#brand svg{width:30px;height:30px}
+#brand .wm{display:flex;flex-direction:column;line-height:1.04}
+#brand .wm b{font-size:16px}
+#brand .wm span{font-size:9px;letter-spacing:2.2px;opacity:.72;font-weight:700}
+#top .sp{flex:1}
+#top button{background:rgba(255,255,255,.13);color:#fff;box-shadow:none;min-width:46px}
+#top button.primary{background:var(--acc);color:#06302a}
+#board{flex:1;min-height:0;display:flex;gap:18px;padding:22px;align-items:stretch;justify-content:center}
+.slot{flex:1;max-width:420px;background:var(--panel);border-radius:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden;border:4px solid transparent;position:relative}
+.slot .cap{font-size:clamp(18px,3vw,26px);font-weight:900;text-transform:uppercase;letter-spacing:2px;padding:14px;text-align:center;color:#fff}
+.slot.now{border-color:var(--now)}.slot.now .cap{background:var(--now)}
+.slot.next{border-color:var(--next)}.slot.next .cap{background:var(--next)}
+.slot.then{border-color:var(--then)}.slot.then .cap{background:var(--then)}
+.slot .body{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:18px;cursor:pointer;text-align:center}
+.slot .emoji{font-size:clamp(64px,16vw,140px);line-height:1}
+.slot .label{font-size:clamp(20px,4vw,34px);font-weight:800;line-height:1.2}
+.slot .ph{color:#aab2c2;font-size:16px;font-weight:700}
+.slot .done{position:absolute;inset:0;background:rgba(47,158,143,.93);color:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;font-size:clamp(24px,5vw,40px);font-weight:900}
+.slot.complete .done{display:flex}
+.slot .doneTick{font-size:80px}
+#controls{flex:0 0 auto;background:var(--panel);border-top:1px solid var(--line);padding:11px 14px;display:flex;gap:9px;align-items:center;justify-content:center;flex-wrap:wrap}
+#controls button{min-height:50px;font-size:15px}
+#doneNowB{background:var(--acc);color:#06302a;min-width:170px}
+.threeChip{border-radius:999px;background:#eef1f7;min-height:42px;padding:0 15px;box-shadow:none}
+.threeChip.on{background:var(--accSoft);box-shadow:inset 0 0 0 2px var(--acc)}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal.open{display:flex}
+.sheet{background:#fff;border-radius:18px;padding:20px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto}
+.sheet h3{margin:0 0 12px;font-size:18px}
+.sheet label{display:block;font-size:12px;font-weight:800;margin:12px 0 5px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px}
+.sheet input[type=text]{width:100%;border:2px solid var(--line);border-radius:10px;padding:11px;font-size:16px;font-family:inherit}
+.sheet ol{padding-left:20px;line-height:1.6;font-size:14px;margin:8px 0}
+.sheet .tips{background:#f1f3f8;border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.5;color:var(--mut);margin-top:8px}
+.emojiGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;margin-top:6px}
+.emojiGrid button{font-size:27px;min-height:48px;padding:0;background:#f4f6f9;box-shadow:none}
+.emojiGrid button.on{background:var(--accSoft);box-shadow:inset 0 0 0 2px var(--acc)}
+.preset{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#f4f6f9;box-shadow:none;margin-top:7px;min-height:54px}
+.preset .pe{font-size:30px}
+.acts{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.acts button{flex:1;min-width:120px}
+.acts .primary{background:var(--acc);color:#06302a}
+#toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:700;display:none;z-index:80;max-width:92vw;text-align:center;box-shadow:var(--shadow)}
+@media (max-width:720px){#board{flex-direction:column;padding:12px;gap:12px}.slot .emoji{font-size:64px}.slot .body{flex-direction:row;gap:18px}.slot .label{font-size:24px}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header id="top">
+  <div id="brand">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <rect x="4" y="9" width="15" height="22" rx="3" fill="#2f7fe8"/><rect x="21" y="9" width="15" height="22" rx="3" fill="#f0a226"/>
+      <path d="M9 20l3 3 4-6M26 20l3 3 4-6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="wm"><b>Now / Next Board</b><span>MATT'S APPS</span></div>
+  </div>
+  <div class="sp"></div>
+  <button id="twoB" class="primary" title="Show Now + Next">2</button>
+  <button id="threeB" title="Show Now, Next + Then">3</button>
+  <button id="helpB" aria-label="Help">?</button>
+</header>
+
+<div id="board"></div>
+
+<div id="controls">
+  <button id="doneNowB">✓ Now is done →</button>
+  <button id="editB">✎ Edit cards</button>
+  <button id="resetB">↺ Reset</button>
+  <button id="fsB">⛶ Full screen</button>
+</div>
+
+<div class="modal" id="editModal">
+  <div class="sheet">
+    <h3 id="editTitle">Edit card</h3>
+    <label>Quick pick</label>
+    <div id="presetList"></div>
+    <label for="cardLabel">Or type your own</label>
+    <input type="text" id="cardLabel" maxlength="40" placeholder="e.g. Maths, Reading, Break">
+    <label>Pick a picture</label>
+    <div class="emojiGrid" id="emojiList"></div>
+    <div class="acts"><button id="editCancel">Cancel</button><button class="primary" id="editSave">Save card</button></div>
+  </div>
+</div>
+
+<div class="modal" id="helpModal">
+  <div class="sheet">
+    <h3>How to use the Now / Next board</h3>
+    <ol>
+      <li>Tap a card to choose what it shows — pick a quick activity or type your own and choose a picture.</li>
+      <li><b>Now</b> is happening now; <b>Next</b> comes after. Switch to <b>3</b> to add a <b>Then</b> card.</li>
+      <li>When the current activity finishes, tap <b>✓ Now is done</b> — everything shuffles along and a tick celebrates.</li>
+      <li><b>⛶ Full screen</b> is great on a class display or a pupil's desk.</li>
+    </ol>
+    <div class="tips">Clear, predictable structure helps reduce anxiety around transitions. The board remembers its cards on this device.</div>
+    <div class="acts"><button class="primary" id="helpClose">Got it</button></div>
+  </div>
+</div>
+
+<div id="toast" role="status"></div>
+
+<script id="app">
+"use strict";
+/* ===================== Now/Next Board ===================== */
+function $(id){return document.getElementById(id);}
+var SLOTS=[
+ {key:"now",cap:"Now"},
+ {key:"next",cap:"Next"},
+ {key:"then",cap:"Then"}
+];
+var PRESETS=[
+ ["📖","Reading"],["✏️","Writing"],["🔢","Maths"],["🔬","Science"],["🎨","Art"],["💻","Computing"],
+ ["⚽","PE"],["🍎","Break"],["🥪","Lunch"],["🎵","Music"],["🧩","Activity"],["🗣️","Talk time"],
+ ["🧘","Calm time"],["🚶","Walk"],["🧹","Tidy up"],["🏠","Home time"],["🎬","Video"],["🎲","Game"],
+ ["🤝","Group work"],["⭐","Reward"],["📋","Task"],["🚌","Trip"]
+];
+var EMOJI=["📖","✏️","🔢","🔬","🎨","💻","⚽","🍎","🥪","🎵","🧩","🗣️","🧘","🚶","🧹","🏠","🎬","🎲","🤝","⭐","📋","🚌","😀","👍","❤️","🌟","🔔","⏰","🎉","🏆","🍕","🎯","📓","🖊️","🧮","🔭"];
+/* card model: {emoji,label} or null */
+var cards={now:null,next:null,then:null};
+var mode=2,editKey=null,pendEmoji=null;
+var toastT=null;
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toastT);toastT=setTimeout(function(){t.style.display="none";},2400);}
+function persist(){try{localStorage.setItem("nownext",JSON.stringify({cards:cards,mode:mode}));}catch(e){}}
+
+function render(){
+ var board=$("board");board.innerHTML="";
+ var shown=SLOTS.slice(0,mode);
+ shown.forEach(function(sl){
+  var c=cards[sl.key];
+  var el=document.createElement("div");el.className="slot "+sl.key;
+  var cap=document.createElement("div");cap.className="cap";cap.textContent=sl.cap;el.appendChild(cap);
+  var body=document.createElement("div");body.className="body";
+  if(c){
+   body.innerHTML='<div class="emoji">'+c.emoji+'</div><div class="label">'+escapeHtml(c.label)+'</div>';
+  }else{
+   body.innerHTML='<div class="emoji" style="opacity:.25">➕</div><div class="ph">Tap to choose</div>';
+  }
+  body.onclick=function(){openEdit(sl.key);};
+  el.appendChild(body);
+  var done=document.createElement("div");done.className="done";done.innerHTML='<div class="doneTick">✓</div><div>All done!</div>';el.appendChild(done);
+  board.appendChild(el);
+ });
+}
+function escapeHtml(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+
+function doneNow(){
+ var slot=document.querySelector(".slot.now");
+ if(slot)slot.classList.add("complete");
+ setTimeout(function(){
+  /* shuffle along */
+  cards.now=cards.next;
+  cards.next=mode===3?cards.then:null;
+  cards.then=null;
+  persist();render();
+ },900);
+}
+
+function openEdit(key){
+ editKey=key;pendEmoji=cards[key]?cards[key].emoji:null;
+ $("editTitle").textContent="Edit “"+SLOTS.find(function(s){return s.key===key;}).cap+"” card";
+ $("cardLabel").value=cards[key]?cards[key].label:"";
+ var pl=$("presetList");pl.innerHTML="";
+ PRESETS.forEach(function(p){
+  var b=document.createElement("button");b.className="preset";
+  b.innerHTML='<span class="pe">'+p[0]+'</span><span>'+p[1]+'</span>';
+  b.onclick=function(){$("cardLabel").value=p[1];pendEmoji=p[0];markEmoji();};
+  pl.appendChild(b);
+ });
+ var el=$("emojiList");el.innerHTML="";
+ EMOJI.forEach(function(em){
+  var b=document.createElement("button");b.textContent=em;
+  b.onclick=function(){pendEmoji=em;markEmoji();};
+  el.appendChild(b);
+ });
+ markEmoji();
+ $("editModal").classList.add("open");
+}
+function markEmoji(){
+ $("emojiList").querySelectorAll("button").forEach(function(b){b.classList.toggle("on",b.textContent===pendEmoji);});
+}
+function saveEdit(){
+ var label=($("cardLabel").value||"").trim();
+ if(!label&&!pendEmoji){cards[editKey]=null;}
+ else cards[editKey]={emoji:pendEmoji||"📋",label:label||"Activity"};
+ $("editModal").classList.remove("open");persist();render();
+}
+
+function init(){
+ $("twoB").onclick=function(){mode=2;$("twoB").classList.add("primary");$("threeB").classList.remove("primary");persist();render();};
+ $("threeB").onclick=function(){mode=3;$("threeB").classList.add("primary");$("twoB").classList.remove("primary");persist();render();};
+ $("doneNowB").onclick=doneNow;
+ $("editB").onclick=function(){openEdit("now");};
+ $("resetB").onclick=function(){if(confirm("Clear all cards?")){cards={now:null,next:null,then:null};persist();render();}};
+ $("fsB").onclick=function(){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();};
+ $("editSave").onclick=saveEdit;
+ $("editCancel").onclick=function(){$("editModal").classList.remove("open");};
+ $("helpB").onclick=function(){$("helpModal").classList.add("open");};
+ $("helpClose").onclick=function(){$("helpModal").classList.remove("open");};
+ ["editModal","helpModal"].forEach(function(id){$(id).addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});});
+ document.addEventListener("keydown",function(e){
+  var t=e.target;if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"))return;
+  if(e.key==="Enter"&&!$("editModal").classList.contains("open"))doneNow();
+  if(e.key==="Escape"){$("editModal").classList.remove("open");}
+ });
+ try{var s=JSON.parse(localStorage.getItem("nownext")||"null");if(s){cards=s.cards||cards;mode=s.mode||2;}}catch(e){}
+ if(mode===3){$("threeB").classList.add("primary");$("twoB").classList.remove("primary");}
+ render();
+}
+init();
+
+</script>
+</body>
+</html>

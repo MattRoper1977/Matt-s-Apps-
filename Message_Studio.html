@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Message &amp; Email Studio — Matt's Apps</title>
+<style>
+:root{--ink:#15203a;--acc:#4257c4;--accSoft:#e0e3f7;--stage:#eef1f6;--panel:#fff;--line:#d8dde6;--mut:#5b6678;--good:#16a34a;--shadow:0 5px 16px rgba(21,32,58,.13)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--stage);display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:11px;background:#fff;color:var(--ink);font-weight:700;font-size:14px;min-height:42px;padding:0 14px;box-shadow:0 2px 8px rgba(21,32,58,.08)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.hidden{display:none!important}
+#top{background:var(--ink);color:#fff;display:flex;align-items:center;gap:9px;padding:8px 12px;flex:0 0 auto;flex-wrap:wrap}
+#brand{display:flex;align-items:center;gap:9px}
+#brand svg{width:30px;height:30px}
+#brand .wm{display:flex;flex-direction:column;line-height:1.04}
+#brand .wm b{font-size:16px}
+#brand .wm span{font-size:9px;letter-spacing:2.2px;opacity:.72;font-weight:700}
+#top .sp{flex:1}
+#top button{background:rgba(255,255,255,.13);color:#fff;box-shadow:none}
+#main{flex:1;min-height:0;overflow-y:auto;padding:16px}
+.wrap{max-width:920px;margin:0 auto}
+.cols{display:flex;gap:14px;align-items:flex-start}
+.col{flex:1;min-width:0;display:flex;flex-direction:column;gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--shadow)}
+.card h3{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--mut)}
+.scenario{display:flex;align-items:flex-start;gap:11px;width:100%;text-align:left;background:#f6f7fb;box-shadow:none;margin-top:8px;min-height:60px;padding:12px 14px;border-radius:12px}
+.scenario .se{font-size:26px;flex:0 0 auto}
+.scenario .st b{display:block;font-size:15px}
+.scenario .st span{font-size:12.5px;color:var(--mut);line-height:1.35}
+.scenario.on{background:var(--accSoft);box-shadow:inset 0 0 0 2px var(--acc)}
+.kindRow{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border-radius:999px;background:#eef1f7;min-height:40px;padding:0 14px;font-size:13.5px;box-shadow:none}
+.chip.on{background:var(--accSoft);box-shadow:inset 0 0 0 2px var(--acc)}
+label.fld{display:block;font-size:12px;font-weight:800;margin:10px 0 5px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+input[type=text],textarea,select{width:100%;border:2px solid var(--line);border-radius:10px;padding:10px;font-size:15px;font-family:inherit}
+textarea{resize:vertical;line-height:1.5}
+#preview{white-space:pre-wrap;font-size:15px;line-height:1.6;background:#fbfcfe;border:1px solid var(--line);border-radius:12px;padding:14px;min-height:160px}
+#subjLine{font-weight:800;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:8px}
+.checkItem{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:#f6f7fb;margin-top:7px;font-size:14px;font-weight:600}
+.checkItem .tk{width:26px;height:26px;border-radius:50%;background:#dde3ea;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;flex:0 0 auto;font-size:14px}
+.checkItem.done{background:#e9f7ee}.checkItem.done .tk{background:var(--good)}
+.toneTag{display:inline-block;padding:4px 12px;border-radius:999px;font-size:13px;font-weight:800}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.acts button{flex:1;min-width:130px}
+.acts .primary{background:var(--acc);color:#fff}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal.open{display:flex}
+.sheet{background:#fff;border-radius:18px;padding:20px;max-width:520px;width:100%;max-height:88vh;overflow-y:auto}
+.sheet h3{margin:0 0 12px;font-size:18px}
+.sheet ol{padding-left:20px;line-height:1.6;font-size:14px;margin:8px 0}
+.sheet .tips{background:#f1f3f8;border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.5;color:var(--mut);margin-top:8px}
+.starter{display:block;width:100%;text-align:left;background:#f6f7fb;box-shadow:none;margin-top:7px;padding:10px 12px;font-size:13.5px;line-height:1.4;border-radius:10px}
+#toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:700;display:none;z-index:80;box-shadow:var(--shadow)}
+@media (max-width:780px){.cols{flex-direction:column}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header id="top">
+  <div id="brand">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <rect x="5" y="9" width="30" height="22" rx="4" fill="#4257c4"/>
+      <path d="M6 11l14 11 14-11" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="wm"><b>Message &amp; Email Studio</b><span>MATT'S APPS</span></div>
+  </div>
+  <div class="sp"></div>
+  <button id="helpB" aria-label="Help">?</button>
+</header>
+<div id="main">
+ <div class="wrap">
+  <div class="cols">
+   <div class="col">
+    <div class="card">
+     <h3>1 · What are you writing?</h3>
+     <div id="scenarioList"></div>
+    </div>
+    <div class="card" id="setupCard">
+     <h3>2 · A few details</h3>
+     <div class="kindRow" id="kindRow" style="margin-bottom:4px">
+      <span style="font-size:12px;font-weight:800;color:var(--mut);align-self:center">Send as:</span>
+      <button class="chip on" data-kind="email">✉ Email</button>
+      <button class="chip" data-kind="message">💬 Message</button>
+     </div>
+     <div id="fields"></div>
+    </div>
+   </div>
+   <div class="col">
+    <div class="card">
+     <h3>3 · Your message <span id="toneTagHost"></span></h3>
+     <div id="previewSubjectWrap" class="hidden"><div id="subjLine"></div></div>
+     <div id="preview"></div>
+     <div class="acts" style="margin-top:11px">
+      <button id="copyB" class="primary">📋 Copy</button>
+      <button id="openMailB">✉ Open in email</button>
+      <button id="editB">✎ Edit by hand</button>
+     </div>
+     <textarea id="manualEdit" class="hidden" rows="10" style="margin-top:10px"></textarea>
+    </div>
+    <div class="card">
+     <h3>Did you include…</h3>
+     <div id="checklist"></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+
+<div class="modal" id="helpModal">
+  <div class="sheet">
+    <h3>How to use Message &amp; Email Studio</h3>
+    <ol>
+      <li>Pick <b>what you're writing</b> — emailing a teacher, replying to a college, asking for help, and so on.</li>
+      <li>Choose <b>email or message</b> and fill in a few details. A polite, well-structured draft builds itself.</li>
+      <li>Watch the <b>checklist</b> tick off the things a good message needs: a greeting, a clear point, a polite sign-off.</li>
+      <li><b>📋 Copy</b> or <b>✎ Edit by hand</b> to make it yours, then paste it into your real email or messaging app.</li>
+    </ol>
+    <div class="tips">This tool helps you say things clearly and politely. It never sends anything — you're always in control. Tricky conversations (saying sorry, asking for help, making a fair complaint) are exactly what it's here to practise.</div>
+    <div class="acts"><button class="primary" id="helpClose" style="flex:1">Got it</button></div>
+  </div>
+</div>
+<div id="toast" role="status"></div>
+
+<script id="app">
+"use strict";
+/* ===================== Message & Email Studio ===================== */
+function $(id){return document.getElementById(id);}
+function cap(s){s=(s||"").trim();return s?s[0].toUpperCase()+s.slice(1):s;}
+function clean(s){return (s||"").trim();}
+
+/* Each scenario: id, emoji, title, blurb, tone, fields[], and a builder(values,kind)->{subject,body} */
+var SCENARIOS=[
+ {id:"teacher_work",emoji:"📚",title:"Email a teacher about missed work",blurb:"You were off and need to catch up.",tone:"Polite & clear",
+  fields:[["to","Teacher's name","e.g. Mr Roper"],["yourName","Your name","e.g. Alex"],["subjectClass","Which lesson / subject","e.g. Science"],["reason","Why you missed it (optional)","e.g. I was unwell on Thursday"],["ask","What you need","e.g. the work I missed and the homework"]],
+  build:function(v,kind){
+   var greet="Hi "+(v.to||"there")+",";
+   var line1=v.subjectClass?("I missed "+v.subjectClass+(v.reason?" because "+lc(v.reason):"")+"."):"I missed a lesson recently.";
+   var line2=v.ask?("Please could you let me know "+lc(v.ask)+"?"):"Please could you let me know what I missed and how to catch up?";
+   var body=greet+"\n\n"+line1+" "+line2+"\n\nThank you for your help.\n\nBest wishes,\n"+(v.yourName||"");
+   return{subject:(v.subjectClass?v.subjectClass+" — ":"")+"work I missed",body:body};
+  }},
+ {id:"college_reply",emoji:"🎓",title:"Reply to a college or course offer",blurb:"Accept, or ask a question about an offer.",tone:"Polite & professional",
+  fields:[["to","Who it's to","e.g. Admissions Team"],["yourName","Your full name","e.g. Alex Smith"],["course","Course name","e.g. Level 2 Engineering"],["choice","Accepting or asking?","accept / question"],["detail","Your question (if asking)","e.g. when does it start?"]],
+  build:function(v,kind){
+   var greet="Dear "+(v.to||"Admissions Team")+",";
+   var acc=/quest/i.test(v.choice||"")?
+     ("Thank you for the offer of a place on "+(v.course||"the course")+". I have a question before I reply: "+(v.detail?lc(v.detail):"could you send me more details?")):
+     ("Thank you for the offer of a place on "+(v.course||"the course")+". I am pleased to accept.");
+   var body=greet+"\n\n"+acc+"\n\nThank you for your time.\n\nYours sincerely,\n"+(v.yourName||"");
+   return{subject:"Re: offer — "+(v.course||"course"),body:body};
+  }},
+ {id:"ask_help",emoji:"🙋",title:"Ask an adult for help",blurb:"Ask a teacher or mentor for support with something.",tone:"Honest & calm",
+  fields:[["to","Who you're asking","e.g. Miss Patel"],["yourName","Your name","e.g. Alex"],["topic","What you need help with","e.g. understanding fractions"],["when","When suits you (optional)","e.g. at lunch or after school"]],
+  build:function(v,kind){
+   var greet="Hi "+(v.to||"there")+",";
+   var body=greet+"\n\nI'm finding "+(v.topic?lc(v.topic):"something")+" tricky and I'd really like some help with it. "+(v.when?("Would "+lc(v.when)+" be okay?"):"Could we find a time that works?")+"\n\nThank you.\n\n"+(v.yourName||"");
+   return{subject:"A bit of help, please",body:body};
+  }},
+ {id:"reference",emoji:"📝",title:"Ask for a reference",blurb:"Ask a teacher to be a reference for a job or course.",tone:"Polite & appreciative",
+  fields:[["to","Who you're asking","e.g. Mr Roper"],["yourName","Your full name","e.g. Alex Smith"],["purpose","What it's for","e.g. a part-time job at a shop"],["by","Deadline (optional)","e.g. by next Friday"]],
+  build:function(v,kind){
+   var greet="Dear "+(v.to||"")+",";
+   var body=greet+"\n\nI'm applying for "+(v.purpose?lc(v.purpose):"an opportunity")+" and I would be very grateful if you would be a reference for me. "+(v.by?("They would need it "+lc(v.by)+"."):"")+"\n\nPlease let me know if you're happy to, and thank you for considering it.\n\nBest wishes,\n"+(v.yourName||"");
+   return{subject:"Reference request",body:body};
+  }},
+ {id:"apology",emoji:"🤝",title:"Say sorry / put something right",blurb:"Apologise honestly and suggest making it right.",tone:"Sincere & calm",
+  fields:[["to","Who it's to","e.g. Mr Roper"],["yourName","Your name","e.g. Alex"],["what","What happened","e.g. I shouted in class"],["fix","How you'll put it right (optional)","e.g. I'll be calmer and catch up the work"]],
+  build:function(v,kind){
+   var greet="Hi "+(v.to||"")+",";
+   var body=greet+"\n\nI want to say sorry for "+(v.what?lc(v.what):"what happened")+". I've thought about it and I understand why it was a problem. "+(v.fix?(cap(lc(v.fix))+"."):"I'll do my best to put it right.")+"\n\nThank you for understanding.\n\n"+(v.yourName||"");
+   return{subject:"Sorry — and putting it right",body:body};
+  }},
+ {id:"complaint",emoji:"📨",title:"Make a fair complaint",blurb:"Raise a problem politely and ask for a fix.",tone:"Firm but polite",
+  fields:[["to","Who it's to","e.g. Customer Service"],["yourName","Your name","e.g. Alex Smith"],["problem","What went wrong","e.g. my order arrived broken"],["want","What would put it right","e.g. a replacement or refund"]],
+  build:function(v,kind){
+   var greet="Dear "+(v.to||"Customer Service")+",";
+   var body=greet+"\n\nI'm writing about a problem: "+(v.problem?lc(v.problem):"something went wrong")+". I'd like to sort this out fairly. "+(v.want?("Please could you "+lc(v.want)+"?"):"Please could you let me know how this can be put right?")+"\n\nThank you for looking into it.\n\nYours faithfully,\n"+(v.yourName||"");
+   return{subject:"A problem I'd like to resolve",body:body};
+  }},
+ {id:"thankyou",emoji:"🙏",title:"Say thank you",blurb:"Thank someone properly for their help.",tone:"Warm & genuine",
+  fields:[["to","Who it's to","e.g. Miss Patel"],["yourName","Your name","e.g. Alex"],["forWhat","What for","e.g. helping me with my exam revision"]],
+  build:function(v,kind){
+   var greet="Hi "+(v.to||"")+",";
+   var body=greet+"\n\nThank you so much for "+(v.forWhat?lc(v.forWhat):"your help")+". It really made a difference and I appreciate it.\n\nBest wishes,\n"+(v.yourName||"");
+   return{subject:"Thank you",body:body};
+  }},
+ {id:"request_time",emoji:"📅",title:"Ask for time off or to rearrange",blurb:"Ask politely to change a time or be excused.",tone:"Polite & clear",
+  fields:[["to","Who it's to","e.g. Mr Roper"],["yourName","Your name","e.g. Alex"],["what","What you need","e.g. to leave early on Friday"],["reason","Reason (optional)","e.g. a dentist appointment"]],
+  build:function(v,kind){
+   var greet="Hi "+(v.to||"")+",";
+   var body=greet+"\n\nPlease could I "+(v.what?lc(v.what):"rearrange a time")+(v.reason?(" because of "+lc(v.reason)):"")+"? I'll make sure I catch up anything I miss.\n\nThank you.\n\n"+(v.yourName||"");
+   return{subject:"A quick request",body:body};
+  }}
+];
+function lc(s){s=clean(s);return s?s[0].toLowerCase()+s.slice(1):s;}
+
+/* ---- message transform for "message" (vs email): trim sign-offs, lighter ---- */
+function toMessage(body){
+ var lines=body.split("\n");
+ var out=[];
+ for(var i=0;i<lines.length;i++){
+  var l=lines[i].trim();
+  if(/^(best wishes|yours sincerely|yours faithfully|kind regards|regards)[,!.]?$/i.test(l)){i++;continue;}
+  if(/^thank you for (your time|understanding|looking into it|considering it)[,!.]?$/i.test(l))continue;
+  out.push(lines[i]);
+ }
+ var txt=out.join("\n").replace(/\n{3,}/g,"\n\n").trim();
+ txt=txt.replace(/^Dear /,"Hi ");
+ return txt;
+}
+
+/* ---- checklist scoring (pure, unit-tested) ---- */
+function checkMessage(text,kind){
+ var t=text||"",low=t.toLowerCase();
+ var hasGreet=/^(hi|hello|dear|hey)\b/i.test(t.trim());
+ var hasName=/\n\s*[A-Za-z][A-Za-z'\- ]{1,30}\s*$/.test(t.trimEnd())||/\b(best wishes|regards|sincerely|faithfully)\b/i.test(low);
+ var hasPlease=/\bplease\b/.test(low)||/\bthank you\b/.test(low)||/\bthanks\b/.test(low);
+ var hasPoint=t.replace(/\s+/g,"").length>40;
+ var notAllCaps=!(t.replace(/[^A-Za-z]/g,"").length>10 && t===t.toUpperCase());
+ var items=[
+  {k:"A greeting to start",ok:hasGreet},
+  {k:"A clear main point",ok:hasPoint},
+  {k:"Polite words (please / thank you)",ok:hasPlease},
+  {k:(kind==="email"?"A sign-off with your name":"Your name or a friendly ending"),ok:hasName},
+  {k:"Not written in ALL CAPS",ok:notAllCaps}
+ ];
+ return items;
+}
+/* ===================== state ===================== */
+var curId=SCENARIOS[0].id,kind="email",values={},manual=null;
+var toastT=null;
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toastT);toastT=setTimeout(function(){t.style.display="none";},2600);}
+function scen(){for(var i=0;i<SCENARIOS.length;i++)if(SCENARIOS[i].id===curId)return SCENARIOS[i];return SCENARIOS[0];}
+function persist(){try{localStorage.setItem("msg_state",JSON.stringify({curId:curId,kind:kind,values:values}));}catch(e){}}
+
+function buildScenarioList(){
+ var box=$("scenarioList");box.innerHTML="";
+ SCENARIOS.forEach(function(s){
+  var b=document.createElement("button");b.className="scenario"+(s.id===curId?" on":"");
+  b.innerHTML='<span class="se">'+s.emoji+'</span><span class="st"><b>'+s.title+'</b><span>'+s.blurb+'</span></span>';
+  b.onclick=function(){curId=s.id;manual=null;$("manualEdit").classList.add("hidden");$("preview").classList.remove("hidden");buildScenarioList();buildFields();refresh();persist();};
+  box.appendChild(b);
+ });
+}
+function buildFields(){
+ var box=$("fields");box.innerHTML="";
+ var s=scen();
+ s.fields.forEach(function(f){
+  var key=f[0];
+  var lab=document.createElement("label");lab.className="fld";lab.textContent=f[1];box.appendChild(lab);
+  var inp=document.createElement("input");inp.type="text";inp.placeholder=f[2]||"";
+  inp.value=(values[curId]&&values[curId][key])||"";
+  inp.oninput=function(){values[curId]=values[curId]||{};values[curId][key]=inp.value;manual=null;$("manualEdit").classList.add("hidden");$("preview").classList.remove("hidden");refresh();persist();};
+  box.appendChild(inp);
+ });
+ /* tone tag */
+ $("toneTagHost").innerHTML='<span class="toneTag" style="background:var(--accSoft);color:#28338a">'+s.tone+'</span>';
+}
+function currentText(){
+ if(manual!=null)return manual;
+ var s=scen(),built=s.build(values[curId]||{},kind);
+ var body=built.body;
+ if(kind==="message")body=toMessage(body);
+ return body;
+}
+function currentSubject(){
+ var s=scen(),built=s.build(values[curId]||{},kind);
+ return built.subject;
+}
+function refresh(){
+ var text=currentText();
+ $("preview").textContent=text;
+ if(kind==="email"){$("previewSubjectWrap").classList.remove("hidden");$("subjLine").textContent="Subject: "+currentSubject();}
+ else $("previewSubjectWrap").classList.add("hidden");
+ var items=checkMessage(text,kind),box=$("checklist");box.innerHTML="";
+ items.forEach(function(it){
+  var d=document.createElement("div");d.className="checkItem"+(it.ok?" done":"");
+  d.innerHTML='<span class="tk">'+(it.ok?"✓":"")+"</span>"+it.k;
+  box.appendChild(d);
+ });
+}
+
+function copyOut(){
+ var text=(kind==="email"?("Subject: "+currentSubject()+"\n\n"):"")+currentText();
+ if(navigator.clipboard&&navigator.clipboard.writeText){
+  navigator.clipboard.writeText(text).then(function(){toast("Copied — paste it into your email or app ✓");},function(){fallbackCopy(text);});
+ }else fallbackCopy(text);
+}
+function fallbackCopy(text){
+ var ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.left="-9999px";
+ document.body.appendChild(ta);ta.select();
+ try{document.execCommand("copy");toast("Copied ✓");}catch(e){toast("Press and hold to copy the text");}
+ ta.remove();
+}
+function openMail(){
+ var subj=encodeURIComponent(currentSubject()),body=encodeURIComponent(currentText());
+ window.location.href="mailto:?subject="+subj+"&body="+body;
+}
+
+function init(){
+ buildScenarioList();buildFields();
+ document.querySelectorAll("[data-kind]").forEach(function(b){
+  b.onclick=function(){kind=b.dataset.kind;document.querySelectorAll("[data-kind]").forEach(function(x){x.classList.toggle("on",x===b);});manual=null;$("manualEdit").classList.add("hidden");$("preview").classList.remove("hidden");$("openMailB").classList.toggle("hidden",kind!=="email");refresh();persist();};
+ });
+ $("copyB").onclick=copyOut;
+ $("openMailB").onclick=openMail;
+ $("editB").onclick=function(){
+  var ta=$("manualEdit");
+  if(ta.classList.contains("hidden")){
+   ta.value=currentText();ta.classList.remove("hidden");$("preview").classList.add("hidden");
+   ta.oninput=function(){manual=ta.value;var items=checkMessage(manual,kind),box=$("checklist");box.innerHTML="";items.forEach(function(it){var d=document.createElement("div");d.className="checkItem"+(it.ok?" done":"");d.innerHTML='<span class="tk">'+(it.ok?"✓":"")+"</span>"+it.k;box.appendChild(d);});};
+   this.textContent="✓ Done editing";
+  }else{
+   manual=ta.value;ta.classList.add("hidden");$("preview").classList.remove("hidden");$("preview").textContent=manual;
+   this.textContent="✎ Edit by hand";
+  }
+ };
+ $("helpB").onclick=function(){$("helpModal").classList.add("open");};
+ $("helpClose").onclick=function(){$("helpModal").classList.remove("open");};
+ $("helpModal").addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});
+ try{var s=JSON.parse(localStorage.getItem("msg_state")||"null");if(s){curId=s.curId||curId;kind=s.kind||"email";values=s.values||{};document.querySelectorAll("[data-kind]").forEach(function(x){x.classList.toggle("on",x.dataset.kind===kind);});buildScenarioList();buildFields();}}catch(e){}
+ $("openMailB").classList.toggle("hidden",kind!=="email");
+ refresh();
+}
+init();
+
+</script>
+</body>
+</html>
