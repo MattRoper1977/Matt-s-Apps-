@@ -34,8 +34,9 @@ input[type=text],textarea{width:100%;border:2px solid var(--line);border-radius:
 .go{background:var(--acc);color:#fff}
 .big{font-size:16px;min-height:54px;font-weight:800}
 /* tally buttons (the big response buttons) */
-#tallyArea{display:grid;gap:14px}
-.tallyBtn{border-radius:20px;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-weight:800;box-shadow:var(--shadow);position:relative;border:3px solid transparent;color:#fff;font-size:clamp(18px,4vw,24px)}
+#tallyArea{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+#tallyArea.cols3{grid-template-columns:1fr 1fr 1fr}
+.tallyBtn{border-radius:18px;min-height:clamp(78px,18vw,128px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-weight:800;box-shadow:var(--shadow);position:relative;border:3px solid transparent;color:#fff;font-size:clamp(18px,4vw,24px)}
 .tallyBtn .em{font-size:clamp(34px,8vw,54px);line-height:1}
 .tallyBtn .ct{position:absolute;top:10px;right:16px;font-size:clamp(24px,6vw,40px);font-weight:900;background:rgba(255,255,255,.25);min-width:46px;padding:2px 12px;border-radius:999px}
 .tallyBtn:active{transform:scale(.98)}
@@ -64,7 +65,7 @@ input[type=text],textarea{width:100%;border:2px solid var(--line);border-radius:
 .sheet ol{padding-left:20px;line-height:1.6;font-size:14px;margin:8px 0}
 .sheet .tips{background:#f1f3f8;border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.5;color:var(--mut);margin-top:8px}
 #toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:700;display:none;z-index:80;box-shadow:var(--shadow);max-width:92vw;text-align:center}
-@media (min-width:560px){#tallyArea.cols2{grid-template-columns:1fr 1fr}#tallyArea.cols3{grid-template-columns:1fr 1fr 1fr}}
+@media (min-width:620px){#tallyArea.cols3{grid-template-columns:repeat(3,1fr)}#tallyArea.cols6{grid-template-columns:repeat(6,1fr)}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -196,7 +197,7 @@ function verdict(u){
  return "Lots of uncertainty — best to reteach this.";
 }
 /* ===================== state (ephemeral) ===================== */
-var mode="thumbs",nOpts=2,responses=[],counts={},history=[],question="";
+var mode="thumbs",nOpts=2,responses=[],counts={},tapLog=[],question="";
 var toastT=null;
 function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toastT);toastT=setTimeout(function(){t.style.display="none";},2400);}
 function bandColor(band,key){
@@ -207,7 +208,7 @@ function bandColor(band,key){
 function startCollect(){
  question=$("questionIn").value.trim();
  responses=responsesFor(mode,nOpts);
- counts={};responses.forEach(function(r){counts[r.key]=0;});history=[];
+ counts={};responses.forEach(function(r){counts[r.key]=0;});tapLog=[];
  $("qDisplay").textContent=question||"Tap your answer";
  buildTally();updateTotal();
  $("setupView").classList.add("hidden");$("collectView").classList.remove("hidden");$("resultsView").classList.add("hidden");
@@ -216,12 +217,12 @@ function buildTally(){
  var area=$("tallyArea");area.innerHTML="";
  area.className="";
  if(mode==="thumbs")area.classList.add("cols3");
- else if(mode==="confidence")area.classList.add("cols3");
- else area.classList.add(nOpts>=3?"cols2":"cols2");
+ else if(mode==="confidence")area.classList.add("cols3","cols6");
+ /* mcq: 2-up always (base grid) — works for 2,3,4 options */
  responses.forEach(function(r){
   var b=document.createElement("button");b.className="tallyBtn "+r.cls;
   b.innerHTML=(r.em?'<span class="em">'+r.em+'</span>':'')+'<span>'+r.label+'</span><span class="ct" data-k="'+r.key+'">'+(counts[r.key]||0)+'</span>';
-  b.onclick=function(){counts[r.key]=(counts[r.key]||0)+1;history.push(r.key);updateCount(r.key);updateTotal();};
+  b.onclick=function(){counts[r.key]=(counts[r.key]||0)+1;tapLog.push(r.key);updateCount(r.key);updateTotal();};
   area.appendChild(b);
  });
 }
@@ -241,8 +242,8 @@ function showResults(){
  var u=understanding(counts,responses);
  var stat=$("bigStat");
  if(mode==="mcq"){
-  var top=topResponse(counts,responses);
-  stat.innerHTML='<div><div class="v">'+tot+'</div><div class="l">responses</div></div><div style="flex:1;font-size:15px;font-weight:700">'+(top?("Most chose "+top.label):"No answers yet")+'</div>';
+  var topR=topResponse(counts,responses);
+  stat.innerHTML='<div><div class="v">'+tot+'</div><div class="l">responses</div></div><div style="flex:1;font-size:15px;font-weight:700">'+(topR?("Most chose "+topR.label):"No answers yet")+'</div>';
  }else{
   stat.innerHTML='<div><div class="v">'+(u==null?"—":u+"%")+'</div><div class="l">understanding</div></div><div style="flex:1;font-size:14.5px;line-height:1.4">'+verdict(u)+'</div>';
  }
@@ -289,8 +290,8 @@ function init(){
   b.onclick=function(){nOpts=+b.dataset.opts;document.querySelectorAll("[data-opts]").forEach(function(x){x.classList.toggle("on",x===b);});};
  });
  $("startB").onclick=startCollect;
- $("undoB").onclick=function(){if(!history.length){toast("Nothing to undo");return;}var k=history.pop();counts[k]=Math.max(0,(counts[k]||0)-1);updateCount(k);updateTotal();};
- $("resetCountB").onclick=function(){responses.forEach(function(r){counts[r.key]=0;});history=[];buildTally();updateTotal();};
+ $("undoB").onclick=function(){if(!tapLog.length){toast("Nothing to undo");return;}var k=tapLog.pop();counts[k]=Math.max(0,(counts[k]||0)-1);updateCount(k);updateTotal();};
+ $("resetCountB").onclick=function(){responses.forEach(function(r){counts[r.key]=0;});tapLog=[];buildTally();updateTotal();};
  $("resultsB").onclick=showResults;
  $("backCollectB").onclick=function(){$("resultsView").classList.add("hidden");$("collectView").classList.remove("hidden");};
  $("newQB").onclick=function(){$("resultsView").classList.add("hidden");$("setupView").classList.remove("hidden");};
@@ -304,7 +305,7 @@ function init(){
   var t=e.target;if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"))return;
   /* number keys map to responses */
   var idx=parseInt(e.key,10);
-  if(!isNaN(idx)&&mode==="confidence"&&idx>=0&&idx<=5){var r=responses[idx];counts[r.key]++;history.push(r.key);updateCount(r.key);updateTotal();}
+  if(!isNaN(idx)&&mode==="confidence"&&idx>=0&&idx<=5){var r=responses[idx];counts[r.key]++;tapLog.push(r.key);updateCount(r.key);updateTotal();}
  });
 }
 init();
