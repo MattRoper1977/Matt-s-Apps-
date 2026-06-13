@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Studio Suite — Matt's Apps</title>
+<style>
+:root{--ink:#15203a;--stage:#eef1f5;--panel:#fff;--line:#dde2ea;--mut:#5b6678;--shadow:0 6px 20px rgba(21,32,58,.12)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%}
+body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--stage);min-height:100vh;min-height:100dvh}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:0;background:none}
+button:focus-visible,a:focus-visible{outline:3px solid #f59e0b;outline-offset:3px;border-radius:14px}
+#hero{background:linear-gradient(135deg,#15203a,#243a63);color:#fff;padding:30px 20px 26px;text-align:center}
+#hero .brandRow{display:flex;align-items:center;justify-content:center;gap:11px;margin-bottom:6px}
+#hero svg{width:38px;height:38px}
+#hero span.k{font-size:10px;letter-spacing:3px;font-weight:800;opacity:.7}
+#hero h1{margin:4px 0 4px;font-size:clamp(24px,5vw,34px);font-weight:800}
+#hero p{margin:0 auto;max-width:520px;font-size:15px;line-height:1.5;opacity:.85}
+#search{margin:16px auto 0;max-width:380px;display:block;width:100%;border:0;border-radius:999px;padding:13px 18px;font-size:15px;font-family:inherit;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+main{max-width:1040px;margin:0 auto;padding:22px 16px 50px}
+.catTitle{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--mut);margin:26px 6px 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:17px 16px;display:flex;flex-direction:column;gap:9px;min-height:142px;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s;position:relative;overflow:hidden}
+.tile:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(21,32,58,.18)}
+.tile:active{transform:translateY(0)}
+.tile .ic{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:25px;color:#fff;flex:0 0 auto}
+.tile b{font-size:16px}
+.tile p{margin:0;font-size:12.5px;color:var(--mut);line-height:1.4}
+.tile .edge{position:absolute;left:0;top:0;bottom:0;width:5px}
+.missing{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:14px;font-size:13.5px;max-width:90vw;box-shadow:var(--shadow);display:none;line-height:1.45}
+.missing b{color:#ffd166}
+#empty{text-align:center;color:var(--mut);padding:40px;font-size:15px;display:none}
+footer{text-align:center;color:var(--mut);font-size:12px;padding:0 16px 30px;line-height:1.6}
+@media (prefers-reduced-motion:reduce){.tile{transition:none}}
+</style>
+</head>
+<body>
+<header id="hero">
+  <div class="brandRow">
+    <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="5" width="13" height="13" rx="3" fill="#6abe30"/><rect x="22" y="5" width="13" height="13" rx="3" fill="#0ea5b5"/><rect x="5" y="22" width="13" height="13" rx="3" fill="#ef5d60"/><rect x="22" y="22" width="13" height="13" rx="3" fill="#f0a226"/></svg>
+    <span class="k">MATT'S APPS</span>
+  </div>
+  <h1>Studio Suite</h1>
+  <p>Everything you need to make, create and stay calm — all in one place. Tap a studio to begin.</p>
+  <input id="search" type="text" placeholder="🔍 Search the studios…" aria-label="Search studios">
+</header>
+<main>
+  <div id="cats"></div>
+  <div id="empty">No studio matches that — try another word.</div>
+</main>
+<footer>
+  Works offline · nothing you make leaves the device · 17 free single-file tools<br>
+  Matt's Apps.
+</footer>
+<div class="missing" id="miss"></div>
+
+<script id="app">
+"use strict";
+var APPS=[
+ {cat:"Make &amp; create",items:[
+  {f:"Craft_Studio.html",n:"Craft Studio",d:"Code a robot through a block world",i:"\uD83E\uDDF1",c:"#6abe30"},
+  {f:"Web_Studio.html",n:"Web Studio",d:"Build a real web page with HTML &amp; CSS",i:"\uD83C\uDF10",c:"#0ea5b5"},
+  {f:"Animation_Studio.html",n:"Animation Studio",d:"Stop-motion films, frame by frame",i:"\uD83C\uDFAC",c:"#ef5d60"},
+  {f:"Video_Studio.html",n:"Video Studio",d:"Edit clips, titles, music &amp; voiceover",i:"\uD83C\uDF9E\uFE0F",c:"#f0a226"},
+  {f:"Audio_Studio.html",n:"Audio Studio",d:"Record, edit &amp; trim sound",i:"\uD83C\uDF99\uFE0F",c:"#0fa36b"},
+  {f:"Music_Studio.html",n:"Music Studio",d:"Build beats &amp; tunes for your films",i:"\uD83C\uDFB9",c:"#e8516f"}
+ ]},
+ {cat:"Art &amp; design",items:[
+  {f:"Art_Studio.html",n:"Art Studio",d:"Paint with layers &amp; symmetry",i:"\uD83C\uDFA8",c:"#6d5cf5"},
+  {f:"Design_Studio.html",n:"Design Studio",d:"Posters, certificates &amp; layouts",i:"\u270F\uFE0F",c:"#4f46e5"},
+  {f:"Photo_Studio.html",n:"Photo Studio",d:"Combine photos, stickers &amp; text",i:"\uD83D\uDDBC\uFE0F",c:"#d9488b"},
+  {f:"Comic_Studio.html",n:"Comic Studio",d:"Panels, speech bubbles &amp; stickers",i:"\uD83D\uDCAC",c:"#f4a522"},
+  {f:"Graph_Studio.html",n:"Graph & Data Studio",d:"Turn a results table into a chart",i:"\uD83D\uDCCA",c:"#137a63"}
+ ]},
+ {cat:"Documents",items:[
+  {f:"PDF_Studio.html",n:"PDF Studio",d:"Annotate, edit text &amp; sort pages",i:"\uD83D\uDCC4",c:"#e2554f"},
+  {f:"Evidence_Binder.html",n:"Evidence Binder",d:"Capture &amp; tag work for portfolios",i:"\uD83D\uDCD2",c:"#b4892c"}
+ ]},
+ {cat:"Learn &amp; organise",items:[
+  {f:"Typing_Tutor.html",n:"Typing Tutor",d:"Build typing speed &amp; accuracy",i:"\u2328\uFE0F",c:"#3b6fe0"},
+  {f:"Message_Studio.html",n:"Message & Email Studio",d:"Write a clear, polite message",i:"\u2709\uFE0F",c:"#4257c4"},
+  {f:"NowNext_Board.html",n:"Now / Next Board",d:"A calm visual schedule",i:"\uD83D\uDCCB",c:"#2f9e8f"}
+ ]},
+ {cat:"Calm corner",items:[
+  {f:"Regulation_Station.html",n:"Regulation Station",d:"Breathe, ground &amp; take a quiet moment",i:"\uD83E\uDDD8",c:"#7c6fb0"}
+ ]}
+];
+function $(id){return document.getElementById(id);}
+function esc(s){return s.replace(/&amp;/g,"&");}
+var miss=$("miss"),missT=null;
+function showMiss(name,file){
+ miss.innerHTML="<b>"+esc(name)+"</b> should sit in the same folder as this page (looking for "+file+"). Pop all the studios in one folder and the links just work.";
+ miss.style.display="block";clearTimeout(missT);missT=setTimeout(function(){miss.style.display="none";},6000);
+}
+function build(){
+ var root=$("cats");root.innerHTML="";
+ APPS.forEach(function(group){
+  var sec=document.createElement("section");sec.dataset.cat="1";
+  var h=document.createElement("div");h.className="catTitle";h.innerHTML=group.cat;sec.appendChild(h);
+  var g=document.createElement("div");g.className="grid";
+  group.items.forEach(function(a){
+   var card=document.createElement("a");
+   card.className="tile";card.href=a.f;card.dataset.search=(a.n+" "+a.d).toLowerCase();
+   card.innerHTML='<span class="edge" style="background:'+a.c+'"></span>'+
+     '<span class="ic" style="background:'+a.c+'">'+a.i+'</span>'+
+     '<b>'+a.n+'</b><p>'+a.d+'</p>';
+   card.addEventListener("click",function(e){
+    /* if the file is missing the browser shows its own error; we pre-check politely */
+    e.preventDefault();
+    var probe=new XMLHttpRequest();
+    var done=false;
+    try{
+     probe.open("HEAD",a.f,true);
+     probe.onreadystatechange=function(){
+      if(probe.readyState===4&&!done){done=true;
+       if(probe.status===0||probe.status>=400)showMiss(a.n,a.f);
+       else window.location.href=a.f;
+      }
+     };
+     probe.onerror=function(){if(!done){done=true;window.location.href=a.f;}};
+     probe.send();
+     setTimeout(function(){if(!done){done=true;window.location.href=a.f;}},800);
+    }catch(err){window.location.href=a.f;}
+   });
+   g.appendChild(card);
+  });
+  sec.appendChild(g);
+  root.appendChild(sec);
+ });
+}
+function filter(q){
+ q=q.trim().toLowerCase();
+ var any=false;
+ document.querySelectorAll("section[data-cat]").forEach(function(sec){
+  var shown=0;
+  sec.querySelectorAll(".tile").forEach(function(t){
+   var hit=!q||t.dataset.search.indexOf(q)>=0;
+   t.style.display=hit?"":"none";
+   if(hit)shown++;
+  });
+  sec.style.display=shown?"":"none";
+  if(shown)any=true;
+ });
+ $("empty").style.display=any?"none":"block";
+}
+function init(){
+ build();
+ $("search").addEventListener("input",function(){filter(this.value);});
+}
+init();
+</script>
+</body>
+</html>
