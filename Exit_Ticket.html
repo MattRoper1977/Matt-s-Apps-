@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Exit Ticket &amp; Quick Marks — Matt's Apps</title>
+<style>
+:root{--ink:#15203a;--acc:#0891b2;--accSoft:#cdeef4;--stage:#eef2f4;--panel:#fff;--line:#d8dde6;--mut:#5b6678;--good:#16a34a;--mid:#f0a226;--low:#e2554f;--shadow:0 6px 18px rgba(21,32,58,.13)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--stage);display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:12px;background:#fff;color:var(--ink);font-weight:700;font-size:15px;min-height:46px;padding:0 16px;box-shadow:0 2px 8px rgba(21,32,58,.08)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+button:disabled{opacity:.4;cursor:default}
+.hidden{display:none!important}
+#top{background:var(--ink);color:#fff;display:flex;align-items:center;gap:9px;padding:8px 12px;flex:0 0 auto;flex-wrap:wrap}
+#brand{display:flex;align-items:center;gap:9px}
+#brand svg{width:30px;height:30px}
+#brand .wm{display:flex;flex-direction:column;line-height:1.04}
+#brand .wm b{font-size:16px}
+#brand .wm span{font-size:9px;letter-spacing:2.2px;opacity:.72;font-weight:700}
+#top .sp{flex:1}
+#top button{background:rgba(255,255,255,.13);color:#fff;box-shadow:none}
+#top button.primary{background:var(--acc);color:#fff}
+#main{flex:1;min-height:0;overflow-y:auto;padding:16px}
+.wrap{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+.card h3{margin:0 0 11px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--mut)}
+.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.row+.row{margin-top:9px}
+input[type=text],textarea{width:100%;border:2px solid var(--line);border-radius:10px;padding:11px;font-size:16px;font-family:inherit;resize:vertical}
+.chip{border-radius:999px;background:#eef1f7;min-height:42px;padding:0 15px;font-size:14px;box-shadow:none}
+.chip.on{background:var(--accSoft);box-shadow:inset 0 0 0 2px var(--acc)}
+.go{background:var(--acc);color:#fff}
+.big{font-size:16px;min-height:54px;font-weight:800}
+/* tally buttons (the big response buttons) */
+#tallyArea{display:grid;gap:14px}
+.tallyBtn{border-radius:20px;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-weight:800;box-shadow:var(--shadow);position:relative;border:3px solid transparent;color:#fff;font-size:clamp(18px,4vw,24px)}
+.tallyBtn .em{font-size:clamp(34px,8vw,54px);line-height:1}
+.tallyBtn .ct{position:absolute;top:10px;right:16px;font-size:clamp(24px,6vw,40px);font-weight:900;background:rgba(255,255,255,.25);min-width:46px;padding:2px 12px;border-radius:999px}
+.tallyBtn:active{transform:scale(.98)}
+.tb-good{background:#2fa86a}.tb-mid{background:#e6a52e}.tb-low{background:#d8584f}
+.tb-a{background:#2563eb}.tb-b{background:#7c3aed}.tb-c{background:#0891b2}.tb-d{background:#d9488b}
+.tb-n0{background:#d8584f}.tb-n1{background:#e57a44}.tb-n2{background:#e6a52e}.tb-n3{background:#a8b020}.tb-n4{background:#5fae4a}.tb-n5{background:#2fa86a}
+/* results */
+#resultBars{display:flex;flex-direction:column;gap:10px}
+.bar{display:flex;align-items:center;gap:11px}
+.bar .blab{width:120px;flex:0 0 auto;font-weight:700;font-size:14px;text-align:right}
+.bar .btrack{flex:1;background:#eef1f7;border-radius:10px;height:34px;overflow:hidden;position:relative}
+.bar .bfill{height:100%;border-radius:10px;transition:width .4s;min-width:2px}
+.bar .bct{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-weight:800;font-size:14px;color:#15203a}
+#bigStat{display:flex;gap:14px;flex-wrap:wrap;align-items:center;background:var(--ink);color:#fff;border-radius:14px;padding:14px 18px}
+#bigStat .v{font-size:34px;font-weight:900}
+#bigStat .l{font-size:13px;opacity:.82}
+#qDisplay{font-size:clamp(20px,4.5vw,30px);font-weight:800;line-height:1.3;text-align:center;padding:6px 0}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.acts button{flex:1;min-width:130px}
+.acts .primary{background:var(--acc);color:#fff}
+.modeRow{display:flex;gap:8px;flex-wrap:wrap}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal.open{display:flex}
+.sheet{background:#fff;border-radius:18px;padding:20px;max-width:520px;width:100%;max-height:88vh;overflow-y:auto}
+.sheet h3{margin:0 0 12px;font-size:18px}
+.sheet ol{padding-left:20px;line-height:1.6;font-size:14px;margin:8px 0}
+.sheet .tips{background:#f1f3f8;border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.5;color:var(--mut);margin-top:8px}
+#toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:700;display:none;z-index:80;box-shadow:var(--shadow);max-width:92vw;text-align:center}
+@media (min-width:560px){#tallyArea.cols2{grid-template-columns:1fr 1fr}#tallyArea.cols3{grid-template-columns:1fr 1fr 1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header id="top">
+  <div id="brand">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <rect x="6" y="8" width="28" height="24" rx="3" fill="#0891b2"/>
+      <rect x="11" y="22" width="4" height="6" fill="#fff"/><rect x="18" y="18" width="4" height="10" fill="#fff"/><rect x="25" y="13" width="4" height="15" fill="#fff"/>
+    </svg>
+    <div class="wm"><b>Exit Ticket &amp; Quick Marks</b><span>MATT'S APPS</span></div>
+  </div>
+  <div class="sp"></div>
+  <button id="fsB" title="Full screen">⛶</button>
+  <button id="helpB" aria-label="Help">?</button>
+</header>
+<div id="main">
+
+ <div class="wrap" id="setupView">
+  <div class="card">
+   <h3>1 · Your question (optional)</h3>
+   <input type="text" id="questionIn" placeholder="e.g. How well do you understand today's topic?">
+  </div>
+  <div class="card">
+   <h3>2 · How will they answer?</h3>
+   <div class="modeRow">
+    <button class="chip on" data-mode="thumbs">👍 Got it / nearly / stuck</button>
+    <button class="chip" data-mode="confidence">0–5 confidence</button>
+    <button class="chip" data-mode="mcq">A B C D choice</button>
+   </div>
+   <div id="mcqSetup" class="hidden" style="margin-top:11px">
+    <div class="row"><span style="font-size:13px;font-weight:700;color:var(--mut)">How many options?</span>
+     <button class="chip on" data-opts="2">2</button><button class="chip" data-opts="3">3</button><button class="chip" data-opts="4">4</button>
+    </div>
+   </div>
+  </div>
+  <div class="card">
+   <div class="row"><button id="startB" class="go big" style="flex:1">▶ Start collecting answers</button></div>
+   <div class="note" style="font-size:12.5px;color:var(--mut);margin-top:8px;line-height:1.5">Project this on the board and tap as pupils answer (or let them come up). It shows the class picture instantly — no names, no individual data. Great for deciding whether to move on or go over something again.</div>
+  </div>
+ </div>
+
+ <div class="wrap hidden" id="collectView">
+  <div class="card"><div id="qDisplay"></div></div>
+  <div id="tallyArea"></div>
+  <div class="row" style="justify-content:center;margin-top:4px">
+   <button id="undoB" class="chip">↶ Undo last</button>
+   <button id="resetCountB" class="chip">↺ Reset counts</button>
+   <button id="resultsB" class="go big" style="min-width:180px">📊 See results</button>
+  </div>
+  <div class="row" style="justify-content:center"><span class="note" id="totalCount" style="font-size:14px;font-weight:700;color:var(--mut)"></span></div>
+ </div>
+
+ <div class="wrap hidden" id="resultsView">
+  <div class="card">
+   <div id="qDisplay2" style="font-size:clamp(18px,4vw,26px);font-weight:800;text-align:center;margin-bottom:6px"></div>
+   <div id="resultBars"></div>
+  </div>
+  <div id="bigStat"></div>
+  <div class="acts">
+   <button id="pngB" class="primary">📷 Save snapshot</button>
+   <button id="backCollectB">← Keep collecting</button>
+   <button id="newQB">＋ New question</button>
+  </div>
+ </div>
+
+</div>
+<canvas id="snapCanvas" class="hidden"></canvas>
+
+<div class="modal" id="helpModal">
+  <div class="sheet">
+    <h3>How to use Exit Ticket &amp; Quick Marks</h3>
+    <ol>
+      <li>Type a <b>question</b> (or leave it blank) and choose <b>how pupils answer</b> — thumbs, a 0–5 confidence scale, or A–D choice.</li>
+      <li><b>Start</b>, then tap a response for each pupil as they answer — or hand the device round.</li>
+      <li>Tap <b>📊 See results</b> for an instant bar chart of the whole class's understanding.</li>
+      <li>Use it to decide: move on, or go over it again? <b>📷 Save snapshot</b> keeps a picture for your records.</li>
+    </ol>
+    <div class="tips">No names and no individual data — just the class picture. Nothing is stored once you close the page.</div>
+    <div class="acts"><button class="primary" id="helpClose" style="flex:1">Got it</button></div>
+  </div>
+</div>
+<div id="toast" role="status"></div>
+
+<script id="app">
+"use strict";
+/* ===================== Exit Ticket & Quick Marks ===================== */
+function $(id){return document.getElementById(id);}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+/* response sets per mode */
+function responsesFor(mode,nOpts){
+ if(mode==="thumbs")return[
+  {key:"good",label:"Got it!",em:"👍",cls:"tb-good",band:"good"},
+  {key:"mid",label:"Nearly",em:"🤔",cls:"tb-mid",band:"mid"},
+  {key:"low",label:"Stuck",em:"🙋",cls:"tb-low",band:"low"}
+ ];
+ if(mode==="confidence"){
+  var out=[];for(var i=0;i<=5;i++)out.push({key:"n"+i,label:String(i),em:["😟","😕","😐","🙂","😀","🤩"][i],cls:"tb-n"+i,band:i<=1?"low":i<=3?"mid":"good"});
+  return out;
+ }
+ /* mcq */
+ var letters=["A","B","C","D"],r=[];
+ for(var j=0;j<nOpts;j++)r.push({key:letters[j],label:letters[j],em:"",cls:"tb-"+letters[j].toLowerCase(),band:"neutral"});
+ return r;
+}
+/* ---- tally maths (pure, unit-tested) ---- */
+function total(counts){var t=0;for(var k in counts)if(counts.hasOwnProperty(k))t+=counts[k];return t;}
+function pct(n,tot){return tot<=0?0:Math.round(n/tot*100);}
+/* understanding score: good=1, mid=0.5, low/neutral=0 -> % across responders (thumbs & confidence) */
+function understanding(counts,responses){
+ var tot=total(counts);if(tot<=0)return null;
+ var acc=0;
+ responses.forEach(function(r){
+  var n=counts[r.key]||0;
+  acc+=n*(r.band==="good"?1:r.band==="mid"?0.5:0);
+ });
+ return Math.round(acc/tot*100);
+}
+function topResponse(counts,responses){
+ var best=null,bc=-1;
+ responses.forEach(function(r){var n=counts[r.key]||0;if(n>bc){bc=n;best=r;}});
+ return bc>0?best:null;
+}
+function verdict(u){
+ if(u==null)return "";
+ if(u>=80)return "Strong understanding — good to move on.";
+ if(u>=55)return "Mostly there — a quick recap could help.";
+ if(u>=30)return "Patchy — worth going over the key points again.";
+ return "Lots of uncertainty — best to reteach this.";
+}
+/* ===================== state (ephemeral) ===================== */
+var mode="thumbs",nOpts=2,responses=[],counts={},history=[],question="";
+var toastT=null;
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toastT);toastT=setTimeout(function(){t.style.display="none";},2400);}
+function bandColor(band,key){
+ if(band==="good")return "#2fa86a";if(band==="mid")return "#e6a52e";if(band==="low")return "#d8584f";
+ return {A:"#2563eb",B:"#7c3aed",C:"#0891b2",D:"#d9488b"}[key]||"#0891b2";
+}
+
+function startCollect(){
+ question=$("questionIn").value.trim();
+ responses=responsesFor(mode,nOpts);
+ counts={};responses.forEach(function(r){counts[r.key]=0;});history=[];
+ $("qDisplay").textContent=question||"Tap your answer";
+ buildTally();updateTotal();
+ $("setupView").classList.add("hidden");$("collectView").classList.remove("hidden");$("resultsView").classList.add("hidden");
+}
+function buildTally(){
+ var area=$("tallyArea");area.innerHTML="";
+ area.className="";
+ if(mode==="thumbs")area.classList.add("cols3");
+ else if(mode==="confidence")area.classList.add("cols3");
+ else area.classList.add(nOpts>=3?"cols2":"cols2");
+ responses.forEach(function(r){
+  var b=document.createElement("button");b.className="tallyBtn "+r.cls;
+  b.innerHTML=(r.em?'<span class="em">'+r.em+'</span>':'')+'<span>'+r.label+'</span><span class="ct" data-k="'+r.key+'">'+(counts[r.key]||0)+'</span>';
+  b.onclick=function(){counts[r.key]=(counts[r.key]||0)+1;history.push(r.key);updateCount(r.key);updateTotal();};
+  area.appendChild(b);
+ });
+}
+function updateCount(key){var el=document.querySelector('.ct[data-k="'+key+'"]');if(el)el.textContent=counts[key]||0;}
+function updateTotal(){$("totalCount").textContent=total(counts)+" responses so far";}
+
+function showResults(){
+ var box=$("resultBars");box.innerHTML="";
+ var tot=total(counts);
+ $("qDisplay2").textContent=question||"Class results";
+ responses.forEach(function(r){
+  var n=counts[r.key]||0,p=pct(n,tot);
+  var bar=document.createElement("div");bar.className="bar";
+  bar.innerHTML='<div class="blab">'+(r.em?r.em+" ":"")+r.label+'</div><div class="btrack"><div class="bfill" style="width:'+p+'%;background:'+bandColor(r.band,r.key)+'"></div><div class="bct">'+n+' ('+p+'%)</div></div>';
+  box.appendChild(bar);
+ });
+ var u=understanding(counts,responses);
+ var stat=$("bigStat");
+ if(mode==="mcq"){
+  var top=topResponse(counts,responses);
+  stat.innerHTML='<div><div class="v">'+tot+'</div><div class="l">responses</div></div><div style="flex:1;font-size:15px;font-weight:700">'+(top?("Most chose "+top.label):"No answers yet")+'</div>';
+ }else{
+  stat.innerHTML='<div><div class="v">'+(u==null?"—":u+"%")+'</div><div class="l">understanding</div></div><div style="flex:1;font-size:14.5px;line-height:1.4">'+verdict(u)+'</div>';
+ }
+ $("collectView").classList.add("hidden");$("resultsView").classList.remove("hidden");
+}
+
+/* snapshot PNG */
+function savePng(){
+ var tot=total(counts);
+ if(tot<=0){toast("Collect some answers first");return;}
+ var scale=2,W=900*scale,H=(160+responses.length*64+120)*scale;
+ var c=$("snapCanvas");c.width=W;c.height=H;var x=c.getContext("2d");
+ x.fillStyle="#fff";x.fillRect(0,0,W,H);
+ x.fillStyle="#0891b2";x.fillRect(0,0,W,8*scale);
+ x.fillStyle="#15203a";x.font="800 "+(26*scale)+"px Arial";x.textAlign="left";x.textBaseline="top";
+ var m=40*scale,y=34*scale;
+ x.fillText(question||"Class results",m,y);y+=46*scale;
+ x.font="600 "+(14*scale)+"px Arial";x.fillStyle="#5b6678";
+ x.fillText(new Date().toLocaleString()+"  ·  "+tot+" responses",m,y);y+=34*scale;
+ responses.forEach(function(r){
+  var n=counts[r.key]||0,p=pct(n,tot);
+  x.fillStyle="#15203a";x.font="700 "+(15*scale)+"px Arial";x.textBaseline="middle";
+  x.fillText((r.em?r.em+" ":"")+r.label,m,y+22*scale);
+  var tx=m+150*scale,tw=W-tx-m,th=34*scale;
+  x.fillStyle="#eef1f7";roundRect(x,tx,y+5*scale,tw,th,9*scale);x.fill();
+  x.fillStyle=bandColor(r.band,r.key);roundRect(x,tx,y+5*scale,Math.max(2,tw*p/100),th,9*scale);x.fill();
+  x.fillStyle="#15203a";x.font="800 "+(14*scale)+"px Arial";x.textAlign="right";x.fillText(n+" ("+p+"%)",tx+tw-12*scale,y+22*scale);x.textAlign="left";
+  y+=58*scale;
+ });
+ var u=understanding(counts,responses);
+ if(mode!=="mcq"&&u!=null){y+=8*scale;x.fillStyle="#15203a";x.font="800 "+(18*scale)+"px Arial";x.fillText("Understanding: "+u+"%  —  "+verdict(u),m,y+10*scale);}
+ var a=document.createElement("a");a.href=c.toDataURL("image/png");
+ a.download="class-check-"+new Date().toISOString().slice(0,10)+".png";
+ document.body.appendChild(a);a.click();setTimeout(function(){a.remove();},2500);
+ toast("Snapshot saved ✓");
+}
+function roundRect(x,rx,ry,w,h,r){r=Math.min(r,w/2,h/2);x.beginPath();x.moveTo(rx+r,ry);x.arcTo(rx+w,ry,rx+w,ry+h,r);x.arcTo(rx+w,ry+h,rx,ry+h,r);x.arcTo(rx,ry+h,rx,ry,r);x.arcTo(rx,ry,rx+w,ry,r);x.closePath();}
+
+function init(){
+ document.querySelectorAll("[data-mode]").forEach(function(b){
+  b.onclick=function(){mode=b.dataset.mode;document.querySelectorAll("[data-mode]").forEach(function(x){x.classList.toggle("on",x===b);});$("mcqSetup").classList.toggle("hidden",mode!=="mcq");};
+ });
+ document.querySelectorAll("[data-opts]").forEach(function(b){
+  b.onclick=function(){nOpts=+b.dataset.opts;document.querySelectorAll("[data-opts]").forEach(function(x){x.classList.toggle("on",x===b);});};
+ });
+ $("startB").onclick=startCollect;
+ $("undoB").onclick=function(){if(!history.length){toast("Nothing to undo");return;}var k=history.pop();counts[k]=Math.max(0,(counts[k]||0)-1);updateCount(k);updateTotal();};
+ $("resetCountB").onclick=function(){responses.forEach(function(r){counts[r.key]=0;});history=[];buildTally();updateTotal();};
+ $("resultsB").onclick=showResults;
+ $("backCollectB").onclick=function(){$("resultsView").classList.add("hidden");$("collectView").classList.remove("hidden");};
+ $("newQB").onclick=function(){$("resultsView").classList.add("hidden");$("setupView").classList.remove("hidden");};
+ $("pngB").onclick=savePng;
+ $("fsB").onclick=function(){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();};
+ $("helpB").onclick=function(){$("helpModal").classList.add("open");};
+ $("helpClose").onclick=function(){$("helpModal").classList.remove("open");};
+ $("helpModal").addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});
+ document.addEventListener("keydown",function(e){
+  if($("collectView").classList.contains("hidden"))return;
+  var t=e.target;if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"))return;
+  /* number keys map to responses */
+  var idx=parseInt(e.key,10);
+  if(!isNaN(idx)&&mode==="confidence"&&idx>=0&&idx<=5){var r=responses[idx];counts[r.key]++;history.push(r.key);updateCount(r.key);updateTotal();}
+ });
+}
+init();
+
+</script>
+</body>
+</html>

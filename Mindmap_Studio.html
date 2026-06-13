@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Mind-Map Studio — Matt's Apps</title>
+<style>
+:root{--ink:#15203a;--acc:#7c3aed;--accSoft:#ede4fc;--stage:#eef1f5;--panel:#fff;--line:#d8dde6;--mut:#5b6678;--shadow:0 5px 16px rgba(21,32,58,.13)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--stage);display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:11px;background:#fff;color:var(--ink);font-weight:700;font-size:14px;min-height:42px;padding:0 13px;box-shadow:0 2px 8px rgba(21,32,58,.08)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+button:disabled{opacity:.4;cursor:default}
+.hidden{display:none!important}
+#top{background:var(--ink);color:#fff;display:flex;align-items:center;gap:8px;padding:7px 11px;flex:0 0 auto;flex-wrap:wrap}
+#brand{display:flex;align-items:center;gap:9px}
+#brand svg{width:30px;height:30px}
+#brand .wm{display:flex;flex-direction:column;line-height:1.04}
+#brand .wm b{font-size:16px}
+#brand .wm span{font-size:9px;letter-spacing:2.2px;opacity:.72;font-weight:700}
+#top .sp{flex:1}
+#top button{background:rgba(255,255,255,.13);color:#fff;box-shadow:none}
+#top button.primary{background:var(--acc);color:#fff}
+#toolbar{background:var(--panel);border-bottom:1px solid var(--line);padding:8px 11px;display:flex;gap:7px;align-items:center;flex-wrap:wrap;flex:0 0 auto}
+.tbtn{min-height:38px;font-size:13px;background:#eef1f7;box-shadow:none}
+.tbtn.on{background:var(--accSoft);box-shadow:inset 0 0 0 2px var(--acc)}
+.tbtn.accent{background:var(--acc);color:#fff}
+.hint{font-size:12px;color:var(--mut);font-weight:600}
+#canvasWrap{flex:1;min-height:0;position:relative;overflow:hidden;background:
+  radial-gradient(circle, #dde3ec 1px, transparent 1px) 0 0/22px 22px,#f4f6f9}
+#svg{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.node{position:absolute;transform:translate(-50%,-50%);min-width:70px;max-width:200px;border-radius:14px;padding:11px 14px;text-align:center;font-weight:700;font-size:14px;line-height:1.3;cursor:move;touch-action:none;box-shadow:var(--shadow);border:2.5px solid rgba(0,0,0,.12);user-select:none;word-break:break-word}
+.node.sel{outline:3px solid #f59e0b;outline-offset:2px}
+.node.linking{outline:3px dashed #2f7fe8;outline-offset:2px}
+.node .del{position:absolute;top:-9px;right:-9px;width:22px;height:22px;border-radius:50%;background:#e2554f;color:#fff;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.node .add{position:absolute;bottom:-11px;left:50%;transform:translateX(-50%);width:24px;height:24px;border-radius:50%;background:#2f7fe8;color:#fff;font-size:16px;font-weight:900;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal.open{display:flex}
+.sheet{background:#fff;border-radius:18px;padding:20px;max-width:480px;width:100%;max-height:88vh;overflow-y:auto}
+.sheet h3{margin:0 0 12px;font-size:18px}
+.sheet input[type=text]{width:100%;border:2px solid var(--line);border-radius:10px;padding:11px;font-size:16px;font-family:inherit}
+.sheet ol{padding-left:20px;line-height:1.6;font-size:14px;margin:8px 0}
+.sheet .tips{background:#f1f3f8;border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.5;color:var(--mut);margin-top:8px}
+.swatches{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.sw{width:40px;height:40px;border-radius:10px;padding:0;min-height:40px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12);cursor:pointer}
+.sw.on{outline:3px solid #15203a;outline-offset:2px}
+.acts{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}.acts button{flex:1;min-width:110px}.acts .primary{background:var(--acc);color:#fff}
+#busy{position:fixed;inset:0;background:rgba(16,20,29,.8);display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:70;font-weight:700;color:#fff;text-align:center;padding:18px}
+#busy.open{display:flex}
+#busy .spin{width:42px;height:42px;border-radius:50%;border:5px solid rgba(255,255,255,.2);border-top-color:var(--acc);animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+#toast{position:fixed;left:50%;bottom:74px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:700;display:none;z-index:80;box-shadow:var(--shadow);max-width:92vw;text-align:center}
+@media (max-width:760px){.hint{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:.01s!important}}
+</style>
+</head>
+<body>
+<header id="top">
+  <div id="brand">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="6" fill="#7c3aed"/><circle cx="8" cy="9" r="4" fill="#a784f0"/><circle cx="32" cy="11" r="4" fill="#a784f0"/><circle cx="9" cy="31" r="4" fill="#a784f0"/><circle cx="31" cy="31" r="4" fill="#a784f0"/>
+      <path d="M20 20L8 9M20 20l12-9M20 20L9 31m11-11l11 11" stroke="#c9b6f3" stroke-width="2"/>
+    </svg>
+    <div class="wm"><b>Mind-Map Studio</b><span>MATT'S APPS</span></div>
+  </div>
+  <div class="sp"></div>
+  <button id="addB" class="primary">＋ Idea</button>
+  <button id="exportB">⬇</button>
+  <button id="helpB" aria-label="Help">?</button>
+</header>
+<div id="toolbar">
+  <span class="hint">Tap a bubble to select · the + under it adds a linked idea · double-tap to rename</span>
+  <span class="sp" style="flex:1"></span>
+  <button class="tbtn" id="colourB">🎨 Colour</button>
+  <button class="tbtn" id="linkB">🔗 Link two</button>
+  <button class="tbtn" id="clearB">🧹 Clear</button>
+</div>
+<div id="canvasWrap">
+  <svg id="svg"></svg>
+  <!-- nodes are absolutely-positioned divs added here -->
+</div>
+
+<div class="modal" id="textModal">
+  <div class="sheet">
+    <h3 id="textTitle">Idea</h3>
+    <input type="text" id="textInput" placeholder="Type your idea…" maxlength="60">
+    <div class="acts"><button id="textCancel">Cancel</button><button class="primary" id="textOk">OK</button></div>
+  </div>
+</div>
+
+<div class="modal" id="colourModal">
+  <div class="sheet">
+    <h3>Bubble colour</h3>
+    <p style="font-size:13px;color:var(--mut);margin:0">Pick a colour for the selected bubble (or the next one you add).</p>
+    <div class="swatches" id="swatchList"></div>
+    <div class="acts"><button id="colourCancel" class="primary">Done</button></div>
+  </div>
+</div>
+
+<div class="modal" id="helpModal">
+  <div class="sheet">
+    <h3>How to use Mind-Map Studio</h3>
+    <ol>
+      <li><b>＋ Idea</b> adds a bubble. Drag bubbles to move them around.</li>
+      <li>Tap a bubble to select it; the <b>+</b> underneath adds a new idea joined to it (great for branches).</li>
+      <li><b>Double-tap</b> a bubble to rename it; the small <b>×</b> deletes it.</li>
+      <li><b>🔗 Link two</b> then tap two bubbles to connect them. <b>🎨 Colour</b> changes the selected bubble.</li>
+      <li><b>⬇</b> saves your mind-map as a picture for revision or planning.</li>
+    </ol>
+    <div class="tips">Brilliant for planning writing, revising a topic, or brainstorming. Your map autosaves on this device.</div>
+    <div class="acts"><button class="primary" id="helpClose">Got it</button></div>
+  </div>
+</div>
+
+<div id="busy"><div class="spin"></div><div id="busyMsg">Saving…</div></div>
+<div id="toast" role="status"></div>
+
+<script id="app">
+"use strict";
+/* ===================== Mind-Map Studio ===================== */
+function $(id){return document.getElementById(id);}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+var _id=0;function uid(){return "n"+(++_id);}
+function escapeHtml(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+/* ---- pure model helpers (unit-tested) ---- */
+function addNode(nodes,x,y,text,color){var n={id:uid(),x:x,y:y,text:text||"Idea",color:color||"#ede4fc"};nodes.push(n);return n;}
+function nodeById(nodes,id){for(var i=0;i<nodes.length;i++)if(nodes[i].id===id)return nodes[i];return null;}
+function removeNode(nodes,links,id){
+ var i=nodes.findIndex(function(n){return n.id===id;});
+ if(i>=0)nodes.splice(i,1);
+ for(var j=links.length-1;j>=0;j--)if(links[j][0]===id||links[j][1]===id)links.splice(j,1);
+}
+function linkExists(links,a,b){return links.some(function(l){return (l[0]===a&&l[1]===b)||(l[0]===b&&l[1]===a);});}
+function addLink(links,a,b){if(a!==b&&!linkExists(links,a,b)){links.push([a,b]);return true;}return false;}
+/* text colour that reads on a given bg (simple luminance) */
+function textOn(bg){
+ var m=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(bg);
+ if(!m)return "#15203a";
+ var r=parseInt(m[1],16),g=parseInt(m[2],16),b=parseInt(m[3],16);
+ var lum=(0.299*r+0.587*g+0.114*b)/255;
+ return lum>0.6?"#15203a":"#fff";
+}
+/* border = darker shade of bg */
+function darken(bg,f){
+ var m=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(bg);if(!m)return "rgba(0,0,0,.15)";
+ f=f==null?0.78:f;
+ function d(h){return Math.round(parseInt(h,16)*f);}
+ return "rgb("+d(m[1])+","+d(m[2])+","+d(m[3])+")";
+}
+/* ===================== state ===================== */
+var nodes=[],links=[],sel=null,linkMode=false,linkFrom=null,pendColor="#ede4fc";
+var PALETTE=["#ede4fc","#dbeafe","#dcfce7","#fef9c3","#fde2e4","#fed7aa","#cffafe","#e2e8f0","#7c3aed","#2563eb","#15803d","#b45309"];
+var toastT=null,textCb=null;
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toastT);toastT=setTimeout(function(){t.style.display="none";},2400);}
+function busy(m){var b=$("busy");if(m){$("busyMsg").textContent=m;b.classList.add("open");}else b.classList.remove("open");}
+function persist(){try{localStorage.setItem("mindmap",JSON.stringify({nodes:nodes,links:links}));}catch(e){}}
+function wrapEl(){return $("canvasWrap");}
+
+/* ===================== render ===================== */
+function render(){
+ var wrap=wrapEl();
+ /* remove old node divs */
+ Array.prototype.slice.call(wrap.querySelectorAll(".node")).forEach(function(e){e.remove();});
+ /* draw links in svg */
+ var svg=$("svg");svg.innerHTML="";
+ links.forEach(function(l){
+  var a=nodeById(nodes,l[0]),b=nodeById(nodes,l[1]);if(!a||!b)return;
+  var ln=document.createElementNS("http://www.w3.org/2000/svg","line");
+  ln.setAttribute("x1",a.x);ln.setAttribute("y1",a.y);ln.setAttribute("x2",b.x);ln.setAttribute("y2",b.y);
+  ln.setAttribute("stroke","#b9a8e6");ln.setAttribute("stroke-width","3");ln.setAttribute("stroke-linecap","round");
+  svg.appendChild(ln);
+ });
+ nodes.forEach(function(n){
+  var el=document.createElement("div");
+  el.className="node"+(n.id===sel?" sel":"")+(linkMode&&linkFrom===n.id?" linking":"");
+  el.style.left=n.x+"px";el.style.top=n.y+"px";
+  el.style.background=n.color;el.style.color=textOn(n.color);el.style.borderColor=darken(n.color);
+  el.dataset.id=n.id;
+  el.innerHTML='<span class="lbl">'+escapeHtml(n.text)+'</span>';
+  if(n.id===sel&&!linkMode){
+   var del=document.createElement("div");del.className="del";del.textContent="×";
+   del.addEventListener("pointerdown",function(e){e.stopPropagation();removeNode(nodes,links,n.id);sel=null;render();persist();});
+   el.appendChild(del);
+   var add=document.createElement("div");add.className="add";add.textContent="+";
+   add.addEventListener("pointerdown",function(e){e.stopPropagation();addChild(n);});
+   el.appendChild(add);
+  }
+  el.addEventListener("pointerdown",function(e){nodeDown(e,n,el);});
+  wrap.appendChild(el);
+ });
+}
+
+/* ===================== interactions ===================== */
+function nodeDown(e,n,el){
+ if(e.target.className==="del"||e.target.className==="add")return;
+ if(linkMode){
+  if(!linkFrom){linkFrom=n.id;render();toast("Now tap the bubble to join it to");}
+  else if(linkFrom!==n.id){addLink(links,linkFrom,n.id);linkFrom=null;linkMode=false;$("linkB").classList.remove("on");render();persist();toast("Linked ✓");}
+  return;
+ }
+ sel=n.id;
+ startDrag(e,n,el);
+}
+function startDrag(e,n,el){
+ e.preventDefault();
+ var wrap=wrapEl().getBoundingClientRect();
+ try{el.setPointerCapture(e.pointerId);}catch(_){}
+ var moved=false,sx=e.clientX,sy=e.clientY,ox=n.x,oy=n.y,downT=Date.now();
+ function mv(ev){
+  if(Math.abs(ev.clientX-sx)+Math.abs(ev.clientY-sy)>4)moved=true;
+  n.x=clamp(ox+(ev.clientX-sx),20,wrap.width-20);
+  n.y=clamp(oy+(ev.clientY-sy),20,wrap.height-20);
+  el.style.left=n.x+"px";el.style.top=n.y+"px";
+  redrawLinks();
+ }
+ function up(ev){
+  el.removeEventListener("pointermove",mv);el.removeEventListener("pointerup",up);
+  if(!moved){
+   var now=Date.now();
+   if(el._lastTap&&now-el._lastTap<320){openRename(n);el._lastTap=0;}
+   else{el._lastTap=now;sel=n.id;render();}
+  }else{persist();render();}
+ }
+ el.addEventListener("pointermove",mv);
+ el.addEventListener("pointerup",up);
+}
+function redrawLinks(){
+ var svg=$("svg"),lines=svg.querySelectorAll("line"),i=0;
+ links.forEach(function(l){
+  var a=nodeById(nodes,l[0]),b=nodeById(nodes,l[1]);if(!a||!b)return;
+  var ln=lines[i++];if(!ln)return;
+  ln.setAttribute("x1",a.x);ln.setAttribute("y1",a.y);ln.setAttribute("x2",b.x);ln.setAttribute("y2",b.y);
+ });
+}
+function addChild(parent){
+ var ang=Math.random()*Math.PI*2,dist=120;
+ var wrap=wrapEl().getBoundingClientRect();
+ var x=clamp(parent.x+Math.cos(ang)*dist,30,wrap.width-30);
+ var y=clamp(parent.y+Math.sin(ang)*dist,30,wrap.height-30);
+ var n=addNode(nodes,x,y,"Idea",pendColor);
+ addLink(links,parent.id,n.id);
+ sel=n.id;render();persist();
+ openRename(n);
+}
+function addLooseNode(){
+ var wrap=wrapEl().getBoundingClientRect();
+ var n=addNode(nodes,wrap.width/2+(Math.random()*80-40),wrap.height/2+(Math.random()*80-40),"Idea",pendColor);
+ sel=n.id;render();persist();openRename(n);
+}
+
+/* rename modal */
+function openRename(n){
+ textCb=function(v){n.text=v||"Idea";render();persist();};
+ $("textTitle").textContent="Idea";$("textInput").value=n.text==="Idea"?"":n.text;
+ $("textModal").classList.add("open");setTimeout(function(){$("textInput").focus();$("textInput").select();},50);
+}
+
+/* export PNG */
+function exportPng(){
+ if(!nodes.length){toast("Add some ideas first");return;}
+ busy("Saving your mind-map\u2026");
+ setTimeout(function(){
+  try{
+   /* bounds */
+   var minX=1e9,minY=1e9,maxX=-1e9,maxY=-1e9;
+   nodes.forEach(function(n){minX=Math.min(minX,n.x);minY=Math.min(minY,n.y);maxX=Math.max(maxX,n.x);maxY=Math.max(maxY,n.y);});
+   var pad=90,scale=2;
+   var W=Math.max(400,(maxX-minX)+pad*2),H=Math.max(300,(maxY-minY)+pad*2);
+   var c=document.createElement("canvas");c.width=W*scale;c.height=H*scale;var x=c.getContext("2d");
+   x.scale(scale,scale);
+   x.fillStyle="#fff";x.fillRect(0,0,W,H);
+   var ox=pad-minX,oy=pad-minY;
+   /* links */
+   x.strokeStyle="#b9a8e6";x.lineWidth=3;x.lineCap="round";
+   links.forEach(function(l){var a=nodeById(nodes,l[0]),b=nodeById(nodes,l[1]);if(!a||!b)return;x.beginPath();x.moveTo(a.x+ox,a.y+oy);x.lineTo(b.x+ox,b.y+oy);x.stroke();});
+   /* nodes */
+   x.font="700 14px Arial";x.textAlign="center";x.textBaseline="middle";
+   nodes.forEach(function(n){
+    var lines=wrapLines(x,n.text,180),lh=18,w=0;
+    lines.forEach(function(ln){w=Math.max(w,x.measureText(ln).width);});
+    var bw=clamp(w+28,70,210),bh=lines.length*lh+18;
+    var nx=n.x+ox,ny=n.y+oy;
+    x.fillStyle=n.color;x.strokeStyle=darken(n.color);x.lineWidth=2.5;
+    roundRect(x,nx-bw/2,ny-bh/2,bw,bh,13);x.fill();x.stroke();
+    x.fillStyle=textOn(n.color);
+    var ty=ny-(lines.length-1)*lh/2;
+    lines.forEach(function(ln){x.fillText(ln,nx,ty);ty+=lh;});
+   });
+   var a=document.createElement("a");a.href=c.toDataURL("image/png");a.download="mind-map.png";
+   document.body.appendChild(a);a.click();setTimeout(function(){a.remove();busy(false);},800);
+   toast("Mind-map saved ✓");
+  }catch(e){busy(false);toast("Couldn\u2019t save that one");}
+ },40);
+}
+function roundRect(x,rx,ry,w,h,r){r=Math.min(r,w/2,h/2);x.beginPath();x.moveTo(rx+r,ry);x.arcTo(rx+w,ry,rx+w,ry+h,r);x.arcTo(rx+w,ry+h,rx,ry+h,r);x.arcTo(rx,ry+h,rx,ry,r);x.arcTo(rx,ry,rx+w,ry,r);x.closePath();}
+function wrapLines(x,text,maxW){var words=String(text).split(/\s+/),lines=[],cur="";words.forEach(function(w){var t=cur?cur+" "+w:w;if(x.measureText(t).width>maxW&&cur){lines.push(cur);cur=w;}else cur=t;});if(cur)lines.push(cur);return lines.length?lines:["Idea"];}
+
+/* ===================== init ===================== */
+function init(){
+ $("addB").onclick=addLooseNode;
+ $("linkB").onclick=function(){
+  if(nodes.length<2){toast("Add at least two ideas first");return;}
+  linkMode=!linkMode;linkFrom=null;this.classList.toggle("on",linkMode);render();
+  if(linkMode)toast("Tap two bubbles to join them");
+ };
+ $("colourB").onclick=function(){
+  var box=$("swatchList");box.innerHTML="";
+  PALETTE.forEach(function(col){
+   var b=document.createElement("button");b.className="sw"+((sel&&nodeById(nodes,sel)&&nodeById(nodes,sel).color===col)||(!sel&&pendColor===col)?" on":"");b.style.background=col;
+   b.onclick=function(){
+    if(sel){var n=nodeById(nodes,sel);if(n){n.color=col;}}
+    pendColor=col;render();persist();
+    box.querySelectorAll(".sw").forEach(function(s){s.classList.remove("on");});b.classList.add("on");
+   };
+   box.appendChild(b);
+  });
+  $("colourModal").classList.add("open");
+ };
+ $("colourCancel").onclick=function(){$("colourModal").classList.remove("open");};
+ $("clearB").onclick=function(){if(!nodes.length||confirm("Clear the whole mind-map?")){nodes=[];links=[];sel=null;render();persist();}};
+ $("exportB").onclick=exportPng;
+ $("textOk").onclick=function(){var v=($("textInput").value||"").trim();$("textModal").classList.remove("open");if(textCb)textCb(v);textCb=null;};
+ $("textCancel").onclick=function(){$("textModal").classList.remove("open");textCb=null;};
+ $("textInput").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();$("textOk").click();}});
+ $("helpB").onclick=function(){$("helpModal").classList.add("open");};
+ $("helpClose").onclick=function(){$("helpModal").classList.remove("open");};
+ ["textModal","colourModal","helpModal"].forEach(function(id){$(id).addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});});
+ /* tap empty canvas deselects */
+ $("svg").addEventListener("pointerdown",function(){if(!linkMode){sel=null;render();}});
+ window.addEventListener("resize",render);
+ /* restore or seed a central node */
+ try{var s=JSON.parse(localStorage.getItem("mindmap")||"null");if(s&&s.nodes){nodes=s.nodes;links=s.links||[];nodes.forEach(function(n){var num=parseInt((n.id||"n0").replace(/\D/g,""),10);if(num>_id)_id=num;});}}catch(e){}
+ if(!nodes.length){var wrap=wrapEl().getBoundingClientRect();addNode(nodes,(wrap.width||600)/2,(wrap.height||400)/2,"My topic","#7c3aed");}
+ render();
+}
+init();
+
+</script>
+</body>
+</html>

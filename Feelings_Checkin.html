@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Feelings Check-in — Matt's Apps</title>
+<style>
+:root{--ink:#1b2435;--panel:#fff;--line:#dde3ec;--mut:#5b6678;--shadow:0 8px 26px rgba(20,28,46,.12);
+ --blue:#4a86c8;--blueS:#dceaf7;--green:#3fae6f;--greenS:#daf2e4;--yellow:#e8b13a;--yellowS:#fbeecb;--red:#d8584f;--redS:#fbe0de}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:#eef2f6;display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden;transition:background .5s}
+body.zblue{background:var(--blueS)}body.zgreen{background:var(--greenS)}body.zyellow{background:var(--yellowS)}body.zred{background:var(--redS)}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:14px;background:#fff;color:var(--ink);font-weight:700;font-size:15px;min-height:48px;padding:0 18px;box-shadow:0 2px 10px rgba(20,28,46,.08)}
+button:focus-visible{outline:3px solid #2f7fe8;outline-offset:2px}
+.hidden{display:none!important}
+#top{display:flex;align-items:center;gap:9px;padding:10px 14px;flex:0 0 auto;flex-wrap:wrap}
+#brand{display:flex;align-items:center;gap:9px}
+#brand svg{width:30px;height:30px}
+#brand .wm{display:flex;flex-direction:column;line-height:1.04}
+#brand .wm b{font-size:16px}
+#brand .wm span{font-size:9px;letter-spacing:2.2px;color:var(--mut);font-weight:700}
+#top .sp{flex:1}
+#top button{background:rgba(255,255,255,.7);box-shadow:none;min-height:42px}
+#main{flex:1;min-height:0;overflow-y:auto;padding:14px;display:flex;flex-direction:column}
+.stage{max-width:780px;margin:0 auto;width:100%;display:flex;flex-direction:column;gap:14px;flex:1}
+.headline{font-size:clamp(22px,5vw,32px);font-weight:900;text-align:center;margin:6px 0 2px}
+.sub{text-align:center;color:var(--mut);font-size:15px;margin:0 0 6px}
+/* zone grid */
+#zoneGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;min-height:0}
+.zone{border-radius:22px;border:3px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;padding:18px;min-height:140px;box-shadow:var(--shadow);transition:transform .12s}
+.zone:active{transform:scale(.98)}
+.zone .face{font-size:clamp(44px,11vw,80px);line-height:1}
+.zone .zname{font-size:clamp(18px,4vw,24px);font-weight:900}
+.zone .zdesc{font-size:13px;font-weight:600;opacity:.85;text-align:center;line-height:1.3}
+.zblue-c{background:var(--blueS);border-color:var(--blue);
+.zblue-c{color:#1f4a72}
+.zgreen-c{background:var(--greenS);border-color:var(--green);color:#1c5e3a}
+.zyellow-c{background:var(--yellowS);border-color:var(--yellow);color:#7a5a12}
+.zred-c{background:var(--redS);border-color:var(--red);color:#8a2f29}
+/* feelings */
+.feelWrap{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.feel{border-radius:999px;min-height:52px;padding:0 20px;font-size:16px;font-weight:700;background:#fff;box-shadow:var(--shadow);display:flex;align-items:center;gap:8px}
+.feel .fe{font-size:22px}
+.feel.on{outline:3px solid var(--ink);outline-offset:2px}
+/* strategies */
+.stratList{display:flex;flex-direction:column;gap:11px}
+.strat{display:flex;align-items:center;gap:14px;background:#fff;border-radius:16px;padding:15px 17px;box-shadow:var(--shadow);font-size:16px;font-weight:600;line-height:1.35}
+.strat .si{font-size:30px;flex:0 0 auto}
+.panelCard{background:#fff;border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+.bigBtn{min-height:58px;font-size:17px;font-weight:800;border-radius:16px}
+.zoneTint.blue{background:var(--blue);color:#fff}.zoneTint.green{background:var(--green);color:#fff}.zoneTint.yellow{background:var(--yellow);color:#3a2c06}.zoneTint.red{background:var(--red);color:#fff}
+.rowBtns{display:flex;gap:10px;flex-wrap:wrap}
+.rowBtns button{flex:1;min-width:140px}
+.backLink{background:transparent;box-shadow:none;color:var(--mut);font-size:14px;min-height:40px;align-self:center}
+/* show-teacher card */
+#showCard{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:30px 20px}
+#showCard .bigFace{font-size:clamp(70px,20vw,150px);line-height:1}
+#showCard .bigZone{font-size:clamp(26px,7vw,44px);font-weight:900}
+#showCard .bigFeel{font-size:clamp(18px,5vw,26px);font-weight:700;color:var(--mut)}
+/* breathing */
+#breathWrap{display:flex;flex-direction:column;align-items:center;gap:18px;padding:14px}
+#breathCircle{width:min(60vw,230px);height:min(60vw,230px);border-radius:50%;background:radial-gradient(circle at 50% 40%,#7fc6f5,#4a86c8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;font-weight:800;transition:transform 4s ease-in-out;box-shadow:0 10px 30px rgba(74,134,200,.4)}
+.note{font-size:12.5px;color:var(--mut);line-height:1.5;text-align:center}
+.modal{position:fixed;inset:0;background:rgba(20,28,46,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal.open{display:flex}
+.sheet{background:#fff;border-radius:20px;padding:22px;max-width:480px;width:100%;max-height:88vh;overflow-y:auto}
+.sheet h3{margin:0 0 12px;font-size:19px}
+.sheet ol{padding-left:20px;line-height:1.6;font-size:14px;margin:8px 0}
+.sheet .tips{background:#f1f4f8;border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.55;color:var(--mut);margin-top:10px}
+.acts{display:flex;gap:8px;margin-top:16px}.acts button{flex:1}.acts .primary{background:#2f7fe8;color:#fff}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}#breathCircle{transition:none!important}}
+</style>
+</head>
+<body>
+<header id="top">
+  <div id="brand">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="15" fill="#ffd27a"/><circle cx="14.5" cy="17" r="2" fill="#1b2435"/><circle cx="25.5" cy="17" r="2" fill="#1b2435"/>
+      <path d="M13 25c2.5 3 11.5 3 14 0" fill="none" stroke="#1b2435" stroke-width="2.4" stroke-linecap="round"/>
+    </svg>
+    <div class="wm"><b>Feelings Check-in</b><span>MATT'S APPS</span></div>
+  </div>
+  <div class="sp"></div>
+  <button id="restartB" class="hidden" title="Start again">↺ Start again</button>
+  <button id="fsB" title="Full screen">⛶</button>
+  <button id="helpB" aria-label="Help">?</button>
+</header>
+<div id="main">
+
+ <!-- step 1: zone -->
+ <div class="stage" id="zoneView">
+  <h1 class="headline">How are you feeling right now?</h1>
+  <p class="sub">There's no wrong answer. Tap the colour that fits best.</p>
+  <div id="zoneGrid"></div>
+  <p class="note">Whatever you choose is okay. This is just for you — nothing is saved or shared unless you choose to show someone.</p>
+ </div>
+
+ <!-- step 2: feeling word -->
+ <div class="stage hidden" id="feelView">
+  <h1 class="headline" id="feelHeadline"></h1>
+  <p class="sub">Which word fits best? (You can skip this.)</p>
+  <div class="feelWrap" id="feelWrap"></div>
+  <div class="rowBtns" style="margin-top:8px"><button id="feelSkipB" class="bigBtn">That's okay, next →</button></div>
+  <button class="backLink" id="feelBackB">← back</button>
+ </div>
+
+ <!-- step 3: strategies -->
+ <div class="stage hidden" id="stratView">
+  <h1 class="headline" id="stratHeadline"></h1>
+  <p class="sub" id="stratSub"></p>
+  <div class="stratList" id="stratList"></div>
+  <div class="panelCard" id="distressCard" style="display:none;background:#fff7f6;border:2px solid var(--red)">
+   <div style="font-weight:800;font-size:16px;margin-bottom:6px">It's brave to notice big feelings 💙</div>
+   <div style="font-size:14.5px;line-height:1.5">If things feel like too much, you don't have to deal with it alone. Telling a trusted adult — your teacher, a TA, or someone at home — is a strong thing to do. They're there to help.</div>
+  </div>
+  <div class="rowBtns" style="margin-top:6px">
+   <button id="breatheB" class="bigBtn zoneTint blue">🫁 Breathe with me</button>
+   <button id="showTeacherB" class="bigBtn">🙋 Show my teacher</button>
+  </div>
+  <div class="rowBtns">
+   <button id="feelBetterB" class="bigBtn">😊 I feel a bit better</button>
+   <button id="stratBackB" class="bigBtn" style="background:rgba(255,255,255,.7)">← back</button>
+  </div>
+ </div>
+
+ <!-- show teacher -->
+ <div class="stage hidden" id="showView">
+  <div class="panelCard" id="showCard">
+   <div class="bigFace" id="showFace"></div>
+   <div class="bigZone" id="showZone"></div>
+   <div class="bigFeel" id="showFeel"></div>
+   <div style="font-size:15px;color:var(--mut);max-width:340px;line-height:1.5">This is what I chose. Nothing has been saved.</div>
+   <button id="showBackB" class="bigBtn" style="margin-top:6px">← back</button>
+  </div>
+ </div>
+
+ <!-- done -->
+ <div class="stage hidden" id="doneView">
+  <div class="panelCard" style="text-align:center;padding:34px 20px">
+   <div style="font-size:64px">🌱</div>
+   <h1 class="headline" style="margin-top:8px">Well done for checking in</h1>
+   <p class="sub" id="doneMsg" style="font-size:16px"></p>
+   <div class="rowBtns" style="margin-top:10px;justify-content:center"><button id="doneAgainB" class="bigBtn zoneTint green" style="max-width:240px">Check in again</button></div>
+  </div>
+ </div>
+
+ <!-- breathing -->
+ <div class="stage hidden" id="breathView">
+  <div id="breathWrap">
+   <div id="breathCircle">Breathe</div>
+   <div style="font-size:18px;font-weight:700" id="breathLabel">Get comfy…</div>
+   <div class="rowBtns" style="justify-content:center"><button id="breathDoneB" class="bigBtn" style="max-width:220px">Done</button></div>
+   <p class="note">Follow the circle: breathe in as it grows, out as it shrinks.</p>
+  </div>
+ </div>
+
+</div>
+
+<div class="modal" id="helpModal">
+  <div class="sheet">
+    <h3>About the Feelings Check-in</h3>
+    <ol>
+      <li>Tap the <b>colour zone</b> that matches how you feel. Every zone is okay — they all happen to everyone.</li>
+      <li>Pick a <b>feeling word</b> if one fits (or skip it).</li>
+      <li>You'll get some <b>things to try</b> that might help. You can <b>breathe</b> with the circle, or <b>show your teacher</b> what you chose.</li>
+    </ol>
+    <div class="tips">This is a private space. <b>Nothing is ever saved or recorded</b> — when you start again, it's gone. It's a tool to help you notice and manage feelings, not a replacement for talking to a trusted adult when you need one.</div>
+    <div class="acts"><button class="primary" id="helpClose">Got it</button></div>
+  </div>
+</div>
+
+<script id="app">
+"use strict";
+/* ===================== Feelings Check-in ===================== */
+function $(id){return document.getElementById(id);}
+/* Zones data — validating, every zone okay. Strategies are real, doable actions. */
+var ZONES={
+ blue:{name:"Blue Zone",face:"😔",desc:"low, sad, tired or unwell",headline:"The Blue Zone is okay",
+  feelings:[["😢","Sad"],["😴","Tired"],["🥱","Bored"],["🤒","Unwell"],["😞","Down"],["🐌","Slow"]],
+  strats:[["🚶","Have a gentle stretch or a little walk"],["💧","Sip some water"],["🎵","Listen to a favourite calm song"],["🗣️","Tell someone how you're feeling"],["☀️","Do one small, easy thing to get going"]],
+  sub:"When we feel low or tired, gentle things help us wake up a little."},
+ green:{name:"Green Zone",face:"🙂",desc:"calm, happy and ready",headline:"You're in the Green Zone",
+  feelings:[["😊","Happy"],["😌","Calm"],["👍","Ready"],["🎯","Focused"],["😄","Good"],["🙌","Proud"]],
+  strats:[["🌟","Great place to be — you're ready to learn"],["📚","Make a start on your work"],["🤝","Help someone else who's finding it tricky"],["🎯","Set yourself a little goal"],["😊","Notice what helped you feel this way"]],
+  sub:"You're ready and settled. Here are ways to make the most of it."},
+ yellow:{name:"Yellow Zone",face:"😬",desc:"wobbly, worried, silly or fidgety",headline:"The Yellow Zone happens to everyone",
+  feelings:[["😟","Worried"],["😠","Frustrated"],["😝","Silly"],["😰","Nervous"],["⚡","Fidgety"],["😵‍💫","Overwhelmed"]],
+  strats:[["🫁","Take five slow breaths"],["💧","Get a drink of water"],["✋","Squeeze and release your hands"],["🚶","Ask for a quick movement break"],["🔢","Count slowly to ten in your head"]],
+  sub:"These feelings are normal. Let's find something to help you steady."},
+ red:{name:"Red Zone",face:"😣",desc:"very angry, upset or out of control",headline:"It's okay to feel this big",
+  feelings:[["😡","Angry"],["😭","Upset"],["🤬","Furious"],["😨","Scared"],["🌋","Want to explode"],["😖","Can't cope"]],
+  strats:[["🫁","Breathe out slowly, longer than you breathe in"],["🚪","Ask for a calm, safe space"],["🧊","Hold something cool, or feel your feet on the floor"],["🗣️","Tell a trusted adult you need help"],["⏳","Give yourself a moment — big feelings always pass"]],
+  sub:"Big feelings are powerful but they do pass. Let's take it slowly."}
+};
+var ZONE_ORDER=["blue","green","yellow","red"];
+function zoneClass(z){return "z"+z;}
+function isDistress(z){return z==="red";}
+function doneMessage(z){
+ if(z==="green")return "You were already feeling good — lovely. Come back any time.";
+ if(z==="blue")return "Taking notice of a low mood is a kind thing to do for yourself.";
+ if(z==="yellow")return "Noticing a wobble early is a real skill. Nice one.";
+ return "You did something really strong by stopping to check in.";
+}
+/* ===================== state (all ephemeral — nothing persisted) ===================== */
+var curZone=null,curFeel=null,breathTimer=null,breathStep=0;
+function setBodyZone(z){document.body.className="";if(z)document.body.classList.add("z"+z);}
+function show(view){
+ ["zoneView","feelView","stratView","showView","doneView","breathView"].forEach(function(v){$(v).classList.toggle("hidden",v!==view);});
+ $("restartB").classList.toggle("hidden",view==="zoneView");
+}
+
+/* step 1 — zones */
+function buildZones(){
+ var grid=$("zoneGrid");grid.innerHTML="";
+ ZONE_ORDER.forEach(function(z){
+  var Z=ZONES[z];
+  var b=document.createElement("button");b.className="zone "+z+"-c";
+  b.innerHTML='<span class="face">'+Z.face+'</span><span class="zname">'+Z.name+'</span><span class="zdesc">'+Z.desc+'</span>';
+  b.onclick=function(){pickZone(z);};
+  grid.appendChild(b);
+ });
+}
+function pickZone(z){
+ curZone=z;curFeel=null;setBodyZone(z);
+ var Z=ZONES[z];
+ $("feelHeadline").textContent=Z.headline;
+ var wrap=$("feelWrap");wrap.innerHTML="";
+ Z.feelings.forEach(function(f){
+  var b=document.createElement("button");b.className="feel";
+  b.innerHTML='<span class="fe">'+f[0]+'</span>'+f[1];
+  b.onclick=function(){curFeel=f;wrap.querySelectorAll(".feel").forEach(function(x){x.classList.remove("on");});b.classList.add("on");setTimeout(gotoStrats,180);};
+  wrap.appendChild(b);
+ });
+ show("feelView");
+}
+
+/* step 3 — strategies */
+function gotoStrats(){
+ var Z=ZONES[curZone];
+ $("stratHeadline").textContent=curFeel?("Feeling "+curFeel[1].toLowerCase()+"? Let's try…"):"Some things that might help";
+ $("stratSub").textContent=Z.sub;
+ var list=$("stratList");list.innerHTML="";
+ Z.strats.forEach(function(s){
+  var d=document.createElement("div");d.className="strat";
+  d.innerHTML='<span class="si">'+s[0]+'</span><span>'+s[1]+'</span>';
+  list.appendChild(d);
+ });
+ $("distressCard").style.display=isDistress(curZone)?"block":"none";
+ /* tint the breathe button to the zone */
+ $("breatheB").className="bigBtn zoneTint "+curZone;
+ show("stratView");
+}
+
+/* show teacher */
+function gotoShow(){
+ var Z=ZONES[curZone];
+ $("showFace").textContent=curFeel?curFeel[0]:Z.face;
+ $("showZone").textContent=Z.name;
+ $("showZone").style.color=({blue:"#1f4a72",green:"#1c5e3a",yellow:"#7a5a12",red:"#8a2f29"})[curZone];
+ $("showFeel").textContent=curFeel?("I feel "+curFeel[1].toLowerCase()):"";
+ show("showView");
+}
+
+/* breathing (box-ish: in 4 / hold / out 6) */
+function startBreath(){
+ show("breathView");breathStep=0;
+ var circle=$("breathCircle"),label=$("breathLabel");
+ function cycle(){
+  var phases=[["Breathe in…",1.35,4000],["Hold…",1.35,2000],["Breathe out…",0.8,6000],["Rest…",0.8,1500]];
+  var p=phases[breathStep%phases.length];
+  label.textContent=p[0];circle.textContent=p[0].replace("…","");
+  circle.style.transitionDuration=(p[2]/1000)+"s";
+  circle.style.transform="scale("+p[1]+")";
+  breathStep++;
+  breathTimer=setTimeout(cycle,p[2]);
+ }
+ cycle();
+}
+function stopBreath(){if(breathTimer){clearTimeout(breathTimer);breathTimer=null;}$("breathCircle").style.transform="scale(1)";}
+
+/* done */
+function gotoDone(){
+ $("doneMsg").textContent=doneMessage(curZone);
+ show("doneView");
+}
+function restart(){
+ stopBreath();curZone=null;curFeel=null;setBodyZone(null);show("zoneView");
+}
+
+function init(){
+ buildZones();
+ $("feelSkipB").onclick=gotoStrats;
+ $("feelBackB").onclick=function(){setBodyZone(null);show("zoneView");};
+ $("stratBackB").onclick=function(){show("feelView");};
+ $("breatheB").onclick=startBreath;
+ $("breathDoneB").onclick=function(){stopBreath();show("stratView");};
+ $("showTeacherB").onclick=gotoShow;
+ $("showBackB").onclick=function(){show("stratView");};
+ $("feelBetterB").onclick=gotoDone;
+ $("doneAgainB").onclick=restart;
+ $("restartB").onclick=restart;
+ $("fsB").onclick=function(){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();};
+ $("helpB").onclick=function(){$("helpModal").classList.add("open");};
+ $("helpClose").onclick=function(){$("helpModal").classList.remove("open");};
+ $("helpModal").addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});
+ document.addEventListener("keydown",function(e){if(e.key==="Escape"){if(!$("breathView").classList.contains("hidden")){stopBreath();show("stratView");}else restart();}});
+ show("zoneView");
+}
+init();
+
+</script>
+</body>
+</html>

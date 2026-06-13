@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Rubric &amp; Feedback Studio — Matt's Apps</title>
+<style>
+:root{--ink:#15203a;--acc:#0e7490;--accSoft:#cfeaf1;--stage:#eef2f4;--panel:#fff;--line:#d8dde6;--mut:#5b6678;--good:#16a34a;--www:#16a34a;--ebi:#d97706;--shadow:0 5px 16px rgba(21,32,58,.13)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--stage);display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:11px;background:#fff;color:var(--ink);font-weight:700;font-size:14px;min-height:42px;padding:0 14px;box-shadow:0 2px 8px rgba(21,32,58,.08)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+button:disabled{opacity:.4;cursor:default}
+.hidden{display:none!important}
+#top{background:var(--ink);color:#fff;display:flex;align-items:center;gap:9px;padding:8px 12px;flex:0 0 auto;flex-wrap:wrap}
+#brand{display:flex;align-items:center;gap:9px}
+#brand svg{width:30px;height:30px}
+#brand .wm{display:flex;flex-direction:column;line-height:1.04}
+#brand .wm b{font-size:16px}
+#brand .wm span{font-size:9px;letter-spacing:2.2px;opacity:.72;font-weight:700}
+#top .sp{flex:1}
+#top button{background:rgba(255,255,255,.13);color:#fff;box-shadow:none}
+#top button.primary{background:var(--acc);color:#fff}
+#main{flex:1;min-height:0;overflow-y:auto;padding:16px}
+.wrap{max-width:840px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+.card h3{margin:0 0 11px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--mut)}
+.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.row+.row{margin-top:9px}
+input[type=text],textarea,select{width:100%;border:2px solid var(--line);border-radius:10px;padding:10px;font-size:15px;font-family:inherit;resize:vertical}
+.chip{border-radius:999px;background:#eef1f7;min-height:40px;padding:0 14px;font-size:13.5px;box-shadow:none}
+.chip.on{background:var(--accSoft);box-shadow:inset 0 0 0 2px var(--acc)}
+.go{background:var(--acc);color:#fff}
+.big{font-size:16px;min-height:52px;font-weight:800}
+/* template list */
+.tplRow{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:#f7f8fa;box-shadow:none;margin-top:8px;min-height:58px;padding:12px 15px;border-radius:13px}
+.tplRow .te{font-size:22px}
+.tplRow .tt{flex:1}
+.tplRow .tt b{display:block;font-size:15px}
+.tplRow .tt span{font-size:12.5px;color:var(--mut)}
+/* marking grid */
+.crit{border:1px solid var(--line);border-radius:13px;padding:12px;margin-top:10px;background:#fbfcfe}
+.crit .cname{font-weight:800;font-size:15px;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.crit .cw{font-size:11.5px;color:var(--mut);font-weight:700}
+.levels{display:grid;gap:7px}
+.lvl{display:flex;gap:9px;align-items:flex-start;text-align:left;background:#fff;border:2px solid var(--line);border-radius:10px;padding:10px;box-shadow:none;cursor:pointer;font-weight:600;font-size:13.5px;line-height:1.4}
+.lvl .ln{font-weight:800;flex:0 0 auto;min-width:74px}
+.lvl.on{border-color:var(--acc);background:var(--accSoft)}
+.lvl.on .ln{color:#0a5563}
+/* editor criterion */
+.edCrit{border:1px solid var(--line);border-radius:12px;padding:11px;margin-top:9px;background:#fbfcfe}
+.edCrit .edTop{display:flex;gap:8px;align-items:center;margin-bottom:7px}
+.edCrit .edTop input{flex:1}
+.edCrit .lvlIn{display:flex;gap:7px;align-items:center;margin-top:6px}
+.edCrit .lvlIn .lname{width:96px;flex:0 0 auto;font-weight:700}
+.edCrit .del,.lvl-del{min-height:40px;width:40px;padding:0;background:#fde7e9;color:#a31621;box-shadow:none;flex:0 0 auto;font-size:16px}
+/* feedback output */
+.fbSec{border-radius:12px;padding:13px;margin-top:10px}
+.fbSec h4{margin:0 0 7px;font-size:14px;display:flex;align-items:center;gap:7px}
+.fbWWW{background:#e9f7ee}.fbWWW h4{color:var(--www)}
+.fbEBI{background:#fdf3e3}.fbEBI h4{color:var(--ebi)}
+.fbNext{background:#eef2fb}.fbNext h4{color:#2563eb}
+.fbSec textarea{background:#fff;min-height:62px}
+#gradeBox{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--ink);color:#fff;border-radius:13px;padding:14px 16px}
+#gradeBox .gv{font-size:30px;font-weight:900}
+#gradeBox .gl{font-size:13px;opacity:.8}
+.pupilNav{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.pupilNav select{flex:1;min-width:140px}
+.commentBank{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+.cb{background:#eef1f7;border-radius:999px;padding:5px 11px;font-size:12.5px;font-weight:600;box-shadow:none;min-height:32px}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.acts button{flex:1;min-width:130px}
+.acts .primary{background:var(--acc);color:#fff}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal.open{display:flex}
+.sheet{background:#fff;border-radius:18px;padding:20px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto}
+.sheet h3{margin:0 0 12px;font-size:18px}
+.sheet label{display:block;font-size:12px;font-weight:800;margin:12px 0 5px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px}
+.sheet ol{padding-left:20px;line-height:1.6;font-size:14px;margin:8px 0}
+.sheet .tips{background:#f1f3f8;border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.5;color:var(--mut);margin-top:8px}
+#busy{position:fixed;inset:0;background:rgba(16,20,29,.8);display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:70;font-weight:700;color:#fff;text-align:center;padding:18px}
+#busy.open{display:flex}
+#busy .spin{width:42px;height:42px;border-radius:50%;border:5px solid rgba(255,255,255,.2);border-top-color:var(--acc);animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+#toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:700;display:none;z-index:80;box-shadow:var(--shadow);max-width:92vw;text-align:center}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:.01s!important}}
+</style>
+</head>
+<body>
+<header id="top">
+  <div id="brand">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <rect x="7" y="5" width="26" height="30" rx="3" fill="#0e7490"/>
+      <path d="M12 13h10M12 19h10M12 25h6" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="27" cy="27" r="7" fill="#fff"/><path d="M24 27l2 2 4-4" stroke="#0e7490" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+    <div class="wm"><b>Rubric &amp; Feedback</b><span>MATT'S APPS</span></div>
+  </div>
+  <div class="sp"></div>
+  <button id="homeB" title="My rubrics" class="hidden">⌂</button>
+  <button id="helpB" aria-label="Help">?</button>
+</header>
+<div id="main">
+
+ <div class="wrap" id="rubricsView">
+  <div class="card">
+   <h3>My rubrics</h3>
+   <div id="rubricList"></div>
+   <div class="row" style="margin-top:11px"><button id="newRubricB" class="go big">＋ New rubric</button><button id="sampleRubricB" class="chip">📋 Add example</button></div>
+   <div class="note" style="font-size:12.5px;color:var(--mut);margin-top:8px;line-height:1.5">Build a marking rubric once, then mark a whole class against it. Pick a level per criterion and it writes structured feedback for you to print or copy. Everything saves on this device.</div>
+  </div>
+ </div>
+
+ <div class="wrap hidden" id="editView">
+  <div class="row"><span style="font-weight:800;font-size:16px;flex:1">Edit rubric</span><button class="chip" id="editDoneB">✓ Done</button></div>
+  <div class="card">
+   <label style="font-size:12px;font-weight:800;color:var(--mut);text-transform:uppercase;letter-spacing:.5px">Rubric name</label>
+   <input type="text" id="rubricNameIn" placeholder="e.g. Persuasive writing" style="margin-top:5px">
+   <label style="font-size:12px;font-weight:800;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;display:block;margin-top:12px">Level names (low → high)</label>
+   <input type="text" id="levelNamesIn" placeholder="Emerging, Developing, Secure, Mastered" style="margin-top:5px">
+   <div class="note" style="font-size:12px;color:var(--mut);margin-top:5px">Separate level names with commas. These become the columns you mark against.</div>
+  </div>
+  <div class="card">
+   <h3>Criteria</h3>
+   <div id="critEditor"></div>
+   <div class="row" style="margin-top:9px"><button id="addCritB" class="chip">＋ Add criterion</button></div>
+  </div>
+  <div class="card">
+   <h3>Delete</h3>
+   <button id="delRubricB" style="background:#fde7e9;color:#a31621;width:100%">🗑 Delete this rubric</button>
+  </div>
+ </div>
+
+ <div class="wrap hidden" id="markView">
+  <div class="row"><span id="markRubricName" style="font-weight:800;font-size:17px;flex:1;min-width:120px"></span><button class="chip" id="editRubricB">✎ Edit</button><button class="chip" id="backToRubricsB">↺ All</button></div>
+  <div class="card">
+   <div class="pupilNav">
+    <span style="font-size:13px;font-weight:700;color:var(--mut)">Pupil:</span>
+    <select id="pupilSel"></select>
+    <button class="chip" id="addPupilB">＋ Add</button>
+    <button class="chip" id="renamePupilB">✎</button>
+   </div>
+  </div>
+  <div class="card">
+   <h3>Mark against each criterion</h3>
+   <div id="markGrid"></div>
+  </div>
+  <div id="gradeBox"><div><div class="gv" id="gradeVal">—</div><div class="gl" id="gradeLbl">overall</div></div><div style="flex:1;font-size:13.5px;line-height:1.4" id="gradeNote"></div></div>
+  <div class="card">
+   <h3>Feedback <button class="chip" id="regenB" style="float:right;min-height:32px;font-size:12px">↻ Rebuild from levels</button></h3>
+   <div class="fbSec fbWWW"><h4>🌟 What went well</h4><textarea id="fbWWW" rows="3"></textarea>
+     <div class="commentBank" id="bankWWW"></div></div>
+   <div class="fbSec fbEBI"><h4>🔧 Even better if</h4><textarea id="fbEBI" rows="3"></textarea>
+     <div class="commentBank" id="bankEBI"></div></div>
+   <div class="fbSec fbNext"><h4>➡️ Next steps</h4><textarea id="fbNext" rows="2"></textarea>
+     <div class="commentBank" id="bankNext"></div></div>
+   <div class="acts">
+    <button id="copyFbB" class="primary">📋 Copy feedback</button>
+    <button id="pdfB">📄 Save PDF sheet</button>
+   </div>
+  </div>
+ </div>
+
+</div>
+
+<div class="modal" id="textPromptModal">
+  <div class="sheet">
+    <h3 id="tpTitle">Add</h3>
+    <input type="text" id="tpInput" placeholder="" style="margin-top:4px">
+    <div class="acts" style="margin-top:14px"><button id="tpCancel">Cancel</button><button class="primary" id="tpOk">OK</button></div>
+  </div>
+</div>
+
+<div class="modal" id="helpModal">
+  <div class="sheet">
+    <h3>How to use Rubric &amp; Feedback Studio</h3>
+    <ol>
+      <li>Build a <b>rubric</b>: name it, set your <b>level names</b> (e.g. Emerging → Mastered), and add <b>criteria</b> with a short descriptor for each level.</li>
+      <li>Add your <b>pupils</b>, then for each one tap the level that fits each criterion.</li>
+      <li>It works out an <b>overall grade</b> and writes <b>structured feedback</b> (What went well / Even better if / Next steps) from the levels you chose.</li>
+      <li>Tweak the wording, tap <b>comment-bank</b> phrases to add more, then <b>📋 Copy</b> or <b>📄 Save PDF</b> a clean feedback sheet.</li>
+    </ol>
+    <div class="tips">Feedback is strengths-first and constructive by design. Build a rubric once and reuse it for the whole class. Everything stays on this device.</div>
+    <div class="acts"><button class="primary" id="helpClose" style="flex:1">Got it</button></div>
+  </div>
+</div>
+
+<div id="busy"><div class="spin"></div><div id="busyMsg">Working…</div></div>
+<div id="toast" role="status"></div>
+
+<script id="app">
+"use strict";
+function fitRect(sw,sh,dw,dh,mode){
+ var s=mode==="cover"?Math.max(dw/sw,dh/sh):Math.min(dw/sw,dh/sh);
+ var w=sw*s,h=sh*s;
+ return[(dw-w)/2,(dh-h)/2,w,h];
+}
+function fmtN(v){return Math.round(v*100)/100;}
+function strBytes(s){var u=new Uint8Array(s.length);for(var i=0;i<s.length;i++)u[i]=s.charCodeAt(i)&255;return u;}
+function pad10(n){var s=""+n;while(s.length<10)s="0"+s;return s;}
+function buildPdf(pages,ptW,ptH){
+ var chunks=[],pos=0,total=2+pages.length*3,offsets=new Array(total+1),i;
+ function push(u){if(typeof u==="string")u=strBytes(u);chunks.push(u);pos+=u.length;}
+ function obj(num,body){offsets[num]=pos;push(num+" 0 obj\n"+body+"\nendobj\n");}
+ push("%PDF-1.4\n%\u00e2\u00e3\u00cf\u00d3\n");
+ var kids=[];for(i=0;i<pages.length;i++)kids.push((3+i*3)+" 0 R");
+ obj(1,"<< /Type /Catalog /Pages 2 0 R >>");
+ obj(2,"<< /Type /Pages /Kids ["+kids.join(" ")+"] /Count "+pages.length+" >>");
+ for(i=0;i<pages.length;i++){
+  var p=pages[i],r=fitRect(p.w,p.h,ptW,ptH,"contain"),yb=ptH-r[1]-r[3];
+  var pn=3+i*3,cn=4+i*3,im=5+i*3;
+  obj(pn,"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 "+ptW+" "+ptH+"] /Resources << /XObject << /Im"+i+" "+im+" 0 R >> >> /Contents "+cn+" 0 R >>");
+  var content="q "+fmtN(r[2])+" 0 0 "+fmtN(r[3])+" "+fmtN(r[0])+" "+fmtN(yb)+" cm /Im"+i+" Do Q";
+  obj(cn,"<< /Length "+content.length+" >>\nstream\n"+content+"\nendstream");
+  offsets[im]=pos;
+  push(im+" 0 obj\n<< /Type /XObject /Subtype /Image /Width "+p.w+" /Height "+p.h+" /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length "+p.jpeg.length+" >>\nstream\n");
+  push(p.jpeg);
+  push("\nendstream\nendobj\n");
+ }
+ var xref=pos,x="xref\n0 "+(total+1)+"\n0000000000 65535 f \n";
+ for(i=1;i<=total;i++)x+=pad10(offsets[i])+" 00000 n \n";
+ x+="trailer\n<< /Size "+(total+1)+" /Root 1 0 R >>\nstartxref\n"+xref+"\n%%EOF";
+ push(x);
+ var out=new Uint8Array(pos),o=0;
+ for(i=0;i<chunks.length;i++){out.set(chunks[i],o);o+=chunks[i].length;}
+ return out;
+}
+/* ===================== Rubric & Feedback Studio ===================== */
+function $(id){return document.getElementById(id);}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+var _id=0;function uid(){return "r"+(++_id)+"_"+Date.now().toString(36);}
+function escapeHtml(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+function splitCommas(s){return (s||"").split(",").map(function(x){return x.trim();}).filter(Boolean);}
+
+/* ---- grading maths (pure, unit-tested) ----
+   Each criterion has a chosen level index 0..(L-1), optional weight (default 1).
+   Score% = sum(weight * level/(L-1)) / sum(weight) * 100. */
+function rubricScore(marks,weights,nLevels){
+ if(nLevels<=1)return 0;
+ var tw=0,acc=0;
+ for(var i=0;i<marks.length;i++){
+  if(marks[i]==null||marks[i]<0)continue;       /* unmarked criteria skipped */
+  var w=weights&&weights[i]!=null?weights[i]:1;
+  tw+=w;acc+=w*(marks[i]/(nLevels-1));
+ }
+ if(tw<=0)return 0;
+ return Math.round(acc/tw*100);
+}
+/* map a % to a friendly overall label tied to the top level name */
+function overallLabel(pct,levelNames){
+ var L=levelNames.length;if(!L)return "";
+ /* band the percentage across the levels */
+ var idx=clamp(Math.round(pct/100*(L-1)),0,L-1);
+ return levelNames[idx];
+}
+function marksComplete(marks){
+ return marks.length>0&&marks.every(function(m){return m!=null&&m>=0;});
+}
+
+/* ---- feedback generation (pure) ----
+   Build WWW from criteria at/above 'secure' (>= midpoint), EBI from those below,
+   Next steps from the lowest-scoring criteria. */
+function midLevel(nLevels){return Math.ceil((nLevels-1)/2);}
+function genFeedback(criteria,marks,levelNames,pupilName){
+ var nL=levelNames.length,mid=midLevel(nL);
+ var strong=[],weak=[],lowest=[];
+ var lowestVal=99;
+ criteria.forEach(function(c,i){
+  var m=marks[i];if(m==null||m<0)return;
+  var desc=(c.levels[m]||"").trim();
+  var phrase=descToPhrase(c.name,desc,levelNames[m]);
+  if(m>=mid)strong.push(phrase);
+  else weak.push(improvePhrase(c.name,c.levels[Math.min(m+1,nL-1)],desc));
+  if(m<lowestVal){lowestVal=m;lowest=[c];}
+  else if(m===lowestVal)lowest.push(c);
+ });
+ var name=pupilName?pupilName.split(" ")[0]:"";
+ var www=strong.length?(cap(name)+(name?", you ":"You ")+joinList(strong)+".").replace("  "," "):"";
+ var ebi=weak.length?("To improve further, "+joinList(weak)+"."):"";
+ var next=lowest.length?("Next, focus on "+joinList(lowest.map(function(c){return lc(c.name);}))+"."):"";
+ return{www:www,ebi:ebi,next:next};
+}
+function descToPhrase(crit,desc,levelName){
+ if(desc)return "showed that you can "+lc(stripLead(desc));
+ return "did well on "+lc(crit)+" ("+lc(levelName)+")";
+}
+function improvePhrase(crit,nextDesc,curDesc){
+ if(nextDesc&&nextDesc.trim())return "work towards "+lc(stripLead(nextDesc));
+ return "develop your "+lc(crit);
+}
+function stripLead(s){return (s||"").replace(/^(can |is able to |able to |shows? |demonstrates? )/i,"");}
+function joinList(arr){
+ arr=arr.filter(Boolean);
+ if(arr.length<=1)return arr[0]||"";
+ if(arr.length===2)return arr[0]+" and "+arr[1];
+ return arr.slice(0,-1).join(", ")+" and "+arr[arr.length-1];
+}
+function cap(s){s=(s||"").trim();return s?s[0].toUpperCase()+s.slice(1):s;}
+function lc(s){s=(s||"").trim();return s?s[0].toLowerCase()+s.slice(1):s;}
+
+/* comment banks (tappable quick phrases) */
+var BANK={
+ www:["You showed real effort throughout.","Your ideas were clear and well organised.","You used subject vocabulary accurately.","You worked independently and stayed focused.","Excellent presentation of your work."],
+ ebi:["you check your work carefully before finishing.","you add more detail to explain your thinking.","you use full sentences and correct punctuation.","you back up your points with evidence.","you plan before you start."],
+ next:["practise this skill in your next piece.","ask for help early if you get stuck.","set yourself one clear target.","revisit the success criteria as you work."]
+};
+/* ===================== state ===================== */
+var rubrics=[],curRubric=null,curPupil=0;
+/* rubric: {id,name,levelNames:[],criteria:[{name,weight,levels:[]}], pupils:[{name,marks:[],fb:{www,ebi,next}}]} */
+var bankTarget=null;
+var toastT=null;
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toastT);toastT=setTimeout(function(){t.style.display="none";},2600);}
+function busy(m){var b=$("busy");if(m){$("busyMsg").textContent=m;b.classList.add("open");}else b.classList.remove("open");}
+function rubricById(id){for(var i=0;i<rubrics.length;i++)if(rubrics[i].id===id)return rubrics[i];return null;}
+function persist(){try{localStorage.setItem("rubrics",JSON.stringify(rubrics));}catch(e){}}
+function cur(){return rubricById(curRubric);}
+function pupil(){var r=cur();return r&&r.pupils[curPupil];}
+
+function show(view){["rubricsView","editView","markView"].forEach(function(v){$(v).classList.toggle("hidden",v!==view);});$("homeB").classList.toggle("hidden",view==="rubricsView");}
+
+/* ===================== rubric list ===================== */
+function renderRubrics(){
+ var box=$("rubricList");box.innerHTML="";
+ if(!rubrics.length){box.innerHTML='<div style="color:var(--mut);font-size:13.5px;padding:6px 2px">No rubrics yet — make one, or add the example to see how it works.</div>';return;}
+ rubrics.forEach(function(r){
+  var b=document.createElement("button");b.className="tplRow";
+  b.innerHTML='<span class="te">📐</span><span class="tt"><b>'+escapeHtml(r.name)+'</b><span>'+r.criteria.length+' criteria · '+r.levelNames.length+' levels · '+r.pupils.length+' pupil'+(r.pupils.length===1?"":"s")+'</span></span><span class="chip" style="pointer-events:none">Open</span>';
+  b.onclick=function(){openRubric(r.id);};
+  box.appendChild(b);
+ });
+}
+
+/* ===================== edit rubric ===================== */
+function editRubric(id){
+ curRubric=id;var r=cur();
+ $("rubricNameIn").value=r.name;
+ $("levelNamesIn").value=r.levelNames.join(", ");
+ renderCritEditor();show("editView");
+}
+function renderCritEditor(){
+ var r=cur(),host=$("critEditor");host.innerHTML="";
+ var lvls=splitCommas($("levelNamesIn").value);
+ if(!r.criteria.length)host.innerHTML='<div style="color:var(--mut);font-size:13.5px">No criteria yet — add one below.</div>';
+ r.criteria.forEach(function(c,ci){
+  var d=document.createElement("div");d.className="edCrit";
+  var top=document.createElement("div");top.className="edTop";
+  var nm=document.createElement("input");nm.type="text";nm.value=c.name;nm.placeholder="Criterion (e.g. Use of evidence)";
+  nm.addEventListener("input",function(){c.name=nm.value;persist();});
+  var wlab=document.createElement("span");wlab.style.cssText="font-size:12px;font-weight:700;color:var(--mut)";wlab.textContent="×";
+  var w=document.createElement("input");w.type="text";w.inputMode="numeric";w.value=c.weight||1;w.style.cssText="width:54px;flex:0 0 auto;text-align:center";w.title="Weight";
+  w.addEventListener("input",function(){c.weight=Math.max(1,parseInt(w.value,10)||1);persist();});
+  var del=document.createElement("button");del.className="del";del.textContent="×";
+  del.onclick=function(){r.criteria.splice(ci,1);renderCritEditor();persist();};
+  top.appendChild(nm);top.appendChild(wlab);top.appendChild(w);top.appendChild(del);
+  d.appendChild(top);
+  /* one descriptor input per level */
+  lvls.forEach(function(ln,li){
+   var row=document.createElement("div");row.className="lvlIn";
+   var lname=document.createElement("span");lname.className="lname";lname.textContent=ln;
+   var di=document.createElement("input");di.type="text";di.value=(c.levels&&c.levels[li])||"";di.placeholder="what this looks like…";
+   di.addEventListener("input",function(){c.levels=c.levels||[];c.levels[li]=di.value;persist();});
+   row.appendChild(lname);row.appendChild(di);d.appendChild(row);
+  });
+  host.appendChild(d);
+ });
+}
+
+/* ===================== marking ===================== */
+function openRubric(id){
+ curRubric=id;curPupil=0;var r=cur();
+ if(!r.pupils.length)r.pupils.push(newPupil(r));
+ $("markRubricName").textContent=r.name;
+ renderPupilSel();renderMarkGrid();renderBanks();show("markView");
+}
+function newPupil(r){return{name:"Pupil "+(r.pupils.length+1),marks:r.criteria.map(function(){return -1;}),fb:{www:"",ebi:"",next:""}};}
+function renderPupilSel(){
+ var r=cur(),sel=$("pupilSel");sel.innerHTML="";
+ r.pupils.forEach(function(p,i){var o=document.createElement("option");o.value=i;o.textContent=p.name;sel.appendChild(o);});
+ sel.value=curPupil;
+ sel.onchange=function(){curPupil=+sel.value;renderMarkGrid();};
+}
+function renderMarkGrid(){
+ var r=cur(),p=pupil(),host=$("markGrid");host.innerHTML="";
+ /* ensure marks length matches criteria */
+ if(p.marks.length!==r.criteria.length){var nm=r.criteria.map(function(_,i){return p.marks[i]==null?-1:p.marks[i];});p.marks=nm;}
+ r.criteria.forEach(function(c,ci){
+  var d=document.createElement("div");d.className="crit";
+  d.innerHTML='<div class="cname">'+escapeHtml(c.name||"(unnamed)")+(c.weight>1?' <span class="cw">weight ×'+c.weight+'</span>':'')+'</div>';
+  var lv=document.createElement("div");lv.className="levels";
+  r.levelNames.forEach(function(ln,li){
+   var b=document.createElement("button");b.className="lvl"+(p.marks[ci]===li?" on":"");
+   b.innerHTML='<span class="ln">'+escapeHtml(ln)+'</span><span>'+escapeHtml((c.levels&&c.levels[li])||"")+'</span>';
+   b.onclick=function(){p.marks[ci]=li;renderMarkGrid();updateGrade();persist();};
+   lv.appendChild(b);
+  });
+  d.appendChild(lv);host.appendChild(d);
+ });
+ updateGrade();
+ /* load existing feedback */
+ $("fbWWW").value=p.fb.www||"";$("fbEBI").value=p.fb.ebi||"";$("fbNext").value=p.fb.next||"";
+}
+function weights(){return cur().criteria.map(function(c){return c.weight||1;});}
+function updateGrade(){
+ var r=cur(),p=pupil();
+ var pct=rubricScore(p.marks,weights(),r.levelNames.length);
+ var done=marksComplete(p.marks);
+ $("gradeVal").textContent=done?(pct+"%"):"—";
+ $("gradeLbl").textContent=done?overallLabel(pct,r.levelNames):"mark all criteria";
+ $("gradeNote").textContent=done?"":"Tap a level on each criterion to see the overall grade and auto-feedback.";
+ if(done&&!p.fb.www&&!p.fb.ebi&&!p.fb.next)buildFeedback();
+}
+function buildFeedback(){
+ var r=cur(),p=pupil();
+ var fb=genFeedback(r.criteria,p.marks,r.levelNames,p.name);
+ p.fb.www=fb.www;p.fb.ebi=fb.ebi;p.fb.next=fb.next;
+ $("fbWWW").value=fb.www;$("fbEBI").value=fb.ebi;$("fbNext").value=fb.next;
+ persist();
+}
+function renderBanks(){
+ [["bankWWW","www","fbWWW"],["bankEBI","ebi","fbEBI"],["bankNext","next","fbNext"]].forEach(function(d){
+  var box=$(d[0]);box.innerHTML="";
+  BANK[d[1]].forEach(function(phrase){
+   var b=document.createElement("button");b.className="cb";b.textContent="+ "+phrase;
+   b.onclick=function(){
+    var ta=$(d[2]),v=ta.value.trim();
+    var add=d[1]==="www"?cap(phrase):phrase;
+    ta.value=v?(v.replace(/\.?\s*$/,". ")+add):cap(add);
+    syncFb();
+   };
+   box.appendChild(b);
+  });
+ });
+}
+function syncFb(){var p=pupil();if(!p)return;p.fb.www=$("fbWWW").value;p.fb.ebi=$("fbEBI").value;p.fb.next=$("fbNext").value;persist();}
+
+/* ===================== PDF feedback sheet ===================== */
+function feedbackText(){
+ var r=cur(),p=pupil();
+ return p.name+" — "+r.name+"\n\nWhat went well:\n"+($("fbWWW").value||"-")+"\n\nEven better if:\n"+($("fbEBI").value||"-")+"\n\nNext steps:\n"+($("fbNext").value||"-");
+}
+function savePdf(){
+ var r=cur(),p=pupil();
+ busy("Building feedback sheet\u2026");
+ setTimeout(function(){
+  try{
+   var scale=2,W=Math.round(595*scale),H=Math.round(842*scale);
+   var c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");
+   x.fillStyle="#fff";x.fillRect(0,0,W,H);
+   var m=46*scale,y=54*scale;
+   /* header band */
+   x.fillStyle="#0e7490";x.fillRect(0,0,W,30*scale);
+   x.fillStyle="#fff";x.font="800 "+(15*scale)+"px Arial";x.textAlign="left";x.textBaseline="middle";
+   x.fillText("Feedback — "+r.name,m,15*scale);
+   x.textAlign="right";x.fillText(new Date().toLocaleDateString(),W-m,15*scale);
+   x.textAlign="left";
+   x.fillStyle="#15203a";x.font="800 "+(22*scale)+"px Arial";x.textBaseline="top";
+   x.fillText(p.name,m,y);y+=34*scale;
+   var pct=rubricScore(p.marks,weights(),r.levelNames.length);
+   if(marksComplete(p.marks)){x.fillStyle="#0e7490";x.font="700 "+(15*scale)+"px Arial";x.fillText("Overall: "+pct+"%  ("+overallLabel(pct,r.levelNames)+")",m,y);y+=30*scale;}
+   /* criteria mini-table */
+   x.font="700 "+(12*scale)+"px Arial";
+   r.criteria.forEach(function(cc,ci){
+    var lvl=p.marks[ci];var label=lvl>=0?r.levelNames[lvl]:"—";
+    x.fillStyle="#15203a";x.fillText("• "+cc.name,m,y);
+    x.fillStyle="#0e7490";x.textAlign="right";x.fillText(label,W-m,y);x.textAlign="left";
+    y+=20*scale;
+   });
+   y+=10*scale;
+   function section(title,col,bg,text){
+    var lines=wrapTextLines(x,text||"-",W-2*m-20*scale,(13*scale),"600 "+(13*scale)+"px Arial");
+    var blockH=(22+lines.length*18+14)*scale;
+    x.fillStyle=bg;roundRect(x,m,y,W-2*m,blockH,10*scale);x.fill();
+    x.fillStyle=col;x.font="800 "+(13.5*scale)+"px Arial";x.fillText(title,m+12*scale,y+10*scale);
+    x.fillStyle="#15203a";x.font="600 "+(13*scale)+"px Arial";
+    var ty=y+30*scale;lines.forEach(function(ln){x.fillText(ln,m+12*scale,ty);ty+=18*scale;});
+    y+=blockH+12*scale;
+   }
+   section("WHAT WENT WELL","#16a34a","#e9f7ee",$("fbWWW").value);
+   section("EVEN BETTER IF","#d97706","#fdf3e3",$("fbEBI").value);
+   section("NEXT STEPS","#2563eb","#eef2fb",$("fbNext").value);
+   var jpeg=b64ToBytes(c.toDataURL("image/jpeg",0.92).split(",")[1]);
+   var pdf=buildPdf([{jpeg:jpeg,w:W,h:H}],595,842);
+   var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([pdf],{type:"application/pdf"}));
+   a.download=(p.name+"-feedback").replace(/[^\w\- ]+/g,"").replace(/\s+/g,"-").toLowerCase()+".pdf";
+   document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},4000);
+   busy(false);toast("Feedback sheet saved ✓");
+  }catch(e){busy(false);toast("Couldn\u2019t make the PDF");}
+ },40);
+}
+function b64ToBytes(b64){var bin=atob(b64),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return u;}
+function roundRect(x,rx,ry,w,h,r){x.beginPath();x.moveTo(rx+r,ry);x.arcTo(rx+w,ry,rx+w,ry+h,r);x.arcTo(rx+w,ry+h,rx,ry+h,r);x.arcTo(rx,ry+h,rx,ry,r);x.arcTo(rx,ry,rx+w,ry,r);x.closePath();}
+function wrapTextLines(x,text,maxW,lh,font){
+ x.font=font;var words=String(text).split(/\s+/),lines=[],cur="";
+ words.forEach(function(w){var t=cur?cur+" "+w:w;if(x.measureText(t).width>maxW&&cur){lines.push(cur);cur=w;}else cur=t;});
+ if(cur)lines.push(cur);return lines.length?lines:["-"];
+}
+
+/* ===================== text prompt modal (add/rename) ===================== */
+var tpCallback=null;
+function textPrompt(title,value,cb){
+ $("tpTitle").textContent=title;$("tpInput").value=value||"";tpCallback=cb;
+ $("textPromptModal").classList.add("open");setTimeout(function(){$("tpInput").focus();$("tpInput").select();},50);
+}
+
+/* ===================== sample rubric ===================== */
+function sampleRubric(){
+ return{id:uid(),name:"Persuasive writing",levelNames:["Emerging","Developing","Secure","Mastered"],
+  criteria:[
+   {name:"Clear viewpoint",weight:1,levels:["states an opinion","states a clear opinion","states and maintains a clear opinion","states a convincing, sustained viewpoint"]},
+   {name:"Reasons and evidence",weight:2,levels:["gives one reason","gives reasons","supports reasons with evidence","supports reasons with well-chosen evidence"]},
+   {name:"Persuasive language",weight:1,levels:["uses simple words","uses some persuasive words","uses persuasive devices","uses a range of persuasive devices for effect"]},
+   {name:"Structure and accuracy",weight:1,levels:["writes in sentences","organises ideas","organises ideas in paragraphs with accuracy","writes accurately with strong structure"]}
+  ],pupils:[]};
+}
+
+/* ===================== init ===================== */
+function init(){
+ $("newRubricB").onclick=function(){var r={id:uid(),name:"New rubric",levelNames:["Emerging","Developing","Secure","Mastered"],criteria:[],pupils:[]};rubrics.push(r);persist();editRubric(r.id);};
+ $("sampleRubricB").onclick=function(){var r=sampleRubric();rubrics.push(r);persist();renderRubrics();toast("Example rubric added");};
+ $("homeB").onclick=function(){renderRubrics();show("rubricsView");};
+ $("backToRubricsB").onclick=function(){renderRubrics();show("rubricsView");};
+ $("editDoneB").onclick=function(){var r=cur();r.name=($("rubricNameIn").value||"Untitled").trim();r.levelNames=splitCommas($("levelNamesIn").value);if(r.levelNames.length<2)r.levelNames=["Emerging","Developing","Secure","Mastered"];persist();openRubric(r.id);};
+ $("rubricNameIn").addEventListener("input",function(){cur().name=this.value;persist();});
+ $("levelNamesIn").addEventListener("input",function(){var r=cur();r.levelNames=splitCommas($("levelNamesIn").value);renderCritEditor();persist();});
+ $("addCritB").onclick=function(){var r=cur();r.criteria.push({name:"",weight:1,levels:r.levelNames.map(function(){return "";})});renderCritEditor();persist();};
+ $("editRubricB").onclick=function(){editRubric(curRubric);};
+ $("delRubricB").onclick=function(){if(!confirm("Delete this rubric and all its marks?"))return;rubrics=rubrics.filter(function(x){return x.id!==curRubric;});persist();renderRubrics();show("rubricsView");};
+ $("addPupilB").onclick=function(){var r=cur();textPrompt("Add pupil","",function(v){if(!v)return;r.pupils.push({name:v,marks:r.criteria.map(function(){return -1;}),fb:{www:"",ebi:"",next:""}});curPupil=r.pupils.length-1;renderPupilSel();renderMarkGrid();persist();});};
+ $("renamePupilB").onclick=function(){var p=pupil();if(!p)return;textPrompt("Rename pupil",p.name,function(v){if(!v)return;p.name=v;renderPupilSel();persist();});};
+ $("regenB").onclick=function(){if(!marksComplete(pupil().marks)){toast("Mark all criteria first");return;}buildFeedback();toast("Feedback rebuilt from the levels");};
+ ["fbWWW","fbEBI","fbNext"].forEach(function(id){$(id).addEventListener("input",syncFb);});
+ $("copyFbB").onclick=function(){var t=feedbackText();if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(function(){toast("Feedback copied ✓");},function(){fallbackCopy(t);});else fallbackCopy(t);};
+ $("pdfB").onclick=savePdf;
+ $("tpOk").onclick=function(){var v=($("tpInput").value||"").trim();$("textPromptModal").classList.remove("open");if(tpCallback)tpCallback(v);tpCallback=null;};
+ $("tpCancel").onclick=function(){$("textPromptModal").classList.remove("open");tpCallback=null;};
+ $("tpInput").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();$("tpOk").click();}});
+ $("helpB").onclick=function(){$("helpModal").classList.add("open");};
+ $("helpClose").onclick=function(){$("helpModal").classList.remove("open");};
+ ["textPromptModal","helpModal"].forEach(function(id){$(id).addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});});
+ try{var s=JSON.parse(localStorage.getItem("rubrics")||"null");if(s&&Array.isArray(s)){rubrics=s;rubrics.forEach(function(r){var n=parseInt((r.id||"r0").replace(/\D/g,""),10);if(n>_id)_id=n;});}}catch(e){}
+ renderRubrics();show("rubricsView");
+}
+function fallbackCopy(text){var ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.left="-9999px";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast("Copied ✓");}catch(e){toast("Press and hold to copy");}ta.remove();}
+init();
+
+</script>
+</body>
+</html>

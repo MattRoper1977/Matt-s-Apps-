@@ -2,7 +2,7 @@
 
 by **Matt Roper**
 
-A collection of **21 self-contained, offline, single-file web tools** for the classroom. Every tool is one `.html` file with no installation, no accounts, no servers and no internet required after download — just open it in a browser (Chromebook, phone, tablet or desktop). Nothing a pupil makes ever leaves the device.
+A collection of **23 self-contained, offline, single-file web tools** for the classroom. Every tool is one `.html` file with no installation, no accounts, no servers and no internet required after download — just open it in a browser (Chromebook, phone, tablet or desktop). Nothing a pupil makes ever leaves the device.
 
 Built by Matt Roper for an SEMH alternative-provision setting: big touch targets, calm visuals, no leaderboards, and accessibility (reduced-motion support, keyboard handling) as defaults.
 
@@ -59,10 +59,12 @@ Share that single link with staff or pupils and bookmark it.
 |---|---|
 | **Classroom Toolkit** | Four classroom utilities in one: a fair random name picker (no repeats until everyone's had a turn), a balanced group maker, a calm visual countdown timer, and a class noise meter. |
 | **Seating Plan Studio** | Drag pupils onto a desk layout (rows, pairs, group tables or U-shape), flag "keep apart" pairs that warn if seated together, auto-fill fairly, and export the plan as a picture to print. |
+| **Rubric & Feedback Studio** | Build a reusable marking rubric (criteria, weighted levels), tick a level per criterion for each pupil, and it computes a grade and writes structured strengths-first feedback (What went well / Even better if / Next steps). Export a printable PDF feedback sheet per pupil. |
 
 ### Calm corner
 | Tool | What it does |
 |---|---|
+| **Feelings Check-in** | A calm, private Zones-style check-in: a pupil taps how they're arriving (Blue / Green / Yellow / Red), picks a feeling word, and gets matched, doable calming or alerting strategies — plus guided breathing and an optional "show my teacher" screen. Nothing is ever saved. Validating, never corrective; gently signposts a trusted adult for big feelings. |
 | **Regulation Station** | A wellbeing aid — guided breathing, 5-4-3-2-1 grounding, muscle-release, generated calm sounds and a quiet timer. Nothing is recorded. |
 
 ## 🔒 Privacy & safety
