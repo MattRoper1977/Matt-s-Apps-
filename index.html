@@ -16,12 +16,66 @@
     --mut: #64748b;
     --radius: 18px;
     --ease: cubic-bezier(.22,1,.36,1);
+    
+    /* Live Banner Variables */
+    --ticker-bg: #16a34a;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   html, body { min-height: 100vh; background: var(--stage); color: var(--ink); }
   body { font-family: "Segoe UI", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
   
+  /* ============ LIVE ROLLING TICKER ============ */
+  .ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    background: var(--ticker-bg);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: none;
+    position: relative;
+    z-index: 100;
+  }
+  .ticker-wrap a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #ffffff;
+    padding: 12px 0;
+    font-weight: 700;
+    font-size: 0.88rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .ticker-track {
+    display: flex;
+    white-space: nowrap;
+    padding-left: 100%;
+    animation: marquee 28s linear infinite;
+  }
+  .ticker-text {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-right: 50px;
+  }
+  .ticker-pulse {
+    width: 10px;
+    height: 10px;
+    background: #ffffff;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 10px #ffffff;
+    animation: tickerFlash 1.4s infinite ease-in-out;
+  }
+  @keyframes marquee {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
+  }
+  @keyframes tickerFlash {
+    0%, 100% { opacity: 0.4; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+
   /* ============ HEADER ENGINE ============ */
   #hero { 
     background: linear-gradient(135deg, var(--slate-900) 0%, var(--slate-800) 100%); 
@@ -140,6 +194,17 @@
 </style>
 </head>
 <body>
+
+<div id="liveTicker" class="ticker-wrap">
+  <a id="tickerLink" href="#" target="_blank" rel="noopener noreferrer">
+    <div class="ticker-track">
+      <span class="ticker-text"><span class="ticker-pulse"></span><span id="tickerContent"></span></span>
+      <span class="ticker-text"><span class="ticker-pulse"></span><span id="tickerContentDup"></span></span>
+      <span class="ticker-text"><span class="ticker-pulse"></span><span id="tickerContentDup2"></span></span>
+    </div>
+  </a>
+</div>
+
 <header id="hero">
   <div class="hero-inner">
     <div class="brandRow">
@@ -179,6 +244,17 @@
 
 <script id="app">
 "use strict";
+
+/* ================================================================
+   ✏️ LIVE TICKER CONTROLLER
+   ================================================================ */
+const LIVE_CONFIG = {
+  show: true,              // Set to true to display the rolling banner, false to completely remove
+  status: "live",          // "live" makes the banner GREEN | "not-live" makes the banner RED
+  text: "Active Pipeline Channel Broadcast: Click here to enter the active live lessons portal space instantly",
+  url: "https://mattroper1977.pythonanywhere.com/"
+};
+
 var APPS=[
  {cat:"Make & create",items:[
   {f:"Craft_Studio.html",n:"Craft Studio",d:"Code a robot through a block world",i:"\uD83E\uDDF1",c:"#6abe30"},
@@ -204,12 +280,12 @@ var APPS=[
   {f:"Message_Studio.html",n:"Message & Email Studio",d:"Write a clear, polite message",i:"\u2709\uFE0F",c:"#4257c4"},
   {f:"Writing_Frames.html",n:"Writing Frames Studio",d:"Step-by-step help to write anything",i:"\u270D\uFE0F",c:"#0d9488"},
   {f:"Quiz_Studio.html",n:"Flashcards & Quiz",d:"Make decks &amp; test yourself",i:"\uD83D\uDDC2\uFE0F",c:"#2563eb"},
-  {f:"Mindmap_Studio.html",n:"Mind-Map Studio",d:"Plan &amp; revise with idea bubbles",i:"\u270A",c:"#7c3aed"},
+  {f:"Mindmap_Studio.html",n:"Mind-Map Studio",d:"Plan &amp; revise with idea bubbles",i:"\uD83E\uDDE0",c:"#7c3aed"},
   {f:"NowNext_Board.html",n:"Now / Next Board",d:"A calm visual schedule",i:"\uD83D\uDCCB",c:"#2f9e8f"}
  ]},
  {cat:"Teacher tools",items:[
   {f:"Classroom_Toolkit.html",n:"Classroom Toolkit",d:"Name picker, timer, groups &amp; noise",i:"\u23F2\uFE0F",c:"#c2410c"},
-  {f:"Seating_Studio.html",n:"Seating Plan Studio",d:"Drag pupils onto a room plan",i:"\uD83E\uDE91",c:"#7c3aed"},
+  {f:"Seating_Studio.html",n:"Seating Plan Studio",d:"Drag pupils onto a room plan",i:"\u23F2\uFE0F",c:"#7c3aed"},
   {f:"Rubric_Studio.html",n:"Rubric & Feedback Studio",d:"Mark to a rubric, auto-write feedback",i:"\uD83D\uDCD0",c:"#0e7490"},
   {f:"Exit_Ticket.html",n:"Exit Ticket & Quick Marks",d:"Instant class understanding check",i:"\uD83D\uDCCA",c:"#0891b2"}
  ]},
@@ -222,6 +298,19 @@ var APPS=[
 function $(id){return document.getElementById(id);}
 function esc(s){return s.replace(/&amp;/g,"&");}
 var miss=$("miss"),missT=null;
+
+function initLiveBanner() {
+  if (!LIVE_CONFIG.show) return;
+  var banner = $("liveTicker");
+  var color = LIVE_CONFIG.status === "live" ? "#16a34a" : "#dc2626";
+  document.documentElement.style.setProperty('--ticker-bg', color);
+  
+  $("tickerLink").href = LIVE_CONFIG.url;
+  $("tickerContent").textContent = LIVE_CONFIG.text;
+  $("tickerContentDup").textContent = LIVE_CONFIG.text;
+  $("tickerContentDup2").textContent = LIVE_CONFIG.text;
+  banner.style.display = "block";
+}
 
 function showMiss(name,file){
  miss.innerHTML="<b>Local Node Outage:</b> system file <code>"+file+"</code> must sit inside the same relative directory partition path to launch asset successfully.";
@@ -244,7 +333,7 @@ function build(){
    card.innerHTML='<span class="edge"></span>'+
      '<div class="tile-header"><span class="ic">'+a.i+'</span></div>'+
      '<b>'+a.n+'</b><p>'+a.d+'</p>'+
-     '<div class="tile-action">Launch Matrix Space &rarr;</div>'+
+     '<div class="tile-action">Launch Studio Module &rarr;</div>'+
      '<a href="'+encodeURI(a.f)+'" class="tile-link" aria-label="Launch '+a.n+'"></a>';
      
    card.querySelector('.tile-link').addEventListener("click",function(e){
@@ -255,9 +344,9 @@ function build(){
      probe.open("HEAD",a.f,true);
      probe.onreadystatechange=function(){
       if(probe.readyState===4&&!done){done=true;
-       if(probe.status===0||probe.status(400)) {
+       if(probe.status===0||probe.status>=400) {
          if(window.location.protocol === 'file:') {
-           window.location.href=a.f; // Standard local sandbox bypass fallback
+           window.location.href=a.f; 
          } else {
            showMiss(a.n,a.f);
          }
@@ -266,7 +355,7 @@ function build(){
      };
      probe.onerror=function(){if(!done){done=true;window.location.href=a.f;}};
      probe.send();
-     setTimeout(function(){if(!done){done=true;window.location.href=a.f;}},6000);
+     setTimeout(function(){if(!done){done=true;window.location.href=a.f;}},1000);
     }catch(err){window.location.href=a.f;}
    });
    g.appendChild(card);
@@ -301,6 +390,7 @@ window.addEventListener('scroll', function() {
   }
 });
 
+initLiveBanner();
 build();
 $("search").addEventListener("input",function(){filter(this.value);});
 $("searchClear").addEventListener("click",function(){ $("search").value=""; filter(""); $("search").focus(); });
