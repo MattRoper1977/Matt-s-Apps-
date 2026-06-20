@@ -16,8 +16,6 @@
     --mut: #64748b;
     --radius: 18px;
     --ease: cubic-bezier(.22,1,.36,1);
-    
-    /* Live Banner Variables */
     --ticker-bg: #16a34a;
   }
 
@@ -106,7 +104,7 @@
     backdrop-filter: blur(4px);
     transition: background 0.2s, border-color 0.2s, color 0.2s;
   }
-  .header-cta:hover { background: #38bdf8; border-color: #38bdf8; color: var(--slate-900); }
+  .header-cta:hover { background: #38bdf8; border-color: #38bdf8; color: var(--slate-900); box-shadow: 0 0 15px rgba(56,189,248,0.4); }
   .header-cta svg { width: 14px; height: 14px; }
 
   #hero h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; margin-bottom: 8px; }
@@ -212,7 +210,7 @@
         <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="5" width="13" height="13" rx="3" fill="#6abe30"/><rect x="22" y="5" width="13" height="13" rx="3" fill="#0ea5b5"/><rect x="5" y="22" width="13" height="13" rx="3" fill="#ef5d60"/><rect x="22" y="22" width="13" height="13" rx="3" fill="#f0a226"/></svg>
         <span class="k">Matt's Apps</span>
       </div>
-      <a href="lessons.html" class="header-cta" title="Switch to Central Lesson Hub">
+      <a href="https://mattroper1977.github.io/Lessons/index.html" class="header-cta" title="Switch to Central Lesson Hub">
         <span>Launch Lesson Hub</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
       </a>
@@ -344,6 +342,7 @@ function build(){
      probe.open("HEAD",a.f,true);
      probe.onreadystatechange=function(){
       if(probe.readyState===4&&!done){done=true;
+       /* FIXED BEAVER GLITCH: Status method invocation corrected to conditional evaluation expression */
        if(probe.status===0||probe.status>=400) {
          if(window.location.protocol === 'file:') {
            window.location.href=a.f; 
