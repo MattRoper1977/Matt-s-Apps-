@@ -109,7 +109,7 @@
 
   #hero h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; margin-bottom: 8px; }
   #hero h1 span { color: #38bdf8; text-shadow: 0 0 20px rgba(56,189,248,0.2); }
-  #hero p { max-width: 600px; font-size: 1.05rem; line-height: 1.6; color: #cbd5e1; }
+  #hero p { max-width: 680px; font-size: 1.05rem; line-height: 1.6; color: #cbd5e1; }
   
   /* ============ SEARCH SYSTEM ============ */
   .searchbar-sticky { position: sticky; top: 0; z-index: 20; background: rgba(248, 250, 252, 0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 16px 0; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
@@ -216,7 +216,7 @@
       </a>
     </div>
     <h1>Studio <span>Suite</span></h1>
-    <p>The core standalone client-side creation environment. High-performance application runtimes built entirely to execute locally on asset compilation modules.</p>
+    <p>The ultimate offline creation suite. Unleash your imagination with 17 high-performance, lightning-fast digital studios built to code games, produce animations, edit audio, and design jaw-dropping visual layouts—completely standalone and ready to run anywhere.</p>
   </div>
 </header>
 
@@ -243,12 +243,9 @@
 <script id="app">
 "use strict";
 
-/* ================================================================
-   ✏️ LIVE TICKER CONTROLLER
-   ================================================================ */
 const LIVE_CONFIG = {
-  show: true,              // Set to true to display the rolling banner, false to completely remove
-  status: "live",          // "live" makes the banner GREEN | "not-live" makes the banner RED
+  show: true,              
+  status: "live",          
   text: "Active Pipeline Channel Broadcast: Click here to enter the active live lessons portal space instantly",
   url: "https://mattroper1977.pythonanywhere.com/"
 };
@@ -288,7 +285,7 @@ var APPS=[
   {f:"Exit_Ticket.html",n:"Exit Ticket & Quick Marks",d:"Instant class understanding check",i:"\uD83D\uDCCA",c:"#0891b2"}
  ]},
  {cat:"Calm corner",items:[
-  {f:"Feelings_Checkin.html",n:"Feelings Check-in",d:"Notice how you feel &amp; what helps",i:"\uD83D\uDE0A",c:"#e8b13a"},
+  {f:"Feelings_Checkin.html",n:"Feelings Check-in",d:"Notice how you feel &amp; what helps",i:"\uD83D\DE0A",c:"#e8b13a"},
   {f:"Regulation_Station.html",n:"Regulation Station",d:"Breathe, ground &amp; take a quiet moment",i:"\uE1EC",c:"#7c6fb0"}
  ]}
 ];
@@ -342,7 +339,6 @@ function build(){
      probe.open("HEAD",a.f,true);
      probe.onreadystatechange=function(){
       if(probe.readyState===4&&!done){done=true;
-       /* FIXED BEAVER GLITCH: Status method invocation corrected to conditional evaluation expression */
        if(probe.status===0||probe.status>=400) {
          if(window.location.protocol === 'file:') {
            window.location.href=a.f; 
