@@ -112,6 +112,11 @@
   .chip.fav.active i { background: rgba(0,0,0,.18); color:#3a2a06; }
   html[data-theme="dark"] .chip { color:#cdd9ee; }
   html[data-theme="dark"] .chip i { background:#22304a; color:#9fb2cf; }
+  .chip.surprise { border-color: var(--accent); color: var(--accent); font-weight:800; }
+  .chip.surprise:hover { background: var(--accent); border-color: var(--accent); color:#fff; }
+  html[data-theme="dark"] .chip.surprise { color:#d8b4fe; border-color:#7c3aed; }
+  /* picked-by-dice highlight: pure transition, so it never overrides the tile's rise/opacity */
+  .tile.picked { transform: translateY(-4px) scale(1.03) !important; box-shadow: 0 0 0 3px var(--sc), 0 22px 30px -10px rgba(15,23,42,.28) !important; }
 
   .result-count { max-width:1100px; margin: 18px auto 0; padding: 0 22px; font-size:.82rem; font-weight:600; color: var(--mut); }
 
@@ -290,7 +295,7 @@
   <div class="chips" id="chips"></div>
 </div>
 
-<div class="result-count" id="resultCount"></div>
+<div class="result-count" id="resultCount" aria-live="polite"></div>
 
 <main>
   <div id="cats"></div>
@@ -354,8 +359,8 @@ const APPS = [
   {f:"Classroom_Toolkit.html",n:"Classroom Toolkit",d:"Name picker, timer, groups & noise",i:"\u23F2\uFE0F",c:"#c2410c"},
   {f:"Seating_Studio.html",n:"Seating Plan Studio",d:"Drag pupils onto a room plan",i:"\uD83E\uDE91",c:"#7c3aed"},
   {f:"Rubric_Studio.html",n:"Rubric & Feedback Studio",d:"Mark to a rubric, auto-write feedback",i:"\uD83D\uDCD0",c:"#0e7490"},
-  {f:"Exit_Ticket.html",n:"Exit Ticket & Quick Marks",d:"Instant class understanding check",i:"\uD83C\uDF9F\uFE0F",c:"#0891b2"}
-  {f:"whiteboard.html",n:"Whiteboard",d:"Draw and write onto your browser",i:"\uD83C\uDF9F\uFE0F",c:"#0891b2"}
+  {f:"Exit_Ticket.html",n:"Exit Ticket & Quick Marks",d:"Instant class understanding check",i:"\uD83C\uDF9F\uFE0F",c:"#0891b2"},
+  {f:"whiteboard.html",n:"Whiteboard",d:"Draw and write onto your browser",i:"\uD83D\uDD8A\uFE0F",c:"#2563eb"}
 
  ]},
  {cat:"Calm corner", items:[
@@ -518,6 +523,19 @@ function buildChips(){
   const fav = chip('\u2605 Favourites <i id="favCount">' + favs.size + '</i>', "fav");
   fav.addEventListener("click", function(){ state.favsOnly = !state.favsOnly; applyFilter(); });
 
+  const surprise = chip('\uD83C\uDFB2 Surprise me', "surprise");
+  surprise.addEventListener("click", function(){
+    const vis = Array.prototype.filter.call(document.querySelectorAll(".tile"), function(t){ return t.style.display !== "none"; });
+    const pool = vis.length ? vis : Array.prototype.slice.call(document.querySelectorAll(".tile"));
+    if (!pool.length) return;
+    const pick = pool[Math.floor(Math.random() * pool.length)];
+    pick.classList.add("picked");
+    pick.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+    const link = pick.querySelector(".tile-link");
+    setTimeout(function(){ link.click(); }, reduce ? 0 : 480);
+    setTimeout(function(){ pick.classList.remove("picked"); }, 1200);
+  });
+
   APPS.forEach(function(group){
     const c = chip(group.cat + ' <i>' + group.items.length + '</i>');
     c.dataset.cat = group.cat;
@@ -555,6 +573,9 @@ function applyFilter(){
   if (q) label += " \u00b7 \u201c" + state.q.trim() + "\u201d";
   $("resultCount").textContent = label;
 
+  $("empty").textContent = (state.favsOnly && favs.size === 0)
+    ? "No favourites yet \u2014 tap the \u2606 on any studio to pin it here."
+    : "No studios match that search.";
   $("empty").style.display = shownTotal ? "none" : "block";
   $("searchClear").style.display = state.q ? "flex" : "none";
 }
