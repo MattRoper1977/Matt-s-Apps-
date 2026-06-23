@@ -41,6 +41,12 @@
   .ticker-pulse { width: 10px; height: 10px; background: #fff; border-radius: 50%; display: inline-block; box-shadow: 0 0 10px #fff; animation: tickerFlash 1.4s infinite ease-in-out; }
   @keyframes marquee { 0% { transform: translate3d(0,0,0);} 100% { transform: translate3d(-100%,0,0);} }
   @keyframes tickerFlash { 0%,100% { opacity:.4; transform:scale(.9);} 50% { opacity:1; transform:scale(1.1);} }
+  .ticker-wrap:hover .ticker-track,
+  .ticker-wrap:focus-within .ticker-track { animation-play-state: paused; }
+  .ticker-wrap a:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+  .ticker-wrap.is-static .ticker-track { padding-left: 0; animation: none; justify-content: center; }
+  .ticker-wrap.is-static .ticker-text:not(:first-child) { display: none; }
+  .ticker-wrap.is-static .ticker-pulse { animation: none; opacity: 1; }
 
   /* ============ HEADER ENGINE ============ */
   #hero { background: var(--hero-grad); color:#fff; position: relative; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,.1); padding: 50px 24px 42px; }
@@ -176,7 +182,8 @@
 
   @media (prefers-reduced-motion: reduce){
     *, *::before, *::after { animation: none !important; transition: none !important; }
-    .ticker-track { padding-left: 0 !important; }
+    .ticker-track { padding-left: 0 !important; justify-content: center; }
+    .ticker-text:not(:first-child) { display: none; }
     .tile { opacity:1 !important; transform:none !important; }
     .hero-app .draw { stroke-dashoffset: 0 !important; }
   }
@@ -188,8 +195,8 @@
   <a id="tickerLink" href="#" target="_blank" rel="noopener noreferrer">
     <div class="ticker-track">
       <span class="ticker-text"><span class="ticker-pulse"></span><span id="tickerContent"></span></span>
-      <span class="ticker-text"><span class="ticker-pulse"></span><span id="tickerContentDup"></span></span>
-      <span class="ticker-text"><span class="ticker-pulse"></span><span id="tickerContentDup2"></span></span>
+      <span class="ticker-text" aria-hidden="true"><span class="ticker-pulse"></span><span id="tickerContentDup"></span></span>
+      <span class="ticker-text" aria-hidden="true"><span class="ticker-pulse"></span><span id="tickerContentDup2"></span></span>
     </div>
   </a>
 </div>
@@ -316,9 +323,13 @@
 /* ================= CONFIG ================= */
 const LIVE_CONFIG = {
   show: true,
-  status: "live",
-  text: "Active Pipeline Channel Broadcast: Click here to enter the active live lessons portal space instantly",
-  url: "https://mattroper1977.pythonanywhere.com/"
+  state: "live",            // flip between: "live" | "soon" | "off"
+  url: "https://mattroper1977.pythonanywhere.com/",
+  states: {
+    live: { colour: "#16a34a", aria: "Live Lessons portal is open",   text: "Live Lessons portal is open — tap to enter" },
+    soon: { colour: "#f59e0b", aria: "Live Lessons starting soon",     text: "Live Lessons starting soon — tap to get ready" },
+    off:  { colour: "#64748b", aria: "Live Lessons portal closed",     text: "Live Lessons portal closed — tap to view the schedule" }
+  }
 };
 
 const FAV_KEY = "matt_studioSuite_favs_v1";
@@ -400,12 +411,15 @@ function initTheme(){
 function initLiveBanner(){
   if (!LIVE_CONFIG.show) return;
   const banner = $("liveTicker");
-  const color = LIVE_CONFIG.status === "live" ? "#16a34a" : "#dc2626";
-  document.documentElement.style.setProperty("--ticker-bg", color);
-  $("tickerLink").href = LIVE_CONFIG.url;
-  $("tickerContent").textContent = LIVE_CONFIG.text;
-  $("tickerContentDup").textContent = LIVE_CONFIG.text;
-  $("tickerContentDup2").textContent = LIVE_CONFIG.text;
+  const s = (LIVE_CONFIG.states && LIVE_CONFIG.states[LIVE_CONFIG.state]) || LIVE_CONFIG.states.live;
+  document.documentElement.style.setProperty("--ticker-bg", s.colour);
+  const link = $("tickerLink");
+  link.href = LIVE_CONFIG.url;
+  link.setAttribute("aria-label", s.aria + " — opens in a new tab");
+  $("tickerContent").textContent = s.text;
+  $("tickerContentDup").textContent = s.text;
+  $("tickerContentDup2").textContent = s.text;
+  if (reduce) banner.classList.add("is-static");
   banner.style.display = "block";
 }
 
