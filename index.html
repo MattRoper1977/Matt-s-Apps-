@@ -4,6 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Studio Suite — Matt's Apps</title>
+<meta name="description" content="A full suite of fast, standalone creative studios — code, animate, edit audio, design layouts and more. Every tool is a single offline-ready file.">
+<meta name="theme-color" content="#2a1758">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Studio Suite — Matt's Apps">
+<meta property="og:description" content="26 offline-ready creative studios for coding, animation, audio, design and classroom tools.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%232a1758'/%3E%3Crect x='7' y='7' width='11' height='11' rx='3' fill='%236abe30'/%3E%3Crect x='22' y='7' width='11' height='11' rx='3' fill='%230ea5b5'/%3E%3Crect x='7' y='22' width='11' height='11' rx='3' fill='%23ef5d60'/%3E%3Crect x='22' y='22' width='11' height='11' rx='3' fill='%23f0a226'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --slate-900: #0f172a;
@@ -20,6 +29,7 @@
     --radius: 18px;
     --ease: cubic-bezier(.22,1,.36,1);
     --ticker-bg: #16a34a;
+    --font-display: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
   }
 
   /* ---- calm dark mode ---- */
@@ -71,7 +81,7 @@
   .brand-meta { display: flex; align-items: center; gap: 12px; }
   .brand-actions { display: flex; align-items: center; gap: 10px; }
   #hero svg.logo { width: 32px; height: 32px; flex-shrink: 0; }
-  #hero span.k { font-size: .75rem; letter-spacing: .25em; font-weight: 800; color:#d8b4fe; text-transform: uppercase; }
+  #hero span.k { font-family: var(--font-display); font-size: .75rem; letter-spacing: .25em; font-weight: 800; color:#d8b4fe; text-transform: uppercase; }
 
   .header-cta { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.15); color:#e2e8f0; text-decoration:none; font-size:.82rem; font-weight:600; padding: 8px 16px; border-radius:10px; display:flex; align-items:center; gap:8px; backdrop-filter: blur(4px); transition: background .2s, border-color .2s, color .2s, box-shadow .2s; }
   .header-cta:hover { background:var(--accent); border-color:var(--accent); color: #fff; box-shadow: 0 0 16px rgba(168,85,247,.5); }
@@ -81,7 +91,7 @@
   .theme-toggle:hover { background: rgba(255,255,255,.16); }
   .theme-toggle svg { width:18px; height:18px; }
 
-  #hero h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 800; letter-spacing:-.02em; line-height:1.1; margin-bottom: 8px; }
+  #hero h1 { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 800; letter-spacing:-.02em; line-height:1.1; margin-bottom: 8px; }
   .grad-word { background: linear-gradient(90deg,#c084fc,#ec4899,#f0a226,#38bdf8,#c084fc); background-size: 220% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: gradShift 9s linear infinite; }
   @supports not ((-webkit-background-clip:text) or (background-clip:text)) { .grad-word { color:#c084fc; } }
   @keyframes gradShift { to { background-position: 220% center; } }
@@ -89,7 +99,7 @@
 
   .stats { display:flex; gap:14px; flex-wrap:wrap; margin-top: 22px; }
   .stat { display:flex; flex-direction:column; gap:2px; background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:10px 16px; min-width:94px; }
-  .stat b { font-size:1.5rem; font-weight:800; color:#fff; line-height:1; }
+  .stat b { font-family: var(--font-display); font-size:1.5rem; font-weight:800; color:#fff; line-height:1; }
   .stat span { font-size:.68rem; text-transform:uppercase; letter-spacing:.1em; color:#9fb0c8; font-weight:700; }
   .stat.offline { flex-direction:row; align-items:center; gap:10px; }
   .stat.offline svg { width:20px; height:20px; stroke:#6abe30; fill:none; flex:0 0 auto; }
@@ -98,7 +108,7 @@
   /* ============ STICKY SEARCH + CHIPS ============ */
   .searchbar-sticky { position: sticky; top: 0; z-index: 20; background: rgba(248,250,252,.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 16px 0 14px; border-bottom: 1px solid transparent; transition: border-color .2s, background .35s; }
   .searchbar-sticky.is-scrolled { border-color: var(--line); }
-  html[data-theme="dark"] .searchbar-sticky { background: rgba(11,18,32,.88); }
+  html[data-theme="dark"] .searchbar-sticky { background: rgba(12,10,26,.88); }
   .search-wrap { max-width: 1100px; margin: 0 auto; padding: 0 16px; position: relative; display:flex; align-items:center; }
   .search-icon { position:absolute; left:34px; width:20px; height:20px; stroke: var(--mut); pointer-events:none; fill:none; }
   #search { width:100%; border:1.5px solid var(--line); border-radius: var(--radius); padding:16px 48px 16px 54px; font-size:1.05rem; font-family:inherit; color: var(--ink); background: var(--panel); box-shadow: 0 4px 12px rgba(15,23,42,.03); outline:none; transition: border-color .2s, box-shadow .2s; }
@@ -128,7 +138,7 @@
 
   /* ============ MAIN ============ */
   main { max-width:1100px; margin: 0 auto; padding: 4px 16px 60px; }
-  .catTitle { font-size:.8rem; font-weight:800; text-transform:uppercase; letter-spacing:.15em; color: var(--mut); margin: 30px 6px 16px; display:flex; align-items:center; gap:8px; }
+  .catTitle { font-family: var(--font-display); font-size:.8rem; font-weight:800; text-transform:uppercase; letter-spacing:.15em; color: var(--mut); margin: 30px 6px 16px; display:flex; align-items:center; gap:8px; }
   .catTitle::after { content:""; flex-grow:1; height:1px; background: var(--line); }
 
   .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:18px; }
@@ -152,11 +162,29 @@
 
   .tile-link { text-decoration:none; color:inherit; }
   .tile-link::after { content:""; position:absolute; inset:0; z-index:1; }
-  .tile b { font-size:1.1rem; font-weight:700; color: var(--slate-900); position:relative; z-index:2; margin-top:4px; }
+  .tile b { font-family: var(--font-display); font-size:1.1rem; letter-spacing:-.01em; font-weight:700; color: var(--slate-900); position:relative; z-index:2; margin-top:4px; }
   html[data-theme="dark"] .tile b { color:#f1f6fd; }
   .tile p { margin:0; font-size:.88rem; color: var(--mut); line-height:1.5; position:relative; z-index:2; }
   .tile-action { display:flex; align-items:center; gap:4px; font-size:.78rem; font-weight:700; color: var(--sc); margin-top:auto; opacity:.7; transition: opacity .2s, transform .2s; position:relative; z-index:2; pointer-events:none; }
   .tile:hover .tile-action { opacity:1; transform: translateX(2px); }
+
+  /* ============ 2026 POLISH ============ */
+  #scrollProgress { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 400; background: linear-gradient(90deg, #a855f7, #ec4899, #f0a226); transform: scaleX(0); transform-origin: left; pointer-events: none; }
+
+  .grain { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: .055; mix-blend-mode: soft-light; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  .search-kbd { position: absolute; right: 62px; border: 1px solid var(--line); background: var(--stage); color: var(--mut); border-radius: 6px; font-size: .72rem; font-weight: 700; padding: 2px 7px; font-family: inherit; pointer-events: none; }
+
+  .catTitle .cc { font-size: .68rem; background: var(--panel); border: 1px solid var(--line); color: var(--mut); border-radius: 999px; padding: 2px 9px; letter-spacing: 0; }
+
+  .tile .ic { transition: transform .25s var(--ease); }
+  .tile:hover .ic, .tile:focus-within .ic { transform: scale(1.08) rotate(-5deg); }
+  @supports (color: color-mix(in srgb, red 50%, blue)) {
+    .tile:hover, .tile:focus-within { box-shadow: 0 18px 28px -10px rgba(15,23,42,.18), 0 0 0 1px var(--sc), 0 10px 30px -8px color-mix(in srgb, var(--sc) 34%, transparent); }
+  }
+
+  .foot-link { color: var(--accent); font-weight: 700; text-decoration: none; }
+  .foot-link:hover { text-decoration: underline; }
 
   /* ============ WARNINGS / EMPTY / FOOTER ============ */
   .missing { position:fixed; left:50%; bottom:24px; transform: translateX(-50%); background: var(--slate-900); color:#fff; padding:16px 22px; border-radius:14px; font-size:.9rem; width: calc(100% - 32px); max-width:550px; box-shadow: 0 20px 25px -5px rgba(0,0,0,.3); display:none; line-height:1.5; z-index:100; border:1px solid rgba(255,255,255,.1); animation: fadeInUp .4s var(--ease); }
@@ -190,6 +218,7 @@
 </style>
 </head>
 <body>
+<div id="scrollProgress" aria-hidden="true"></div>
 
 <div id="liveTicker" class="ticker-wrap">
   <a id="tickerLink" href="#" target="_blank" rel="noopener noreferrer">
@@ -210,6 +239,7 @@
     <span class="fx sq" style="left:40%;top:74%;width:16px;height:16px;background:#6abe30;animation-delay:-9s"></span>
   </div>
 
+  <div class="grain" aria-hidden="true"></div>
   <svg class="hero-app" viewBox="0 0 560 400" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <radialGradient id="glowV" cx="52%" cy="42%" r="60%">
@@ -296,7 +326,8 @@
 <div class="searchbar-sticky" id="stickyBar">
   <div class="search-wrap">
     <svg class="search-icon" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-    <input id="search" type="search" placeholder="Search studios by name or what they do…  (press /)" aria-label="Search studios">
+    <input id="search" type="search" placeholder="Search studios by name or what they do…" aria-label="Search studios">
+    <kbd class="search-kbd" aria-hidden="true">/</kbd>
     <button id="searchClear" class="search-clear" type="button" title="Clear search">×</button>
   </div>
   <div class="chips" id="chips"></div>
@@ -311,7 +342,7 @@
 
 <footer>
   Works fully offline once downloaded &middot; Each studio is a single, self-contained file &middot; <span id="footCount">0</span> creative studios<br>
-  <strong>Matt's Apps Developer Suite</strong>
+  <strong>Matt's Apps Developer Suite</strong> &middot; <a class="foot-link" href="https://mattroper1977.github.io/Lessons/index.html">Lesson Hub &#8599;</a>
 </footer>
 
 <div class="missing" id="miss"></div>
@@ -371,7 +402,7 @@ const APPS = [
   {f:"Seating_Studio.html",n:"Seating Plan Studio",d:"Drag pupils onto a room plan",i:"\uD83E\uDE91",c:"#7c3aed"},
   {f:"Rubric_Studio.html",n:"Rubric & Feedback Studio",d:"Mark to a rubric, auto-write feedback",i:"\uD83D\uDCD0",c:"#0e7490"},
   {f:"Exit_Ticket.html",n:"Exit Ticket & Quick Marks",d:"Instant class understanding check",i:"\uD83C\uDF9F\uFE0F",c:"#0891b2"},
-  {f:"whiteboard.html",n:"Whiteboard",d:"Draw and write onto your browser",i:"\uD83D\uDD8A\uFE0F",c:"#2563eb"}
+  {f:"Whiteboard.html",n:"Whiteboard",d:"Draw and write onto your browser",i:"\uD83D\uDD8A\uFE0F",c:"#2563eb"}
 
  ]},
  {cat:"Calm corner", items:[
@@ -455,7 +486,8 @@ function build(){
     sec.dataset.catname = group.cat;
 
     const h = document.createElement("div");
-    h.className = "catTitle"; h.textContent = group.cat;
+    h.className = "catTitle";
+    h.innerHTML = group.cat + ' <span class="cc">' + group.items.length + '</span>';
     sec.appendChild(h);
 
     const g = document.createElement("div");
@@ -616,9 +648,14 @@ document.addEventListener("keydown", function(e){
 });
 
 const toTop = $("toTop");
+const progressBar = $("scrollProgress");
 window.addEventListener("scroll", function(){
   if (window.scrollY > 60) $("stickyBar").classList.add("is-scrolled"); else $("stickyBar").classList.remove("is-scrolled");
   toTop.classList.toggle("show", window.scrollY > 500);
+  if (progressBar){
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ")";
+  }
 }, { passive: true });
 toTop.addEventListener("click", function(){ window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); });
 </script>
