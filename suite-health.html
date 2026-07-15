@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🩺 Suite Health · Matt's Apps</title>
+<style>
+  :root{--stage:#f7f5fc;--panel:#fff;--ink:#15203a;--mut:#6b6385;--line:#e8e3f3;--accent:#a855f7;--accent2:#ec4899}
+  @media (prefers-color-scheme: dark){:root{--stage:#0c0a1a;--panel:#16122b;--ink:#ece8f7;--mut:#a99fc6;--line:#2c2547}}
+  body{margin:0;background:var(--stage);color:var(--ink);font-family:'Segoe UI',system-ui,sans-serif;padding:28px;box-sizing:border-box}
+  h1{font-size:1.5rem;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+  .sub{color:var(--mut);font-size:.85rem;margin-bottom:18px}
+  button{background:linear-gradient(90deg,var(--accent),var(--accent2));border:0;color:#fff;font-weight:800;border-radius:12px;padding:12px 22px;cursor:pointer;font-size:.9rem;box-shadow:0 8px 24px rgba(168,85,247,.25)}
+  .cards{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 20px;min-width:120px}
+  .stat b{display:block;font-size:1.6rem} .ok b{color:#16a34a}.bad b{color:#dc2626}
+  table{width:100%;border-collapse:collapse;font-size:.84rem;margin-top:14px;background:var(--panel);border-radius:12px;overflow:hidden}
+  th,td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left}
+  tr.dead td{color:#dc2626;font-weight:700}
+  progress{width:100%;height:8px;margin-top:12px;accent-color:var(--accent)}
+  a{color:var(--accent)}
+</style>
+</head>
+<body>
+<h1>🩺 Suite Health</h1>
+<p class="sub">Reads the live Studio Suite catalogue straight out of index.html and checks every studio file exists. Run after any upload or rename — zero maintenance required.</p>
+<button id="run">▶ Run full check</button>
+<progress id="prog" value="0" max="100" style="display:none"></progress>
+<div class="cards" id="cards"></div>
+<table id="tbl" style="display:none"><thead><tr><th>Status</th><th>Studio file</th></tr></thead><tbody id="rows"></tbody></table>
+<script>
+"use strict";
+document.getElementById('run').addEventListener('click', async function(){
+  const btn=this; btn.disabled=true; btn.textContent='Checking…';
+  const prog=document.getElementById('prog'); prog.style.display='block';
+  let files=[];
+  try{
+    const html=await (await fetch('index.html',{cache:'no-store'})).text();
+    const re=/f:"([^"]+)"/g; let m;
+    while((m=re.exec(html))) files.push(m[1]);
+    files=[...new Set(files)];
+  }catch(e){ btn.textContent='Could not read index.html'; return; }
+  const rows=document.getElementById('rows'); rows.innerHTML='';
+  document.getElementById('tbl').style.display='table';
+  let dead=0, okc=0;
+  for(let i=0;i<files.length;i++){
+    const f=files[i]; let bad=false, note='';
+    try{
+      const r=await fetch(encodeURI(f),{method:'HEAD',cache:'no-store'});
+      if(!r.ok){ bad=true; note=' — HTTP '+r.status; }
+    }catch(e){ bad=true; note=' — unreachable'; }
+    if(bad){ dead++;
+      const tr=document.createElement('tr'); tr.className='dead';
+      tr.innerHTML='<td>💀</td><td><a href="'+encodeURI(f)+'" target="_blank" rel="noopener">'+f+'</a>'+note+'</td>';
+      rows.appendChild(tr);
+    } else okc++;
+    prog.value=Math.round((i+1)/files.length*100);
+  }
+  if(!dead){ const tr=document.createElement('tr'); tr.innerHTML='<td>✅</td><td>All '+okc+' studios present and correct.</td>'; rows.appendChild(tr); }
+  document.getElementById('cards').innerHTML=
+    '<div class="stat ok"><b>'+okc+'</b>healthy</div>'+
+    '<div class="stat bad"><b>'+dead+'</b>dead links</div>'+
+    '<div class="stat"><b>'+files.length+'</b>studios</div>';
+  btn.disabled=false; btn.textContent='▶ Run again';
+});
+</script>
+</body>
+</html>

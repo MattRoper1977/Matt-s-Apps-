@@ -679,5 +679,22 @@ window.addEventListener("scroll", function(){
 }, { passive: true });
 toTop.addEventListener("click", function(){ window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); });
 </script>
+
+<!-- ===== SUITE AUGMENTATION v1 (self-contained) ===== -->
+<script>
+"use strict";
+(function(){
+  /* Enter-to-launch: press /, type, Enter opens the top matching studio. */
+  document.addEventListener("keydown", function(e){
+    if(e.key!=="Enter") return;
+    var el=document.activeElement;
+    if(!el || el.id!=="search" || !el.value.trim()) return;
+    var links=document.querySelectorAll("a.tile-link");
+    for(var i=0;i<links.length;i++){
+      if(links[i].offsetParent!==null){ e.preventDefault(); links[i].click(); return; }
+    }
+  });
+})();
+</script>
 </body>
 </html>
