@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <radialGradient id="sb-glow" cx="50%" cy="38%" r="75%">
+      <stop offset="0%" stop-color="#1e0b36"/>
+      <stop offset="55%" stop-color="#0c041a"/>
+      <stop offset="100%" stop-color="#04010a"/>
+    </radialGradient>
+    <linearGradient id="sb-pink" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff007f"/>
+      <stop offset="100%" stop-color="#7b2cbf"/>
+    </linearGradient>
+    <linearGradient id="sb-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="100%" stop-color="#3a0ca3"/>
+    </linearGradient>
+    <linearGradient id="sb-horizon" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0"/>
+      <stop offset="35%" stop-color="#00f0ff" stop-opacity=".5"/>
+      <stop offset="65%" stop-color="#ff007f" stop-opacity=".5"/>
+      <stop offset="100%" stop-color="#ff007f" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="sb-floorfade" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".06"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="sb-neon" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="sb-soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="sb-heavy"><feGaussianBlur stdDeviation="110"/></filter>
+    <pattern id="sb-grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#ffffff" stroke-width="1" stroke-opacity="0.025"/>
+    </pattern>
+  </defs>
+
+  <!-- deep space base -->
+  <rect width="1920" height="1080" fill="url(#sb-glow)"/>
+
+  <!-- ambient nebula orbs -->
+  <circle cx="1450" cy="300" r="320" fill="#7b2cbf" opacity="0.22" filter="url(#sb-heavy)"/>
+  <circle cx="350" cy="850" r="380" fill="#00f0ff" opacity="0.10" filter="url(#sb-heavy)"/>
+  <circle cx="960" cy="540" r="280" fill="#ff007f" opacity="0.07" filter="url(#sb-heavy)"/>
+
+  <!-- star field: three depths -->
+  <g fill="#ffffff">
+    <g opacity="0.35">
+      <circle cx="120" cy="90" r="1.6"/><circle cx="410" cy="60" r="1.3"/><circle cx="700" cy="130" r="1.6"/>
+      <circle cx="980" cy="70" r="1.2"/><circle cx="1660" cy="90" r="1.5"/><circle cx="1840" cy="240" r="1.3"/>
+      <circle cx="240" cy="380" r="1.5"/><circle cx="70" cy="620" r="1.4"/><circle cx="580" cy="420" r="1.2"/>
+      <circle cx="890" cy="330" r="1.4"/><circle cx="1770" cy="560" r="1.5"/><circle cx="1140" cy="150" r="1.3"/>
+    </g>
+    <g opacity="0.18">
+      <circle cx="300" cy="200" r="1"/><circle cx="520" cy="300" r="1"/><circle cx="820" cy="210" r="1"/>
+      <circle cx="1060" cy="380" r="1"/><circle cx="1240" cy="60" r="1"/><circle cx="1560" cy="420" r="1"/>
+      <circle cx="160" cy="500" r="1"/><circle cx="650" cy="560" r="1"/><circle cx="1880" cy="420" r="1"/>
+      <circle cx="1000" cy="480" r="1"/><circle cx="440" cy="700" r="1"/><circle cx="1700" cy="680" r="1"/>
+    </g>
+    <!-- two accent stars with cross-flare -->
+    <g stroke="#00f0ff" stroke-width="1" stroke-opacity=".5" filter="url(#sb-soft)">
+      <path d="M780 110 v18 M771 119 h18"/>
+    </g>
+    <g stroke="#ff007f" stroke-width="1" stroke-opacity=".45" filter="url(#sb-soft)">
+      <path d="M1590 250 v16 M1582 258 h16"/>
+    </g>
+  </g>
+
+  <!-- constellation joining the accent stars (very faint) -->
+  <path d="M780 119 L980 70 L1140 150 L1240 60 L1590 258" fill="none"
+        stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+
+  <!-- tech grid -->
+  <rect width="1920" height="1080" fill="url(#sb-grid)"/>
+
+  <!-- circuit pathways with node pads -->
+  <g stroke="#ffffff" stroke-opacity="0.035" stroke-width="1.5" fill="none">
+    <path d="M0,150 L400,150 L500,250 L1200,250"/>
+    <path d="M1920,850 L1500,850 L1400,750 L800,750"/>
+    <path d="M1350,0 L1350,1080" stroke-dasharray="10,10"/>
+  </g>
+  <g fill="#00f0ff" opacity="0.10">
+    <circle cx="400" cy="150" r="3.5"/><circle cx="500" cy="250" r="3.5"/>
+    <circle cx="1500" cy="850" r="3.5"/><circle cx="1400" cy="750" r="3.5"/>
+  </g>
+
+  <!-- synthwave floor: horizon line + perspective rails, bottom band only -->
+  <g>
+    <rect x="0" y="899" width="1920" height="2.5" fill="url(#sb-horizon)" filter="url(#sb-soft)"/>
+    <g stroke="url(#sb-floorfade)" fill="none" stroke-width="1">
+      <path d="M960 900 L960 1080"/>
+      <path d="M960 900 L560 1080"/><path d="M960 900 L1360 1080"/>
+      <path d="M960 900 L160 1080"/><path d="M960 900 L1760 1080"/>
+      <path d="M960 900 L-340 1080"/><path d="M960 900 L2260 1080"/>
+    </g>
+    <g stroke="#ffffff" fill="none">
+      <path d="M0 940 H1920" stroke-opacity="0.045"/>
+      <path d="M0 995 H1920" stroke-opacity="0.035"/>
+      <path d="M0 1060 H1920" stroke-opacity="0.025"/>
+    </g>
+  </g>
+
+  <!-- HUD corner brackets -->
+  <g stroke="#00f0ff" stroke-opacity="0.14" stroke-width="2" fill="none">
+    <path d="M28 76 V28 H76"/>
+    <path d="M1844 28 H1892 V76"/>
+  </g>
+  <g stroke="#ff007f" stroke-opacity="0.10" stroke-width="2" fill="none">
+    <path d="M28 1004 V1052 H76"/>
+    <path d="M1844 1052 H1892 V1004"/>
+  </g>
+
+  <!-- ============ Guardian Owl (refined) ============ -->
+  <g transform="translate(1160, 130)" opacity="0.19">
+    <!-- ear tufts -->
+    <path d="M92 62 L60 -6 L136 40 Z" fill="none" stroke="url(#sb-blue)" stroke-width="1.5" filter="url(#sb-soft)"/>
+    <path d="M208 62 L240 -6 L164 40 Z" fill="none" stroke="url(#sb-blue)" stroke-width="1.5" filter="url(#sb-soft)"/>
+    <!-- head shield -->
+    <polygon points="150,30 262,104 244,268 150,318 56,268 38,104"
+             fill="none" stroke="url(#sb-blue)" stroke-width="1.8" filter="url(#sb-neon)"/>
+    <!-- inner facial disc facets -->
+    <g stroke="#00f0ff" stroke-opacity="0.5" stroke-width="1" fill="none">
+      <path d="M150 30 L150 318"/>
+      <path d="M38 104 L150 148 L262 104"/>
+      <path d="M56 268 L150 232 L244 268"/>
+    </g>
+    <!-- brow arcs OVER the eyes (not through them) -->
+    <path d="M52 128 Q95 96 138 128" stroke="url(#sb-blue)" stroke-width="3.5" fill="none" filter="url(#sb-soft)"/>
+    <path d="M162 128 Q205 96 248 128" stroke="url(#sb-blue)" stroke-width="3.5" fill="none" filter="url(#sb-soft)"/>
+    <!-- eyes: outer ring, iris ring, glowing pupil -->
+    <g>
+      <circle cx="95" cy="172" r="38" stroke="url(#sb-pink)" stroke-width="2" fill="none"/>
+      <circle cx="95" cy="172" r="22" stroke="#ff007f" stroke-opacity="0.55" stroke-width="1" fill="none"/>
+      <circle cx="95" cy="172" r="6.5" fill="url(#sb-pink)" filter="url(#sb-neon)"/>
+      <circle cx="205" cy="172" r="38" stroke="url(#sb-pink)" stroke-width="2" fill="none"/>
+      <circle cx="205" cy="172" r="22" stroke="#ff007f" stroke-opacity="0.55" stroke-width="1" fill="none"/>
+      <circle cx="205" cy="172" r="6.5" fill="url(#sb-pink)" filter="url(#sb-neon)"/>
+    </g>
+    <!-- beak -->
+    <polygon points="150,200 133,238 167,238" fill="#ffb703" opacity="0.8" filter="url(#sb-neon)"/>
+    <!-- chest facet mesh -->
+    <g stroke="url(#sb-blue)" stroke-opacity="0.6" stroke-width="1.2" fill="none">
+      <path d="M96 318 L150 372 L204 318"/>
+      <path d="M116 340 L150 318 L184 340"/>
+      <path d="M150 372 L150 424"/>
+      <path d="M118 392 L150 424 L182 392"/>
+    </g>
+    <!-- wings folded -->
+    <path d="M56 268 L10 356 L96 330" fill="none" stroke="url(#sb-blue)" stroke-width="1.4" stroke-opacity="0.7"/>
+    <path d="M244 268 L290 356 L204 330" fill="none" stroke="url(#sb-blue)" stroke-width="1.4" stroke-opacity="0.7"/>
+    <!-- perch line + talon nodes -->
+    <path d="M-40 448 H340" stroke="#00f0ff" stroke-opacity="0.35" stroke-width="1.5"/>
+    <circle cx="120" cy="448" r="4" fill="#00f0ff" opacity="0.5"/>
+    <circle cx="180" cy="448" r="4" fill="#00f0ff" opacity="0.5"/>
+    <path d="M132 424 L120 448 M168 424 L180 448" stroke="#00f0ff" stroke-opacity="0.5" stroke-width="1.4" fill="none"/>
+  </g>
+</svg>
