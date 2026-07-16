@@ -1,0 +1,218 @@
+{
+  "title": "Studio Suite",
+  "strap": "Your offline creative workshop — every tool runs straight from the browser, no internet required.",
+  "spaces": [
+    {
+      "cat": "Make & create",
+      "items": [
+        {
+          "f": "Craft_Studio.html",
+          "n": "Craft Studio",
+          "d": "Code a robot through a block world",
+          "i": "🧱",
+          "c": "#6abe30"
+        },
+        {
+          "f": "Web_Studio.html",
+          "n": "Web Studio",
+          "d": "Build a real web page with HTML & CSS",
+          "i": "🌐",
+          "c": "#0ea5b5"
+        },
+        {
+          "f": "Animation_Studio.html",
+          "n": "Animation Studio",
+          "d": "Stop-motion films, frame by frame",
+          "i": "🎬",
+          "c": "#ef5d60"
+        },
+        {
+          "f": "Video_Studio.html",
+          "n": "Video Studio",
+          "d": "Edit clips, titles, music & voiceover",
+          "i": "🎞️",
+          "c": "#f0a226"
+        },
+        {
+          "f": "Audio_Studio.html",
+          "n": "Audio Studio",
+          "d": "Record, edit & trim sound",
+          "i": "🎙️",
+          "c": "#0fa36b"
+        },
+        {
+          "f": "Music_Studio.html",
+          "n": "Music Studio",
+          "d": "Build beats & tunes for your films",
+          "i": "🎹",
+          "c": "#e8516f"
+        }
+      ]
+    },
+    {
+      "cat": "Art & design",
+      "items": [
+        {
+          "f": "Art_Studio.html",
+          "n": "Art Studio",
+          "d": "Paint with layers & symmetry",
+          "i": "🎨",
+          "c": "#6d5cf5"
+        },
+        {
+          "f": "Design_Studio.html",
+          "n": "Design Studio",
+          "d": "Posters, certificates & layouts",
+          "i": "✏️",
+          "c": "#4f46e5"
+        },
+        {
+          "f": "Photo_Studio.html",
+          "n": "Photo Studio",
+          "d": "Combine photos, stickers & text",
+          "i": "🖼️",
+          "c": "#d9488b"
+        },
+        {
+          "f": "Comic_Studio.html",
+          "n": "Comic Studio",
+          "d": "Panels, speech bubbles & stickers",
+          "i": "💬",
+          "c": "#f4a522"
+        },
+        {
+          "f": "Graph_Studio.html",
+          "n": "Graph & Data Studio",
+          "d": "Turn a results table into a chart",
+          "i": "📊",
+          "c": "#137a63"
+        }
+      ]
+    },
+    {
+      "cat": "Documents",
+      "items": [
+        {
+          "f": "PDF_Studio.html",
+          "n": "PDF Studio",
+          "d": "Annotate, edit text & sort pages",
+          "i": "📄",
+          "c": "#e2554f"
+        },
+        {
+          "f": "Evidence_Binder.html",
+          "n": "Evidence Binder",
+          "d": "Capture & tag work for portfolios",
+          "i": "📒",
+          "c": "#b4892c"
+        }
+      ]
+    },
+    {
+      "cat": "Learn & organise",
+      "items": [
+        {
+          "f": "Typing_Tutor.html",
+          "n": "Typing Tutor",
+          "d": "Build typing speed & accuracy",
+          "i": "⌨️",
+          "c": "#3b6fe0"
+        },
+        {
+          "f": "Message_Studio.html",
+          "n": "Message & Email Studio",
+          "d": "Write a clear, polite message",
+          "i": "✉️",
+          "c": "#4257c4"
+        },
+        {
+          "f": "Writing_Frames.html",
+          "n": "Writing Frames Studio",
+          "d": "Step-by-step help to write anything",
+          "i": "✍️",
+          "c": "#0d9488"
+        },
+        {
+          "f": "Quiz_Studio.html",
+          "n": "Flashcards & Quiz",
+          "d": "Make decks & test yourself",
+          "i": "🗂️",
+          "c": "#2563eb"
+        },
+        {
+          "f": "Mindmap_Studio.html",
+          "n": "Mind-Map Studio",
+          "d": "Plan & revise with idea bubbles",
+          "i": "🧠",
+          "c": "#7c3aed"
+        },
+        {
+          "f": "NowNext_Board.html",
+          "n": "Now / Next Board",
+          "d": "A calm visual schedule",
+          "i": "📋",
+          "c": "#2f9e8f"
+        }
+      ]
+    },
+    {
+      "cat": "Teacher tools",
+      "items": [
+        {
+          "f": "Classroom_Toolkit.html",
+          "n": "Classroom Toolkit",
+          "d": "Name picker, timer, groups & noise",
+          "i": "⏲️",
+          "c": "#c2410c"
+        },
+        {
+          "f": "Seating_Studio.html",
+          "n": "Seating Plan Studio",
+          "d": "Drag pupils onto a room plan",
+          "i": "🪑",
+          "c": "#7c3aed"
+        },
+        {
+          "f": "Rubric_Studio.html",
+          "n": "Rubric & Feedback Studio",
+          "d": "Mark to a rubric, auto-write feedback",
+          "i": "📐",
+          "c": "#0e7490"
+        },
+        {
+          "f": "Exit_Ticket.html",
+          "n": "Exit Ticket & Quick Marks",
+          "d": "Instant class understanding check",
+          "i": "🎟️",
+          "c": "#0891b2"
+        },
+        {
+          "f": "Whiteboard.html",
+          "n": "Whiteboard",
+          "d": "Draw and write onto your browser",
+          "i": "🖊️",
+          "c": "#2563eb"
+        }
+      ]
+    },
+    {
+      "cat": "Calm corner",
+      "items": [
+        {
+          "f": "Feelings_Checkin.html",
+          "n": "Feelings Check-in",
+          "d": "Notice how you feel & what helps",
+          "i": "😊",
+          "c": "#e8b13a"
+        },
+        {
+          "f": "Regulation_Station.html",
+          "n": "Regulation Station",
+          "d": "Breathe, ground & take a quiet moment",
+          "i": "🧘",
+          "c": "#7c6fb0"
+        }
+      ]
+    }
+  ]
+}
