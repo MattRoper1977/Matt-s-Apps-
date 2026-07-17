@@ -1,373 +1,121 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Studio Suite — Matt's Apps</title>
-<meta name="description" content="Your offline creative workshop — 26 single-file studios, no internet required.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%231A1030'/%3E%3Ccircle cx='15' cy='17' r='6' fill='none' stroke='%23FFD76A' stroke-width='2.5'/%3E%3Ccircle cx='25' cy='17' r='6' fill='none' stroke='%23FFD76A' stroke-width='2.5'/%3E%3Cpath d='M17 27 q3 3 6 0' stroke='%23B794F4' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,650;1,9..144,500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Studio Suite — Made by Matt</title>
+<meta name="description" content="An offline creative workshop — 26 browser studios for making, designing, learning and calm.">
+<meta name="theme-color" content="#161D3D">
+<link rel="icon" href="https://madebymatt.uk/favicon.svg">
 <style>
-:root{
-  --room:#150C28; --room-hi:#1F1238;
-  --panel:#221540; --panel-lo:#190E30;
-  --ink:#F2EDF7; --dim:#B9A8D6; --faint:#7A6899;
-  --brass:#FFD76A; --brass-lo:#D9A93F; --violet:#B794F4;
-  --line:rgba(255,255,255,.09);
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:'Space Grotesk',system-ui,sans-serif;color:var(--ink);min-height:100vh;
-  background:
-    radial-gradient(900px 520px at 85% -8%, rgba(183,148,244,.16), transparent 60%),
-    radial-gradient(760px 480px at 0% 110%, rgba(255,215,106,.08), transparent 60%),
-    linear-gradient(180deg,var(--room-hi) 0%,var(--room) 55%,#0C0618 100%);
-  background-attachment:fixed;
-}
-body.calm *{animation:none !important;transition:none !important}
-
-/* ---------- nav ---------- */
-nav{
-  position:sticky;top:0;z-index:30;display:flex;gap:.35rem;justify-content:center;
-  padding:.65rem;backdrop-filter:blur(10px);
-  background:rgba(19,10,36,.82);border-bottom:1px solid var(--line);
-}
-nav a{
-  color:var(--dim);text-decoration:none;font-size:.9rem;font-weight:500;
-  padding:.4rem .9rem;border-radius:999px;transition:background .2s,color .2s;
-}
-nav a:hover,nav a:focus-visible{color:var(--ink);background:rgba(255,255,255,.06)}
-nav a[aria-current="page"]{color:#2A1D06;background:linear-gradient(180deg,#FFE49A,var(--brass));font-weight:600}
-
-/* ---------- header ---------- */
-header{max-width:min(1180px,94vw);margin:0 auto;padding:clamp(1.6rem,5vh,2.4rem) 0 .2rem}
-h1{
-  font-family:'Fraunces',serif;font-weight:650;font-size:clamp(2.2rem,6.4vw,3.5rem);
-  letter-spacing:-.01em;line-height:1.02;
-}
-h1 .suite{
-  background:linear-gradient(92deg,var(--violet),#8BE8DC);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.strap{margin-top:.5rem;color:var(--dim);font-size:clamp(.92rem,2.2vw,1.05rem);max-width:64ch}
-.stats{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
-.stat{
-  font-size:.8rem;color:var(--dim);border:1px solid var(--line);
-  background:var(--panel-lo);padding:.38rem .8rem;border-radius:999px;
-}
-.stat b{color:var(--brass);font-weight:600}
-
-/* ---------- Creative Mission Control (signature) ---------- */
-.mission{
-  position:relative;max-width:min(1180px,94vw);margin:1.3rem auto 0;
-  display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;
-  padding:1.35rem 1.5rem;border-radius:20px;
-  background:linear-gradient(125deg,#2C1B52,#1D1040 60%);
-  border:1.5px solid rgba(255,215,106,.45);
-  box-shadow:
-    inset 0 0 0 1px rgba(255,215,106,.12),
-    0 0 40px -10px rgba(183,148,244,.45),
-    0 22px 55px rgba(0,0,0,.5);
-}
-.mission::before{ /* brass corner rivets */
-  content:"";position:absolute;inset:9px;border-radius:14px;
-  border:1px dashed rgba(255,215,106,.22);pointer-events:none;
-}
-.mission h2{
-  font-family:'Fraunces',serif;font-weight:650;font-size:1.35rem;margin-bottom:.25rem;
-}
-.mission .sub{color:var(--dim);font-size:.9rem;max-width:52ch;margin-bottom:.9rem}
-.actions{display:flex;gap:.55rem;flex-wrap:wrap}
-.act{
-  display:inline-flex;align-items:center;gap:.45rem;
-  background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--ink);
-  font-family:inherit;font-size:.86rem;font-weight:500;cursor:pointer;
-  padding:.5rem .95rem;border-radius:999px;transition:all .2s;
-}
-.act:hover{border-color:rgba(255,215,106,.55);background:rgba(255,215,106,.10)}
-.act.primary{
-  background:linear-gradient(180deg,#FFE49A,var(--brass));color:#2A1D06;font-weight:600;
-  border-color:transparent;
-}
-.owl{
-  position:relative;font-size:3.6rem;line-height:1;
-  width:92px;height:92px;display:grid;place-items:center;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%, rgba(255,215,106,.25), rgba(255,215,106,.05) 70%);
-  border:2px solid rgba(255,215,106,.5);
-  box-shadow:0 0 26px -4px rgba(255,215,106,.45);
-  animation:owlbob 5s ease-in-out infinite;
-}
-@keyframes owlbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.daily{
-  margin-top:.85rem;font-size:.85rem;color:#EAD9A8;
-  display:none;align-items:center;gap:.5rem;
-}
-.daily.show{display:flex}
-.daily a{color:var(--brass);font-weight:600}
-
-/* ---------- controls ---------- */
-.controls{
-  max-width:min(1180px,94vw);margin:1.4rem auto .4rem;
-  display:flex;gap:.55rem;flex-wrap:wrap;align-items:center;
-}
-.search{
-  flex:1;min-width:190px;display:flex;align-items:center;gap:.5rem;
-  background:var(--panel-lo);border:1px solid var(--line);border-radius:999px;padding:.58rem 1rem;
-}
-.search:focus-within{border-color:rgba(183,148,244,.55)}
-.search input{flex:1;background:none;border:0;outline:none;color:var(--ink);font-family:inherit;font-size:.95rem}
-.search input::placeholder{color:var(--faint)}
-.chip{
-  background:var(--panel-lo);border:1px solid var(--line);color:var(--dim);
-  padding:.5rem .95rem;border-radius:999px;font-family:inherit;font-size:.86rem;
-  font-weight:500;cursor:pointer;transition:all .2s;
-}
-.chip:hover{color:var(--ink);border-color:rgba(255,255,255,.25)}
-.chip[aria-pressed="true"]{background:rgba(255,215,106,.13);color:var(--brass);border-color:rgba(255,215,106,.55)}
-.count{color:var(--faint);font-size:.84rem;margin-left:auto}
-
-/* ---------- spaces & benches ---------- */
-main{max-width:min(1180px,94vw);margin:0 auto;padding:.7rem 0 3rem}
-.space{margin-bottom:1.9rem}
-.spacehead{display:flex;align-items:baseline;gap:.7rem;margin-bottom:.8rem}
-.spacehead h2{font-family:'Fraunces',serif;font-weight:650;font-size:1.4rem;color:#E6DBF6}
-.spacehead .n{font-size:.8rem;color:var(--faint)}
-.spacehead .rule{flex:1;height:1px;background:linear-gradient(90deg,rgba(183,148,244,.4),transparent)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.9rem}
-.bench{
-  position:relative;display:flex;flex-direction:column;
-  background:linear-gradient(180deg,var(--panel),var(--panel-lo));
-  border:1px solid var(--line);border-radius:16px;padding:1.05rem;
-  text-decoration:none;color:inherit;overflow:hidden;
-  transition:transform .26s cubic-bezier(.2,.8,.3,1),box-shadow .26s,border-color .26s;
-}
-.bench::after{ /* studio's own colour as a lit worktop edge */
-  content:"";position:absolute;left:0;top:14%;bottom:14%;width:3px;border-radius:0 4px 4px 0;
-  background:var(--sc,#B794F4);opacity:.8;
-  box-shadow:2px 0 12px 0 color-mix(in srgb, var(--sc,#B794F4) 55%, transparent);
-}
-.bench:hover,.bench:focus-within{
-  transform:translateY(-5px);
-  border-color:color-mix(in srgb, var(--sc,#B794F4) 55%, transparent);
-  box-shadow:0 16px 38px rgba(0,0,0,.5), 0 0 26px -8px color-mix(in srgb, var(--sc,#B794F4) 50%, transparent);
-}
-.tile{
-  width:54px;height:54px;border-radius:14px;display:grid;place-items:center;
-  font-size:1.65rem;margin-bottom:.6rem;
-  background:
-    radial-gradient(80% 80% at 30% 25%, color-mix(in srgb, var(--sc,#B794F4) 32%, transparent), transparent 75%),
-    linear-gradient(150deg,#2A1B4C,#190E30);
-  border:1px solid color-mix(in srgb, var(--sc,#B794F4) 32%, transparent);
-  transition:transform .25s;
-}
-.bench:hover .tile{transform:rotate(-5deg) scale(1.06)}
-.bench h3{font-size:1rem;font-weight:600;margin-bottom:.28rem}
-.bench p{font-size:.83rem;line-height:1.45;color:var(--dim);flex:1}
-.bench .go{
-  margin-top:.85rem;align-self:flex-start;display:inline-flex;align-items:center;gap:.4rem;
-  color:color-mix(in srgb, var(--sc,#B794F4) 80%, white);
-  font-size:.88rem;font-weight:600;transition:gap .2s;
-}
-.bench:hover .go{gap:.62rem}
-.fav{
-  position:absolute;top:.8rem;right:.8rem;
-  background:none;border:0;cursor:pointer;font-size:1.1rem;line-height:1;
-  color:#584a78;transition:color .2s,transform .2s;padding:.2rem;
-}
-.fav:hover{transform:scale(1.2);color:var(--dim)}
-.fav[aria-pressed="true"]{color:var(--brass)}
-.empty{text-align:center;color:var(--dim);padding:3rem 1rem;font-size:.95rem}
-
-footer{
-  text-align:center;padding:0 1.2rem 2rem;color:var(--faint);font-size:.85rem;
-  display:flex;gap:1rem;justify-content:center;align-items:center;flex-wrap:wrap;
-}
-.calmtoggle{
-  background:var(--panel-lo);border:1px solid var(--line);color:var(--dim);
-  padding:.42rem .85rem;border-radius:999px;font-family:inherit;font-size:.8rem;cursor:pointer;
-}
-.calmtoggle[aria-pressed="true"]{color:var(--violet);border-color:rgba(183,148,244,.5)}
-
-@media (max-width:720px){
-  .mission{grid-template-columns:1fr}
-  .owl{display:none}
-  .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.7rem}
-  .bench{padding:.9rem}
-}
-@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
-</style>
-</head>
-<body>
-<!-- mbm-strip: estate navigation, added by homepage pack v3 -->
-<div id="mbm-strip" style="background:#161D3D;color:#E8E2D4;font-family:Poppins,'Segoe UI',system-ui,sans-serif;font-size:.82rem;padding:8px 14px;display:flex;gap:16px;flex-wrap:wrap;align-items:center">
-<a href="/" style="color:#E8E2D4;font-weight:800;text-decoration:none">&larr; madebymatt.uk</a>
-<span style="opacity:.35">|</span>
-<a href="/games/" style="color:#B9E6CD;text-decoration:none;font-weight:700">🎮 Games</a>
-<a href="/Lessons/" style="color:#B9E6CD;text-decoration:none;font-weight:700">📚 Lesson Hub</a>
-<a href="/uas/" style="color:#B9E6CD;text-decoration:none;font-weight:700">🛠️ Teacher tools</a>
-</div>
-<!-- /mbm-strip -->
-
-
-<nav aria-label="Main">
-  <a href="https://madebymatt.uk/">Home</a>
-  <a href="https://madebymatt.uk/Lessons/">Lessons</a>
-  <a href="./" aria-current="page">Apps</a>
-  <a href="https://madebymatt.uk/Games/">Games</a>
-</nav>
-
-<header>
-  <h1>Studio <span class="suite">Suite</span></h1>
-  <p class="strap" id="pageStrap">Your offline creative workshop — every tool runs straight from the browser, no internet required.</p>
-  <div class="stats" id="stats"></div>
-</header>
-
-<section class="mission" aria-label="Creative Mission Control">
-  <div>
-    <h2>Creative Mission Control</h2>
-    <p class="sub">Continue a project, take on today's studio challenge, or let the owl choose your next creative tool.</p>
-    <div class="actions">
-      <button class="act primary" id="dailyBtn" type="button">✦ Daily creative challenge</button>
-      <button class="act" id="spinBtn" type="button">🎲 Spin for a studio</button>
-      <button class="act" id="doorBtn" type="button">🚪 Pick a studio door</button>
-    </div>
-    <p class="daily" id="dailyLine" role="status"></p>
-  </div>
-  <div class="owl" aria-hidden="true">🦉</div>
-</section>
-
-<div class="controls">
-  <label class="search">
-    <span aria-hidden="true">🔍</span>
-    <input id="q" type="search" placeholder="Search studios by name or what they do…" aria-label="Search studios">
-  </label>
-  <button class="chip" id="favChip" type="button" aria-pressed="false">★ Favourites</button>
-  <span class="count" id="count"></span>
-</div>
-
-<main>
-  <div id="spaces"></div>
-  <p class="empty" id="empty" hidden>No studios match — try a different word, or clear Favourites.</p>
+:root{--navy:#161D3D;--navy-lt:#222B55;--mint:#B9E6CD;--mint-deep:#3E7D5C;--amber:#F2A24A;
+--off:#E8E2D4;--hub:#63B3ED;--font:Poppins,"Segoe UI",system-ui,sans-serif;--max:1180px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--off);font-family:var(--font);min-height:100vh}
+.skip{position:absolute;left:-999px;top:8px;background:var(--amber);color:var(--navy);
+padding:.6rem 1rem;border-radius:99px;z-index:99;font-weight:700}
+.skip:focus{left:8px}
+.header{position:sticky;top:0;background:#161D3Dee;backdrop-filter:blur(8px);
+border-bottom:1px solid #B9E6CD33;z-index:10}
+.bar{max-width:var(--max);margin:auto;display:flex;align-items:center;gap:1rem;
+padding:.7rem 1rem;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--off)}
+.mono{width:42px;height:42px;flex:none}
+.brand strong{letter-spacing:.05em}.brand small{display:block;color:var(--mint);
+font-size:.62rem;letter-spacing:.22em;text-transform:uppercase}
+.home{color:var(--off);text-decoration:none;font-size:.85rem;letter-spacing:.04em}
+.home:hover,.home:focus-visible{color:var(--amber)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
+outline:3px solid var(--amber);outline-offset:2px;border-radius:4px}
+.hero{background:radial-gradient(ellipse at 50% -20%,#232C55,var(--navy) 70%);
+border-bottom:1px solid #B9E6CD22;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+background-image:radial-gradient(#E8E2D4 1px,transparent 1.4px),
+radial-gradient(#E8E2D4 1px,transparent 1.4px);
+background-size:280px 220px,340px 260px;background-position:40px 30px,180px 120px;opacity:.14}
+.hero-in{max-width:var(--max);margin:auto;padding:4.2rem 1rem 3rem;position:relative;z-index:1}
+.eyebrow{color:var(--amber);letter-spacing:.32em;text-transform:uppercase;
+font-size:.74rem;font-weight:600}
+h1{font-size:clamp(2.6rem,7vw,4.6rem);line-height:.95;letter-spacing:.02em;
+text-transform:uppercase;margin:.35rem 0 .6rem}
+h1 span{color:var(--hub)}
+.lead{color:#E8E2D4cc;max-width:44rem;font-size:1.05rem;line-height:1.6}
+.hero .count{display:inline-block;margin-top:1.1rem;background:var(--navy-lt);
+border:1px solid var(--hub);border-radius:99px;padding:.4rem 1rem;font-size:.8rem;
+letter-spacing:.08em;color:var(--hub);font-weight:700}
+.toolbar{max-width:var(--max);margin:auto;padding:1.2rem 1rem .4rem;display:flex;
+gap:.8rem;flex-wrap:wrap;align-items:end}
+.toolbar label{display:flex;flex-direction:column;gap:.3rem;font-size:.68rem;
+letter-spacing:.14em;text-transform:uppercase;color:var(--mint);flex:1;min-width:150px}
+.toolbar input,.toolbar select{background:var(--navy-lt);border:1px solid #B9E6CD44;
+border-radius:10px;color:var(--off);font:600 .95rem var(--font);padding:.6rem .8rem;width:100%}
+.status{max-width:var(--max);margin:auto;padding:.3rem 1rem;color:#E8E2D499;font-size:.8rem}
+.grid{max-width:var(--max);margin:auto;padding:.8rem 1rem 3rem;display:grid;
+grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:1rem}
+.card{background:var(--navy-lt);border:1px solid #B9E6CD26;border-top:5px solid var(--accent,var(--hub));
+border-radius:14px;padding:1.1rem;display:flex;flex-direction:column;gap:.5rem;
+transition:transform .18s ease,border-color .18s ease}
+.card:hover{transform:translateY(-3px);border-color:var(--accent,var(--hub))}
+.kind{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mint)}
+.card h3{font-size:1.05rem;letter-spacing:.02em}
+.card h3 a{color:var(--off);text-decoration:none}
+.card h3 a::after{content:"";position:absolute;inset:0}
+.card{position:relative}
+.card p{color:#E8E2D4b3;font-size:.86rem;line-height:1.5;flex:1}
+.chips{display:flex;gap:.4rem;flex-wrap:wrap}
+.chip{background:var(--navy);border:1px solid #B9E6CD44;border-radius:99px;
+padding:.18rem .6rem;font-size:.68rem;letter-spacing:.06em}
+.icon{font-size:1.5rem;line-height:1}
+.feature{max-width:var(--max);margin:1rem auto 0;padding:0 1rem}
+.feature .panel{background:linear-gradient(120deg,#222B55,#1B2450);border:1px solid var(--hub);
+border-radius:18px;padding:1.6rem;display:flex;gap:1.4rem;align-items:center;flex-wrap:wrap}
+.feature .icon{font-size:3.4rem}
+.feature h2{text-transform:uppercase;letter-spacing:.03em}
+.feature p{color:#E8E2D4b3;max-width:38rem;margin:.3rem 0 .7rem}
+.btn{display:inline-block;background:var(--amber);color:var(--navy);border-radius:99px;
+font-weight:700;text-decoration:none;padding:.65rem 1.3rem;font-size:.9rem}
+.cat{max-width:var(--max);margin:auto;padding:1.6rem 1rem 0}
+.cat h2{color:var(--hub);letter-spacing:.14em;text-transform:uppercase;font-size:.95rem;
+border-bottom:1px solid #B9E6CD26;padding-bottom:.5rem}
+.footer{border-top:1px solid #B9E6CD33;margin-top:2rem}
+.footer .bar{padding:1.4rem 1rem;justify-content:center;gap:1rem;flex-wrap:wrap;text-align:center}
+.footer p{color:var(--mint);letter-spacing:.18em;text-transform:uppercase;font-size:.74rem}
+.footer small{color:#E8E2D488;display:block}
+@media(prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header"><div class="bar">
+<a class="brand" href="https://madebymatt.uk/"><svg class="mono" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="none" stroke="#B9E6CD" stroke-width="3.4"/><g transform="translate(0 2)"><path d="M28 71 L28 37 L50 59 L72 37 L72 71" fill="none" stroke="#E8E2D4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 22.5 L51.48 28.52 L57.5 30 L51.48 31.48 L50 37.5 L48.52 31.48 L42.5 30 L48.52 28.52 Z" fill="#F2A24A"/></g></svg><span><strong>MADE BY MATT</strong>
+<small>Learn • Build • Explore</small></span></a>
+<nav><a class="home" href="https://madebymatt.uk/">← madebymatt.uk</a></nav>
+</div></header>
+<main id="main">
+<section class="hero"><div class="hero-in">
+<p class="eyebrow">A Made by Matt collection</p>
+<h1>STUDIO <span>SUITE</span></h1>
+<p class="lead">Your offline creative workshop — every tool runs straight from the browser, no internet required.</p>
+<span class="count" id="count" aria-live="polite">Loading…</span>
+</div></section>
+<div class="toolbar">
+<label>Search the studios<input id="search" type="search" placeholder="Try: draw, music, plan…" autocomplete="off"></label>
+</div><p class="status" id="status"></p><div id="groups"></div>
 </main>
-
-<footer>
-  <span>🎩 Single-file studios · works offline · no tracking</span>
-  <button class="calmtoggle" id="calmBtn" type="button" aria-pressed="false">🌙 Calm mode</button>
-</footer>
-
-<script>
-/* Driven by apps.json (spaces → items with f/n/d/i/c). Fallback keeps the page alive locally. */
-const FALLBACK={title:"Studio Suite",
-  strap:"Your offline creative workshop — every tool runs straight from the browser.",
-  spaces:[{cat:"Make & create",items:[{f:"Craft_Studio.html",n:"Craft Studio",
-    d:"Code a robot through a block world.",i:"🧱",c:"#6abe30"}]}]};
-
-const FAV_KEY='mbmStudioFavs_v1', CALM_KEY='mbmStudioCalm_v1';
-let SPACES=[], FLAT=[], favs=new Set(), favOnly=false, query='';
-
-function esc(t){const d=document.createElement('div');d.textContent=t??'';return d.innerHTML;}
-function load(k,f){try{const v=localStorage.getItem(k);return v===null?f:v}catch(e){return f}}
-function save(k,v){try{localStorage.setItem(k,v)}catch(e){}}
-try{favs=new Set(JSON.parse(load(FAV_KEY,'[]')))}catch(e){favs=new Set()}
-
-function stats(){
-  document.getElementById('stats').innerHTML=
-    '<span class="stat"><b>'+FLAT.length+'</b> studios</span>'+
-    '<span class="stat"><b>'+SPACES.length+'</b> creative spaces</span>'+
-    '<span class="stat"><b>Offline</b> — no internet needed</span>';
-}
-
-/* date-seeded daily pick: same studio for everyone, all day */
-function dailyStudio(){
-  const t=new Date();
-  const seed=t.getFullYear()*10000+(t.getMonth()+1)*100+t.getDate();
-  let h=seed;h=((h>>16)^h)*0x45d9f3b;h=((h>>16)^h)*0x45d9f3b;h=(h>>16)^h;
-  return FLAT[Math.abs(h)%FLAT.length];
-}
-
-function benchNode(it){
-  const a=document.createElement('a');
-  a.className='bench';a.href=it.f||'#';
-  a.style.setProperty('--sc',it.c||'#B794F4');
-  a.innerHTML=
-    '<span class="tile" aria-hidden="true">'+esc(it.i||'🛠️')+'</span>'+
-    '<h3>'+esc(it.n)+'</h3>'+
-    '<p>'+esc(it.d||'')+'</p>'+
-    '<span class="go">Launch studio <span aria-hidden="true">→</span></span>';
-  const fav=document.createElement('button');
-  fav.className='fav';fav.type='button';fav.textContent='★';
-  fav.setAttribute('aria-pressed',favs.has(it.n));
-  fav.setAttribute('aria-label','Favourite '+it.n);
-  fav.onclick=(e)=>{e.preventDefault();e.stopPropagation();
-    favs.has(it.n)?favs.delete(it.n):favs.add(it.n);
-    save(FAV_KEY,JSON.stringify([...favs]));render();};
-  a.appendChild(fav);
-  return a;
-}
-
-function render(){
-  const wrap=document.getElementById('spaces');
-  const q=query.trim().toLowerCase();
-  wrap.innerHTML='';
-  let shown=0;
-  SPACES.forEach(sp=>{
-    const items=(sp.items||[]).filter(it=>{
-      if(favOnly && !favs.has(it.n)) return false;
-      if(q && !((it.n+' '+(it.d||'')).toLowerCase().includes(q))) return false;
-      return true;
-    });
-    if(!items.length) return;
-    shown+=items.length;
-    const sec=document.createElement('section');
-    sec.className='space';
-    sec.innerHTML='<div class="spacehead"><h2>'+esc(sp.cat)+'</h2>'+
-      '<span class="n">'+items.length+'</span><span class="rule"></span></div>';
-    const grid=document.createElement('div');grid.className='grid';
-    items.forEach(it=>grid.appendChild(benchNode(it)));
-    sec.appendChild(grid);
-    wrap.appendChild(sec);
-  });
-  document.getElementById('empty').hidden=shown>0;
-  document.getElementById('count').textContent=shown+' of '+FLAT.length+' studios';
-}
-
-function init(data){
-  SPACES=data.spaces||[];
-  FLAT=SPACES.flatMap(s=>s.items||[]);
-  if(data.strap)document.getElementById('pageStrap').textContent=data.strap;
-  stats();render();
-  document.getElementById('q').addEventListener('input',e=>{query=e.target.value;render()});
-  const favChip=document.getElementById('favChip');
-  favChip.onclick=()=>{favOnly=!favOnly;favChip.setAttribute('aria-pressed',favOnly);render()};
-  document.getElementById('dailyBtn').onclick=()=>{
-    const s=dailyStudio();if(!s)return;
-    const line=document.getElementById('dailyLine');
-    line.className='daily show';
-    line.innerHTML='✦ Today\'s challenge: make something in <a href="'+esc(s.f)+'">'+esc(s.i||'')+' '+esc(s.n)+'</a>';
-  };
-  document.getElementById('spinBtn').onclick=()=>{
-    const s=FLAT[Math.floor(Math.random()*FLAT.length)];
-    if(s&&s.f)location.href=s.f;
-  };
-  document.getElementById('doorBtn').onclick=()=>{
-    const sp=SPACES[Math.floor(Math.random()*SPACES.length)];
-    const s=sp.items[Math.floor(Math.random()*sp.items.length)];
-    if(s&&s.f)location.href=s.f;
-  };
-  const calmBtn=document.getElementById('calmBtn');
-  if(load(CALM_KEY,'0')==='1'){document.body.classList.add('calm');calmBtn.setAttribute('aria-pressed','true')}
-  calmBtn.onclick=()=>{
-    const on=document.body.classList.toggle('calm');
-    calmBtn.setAttribute('aria-pressed',on);save(CALM_KEY,on?'1':'0');
-  };
-}
-
-fetch('apps.json',{cache:'no-store'})
-  .then(r=>{if(!r.ok)throw 0;return r.json();})
-  .then(init)
-  .catch(()=>init(FALLBACK));
-</script>
-</body>
-</html>
+<footer class="footer"><div class="bar"><svg class="mono" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="none" stroke="#B9E6CD" stroke-width="3.4"/><g transform="translate(0 2)"><path d="M28 71 L28 37 L50 59 L72 37 L72 71" fill="none" stroke="#E8E2D4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 22.5 L51.48 28.52 L57.5 30 L51.48 31.48 L50 37.5 L48.52 31.48 L42.5 30 L48.52 28.52 Z" fill="#F2A24A"/></g></svg>
+<div><p>Made by Matt · Learn • Build • Explore</p>
+<small>Single-file · offline-first · hand-built in Teesside</small></div>
+</div></footer>
+<script>const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function fillSelect(id,vals){const el=$("#"+id);[...new Set(vals)].sort().forEach(v=>{
+const o=document.createElement("option");o.textContent=v;el.appendChild(o)})}
+let SPACES=[];
+function card(a){return `<article class="card" style="--accent:${esc(a.c||"#63B3ED")}">
+<div class="icon" aria-hidden="true">${esc(a.i||"🛠️")}</div>
+<h3><a href="${esc(a.f)}">${esc(a.n)}</a></h3><p>${esc(a.d)}</p></article>`}
+function render(){const q=$("#search").value.toLowerCase();let total=0,shown=0,out="";
+SPACES.forEach(s=>{const items=s.items.filter(a=>!q||[a.n,a.d,s.cat].join(" ").toLowerCase().includes(q));
+total+=s.items.length;shown+=items.length;
+if(items.length)out+=`<section class="cat"><h2>${esc(s.cat)}</h2></section>
+<div class="grid">${items.map(card).join("")}</div>`});
+$("#groups").innerHTML=out||'<p class="status">No matching studios.</p>';
+$("#count").textContent=`${shown} of ${total} studios`}
+fetch("apps.json").then(r=>r.json()).then(d=>{SPACES=d.spaces;render()})
+.catch(()=>{$("#count").textContent="Couldn't load apps.json"});
+$("#search").addEventListener("input",render);</script></body></html>
