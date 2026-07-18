@@ -95,7 +95,7 @@ border-bottom:1px solid #B9E6CD26;padding-bottom:.5rem}
 </div></section>
 <div class="toolbar">
 <label>Search the studios<input id="search" type="search" placeholder="Try: draw, music, plan…" autocomplete="off"></label>
-</div><p class="status" id="status"></p><div id="groups"></div>
+</div><div class="toolbar" id="jump" style="padding-top:.2rem;gap:.5rem"></div><p class="status" id="status"></p><div id="groups"></div>
 </main>
 <footer class="footer"><div class="bar"><svg class="mono" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="none" stroke="#B9E6CD" stroke-width="3.4"/><g transform="translate(0 2)"><path d="M28 71 L28 37 L50 59 L72 37 L72 71" fill="none" stroke="#E8E2D4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 22.5 L51.48 28.52 L57.5 30 L51.48 31.48 L50 37.5 L48.52 31.48 L42.5 30 L48.52 28.52 Z" fill="#F2A24A"/></g></svg>
 <div><p>Made by Matt · Learn • Build • Explore</p>
@@ -112,12 +112,13 @@ function card(a){return `<article class="card" style="--accent:${esc(a.c||"#63B3
 <div class="icon" aria-hidden="true">${esc(a.i||"🛠️")}</div>
 <h3><a href="${esc(a.f)}">${esc(a.n)}</a></h3><p>${esc(a.d)}</p></article>`}
 function render(){const q=$("#search").value.toLowerCase();let total=0,shown=0,out="";
-SPACES.forEach(s=>{const items=s.items.filter(a=>!q||[a.n,a.d,s.cat].join(" ").toLowerCase().includes(q));
+SPACES.forEach((s,ci)=>{const items=s.items.filter(a=>!q||[a.n,a.d,s.cat].join(" ").toLowerCase().includes(q));
 total+=s.items.length;shown+=items.length;
-if(items.length)out+=`<section class="cat"><h2>${esc(s.cat)}</h2></section>
+if(items.length)out+=`<section class="cat" id="cat-${ci}"><h2>${esc(s.cat)} · ${items.length}</h2></section>
 <div class="grid">${items.map(card).join("")}</div>`});
 $("#groups").innerHTML=out||'<p class="status">No matching studios.</p>';
 $("#count").textContent=`${shown} of ${total} studios`}
-fetch("apps.json").then(r=>r.json()).then(d=>{SPACES=d.spaces;render()})
+function buildJump(){$("#jump").innerHTML=SPACES.map((s,i)=>`<a class="chip" style="text-decoration:none;color:var(--off)" href="#cat-${i}">${esc(s.cat)} · ${s.items.length}</a>`).join("")}
+fetch("apps.json").then(r=>r.json()).then(d=>{SPACES=d.spaces;buildJump();render()})
 .catch(()=>{$("#count").textContent="Couldn't load apps.json"});
 $("#search").addEventListener("input",render);</script></body></html>
