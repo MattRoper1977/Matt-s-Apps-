@@ -3,6 +3,70 @@
  "strap": "Your offline creative workshop — every tool runs straight from the browser, no internet required.",
  "spaces": [
   {
+   "cat": "Teacher tools",
+   "items": [
+    {
+     "f": "https://madebymatt.uk/uas/",
+     "n": "UAS Register",
+     "d": "AQA Unit Award Scheme without the paperwork — date-stamp outcomes, file photo evidence, export one email-ready PDF",
+     "i": "📋",
+     "c": "#F2A24A",
+     "new": true
+    },
+    {
+     "n": "ASDAN Register",
+     "i": "🗂️",
+     "c": "#F2A24A",
+     "f": "https://madebymatt.uk/asdan/",
+     "d": "PEQ & Short Courses tracking — the register itself lives on the main site."
+    },
+    {
+     "f": "Evidence_Binder.html",
+     "n": "Evidence Binder",
+     "d": "Capture & tag work for portfolios",
+     "i": "📒",
+     "c": "#b4892c"
+    },
+    {
+     "f": "Classroom_Toolkit.html",
+     "n": "Classroom Toolkit",
+     "d": "Name picker, timer, groups & noise",
+     "i": "⏲️",
+     "c": "#c2410c"
+    },
+    {
+     "f": "Seating_Studio.html",
+     "n": "Seating Plan Studio",
+     "d": "Drag pupils onto a room plan",
+     "i": "🪑",
+     "c": "#7c3aed"
+    },
+    {
+     "f": "Rubric_Studio.html",
+     "n": "Rubric & Feedback Studio",
+     "d": "Mark to a rubric, auto-write feedback",
+     "i": "📐",
+     "c": "#0e7490"
+    },
+    {
+     "f": "Exit_Ticket.html",
+     "n": "Exit Ticket & Quick Marks",
+     "d": "Instant class understanding check",
+     "i": "🎟️",
+     "c": "#0891b2"
+    },
+    {
+     "f": "Whiteboard.html",
+     "n": "Whiteboard",
+     "d": "Draw and write onto your browser",
+     "i": "🖊️",
+     "c": "#2563eb"
+    }
+   ],
+   "special": true,
+   "tag": "Planning, assessment and accreditation — the professional toolkit for staff."
+  },
+  {
    "cat": "Make & create",
    "items": [
     {
@@ -98,13 +162,6 @@
      "d": "Annotate, edit text & sort pages",
      "i": "📄",
      "c": "#e2554f"
-    },
-    {
-     "f": "Evidence_Binder.html",
-     "n": "Evidence Binder",
-     "d": "Capture & tag work for portfolios",
-     "i": "📒",
-     "c": "#b4892c"
     }
    ]
   },
@@ -152,53 +209,6 @@
      "d": "A calm visual schedule",
      "i": "📋",
      "c": "#2f9e8f"
-    }
-   ]
-  },
-  {
-   "cat": "Teacher tools",
-   "items": [
-    {
-     "f": "Classroom_Toolkit.html",
-     "n": "Classroom Toolkit",
-     "d": "Name picker, timer, groups & noise",
-     "i": "⏲️",
-     "c": "#c2410c"
-    },
-    {
-     "f": "Seating_Studio.html",
-     "n": "Seating Plan Studio",
-     "d": "Drag pupils onto a room plan",
-     "i": "🪑",
-     "c": "#7c3aed"
-    },
-    {
-     "f": "Rubric_Studio.html",
-     "n": "Rubric & Feedback Studio",
-     "d": "Mark to a rubric, auto-write feedback",
-     "i": "📐",
-     "c": "#0e7490"
-    },
-    {
-     "f": "Exit_Ticket.html",
-     "n": "Exit Ticket & Quick Marks",
-     "d": "Instant class understanding check",
-     "i": "🎟️",
-     "c": "#0891b2"
-    },
-    {
-     "f": "Whiteboard.html",
-     "n": "Whiteboard",
-     "d": "Draw and write onto your browser",
-     "i": "🖊️",
-     "c": "#2563eb"
-    },
-    {
-     "n": "ASDAN Register",
-     "i": "🗂️",
-     "c": "#F2A24A",
-     "f": "https://madebymatt.uk/asdan/",
-     "d": "PEQ & Short Courses tracking — the register itself lives on the main site."
     }
    ]
   },
