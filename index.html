@@ -90,12 +90,27 @@ font-size:.6rem;font-weight:700;letter-spacing:.12em;border-radius:99px;padding:
 .footer p{color:var(--mint);letter-spacing:.18em;text-transform:uppercase;font-size:.74rem}
 .footer small{color:#E8E2D488;display:block}
 @media(prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+</style><style>
+html{scroll-behavior:smooth}
+::selection{background:#F2A24A;color:#161D3D}
+.xnav{display:flex;gap:.2rem;flex-wrap:wrap;justify-content:flex-end}
+.xnav a{color:var(--off,#E8E2D4);text-decoration:none;font-size:.82rem;letter-spacing:.04em;
+padding:.35rem .65rem;border-radius:99px;border:1px solid transparent;transition:color .15s,border-color .15s}
+.xnav a:hover{color:var(--amber,#F2A24A)}
+.xnav a[aria-current]{border-color:#B9E6CD55;color:var(--mint,#B9E6CD);font-weight:700}
+@media (max-width:560px){.xnav a{font-size:.74rem;padding:.3rem .5rem}}
+.sig{max-width:var(--max,1180px);margin:2.2rem auto 0;padding:0 1rem}
+.sig>div{background:#1B2348;border:1px solid #B9E6CD2e;border-radius:14px;padding:1rem 1.2rem;
+display:flex;gap:.9rem;align-items:flex-start;font-size:.9rem;line-height:1.55;color:#CBD5EE}
+.sig b{color:var(--off,#E8E2D4)}
+.sig a{color:var(--mint,#B9E6CD);font-weight:600}
+.sig .wave{font-size:1.4rem;line-height:1}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="header"><div class="bar">
 <a class="brand" href="https://madebymatt.uk/"><svg class="mono" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="none" stroke="#B9E6CD" stroke-width="3.4"/><g transform="translate(0 2)"><path d="M28 71 L28 37 L50 59 L72 37 L72 71" fill="none" stroke="#E8E2D4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 22.5 L51.48 28.52 L57.5 30 L51.48 31.48 L50 37.5 L48.52 31.48 L42.5 30 L48.52 28.52 Z" fill="#F2A24A"/></g></svg><span><strong>MADE BY MATT</strong>
 <small>Learn • Build • Explore</small></span></a>
-<nav><a class="home" href="https://madebymatt.uk/">← madebymatt.uk</a></nav>
+<nav class="xnav" aria-label="Made by Matt collections"><a href="https://madebymatt.uk/">Home</a><a href="https://madebymatt.uk/games/">Games</a><a href="https://madebymatt.uk/Lessons/">Lessons</a><a href="https://madebymatt.uk/Matt-s-Apps-/" aria-current="page">Apps</a><a href="https://madebymatt.uk/tools/">Tools</a><a href="https://madebymatt.uk/resources/">Resources</a></nav>
 </div></header>
 <main id="main">
 <section class="hero"><div class="hero-in">
@@ -108,6 +123,7 @@ font-size:.6rem;font-weight:700;letter-spacing:.12em;border-radius:99px;padding:
 <label>Search the studios<input id="search" type="search" placeholder="Try: draw, music, plan…" autocomplete="off"></label>
 </div><div class="toolbar" id="jump" style="padding-top:.2rem;gap:.5rem"></div><p class="status" id="status"></p><div id="groups"></div>
 </main>
+<aside class="sig"><div><span class="wave" aria-hidden="true">👋</span><p><b>From Matt</b> — I teach science and art in an alternative provision in the North East, and every file on this shelf started life in front of a real class. It’s all free and it stays that way. Spotted a bug or got an idea? <a href="mailto:contactmadebymatt@gmail.com">Tell me</a> — I read everything.</p></div></aside>
 <footer class="footer"><div class="bar"><svg class="mono" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="none" stroke="#B9E6CD" stroke-width="3.4"/><g transform="translate(0 2)"><path d="M28 71 L28 37 L50 59 L72 37 L72 71" fill="none" stroke="#E8E2D4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 22.5 L51.48 28.52 L57.5 30 L51.48 31.48 L50 37.5 L48.52 31.48 L42.5 30 L48.52 28.52 Z" fill="#F2A24A"/></g></svg>
 <div><p>Made by Matt · Learn • Build • Explore</p>
 <small>Single-file · offline-first · hand-built in Teesside</small></div>
