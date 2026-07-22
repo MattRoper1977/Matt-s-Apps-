@@ -112,6 +112,22 @@ padding:.8rem .85rem;display:flex;flex-direction:column;gap:.45rem;transition:bo
 .linkchip{display:inline-block;margin:.4rem 1rem 0;font-size:.82rem;font-weight:700;color:var(--t-build);text-decoration:none}
 .status{max-width:var(--max);margin:.6rem auto;padding:0 1rem;color:var(--mut);font-size:.85rem}
 @media(max-width:640px){.trio{grid-template-columns:1fr 1fr 1fr;gap:.3rem}}
+
+/* ===== v3 accordions + slim spotlight ===== */
+details.acc{background:#FDFBF4;border:2px solid var(--navy,#161D3D);border-radius:14px;margin:0 0 .9rem;overflow:hidden}
+details.acc>summary{list-style:none;cursor:pointer;user-select:none;padding:.8rem 1rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:#F4EEE0}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc .aname{font-weight:800;font-size:.95rem;letter-spacing:.04em;color:var(--navy,#161D3D)}
+details.acc .apill{background:#B9E6CD;border:1.5px solid #2F6B4D;border-radius:999px;padding:.18rem .6rem;font-size:.72rem;font-weight:700;color:#143324}
+details.acc .chev{margin-left:auto;color:#C97F2E;transition:transform .18s ease;font-size:.9rem}
+details.acc[open] .chev{transform:rotate(180deg)}
+details.acc>.grid,details.acc>.specband{margin:0 1rem 1rem}
+@media(max-width:760px){
+.feature>div{padding:.65rem .9rem;align-items:center;gap:.6rem}
+.feature .fi{font-size:1.5rem}
+.feature p:not(.fk){display:none}
+.hero .lead{font-size:.88rem}
+}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="header"><div class="bar">
@@ -189,12 +205,11 @@ const shown=spaces.reduce((n,s)=>n+s.items.length,0);
 if(Q||CAT){
 $("#groups").innerHTML=shown?spaces.map(s=>`<section class="cat"><h2>${esc(s.cat)}</h2><span class="tot">${s.items.length}</span></section><div class="grid">${s.items.map(card).join("")}</div>`).join(""):'<p class="status">No matches — try fewer words.</p>';
 }else{
-$("#groups").innerHTML=spaces.map(s=>{
+$("#groups").innerHTML=spaces.map((s,idx)=>{
 const spec=s.cat===SPEC;
-const inner=`<section class="cat"><h2>${esc(s.cat)}</h2>${spec?'<span class="spec">Specialist</span>':''}<span class="tot">${s.items.length} studios</span></section>`+
-(spec?`<div class="specband"><div class="grid">${s.items.map(card).join("")}</div><a class="linkchip" href="https://madebymatt.uk/tools/">The full teacher-tools experience → madebymatt.uk/tools</a></div>`
+const body=(spec?`<div class="specband"><div class="grid">${s.items.map(card).join("")}</div><a class="linkchip" href="https://madebymatt.uk/tools/">The full teacher-tools experience → madebymatt.uk/tools</a></div>`
 :`<div class="grid">${s.items.map(card).join("")}${s.cat==="Art & design"?bridge():""}</div>`);
-return inner}).join("");
+return `<details class="acc"${idx===0?" open":""}><summary><span class="aname">${esc(s.cat)}</span>${spec?'<span class="spec">Specialist</span>':''}<span class="apill">${s.items.length} studios</span><span class="chev" aria-hidden="true">▾</span></summary>${body}</details>`}).join("");
 }
 $("#count").textContent=`${shown} of ${total} studios${CAT?" · "+CAT:""}${AUD?" · "+AUDL[AUD]:""}`;
 }
