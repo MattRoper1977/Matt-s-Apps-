@@ -81,12 +81,31 @@ padding:.4rem .9rem;font:inherit;font-size:.8rem;font-weight:600;cursor:pointer;
 grid-template-columns:repeat(auto-fill,minmax(228px,1fr))}
 .specband .grid{padding:0;margin:.2rem 0}
 .card{background:var(--card);border:1.5px solid #161D3D24;border-top:4px solid var(--ac,#161D3D33);border-radius:14px;
-padding:.9rem .95rem;display:flex;flex-direction:column;gap:.45rem;transition:box-shadow .15s,transform .15s}
+padding:.8rem .85rem;display:flex;flex-direction:column;gap:.45rem;transition:box-shadow .15s,transform .15s}
 .card:hover{box-shadow:0 6px 16px #161D3D1c;transform:translateY(-2px)}
 .card .ci{font-size:1.7rem;line-height:1}
 .card h3{font-size:.98rem;line-height:1.3;color:var(--navy)}
 .card p{color:var(--mut);font-size:.83rem;line-height:1.5;flex:1}
-.card .open{align-self:flex-start;font-size:.8rem;font-weight:700;color:var(--mint-deep);text-decoration:none}
+.card .open{align-self:flex-start;font-size:.68rem;font-weight:800;letter-spacing:.07em;color:#FFF6E8;background:var(--navy,#161D3D);text-decoration:none;border-radius:999px;padding:.42rem .9rem;margin-top:auto}
+.open:hover{background:#232C55}
+.open:focus-visible{outline:3px solid #F2A24A;outline-offset:2px}
+.aud{align-self:flex-start;font-size:.62rem;font-weight:800;letter-spacing:.04em;border-radius:999px;padding:.2rem .6rem;border:1.5px solid}
+.aud-t{background:#FBE4E1;border-color:#C05A4A;color:#8A3527}
+.aud-g{background:#E4F0E8;border-color:#2F6B4D;color:#2F6B4D}
+.aud-p{background:#E2ECF7;border-color:#3A6AA0;color:#2A507C}
+.aud-s{background:#FBF3DE;border-color:#B98A1E;color:#8F7311}
+.segrow{max-width:var(--max,1180px);margin:auto;padding:.55rem 1rem 0;display:flex;gap:.45rem;align-items:center;flex-wrap:wrap}
+.segrow .lbl{font-size:.68rem;font-weight:800;letter-spacing:.14em;color:#4A5170}
+.seg{font:inherit;font-size:.72rem;font-weight:800;letter-spacing:.08em;border:1.5px solid #161D3D44;background:var(--card);color:#1B2140;border-radius:8px;padding:.4rem .85rem;cursor:pointer}
+.seg[aria-pressed="true"]{background:#161D3D;color:#B9E6CD;border-color:#161D3D}
+.seg:focus-visible{outline:3px solid #F2A24A;outline-offset:2px}
+.bridge{grid-column:1/-1;background:linear-gradient(150deg,#FDF6E4,#FBEDD8);border:2px solid #E08A2E;border-radius:14px;padding:.9rem 1rem;display:flex;flex-direction:column;gap:.45rem}
+.bridge .stamp{align-self:flex-start;font-size:.6rem;font-weight:800;letter-spacing:.1em;background:#E4F0E8;color:#2F6B4D;border:1.5px solid #2F6B4D;border-radius:999px;padding:.22rem .65rem}
+.bridge h3{font-size:.98rem;color:#161D3D}
+.bridge p{font-size:.8rem;color:#4A5170;line-height:1.5}
+.bridge .acts{display:flex;gap:.5rem;flex-wrap:wrap}
+.bridge .acts a{font-size:.68rem;font-weight:800;letter-spacing:.06em;text-decoration:none;border:1.5px solid #161D3D;color:#161D3D;background:var(--card);border-radius:999px;padding:.4rem .9rem}
+.bridge .acts a:hover{background:#161D3D;color:#FFF6E8}
 .card .open:hover{text-decoration:underline}
 .card .newpill{position:absolute;margin-left:auto}
 .pill{font-size:.66rem;font-weight:700;border-radius:99px;padding:.2rem .6rem;background:var(--mint);color:var(--mint-deep)}
@@ -126,6 +145,7 @@ padding:.9rem .95rem;display:flex;flex-direction:column;gap:.45rem;transition:bo
 <a class="go" href="Animation_Studio.html">Open Animation Studio</a></div>
 </div></section>
 
+<div class="segrow" role="group" aria-label="Filter studios by audience"><span class="lbl">WHO IS IT FOR:</span><button class="seg" data-aud="" aria-pressed="true">ALL</button><button class="seg" data-aud="t" aria-pressed="false">🍎 TEACHER</button><button class="seg" data-aud="g" aria-pressed="false">🤝 TA / SUPPORT</button><button class="seg" data-aud="p" aria-pressed="false">👤 STUDENT</button></div>
 <div class="toolbar">
 <label>Search the studios<input id="search" type="search" placeholder="Try: poster, quiz, stop-motion…" autocomplete="off"></label>
 </div>
@@ -146,12 +166,22 @@ padding:.9rem .95rem;display:flex;flex-direction:column;gap:.45rem;transition:bo
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 let DATA=null,CAT="",Q="";
 const SPEC="Teacher tools";
+const AUDMAP={"UAS Register":"t","ASDAN Register":"t","Evidence Binder":"t","Classroom Toolkit":"t","Seating Plan Studio":"t","Rubric & Feedback Studio":"t","Exit Ticket & Quick Marks":"t",
+"Now / Next Board":"g","Feelings Check-in":"g","Regulation Station":"g",
+"PDF Studio":"s"};
+const AUDL={t:"🍎 Teacher Admin",g:"🤝 Guided / Co-Op",p:"👤 Pupil Independent",s:"⭐ Anyone"};
+function audOf(it){return AUDMAP[it.n]||"p"}
+let AUD="";
 function card(it){
 return `<article class="card" style="--ac:${esc(it.c||'#161D3D33')}">
 <div style="display:flex;justify-content:space-between;align-items:flex-start"><span class="ci" aria-hidden="true">${esc(it.i||"🧰")}</span>${it.new?'<span class="pill">NEW</span>':''}</div>
-<h3>${esc(it.n)}</h3><p>${esc(it.d||"")}</p>
-<a class="open" href="${esc(it.f)}">Open studio →</a></article>`}
-function matches(it){return !Q||[it.n,it.d].join(" ").toLowerCase().includes(Q)}
+<h3>${esc(it.n)}</h3><span class="aud aud-${audOf(it)}">${AUDL[audOf(it)]}</span><p>${esc(it.d||"")}</p>
+<a class="open" href="${esc(it.f)}">LAUNCH STUDIO →</a></article>`}
+function bridge(){return `<div class="bridge"><span class="stamp">FROM THE LESSON HUB · ARTS AWARD MAPPED ✓</span>
+<h3>Teesside Art Studio Suite — the full lesson programme</h3>
+<p>These studios make the work — the suite teaches it: a term of art lessons across BUILD (Explore), GROW (Bronze) and LAUNCH (Silver), each with three tiers and a print pack built in.</p>
+<div class="acts"><a href="https://madebymatt.uk/resources/?subject=Art%20%C2%B7%20Teesside%20Studio%20Suite">Browse the suite →</a><a href="https://madebymatt.uk/Lessons/">Lesson Hub →</a></div></div>`}
+function matches(it){const a=audOf(it);return (!Q||[it.n,it.d].join(" ").toLowerCase().includes(Q))&&(!AUD||a===AUD||(AUD==="p"&&a==="s"))}
 function render(){
 const spaces=DATA.spaces.map(s=>({cat:s.cat,items:s.items.filter(matches)})).filter(s=>s.items.length&&(!CAT||s.cat===CAT));
 const total=DATA.spaces.reduce((n,s)=>n+s.items.length,0);
@@ -163,10 +193,10 @@ $("#groups").innerHTML=spaces.map(s=>{
 const spec=s.cat===SPEC;
 const inner=`<section class="cat"><h2>${esc(s.cat)}</h2>${spec?'<span class="spec">Specialist</span>':''}<span class="tot">${s.items.length} studios</span></section>`+
 (spec?`<div class="specband"><div class="grid">${s.items.map(card).join("")}</div><a class="linkchip" href="https://madebymatt.uk/tools/">The full teacher-tools experience → madebymatt.uk/tools</a></div>`
-:`<div class="grid">${s.items.map(card).join("")}</div>`);
+:`<div class="grid">${s.items.map(card).join("")}${s.cat==="Art & design"?bridge():""}</div>`);
 return inner}).join("");
 }
-$("#count").textContent=`${shown} of ${total} studios${CAT?" · "+CAT:""}`;
+$("#count").textContent=`${shown} of ${total} studios${CAT?" · "+CAT:""}${AUD?" · "+AUDL[AUD]:""}`;
 }
 function chips(){
 const c=(label,val,on)=>`<button class="chip" data-cat="${esc(val)}" aria-pressed="${on?"true":"false"}">${esc(label)}</button>`;
@@ -175,6 +205,8 @@ $("#chips").innerHTML=c("All studios","",!CAT)+DATA.spaces.map(s=>c(`${s.cat} ($
 $("#chips").addEventListener("click",e=>{const b=e.target.closest("button[data-cat]");if(!b)return;
 CAT=CAT===b.dataset.cat?"":b.dataset.cat;chips();render();});
 $("#search").addEventListener("input",()=>{Q=$("#search").value.toLowerCase().trim();render();});
+document.querySelector(".segrow").addEventListener("click",e=>{const b=e.target.closest("button[data-aud]");if(!b)return;
+AUD=b.dataset.aud;document.querySelectorAll(".seg").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"));render();});
 fetch("apps.json").then(r=>r.json()).then(d=>{DATA=d;chips();render();})
 .catch(()=>{$("#count").textContent="Couldn't load apps.json"});
 </script></body></html>
