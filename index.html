@@ -1,12 +1,14 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Studio Suite — Made by Matt</title>
-<meta name="description" content="An offline creative workshop — browser studios for teaching, making, learning and calm.">
+<title>The Creator Hub — Made by Matt</title>
+<meta name="description" content="Your offline creative workshop — design, educate and build with 28 single-file studios that run straight from the browser.">
 <meta name="theme-color" content="#161D3D">
 <link rel="icon" href="https://madebymatt.uk/favicon.svg">
 <style>
 :root{--navy:#161D3D;--navy-lt:#232C55;--mint:#B9E6CD;--mint-deep:#2F6B4D;--amber:#E08A2E;--amber-lt:#F2A24A;
---cream:#F6F1E4;--cream-dk:#EDE5D2;--card:#FFFDF6;--ink:#1B2140;--mut:#4A5170;--gold:#8F7311;
+--cream:#F6F1E4;--cream-dk:#EDE5D2;--card:#FFFDF6;--ink:#1B2140;--mut:#4A5170;
+--t-build:#B96A14;--t-grow:#2F6B4D;--t-launch:#8F7311;
+--b-build:#E08A2E;--b-grow:#4C9A6F;--b-launch:#DFB62B;
 --font:Poppins,"Segoe UI",system-ui,sans-serif;--max:1180px}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -17,6 +19,7 @@ padding:.5rem 1rem;border-radius:8px;font-weight:700;z-index:99}
 .skip:focus{left:8px}
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
 outline:3px solid var(--amber);outline-offset:2px;border-radius:6px}
+/* ---------- navy header ---------- */
 .header{position:sticky;top:0;background:#161D3Df2;backdrop-filter:blur(8px);
 border-bottom:1px solid #B9E6CD2e;z-index:20}
 .bar{max-width:var(--max);margin:auto;display:flex;align-items:center;gap:1rem;
@@ -31,75 +34,65 @@ padding:.35rem .6rem;border-radius:8px;border:1px solid transparent}
 .xnav a:hover{color:var(--amber-lt)}
 .xnav a[aria-current]{border-color:#B9E6CD55;color:var(--mint);font-weight:700}
 @media (max-width:560px){.xnav a{font-size:.74rem;padding:.3rem .5rem}}
+/* ---------- hero ---------- */
 .hero{background:var(--cream);text-align:center}
 .hero-in{max-width:var(--max);margin:auto;padding:2.6rem 1rem 1.4rem}
 .eyebrow{color:var(--amber);letter-spacing:.32em;text-transform:uppercase;font-size:.72rem;font-weight:700}
-h1{font-size:clamp(2.1rem,7vw,3.4rem);letter-spacing:.02em;color:var(--navy);font-weight:800;margin:.4rem 0 .5rem}
+h1{font-size:clamp(2.1rem,7vw,3.4rem);letter-spacing:.02em;color:var(--navy);
+font-weight:800;margin:.4rem 0 .5rem}
 h1 span{color:var(--mint-deep)}
 .lead{color:var(--mut);max-width:44rem;margin:0 auto;font-size:.98rem;line-height:1.55}
+.lead b{color:var(--t-build)}.lead b.g{color:var(--t-grow)}.lead b.l{color:var(--t-launch)}
 .hero .count{display:inline-block;margin-top:1rem;background:var(--card);
 border:1.5px solid var(--navy);border-radius:99px;padding:.4rem 1rem;font-size:.8rem;
 letter-spacing:.08em;color:var(--navy);font-weight:700}
-/* suite strip */
-.journey{max-width:var(--max);margin:auto;padding:1.4rem 1rem .9rem;border-bottom:1px solid #161D3D1a}
-.j-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;text-align:center}
-.j-tier{border-radius:16px;padding:.9rem .5rem .8rem}
-.j-tier svg{width:clamp(44px,9vw,64px);height:clamp(44px,9vw,64px)}
-.j-name{display:block;font-weight:800;letter-spacing:.08em;font-size:clamp(.95rem,3.4vw,1.25rem);margin-top:.35rem}
-.j-tier.teach .j-name{color:#B96A14}.j-tier.create .j-name{color:var(--mint-deep)}.j-tier.settle .j-name{color:var(--gold)}
-.j-bold{display:block;color:var(--ink);font-weight:700;font-size:clamp(.72rem,2.6vw,.9rem);margin-top:.3rem}
-.j-more{display:block;color:var(--mut);font-size:clamp(.7rem,2.5vw,.85rem);line-height:1.45;margin-top:.25rem}
-/* toolbar + chips */
-.toolbar{max-width:var(--max);margin:auto;padding:1.1rem 1rem .4rem;display:flex;gap:.7rem;flex-wrap:wrap}
-.toolbar label{display:flex;flex-direction:column;gap:.3rem;font-size:.72rem;
-letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:700;flex:1;min-width:150px}
-.toolbar input{background:var(--card);border:1.5px solid #161D3D55;border-radius:99px;
-color:var(--ink);font:inherit;font-size:.92rem;padding:.55rem 1rem;width:100%}
-.toolbar input::placeholder{color:#4A517099}
-.chiprow{max-width:var(--max);margin:auto;padding:.5rem 1rem .2rem;display:flex;gap:.45rem;
-overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
-@media (min-width:860px){.chiprow{flex-wrap:wrap;overflow:visible}}
-.chip{flex:none;background:var(--card);border:1.5px solid #161D3D44;border-radius:99px;
-color:var(--ink);font-size:.78rem;font-weight:600;padding:.4rem .85rem;text-decoration:none;white-space:nowrap}
-.chip:hover{border-color:var(--navy)}
-.status{max-width:var(--max);margin:auto;padding:.3rem 1rem;color:var(--mut);font-size:.85rem}
-/* sections + cards */
-.cat{max-width:var(--max);margin:auto;padding:1.4rem 1rem 0}
-.cat h2{text-transform:uppercase;letter-spacing:.04em;color:var(--navy);font-size:1.25rem;font-weight:800}
-.cat-sub{color:var(--mut);font-size:.85rem;margin:.6rem 0 0}
-.grid{max-width:var(--max);margin:auto;padding:.8rem 1rem 1.2rem;display:grid;
-grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.9rem}
-.card{position:relative;background:var(--card);border:2px solid #161D3D22;border-top:5px solid var(--accent,#63B3ED);
-border-radius:16px;padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.45rem;box-shadow:0 1px 4px #161D3D0d}
-.card .icon{font-size:2rem;line-height:1}
-.card h3{font-size:1rem;line-height:1.3}
-.card h3 a{color:var(--navy);text-decoration:none}
-.card h3 a:hover{text-decoration:underline}
-.card p{color:var(--mut);font-size:.85rem;line-height:1.5;flex:1}
-.newpill{position:absolute;top:.7rem;right:.8rem;background:var(--mint);color:var(--navy);
-font-size:.62rem;font-weight:800;letter-spacing:.08em;border-radius:99px;padding:.2rem .55rem}
-/* specialist block */
-.special-block{background:#FBEDD8;border-top:1px solid #E08A2E55;border-bottom:1px solid #E08A2E55;
-margin-top:1.4rem;padding-bottom:.4rem}
-.special-in{max-width:var(--max);margin:auto;padding:1.4rem 1rem 0}
-.special-h{text-transform:uppercase;letter-spacing:.04em;color:var(--navy);font-size:1.25rem;font-weight:800;
-display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
-.spec-badge{background:var(--amber-lt);color:var(--navy);font-size:.62rem;letter-spacing:.1em;
-border-radius:99px;padding:.25rem .7rem}
-.special-grid{max-width:none;padding:.8rem 0 1rem}
-.special-grid .card{border-color:#E08A2E66;border-top-color:var(--accent,#E08A2E)}
-.sig{max-width:var(--max);margin:2rem auto 0;padding:0 1rem}
-.sig>div{background:var(--cream-dk);border:1px solid #161D3D1f;border-radius:14px;padding:1rem 1.2rem;
-display:flex;gap:.8rem;align-items:flex-start;color:var(--mut);font-size:.9rem;line-height:1.55}
-.sig b{color:var(--ink)}
-.sig a{color:var(--mint-deep);font-weight:600}
-.sig .wave{font-size:1.4rem;line-height:1}
-.footer{background:var(--navy);color:#E8E2D4;margin-top:2.2rem;padding:1.4rem 0 1rem}
-.footer .bar{justify-content:flex-start}
-.footer p{font-weight:600}
-.footer small{color:#E8E2D4b3}
-.footer a{color:inherit}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* ---------- creator hub ---------- */
+.trio{max-width:var(--max);margin:auto;padding:1.6rem 1rem .4rem;display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;text-align:center}
+.trio .t{padding:.6rem .4rem}
+.trio svg{width:clamp(44px,8vw,60px);height:clamp(44px,8vw,60px)}
+.trio .tn{display:block;font-weight:800;letter-spacing:.14em;font-size:clamp(.85rem,3vw,1.05rem);margin-top:.35rem}
+.trio .td{display:block;color:var(--mut);font-size:clamp(.72rem,2.4vw,.86rem);line-height:1.45;margin-top:.25rem}
+.t.design .tn{color:var(--t-build)}.t.educate .tn{color:var(--t-grow)}.t.buildc .tn{color:#6d5cf5}
+.feature{max-width:var(--max);margin:1.2rem auto 0;padding:0 1rem}
+.feature>div{background:#FBEDD8;border:2px solid var(--amber);border-radius:16px;padding:1.1rem 1.2rem;display:flex;gap:1rem;align-items:flex-start;flex-wrap:wrap}
+.feature .fi{font-size:2.4rem;line-height:1}
+.feature .fk{font-size:.66rem;font-weight:800;letter-spacing:.22em;color:var(--t-build);text-transform:uppercase}
+.feature h2{font-size:1.25rem;color:var(--navy);margin:.15rem 0 .3rem}
+.feature p{color:var(--mut);font-size:.9rem;line-height:1.5;max-width:46rem}
+.feature .go{display:inline-block;margin-top:.7rem;background:var(--amber);color:#fff;font-weight:700;
+padding:.55rem 1.1rem;border-radius:10px;text-decoration:none}
+.feature .go:hover{background:var(--t-build)}
+.toolbar{max-width:var(--max);margin:1.4rem auto .4rem;padding:0 1rem;display:flex;gap:.8rem;flex-wrap:wrap}
+.toolbar label{display:flex;flex-direction:column;gap:.25rem;font-size:.7rem;font-weight:700;
+letter-spacing:.12em;text-transform:uppercase;color:var(--mut);flex:1 1 220px}
+.toolbar input{border:1.5px solid #161D3D3d;background:var(--card);border-radius:10px;padding:.6rem .8rem;font:inherit}
+.chiprow{max-width:var(--max);margin:.4rem auto;padding:0 1rem;display:flex;gap:.45rem;overflow-x:auto;padding-bottom:.4rem}
+.chip{white-space:nowrap;border:1.5px solid #161D3D44;background:var(--card);border-radius:99px;
+padding:.4rem .9rem;font:inherit;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.cat{max-width:var(--max);margin:1.6rem auto .2rem;padding:0 1rem;display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap}
+.cat h2{font-size:1.15rem;letter-spacing:.04em;color:var(--navy)}
+.cat .tot{color:var(--mut);font-size:.8rem;margin-left:auto}
+.cat .spec{font-size:.64rem;font-weight:800;letter-spacing:.1em;background:var(--amber);color:#fff;border-radius:99px;padding:.2rem .6rem;text-transform:uppercase}
+.specband{background:#FBEDD8;border-radius:16px;margin:0 1rem;padding:.8rem}
+@media(min-width:1212px){.specband{margin:0 auto;max-width:var(--max)}}
+.grid{max-width:var(--max);margin:.4rem auto;padding:0 1rem;display:grid;gap:.8rem;
+grid-template-columns:repeat(auto-fill,minmax(228px,1fr))}
+.specband .grid{padding:0;margin:.2rem 0}
+.card{background:var(--card);border:1.5px solid #161D3D24;border-top:4px solid var(--ac,#161D3D33);border-radius:14px;
+padding:.9rem .95rem;display:flex;flex-direction:column;gap:.45rem;transition:box-shadow .15s,transform .15s}
+.card:hover{box-shadow:0 6px 16px #161D3D1c;transform:translateY(-2px)}
+.card .ci{font-size:1.7rem;line-height:1}
+.card h3{font-size:.98rem;line-height:1.3;color:var(--navy)}
+.card p{color:var(--mut);font-size:.83rem;line-height:1.5;flex:1}
+.card .open{align-self:flex-start;font-size:.8rem;font-weight:700;color:var(--mint-deep);text-decoration:none}
+.card .open:hover{text-decoration:underline}
+.card .newpill{position:absolute;margin-left:auto}
+.pill{font-size:.66rem;font-weight:700;border-radius:99px;padding:.2rem .6rem;background:var(--mint);color:var(--mint-deep)}
+.linkchip{display:inline-block;margin:.4rem 1rem 0;font-size:.82rem;font-weight:700;color:var(--t-build);text-decoration:none}
+.status{max-width:var(--max);margin:.6rem auto;padding:0 1rem;color:var(--mut);font-size:.85rem}
+@media(max-width:640px){.trio{grid-template-columns:1fr 1fr 1fr;gap:.3rem}}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="header"><div class="bar">
@@ -107,67 +100,81 @@ display:flex;gap:.8rem;align-items:flex-start;color:var(--mut);font-size:.9rem;l
 <small>Learn • Build • Explore</small></span></a>
 <nav class="xnav" aria-label="Made by Matt collections"><a href="https://madebymatt.uk/">Home</a><a href="https://madebymatt.uk/games/">Games</a><a href="https://madebymatt.uk/Lessons/">Lessons</a><a href="https://madebymatt.uk/Matt-s-Apps-/" aria-current="page">Apps</a><a href="https://madebymatt.uk/tools/">Tools</a><a href="https://madebymatt.uk/resources/">Resources</a></nav>
 </div></header>
+
 <main id="main">
 <section class="hero"><div class="hero-in">
 <p class="eyebrow">A Made by Matt collection</p>
-<h1>STUDIO <span>SUITE</span></h1>
-<p class="lead">Your offline creative workshop — every tool runs straight from the browser, no internet required.</p>
+<h1>THE CREATOR <span>HUB</span></h1>
+<p class="lead">Your offline creative workshop. Twenty-eight single-file studios that run straight from the browser — design something, learn something, build something. Nothing installs, nothing uploads.</p>
 <span class="count" id="count" aria-live="polite">Loading…</span>
 </div></section>
 
-<section class="journey" aria-label="What's in the suite">
-<div class="j-grid">
-<div class="j-tier teach">
-<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="10" width="36" height="46" rx="5" fill="#DDE3EA"/><rect x="24" y="6" width="16" height="9" rx="3" fill="#232C55"/><path d="M21 26 h22 M21 34 h22 M21 42 h14" stroke="#4A5170" stroke-width="3" stroke-linecap="round"/><circle cx="45" cy="46" r="10" fill="#F2A24A"/><path d="M40.5 46 l3.4 3.4 6-6.4" fill="none" stroke="#161D3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-<span class="j-name">TEACH</span>
-<span class="j-bold">The paperwork, shrunk.</span>
-<span class="j-more">Specialist tools for planning, assessment and accreditation — built by a teacher, for teachers.</span>
-</div>
-<div class="j-tier create">
-<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8 C16 8 8 20 8 31 C8 45 19 54 32 54 C36 54 38 51 38 48 C38 45 36 44 36 41 C36 38 38 36 42 36 L48 36 C53 36 56 32 56 27 C56 16 46 8 32 8 Z" fill="#232C55"/><circle cx="21" cy="24" r="4" fill="#F2A24A"/><circle cx="33" cy="18" r="4" fill="#B9E6CD"/><circle cx="45" cy="24" r="4" fill="#E05A4E"/><circle cx="17" cy="37" r="4" fill="#DFB62B"/></svg>
-<span class="j-name">CREATE</span>
-<span class="j-bold">Studios for making.</span>
-<span class="j-more">Art, design, writing and building tools — make something real in the browser, no accounts needed.</span>
-</div>
-<div class="j-tier settle">
-<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="24" fill="#B9E6CD"/><path d="M32 14 Q46 22 44 36 Q42 48 32 50 Q22 48 20 36 Q18 22 32 14 Z" fill="#2F6B4D"/><path d="M32 20 V46 M32 30 Q26 28 24 24 M32 36 Q38 34 40 30" fill="none" stroke="#B9E6CD" stroke-width="2.6" stroke-linecap="round"/></svg>
-<span class="j-name">SETTLE</span>
-<span class="j-bold">Learn, organise, breathe.</span>
-<span class="j-more">Quiet organisers and calm corners for focus, routine and regulation — before, during and after the making.</span>
-</div>
-</div>
+<section class="trio" aria-label="What you can do here">
+<div class="t design"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 10 L26 44 M32 10 L38 44" stroke="#B96A14" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="10" r="4.5" fill="#E08A2E"/><path d="M23 48 A11 11 0 0 0 41 48" stroke="#B96A14" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+<span class="tn">DESIGN</span><span class="td">Posters, paintings, photos and layouts — craft visuals with no boundaries.</span></div>
+<div class="t educate"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 16 Q22 12 32 16 L32 50 Q22 46 12 50 Z" fill="#B9E6CD" stroke="#2F6B4D" stroke-width="2.5"/><path d="M52 16 Q42 12 32 16 L32 50 Q42 46 52 50 Z" fill="#fff" stroke="#2F6B4D" stroke-width="2.5"/></svg>
+<span class="tn">EDUCATE</span><span class="td">Classroom tools, organisers and calm-corner support — teach and settle smart.</span></div>
+<div class="t buildc"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="26" cy="30" r="11" fill="none" stroke="#6d5cf5" stroke-width="4"/><circle cx="26" cy="30" r="3.5" fill="#6d5cf5"/><g stroke="#6d5cf5" stroke-width="4" stroke-linecap="round"><path d="M26 15 V10 M26 45 V50 M11 30 H6 M41 30 H46 M15.4 19.4 L11.9 15.9 M36.6 40.6 L40.1 44.1 M15.4 40.6 L11.9 44.1 M36.6 19.4 L40.1 15.9"/></g><circle cx="45" cy="45" r="7" fill="none" stroke="#8f83f8" stroke-width="3.5"/></svg>
+<span class="tn">BUILD</span><span class="td">Films, music, websites and block-code worlds — construct digital things, code-free.</span></div>
 </section>
 
+<section class="feature" aria-label="Featured studio"><div>
+<span class="fi" aria-hidden="true">🎬</span>
+<div><p class="fk">Featured studio</p>
+<h2>Animation Studio</h2>
+<p>Stop-motion films, frame by frame — onion-skinning, playback speed and export, all in the browser. Storyboard an idea in the morning, screen it by home time.</p>
+<a class="go" href="Animation_Studio.html">Open Animation Studio</a></div>
+</div></section>
+
 <div class="toolbar">
-<label>Search<input id="search" type="search" placeholder="Try: register, pixel, planner…" autocomplete="off"></label>
-</div><div class="chiprow" id="jump" aria-label="Jump to a category"></div><p class="status" id="status"></p><div id="groups"></div>
+<label>Search the studios<input id="search" type="search" placeholder="Try: poster, quiz, stop-motion…" autocomplete="off"></label>
+</div>
+<div class="chiprow" id="chips" aria-label="Browse by space"></div>
+<p class="status" id="status"></p>
+<div id="groups"></div>
 </main>
 <aside class="sig"><div><span class="wave" aria-hidden="true">👋</span><p><b>From Matt</b> — I teach science and art in an alternative provision in the North East, and every file on this shelf started life in front of a real class. It’s all free and it stays that way. Spotted a bug or got an idea? <a href="mailto:contactmadebymatt@gmail.com">Tell me</a> — I read everything.</p></div></aside>
+
 <footer class="footer"><div class="bar"><svg class="mono" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="none" stroke="#B9E6CD" stroke-width="3.4"/><g transform="translate(0 2)"><path d="M28 71 L28 37 L50 59 L72 37 L72 71" fill="none" stroke="#E8E2D4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 22.5 L51.48 28.52 L57.5 30 L51.48 31.48 L50 37.5 L48.52 31.48 L42.5 30 L48.52 28.52 Z" fill="#F2A24A"/></g></svg>
 <div><p>Made by Matt · Learn • Build • Explore</p>
 <small>Single-file · offline-first · hand-built in Teesside</small></div>
 </div><p class="mbm-kofi" style="text-align:center;margin:14px auto 4px"><a href="https://ko-fi.com/madebymattuk" style="display:inline-flex;align-items:center;gap:8px;background:#F2A24A;color:#161D3D;font-weight:700;font-size:.9rem;padding:10px 18px;border-radius:8px;text-decoration:none;box-shadow:0 2px 0 #C97F2E">☕ Buy me a coffee</a></p>
 <p class="mbm-contact" style="text-align:center;font-size:.85rem;opacity:.85;margin:16px auto 10px;max-width:90%">Questions, ideas or bug reports — <a href="mailto:contactmadebymatt@gmail.com" style="color:inherit;font-weight:600">contactmadebymatt@gmail.com</a></p>
 </footer>
+
 <script>const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-let SPACES=[];
-function card(a){return `<article class="card" style="--accent:${esc(a.c||"#63B3ED")}">
-${a.new?'<span class="newpill">NEW</span>':""}<div class="icon" aria-hidden="true">${esc(a.i||"🛠️")}</div>
-<h3><a href="${esc(a.f)}">${esc(a.n)}</a></h3><p>${esc(a.d)}</p></article>`}
-function render(){const q=$("#search").value.toLowerCase();let total=0,shown=0,out="";
-SPACES.forEach((s,ci)=>{const items=s.items.filter(a=>!q||[a.n,a.d,s.cat].join(" ").toLowerCase().includes(q));
-total+=s.items.length;shown+=items.length;
-if(!items.length)return;
-if(s.special){out+=`<section class="special-block" id="cat-${ci}"><div class="special-in">
-<h2 class="special-h">${esc(s.cat)} · ${items.length}<span class="spec-badge">Specialist</span></h2>
-${s.tag?`<p class="cat-sub">${esc(s.tag)}</p>`:""}
-<div class="grid special-grid">${items.map(card).join("")}</div></div></section>`;return}
-out+=`<section class="cat" id="cat-${ci}"><h2>${esc(s.cat)} · ${items.length}</h2></section>
-<div class="grid">${items.map(card).join("")}</div>`});
-$("#groups").innerHTML=out||'<p class="status">No matching studios.</p>';
-$("#count").textContent=`${shown} of ${total} studios`}
-function buildJump(){$("#jump").innerHTML=SPACES.map((s,i)=>`<a class="chip" href="#cat-${i}">${esc(s.cat)} · ${s.items.length}</a>`).join("")}
-fetch("apps.json").then(r=>r.json()).then(d=>{SPACES=d.spaces;buildJump();render()})
+let DATA=null,CAT="",Q="";
+const SPEC="Teacher tools";
+function card(it){
+return `<article class="card" style="--ac:${esc(it.c||'#161D3D33')}">
+<div style="display:flex;justify-content:space-between;align-items:flex-start"><span class="ci" aria-hidden="true">${esc(it.i||"🧰")}</span>${it.new?'<span class="pill">NEW</span>':''}</div>
+<h3>${esc(it.n)}</h3><p>${esc(it.d||"")}</p>
+<a class="open" href="${esc(it.f)}">Open studio →</a></article>`}
+function matches(it){return !Q||[it.n,it.d].join(" ").toLowerCase().includes(Q)}
+function render(){
+const spaces=DATA.spaces.map(s=>({cat:s.cat,items:s.items.filter(matches)})).filter(s=>s.items.length&&(!CAT||s.cat===CAT));
+const total=DATA.spaces.reduce((n,s)=>n+s.items.length,0);
+const shown=spaces.reduce((n,s)=>n+s.items.length,0);
+if(Q||CAT){
+$("#groups").innerHTML=shown?spaces.map(s=>`<section class="cat"><h2>${esc(s.cat)}</h2><span class="tot">${s.items.length}</span></section><div class="grid">${s.items.map(card).join("")}</div>`).join(""):'<p class="status">No matches — try fewer words.</p>';
+}else{
+$("#groups").innerHTML=spaces.map(s=>{
+const spec=s.cat===SPEC;
+const inner=`<section class="cat"><h2>${esc(s.cat)}</h2>${spec?'<span class="spec">Specialist</span>':''}<span class="tot">${s.items.length} studios</span></section>`+
+(spec?`<div class="specband"><div class="grid">${s.items.map(card).join("")}</div><a class="linkchip" href="https://madebymatt.uk/tools/">The full teacher-tools experience → madebymatt.uk/tools</a></div>`
+:`<div class="grid">${s.items.map(card).join("")}</div>`);
+return inner}).join("");
+}
+$("#count").textContent=`${shown} of ${total} studios${CAT?" · "+CAT:""}`;
+}
+function chips(){
+const c=(label,val,on)=>`<button class="chip" data-cat="${esc(val)}" aria-pressed="${on?"true":"false"}">${esc(label)}</button>`;
+$("#chips").innerHTML=c("All studios","",!CAT)+DATA.spaces.map(s=>c(`${s.cat} (${s.items.length})`,s.cat,CAT===s.cat)).join("");
+}
+$("#chips").addEventListener("click",e=>{const b=e.target.closest("button[data-cat]");if(!b)return;
+CAT=CAT===b.dataset.cat?"":b.dataset.cat;chips();render();});
+$("#search").addEventListener("input",()=>{Q=$("#search").value.toLowerCase().trim();render();});
+fetch("apps.json").then(r=>r.json()).then(d=>{DATA=d;chips();render();})
 .catch(()=>{$("#count").textContent="Couldn't load apps.json"});
-$("#search").addEventListener("input",render);</script></body></html>
+</script></body></html>
