@@ -7,7 +7,7 @@
 <style>
 :root{--navy:#161D3D;--navy-lt:#232C55;--mint:#B9E6CD;--mint-deep:#2F6B4D;--amber:#E08A2E;--amber-lt:#F2A24A;
 --cream:#F6F1E4;--cream-dk:#EDE5D2;--card:#FFFDF6;--ink:#1B2140;--mut:#4A5170;
---t-build:#B96A14;--t-grow:#2F6B4D;--t-launch:#8F7311;
+--t-build:#985710;--t-grow:#2F6B4D;--t-launch:#81680F;
 --b-build:#E08A2E;--b-grow:#4C9A6F;--b-launch:#DFB62B;
 --font:Poppins,"Segoe UI",system-ui,sans-serif;--max:1180px}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -68,7 +68,7 @@ padding:.55rem 1.1rem;border-radius:10px;text-decoration:none}
 letter-spacing:.12em;text-transform:uppercase;color:var(--mut);flex:1 1 220px}
 .toolbar input{border:1.5px solid #161D3D3d;background:var(--card);border-radius:10px;padding:.6rem .8rem;font:inherit}
 .chiprow{max-width:var(--max);margin:.4rem auto;padding:0 1rem;display:flex;gap:.45rem;overflow-x:auto;padding-bottom:.4rem}
-.chip{white-space:nowrap;border:1.5px solid #161D3D44;background:var(--card);border-radius:99px;
+.chip{white-space:nowrap;border:1.5px solid #161D3D44;background:var(--card);border-radius:99px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;touch-action:manipulation;
 padding:.4rem .9rem;font:inherit;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--ink)}
 .chip[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
 .cat{max-width:var(--max);margin:1.6rem auto .2rem;padding:0 1rem;display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap}
@@ -86,17 +86,17 @@ padding:.8rem .85rem;display:flex;flex-direction:column;gap:.45rem;transition:bo
 .card .ci{font-size:1.7rem;line-height:1}
 .card h3{font-size:.98rem;line-height:1.3;color:var(--navy)}
 .card p{color:var(--mut);font-size:.83rem;line-height:1.5;flex:1}
-.card .open{align-self:flex-start;font-size:.68rem;font-weight:800;letter-spacing:.07em;color:#FFF6E8;background:var(--navy,#161D3D);text-decoration:none;border-radius:999px;padding:.42rem .9rem;margin-top:auto}
+.card .open{align-self:flex-start;font-size:.68rem;font-weight:800;letter-spacing:.07em;color:#FFF6E8;background:var(--navy,#161D3D);text-decoration:none;border-radius:999px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;touch-action:manipulation;padding:.42rem .9rem;margin-top:auto}
 .open:hover{background:#232C55}
 .open:focus-visible{outline:3px solid #F2A24A;outline-offset:2px}
 .aud{align-self:flex-start;font-size:.62rem;font-weight:800;letter-spacing:.04em;border-radius:999px;padding:.2rem .6rem;border:1.5px solid}
 .aud-t{background:#FBE4E1;border-color:#C05A4A;color:#8A3527}
 .aud-g{background:#E4F0E8;border-color:#2F6B4D;color:#2F6B4D}
 .aud-p{background:#E2ECF7;border-color:#3A6AA0;color:#2A507C}
-.aud-s{background:#FBF3DE;border-color:#B98A1E;color:#8F7311}
+.aud-s{background:#FBF3DE;border-color:#B98A1E;color:#7A6410}
 .segrow{max-width:var(--max,1180px);margin:auto;padding:.55rem 1rem 0;display:flex;gap:.45rem;align-items:center;flex-wrap:wrap}
 .segrow .lbl{font-size:.68rem;font-weight:800;letter-spacing:.14em;color:#4A5170}
-.seg{font:inherit;font-size:.72rem;font-weight:800;letter-spacing:.08em;border:1.5px solid #161D3D44;background:var(--card);color:#1B2140;border-radius:8px;padding:.4rem .85rem;cursor:pointer}
+.seg{font:inherit;font-size:.72rem;font-weight:800;letter-spacing:.08em;border:1.5px solid #161D3D44;background:var(--card);color:#1B2140;border-radius:8px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;touch-action:manipulation;padding:.4rem .85rem;cursor:pointer}
 .seg[aria-pressed="true"]{background:#161D3D;color:#B9E6CD;border-color:#161D3D}
 .seg:focus-visible{outline:3px solid #F2A24A;outline-offset:2px}
 .bridge{grid-column:1/-1;background:linear-gradient(150deg,#FDF6E4,#FBEDD8);border:2px solid #E08A2E;border-radius:14px;padding:.9rem 1rem;display:flex;flex-direction:column;gap:.45rem}
@@ -166,7 +166,7 @@ details.acc>.grid,details.acc>.specband{margin:0 1rem 1rem}
 <label>Search the studios<input id="search" type="search" placeholder="Try: poster, quiz, stop-motion…" autocomplete="off"></label>
 </div>
 <div class="chiprow" id="chips" aria-label="Browse by space"></div>
-<p class="status" id="status"></p>
+<p class="status" id="status" aria-live="polite" aria-atomic="true"></p>
 <div id="groups"></div>
 </main>
 <aside class="sig"><div><span class="wave" aria-hidden="true">👋</span><p><b>From Matt</b> — I teach science and art in an alternative provision in the North East, and every file on this shelf started life in front of a real class. It’s all free and it stays that way. Spotted a bug or got an idea? <a href="mailto:contactmadebymatt@gmail.com">Tell me</a> — I read everything.</p></div></aside>
@@ -188,8 +188,9 @@ const AUDMAP={"UAS Register":"t","ASDAN Register":"t","Evidence Binder":"t","Cla
 const AUDL={t:"🍎 Teacher Admin",g:"🤝 Guided / Co-Op",p:"👤 Pupil Independent",s:"⭐ Anyone"};
 function audOf(it){return AUDMAP[it.n]||"p"}
 let AUD="";
+function hexc(c){return (typeof c==="string"&&/^#[0-9A-Fa-f]{3,8}$/.test(c))?c:"#161D3D33"}
 function card(it){
-return `<article class="card" style="--ac:${esc(it.c||'#161D3D33')}">
+return `<article class="card" style="--ac:${hexc(it.c)}">
 <div style="display:flex;justify-content:space-between;align-items:flex-start"><span class="ci" aria-hidden="true">${esc(it.i||"🧰")}</span>${it.new?'<span class="pill">NEW</span>':''}</div>
 <h3>${esc(it.n)}</h3><span class="aud aud-${audOf(it)}">${AUDL[audOf(it)]}</span><p>${esc(it.d||"")}</p>
 <a class="open" href="${esc(it.f)}">LAUNCH STUDIO →</a></article>`}
