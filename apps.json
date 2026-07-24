@@ -61,6 +61,14 @@
      "d": "Draw and write onto your browser",
      "i": "🖊️",
      "c": "#2563eb"
+    },
+    {
+     "f": "ChoreoStudio.html",
+     "n": "ChoreoStudio",
+     "d": "Plot movement and sightlines on a stage, pitch, court or room — animate the beats, check who can see whom, and print the drill card. Beta.",
+     "i": "🎯",
+     "c": "#5DD696",
+     "new": true
     }
    ],
    "special": true,
