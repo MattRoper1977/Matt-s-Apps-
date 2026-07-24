@@ -1,0 +1,3077 @@
+<!DOCTYPE html>
+<!-- ChoreoStudio v1.0 BETA — Made by Matt · madebymatt.uk
+     Movement, sightline and drill plotter. Single file, zero dependencies, offline.
+     Nothing is uploaded: plots live in this browser's local storage until you export them. -->
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ChoreoStudio — movement &amp; sightline plotter</title>
+<meta name="description" content="Plot people on a stage, pitch, court or room, give each one a sightline cone, animate the moves on a timeline and print the playbook. Single file, offline, nothing leaves the device.">
+<meta name="theme-color" content="#0B0F1E">
+<style>
+:root{
+  --ink:#0B0F1E;      /* obsidian ground */
+  --panel:#141A30;    /* plotting card */
+  --panel2:#1B2240;
+  --rule:#2A3358;     /* drafting rule */
+  --navy:#161D3D;
+  --cream:#E8E2D4;    /* brand cream — body text */
+  --dim:#8D97B8;
+  --mint:#B9E6CD;     /* brand mint — sightline / visible */
+  --amber:#F2A24A;    /* brand amber — keys, selection */
+  --rose:#FF6B7A;     /* blocked / shadow */
+  --teamA:#7FB2FF;
+  --teamB:#F6A6C1;
+  --teamN:#C9D2EA;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --bar:56px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--ink);color:var(--cream);font-family:var(--body);
+  display:flex;flex-direction:column;overflow:hidden;
+  -webkit-text-size-adjust:100%;
+}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:6px}
+
+/* ---------- top bar ---------- */
+.bar{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:8px 12px;background:linear-gradient(180deg,#151C36,#101528);
+  border-bottom:1px solid var(--rule);position:relative;z-index:6;
+}
+.brand{display:flex;align-items:center;gap:9px;min-width:0}
+.brand svg{flex:none}
+.brand b{font-size:15px;letter-spacing:.02em}
+.beta{
+  font-style:normal;font-family:var(--mono);font-size:8px;letter-spacing:.18em;
+  text-transform:uppercase;padding:2px 5px;border:1px solid var(--amber);
+  color:var(--amber);border-radius:999px;vertical-align:2px;margin-left:3px
+}
+.brand span{
+  display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--dim)
+}
+.grow{flex:1 1 auto}
+.tools{display:flex;gap:4px;background:#0E1428;padding:4px;border-radius:10px;border:1px solid var(--rule)}
+.tool{
+  border:0;background:transparent;color:var(--dim);padding:7px 11px;border-radius:7px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  display:flex;align-items:center;gap:6px;min-height:34px;
+}
+.tool:hover{color:var(--cream);background:#1B2240}
+.tool[aria-pressed="true"]{background:var(--amber);color:#1A1206;font-weight:700}
+.tool .dot{width:9px;height:9px;border-radius:50%;background:currentColor;flex:none}
+.btn{
+  background:#1B2240;border:1px solid var(--rule);color:var(--cream);
+  padding:8px 12px;border-radius:8px;font-size:12.5px;min-height:36px;white-space:nowrap;
+}
+.btn:hover{background:#243060;border-color:#3B4780}
+.btn.key{background:var(--amber);border-color:var(--amber);color:#1A1206;font-weight:700}
+.btn.key:hover{background:#ffb45f}
+.btn.ghost{background:transparent}
+.btn.danger:hover{background:#4A1D25;border-color:var(--rose);color:#ffd7db}
+.sel{background:#0E1428;border:1px solid var(--rule);border-radius:8px;padding:8px 10px;font-size:12.5px;min-height:36px}
+.barwrap{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+
+/* ---------- workspace ---------- */
+.work{flex:1 1 auto;position:relative;min-height:0;background:
+  radial-gradient(120% 90% at 50% 0%,#131A33 0%,#0B0F1E 70%)}
+#stagewrap{position:absolute;inset:0}
+canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+#fx{z-index:2}
+.hint{
+  position:absolute;left:12px;bottom:12px;z-index:3;pointer-events:none;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--dim);background:rgba(11,15,30,.72);padding:6px 9px;border-radius:6px;
+  border:1px solid var(--rule);max-width:min(60ch,70vw)
+}
+
+/* ---------- floating inspector ---------- */
+.inspect{
+  position:absolute;top:12px;right:12px;width:296px;max-height:calc(100% - 24px);
+  z-index:4;background:rgba(20,26,48,.94);backdrop-filter:blur(9px);
+  border:1px solid var(--rule);border-radius:14px;box-shadow:0 18px 46px rgba(0,0,0,.55);
+  display:flex;flex-direction:column;overflow:hidden
+}
+.inspect header{
+  display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--rule);
+  background:linear-gradient(180deg,#1D2545,#161D38)
+}
+.inspect header .eyebrow{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)
+}
+.inspect .body{overflow:auto;padding:12px;display:flex;flex-direction:column;gap:14px}
+.sect{display:flex;flex-direction:column;gap:9px}
+.sect > h3{
+  margin:0;font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--dim);border-bottom:1px dashed var(--rule);padding-bottom:6px
+}
+.row{display:flex;align-items:center;gap:9px}
+.row label{font-size:12px;color:var(--dim);flex:0 0 88px}
+.row .val{font-family:var(--mono);font-size:11px;color:var(--mint);margin-left:auto;min-width:46px;text-align:right}
+input[type=text],input[type=number]{
+  flex:1 1 auto;min-width:0;background:#0E1428;border:1px solid var(--rule);
+  border-radius:7px;padding:8px 9px;font-size:13px
+}
+input[type=range]{flex:1 1 auto;min-width:0;accent-color:var(--amber);height:26px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{
+  border:1px solid var(--rule);background:#0E1428;color:var(--dim);border-radius:999px;
+  padding:6px 11px;font-size:11.5px;min-height:32px
+}
+.chip[aria-pressed="true"]{background:var(--cream);color:#12172B;border-color:var(--cream);font-weight:600}
+.switch{display:flex;align-items:center;gap:9px;font-size:12.5px}
+.switch input{width:18px;height:18px;accent-color:var(--mint)}
+.empty{font-size:12.5px;color:var(--dim);line-height:1.55}
+.empty b{color:var(--cream);font-weight:600}
+
+/* ---------- timeline ---------- */
+.timeline{
+  border-top:1px solid var(--rule);background:linear-gradient(180deg,#121831,#0D1225);
+  padding:8px 12px calc(8px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:7px;z-index:5
+}
+.tl-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.transport{display:flex;gap:5px}
+.tbtn{
+  width:40px;height:38px;border-radius:9px;border:1px solid var(--rule);background:#1B2240;
+  display:grid;place-items:center
+}
+.tbtn:hover{background:#243060}
+.tbtn[aria-pressed="true"]{background:var(--mint);border-color:var(--mint);color:#0B1F16}
+.tbtn.play{background:var(--mint);border-color:var(--mint);color:#0B1F16}
+.clock{font-family:var(--mono);font-size:12.5px;color:var(--mint);letter-spacing:.04em;min-width:104px}
+.track{
+  position:relative;height:46px;border-radius:10px;border:1px solid var(--rule);
+  background:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 100%) ,
+    #0E1428;
+  touch-action:none;overflow:hidden
+}
+.tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.08)}
+.tick b{position:absolute;top:3px;left:4px;font-family:var(--mono);font-size:9px;color:#66719A;font-weight:400}
+.kf{
+  position:absolute;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;border:0;padding:0;
+  background:var(--amber);transform:rotate(45deg);border-radius:3px;box-shadow:0 0 0 3px rgba(11,15,30,.9)
+}
+.kf[aria-pressed="true"]{background:var(--cream);box-shadow:0 0 0 3px rgba(11,15,30,.9),0 0 0 5px var(--amber)}
+.playhead{position:absolute;top:0;bottom:0;width:2px;background:var(--mint);pointer-events:none;box-shadow:0 0 10px var(--mint)}
+.playhead::before{
+  content:"";position:absolute;top:0;left:-5px;border-left:6px solid transparent;
+  border-right:6px solid transparent;border-top:8px solid var(--mint)
+}
+.foot{
+  display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5C668C
+}
+.legend{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:-2px}
+
+.drill{
+  position:absolute;top:12px;left:12px;width:288px;max-height:calc(100% - 24px);
+  z-index:4;background:rgba(20,26,48,.95);backdrop-filter:blur(9px);
+  border:1px solid var(--rule);border-radius:14px;box-shadow:0 18px 46px rgba(0,0,0,.55);
+  display:flex;flex-direction:column;overflow:hidden
+}
+.drill[hidden]{display:none}
+.drill header{
+  display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--rule);
+  background:linear-gradient(180deg,#2A2038,#1B1A33)
+}
+.drill header .eyebrow{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber)
+}
+.drill .body{overflow:auto;padding:12px;display:flex;flex-direction:column;gap:12px}
+.drill .sel{width:100%}
+.rule{
+  display:flex;align-items:center;gap:8px;background:#0E1428;border:1px solid var(--rule);
+  border-radius:8px;padding:7px 9px;font-size:12px;line-height:1.35;margin-bottom:6px
+}
+.rule .x{
+  margin-left:auto;flex:none;background:transparent;border:0;color:var(--dim);
+  font-size:17px;line-height:1;padding:2px 5px;border-radius:5px
+}
+.rule .x:hover{background:#4A1D25;color:#ffd7db}
+.results{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
+.results li{font-size:12px;padding:6px 9px;border-radius:7px;line-height:1.4}
+.results li.y{background:rgba(185,230,205,.14);color:var(--mint)}
+.results li.n{background:rgba(255,107,122,.14);color:#FFB4BC}
+.banner{
+  position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:5;
+  padding:10px 18px;border-radius:999px;font-weight:700;font-size:13.5px;
+  box-shadow:0 12px 32px rgba(0,0,0,.5);display:none;max-width:min(70ch,86vw);text-align:center
+}
+.banner.ok{display:block;background:var(--mint);color:#0B2418}
+.banner.no{display:block;background:var(--rose);color:#2A0710}
+.btn.icon{padding:8px 10px;display:grid;place-items:center}
+.btn:disabled{opacity:.34;cursor:not-allowed}
+.btn:disabled:hover{background:#1B2240;border-color:var(--rule)}
+.resetview{
+  position:absolute;right:12px;bottom:12px;z-index:5;
+  background:var(--amber);border-color:var(--amber);color:#1A1206;font-weight:700
+}
+.resetview[hidden]{display:none}
+.present-bar{
+  position:fixed;left:0;right:0;bottom:0;z-index:30;
+  display:flex;align-items:center;gap:12px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  background:linear-gradient(180deg,rgba(11,15,30,.72),rgba(11,15,30,.97));
+  border-top:1px solid var(--rule)
+}
+.present-bar[hidden]{display:none}
+.pbtn{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  min-width:104px;min-height:74px;padding:10px 14px;border-radius:14px;
+  border:1.5px solid var(--rule);background:#1B2240;color:var(--cream)
+}
+.pbtn span{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+.pbtn:hover{background:#243060}
+.pbtn:disabled{opacity:.3}
+.pbtn.play{background:var(--mint);border-color:var(--mint);color:#0B1F16}
+.pbtn.exit{background:transparent;min-width:80px}
+.pmeta{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:4px;padding:0 6px}
+.pmeta strong{
+  font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)
+}
+.pmeta em{font-style:normal;font-size:clamp(17px,2.4vw,26px);line-height:1.25;font-weight:600;color:var(--cream)}
+.pmeta em[hidden]{display:none}
+body.present .bar,
+body.present .timeline,
+body.present .inspect,
+body.present .drill,
+body.present .hint{display:none !important}
+body.present .banner{top:22px;font-size:17px;padding:13px 26px}
+body.present .resetview{bottom:110px}
+.toast{
+  position:fixed;left:50%;bottom:calc(50% - 20px);transform:translateX(-50%);z-index:40;
+  background:var(--cream);color:#12172B;padding:11px 16px;border-radius:10px;font-size:13.5px;
+  font-weight:600;box-shadow:0 14px 40px rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .18s
+}
+.toast.on{opacity:1}
+
+@media (max-width:900px){
+  .bar{gap:8px;padding:7px 9px}
+  .brand span{display:none}
+  .inspect{
+    top:auto;left:8px;right:8px;bottom:8px;width:auto;max-height:44vh
+  }
+  .drill{left:8px;right:8px;top:8px;width:auto;max-height:52vh}
+  .pbtn{min-width:0;flex:1 1 auto;min-height:66px;padding:8px 6px}
+  .pmeta{flex:1 0 100%;order:-1;padding:0 2px}
+  .pmeta em{font-size:16px}
+  .present-bar{flex-wrap:wrap;gap:8px;padding:10px}
+  .banner{top:auto;bottom:8px;font-size:12.5px;padding:9px 14px}
+  .inspect.closed .body{display:none}
+  .hint{display:none}
+  .row label{flex:0 0 76px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+}
+@media print{
+  body{display:block;background:#fff;color:#000}
+  .bar,.timeline,.inspect,.hint,.toast{display:none !important}
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="brand">
+    <svg width="26" height="26" viewBox="0 0 100 100" aria-hidden="true">
+      <rect x="4" y="4" width="92" height="92" rx="22" fill="#161D3D"/>
+      <circle cx="50" cy="50" r="30" fill="none" stroke="#B9E6CD" stroke-width="5"/>
+      <path d="M34 64V38l16 16 16-16v26" fill="none" stroke="#E8E2D4" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M74 22l3.2 6.6 7.3 1-5.3 5.1 1.3 7.2-6.5-3.4-6.5 3.4 1.3-7.2-5.3-5.1 7.3-1z" fill="#F2A24A"/>
+    </svg>
+    <div>
+      <b>ChoreoStudio <i class="beta">beta</i></b>
+      <span>movement &amp; sightline plot</span>
+    </div>
+  </div>
+
+  <div class="tools" role="group" aria-label="Tool">
+    <button class="tool" id="tSelect" aria-pressed="true" title="Select and move (V)">Select</button>
+    <button class="tool" id="tA" aria-pressed="false" title="Add a person to Group A (A)"><i class="dot" style="color:#7FB2FF"></i>A</button>
+    <button class="tool" id="tB" aria-pressed="false" title="Add a person to Group B (B)"><i class="dot" style="color:#F6A6C1"></i>B</button>
+    <button class="tool" id="tBlock" aria-pressed="false" title="Draw a block that stops sight (O)">Block</button>
+    <button class="tool" id="tZone" aria-pressed="false" title="Draw a target zone (Z)">Zone</button>
+  </div>
+
+  <div class="barwrap">
+    <button class="btn icon" id="bUndo" title="Undo (Ctrl+Z)" aria-label="Undo" disabled>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7L4 12l5 5"/><path d="M4 12h11a5 5 0 010 10h-3"/></svg>
+    </button>
+    <button class="btn icon" id="bRedo" title="Redo (Ctrl+Shift+Z)" aria-label="Redo" disabled>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7l5 5-5 5"/><path d="M20 12H9a5 5 0 000 10h3"/></svg>
+    </button>
+  </div>
+
+  <div class="grow"></div>
+
+  <div class="barwrap">
+    <button class="btn" id="bPresent" aria-pressed="false" title="Presenter mode (P)">Present</button>
+    <select class="sel" id="preset" aria-label="Space">
+      <option value="stage">Stage 12×8 m</option>
+      <option value="pitch">Pitch 40×25 m</option>
+      <option value="court">Court 18×10 m</option>
+      <option value="room">Room 9×7 m</option>
+    </select>
+    <button class="btn" id="bSave" title="Save the plot as a file">Save plot</button>
+    <button class="btn" id="bOpen" title="Open a saved plot">Open</button>
+    <button class="btn" id="bDrill" aria-expanded="false" title="Set up a drill challenge (D)">Drill</button>
+    <button class="btn key" id="bPlaybook" title="Build a printable drill card">Drill card</button>
+    <button class="btn ghost" id="bMore" aria-expanded="false" title="More">···</button>
+  </div>
+  <div class="barwrap" id="more" hidden>
+    <button class="btn" id="bPng">Save picture</button>
+    <button class="btn" id="bDemo">Load demo</button>
+    <button class="btn danger" id="bClear">Clear plot</button>
+  </div>
+  <input type="file" id="fileIn" accept="application/json,.json,.choreo" hidden>
+</header>
+
+<main class="work">
+  <div id="stagewrap">
+    <canvas id="base"></canvas>
+    <canvas id="fx"></canvas>
+  </div>
+  <div class="banner" id="banner" role="status" aria-live="polite"></div>
+  <button class="btn resetview" id="resetView" hidden title="Back to the whole plot">Reset view</button>
+
+  <aside class="drill" id="drill" hidden>
+    <header>
+      <span class="eyebrow">Drill challenge</span>
+      <div class="grow"></div>
+      <button class="btn ghost" id="drillClose" style="padding:4px 9px;min-height:28px" aria-label="Close the drill panel">×</button>
+    </header>
+    <div class="body" id="drillBody"></div>
+  </aside>
+
+  <p class="hint" id="hint">Drag a person to move · drag the arrow tip to turn · every move you make becomes a keyframe</p>
+
+  <aside class="inspect" id="inspect">
+    <header>
+      <span class="eyebrow" id="inspTitle">Nothing selected</span>
+      <div class="grow"></div>
+      <button class="btn ghost" id="inspToggle" style="padding:4px 9px;min-height:28px" aria-expanded="true" title="Show or hide the panel">–</button>
+    </header>
+    <div class="body" id="inspBody"></div>
+  </aside>
+</main>
+
+<footer class="timeline">
+  <div class="tl-controls">
+    <div class="transport">
+      <button class="tbtn play" id="bPlay" title="Play or pause (space)" aria-label="Play">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>
+      </button>
+      <button class="tbtn" id="bStop" title="Back to the start" aria-label="Back to the start">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h3v14H6zM10 12l9-7v14z"/></svg>
+      </button>
+      <button class="tbtn" id="bLoop" aria-pressed="true" title="Loop" aria-label="Loop">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 9h13a3 3 0 013 3v0a3 3 0 01-3 3H7"/><path d="M7 6L4 9l3 3"/><path d="M17 18l3-3-3-3"/></svg>
+      </button>
+    </div>
+    <span class="clock" id="clock">0.0s / 8.0s</span>
+    <button class="btn key" id="bKey" title="Save every position at this moment">+ Keyframe</button>
+    <button class="btn" id="bDelKey" title="Delete the keyframe at the playhead">Delete key</button>
+    <input type="text" id="note" class="sel" style="flex:1 1 170px;min-width:110px" placeholder="Coaching note for this beat" aria-label="Coaching note for this beat">
+    <div class="grow"></div>
+    <label class="foot" for="interp">Path</label>
+    <select class="sel" id="interp" aria-label="Path between keyframes">
+      <option value="spline">Smooth curve</option>
+      <option value="ease">Ease straight</option>
+      <option value="linear">Straight</option>
+    </select>
+    <label class="foot" for="dur">Length</label>
+    <input type="number" id="dur" class="sel" style="width:76px" min="2" max="120" step="1" value="8" aria-label="Length in seconds">
+    <label class="foot" for="speed">Speed</label>
+    <select class="sel" id="speed" aria-label="Playback speed">
+      <option value="0.5">0.5×</option>
+      <option value="1" selected>1×</option>
+      <option value="2">2×</option>
+    </select>
+  </div>
+
+  <div class="track" id="track" tabindex="0" role="slider" aria-label="Timeline position" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0">
+    <div id="ticks"></div>
+    <div id="keys"></div>
+    <div class="playhead" id="playhead" style="left:0"></div>
+  </div>
+
+  <div class="foot">
+    <div class="legend">
+      <span><i style="background:rgba(185,230,205,.55)"></i>Can see</span>
+      <span><i style="background:rgba(255,107,122,.35)"></i>Hidden from view</span>
+      <span><i style="background:#5DD696"></i>Open pass</span>
+      <span><i style="background:#FF5060"></i>Pass cut out</span>
+      <span><i style="background:rgba(242,162,74,.35);border:1px dashed #F2A24A"></i>Target zone</span>
+      <span><i style="background:#8FA6D8"></i>Onion: before</span>
+      <span><i style="background:#F2A24A"></i>after</span>
+      <span><i style="background:#F2A24A;transform:rotate(45deg);border-radius:2px"></i>Keyframe</span>
+      <span><i style="background:#7FB2FF"></i>Group A</span>
+      <span><i style="background:#F6A6C1"></i>Group B</span>
+    </div>
+    <div class="grow"></div>
+    <span id="stats">0 people · 0 blocks · 0 keys</span>
+    <span>Made by Matt · offline · nothing leaves this device</span>
+  </div>
+</footer>
+
+<div class="present-bar" id="presentBar" hidden>
+  <button class="pbtn" id="bPrev" aria-label="Previous beat">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M15 5v14l-9-7z"/><rect x="4" y="5" width="2.5" height="14" rx="1"/></svg>
+    <span>Previous</span>
+  </button>
+  <button class="pbtn play" id="bPresentPlay" aria-label="Play or pause">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>
+    <span>Play</span>
+  </button>
+  <button class="pbtn" id="bNext" aria-label="Next beat">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M9 5v14l9-7z"/><rect x="17.5" y="5" width="2.5" height="14" rx="1"/></svg>
+    <span>Next</span>
+  </button>
+  <div class="pmeta">
+    <strong id="presentNum">Beat 1</strong>
+    <em id="presentCap" hidden></em>
+  </div>
+  <button class="pbtn exit" id="bExitPresent" aria-label="Leave presenter mode">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    <span>Exit</span>
+  </button>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ChoreoStudio — movement & sightline plotter.
+   Single file, zero dependencies, everything stays on the device. */
+(function () {
+  'use strict';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var clamp = function (v, a, b) { return v < a ? a : (v > b ? b : v); };
+  var TAU = Math.PI * 2;
+  var SAVE_KEY = 'mbm_choreo_v1';
+  var DEG = Math.PI / 180;
+
+  var PRESETS = {
+    stage: { w: 12, h: 8, grid: 1, marks: 'stage', label: 'Stage' },
+    pitch: { w: 40, h: 25, grid: 5, marks: 'pitch', label: 'Pitch' },
+    court: { w: 18, h: 10, grid: 1, marks: 'court', label: 'Court' },
+    room: { w: 9, h: 7, grid: 1, marks: 'room', label: 'Room' }
+  };
+  var TEAM = {
+    A: { fill: '#7FB2FF', label: 'Group A' },
+    B: { fill: '#F6A6C1', label: 'Group B' },
+    N: { fill: '#C9D2EA', label: 'Neutral' }
+  };
+
+  /* ---------------------------------------------------------- state ---- */
+  var S = null;
+  var time = 0, playing = false, sel = null, tool = 'select';
+  var dirty = true, baseDirty = true;
+  var uid = 0;
+  function nid(p) { uid++; return p + Date.now().toString(36) + uid.toString(36); }
+
+  function blankState(preset) {
+    if (!PRESETS[preset]) preset = 'stage';
+    var p = PRESETS[preset];
+    return {
+      v: 1, preset: preset,
+      field: { w: p.w, h: p.h }, grid: p.grid,
+      agents: [], blocks: [], zones: [], keys: [],
+      duration: 8, interp: 'spline', loop: true, speed: 1,
+      ball: null, ballSpeed: 9, horizon: 1.2,
+      drill: { on: false, title: 'Find the open receiver', rules: [] },
+      opts: {
+        shadows: true, blockAgents: true, labels: true, snap: false,
+        lanes: true, pressure: true, onion: false, heat: false
+      }
+    };
+  }
+
+  function nextName(team) {
+    var n = 1, used = {}, i;
+    for (i = 0; i < S.agents.length; i++) used[S.agents[i].name] = 1;
+    while (used[team + n]) n++;
+    return team + n;
+  }
+
+  function mkAgent(team, x, y) {
+    return {
+      id: nid('a'), name: nextName(team), team: team,
+      x: x, y: y, a: team === 'B' ? Math.PI : 0,
+      fov: 90, range: Math.min(8, S.field.w * 0.7), r: 0.35,
+      guard: false, gap: 1.2,
+      closingSpeed: 4.5, reach: 1
+    };
+  }
+
+  /* ------------------------------------------------------- geometry ---- */
+  function raySeg(px, py, dx, dy, ax, ay, bx, by) {
+    var ex = bx - ax, ey = by - ay;
+    var den = dx * ey - dy * ex;
+    if (Math.abs(den) < 1e-9) return Infinity;
+    var t = ((ax - px) * ey - (ay - py) * ex) / den;
+    var u = ((ax - px) * dy - (ay - py) * dx) / den;
+    if (t >= 0 && u >= 0 && u <= 1) return t;
+    return Infinity;
+  }
+
+  function rayCircle(px, py, dx, dy, cx, cy, r) {
+    var ox = px - cx, oy = py - cy;
+    var b = 2 * (ox * dx + oy * dy);
+    var c = ox * ox + oy * oy - r * r;
+    var disc = b * b - 4 * c;
+    if (disc < 0) return Infinity;
+    var sq = Math.sqrt(disc);
+    var t1 = (-b - sq) / 2, t2 = (-b + sq) / 2;
+    if (t1 >= 0) return t1;
+    if (t2 >= 0) return t2;
+    return Infinity;
+  }
+
+  function segments() {
+    var F = S.field, out = [
+      [0, 0, F.w, 0], [F.w, 0, F.w, F.h], [F.w, F.h, 0, F.h], [0, F.h, 0, 0]
+    ];
+    for (var i = 0; i < S.blocks.length; i++) {
+      var b = S.blocks[i];
+      out.push([b.x, b.y, b.x + b.w, b.y]);
+      out.push([b.x + b.w, b.y, b.x + b.w, b.y + b.h]);
+      out.push([b.x + b.w, b.y + b.h, b.x, b.y + b.h]);
+      out.push([b.x, b.y + b.h, b.x, b.y]);
+    }
+    return out;
+  }
+
+  function circlesExcept(id) {
+    var out = [];
+    if (!S.opts.blockAgents) return out;
+    for (var i = 0; i < S.agents.length; i++) {
+      var a = S.agents[i];
+      if (a.id !== id) out.push([a.x, a.y, a.r]);
+    }
+    return out;
+  }
+
+  /* 2-degree incremental fan. Returns world-space points. */
+  function castFan(px, py, ang, fovDeg, range, segs, circles) {
+    var half = fovDeg * DEG / 2;
+    var n = Math.max(2, Math.ceil(fovDeg / 2));
+    var pts = [], i, j, a, dx, dy, t, h;
+    for (i = 0; i <= n; i++) {
+      a = ang - half + (half * 2) * (i / n);
+      dx = Math.cos(a); dy = Math.sin(a);
+      t = range;
+      for (j = 0; j < segs.length; j++) {
+        h = raySeg(px, py, dx, dy, segs[j][0], segs[j][1], segs[j][2], segs[j][3]);
+        if (h < t) t = h;
+      }
+      for (j = 0; j < circles.length; j++) {
+        h = rayCircle(px, py, dx, dy, circles[j][0], circles[j][1], circles[j][2]);
+        if (h < t) t = h;
+      }
+      pts.push([px + dx * t, py + dy * t]);
+    }
+    return pts;
+  }
+
+  function conePoints(px, py, ang, fovDeg, range) {
+    var half = fovDeg * DEG / 2, n = Math.max(2, Math.ceil(fovDeg / 2)), pts = [], i, a;
+    for (i = 0; i <= n; i++) {
+      a = ang - half + (half * 2) * (i / n);
+      pts.push([px + Math.cos(a) * range, py + Math.sin(a) * range]);
+    }
+    return pts;
+  }
+
+  function canSee(A, B, segs, circles) {
+    var dx = B.x - A.x, dy = B.y - A.y, d = Math.hypot(dx, dy);
+    if (d < 1e-6) return true;
+    if (d - B.r > A.range) return false;
+    var da = Math.atan2(dy, dx) - A.a;
+    da = Math.atan2(Math.sin(da), Math.cos(da));
+    if (Math.abs(da) > A.fov * DEG / 2) return false;
+    var ux = dx / d, uy = dy / d, lim = Math.max(0, d - B.r), j, h;
+    for (j = 0; j < segs.length; j++) {
+      h = raySeg(A.x, A.y, ux, uy, segs[j][0], segs[j][1], segs[j][2], segs[j][3]);
+      if (h < lim) return false;
+    }
+    for (j = 0; j < circles.length; j++) {
+      if (Math.abs(circles[j][0] - B.x) < 1e-9 && Math.abs(circles[j][1] - B.y) < 1e-9) continue;
+      h = rayCircle(A.x, A.y, ux, uy, circles[j][0], circles[j][1], circles[j][2]);
+      if (h < lim) return false;
+    }
+    return true;
+  }
+
+
+  /* =========================================================== tactics ===
+     Passing lanes, defensive pressure and the drill validator. Everything
+     below works on a plain list of people, so the live plot and an exported
+     beat snapshot are judged by exactly the same rules. */
+
+  var REACTION = 0.6;   /* seconds a defender loses reacting to a lane they cannot see */
+  var flow = 0;         /* animated dash offset for open passing lanes */
+
+  function byId(list, id) {
+    for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+    return null;
+  }
+  function carrierOf(list) { return S.ball ? byId(list, S.ball) : null; }
+  function defendersOf(list, carrier) {
+    var team = carrier ? carrier.team : 'A', out = [], i;
+    for (i = 0; i < list.length; i++) if (list[i].team !== team) out.push(list[i]);
+    return out;
+  }
+  function matesOf(list, carrier) {
+    var out = [], i;
+    if (!carrier) return out;
+    for (i = 0; i < list.length; i++) if (list[i] !== carrier && list[i].team === carrier.team) out.push(list[i]);
+    return out;
+  }
+
+  function closestOnSeg(px, py, ax, ay, bx, by) {
+    var dx = bx - ax, dy = by - ay, L2 = dx * dx + dy * dy;
+    var t = L2 > 1e-9 ? ((px - ax) * dx + (py - ay) * dy) / L2 : 0;
+    t = clamp(t, 0, 1);
+    var qx = ax + dx * t, qy = ay + dy * t;
+    return { x: qx, y: qy, t: t, d: Math.hypot(px - qx, py - qy) };
+  }
+
+  function segCircleEntry(ax, ay, bx, by, cx, cy, r) {
+    var dx = bx - ax, dy = by - ay, L = Math.hypot(dx, dy);
+    if (L < 1e-9) return null;
+    var t = rayCircle(ax, ay, dx / L, dy / L, cx, cy, r);
+    if (!isFinite(t) || t > L) return null;
+    return { x: ax + (dx / L) * t, y: ay + (dy / L) * t, dist: t };
+  }
+
+  /* Can this defender see that point? Uses the existing cone + occlusion engine. */
+  function seesPoint(d, x, y, segs) {
+    return canSee(d, { x: x, y: y, r: 0.05 }, segs, []);
+  }
+
+  function pressureRadius(d) {
+    return (d.reach || 1) + (d.closingSpeed || 4.5) * S.horizon;
+  }
+
+  /* Seconds for a defender to close down a point, including a reaction penalty
+     when the point is outside their view. */
+  function timeToPressure(d, x, y, r, segs) {
+    var gap = Math.hypot(x - d.x, y - d.y) - (d.reach || 1) - (r || 0);
+    var t = Math.max(0, gap) / Math.max(0.5, d.closingSpeed || 4.5);
+    if (!seesPoint(d, x, y, segs)) t += REACTION;
+    return t;
+  }
+
+  function pressureOn(list, who, segs) {
+    var defs = defendersOf(list, who), best = null, i, t;
+    for (i = 0; i < defs.length; i++) {
+      t = timeToPressure(defs[i], who.x, who.y, who.r, segs);
+      if (!best || t < best.t) best = { t: t, by: defs[i].name };
+    }
+    return best;
+  }
+
+  /* Open / contested / blocked, with the exact point where the lane dies. */
+  function passState(carrier, rec, list, segs) {
+    var L = Math.hypot(rec.x - carrier.x, rec.y - carrier.y);
+    var ballSpeed = Math.max(0.5, S.ballSpeed);
+    var out = { state: 'open', at: null, by: '', time: L / ballSpeed, margin: 0, to: rec.name };
+    if (L < 1e-6) { out.state = 'blocked'; out.by = 'no distance'; return out; }
+    var ux = (rec.x - carrier.x) / L, uy = (rec.y - carrier.y) / L, i, hit;
+
+    /* a wall, screen or piece of furniture in the lane */
+    var nearest = Infinity;
+    for (i = 0; i < segs.length; i++) {
+      hit = raySeg(carrier.x, carrier.y, ux, uy, segs[i][0], segs[i][1], segs[i][2], segs[i][3]);
+      if (hit < nearest) nearest = hit;
+    }
+    if (isFinite(nearest) && nearest < L - rec.r) {
+      out.state = 'blocked';
+      out.at = [carrier.x + ux * nearest, carrier.y + uy * nearest];
+      out.by = 'a block';
+      return out;
+    }
+
+    var defs = defendersOf(list, carrier), best = null, d, cp, ring, entry, tBall, tDef;
+    for (i = 0; i < defs.length; i++) {
+      d = defs[i];
+      cp = closestOnSeg(d.x, d.y, carrier.x, carrier.y, rec.x, rec.y);
+      ring = (d.reach || 1) + d.r;
+      if (cp.d <= ring) {
+        entry = segCircleEntry(carrier.x, carrier.y, rec.x, rec.y, d.x, d.y, ring);
+        out.state = 'blocked';
+        out.at = entry ? [entry.x, entry.y] : [cp.x, cp.y];
+        out.by = d.name;
+        return out;
+      }
+      tBall = (cp.t * L) / ballSpeed;
+      tDef = (cp.d - ring) / Math.max(0.5, d.closingSpeed || 4.5);
+      if (!seesPoint(d, cp.x, cp.y, segs)) tDef += REACTION;
+      if (tDef <= tBall && (!best || (tDef - tBall) < best.margin)) {
+        best = { by: d.name, at: [cp.x, cp.y], margin: tDef - tBall };
+      }
+    }
+    if (best) {
+      out.state = 'contested';
+      out.at = best.at; out.by = best.by; out.margin = best.margin;
+    }
+    return out;
+  }
+
+  function passOptions(list, carrier, segs) {
+    var mates = matesOf(list, carrier), out = [], i;
+    for (i = 0; i < mates.length; i++) out.push({ rec: mates[i], res: passState(carrier, mates[i], list, segs) });
+    return out;
+  }
+
+  /* ------------------------------------------------ drill validator ---- */
+  var RULES = {
+    receive: 'can receive an open pass',
+    hidden: 'stays out of sight of',
+    space: 'keeps clear of pressure for',
+    inzone: 'finishes inside',
+    options: 'ball-carrier has open passes'
+  };
+
+  function checkRule(r, list, carrier, segs) {
+    var A = byId(list, r.a), B = r.b === 'any' ? null : byId(list, r.b), i, z, t, opts;
+    if (r.type === 'options') {
+      if (!carrier) return { ok: false, text: 'Nobody has the ball yet' };
+      opts = passOptions(list, carrier, segs).filter(function (o) { return o.res.state === 'open'; });
+      return opts.length >= r.n
+        ? { ok: true, text: carrier.name + ' has ' + opts.length + ' open passes' }
+        : { ok: false, text: carrier.name + ' has ' + opts.length + ' open pass' + (opts.length === 1 ? '' : 'es') + ', needs ' + r.n };
+    }
+    if (!A) return { ok: false, text: 'A rule points at somebody who has left the plot' };
+    if (r.type === 'receive') {
+      if (!carrier) return { ok: false, text: 'Nobody has the ball yet' };
+      if (A === carrier) return { ok: false, text: A.name + ' cannot pass to themselves' };
+      var res = passState(carrier, A, list, segs);
+      if (res.state === 'open') return { ok: true, text: A.name + ' is open for the pass' };
+      return { ok: false, text: 'Pass to ' + A.name + (res.state === 'blocked' ? ' is blocked by ' + res.by : ' intercepted by ' + res.by) };
+    }
+    if (r.type === 'hidden') {
+      var watchers = B ? [B] : defendersOf(list, carrier || A);
+      for (i = 0; i < watchers.length; i++) {
+        var circles = [], q;
+        if (S.opts.blockAgents) {
+          for (q = 0; q < list.length; q++) {
+            if (list[q] !== watchers[i] && list[q] !== A) circles.push([list[q].x, list[q].y, list[q].r]);
+          }
+        }
+        if (canSee(watchers[i], A, segs, circles)) return { ok: false, text: A.name + ' is in ' + watchers[i].name + "'s view" };
+      }
+      return { ok: true, text: A.name + ' is out of sight' };
+    }
+    if (r.type === 'space') {
+      var press = B
+        ? { t: timeToPressure(B, A.x, A.y, A.r, segs), by: B.name }
+        : pressureOn(list, A, segs);
+      if (!press) return { ok: true, text: 'Nobody can pressure ' + A.name };
+      return press.t >= r.n
+        ? { ok: true, text: A.name + ' has ' + press.t.toFixed(1) + 's of space' }
+        : { ok: false, text: A.name + ' has only ' + press.t.toFixed(1) + 's before ' + press.by + ' closes, needs ' + r.n + 's' };
+    }
+    if (r.type === 'inzone') {
+      z = null;
+      for (i = 0; i < S.zones.length; i++) if (S.zones[i].id === r.zone) z = S.zones[i];
+      if (!z) return { ok: false, text: 'That zone has been deleted' };
+      var inside = A.x >= z.x && A.x <= z.x + z.w && A.y >= z.y && A.y <= z.y + z.h;
+      return inside
+        ? { ok: true, text: A.name + ' is inside ' + z.label }
+        : { ok: false, text: A.name + ' is not inside ' + z.label };
+    }
+    return { ok: false, text: 'Unknown rule' };
+  }
+
+  function evaluate(list) {
+    var segs = segments(), carrier = carrierOf(list), out = [], i;
+    for (i = 0; i < S.drill.rules.length; i++) out.push(checkRule(S.drill.rules[i], list, carrier, segs));
+    return out;
+  }
+
+  var lastBanner = '';
+  function runDrill() {
+    var el = $('banner');
+    if (!el) return;
+    if (!S.drill.on || !S.drill.rules.length) {
+      if (lastBanner !== '') { el.className = 'banner'; el.textContent = ''; lastBanner = ''; }
+      return;
+    }
+    var res = evaluate(S.agents), i, failed = null, msg;
+    for (i = 0; i < res.length; i++) if (!res[i].ok) { failed = res[i]; break; }
+    msg = failed ? failed.text : 'Drill executed successfully';
+    if (msg === lastBanner) return;
+    lastBanner = msg;
+    el.textContent = msg;
+    el.className = 'banner ' + (failed ? 'no' : 'ok');
+    var out = $('drillResult');
+    if (out) {
+      out.innerHTML = res.map(function (r) {
+        return '<li class="' + (r.ok ? 'y' : 'n') + '">' + h(r.text) + '</li>';
+      }).join('') || '<li>Add a rule to start checking.</li>';
+    }
+  }
+
+  /* ---------------------------------------------------- interpolation -- */
+  function cr(p0, p1, p2, p3, u) {
+    var u2 = u * u, u3 = u2 * u;
+    return 0.5 * ((2 * p1) + (-p0 + p2) * u +
+      (2 * p0 - 5 * p1 + 4 * p2 - p3) * u2 +
+      (-p0 + 3 * p1 - 3 * p2 + p3) * u3);
+  }
+  function ease(u) { return u * u * (3 - 2 * u); }
+  function shortest(d) { return Math.atan2(Math.sin(d), Math.cos(d)); }
+
+  function poseAt(ag, t) {
+    var ks = [], i;
+    for (i = 0; i < S.keys.length; i++) if (S.keys[i].p[ag.id]) ks.push(S.keys[i]);
+    if (!ks.length) return { x: ag.x, y: ag.y, a: ag.a };
+    if (ks.length === 1 || t <= ks[0].t) {
+      return { x: ks[0].p[ag.id].x, y: ks[0].p[ag.id].y, a: ks[0].p[ag.id].a };
+    }
+    var last = ks[ks.length - 1];
+    if (t >= last.t) return { x: last.p[ag.id].x, y: last.p[ag.id].y, a: last.p[ag.id].a };
+    var i0 = 0;
+    while (i0 < ks.length - 2 && ks[i0 + 1].t <= t) i0++;
+    var p0 = ks[Math.max(0, i0 - 1)].p[ag.id],
+        p1 = ks[i0].p[ag.id],
+        p2 = ks[i0 + 1].p[ag.id],
+        p3 = ks[Math.min(ks.length - 1, i0 + 2)].p[ag.id];
+    var span = Math.max(1e-6, ks[i0 + 1].t - ks[i0].t);
+    var u = clamp((t - ks[i0].t) / span, 0, 1);
+    var x, y, e;
+    if (S.interp === 'spline') {
+      x = cr(p0.x, p1.x, p2.x, p3.x, u);
+      y = cr(p0.y, p1.y, p2.y, p3.y, u);
+    } else {
+      e = S.interp === 'ease' ? ease(u) : u;
+      x = p1.x + (p2.x - p1.x) * e;
+      y = p1.y + (p2.y - p1.y) * e;
+    }
+    var ea = S.interp === 'linear' ? u : ease(u);
+    var a = p1.a + shortest(p2.a - p1.a) * ea;
+    return {
+      x: clamp(x, -0.5, S.field.w + 0.5),
+      y: clamp(y, -0.5, S.field.h + 0.5),
+      a: a
+    };
+  }
+
+  function syncToTime() {
+    if (!S.keys.length) return;
+    for (var i = 0; i < S.agents.length; i++) {
+      var ag = S.agents[i], p = poseAt(ag, time);
+      ag.x = p.x; ag.y = p.y; ag.a = p.a;
+    }
+  }
+
+  /* Proximity guard: nudge guarded people away from their counterparts. */
+  function applyGuard(list) {
+    var moved = false, it, i, j, A, B, dx, dy, d, need, ux, uy, push, wa, wb;
+    for (it = 0; it < 4; it++) {
+      for (i = 0; i < list.length; i++) {
+        for (j = i + 1; j < list.length; j++) {
+          A = list[i]; B = list[j];
+          if (!A.guard && !B.guard) continue;
+          if (A.team === B.team) continue;
+          dx = B.x - A.x; dy = B.y - A.y; d = Math.hypot(dx, dy);
+          need = Math.max(A.guard ? A.gap : 0, B.guard ? B.gap : 0);
+          if (d >= need) continue;
+          if (d < 1e-4) { dx = 1; dy = 0; d = 1; }
+          ux = dx / d; uy = dy / d; push = need - d;
+          wa = A.guard ? (B.guard ? 0.5 : 1) : 0;
+          wb = B.guard ? (A.guard ? 0.5 : 1) : 0;
+          A.x -= ux * push * wa; A.y -= uy * push * wa;
+          B.x += ux * push * wb; B.y += uy * push * wb;
+          moved = true;
+        }
+      }
+    }
+    for (i = 0; i < list.length; i++) {
+      list[i].x = clamp(list[i].x, list[i].r, S.field.w - list[i].r);
+      list[i].y = clamp(list[i].y, list[i].r, S.field.h - list[i].r);
+    }
+    return moved;
+  }
+
+  /* --------------------------------------------------------- canvas ---- */
+  var base = $('base'), fx = $('fx');
+  var bx = base.getContext('2d'), fc = fx.getContext('2d');
+  var view = {
+    s: 1, ox: 0, oy: 0,            /* effective transform used by X/Y/Wd */
+    s0: 1, ox0: 0, oy0: 0,         /* fit-to-canvas base */
+    zoom: 1, px: 0, py: 0,         /* user zoom and pan, in screen pixels */
+    cw: 1, ch: 1, dpr: 1
+  };
+  var hatchPattern = null;
+
+  function X(x) { return view.ox + x * view.s; }
+  function Y(y) { return view.oy + y * view.s; }
+  function Wd(d) { return d * view.s; }
+  function toWorldX(px) { return (px - view.ox) / view.s; }
+  function toWorldY(py) { return (py - view.oy) / view.s; }
+
+
+  /* ------------------------------------------------ coverage heatmap ---
+     Sampled into an 80x50 offscreen buffer and stretched with smoothing,
+     so the cost is one small ImageData pass instead of thousands of paths.
+     Recomputed at most every 150 ms, and never inside the draw loop. */
+  var HEATW = 80, HEATH = 50;
+  var heatCv = null, heatCx = null, heatDirty = true, heatAt = 0, heatCells = null;
+
+  function heatColour(cov) {
+    if (cov <= 0) return [38, 84, 168, 66];    /* cool blue — nobody is watching */
+    if (cov === 1) return [58, 168, 122, 74];  /* green — one pair of eyes */
+    if (cov === 2) return [150, 200, 88, 86];  /* yellow-green — two */
+    return [242, 196, 86, 100];                /* warm yellow — crowded */
+  }
+
+  function insideBlock(x, y) {
+    for (var i = 0; i < S.blocks.length; i++) {
+      var b = S.blocks[i];
+      if (x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) return true;
+    }
+    return false;
+  }
+
+  function computeHeat() {
+    if (!heatCv) {
+      heatCv = document.createElement('canvas');
+      heatCv.width = HEATW; heatCv.height = HEATH;
+      heatCx = heatCv.getContext('2d');
+    }
+    var img = heatCx.createImageData(HEATW, HEATH);
+    var segs = segments(), F = S.field, i, k, row, cx, cy, cov, n, c;
+    heatCells = new Uint8Array(HEATW * HEATH);
+    for (row = 0; row < HEATH; row++) {
+      cy = ((row + 0.5) / HEATH) * F.h;
+      for (i = 0; i < HEATW; i++) {
+        cx = ((i + 0.5) / HEATW) * F.w;
+        n = (row * HEATW + i) * 4;
+        if (insideBlock(cx, cy)) { img.data[n + 3] = 0; continue; }
+        cov = 0;
+        for (k = 0; k < S.agents.length; k++) if (seesPoint(S.agents[k], cx, cy, segs)) cov++;
+        heatCells[row * HEATW + i] = cov;
+        c = heatColour(cov);
+        img.data[n] = c[0]; img.data[n + 1] = c[1]; img.data[n + 2] = c[2]; img.data[n + 3] = c[3];
+      }
+    }
+    heatCx.putImageData(img, 0, 0);
+    heatDirty = false;
+  }
+
+  function coverageAt(x, y) {
+    if (!heatCells) return 0;
+    var i = clamp(Math.floor(x / S.field.w * HEATW), 0, HEATW - 1);
+    var r = clamp(Math.floor(y / S.field.h * HEATH), 0, HEATH - 1);
+    return heatCells[r * HEATW + i];
+  }
+
+  function makeHatch() {
+    var c = document.createElement('canvas');
+    c.width = 9; c.height = 9;
+    var g = c.getContext('2d');
+    g.strokeStyle = 'rgba(255,107,122,.5)';
+    g.lineWidth = 1.5;
+    g.beginPath();
+    g.moveTo(-2, 11); g.lineTo(11, -2);
+    g.moveTo(2, 15); g.lineTo(15, 2);
+    g.stroke();
+    return c;
+  }
+
+  function applyView() {
+    view.s = view.s0 * view.zoom;
+    view.ox = view.ox0 * view.zoom + view.px;
+    view.oy = view.oy0 * view.zoom + view.py;
+    var btn = $('resetView');
+    if (btn) btn.hidden = (Math.abs(view.zoom - 1) < 0.005 && Math.abs(view.px) < 0.5 && Math.abs(view.py) < 0.5);
+    baseDirty = true; dirty = true; heatDirty = true;
+  }
+
+  function fit() {
+    var pad = Math.min(34, view.cw * 0.06);
+    var s = Math.min((view.cw - pad * 2) / S.field.w, (view.ch - pad * 2) / S.field.h);
+    view.s0 = s > 0 ? s : 1;
+    view.ox0 = (view.cw - S.field.w * view.s0) / 2;
+    view.oy0 = (view.ch - S.field.h * view.s0) / 2;
+    applyView();
+  }
+
+  /* zoom about a screen point, so whatever is under the finger stays put */
+  function zoomAt(sx, sy, factor) {
+    var wx = toWorldX(sx), wy = toWorldY(sy);
+    var next = clamp(view.zoom * factor, 0.5, 4);
+    if (Math.abs(next - view.zoom) < 1e-6) return;
+    view.zoom = next;
+    view.px = sx - wx * view.s0 * view.zoom - view.ox0 * view.zoom;
+    view.py = sy - wy * view.s0 * view.zoom - view.oy0 * view.zoom;
+    applyView();
+  }
+
+  function resetView() {
+    view.zoom = 1; view.px = 0; view.py = 0;
+    applyView();
+  }
+
+  function resize() {
+    var r = $('stagewrap').getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 3);
+    view.cw = Math.max(1, r.width); view.ch = Math.max(1, r.height); view.dpr = dpr;
+    [base, fx].forEach(function (c) {
+      c.width = Math.round(view.cw * dpr);
+      c.height = Math.round(view.ch * dpr);
+    });
+    bx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    fc.setTransform(dpr, 0, 0, dpr, 0, 0);
+    hatchPattern = fc.createPattern(makeHatch(), 'repeat');
+    fit(); baseDirty = true; dirty = true;
+  }
+
+  function drawBase() {
+    var F = S.field, i, gx, gy;
+    bx.clearRect(0, 0, view.cw, view.ch);
+
+    bx.fillStyle = '#0E1428';
+    bx.fillRect(X(0), Y(0), Wd(F.w), Wd(F.h));
+
+    /* coverage heatmap, under everything else */
+    if (S.opts.heat && heatCv) {
+      bx.save();
+      bx.globalCompositeOperation = 'lighter';
+      bx.imageSmoothingEnabled = true;
+      bx.drawImage(heatCv, X(0), Y(0), Wd(F.w), Wd(F.h));
+      bx.restore();
+    }
+
+    /* metre grid */
+    bx.lineWidth = 1;
+    for (gx = 0; gx <= F.w + 1e-6; gx += S.grid) {
+      bx.strokeStyle = (Math.abs(gx % (S.grid * 5)) < 1e-6) ? 'rgba(139,153,196,.20)' : 'rgba(139,153,196,.09)';
+      bx.beginPath(); bx.moveTo(Math.round(X(gx)) + .5, Y(0)); bx.lineTo(Math.round(X(gx)) + .5, Y(F.h)); bx.stroke();
+    }
+    for (gy = 0; gy <= F.h + 1e-6; gy += S.grid) {
+      bx.strokeStyle = (Math.abs(gy % (S.grid * 5)) < 1e-6) ? 'rgba(139,153,196,.20)' : 'rgba(139,153,196,.09)';
+      bx.beginPath(); bx.moveTo(X(0), Math.round(Y(gy)) + .5); bx.lineTo(X(F.w), Math.round(Y(gy)) + .5); bx.stroke();
+    }
+
+    /* markings that mean something for the chosen space */
+    bx.save();
+    bx.strokeStyle = 'rgba(232,226,212,.30)';
+    bx.lineWidth = 1.5;
+    var m = PRESETS[S.preset] ? PRESETS[S.preset].marks : 'stage';
+    if (m === 'stage') {
+      bx.setLineDash([8, 7]);
+      bx.beginPath(); bx.moveTo(X(0), Y(F.h - 1)); bx.lineTo(X(F.w), Y(F.h - 1)); bx.stroke();
+      bx.beginPath(); bx.moveTo(X(F.w / 2), Y(0)); bx.lineTo(X(F.w / 2), Y(F.h)); bx.stroke();
+      bx.setLineDash([]);
+      label('DOWNSTAGE', X(8), Y(F.h - 1) + 14);
+      label('CENTRE LINE', X(F.w / 2) + 8, Y(0) + 16);
+    } else if (m === 'pitch') {
+      bx.beginPath(); bx.moveTo(X(F.w / 2), Y(0)); bx.lineTo(X(F.w / 2), Y(F.h)); bx.stroke();
+      bx.beginPath(); bx.arc(X(F.w / 2), Y(F.h / 2), Wd(4.5), 0, TAU); bx.stroke();
+      bx.beginPath(); bx.rect(X(0), Y(F.h / 2 - 6), Wd(5), Wd(12)); bx.stroke();
+      bx.beginPath(); bx.rect(X(F.w - 5), Y(F.h / 2 - 6), Wd(5), Wd(12)); bx.stroke();
+    } else if (m === 'court') {
+      bx.setLineDash([7, 6]);
+      bx.beginPath(); bx.moveTo(X(F.w / 3), Y(0)); bx.lineTo(X(F.w / 3), Y(F.h)); bx.stroke();
+      bx.beginPath(); bx.moveTo(X(F.w * 2 / 3), Y(0)); bx.lineTo(X(F.w * 2 / 3), Y(F.h)); bx.stroke();
+      bx.setLineDash([]);
+      bx.beginPath(); bx.arc(X(F.w / 2), Y(F.h / 2), Wd(0.9), 0, TAU); bx.stroke();
+    } else {
+      bx.setLineDash([4, 8]);
+      bx.beginPath(); bx.moveTo(X(0), Y(1.2)); bx.lineTo(X(F.w), Y(1.2)); bx.stroke();
+      bx.setLineDash([]);
+      label('FRONT OF ROOM', X(0.4), Y(1.2) - 8);
+    }
+    bx.restore();
+
+    /* target zones */
+    for (i = 0; i < S.zones.length; i++) {
+      var z = S.zones[i];
+      bx.save();
+      bx.setLineDash([7, 6]);
+      bx.strokeStyle = 'rgba(242,162,74,.85)';
+      bx.fillStyle = 'rgba(242,162,74,.10)';
+      bx.lineWidth = 2;
+      bx.fillRect(X(z.x), Y(z.y), Wd(z.w), Wd(z.h));
+      bx.strokeRect(X(z.x), Y(z.y), Wd(z.w), Wd(z.h));
+      bx.setLineDash([]);
+      bx.fillStyle = 'rgba(242,162,74,.95)';
+      bx.font = '600 10px ui-monospace,Menlo,Consolas,monospace';
+      bx.fillText(z.label.toUpperCase(), X(z.x) + 6, Y(z.y) + 14);
+      bx.restore();
+    }
+
+    /* blocks that stop sight */
+    for (i = 0; i < S.blocks.length; i++) {
+      var b = S.blocks[i];
+      bx.fillStyle = 'rgba(42,51,88,.95)';
+      bx.strokeStyle = '#59659B';
+      bx.lineWidth = 1.5;
+      bx.beginPath();
+      roundRect(bx, X(b.x), Y(b.y), Wd(b.w), Wd(b.h), Math.min(6, Wd(Math.min(b.w, b.h)) / 4));
+      bx.fill(); bx.stroke();
+      if (S.opts.labels && b.label) {
+        bx.fillStyle = 'rgba(232,226,212,.7)';
+        bx.font = '600 11px ui-monospace,Menlo,Consolas,monospace';
+        bx.textAlign = 'center';
+        bx.fillText(b.label.toUpperCase(), X(b.x + b.w / 2), Y(b.y + b.h / 2) + 4);
+        bx.textAlign = 'left';
+      }
+    }
+
+    /* outline + scale bar */
+    bx.strokeStyle = 'rgba(232,226,212,.55)';
+    bx.lineWidth = 2;
+    bx.strokeRect(X(0), Y(0), Wd(F.w), Wd(F.h));
+
+    var unit = S.grid * (S.grid >= 5 ? 1 : 5);
+    var sx = X(0), sy = Y(F.h) + 18;
+    bx.strokeStyle = 'rgba(185,230,205,.75)';
+    bx.lineWidth = 2;
+    bx.beginPath();
+    bx.moveTo(sx, sy - 4); bx.lineTo(sx, sy + 4);
+    bx.moveTo(sx, sy); bx.lineTo(sx + Wd(unit), sy);
+    bx.moveTo(sx + Wd(unit), sy - 4); bx.lineTo(sx + Wd(unit), sy + 4);
+    bx.stroke();
+    label(unit + ' m', sx + Wd(unit) + 8, sy + 4);
+
+    function label(txt, px, py) {
+      bx.fillStyle = 'rgba(141,151,184,.9)';
+      bx.font = '10px ui-monospace,Menlo,Consolas,monospace';
+      bx.fillText(txt, px, py);
+    }
+    baseDirty = false;
+  }
+
+  function roundRect(c, x, y, w, h, r) {
+    r = Math.max(0, Math.min(r, Math.abs(w) / 2, Math.abs(h) / 2));
+    c.moveTo(x + r, y);
+    c.arcTo(x + w, y, x + w, y + h, r);
+    c.arcTo(x + w, y + h, x, y + h, r);
+    c.arcTo(x, y + h, x, y, r);
+    c.arcTo(x, y, x + w, y, r);
+    c.closePath();
+  }
+
+  var drag = null;       /* live drag state, also used to draw the marquee and ghosts */
+  var multiSel = [];     /* ids of everyone caught in a box selection */
+  var present = false;   /* presenter mode */
+
+  function inMulti(id) { return multiSel.indexOf(id) >= 0; }
+
+  /* everyone whose body overlaps the box, not just whose centre does */
+  function applyMarquee(x0, y0, x1, y1) {
+    var r = normRect(x0, y0, x1, y1), out = [], i, a, nx, ny;
+    for (i = 0; i < S.agents.length; i++) {
+      a = S.agents[i];
+      nx = clamp(a.x, r.x, r.x + r.w);
+      ny = clamp(a.y, r.y, r.y + r.h);
+      if (Math.hypot(a.x - nx, a.y - ny) <= a.r) out.push(a.id);
+    }
+    multiSel = out;
+    sel = out.length === 1 ? { type: 'agent', id: out[0] } : null;
+    renderInspector();
+    dirty = true;
+    return out;
+  }
+
+  function nudgeSelection(dx, dy) {
+    var ids = multiSel.length ? multiSel : (sel && sel.type === 'agent' ? [sel.id] : []);
+    var i, a;
+    for (i = 0; i < ids.length; i++) {
+      a = findAgent(ids[i]);
+      if (!a) continue;
+      a.x = clamp(a.x + dx, a.r, S.field.w - a.r);
+      a.y = clamp(a.y + dy, a.r, S.field.h - a.r);
+      autoKey(a);
+    }
+    dirty = true; heatDirty = true;
+    return ids.length;
+  }
+
+  /* the keyframes either side of the playhead, for onion skinning */
+  function neighbourKeys() {
+    var prev = null, next = null, i;
+    for (i = 0; i < S.keys.length; i++) {
+      if (S.keys[i].t < time - 0.02) prev = S.keys[i];
+      if (S.keys[i].t > time + 0.02 && !next) next = S.keys[i];
+    }
+    return { prev: prev, next: next };
+  }
+
+  function drawGhosts(key, col) {
+    if (!key) return;
+    var i, a, p, px, py, pr;
+    fc.save();
+    fc.globalAlpha = 0.3;
+    fc.setLineDash([2, 3]);
+    for (i = 0; i < S.agents.length; i++) {
+      a = S.agents[i];
+      p = key.p[a.id];
+      if (!p) continue;
+      px = X(p.x); py = Y(p.y); pr = Math.max(8, Wd(a.r));
+      fc.strokeStyle = col;
+      fc.lineWidth = 2;
+      fc.beginPath(); fc.arc(px, py, pr, 0, TAU); fc.stroke();
+      fc.beginPath();
+      fc.moveTo(px, py);
+      fc.lineTo(px + Math.cos(p.a) * (pr + Wd(0.5)), py + Math.sin(p.a) * (pr + Wd(0.5)));
+      fc.stroke();
+    }
+    fc.setLineDash([]);
+    fc.restore();
+  }
+
+
+  function drawFx() {
+    var segs = segments(), i, j, a, p;
+    fc.clearRect(0, 0, view.cw, view.ch);
+
+    /* onion skin: where everybody was, and where they are going next */
+    if (S.opts.onion && S.keys.length > 1) {
+      var nb = neighbourKeys();
+      drawGhosts(nb.prev, '#8FA6D8');
+      drawGhosts(nb.next, '#F2A24A');
+    }
+
+    /* movement paths, so the shape of the choreography is visible at rest */
+    if (S.keys.length > 1) {
+      for (i = 0; i < S.agents.length; i++) {
+        a = S.agents[i];
+        var has = false;
+        for (j = 0; j < S.keys.length; j++) if (S.keys[j].p[a.id]) { has = true; break; }
+        if (!has) continue;
+        fc.strokeStyle = TEAM[a.team].fill;
+        fc.globalAlpha = (sel && sel.id === a.id) ? 0.75 : 0.28;
+        fc.lineWidth = (sel && sel.id === a.id) ? 2 : 1.4;
+        fc.setLineDash([5, 5]);
+        fc.beginPath();
+        for (j = 0; j <= 60; j++) {
+          p = poseAt(a, (j / 60) * S.duration);
+          if (j === 0) fc.moveTo(X(p.x), Y(p.y)); else fc.lineTo(X(p.x), Y(p.y));
+        }
+        fc.stroke();
+        fc.setLineDash([]);
+        fc.globalAlpha = 1;
+      }
+    }
+
+    /* sightline cones */
+    for (i = 0; i < S.agents.length; i++) {
+      a = S.agents[i];
+      var focus = !sel || sel.id === a.id;
+      var circles = circlesExcept(a.id);
+      if (S.opts.shadows) {
+        var full = conePoints(a.x, a.y, a.a, a.fov, a.range);
+        fc.save();
+        fc.globalAlpha = focus ? 0.9 : 0.4;
+        fc.beginPath();
+        fc.moveTo(X(a.x), Y(a.y));
+        for (j = 0; j < full.length; j++) fc.lineTo(X(full[j][0]), Y(full[j][1]));
+        fc.closePath();
+        fc.fillStyle = hatchPattern || 'rgba(255,107,122,.18)';
+        fc.fill();
+        fc.restore();
+      }
+      var fan = castFan(a.x, a.y, a.a, a.fov, a.range, segs, circles);
+      fc.save();
+      fc.globalAlpha = focus ? 0.9 : 0.42;
+      fc.beginPath();
+      fc.moveTo(X(a.x), Y(a.y));
+      for (j = 0; j < fan.length; j++) fc.lineTo(X(fan[j][0]), Y(fan[j][1]));
+      fc.closePath();
+      fc.fillStyle = 'rgba(185,230,205,.26)';
+      fc.fill();
+      fc.strokeStyle = 'rgba(185,230,205,.55)';
+      fc.lineWidth = 1.2;
+      fc.stroke();
+      fc.restore();
+    }
+
+    /* blocks are redrawn above the shading so they stay readable */
+    for (i = 0; i < S.blocks.length; i++) {
+      var bb = S.blocks[i];
+      fc.fillStyle = 'rgba(42,51,88,.98)';
+      fc.strokeStyle = '#59659B';
+      fc.lineWidth = 1.5;
+      fc.beginPath();
+      roundRect(fc, X(bb.x), Y(bb.y), Wd(bb.w), Wd(bb.h), Math.min(6, Wd(Math.min(bb.w, bb.h)) / 4));
+      fc.fill(); fc.stroke();
+      if (S.opts.labels && bb.label) {
+        fc.fillStyle = 'rgba(232,226,212,.75)';
+        fc.font = '600 11px ui-monospace,Menlo,Consolas,monospace';
+        fc.textAlign = 'center';
+        fc.fillText(bb.label.toUpperCase(), X(bb.x + bb.w / 2), Y(bb.y + bb.h / 2) + 4);
+        fc.textAlign = 'left';
+      }
+    }
+
+    /* who can actually see whom */
+    for (i = 0; i < S.agents.length; i++) {
+      a = S.agents[i];
+      var cs = circlesExcept(a.id);
+      for (j = 0; j < S.agents.length; j++) {
+        if (i === j) continue;
+        var b2 = S.agents[j];
+        if (!canSee(a, b2, segs, cs)) continue;
+        fc.strokeStyle = 'rgba(185,230,205,.9)';
+        fc.globalAlpha = (!sel || sel.id === a.id || sel.id === b2.id) ? 1 : 0.3;
+        fc.lineWidth = 1.6;
+        fc.setLineDash([2, 4]);
+        fc.beginPath(); fc.moveTo(X(a.x), Y(a.y)); fc.lineTo(X(b2.x), Y(b2.y)); fc.stroke();
+        fc.setLineDash([]);
+        fc.globalAlpha = 1;
+      }
+    }
+
+    /* defensive pressure and passing lanes */
+    var carrier = carrierOf(S.agents);
+    var defs = defendersOf(S.agents, carrier);
+    if (S.opts.pressure) {
+      for (i = 0; i < defs.length; i++) {
+        var dfn = defs[i];
+        var inner = Math.max(2, Wd((dfn.reach || 1) + dfn.r));
+        var outer = Math.max(inner + 2, Wd(pressureRadius(dfn)));
+        var g = fc.createRadialGradient(X(dfn.x), Y(dfn.y), inner, X(dfn.x), Y(dfn.y), outer);
+        g.addColorStop(0, 'rgba(255,107,122,.30)');
+        g.addColorStop(1, 'rgba(255,107,122,0)');
+        fc.fillStyle = g;
+        fc.beginPath(); fc.arc(X(dfn.x), Y(dfn.y), outer, 0, TAU); fc.fill();
+        fc.strokeStyle = 'rgba(255,107,122,.5)';
+        fc.lineWidth = 1;
+        fc.setLineDash([2, 4]);
+        fc.beginPath(); fc.arc(X(dfn.x), Y(dfn.y), inner, 0, TAU); fc.stroke();
+        fc.setLineDash([]);
+      }
+    }
+
+    if (carrier && S.opts.lanes) {
+      var opts = passOptions(S.agents, carrier, segs);
+      for (i = 0; i < opts.length; i++) {
+        var rec = opts[i].rec, res = opts[i].res;
+        var x1 = X(carrier.x), y1 = Y(carrier.y), x2 = X(rec.x), y2 = Y(rec.y);
+        if (res.state === 'open') {
+          fc.strokeStyle = 'rgba(93,214,150,.95)';
+          fc.lineWidth = 3;
+          fc.setLineDash([]);
+          fc.beginPath(); fc.moveTo(x1, y1); fc.lineTo(x2, y2); fc.stroke();
+          fc.strokeStyle = 'rgba(255,255,255,.85)';
+          fc.lineWidth = 2;
+          fc.setLineDash([9, 11]);
+          fc.lineDashOffset = -flow;
+          fc.beginPath(); fc.moveTo(x1, y1); fc.lineTo(x2, y2); fc.stroke();
+          fc.lineDashOffset = 0;
+          fc.setLineDash([]);
+          arrowHead(x1, y1, x2, y2, Math.max(9, Wd(rec.r) + 6), 'rgba(93,214,150,.95)');
+        } else {
+          var col = res.state === 'blocked' ? 'rgba(255,80,96,.95)' : 'rgba(255,140,90,.95)';
+          fc.strokeStyle = col;
+          fc.lineWidth = 2.4;
+          fc.setLineDash(res.state === 'blocked' ? [4, 5] : [9, 6]);
+          fc.beginPath(); fc.moveTo(x1, y1); fc.lineTo(x2, y2); fc.stroke();
+          fc.setLineDash([]);
+          if (res.at) {
+            var mx = X(res.at[0]), my = Y(res.at[1]);
+            fc.strokeStyle = col;
+            fc.lineWidth = 3;
+            fc.beginPath();
+            fc.moveTo(mx - 7, my - 7); fc.lineTo(mx + 7, my + 7);
+            fc.moveTo(mx + 7, my - 7); fc.lineTo(mx - 7, my + 7);
+            fc.stroke();
+            if (S.opts.labels && res.by) {
+              fc.font = '700 10px ui-monospace,Menlo,Consolas,monospace';
+              fc.fillStyle = col;
+              fc.textAlign = 'center';
+              fc.fillText(res.by.toUpperCase(), mx, my - 12);
+              fc.textAlign = 'left';
+            }
+          }
+        }
+      }
+      /* how long the carrier has before somebody arrives */
+      var press = pressureOn(S.agents, carrier, segs);
+      if (press) {
+        var band = press.t < 1 ? '#FF6B7A' : (press.t < 2 ? '#F2A24A' : '#B9E6CD');
+        fc.strokeStyle = band;
+        fc.lineWidth = 2;
+        fc.setLineDash([3, 4]);
+        fc.beginPath(); fc.arc(X(carrier.x), Y(carrier.y), Math.max(14, Wd(carrier.r) + 10), 0, TAU); fc.stroke();
+        fc.setLineDash([]);
+        if (S.opts.labels) {
+          fc.font = '700 11px ui-monospace,Menlo,Consolas,monospace';
+          fc.fillStyle = band;
+          fc.textAlign = 'center';
+          fc.fillText(press.by + ' in ' + press.t.toFixed(1) + 's', X(carrier.x), Y(carrier.y) + Math.max(26, Wd(carrier.r) + 24));
+          fc.textAlign = 'left';
+        }
+      }
+    }
+
+    for (i = 0; i < S.agents.length; i++) {
+      a = S.agents[i];
+      var px = X(a.x), py = Y(a.y), pr = Math.max(9, Wd(a.r));
+      var selected = sel && sel.type === 'agent' && sel.id === a.id;
+
+      if (a.guard) {
+        fc.strokeStyle = 'rgba(242,162,74,.55)';
+        fc.setLineDash([3, 5]);
+        fc.lineWidth = 1.2;
+        fc.beginPath(); fc.arc(px, py, Wd(a.gap), 0, TAU); fc.stroke();
+        fc.setLineDash([]);
+      }
+
+      fc.beginPath(); fc.arc(px, py, pr, 0, TAU);
+      fc.fillStyle = (S.ball === a.id) ? '#2A2410' : '#101733';
+      fc.fill();
+      if (S.ball === a.id) {
+        fc.beginPath(); fc.arc(px, py, pr + 5, 0, TAU);
+        fc.strokeStyle = '#F2A24A'; fc.lineWidth = 2; fc.stroke();
+        fc.beginPath(); fc.arc(px, py, Math.max(3, pr * 0.34), 0, TAU);
+        fc.fillStyle = '#F2A24A'; fc.fill();
+      }
+      fc.lineWidth = selected ? 3.5 : 2.5;
+      fc.strokeStyle = selected ? '#F2A24A' : TEAM[a.team].fill;
+      fc.stroke();
+
+      if (inMulti(a.id)) {
+        fc.setLineDash([4, 4]);
+        fc.strokeStyle = '#F2A24A';
+        fc.lineWidth = 2;
+        fc.beginPath(); fc.arc(px, py, pr + 7, 0, TAU); fc.stroke();
+        fc.setLineDash([]);
+      }
+
+      /* heading arrow */
+      var hx = px + Math.cos(a.a) * (pr + Wd(0.55)), hy = py + Math.sin(a.a) * (pr + Wd(0.55));
+      fc.strokeStyle = TEAM[a.team].fill;
+      fc.lineWidth = 2.5;
+      fc.beginPath();
+      fc.moveTo(px + Math.cos(a.a) * pr * 0.6, py + Math.sin(a.a) * pr * 0.6);
+      fc.lineTo(hx, hy);
+      fc.stroke();
+      fc.beginPath();
+      fc.arc(hx, hy, selected ? 7 : 4.5, 0, TAU);
+      fc.fillStyle = selected ? '#F2A24A' : TEAM[a.team].fill;
+      fc.fill();
+
+      if (S.opts.labels) {
+        fc.font = '700 12px ui-monospace,Menlo,Consolas,monospace';
+        fc.textAlign = 'center';
+        fc.fillStyle = '#0B0F1E';
+        fc.lineWidth = 3.5;
+        fc.strokeStyle = 'rgba(11,15,30,.85)';
+        fc.strokeText(a.name, px, py - pr - 7);
+        fc.fillStyle = TEAM[a.team].fill;
+        fc.fillText(a.name, px, py - pr - 7);
+        fc.textAlign = 'left';
+      }
+    }
+
+    /* selected block outline + resize grip */
+    if (sel && sel.type === 'block') {
+      var bl = findBlock(sel.id);
+      if (bl) {
+        fc.strokeStyle = '#F2A24A';
+        fc.lineWidth = 2.5;
+        fc.strokeRect(X(bl.x), Y(bl.y), Wd(bl.w), Wd(bl.h));
+        fc.fillStyle = '#F2A24A';
+        fc.fillRect(X(bl.x + bl.w) - 7, Y(bl.y + bl.h) - 7, 14, 14);
+      }
+    }
+
+    /* box selection */
+    if (drag && drag.mode === 'marquee') {
+      var mr = normRect(drag.x0, drag.y0, drag.x1, drag.y1);
+      fc.fillStyle = 'rgba(242,162,74,.10)';
+      fc.fillRect(X(mr.x), Y(mr.y), Wd(mr.w), Wd(mr.h));
+      fc.setLineDash([6, 4]);
+      fc.strokeStyle = '#F2A24A';
+      fc.lineWidth = 1.5;
+      fc.strokeRect(X(mr.x), Y(mr.y), Wd(mr.w), Wd(mr.h));
+      fc.setLineDash([]);
+    }
+
+    /* ghost while drawing a new block or zone */
+    if (drag && (drag.mode === 'newblock' || drag.mode === 'newzone')) {
+      var r = normRect(drag.x0, drag.y0, drag.x1, drag.y1);
+      fc.setLineDash([6, 5]);
+      fc.strokeStyle = drag.mode === 'newzone' ? '#B9E6CD' : '#F2A24A';
+      fc.lineWidth = 2;
+      fc.strokeRect(X(r.x), Y(r.y), Wd(r.w), Wd(r.h));
+      fc.setLineDash([]);
+    }
+    runDrill();
+    dirty = false;
+  }
+
+  function arrowHead(x1, y1, x2, y2, back, col) {
+    var ang = Math.atan2(y2 - y1, x2 - x1);
+    var tipX = x2 - Math.cos(ang) * back, tipY = y2 - Math.sin(ang) * back;
+    fc.fillStyle = col;
+    fc.beginPath();
+    fc.moveTo(tipX, tipY);
+    fc.lineTo(tipX - Math.cos(ang - 0.45) * 13, tipY - Math.sin(ang - 0.45) * 13);
+    fc.lineTo(tipX - Math.cos(ang + 0.45) * 13, tipY - Math.sin(ang + 0.45) * 13);
+    fc.closePath();
+    fc.fill();
+  }
+
+  function normRect(x0, y0, x1, y1) {
+    return { x: Math.min(x0, x1), y: Math.min(y0, y1), w: Math.abs(x1 - x0), h: Math.abs(y1 - y0) };
+  }
+  function findAgent(id) { for (var i = 0; i < S.agents.length; i++) if (S.agents[i].id === id) return S.agents[i]; return null; }
+  function findBlock(id) { for (var i = 0; i < S.blocks.length; i++) if (S.blocks[i].id === id) return S.blocks[i]; return null; }
+  function findZone(id) { for (var i = 0; i < S.zones.length; i++) if (S.zones[i].id === id) return S.zones[i]; return null; }
+
+  /* ------------------------------------------------------ keyframes ---- */
+  function ensureKeyAt(t) {
+    t = Math.round(t * 100) / 100;
+    for (var i = 0; i < S.keys.length; i++) if (Math.abs(S.keys[i].t - t) < 0.03) return S.keys[i];
+    var k = { t: t, p: {} };
+    for (i = 0; i < S.agents.length; i++) {
+      var a = S.agents[i];
+      k.p[a.id] = { x: a.x, y: a.y, a: a.a };
+    }
+    S.keys.push(k);
+    S.keys.sort(function (m, n) { return m.t - n.t; });
+    renderKeys();
+    return k;
+  }
+
+  function captureKey() {
+    var k = ensureKeyAt(time);
+    for (var i = 0; i < S.agents.length; i++) {
+      var a = S.agents[i];
+      k.p[a.id] = { x: a.x, y: a.y, a: a.a };
+    }
+    renderKeys(); save(); dirty = true;
+    toast('Keyframe saved at ' + k.t.toFixed(1) + 's');
+  }
+
+  function autoKey(agent) {
+    if (!S.keys.length) return;      /* laying out, not choreographing yet */
+    var k = ensureKeyAt(time);
+    k.p[agent.id] = { x: agent.x, y: agent.y, a: agent.a };
+  }
+
+  function deleteKeyAt(t) {
+    for (var i = 0; i < S.keys.length; i++) {
+      if (Math.abs(S.keys[i].t - t) < 0.15) {
+        S.keys.splice(i, 1);
+        renderKeys(); save(); dirty = true;
+        toast('Keyframe deleted');
+        return true;
+      }
+    }
+    toast('No keyframe at the playhead');
+    return false;
+  }
+
+  /* -------------------------------------------------------- pointer ---- */
+  function localPt(e) {
+    var r = fx.getBoundingClientRect();
+    return { px: e.clientX - r.left, py: e.clientY - r.top };
+  }
+  function snap(v) { return S.opts.snap ? Math.round(v / S.grid) * S.grid : v; }
+
+  var ptrs = {}, ptrCount = 0, gesture = null, panKey = false, panUsed = false;
+
+  function ptrMid() {
+    var ids = Object.keys(ptrs), a = ptrs[ids[0]], b = ptrs[ids[1]];
+    return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2, d: Math.hypot(a.x - b.x, a.y - b.y) };
+  }
+
+  fx.addEventListener('wheel', function (e) {
+    e.preventDefault();
+    var l = localPt(e);
+    zoomAt(l.px, l.py, Math.exp(-e.deltaY * 0.0015));
+  }, { passive: false });
+
+  fx.addEventListener('pointerdown', function (e) {
+    var l0 = localPt(e);
+    ptrs[e.pointerId] = { x: l0.px, y: l0.py };
+    ptrCount = Object.keys(ptrs).length;
+    if (ptrCount === 2) {                        /* pinch beats any drag in progress */
+      drag = null;
+      gesture = ptrMid();
+      return;
+    }
+    if (playing) setPlaying(false);
+    var l = localPt(e), wx = toWorldX(l.px), wy = toWorldY(l.py);
+    fx.setPointerCapture(e.pointerId);
+
+    if (e.button === 1 || panKey) {              /* middle-drag or space-drag pans */
+      drag = { mode: 'pan', sx: l.px, sy: l.py, px: view.px, py: view.py };
+      e.preventDefault();
+      return;
+    }
+
+    if (tool === 'A' || tool === 'B') {
+      var ag = mkAgent(tool, clamp(snap(wx), 0.4, S.field.w - 0.4), clamp(snap(wy), 0.4, S.field.h - 0.4));
+      S.agents.push(ag);
+      if (S.keys.length) for (var i = 0; i < S.keys.length; i++) S.keys[i].p[ag.id] = { x: ag.x, y: ag.y, a: ag.a };
+      sel = { type: 'agent', id: ag.id };
+      if (!S.ball && ag.team === 'A') S.ball = ag.id;
+      renderInspector(); renderDrill(); refreshStats(); save(); commit();
+      dirty = true; heatDirty = true;
+      return;
+    }
+    if (tool === 'block' || tool === 'zone') {
+      drag = { mode: tool === 'zone' ? 'newzone' : 'newblock', x0: wx, y0: wy, x1: wx, y1: wy };
+      dirty = true;
+      return;
+    }
+
+    /* select tool: rotation handle → person → block grip → block */
+    var hitTol = 14 / view.s;
+    var a2, pr, hx, hy;
+    if (sel && sel.type === 'agent') {
+      a2 = findAgent(sel.id);
+      if (a2) {
+        pr = Math.max(9 / view.s, a2.r);
+        hx = a2.x + Math.cos(a2.a) * (pr + 0.55);
+        hy = a2.y + Math.sin(a2.a) * (pr + 0.55);
+        if (Math.hypot(wx - hx, wy - hy) < hitTol) {
+          drag = { mode: 'rotate', id: a2.id };
+          return;
+        }
+      }
+    }
+    var best = null, bestD = Infinity;
+    for (var k = 0; k < S.agents.length; k++) {
+      var ag2 = S.agents[k], d = Math.hypot(wx - ag2.x, wy - ag2.y);
+      if (d < Math.max(ag2.r, hitTol) && d < bestD) { best = ag2; bestD = d; }
+    }
+    if (best) {
+      if (inMulti(best.id) && multiSel.length > 1) {
+        var offs = [], q, ga;
+        for (q = 0; q < multiSel.length; q++) {
+          ga = findAgent(multiSel[q]);
+          if (ga) offs.push({ id: ga.id, dx: ga.x - wx, dy: ga.y - wy });
+        }
+        drag = { mode: 'movegroup', offs: offs };
+        dirty = true;
+        return;
+      }
+      multiSel = [];
+      sel = { type: 'agent', id: best.id };
+      drag = { mode: 'move', id: best.id, dx: best.x - wx, dy: best.y - wy };
+      renderInspector(); dirty = true;
+      return;
+    }
+    if (sel && sel.type === 'block') {
+      var bl = findBlock(sel.id);
+      if (bl && Math.abs(wx - (bl.x + bl.w)) < hitTol && Math.abs(wy - (bl.y + bl.h)) < hitTol) {
+        drag = { mode: 'resize', id: bl.id };
+        return;
+      }
+    }
+    for (var n2 = S.zones.length - 1; n2 >= 0; n2--) {
+      var z2 = S.zones[n2];
+      if (wx >= z2.x && wx <= z2.x + z2.w && wy >= z2.y && wy <= z2.y + z2.h) {
+        sel = { type: 'zone', id: z2.id };
+        drag = { mode: 'movezone', id: z2.id, dx: z2.x - wx, dy: z2.y - wy };
+        renderInspector(); dirty = true;
+        return;
+      }
+    }
+    for (var m = S.blocks.length - 1; m >= 0; m--) {
+      var b3 = S.blocks[m];
+      if (wx >= b3.x && wx <= b3.x + b3.w && wy >= b3.y && wy <= b3.y + b3.h) {
+        sel = { type: 'block', id: b3.id };
+        drag = { mode: 'moveblock', id: b3.id, dx: b3.x - wx, dy: b3.y - wy };
+        renderInspector(); dirty = true;
+        return;
+      }
+    }
+    /* nothing under the pointer: start a box selection */
+    sel = null; multiSel = [];
+    drag = { mode: 'marquee', x0: wx, y0: wy, x1: wx, y1: wy };
+    renderInspector(); dirty = true;
+  });
+
+  fx.addEventListener('pointermove', function (e) {
+    var lp = localPt(e);
+    if (ptrs[e.pointerId]) { ptrs[e.pointerId].x = lp.px; ptrs[e.pointerId].y = lp.py; }
+    if (gesture && Object.keys(ptrs).length >= 2) {
+      var now = ptrMid();
+      if (gesture.d > 4) zoomAt(now.x, now.y, now.d / gesture.d);
+      view.px += now.x - gesture.x;
+      view.py += now.y - gesture.y;
+      applyView();
+      gesture = now;
+      return;
+    }
+    if (!drag) return;
+    if (drag.mode === 'pan') {
+      view.px = drag.px + (lp.px - drag.sx);
+      view.py = drag.py + (lp.py - drag.sy);
+      panUsed = true;
+      applyView();
+      return;
+    }
+    var l = localPt(e), wx = toWorldX(l.px), wy = toWorldY(l.py);
+    if (drag.mode === 'marquee') { drag.x1 = wx; drag.y1 = wy; dirty = true; return; }
+    if (drag.mode === 'movegroup') {
+      var gi, gag;
+      for (gi = 0; gi < drag.offs.length; gi++) {
+        gag = findAgent(drag.offs[gi].id);
+        if (!gag) continue;
+        gag.x = clamp(snap(wx + drag.offs[gi].dx), gag.r, S.field.w - gag.r);
+        gag.y = clamp(snap(wy + drag.offs[gi].dy), gag.r, S.field.h - gag.r);
+        autoKey(gag);
+      }
+      dirty = true; heatDirty = true;
+      return;
+    }
+    if (drag.mode === 'newblock') { drag.x1 = wx; drag.y1 = wy; dirty = true; return; }
+    if (drag.mode === 'move') {
+      var a = findAgent(drag.id); if (!a) return;
+      a.x = clamp(snap(wx + drag.dx), a.r, S.field.w - a.r);
+      a.y = clamp(snap(wy + drag.dy), a.r, S.field.h - a.r);
+      autoKey(a); dirty = true; heatDirty = true; return;
+    }
+    if (drag.mode === 'rotate') {
+      var a2 = findAgent(drag.id); if (!a2) return;
+      a2.a = Math.atan2(wy - a2.y, wx - a2.x);
+      autoKey(a2); dirty = true; return;
+    }
+    if (drag.mode === 'moveblock') {
+      var b = findBlock(drag.id); if (!b) return;
+      b.x = clamp(snap(wx + drag.dx), 0, S.field.w - b.w);
+      b.y = clamp(snap(wy + drag.dy), 0, S.field.h - b.h);
+      baseDirty = true; dirty = true; return;
+    }
+    if (drag.mode === 'movezone') {
+      var z3 = findZone(drag.id); if (!z3) return;
+      z3.x = clamp(snap(wx + drag.dx), 0, S.field.w - z3.w);
+      z3.y = clamp(snap(wy + drag.dy), 0, S.field.h - z3.h);
+      baseDirty = true; dirty = true; return;
+    }
+    if (drag.mode === 'resize') {
+      var b2 = findBlock(drag.id); if (!b2) return;
+      b2.w = clamp(snap(wx) - b2.x, 0.3, S.field.w - b2.x);
+      b2.h = clamp(snap(wy) - b2.y, 0.3, S.field.h - b2.y);
+      baseDirty = true; dirty = true; renderInspector(); return;
+    }
+  });
+
+  function endDrag(e) {
+    if (e && ptrs[e.pointerId]) { delete ptrs[e.pointerId]; }
+    ptrCount = Object.keys(ptrs).length;
+    if (ptrCount < 2) gesture = null;
+    if (drag && drag.mode === 'pan') { drag = null; commit(); return; }
+    if (drag && drag.mode === 'marquee') {
+      var got = applyMarquee(drag.x0, drag.y0, drag.x1, drag.y1);
+      drag = null; dirty = true;
+      if (got.length > 1) toast(got.length + ' selected — drag any one to move them together');
+      return;
+    }
+    if (drag && drag.mode === 'newzone') {
+      var rz = normRect(drag.x0, drag.y0, drag.x1, drag.y1);
+      if (rz.w > 0.4 && rz.h > 0.4) {
+        var z = {
+          id: nid('z'),
+          x: clamp(snap(rz.x), 0, S.field.w), y: clamp(snap(rz.y), 0, S.field.h),
+          w: Math.min(snap(rz.w) || rz.w, S.field.w), h: Math.min(snap(rz.h) || rz.h, S.field.h),
+          label: 'Target zone'
+        };
+        S.zones.push(z);
+        sel = { type: 'zone', id: z.id };
+        setTool('select');
+        renderInspector(); renderDrill(); baseDirty = true;
+      }
+    }
+    if (drag && drag.mode === 'newblock') {
+      var r = normRect(drag.x0, drag.y0, drag.x1, drag.y1);
+      if (r.w > 0.25 && r.h > 0.25) {
+        var b = {
+          id: nid('b'),
+          x: clamp(snap(r.x), 0, S.field.w), y: clamp(snap(r.y), 0, S.field.h),
+          w: Math.min(snap(r.w) || r.w, S.field.w), h: Math.min(snap(r.h) || r.h, S.field.h),
+          label: 'Block'
+        };
+        S.blocks.push(b);
+        sel = { type: 'block', id: b.id };
+        setTool('select');
+        renderInspector(); baseDirty = true;
+      }
+    }
+    if (drag) { save(); refreshStats(); heatDirty = true; }
+    drag = null; dirty = true; runDrill(); commit();
+  }
+  fx.addEventListener('pointerup', endDrag);
+  fx.addEventListener('pointercancel', endDrag);
+  /* a second pinch finger is never captured, so mop it up if it lifts elsewhere */
+  window.addEventListener('pointerup', function (e) {
+    if (ptrs[e.pointerId]) { delete ptrs[e.pointerId]; }
+    if (Object.keys(ptrs).length < 2) gesture = null;
+  });
+
+  /* ------------------------------------------------------ inspector ---- */
+  function h(str) { return String(str).replace(/[&<>"']/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]; }); }
+
+  function settingsHTML() {
+    var o = S.opts;
+    return '<div class="sect"><h3>How the plot behaves</h3>' +
+      sw('optShadows', 'Shade what is hidden', o.shadows) +
+      sw('optBlock', 'People block each other&rsquo;s view', o.blockAgents) +
+      sw('optLabels', 'Show names', o.labels) +
+      sw('optSnap', 'Snap to the grid', o.snap) +
+      sw('optOnion', 'Onion skin (before / after)', o.onion) +
+      sw('optHeat', 'Coverage heatmap', o.heat) +
+      sw('optLanes', 'Show passing lanes', o.lanes) +
+      sw('optPressure', 'Show defensive pressure', o.pressure) +
+      '<div class="row"><label for="ballSpeed">Pass speed</label>' +
+      '<input type="number" id="ballSpeed" min="2" max="30" step="0.5" value="' + S.ballSpeed + '"><span class="val">m/s</span></div>' +
+      '<div class="row"><label for="horizon">Pressure look-ahead</label>' +
+      '<input type="number" id="horizon" min="0.3" max="5" step="0.1" value="' + S.horizon + '"><span class="val">s</span></div>' +
+      '<div class="row"><label for="gridSize">Grid</label>' +
+      '<input type="number" id="gridSize" min="0.25" max="10" step="0.25" value="' + S.grid + '"><span class="val">m</span></div>' +
+      '</div>';
+  }
+  function sw(id, txt, on) {
+    return '<label class="switch"><input type="checkbox" id="' + id + '"' + (on ? ' checked' : '') + '>' + txt + '</label>';
+  }
+  function rng(id, label, min, max, step, val, unit) {
+    return '<div class="row"><label for="' + id + '">' + label + '</label>' +
+      '<input type="range" id="' + id + '" min="' + min + '" max="' + max + '" step="' + step + '" value="' + val + '">' +
+      '<span class="val" id="' + id + 'V">' + val + unit + '</span></div>';
+  }
+
+  function renderInspector() {
+    var body = $('inspBody'), t = $('inspTitle'), html;
+    if (sel && sel.type === 'agent') {
+      var a = findAgent(sel.id);
+      if (!a) { sel = null; return renderInspector(); }
+      t.textContent = 'Person · ' + a.name;
+      html = '<div class="sect"><h3>Who</h3>' +
+        '<div class="row"><label for="agName">Name</label><input type="text" id="agName" value="' + h(a.name) + '" maxlength="12"></div>' +
+        '<div class="chips" role="group" aria-label="Group">' +
+        ['A', 'B', 'N'].map(function (k) {
+          return '<button class="chip" data-team="' + k + '" aria-pressed="' + (a.team === k ? 'true' : 'false') + '">' + TEAM[k].label + '</button>';
+        }).join('') + '</div></div>' +
+        '<div class="sect"><h3>What they can see</h3>' +
+        rng('agFov', 'View angle', 20, 360, 5, a.fov, '°') +
+        rng('agRange', 'View distance', 1, Math.round(Math.max(S.field.w, S.field.h)), 0.5, a.range, ' m') +
+        rng('agSize', 'Body size', 0.2, 1.2, 0.05, a.r, ' m') +
+        '</div>' +
+        '<div class="sect"><h3>Defending</h3>' +
+        rng('agClose', 'Closing speed', 1, 10, 0.1, a.closingSpeed, ' m/s') +
+        rng('agReach', 'Reach', 0.3, 4, 0.1, a.reach, ' m') +
+        '<p class="empty">Closing speed drives the pressure ring and decides which passes get cut out. Defenders lose ' + REACTION.toFixed(1) + 's reacting to a lane they cannot see.</p></div>' +
+        '<div class="sect"><h3>Keep space</h3>' +
+        sw('agGuard', 'Move away from the other group', a.guard) +
+        rng('agGap', 'Least gap', 0.4, 6, 0.1, a.gap, ' m') +
+        '<p class="empty">Only nudges during playback, and only away from the other group.</p></div>' +
+        '<div class="sect"><h3>Actions</h3><div class="chips">' +
+        '<button class="chip" id="agBall" aria-pressed="' + (S.ball === a.id ? 'true' : 'false') + '">' +
+        (S.ball === a.id ? 'Has the ball' : 'Give the ball') + '</button>' +
+        '<button class="chip" id="agFace">Face the centre</button>' +
+        '<button class="chip" id="agCopy">Duplicate</button>' +
+        '<button class="chip" id="agDel">Remove</button></div></div>' +
+        settingsHTML();
+    } else if (sel && sel.type === 'block') {
+      var b = findBlock(sel.id);
+      if (!b) { sel = null; return renderInspector(); }
+      t.textContent = 'Block';
+      html = '<div class="sect"><h3>Block</h3>' +
+        '<div class="row"><label for="blLabel">Label</label><input type="text" id="blLabel" value="' + h(b.label) + '" maxlength="16"></div>' +
+        '<div class="row"><label for="blW">Width</label><input type="number" id="blW" min="0.3" step="0.1" value="' + round1(b.w) + '"><span class="val">m</span></div>' +
+        '<div class="row"><label for="blH">Depth</label><input type="number" id="blH" min="0.3" step="0.1" value="' + round1(b.h) + '"><span class="val">m</span></div>' +
+        '<div class="chips"><button class="chip" id="blDel">Remove block</button></div>' +
+        '<p class="empty">Drag the amber corner on the plot to resize.</p></div>' +
+        settingsHTML();
+    } else if (sel && sel.type === 'zone') {
+      var z = findZone(sel.id);
+      if (!z) { sel = null; return renderInspector(); }
+      t.textContent = 'Target zone';
+      html = '<div class="sect"><h3>Zone</h3>' +
+        '<div class="row"><label for="znLabel">Label</label><input type="text" id="znLabel" value="' + h(z.label) + '" maxlength="18"></div>' +
+        '<div class="row"><label for="znW">Width</label><input type="number" id="znW" min="0.4" step="0.1" value="' + round1(z.w) + '"><span class="val">m</span></div>' +
+        '<div class="row"><label for="znH">Depth</label><input type="number" id="znH" min="0.4" step="0.1" value="' + round1(z.h) + '"><span class="val">m</span></div>' +
+        '<div class="chips"><button class="chip" id="znDel">Remove zone</button></div>' +
+        '<p class="empty">Zones are targets, not walls — sight passes straight through them. Use one with the <b>finishes inside</b> rule.</p></div>' +
+        settingsHTML();
+    } else if (multiSel.length > 1) {
+      t.textContent = multiSel.length + ' selected';
+      html = '<div class="sect"><h3>Group</h3>' +
+        '<p class="empty">Drag any one of them to move the whole shape. Arrow keys nudge them together.</p>' +
+        '<div class="chips">' +
+        '<button class="chip" id="grpFace">Face the centre</button>' +
+        '<button class="chip" id="grpClear">Clear selection</button>' +
+        '<button class="chip" id="grpDel">Remove all ' + multiSel.length + '</button>' +
+        '</div></div>' + settingsHTML();
+    } else {
+      t.textContent = 'Nothing selected';
+      html = '<div class="sect"><h3>Start here</h3><p class="empty">' +
+        '<b>1.</b> Pick <b>A</b> or <b>B</b> in the toolbar and tap the plot to place people.<br>' +
+        '<b>2.</b> Drag a person to move, drag the arrow tip to turn them.<br>' +
+        '<b>3.</b> Press <b>+ Keyframe</b> to lock the opening shape, move the playhead, then move people again — every later move is saved into a keyframe automatically.<br>' +
+        '<b>4.</b> Press <b>Playbook</b> for a printable, beat-by-beat sheet.' +
+        '</p></div>' + settingsHTML();
+    }
+    body.innerHTML = html;
+    wireInspector();
+  }
+
+  function round1(v) { return Math.round(v * 10) / 10; }
+
+  function wireInspector() {
+    var a = sel && sel.type === 'agent' ? findAgent(sel.id) : null;
+    var b = sel && sel.type === 'block' ? findBlock(sel.id) : null;
+    var z = sel && sel.type === 'zone' ? findZone(sel.id) : null;
+
+    bindRange('agFov', function (v) { a.fov = v; }, '°');
+    bindRange('agRange', function (v) { a.range = v; }, ' m');
+    bindRange('agSize', function (v) { a.r = v; }, ' m');
+    bindRange('agGap', function (v) { a.gap = v; }, ' m');
+    bindRange('agClose', function (v) { a.closingSpeed = v; }, ' m/s');
+    bindRange('agReach', function (v) { a.reach = v; }, ' m');
+
+    if (a) {
+      on('agName', 'input', function (e) { a.name = e.target.value || a.name; dirty = true; save(); });
+      Array.prototype.forEach.call($('inspBody').querySelectorAll('[data-team]'), function (btn) {
+        btn.addEventListener('click', function () {
+          a.team = btn.getAttribute('data-team');
+          renderInspector(); dirty = true; save();
+        });
+      });
+      on('agGuard', 'change', function (e) { a.guard = e.target.checked; dirty = true; save(); });
+      on('agBall', 'click', function () {
+        S.ball = (S.ball === a.id) ? null : a.id;
+        renderInspector(); renderDrill(); dirty = true; save(); commit();
+      });
+      on('agFace', 'click', function () {
+        a.a = Math.atan2(S.field.h / 2 - a.y, S.field.w / 2 - a.x);
+        autoKey(a); dirty = true; save();
+      });
+      on('agCopy', 'click', function () {
+        var c = JSON.parse(JSON.stringify(a));
+        c.id = nid('a'); c.name = nextName(c.team);
+        c.x = clamp(c.x + 1, c.r, S.field.w - c.r);
+        S.agents.push(c);
+        for (var i = 0; i < S.keys.length; i++) if (S.keys[i].p[a.id]) {
+          var src = S.keys[i].p[a.id];
+          S.keys[i].p[c.id] = { x: clamp(src.x + 1, 0, S.field.w), y: src.y, a: src.a };
+        }
+        sel = { type: 'agent', id: c.id };
+        renderInspector(); renderDrill(); refreshStats(); save(); commit(); dirty = true;
+      });
+      on('agDel', 'click', function () { removeSelected(); commit(); });
+    }
+    if (b) {
+      on('blLabel', 'input', function (e) { b.label = e.target.value; baseDirty = true; dirty = true; save(); });
+      on('blW', 'input', function (e) { b.w = clamp(parseFloat(e.target.value) || b.w, 0.3, S.field.w); baseDirty = true; dirty = true; save(); });
+      on('blH', 'input', function (e) { b.h = clamp(parseFloat(e.target.value) || b.h, 0.3, S.field.h); baseDirty = true; dirty = true; save(); });
+      on('blDel', 'click', function () { removeSelected(); commit(); });
+    }
+    if (z) {
+      on('znLabel', 'input', function (e) { z.label = e.target.value; baseDirty = true; dirty = true; renderDrill(); save(); });
+      on('znW', 'input', function (e) { z.w = clamp(parseFloat(e.target.value) || z.w, 0.4, S.field.w); baseDirty = true; dirty = true; save(); });
+      on('znH', 'input', function (e) { z.h = clamp(parseFloat(e.target.value) || z.h, 0.4, S.field.h); baseDirty = true; dirty = true; save(); });
+      on('znDel', 'click', function () { removeSelected(); commit(); });
+    }
+    on('optOnion', 'change', function (e) {
+      S.opts.onion = e.target.checked; dirty = true; save(); commit();
+    });
+    on('optHeat', 'change', function (e) {
+      S.opts.heat = e.target.checked;
+      heatDirty = true; baseDirty = true; dirty = true; save(); commit();
+      if (S.opts.heat) toast('Blue means nobody is watching that ground');
+    });
+    on('optLanes', 'change', function (e) { S.opts.lanes = e.target.checked; dirty = true; save(); });
+    on('optPressure', 'change', function (e) { S.opts.pressure = e.target.checked; dirty = true; save(); });
+    on('ballSpeed', 'input', function (e) { S.ballSpeed = clamp(parseFloat(e.target.value) || 9, 2, 30); dirty = true; save(); });
+    on('horizon', 'input', function (e) { S.horizon = clamp(parseFloat(e.target.value) || 1.2, 0.3, 5); dirty = true; save(); });
+    if (multiSel.length > 1) {
+      on('grpFace', 'click', function () {
+        var i, a2;
+        for (i = 0; i < multiSel.length; i++) {
+          a2 = findAgent(multiSel[i]);
+          if (!a2) continue;
+          a2.a = Math.atan2(S.field.h / 2 - a2.y, S.field.w / 2 - a2.x);
+          autoKey(a2);
+        }
+        dirty = true; save(); commit();
+      });
+      on('grpClear', 'click', function () { multiSel = []; renderInspector(); dirty = true; });
+      on('grpDel', 'click', function () {
+        var i, k2;
+        for (i = 0; i < multiSel.length; i++) {
+          var id = multiSel[i];
+          for (k2 = 0; k2 < S.agents.length; k2++) if (S.agents[k2].id === id) { S.agents.splice(k2, 1); break; }
+          for (k2 = 0; k2 < S.keys.length; k2++) delete S.keys[k2].p[id];
+          if (S.ball === id) S.ball = null;
+          S.drill.rules = S.drill.rules.filter(function (r) { return r.a !== id && r.b !== id; });
+        }
+        multiSel = []; sel = null;
+        renderInspector(); renderDrill(); refreshStats(); save(); commit();
+        dirty = true; heatDirty = true;
+      });
+    }
+    on('optShadows', 'change', function (e) { S.opts.shadows = e.target.checked; dirty = true; save(); });
+    on('optBlock', 'change', function (e) { S.opts.blockAgents = e.target.checked; dirty = true; save(); });
+    on('optLabels', 'change', function (e) { S.opts.labels = e.target.checked; baseDirty = true; dirty = true; save(); });
+    on('optSnap', 'change', function (e) { S.opts.snap = e.target.checked; save(); });
+    on('gridSize', 'input', function (e) {
+      S.grid = clamp(parseFloat(e.target.value) || S.grid, 0.25, 10);
+      baseDirty = true; dirty = true; save();
+    });
+  }
+
+  function bindRange(id, set, unit) {
+    var el = $(id); if (!el) return;
+    el.addEventListener('input', function () {
+      var v = parseFloat(el.value);
+      set(v);
+      var lbl = $(id + 'V'); if (lbl) lbl.textContent = v + unit;
+      dirty = true; save();
+    });
+  }
+  function on(id, ev, fn) { var el = $(id); if (el) el.addEventListener(ev, fn); }
+
+  function removeSelected() {
+    if (!sel) return;
+    var i;
+    if (sel.type === 'agent') {
+      for (i = 0; i < S.agents.length; i++) if (S.agents[i].id === sel.id) { S.agents.splice(i, 1); break; }
+      for (i = 0; i < S.keys.length; i++) delete S.keys[i].p[sel.id];
+      if (S.ball === sel.id) S.ball = null;
+      S.drill.rules = S.drill.rules.filter(function (r) { return r.a !== sel.id && r.b !== sel.id; });
+    } else if (sel.type === 'zone') {
+      for (i = 0; i < S.zones.length; i++) if (S.zones[i].id === sel.id) { S.zones.splice(i, 1); break; }
+      S.drill.rules = S.drill.rules.filter(function (r) { return r.zone !== sel.id; });
+      baseDirty = true;
+    } else {
+      for (i = 0; i < S.blocks.length; i++) if (S.blocks[i].id === sel.id) { S.blocks.splice(i, 1); break; }
+      baseDirty = true;
+    }
+    sel = null; renderInspector(); renderDrill(); refreshStats(); save(); dirty = true;
+  }
+
+
+  /* ------------------------------------------------- drill panel UI ---- */
+  function agentOptions(selected, includeAny) {
+    var out = includeAny ? '<option value="any">Any defender</option>' : '';
+    for (var i = 0; i < S.agents.length; i++) {
+      out += '<option value="' + S.agents[i].id + '"' + (S.agents[i].id === selected ? ' selected' : '') + '>' +
+        h(S.agents[i].name) + '</option>';
+    }
+    return out;
+  }
+
+  function ruleText(r) {
+    var A = byId(S.agents, r.a), B = r.b === 'any' ? null : byId(S.agents, r.b);
+    var an = A ? A.name : '?', bn = B ? B.name : 'any defender', z, i;
+    if (r.type === 'receive') return an + ' can receive an open pass';
+    if (r.type === 'hidden') return an + ' stays out of ' + bn + "'s view";
+    if (r.type === 'space') return an + ' keeps ' + r.n + 's of space from ' + bn;
+    if (r.type === 'options') return 'the ball-carrier has ' + r.n + ' open pass' + (r.n === 1 ? '' : 'es');
+    if (r.type === 'inzone') {
+      z = null;
+      for (i = 0; i < S.zones.length; i++) if (S.zones[i].id === r.zone) z = S.zones[i];
+      return an + ' finishes inside ' + (z ? z.label : 'a deleted zone');
+    }
+    return 'rule';
+  }
+
+  function renderDrill() {
+    var body = $('drillBody');
+    if (!body) return;
+    var zoneOpts = S.zones.map(function (z) { return '<option value="' + z.id + '">' + h(z.label) + '</option>'; }).join('');
+    body.innerHTML =
+      '<label class="switch"><input type="checkbox" id="drillOn"' + (S.drill.on ? ' checked' : '') + '>Check this drill as I work</label>' +
+      '<div class="row"><label for="drillTitle">Drill</label><input type="text" id="drillTitle" value="' + h(S.drill.title) + '" maxlength="48"></div>' +
+      '<div class="sect"><h3>Rules</h3><div id="ruleList">' +
+      (S.drill.rules.length
+        ? S.drill.rules.map(function (r) {
+            return '<div class="rule"><span>' + h(ruleText(r)) + '</span>' +
+              '<button class="x" data-del="' + r.id + '" aria-label="Remove this rule">×</button></div>';
+          }).join('')
+        : '<p class="empty">No rules yet — a drill with no rules is just a plot.</p>') +
+      '</div></div>' +
+      '<div class="sect"><h3>Add a rule</h3>' +
+      '<select class="sel" id="rType" aria-label="Rule type">' +
+      '<option value="receive">can receive an open pass</option>' +
+      '<option value="hidden">stays out of sight of…</option>' +
+      '<option value="space">keeps space from…</option>' +
+      '<option value="inzone">finishes inside a zone</option>' +
+      '<option value="options">carrier has N open passes</option>' +
+      '</select>' +
+      '<div class="row" id="rowA"><label for="rA">Who</label><select class="sel" id="rA">' + agentOptions(null, false) + '</select></div>' +
+      '<div class="row" id="rowB"><label for="rB">From</label><select class="sel" id="rB">' + agentOptions(null, true) + '</select></div>' +
+      '<div class="row" id="rowZ"><label for="rZ">Zone</label><select class="sel" id="rZ">' + (zoneOpts || '<option value="">Draw a zone first</option>') + '</select></div>' +
+      '<div class="row" id="rowN"><label for="rN">Amount</label><input type="number" id="rN" min="0.5" step="0.5" value="1.5"></div>' +
+      '<button class="btn key" id="rAdd" style="width:100%">Add rule</button></div>' +
+      '<div class="sect"><h3>Live check</h3><ul class="results" id="drillResult"></ul></div>';
+
+    var typeEl = $('rType');
+    function syncRows() {
+      var t = typeEl.value;
+      $('rowA').style.display = (t === 'options') ? 'none' : 'flex';
+      $('rowB').style.display = (t === 'hidden' || t === 'space') ? 'flex' : 'none';
+      $('rowZ').style.display = (t === 'inzone') ? 'flex' : 'none';
+      $('rowN').style.display = (t === 'space' || t === 'options') ? 'flex' : 'none';
+      $('rN').value = (t === 'options') ? 2 : 1.5;
+      $('rN').step = (t === 'options') ? 1 : 0.5;
+    }
+    typeEl.addEventListener('change', syncRows);
+    syncRows();
+
+    on('drillOn', 'change', function (e) {
+      S.drill.on = e.target.checked;
+      lastBanner = 'x'; runDrill(); save();
+      if (!S.drill.on) { $('banner').className = 'banner'; $('banner').textContent = ''; lastBanner = ''; }
+    });
+    on('drillTitle', 'input', function (e) { S.drill.title = e.target.value; save(); });
+    on('rAdd', 'click', function () {
+      var t = $('rType').value;
+      var r = {
+        id: nid('r'), type: t,
+        a: t === 'options' ? null : $('rA').value,
+        b: (t === 'hidden' || t === 'space') ? $('rB').value : 'any',
+        n: parseFloat($('rN').value) || 1.5,
+        zone: t === 'inzone' ? $('rZ').value : ''
+      };
+      if (t !== 'options' && !r.a) { toast('Place some people first'); return; }
+      if (t === 'inzone' && !r.zone) { toast('Draw a target zone first'); return; }
+      S.drill.rules.push(r);
+      S.drill.on = true;
+      renderDrill(); lastBanner = 'x'; runDrill(); save(); commit();
+    });
+    Array.prototype.forEach.call(body.querySelectorAll('[data-del]'), function (btn) {
+      btn.addEventListener('click', function () {
+        var id = btn.getAttribute('data-del');
+        S.drill.rules = S.drill.rules.filter(function (r) { return r.id !== id; });
+        renderDrill(); lastBanner = 'x'; runDrill(); save(); commit();
+      });
+    });
+    lastBanner = 'x'; runDrill();
+  }
+
+  /* -------------------------------------------------------- timeline --- */
+  function renderKeys() {
+    var wrap = $('keys');
+    wrap.innerHTML = '';
+    S.keys.forEach(function (k, i) {
+      var btn = document.createElement('button');
+      btn.className = 'kf';
+      btn.style.left = (k.t / S.duration * 100) + '%';
+      btn.title = 'Keyframe ' + (i + 1) + ' · ' + k.t.toFixed(1) + 's — drag to retime';
+      btn.setAttribute('aria-label', 'Keyframe ' + (i + 1) + ' at ' + k.t.toFixed(1) + ' seconds');
+      btn.setAttribute('aria-pressed', Math.abs(k.t - time) < 0.05 ? 'true' : 'false');
+      btn.addEventListener('pointerdown', function (e) {
+        e.stopPropagation();
+        btn.setPointerCapture(e.pointerId);
+        setTime(k.t);
+        var trackEl = $('track');
+        var moveH = function (ev) {
+          var r = trackEl.getBoundingClientRect();
+          k.t = clamp((ev.clientX - r.left) / r.width * S.duration, 0, S.duration);
+          k.t = Math.round(k.t * 20) / 20;
+          S.keys.sort(function (m, n) { return m.t - n.t; });
+          renderKeys(); setTime(k.t);
+        };
+        var upH = function () {
+          btn.removeEventListener('pointermove', moveH);
+          btn.removeEventListener('pointerup', upH);
+          save(); commit();
+        };
+        btn.addEventListener('pointermove', moveH);
+        btn.addEventListener('pointerup', upH);
+      });
+      wrap.appendChild(btn);
+    });
+    refreshStats();
+  }
+
+  function renderTicks() {
+    var wrap = $('ticks');
+    wrap.innerHTML = '';
+    var step = S.duration > 24 ? 5 : (S.duration > 12 ? 2 : 1);
+    for (var t = 0; t <= S.duration + 1e-6; t += step) {
+      var d = document.createElement('div');
+      d.className = 'tick';
+      d.style.left = (t / S.duration * 100) + '%';
+      d.innerHTML = '<b>' + t + 's</b>';
+      wrap.appendChild(d);
+    }
+  }
+
+  function setTime(t) {
+    time = clamp(t, 0, S.duration);
+    $('playhead').style.left = (time / S.duration * 100) + '%';
+    var trk = $('track');
+    trk.setAttribute('aria-valuenow', time.toFixed(1));
+    trk.setAttribute('aria-valuetext', time.toFixed(1) + ' seconds');
+    updateClock();
+    syncToTime();
+    Array.prototype.forEach.call($('keys').children, function (btn, i) {
+      btn.setAttribute('aria-pressed', S.keys[i] && Math.abs(S.keys[i].t - time) < 0.05 ? 'true' : 'false');
+    });
+    syncNote();
+    if (present) updatePresent();
+    heatDirty = true;
+    dirty = true;
+  }
+  function keyNear(t) {
+    for (var i = 0; i < S.keys.length; i++) if (Math.abs(S.keys[i].t - t) < 0.06) return S.keys[i];
+    return null;
+  }
+  function syncNote() {
+    var el = $('note');
+    if (!el || document.activeElement === el) return;
+    var k = keyNear(time);
+    el.value = (k && k.note) || '';
+    el.placeholder = S.keys.length ? 'Coaching note for this beat' : 'Add a keyframe to write beat notes';
+  }
+  function updateClock() {
+    $('clock').textContent = time.toFixed(1) + 's / ' + S.duration.toFixed(1) + 's';
+  }
+
+  var trackDrag = false;
+  function trackScrub(e) {
+    var r = $('track').getBoundingClientRect();
+    setTime((e.clientX - r.left) / r.width * S.duration);
+  }
+  $('track').addEventListener('pointerdown', function (e) {
+    trackDrag = true; $('track').setPointerCapture(e.pointerId);
+    if (playing) setPlaying(false);
+    trackScrub(e);
+  });
+  $('track').addEventListener('pointermove', function (e) { if (trackDrag) trackScrub(e); });
+  $('track').addEventListener('pointerup', function () { trackDrag = false; });
+  $('track').addEventListener('pointercancel', function () { trackDrag = false; });
+  $('track').addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { setTime(time + (e.shiftKey ? 1 : 0.1)); e.preventDefault(); }
+    if (e.key === 'ArrowLeft') { setTime(time - (e.shiftKey ? 1 : 0.1)); e.preventDefault(); }
+    if (e.key === 'Home') { setTime(0); e.preventDefault(); }
+    if (e.key === 'End') { setTime(S.duration); e.preventDefault(); }
+  });
+
+  function setPlaying(p) {
+    playing = p;
+    var b = $('bPlay');
+    b.setAttribute('aria-label', p ? 'Pause' : 'Play');
+    b.innerHTML = p
+      ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>'
+      : '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>';
+  }
+
+  /* ------------------------------------------------------- main loop --- */
+  var last = 0;
+  function frame(ts) {
+    requestAnimationFrame(frame);
+    var dt = last ? Math.min(0.06, (ts - last) / 1000) : 0;
+    last = ts;
+    if (S.ball && S.opts.lanes && !reduceMotion()) { flow = (flow + dt * 60) % 200; dirty = true; }
+    if (S.opts.heat && heatDirty && (ts - heatAt) > 150) {
+      computeHeat(); heatAt = ts; baseDirty = true;
+    }
+    if (playing) {
+      heatDirty = true;
+      time += dt * S.speed;
+      if (time >= S.duration) {
+        if (S.loop) { time = time % S.duration; }
+        else { time = S.duration; setPlaying(false); }
+      }
+      setTime(time);
+      applyGuard(S.agents);
+      dirty = true;
+      if (present) updatePresent();
+    }
+    if (baseDirty) drawBase();
+    if (dirty) drawFx();
+  }
+
+  var _rm = null;
+  function reduceMotion() {
+    if (_rm === null) {
+      _rm = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    }
+    return _rm;
+  }
+
+
+  /* ------------------------------------------------------- history ----
+     Immutable snapshots of the whole plot. Thirty deep, pushed once a
+     change has finished (pointerup, a keyframe edit, a deletion) so one
+     drag is one undo, not two hundred. */
+  var HISTMAX = 30;
+  var hist = [], hpos = -1, restoring = false;
+
+  function updateHist() {
+    var u = $('bUndo'), r = $('bRedo');
+    if (!u || !r) return;
+    u.disabled = hpos <= 0;
+    r.disabled = hpos >= hist.length - 1;
+  }
+
+  function commit() {
+    if (restoring) return;
+    var snap = JSON.stringify(S);
+    if (hpos >= 0 && hist[hpos] === snap) return;   /* nothing actually changed */
+    hist = hist.slice(0, hpos + 1);
+    hist.push(snap);
+    if (hist.length > HISTMAX) hist.shift();
+    hpos = hist.length - 1;
+    updateHist();
+  }
+
+  function restoreSnap(snap) {
+    restoring = true;
+    S = JSON.parse(snap);
+    sel = null; multiSel = [];
+    time = clamp(time, 0, S.duration);
+    $('preset').value = S.preset;
+    $('dur').value = S.duration;
+    $('interp').value = S.interp;
+    $('speed').value = String(S.speed);
+    $('bLoop').setAttribute('aria-pressed', S.loop ? 'true' : 'false');
+    $('track').setAttribute('aria-valuemax', S.duration);
+    fit();
+    renderTicks(); renderKeys(); renderInspector(); renderDrill(); refreshStats();
+    setTime(time);
+    baseDirty = true; dirty = true; heatDirty = true;
+    lastBanner = 'x'; runDrill();
+    restoring = false;
+    save();
+  }
+
+  function undo() {
+    if (hpos <= 0) { toast('Nothing left to undo'); return; }
+    hpos--; restoreSnap(hist[hpos]); updateHist(); toast('Undone');
+  }
+  function redo() {
+    if (hpos >= hist.length - 1) { toast('Nothing to redo'); return; }
+    hpos++; restoreSnap(hist[hpos]); updateHist(); toast('Redone');
+  }
+
+  /* ------------------------------------------------------ persistence -- */
+  var saveT = null;
+  function save() {
+    if (saveT) clearTimeout(saveT);
+    saveT = setTimeout(function () {
+      try { localStorage.setItem(SAVE_KEY, JSON.stringify(S)); } catch (err) { /* private mode */ }
+    }, 350);
+  }
+  function load() {
+    try {
+      var raw = localStorage.getItem(SAVE_KEY);
+      if (!raw) return false;
+      var o = JSON.parse(raw);
+      if (!o || !o.field || !o.agents) return false;
+      S = migrate(o);
+      return true;
+    } catch (err) { return false; }
+  }
+  function migrate(o) {
+    var d = blankState(o.preset || 'stage');
+    d.field = { w: +o.field.w || d.field.w, h: +o.field.h || d.field.h };
+    d.grid = +o.grid || d.grid;
+    d.agents = (o.agents || []).map(function (a) {
+      return {
+        id: a.id || nid('a'), name: a.name || 'A1', team: TEAM[a.team] ? a.team : 'A',
+        x: +a.x || 0, y: +a.y || 0, a: +a.a || 0,
+        fov: clamp(+a.fov || 90, 5, 360), range: clamp(+a.range || 8, 0.5, 200),
+        r: clamp(+a.r || 0.35, 0.1, 3), guard: !!a.guard, gap: clamp(+a.gap || 1.2, 0.2, 20),
+        closingSpeed: clamp(+a.closingSpeed || 4.5, 0.5, 12), reach: clamp(+a.reach || 1, 0.2, 6)
+      };
+    });
+    d.blocks = (o.blocks || []).map(function (b) {
+      return { id: b.id || nid('b'), x: +b.x || 0, y: +b.y || 0, w: +b.w || 1, h: +b.h || 1, label: b.label || 'Block' };
+    });
+    d.zones = (o.zones || []).map(function (z) {
+      return { id: z.id || nid('z'), x: +z.x || 0, y: +z.y || 0, w: +z.w || 2, h: +z.h || 2, label: z.label || 'Target zone' };
+    });
+    d.keys = (o.keys || []).filter(function (k) { return k && k.p; })
+      .map(function (k) { return { t: +k.t || 0, p: k.p, note: k.note || '' }; })
+      .sort(function (m, n) { return m.t - n.t; });
+    d.ballSpeed = clamp(+o.ballSpeed || 9, 2, 30);
+    d.horizon = clamp(+o.horizon || 1.2, 0.3, 5);
+    if (o.drill) {
+      d.drill.on = !!o.drill.on;
+      d.drill.title = o.drill.title || d.drill.title;
+      d.drill.rules = (o.drill.rules || []).map(function (r) {
+        return { id: r.id || nid('r'), type: r.type, a: r.a, b: r.b || 'any', n: +r.n || 1, zone: r.zone || '' };
+      });
+    }
+    d.ball = o.ball || null;
+    if (d.ball && !d.agents.some(function (a) { return a.id === d.ball; })) d.ball = null;
+    if (!d.ball) {
+      for (var q = 0; q < d.agents.length; q++) if (d.agents[q].team === 'A') { d.ball = d.agents[q].id; break; }
+    }
+    d.duration = clamp(+o.duration || 8, 2, 120);
+    d.interp = ['spline', 'ease', 'linear'].indexOf(o.interp) >= 0 ? o.interp : 'spline';
+    d.loop = o.loop !== false;
+    d.speed = +o.speed || 1;
+    if (o.opts) {
+      d.opts.shadows = o.opts.shadows !== false;
+      d.opts.blockAgents = o.opts.blockAgents !== false;
+      d.opts.labels = o.opts.labels !== false;
+      d.opts.snap = !!o.opts.snap;
+      d.opts.lanes = o.opts.lanes !== false;
+      d.opts.pressure = o.opts.pressure !== false;
+      d.opts.onion = !!o.opts.onion;
+      d.opts.heat = !!o.opts.heat;
+    }
+    return d;
+  }
+
+  function download(name, mime, text) {
+    var blob = new Blob([text], { type: mime });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click();
+    setTimeout(function () { URL.revokeObjectURL(url); a.remove(); }, 400);
+  }
+
+  /* --------------------------------------------------- playbook (SVG) -- */
+  function frameTimes() {
+    if (S.keys.length >= 2) return S.keys.map(function (k) { return k.t; });
+    var out = [], n = 6, i;
+    for (i = 0; i < n; i++) out.push(S.duration * i / (n - 1));
+    return out;
+  }
+
+  function snapshotAt(t) {
+    /* non-destructive pose snapshot with the guard applied, as playback shows it */
+    var list = S.agents.map(function (a) {
+      var p = poseAt(a, t);
+      return {
+        id: a.id, name: a.name, team: a.team, r: a.r, fov: a.fov, range: a.range,
+        guard: a.guard, gap: a.gap, x: p.x, y: p.y, a: p.a
+      };
+    });
+    applyGuard(list);
+    return list;
+  }
+
+  var PRINT = {
+    ground: '#FFFFFF', grid: '#DCE1EC', edge: '#1F2637', block: '#48526F',
+    zone: '#B47214', see: 'rgba(31,122,76,.14)', seeLine: '#1F7A4C',
+    A: '#12539E', B: '#A62E5C', N: '#4B5468', ink: '#111827', dim: '#5B6480',
+    open: '#1F7A4C', contested: '#C25A16', blocked: '#C0202F'
+  };
+  function printCol(team) { return PRINT[team] || PRINT.N; }
+
+  function svgFrame(t, pxPerM) {
+    var F = S.field, W = F.w * pxPerM, H = F.h * pxPerM, i, j2;
+    var people = snapshotAt(t);
+    var segs = segments();
+    var out = [];
+    var fx2 = function (v) { return (v * pxPerM).toFixed(1); };
+    var P = function (x, y) { return fx2(x) + ',' + fx2(y); };
+
+    out.push('<svg viewBox="0 0 ' + W.toFixed(0) + ' ' + H.toFixed(0) + '" width="100%" role="img" aria-label="Beat at ' + t.toFixed(1) + ' seconds">');
+    out.push('<rect width="' + W.toFixed(0) + '" height="' + H.toFixed(0) + '" fill="' + PRINT.ground + '"/>');
+    for (i = 0; i <= F.w + 1e-6; i += S.grid) {
+      out.push('<line x1="' + fx2(i) + '" y1="0" x2="' + fx2(i) + '" y2="' + H.toFixed(0) + '" stroke="' + PRINT.grid + '" stroke-width="1"/>');
+    }
+    for (i = 0; i <= F.h + 1e-6; i += S.grid) {
+      out.push('<line x1="0" y1="' + fx2(i) + '" x2="' + W.toFixed(0) + '" y2="' + fx2(i) + '" stroke="' + PRINT.grid + '" stroke-width="1"/>');
+    }
+    /* target zones */
+    for (i = 0; i < S.zones.length; i++) {
+      var z = S.zones[i];
+      out.push('<rect x="' + fx2(z.x) + '" y="' + fx2(z.y) + '" width="' + fx2(z.w) + '" height="' + fx2(z.h) +
+        '" fill="none" stroke="' + PRINT.zone + '" stroke-width="2" stroke-dasharray="7 5"/>');
+      out.push('<text x="' + fx2(z.x + 0.15) + '" y="' + fx2(z.y + 0.55) + '" fill="' + PRINT.zone +
+        '" font-size="10" font-family="monospace" font-weight="700">' + h(z.label.toUpperCase()) + '</text>');
+    }
+    /* blocks */
+    for (i = 0; i < S.blocks.length; i++) {
+      var b = S.blocks[i];
+      out.push('<rect x="' + fx2(b.x) + '" y="' + fx2(b.y) + '" width="' + fx2(b.w) + '" height="' + fx2(b.h) +
+        '" fill="' + PRINT.block + '" rx="3"/>');
+      out.push('<text x="' + fx2(b.x + b.w / 2) + '" y="' + (b.y + b.h / 2) * pxPerM + 4 +
+        '" fill="#FFFFFF" font-size="9" font-family="monospace" text-anchor="middle">' + h(b.label.toUpperCase()) + '</text>');
+    }
+    /* movement paths for the whole drill */
+    for (i = 0; i < S.agents.length; i++) {
+      var ag = S.agents[i], hasKey = false;
+      for (j2 = 0; j2 < S.keys.length; j2++) if (S.keys[j2].p[ag.id]) { hasKey = true; break; }
+      if (!hasKey) continue;
+      var dpath = [];
+      for (j2 = 0; j2 <= 40; j2++) {
+        var pp = poseAt(ag, (j2 / 40) * S.duration);
+        dpath.push((j2 ? 'L' : 'M') + P(pp.x, pp.y));
+      }
+      out.push('<path d="' + dpath.join(' ') + '" fill="none" stroke="' + printCol(ag.team) +
+        '" stroke-width="1.4" stroke-dasharray="5 5" opacity=".45"/>');
+    }
+    /* sight cones */
+    for (i = 0; i < people.length; i++) {
+      var a = people[i], circles = [];
+      if (S.opts.blockAgents) {
+        for (j2 = 0; j2 < people.length; j2++) if (j2 !== i) circles.push([people[j2].x, people[j2].y, people[j2].r]);
+      }
+      if (S.opts.shadows) {
+        var full = conePoints(a.x, a.y, a.a, a.fov, a.range);
+        out.push('<polygon points="' + P(a.x, a.y) + ' ' + full.map(function (q) { return P(q[0], q[1]); }).join(' ') +
+          '" fill="url(#hatch)"/>');
+      }
+      var fan = castFan(a.x, a.y, a.a, a.fov, a.range, segs, circles);
+      out.push('<polygon points="' + P(a.x, a.y) + ' ' + fan.map(function (q) { return P(q[0], q[1]); }).join(' ') +
+        '" fill="' + PRINT.see + '" stroke="' + PRINT.seeLine + '" stroke-width="1" stroke-opacity=".55"/>');
+    }
+    /* pressure rings */
+    var carrier = carrierOf(people);
+    var defs = defendersOf(people, carrier);
+    if (S.opts.pressure) {
+      for (i = 0; i < defs.length; i++) {
+        out.push('<circle cx="' + fx2(defs[i].x) + '" cy="' + fx2(defs[i].y) + '" r="' + fx2(pressureRadius(defs[i])) +
+          '" fill="none" stroke="' + PRINT.blocked + '" stroke-width="1" stroke-dasharray="3 4" opacity=".55"/>');
+      }
+    }
+    /* passing lanes with arrowheads */
+    var opts = [];
+    if (carrier && S.opts.lanes) {
+      opts = passOptions(people, carrier, segs);
+      for (i = 0; i < opts.length; i++) {
+        var rec = opts[i].rec, res = opts[i].res;
+        var col = res.state === 'open' ? PRINT.open : (res.state === 'contested' ? PRINT.contested : PRINT.blocked);
+        var dash = res.state === 'open' ? '' : ' stroke-dasharray="' + (res.state === 'contested' ? '9 6' : '4 5') + '"';
+        out.push('<line x1="' + fx2(carrier.x) + '" y1="' + fx2(carrier.y) + '" x2="' + fx2(rec.x) + '" y2="' + fx2(rec.y) +
+          '" stroke="' + col + '" stroke-width="' + (res.state === 'open' ? 3 : 2) + '"' + dash +
+          ' marker-end="url(#' + (res.state === 'open' ? 'arrOpen' : 'arrStop') + ')"/>');
+        if (res.at) {
+          out.push('<g stroke="' + col + '" stroke-width="2.4">' +
+            '<line x1="' + (res.at[0] * pxPerM - 5).toFixed(1) + '" y1="' + (res.at[1] * pxPerM - 5).toFixed(1) +
+            '" x2="' + (res.at[0] * pxPerM + 5).toFixed(1) + '" y2="' + (res.at[1] * pxPerM + 5).toFixed(1) + '"/>' +
+            '<line x1="' + (res.at[0] * pxPerM + 5).toFixed(1) + '" y1="' + (res.at[1] * pxPerM - 5).toFixed(1) +
+            '" x2="' + (res.at[0] * pxPerM - 5).toFixed(1) + '" y2="' + (res.at[1] * pxPerM + 5).toFixed(1) + '"/></g>');
+        }
+      }
+    }
+    /* people */
+    for (i = 0; i < people.length; i++) {
+      var a2 = people[i], col2 = printCol(a2.team);
+      var pr = Math.max(7, a2.r * pxPerM);
+      out.push('<circle cx="' + fx2(a2.x) + '" cy="' + fx2(a2.y) + '" r="' + pr.toFixed(1) +
+        '" fill="#FFFFFF" stroke="' + col2 + '" stroke-width="2.5"/>');
+      if (carrier && a2.id === carrier.id) {
+        out.push('<circle cx="' + fx2(a2.x) + '" cy="' + fx2(a2.y) + '" r="' + (pr * 0.4).toFixed(1) + '" fill="' + PRINT.zone + '"/>');
+        out.push('<circle cx="' + fx2(a2.x) + '" cy="' + fx2(a2.y) + '" r="' + (pr + 4).toFixed(1) +
+          '" fill="none" stroke="' + PRINT.zone + '" stroke-width="1.5"/>');
+      }
+      var hx = a2.x + Math.cos(a2.a) * (a2.r + 0.55), hy = a2.y + Math.sin(a2.a) * (a2.r + 0.55);
+      out.push('<line x1="' + fx2(a2.x) + '" y1="' + fx2(a2.y) + '" x2="' + fx2(hx) + '" y2="' + fx2(hy) +
+        '" stroke="' + col2 + '" stroke-width="2.5"/>');
+      out.push('<circle cx="' + fx2(hx) + '" cy="' + fx2(hy) + '" r="3" fill="' + col2 + '"/>');
+      out.push('<text x="' + fx2(a2.x) + '" y="' + (a2.y * pxPerM - pr - 5).toFixed(1) +
+        '" fill="' + col2 + '" font-size="12" font-family="monospace" font-weight="700" text-anchor="middle">' + h(a2.name) + '</text>');
+    }
+    out.push('<rect x="0.5" y="0.5" width="' + (W - 1).toFixed(0) + '" height="' + (H - 1).toFixed(0) +
+      '" fill="none" stroke="' + PRINT.edge + '" stroke-width="1.5"/>');
+    out.push('</svg>');
+    return { svg: out.join(''), people: people, segs: segs, opts: opts, carrier: carrier };
+  }
+
+  function sightSummary(people, segs) {
+    var lines = [], i, j2;
+    for (i = 0; i < people.length; i++) {
+      var seen = [], circles = [];
+      if (S.opts.blockAgents) for (j2 = 0; j2 < people.length; j2++) if (j2 !== i) circles.push([people[j2].x, people[j2].y, people[j2].r]);
+      for (j2 = 0; j2 < people.length; j2++) {
+        if (i === j2) continue;
+        if (canSee(people[i], people[j2], segs, circles)) seen.push(people[j2].name);
+      }
+      lines.push(h(people[i].name) + ' sees ' + (seen.length ? h(seen.join(', ')) : 'nobody'));
+    }
+    return lines;
+  }
+
+  /* Coaching notes: the teacher's own words first, then facts the engine can prove. */
+  function coachNotes(f, t) {
+    var notes = [], k = keyNear(t), open = [], cont = [], i;
+    if (k && k.note) notes.push({ own: true, text: k.note });
+    if (f.carrier) {
+      for (i = 0; i < f.opts.length; i++) {
+        if (f.opts[i].res.state === 'open') open.push(f.opts[i].rec.name);
+        else cont.push(f.opts[i].rec.name + ' (' + (f.opts[i].res.state === 'blocked' ? 'blocked by ' : 'cut out by ') + f.opts[i].res.by + ')');
+      }
+      notes.push({ text: f.carrier.name + ' has the ball · ' + (open.length ? 'open to ' + open.join(', ') : 'no open pass') });
+      if (cont.length) notes.push({ text: 'Closed: ' + cont.join('; ') });
+      var pr = pressureOn(f.people, f.carrier, f.segs);
+      if (pr) notes.push({ text: 'Pressure arrives in ' + pr.t.toFixed(1) + 's from ' + pr.by });
+    }
+    return notes;
+  }
+
+  function buildPlaybook() {
+    var times = frameTimes(), pxPerM = Math.max(14, Math.min(46, 560 / S.field.w));
+    var cards = [], i, j2;
+    for (i = 0; i < times.length; i++) {
+      var f = svgFrame(times[i], pxPerM);
+      var sum = sightSummary(f.people, f.segs);
+      var notes = coachNotes(f, times[i]);
+      var verdict = '';
+      if (S.drill.on && S.drill.rules.length) {
+        var res = evaluate(f.people);
+        var bad = null;
+        for (j2 = 0; j2 < res.length; j2++) if (!res[j2].ok) { bad = res[j2]; break; }
+        verdict = '<p class="verdict ' + (bad ? 'no' : 'ok') + '">' +
+          (bad ? 'Not yet: ' + h(bad.text) : 'Drill conditions met') + '</p>';
+      }
+      cards.push(
+        '<article class="beat">' +
+        '<h2><span>Beat ' + (i + 1) + '</span><em>' + times[i].toFixed(1) + 's</em></h2>' +
+        f.svg + verdict +
+        '<ol class="coach">' + notes.map(function (n) {
+          return '<li' + (n.own ? ' class="own"' : '') + '>' + h(n.text) + '</li>';
+        }).join('') + '</ol>' +
+        '<details><summary>Who can see whom</summary><ul>' +
+        sum.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></details>' +
+        '</article>'
+      );
+    }
+    var title = (S.drill.on && S.drill.title ? S.drill.title : PRESETS[S.preset].label + ' plot');
+    var stamp = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    var ruleList = (S.drill.on && S.drill.rules.length)
+      ? '<section class="rules"><h3>The challenge</h3><ol>' +
+        S.drill.rules.map(function (r) { return '<li>' + h(ruleText(r)) + '</li>'; }).join('') + '</ol></section>'
+      : '';
+    return '<!DOCTYPE html><html lang="en-GB"><head><meta charset="utf-8">' +
+      '<meta name="viewport" content="width=device-width,initial-scale=1">' +
+      '<title>Drill card — ' + h(title) + '</title><style>' +
+      'body{margin:0;background:#EEF1F6;color:#111827;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}' +
+      'header{border-bottom:3px solid #111827;padding-bottom:12px;margin-bottom:18px}' +
+      'h1{margin:0 0 4px;font-size:22px;letter-spacing:-.01em}' +
+      '.meta{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#5B6480;margin:0}' +
+      '.rules{background:#fff;border:1.5px solid #111827;border-radius:10px;padding:12px 16px;margin-bottom:18px}' +
+      '.rules h3{margin:0 0 6px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#5B6480}' +
+      '.rules ol{margin:0;padding-left:18px;font-size:13.5px;line-height:1.6}' +
+      '.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}' +
+      '.beat{background:#fff;border:1.5px solid #C3CAD9;border-radius:10px;padding:12px;break-inside:avoid}' +
+      '.beat h2{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 8px;font-size:12px;' +
+      'font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:.16em;text-transform:uppercase;color:#111827}' +
+      '.beat h2 em{font-style:normal;color:#5B6480}' +
+      '.beat svg{display:block;border:1px solid #C3CAD9;border-radius:6px}' +
+      '.coach{margin:10px 0 0;padding-left:18px;font-size:13px;line-height:1.55}' +
+      '.coach .own{font-weight:700}' +
+      '.verdict{margin:9px 0 0;padding:6px 9px;border-radius:6px;font-size:12.5px;font-weight:700}' +
+      '.verdict.ok{background:#DFF3E6;color:#12603A}.verdict.no{background:#FBE0E3;color:#8C1622}' +
+      'details{margin-top:8px;font-size:12px;color:#5B6480}details ul{margin:6px 0 0;padding-left:18px}' +
+      'summary{cursor:pointer;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase}' +
+      'footer{margin-top:20px;border-top:1px solid #C3CAD9;padding-top:10px;font-size:11px;color:#5B6480}' +
+      '.key{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;margin:8px 0 0;color:#333}' +
+      '.key b{display:inline-block;width:26px;height:0;border-top-width:3px;border-top-style:solid;vertical-align:middle;margin-right:5px}' +
+      '@media print{body{background:#fff;padding:0}.beat{border-color:#999}@page{margin:10mm}details{display:none}}' +
+      '</style></head><body>' +
+      '<svg width="0" height="0" style="position:absolute"><defs>' +
+      '<pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse">' +
+      '<path d="M-2 10 L10 -2 M2 14 L14 2" stroke="' + PRINT.blocked + '" stroke-width="1" stroke-opacity=".45"/></pattern>' +
+      '<marker id="arrOpen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">' +
+      '<path d="M0 0 L10 5 L0 10 z" fill="' + PRINT.open + '"/></marker>' +
+      '<marker id="arrStop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">' +
+      '<path d="M0 0 L10 5 L0 10 z" fill="' + PRINT.blocked + '"/></marker>' +
+      '</defs></svg>' +
+      '<header><h1>' + h(title) + '</h1>' +
+      '<p class="meta">Drill card · ' + PRESETS[S.preset].label + ' ' + S.field.w + '×' + S.field.h + ' m · ' +
+      S.agents.length + ' players · ' + times.length + ' beats · ' + stamp + '</p>' +
+      '<p class="key"><span><b style="border-color:' + PRINT.open + '"></b>Open pass</span>' +
+      '<span><b style="border-color:' + PRINT.contested + '"></b>Cut out in time</span>' +
+      '<span><b style="border-color:' + PRINT.blocked + '"></b>Blocked now</span>' +
+      '<span><b style="border-color:' + PRINT.seeLine + '"></b>Field of view</span>' +
+      '<span><b style="border-color:' + PRINT.zone + '"></b>Target zone</span></p></header>' +
+      ruleList +
+      '<div class="grid">' + cards.join('') + '</div>' +
+      '<footer>Made by Matt · ChoreoStudio · built offline in the browser, nothing left the device. ' +
+      'Passing verdicts use each defender\'s reach, closing speed and what they can actually see.</footer>' +
+      '</body></html>';
+  }
+
+  /* ---------------------------------------------------------- toast ---- */
+  var toastT = null;
+  function toast(msg) {
+    var el = $('toast');
+    el.textContent = msg;
+    el.classList.add('on');
+    if (toastT) clearTimeout(toastT);
+    toastT = setTimeout(function () { el.classList.remove('on'); }, 1800);
+  }
+
+  function refreshStats() {
+    $('stats').textContent = S.agents.length + (S.agents.length === 1 ? ' player · ' : ' players · ') +
+      S.blocks.length + (S.blocks.length === 1 ? ' block · ' : ' blocks · ') +
+      S.zones.length + (S.zones.length === 1 ? ' zone · ' : ' zones · ') +
+      S.keys.length + (S.keys.length === 1 ? ' key' : ' keys');
+  }
+
+
+  /* ----------------------------------------------- presenter mode ----- */
+  function beatIndexAt(t) {
+    var i, best = -1;
+    for (i = 0; i < S.keys.length; i++) if (S.keys[i].t <= t + 0.02) best = i;
+    return best;
+  }
+
+  function updatePresent() {
+    if (!present) return;
+    var idx = beatIndexAt(time), k = idx >= 0 ? S.keys[idx] : null;
+    $('presentNum').textContent = S.keys.length
+      ? 'Beat ' + (idx + 1 || 1) + ' of ' + S.keys.length + ' · ' + time.toFixed(1) + 's'
+      : time.toFixed(1) + 's';
+    $('presentCap').textContent = (k && k.note) ? k.note : '';
+    $('presentCap').hidden = !(k && k.note);
+    $('bPrev').disabled = idx <= 0;
+    $('bNext').disabled = idx >= S.keys.length - 1;
+  }
+
+  function stepBeat(dir) {
+    if (!S.keys.length) return;
+    var idx = beatIndexAt(time);
+    if (dir > 0) idx = Math.min(S.keys.length - 1, idx + 1);
+    else idx = Math.max(0, (Math.abs(S.keys[Math.max(0, idx)].t - time) > 0.02 ? idx : idx - 1));
+    setPlaying(false);
+    setTime(S.keys[clamp(idx, 0, S.keys.length - 1)].t);
+    updatePresent();
+  }
+
+  function setPresent(on) {
+    present = on;
+    document.body.classList.toggle('present', on);
+    $('presentBar').hidden = !on;
+    $('bPresent').setAttribute('aria-pressed', on ? 'true' : 'false');
+    try {
+      if (on && document.documentElement.requestFullscreen && !document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else if (!on && document.fullscreenElement && document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    } catch (err) { /* fullscreen is a nicety, not a requirement */ }
+    setTimeout(function () { resize(); updatePresent(); }, 60);
+    updatePresent();
+  }
+
+  /* ------------------------------------------------------------ UI ----- */
+  function setTool(t) {
+    tool = t;
+    var map = { select: 'tSelect', A: 'tA', B: 'tB', block: 'tBlock', zone: 'tZone' };
+    Object.keys(map).forEach(function (k) {
+      $(map[k]).setAttribute('aria-pressed', k === t ? 'true' : 'false');
+    });
+    var hints = {
+      select: 'Drag a person to move · drag the arrow tip to turn · every move you make becomes a keyframe',
+      A: 'Tap the plot to place someone in Group A',
+      B: 'Tap the plot to place someone in Group B',
+      block: 'Drag out a rectangle — walls, furniture and screens all stop sight',
+      zone: 'Drag out a target zone — a place to arrive, not a wall'
+    };
+    $('hint').textContent = hints[t];
+  }
+
+  $('tSelect').addEventListener('click', function () { setTool('select'); });
+  $('tA').addEventListener('click', function () { setTool('A'); });
+  $('tB').addEventListener('click', function () { setTool('B'); });
+  $('tBlock').addEventListener('click', function () { setTool('block'); });
+  $('tZone').addEventListener('click', function () { setTool('zone'); });
+  $('bDrill').addEventListener('click', function () {
+    var p = $('drill'), open = p.hidden;
+    p.hidden = !open;
+    $('bDrill').setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) renderDrill();
+  });
+  $('drillClose').addEventListener('click', function () {
+    $('drill').hidden = true;
+    $('bDrill').setAttribute('aria-expanded', 'false');
+  });
+  $('note').addEventListener('input', function (e) {
+    if (!S.keys.length) { toast('Add a keyframe first, then the note has a beat to live on'); return; }
+    var k = ensureKeyAt(time);
+    k.note = e.target.value;
+    save();
+  });
+
+  $('preset').addEventListener('change', function (e) {
+    var p = PRESETS[e.target.value];
+    S.preset = e.target.value;
+    S.field = { w: p.w, h: p.h };
+    S.grid = p.grid;
+    for (var i = 0; i < S.agents.length; i++) {
+      S.agents[i].x = clamp(S.agents[i].x, 0.4, p.w - 0.4);
+      S.agents[i].y = clamp(S.agents[i].y, 0.4, p.h - 0.4);
+    }
+    for (i = 0; i < S.zones.length; i++) {
+      S.zones[i].w = Math.min(S.zones[i].w, p.w);
+      S.zones[i].h = Math.min(S.zones[i].h, p.h);
+      S.zones[i].x = clamp(S.zones[i].x, 0, p.w - S.zones[i].w);
+      S.zones[i].y = clamp(S.zones[i].y, 0, p.h - S.zones[i].h);
+    }
+    resetView(); fit(); baseDirty = true; dirty = true; heatDirty = true;
+    renderInspector(); save(); commit();
+  });
+
+  $('bMore').addEventListener('click', function () {
+    var m = $('more'), open = m.hidden;
+    m.hidden = !open;
+    $('bMore').setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  $('bUndo').addEventListener('click', undo);
+  $('bRedo').addEventListener('click', redo);
+  $('resetView').addEventListener('click', function () { resetView(); toast('View reset'); });
+  $('bPresent').addEventListener('click', function () { setPresent(!present); });
+  $('bExitPresent').addEventListener('click', function () { setPresent(false); });
+  $('bPrev').addEventListener('click', function () { stepBeat(-1); });
+  $('bNext').addEventListener('click', function () { stepBeat(1); });
+  $('bPresentPlay').addEventListener('click', function () { setPlaying(!playing); });
+  $('bPlay').addEventListener('click', function () { setPlaying(!playing); });
+  $('bStop').addEventListener('click', function () { setPlaying(false); setTime(0); });
+  $('bLoop').addEventListener('click', function () {
+    S.loop = !S.loop;
+    $('bLoop').setAttribute('aria-pressed', S.loop ? 'true' : 'false');
+    save();
+  });
+  $('bKey').addEventListener('click', function () { captureKey(); commit(); });
+  $('bDelKey').addEventListener('click', function () { if (deleteKeyAt(time)) commit(); });
+  $('interp').addEventListener('change', function (e) { S.interp = e.target.value; dirty = true; save(); });
+  $('speed').addEventListener('change', function (e) { S.speed = parseFloat(e.target.value); save(); });
+  $('dur').addEventListener('change', function (e) {
+    var v = clamp(parseFloat(e.target.value) || 8, 2, 120);
+    S.duration = v; e.target.value = v;
+    $('track').setAttribute('aria-valuemax', v);
+    for (var i = 0; i < S.keys.length; i++) S.keys[i].t = Math.min(S.keys[i].t, v);
+    renderTicks(); renderKeys(); setTime(Math.min(time, v)); save(); commit();
+  });
+
+  $('bSave').addEventListener('click', function () {
+    download('ChoreoStudio_' + S.preset + '_' + new Date().toISOString().slice(0, 10) + '.json',
+      'application/json', JSON.stringify(S, null, 1));
+    toast('Plot saved to your downloads');
+  });
+  $('bOpen').addEventListener('click', function () { $('fileIn').click(); });
+  $('fileIn').addEventListener('change', function (e) {
+    var f = e.target.files && e.target.files[0];
+    if (!f) return;
+    var rd = new FileReader();
+    rd.onload = function () {
+      try {
+        S = migrate(JSON.parse(rd.result));
+        sel = null; setPlaying(false);
+        bootUI(); toast('Plot opened');
+      } catch (err) { toast('That file is not a ChoreoStudio plot'); }
+    };
+    rd.onerror = function () { toast('The file could not be read'); };
+    rd.readAsText(f);
+    e.target.value = '';
+  });
+
+  $('bPlaybook').addEventListener('click', function () {
+    if (!S.agents.length) { toast('Place some people first'); return; }
+    setPlaying(false);
+    var htmlDoc = buildPlaybook();
+    download('ChoreoStudio_DrillCard_' + S.preset + '.html', 'text/html', htmlDoc);
+    toast('Drill card built — ' + frameTimes().length + ' beats, ready to print');
+  });
+
+  $('bPng').addEventListener('click', function () {
+    var scale = 2;
+    var c = document.createElement('canvas');
+    c.width = view.cw * scale; c.height = view.ch * scale;
+    var g = c.getContext('2d');
+    g.fillStyle = '#0B0F1E'; g.fillRect(0, 0, c.width, c.height);
+    g.drawImage(base, 0, 0, c.width, c.height);
+    g.drawImage(fx, 0, 0, c.width, c.height);
+    c.toBlob(function (blob) {
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = 'ChoreoStudio_' + time.toFixed(1) + 's.png';
+      document.body.appendChild(a); a.click();
+      setTimeout(function () { URL.revokeObjectURL(url); a.remove(); }, 400);
+    });
+    toast('Picture saved');
+  });
+
+  $('bClear').addEventListener('click', function () {
+    if (!window.confirm('Clear the whole plot? This cannot be undone.')) return;
+    S = blankState(S.preset);
+    sel = null; setPlaying(false); bootUI();
+    toast('Plot cleared');
+  });
+  $('bDemo').addEventListener('click', function () { S = demo(); sel = null; setPlaying(false); bootUI(); toast('Demo loaded'); });
+
+  $('inspToggle').addEventListener('click', function () {
+    var p = $('inspect'), closed = p.classList.toggle('closed');
+    $('inspToggle').textContent = closed ? '+' : '–';
+    $('inspToggle').setAttribute('aria-expanded', closed ? 'false' : 'true');
+  });
+
+  document.addEventListener('keyup', function (e) {
+    if (e.key === ' ') {
+      var tag0 = (e.target.tagName || '').toLowerCase();
+      panKey = false;
+      $('stagewrap').style.cursor = '';
+      if (!panUsed && tag0 !== 'input' && tag0 !== 'select' && tag0 !== 'textarea') setPlaying(!playing);
+      panUsed = false;
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    var tag = (e.target.tagName || '').toLowerCase();
+    var mod = e.ctrlKey || e.metaKey;
+    if (mod && (e.key === 'z' || e.key === 'Z')) {
+      if (e.shiftKey) redo(); else undo();
+      e.preventDefault(); return;
+    }
+    if (mod && (e.key === 'y' || e.key === 'Y')) { redo(); e.preventDefault(); return; }
+    if (tag === 'input' || tag === 'select' || tag === 'textarea') return;
+    if (e.key === 'Escape') {
+      if (present) { setPresent(false); return; }
+      if (multiSel.length) { multiSel = []; renderInspector(); dirty = true; return; }
+    }
+    if (present) {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') { stepBeat(1); e.preventDefault(); return; }
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') { stepBeat(-1); e.preventDefault(); return; }
+    }
+    if (e.key === ' ') {                    /* held space pans; a tap still plays */
+      if (!panKey) { panKey = true; panUsed = false; $('stagewrap').style.cursor = 'grab'; }
+      e.preventDefault(); return;
+    }
+    if (e.key === 'p' || e.key === 'P') { setPresent(!present); return; }
+    if (e.key === 'v' || e.key === 'V') setTool('select');
+    if (e.key === 'a' || e.key === 'A') setTool('A');
+    if (e.key === 'b' || e.key === 'B') setTool('B');
+    if (e.key === 'o' || e.key === 'O') setTool('block');
+    if (e.key === 'z' || e.key === 'Z') setTool('zone');
+    if (e.key === 'd' || e.key === 'D') $('bDrill').dispatchEvent(new Event('click'));
+    if (e.key === 'k' || e.key === 'K') captureKey();
+    if ((e.key === 'Delete' || e.key === 'Backspace') && (sel || multiSel.length)) {
+      if (multiSel.length > 1) {
+        var mi, mk;
+        for (mi = 0; mi < multiSel.length; mi++) {
+          var mid = multiSel[mi];
+          for (mk = 0; mk < S.agents.length; mk++) if (S.agents[mk].id === mid) { S.agents.splice(mk, 1); break; }
+          for (mk = 0; mk < S.keys.length; mk++) delete S.keys[mk].p[mid];
+          if (S.ball === mid) S.ball = null;
+        }
+        multiSel = []; sel = null;
+        renderInspector(); renderDrill(); refreshStats(); save(); commit();
+        dirty = true; heatDirty = true;
+      } else {
+        removeSelected(); commit();
+      }
+      e.preventDefault();
+    }
+    if ((multiSel.length || (sel && sel.type === 'agent')) && e.key.indexOf('Arrow') === 0 && e.target === document.body) {
+      var d = e.shiftKey ? 0.5 : 0.1, dx = 0, dy = 0;
+      if (e.key === 'ArrowUp') dy = -d;
+      if (e.key === 'ArrowDown') dy = d;
+      if (e.key === 'ArrowLeft') dx = -d;
+      if (e.key === 'ArrowRight') dx = d;
+      if (nudgeSelection(dx, dy)) { save(); commit(); e.preventDefault(); }
+    }
+  });
+
+  window.addEventListener('resize', function () { resize(); });
+  $('note').addEventListener('change', function () { commit(); });
+
+  /* ----------------------------------------------------------- demo ---- */
+  function demo() {
+    var d = blankState('stage');
+    S = d; /* mkAgent reads S for naming and field size */
+    var a1 = mkAgent('A', 3, 2.5); a1.a = 0.5; a1.fov = 100; a1.range = 9;
+    var a2 = mkAgent('A', 3, 5.5); a2.a = -0.4; a2.fov = 90; a2.range = 9;
+    var b1 = mkAgent('B', 9, 3); b1.a = Math.PI; b1.guard = true; b1.gap = 1.6;
+    var b2 = mkAgent('B', 9, 6); b2.a = Math.PI * 0.85;
+    d.agents = [a1, a2, b1, b2];
+    d.blocks = [
+      { id: nid('b'), x: 5.5, y: 3.4, w: 1.2, h: 1.6, label: 'Rostrum' },
+      { id: nid('b'), x: 7.8, y: 0.6, w: 2.6, h: 0.6, label: 'Flat' }
+    ];
+    var zone = { id: nid('z'), x: 8.6, y: 4.6, w: 2.6, h: 2.4, label: 'Target zone' };
+    d.zones = [zone];
+    b1.closingSpeed = 5.2; b1.reach = 1.1;
+    b2.closingSpeed = 4.2;
+    d.ball = a1.id;
+    d.drill = {
+      on: false,
+      title: 'Find the open receiver',
+      rules: [
+        { id: nid('r'), type: 'receive', a: a2.id, b: 'any', n: 1, zone: '' },
+        { id: nid('r'), type: 'space', a: a2.id, b: 'any', n: 1.5, zone: '' },
+        { id: nid('r'), type: 'inzone', a: a2.id, b: 'any', n: 1, zone: zone.id }
+      ]
+    };
+    d.keys = [
+      { t: 0, p: pose(d.agents) },
+      { t: 4, p: { } },
+      { t: 8, p: { } }
+    ];
+    d.keys[1].p[a1.id] = { x: 6.2, y: 1.6, a: 0.9 };
+    d.keys[1].p[a2.id] = { x: 5.0, y: 6.4, a: -0.2 };
+    d.keys[1].p[b1.id] = { x: 8.2, y: 4.6, a: Math.PI * 1.1 };
+    d.keys[1].p[b2.id] = { x: 10.2, y: 5.2, a: Math.PI * 0.7 };
+    d.keys[2].p[a1.id] = { x: 9.4, y: 2.2, a: 1.6 };
+    d.keys[2].p[a2.id] = { x: 8.4, y: 6.6, a: -1.2 };
+    d.keys[2].p[b1.id] = { x: 4.4, y: 4.2, a: Math.PI * 1.4 };
+    d.keys[2].p[b2.id] = { x: 3.2, y: 6.6, a: Math.PI * 0.4 };
+    return d;
+    function pose(list) {
+      var o = {}, i;
+      for (i = 0; i < list.length; i++) o[list[i].id] = { x: list[i].x, y: list[i].y, a: list[i].a };
+      return o;
+    }
+  }
+
+  /* ----------------------------------------------------------- boot ---- */
+  function bootUI() {
+    $('preset').value = S.preset;
+    $('dur').value = S.duration;
+    $('interp').value = S.interp;
+    $('speed').value = String(S.speed);
+    $('bLoop').setAttribute('aria-pressed', S.loop ? 'true' : 'false');
+    $('track').setAttribute('aria-valuemax', S.duration);
+    resize();
+    renderTicks(); renderKeys(); renderInspector(); renderDrill();
+    setTime(clamp(time, 0, S.duration));
+    refreshStats();
+    baseDirty = true; dirty = true; heatDirty = true;
+    hist = []; hpos = -1; commit();
+  }
+
+  if (!load()) S = demo();
+  setTool('select');
+  bootUI();
+  requestAnimationFrame(frame);
+
+  /* exposed for testing harnesses only */
+  window.__choreo = {
+    state: function () { return S; },
+    castFan: castFan, canSee: canSee, poseAt: poseAt, applyGuard: applyGuard,
+    segments: segments, buildPlaybook: buildPlaybook, setTime: setTime,
+    ensureKeyAt: ensureKeyAt, cr: cr,
+    view: view, applyView: applyView, zoomAt: zoomAt, resetView: resetView,
+    undo: undo, redo: redo, commit: commit, history: function () { return { len: hist.length, pos: hpos }; },
+    applyMarquee: applyMarquee, nudgeSelection: nudgeSelection,
+    multiSel: function () { return multiSel; },
+    neighbourKeys: neighbourKeys, computeHeat: computeHeat, coverageAt: coverageAt,
+    setPresent: setPresent, stepBeat: stepBeat, present: function () { return present; },
+    migrate: migrate, toWorld: function (px, py) { return { x: toWorldX(px), y: toWorldY(py) }; },
+    passState: passState, passOptions: passOptions, evaluate: evaluate,
+    timeToPressure: timeToPressure, pressureRadius: pressureRadius,
+    pressureOn: pressureOn, checkRule: checkRule, renderDrill: renderDrill,
+    snapshotAt: snapshotAt, ruleText: ruleText
+  };
+})();
+
+</script>
+<script defer src="/hud.js"></script>
+</body>
+</html>
