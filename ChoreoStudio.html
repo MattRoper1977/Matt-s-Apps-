@@ -246,6 +246,38 @@ body.present .drill,
 body.present .hint{display:none !important}
 body.present .banner{top:22px;font-size:17px;padding:13px 26px}
 body.present .resetview{bottom:110px}
+.sheet{
+  position:fixed;inset:0;z-index:50;background:rgba(6,9,20,.72);backdrop-filter:blur(3px);
+  display:flex;align-items:center;justify-content:center;padding:18px
+}
+.sheet[hidden]{display:none}
+.sheet-card{
+  width:min(760px,100%);max-height:86vh;display:flex;flex-direction:column;
+  background:var(--panel);border:1px solid var(--rule);border-radius:16px;
+  box-shadow:0 26px 70px rgba(0,0,0,.65);overflow:hidden
+}
+.sheet-card header{
+  display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--rule);
+  background:linear-gradient(180deg,#1D2545,#161D38)
+}
+.sheet-card .eyebrow{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber)
+}
+.sheet-body{
+  overflow:auto;padding:16px;display:grid;gap:16px;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr))
+}
+.sheet-body h3{
+  margin:0 0 8px;font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--dim);border-bottom:1px dashed var(--rule);padding-bottom:6px
+}
+.sheet-body dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:baseline}
+.sheet-body dt{
+  font-family:var(--mono);font-size:10.5px;color:var(--cream);background:#0E1428;
+  border:1px solid var(--rule);border-radius:6px;padding:3px 7px;white-space:nowrap
+}
+.sheet-body dd{margin:0;font-size:12.5px;color:var(--dim);line-height:1.4}
+.sheet-body .empty{grid-column:1/-1;margin:0;padding-top:4px;border-top:1px dashed var(--rule)}
 .toast{
   position:fixed;left:50%;bottom:calc(50% - 20px);transform:translateX(-50%);z-index:40;
   background:var(--cream);color:#12172B;padding:11px 16px;border-radius:10px;font-size:13.5px;
@@ -303,6 +335,9 @@ body.present .resetview{bottom:110px}
   </div>
 
   <div class="barwrap">
+    <button class="btn icon" id="bHelp" aria-expanded="false" title="Keys and gestures (?)" aria-label="Keys and gestures">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a2.9 2.9 0 015.6 1c0 1.9-2.8 2.3-2.8 4"/><path d="M12 17.4v.1"/></svg>
+    </button>
     <button class="btn icon" id="bUndo" title="Undo (Ctrl+Z)" aria-label="Undo" disabled>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7L4 12l5 5"/><path d="M4 12h11a5 5 0 010 10h-3"/></svg>
     </button>
@@ -422,6 +457,17 @@ body.present .resetview{bottom:110px}
     <span>Made by Matt · offline · nothing leaves this device</span>
   </div>
 </footer>
+
+<div class="sheet" id="help" hidden role="dialog" aria-modal="true" aria-label="Keys and gestures">
+  <div class="sheet-card">
+    <header>
+      <span class="eyebrow">Keys and gestures</span>
+      <div class="grow"></div>
+      <button class="btn ghost" id="helpClose" style="padding:4px 10px;min-height:30px" aria-label="Close">×</button>
+    </header>
+    <div class="sheet-body" id="helpBody"></div>
+  </div>
+</div>
 
 <div class="present-bar" id="presentBar" hidden>
   <button class="pbtn" id="bPrev" aria-label="Previous beat">
@@ -2263,13 +2309,21 @@ body.present .resetview{bottom:110px}
     if (e.key === 'End') { setTime(S.duration); e.preventDefault(); }
   });
 
+  var ICON_PAUSE = '<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>';
+  var ICON_PLAY = '<path d="M7 4l13 8-13 8z"/>';
+
   function setPlaying(p) {
     playing = p;
     var b = $('bPlay');
     b.setAttribute('aria-label', p ? 'Pause' : 'Play');
-    b.innerHTML = p
-      ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>'
-      : '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>';
+    b.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">' +
+      (p ? ICON_PAUSE : ICON_PLAY) + '</svg>';
+    var pb = $('bPresentPlay');
+    if (pb) {
+      pb.setAttribute('aria-label', p ? 'Pause' : 'Play');
+      pb.innerHTML = '<svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">' +
+        (p ? ICON_PAUSE : ICON_PLAY) + '</svg><span>' + (p ? 'Pause' : 'Play') + '</span>';
+    }
   }
 
   /* ------------------------------------------------------- main loop --- */
@@ -2715,6 +2769,60 @@ body.present .resetview{bottom:110px}
   }
 
 
+
+  /* --------------------------------------------------------- help ----- */
+  var KEYHELP = [
+    ['Tools', [
+      ['V', 'Select, move and box-select'],
+      ['A / B', 'Place someone in Group A or B'],
+      ['O', 'Draw a block that stops sight'],
+      ['Z', 'Draw a target zone']
+    ]],
+    ['The take', [
+      ['Space', 'Tap to play or pause'],
+      ['K', 'Save a keyframe at the playhead'],
+      ['← →', 'Scrub the timeline when it has focus'],
+      ['D', 'Open the drill challenge panel'],
+      ['P', 'Presenter mode for the board or a tablet']
+    ]],
+    ['Editing', [
+      ['Ctrl / Cmd + Z', 'Undo'],
+      ['Ctrl + Y or Cmd + Shift + Z', 'Redo'],
+      ['Arrows', 'Nudge the selection by 0.1 m'],
+      ['Shift + Arrows', 'Nudge by 0.5 m'],
+      ['Delete', 'Remove the selection'],
+      ['Esc', 'Clear the selection or leave presenter mode']
+    ]],
+    ['The view', [
+      ['Wheel', 'Zoom, 0.5× to 4×'],
+      ['Two fingers', 'Pinch to zoom, drag to pan'],
+      ['Hold Space + drag', 'Pan the plot'],
+      ['Middle-click + drag', 'Pan the plot'],
+      ['Reset view', 'Back to the whole plot']
+    ]]
+  ];
+
+  function renderHelp() {
+    var body = $('helpBody'), out = '', i, k;
+    for (i = 0; i < KEYHELP.length; i++) {
+      out += '<section><h3>' + KEYHELP[i][0] + '</h3><dl>';
+      for (k = 0; k < KEYHELP[i][1].length; k++) {
+        out += '<dt>' + h(KEYHELP[i][1][k][0]) + '</dt><dd>' + h(KEYHELP[i][1][k][1]) + '</dd>';
+      }
+      out += '</dl></section>';
+    }
+    out += '<p class="empty">Lay people out first. Once you press <b>+ Keyframe</b> the plot is being ' +
+      'choreographed, so every later move is written into the keyframe at the playhead.</p>';
+    body.innerHTML = out;
+  }
+
+  function setHelp(on) {
+    var dlg = $('help');
+    dlg.hidden = !on;
+    $('bHelp').setAttribute('aria-expanded', on ? 'true' : 'false');
+    if (on) { renderHelp(); $('helpClose').focus(); }
+  }
+
   /* ----------------------------------------------- presenter mode ----- */
   function beatIndexAt(t) {
     var i, best = -1;
@@ -2824,6 +2932,9 @@ body.present .resetview{bottom:110px}
     $('bMore').setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 
+  $('bHelp').addEventListener('click', function () { setHelp($('help').hidden); });
+  $('helpClose').addEventListener('click', function () { setHelp(false); });
+  $('help').addEventListener('click', function (e) { if (e.target === $('help')) setHelp(false); });
   $('bUndo').addEventListener('click', undo);
   $('bRedo').addEventListener('click', redo);
   $('resetView').addEventListener('click', function () { resetView(); toast('View reset'); });
@@ -2933,6 +3044,7 @@ body.present .resetview{bottom:110px}
     if (mod && (e.key === 'y' || e.key === 'Y')) { redo(); e.preventDefault(); return; }
     if (tag === 'input' || tag === 'select' || tag === 'textarea') return;
     if (e.key === 'Escape') {
+      if (!$('help').hidden) { setHelp(false); $('bHelp').focus(); return; }
       if (present) { setPresent(false); return; }
       if (multiSel.length) { multiSel = []; renderInspector(); dirty = true; return; }
     }
@@ -2944,6 +3056,7 @@ body.present .resetview{bottom:110px}
       if (!panKey) { panKey = true; panUsed = false; $('stagewrap').style.cursor = 'grab'; }
       e.preventDefault(); return;
     }
+    if (e.key === '?') { setHelp($('help').hidden); e.preventDefault(); return; }
     if (e.key === 'p' || e.key === 'P') { setPresent(!present); return; }
     if (e.key === 'v' || e.key === 'V') setTool('select');
     if (e.key === 'a' || e.key === 'A') setTool('A');
@@ -3063,6 +3176,7 @@ body.present .resetview{bottom:110px}
     multiSel: function () { return multiSel; },
     neighbourKeys: neighbourKeys, computeHeat: computeHeat, coverageAt: coverageAt,
     setPresent: setPresent, stepBeat: stepBeat, present: function () { return present; },
+    setHelp: setHelp, setPlaying: setPlaying, playing: function () { return playing; },
     migrate: migrate, toWorld: function (px, py) { return { x: toWorldX(px), y: toWorldY(py) }; },
     passState: passState, passOptions: passOptions, evaluate: evaluate,
     timeToPressure: timeToPressure, pressureRadius: pressureRadius,
