@@ -977,5 +977,42 @@ function init(){
 init();
 
 </script>
-<script defer src="/hud.js"></script></body>
+<script defer src="/hud.js"></script><script>
+/* Made by Matt — storage safety net (Pass Q, 2026-07-25).
+   This studio chains IndexedDB work through .then() without a .catch(), so a
+   storage failure rejects silently and the pupil sees a tap that did nothing. */
+(function(){
+  if (window.__mbmSaveNet) return; window.__mbmSaveNet = 1;
+  function show(msg){
+    try{
+      var b = document.getElementById('mbm-savenet');
+      if(!b){
+        b = document.createElement('div');
+        b.id = 'mbm-savenet'; b.setAttribute('role','alert');
+        b.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:2147483600;background:#7A1E1E;color:#fff;font:600 14px/1.45 Poppins,system-ui,sans-serif;padding:14px 56px 14px 16px;box-shadow:0 -2px 14px rgba(0,0,0,.28)';
+        var s = document.createElement('span');
+        var x = document.createElement('button');
+        x.type='button'; x.textContent='\u00D7'; x.setAttribute('aria-label','Dismiss message');
+        x.style.cssText='position:absolute;right:6px;top:50%;transform:translateY(-50%);min-width:44px;min-height:44px;background:none;border:0;color:#fff;font-size:24px;line-height:1;cursor:pointer';
+        x.addEventListener('click', function(){ b.remove(); });
+        b.appendChild(s); b.appendChild(x);
+        (document.body || document.documentElement).appendChild(b);
+      }
+      b.firstChild.textContent = msg;
+    }catch(e){}
+  }
+  function isQuota(r){
+    try{
+      var n = (r && (r.name || (r.constructor && r.constructor.name))) || '';
+      return /quota/i.test(n) || /quota|storage full|exceeded/i.test(String((r && r.message) || ''));
+    }catch(e){ return false; }
+  }
+  window.addEventListener('unhandledrejection', function(ev){
+    show(isQuota(ev && ev.reason)
+      ? 'Storage is full \u2014 this device cannot save any more work. Export what you have now, then free up space.'
+      : 'That did not save. Your last change may not have been kept \u2014 try again, and export a copy if it keeps happening.');
+  });
+})();
+</script>
+</body>
 </html>
