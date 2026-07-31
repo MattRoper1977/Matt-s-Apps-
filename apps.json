@@ -238,6 +238,19 @@
      "c": "#7c6fb0"
     }
    ]
+  },
+  {
+   "cat": "Play & explore",
+   "items": [
+    {
+     "f": "https://madebymatt.uk/voxel/",
+     "n": "Voxel Frontier",
+     "d": "Minecraft-style voxel sandbox — mine, build & explore an endless block world. Runs offline in the browser.",
+     "i": "⛏️",
+     "c": "#5fae42",
+     "new": true
+    }
+   ]
   }
  ]
 }
