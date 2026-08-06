@@ -92,4 +92,4 @@ function bind(){ $$('nav [data-view]').forEach(b=>b.onclick=()=>setView(b.datase
 load().then(()=>{bind();renderBackupBanner();setView("dashboard")}).catch(err=>{console.error(err);document.body.innerHTML='<main><div class="notice bad"><b>Data Manager could not start.</b>'+esc(err.message||err)+'</div></main>'});
 })();
 </script>
-</body></html>
+<script defer src="/hud.js"></script></body></html>
