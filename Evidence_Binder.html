@@ -74,6 +74,9 @@ input[type=text],textarea,select{font-family:inherit;font-size:15px;border:2px s
 #toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:600;display:none;z-index:80;max-width:92vw;text-align:center}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition:none!important}}
 </style>
+
+<!-- mbm-teacher-workflow:v1 -->
+<link rel="stylesheet" href="teacher-workflow.css">
 </head>
 <body>
 <header id="top">
@@ -825,11 +828,34 @@ function saveUnit(){
  if(!lines.length){toast("Paste at least one outcome");return;}
  if(!u){u={id:uid(),outcomes:[]};META.units.push(u);}
  u.name=name;u.code=($("suCode").value||"").trim();
- /* keep outcome ids stable where text order matches, so existing tags survive edits */
- var old=u.outcomes;
- u.outcomes=lines.map(function(txt,i){
-  return {id:(old[i]?old[i].id:uid()),text:txt};
+ /* mbm-outcome-id-safety:v1
+    Exact wording matches preserve IDs across reordering. A same-position fallback
+    permits a deliberate wording edit. Linked criteria may not disappear silently. */
+ var old=u.outcomes||[],byText={},used={},duplicate={};
+ old.forEach(function(o){
+  var k=String(o.text||"").trim().toLowerCase();
+  if(k&&!byText[k])byText[k]=o;
  });
+ lines.forEach(function(txt){var k=txt.toLowerCase();duplicate[k]=(duplicate[k]||0)+1;});
+ if(Object.keys(duplicate).some(function(k){return duplicate[k]>1;})){
+  toast("Each outcome line must be unique before it can be saved");return;
+ }
+ var next=lines.map(function(txt,idx){
+  var k=txt.toLowerCase(),hit=byText[k];
+  if(hit&&!used[hit.id]){used[hit.id]=1;return {id:hit.id,text:txt};}
+  var positional=old[idx];
+  if(positional&&!used[positional.id]){used[positional.id]=1;return {id:positional.id,text:txt};}
+  return {id:uid(),text:txt};
+ });
+ var linked={};
+ ITEMS.forEach(function(it){if(it.unitId===u.id)(it.outcomeIds||[]).forEach(function(id){linked[id]=1;});});
+ var removedLinked=old.filter(function(o){
+  return linked[o.id]&&!next.some(function(n){return n.id===o.id;});
+ });
+ if(removedLinked.length){
+  toast("An outcome linked to evidence cannot be removed here. Keep it, or migrate the evidence first.");return;
+ }
+ u.outcomes=next;
  metaSave().then(function(){toast("Unit saved \u2713");renderSetup();});
 }
 function newUnit(){
@@ -840,8 +866,10 @@ function newUnit(){
 function delUnit(){
  var u=unitById($("suUnit").value);
  if(!u)return;
+ /* mbm-unit-delete-safety:v1 */
  var n=ITEMS.filter(function(it){return it.unitId===u.id;}).length;
- if(!confirm("Delete \u201c"+u.name+"\u201d? "+(n?n+" evidence items stay stored but lose their unit tags.":"")))return;
+ if(n){toast("This unit has "+n+" linked evidence item"+(n===1?"":"s")+". It cannot be deleted; move or archive the evidence first.");return;}
+ if(!confirm("Delete this empty unit?"))return;
  META.units.splice(META.units.indexOf(u),1);
  metaSave().then(function(){toast("Unit deleted");renderSetup();});
 }
@@ -977,7 +1005,7 @@ function init(){
 init();
 
 </script>
-<script defer src="/hud.js"></script><script>
+<script defer src="teacher-workflow.js"></script><script defer src="/hud.js"></script><script>
 /* Made by Matt — storage safety net (Pass Q, 2026-07-25).
    This studio chains IndexedDB work through .then() without a .catch(), so a
    storage failure rejects silently and the pupil sees a tap that did nothing. */

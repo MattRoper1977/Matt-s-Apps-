@@ -87,6 +87,9 @@ input[type=text],textarea,select{width:100%;border:2px solid var(--line);border-
 #toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:700;display:none;z-index:80;box-shadow:var(--shadow);max-width:92vw;text-align:center}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:.01s!important}}
 </style>
+
+<!-- mbm-teacher-workflow:v1 -->
+<link rel="stylesheet" href="teacher-workflow.css">
 </head>
 <body>
 <header id="top">
@@ -546,5 +549,5 @@ function fallbackCopy(text){var ta=document.createElement("textarea");ta.value=t
 init();
 
 </script>
-<script defer src="/hud.js"></script></body>
+<script defer src="teacher-workflow.js"></script><script defer src="/hud.js"></script></body>
 </html>

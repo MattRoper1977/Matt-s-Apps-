@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://madebymatt.uk/schemas/teacher-evidence-v2.json",
+  "title": "Made by Matt teacher evidence interchange record",
+  "description": "A local-first interchange format for draft evidence and management records. It is not an awarding-body submission format and does not replace current official forms, specifications, centre procedures or quality-assurance decisions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "recordType", "status", "createdAt", "updatedAt", "source", "privacy", "audit"],
+  "properties": {
+    "schemaVersion": {"const": 2},
+    "id": {"type": "string", "minLength": 1},
+    "recordType": {"enum": ["learner-evidence", "assessment-decision", "witness-observation", "class-check", "lesson-artifact", "administrative-note"]},
+    "status": {"enum": ["draft", "review", "ready", "submitted", "returned", "archived"]},
+    "createdAt": {"type": "string", "format": "date-time"},
+    "updatedAt": {"type": "string", "format": "date-time"},
+    "school": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {"name": {"type": "string"}, "centreNumber": {"type": "string"}}
+    },
+    "cohort": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {"id": {"type": "string"}, "name": {"type": "string"}}
+    },
+    "learnerIds": {"type": "array", "maxItems": 100, "uniqueItems": true, "items": {"type": "string"}},
+    "learnerNames": {"type": "array", "maxItems": 100, "items": {"type": "string"}},
+    "programme": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string"}, "awardingBody": {"type": "string"}, "qualification": {"type": "string"},
+        "level": {"type": "string"}, "version": {"type": "string"}
+      }
+    },
+    "unit": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {"id": {"type": "string"}, "code": {"type": "string"}, "title": {"type": "string"}, "sourceVersion": {"type": "string"}}
+    },
+    "criteria": {
+      "type": "array",
+      "maxItems": 200,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "text"],
+        "properties": {"id": {"type": "string"}, "code": {"type": "string"}, "text": {"type": "string"}, "evidenceNeeded": {"type": "string"}}
+      }
+    },
+    "lesson": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lessonId": {"type": "string"}, "title": {"type": "string"}, "path": {"type": "string"},
+        "pathway": {"type": "string"}, "tier": {"type": "string"}
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["app"],
+      "properties": {"app": {"type": "string"}, "appVersion": {"type": "string"}, "handoffId": {"type": "string"}}
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title": {"type": "string", "maxLength": 300}, "note": {"type": "string", "maxLength": 12000},
+        "type": {"type": "string"}, "capturedAt": {"type": "string"}, "independence": {"type": "string"},
+        "supportProvided": {"type": "string"}, "attachmentIds": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "assessor": {"type": "string"}, "decision": {"enum": ["not-assessed", "partially-met", "met", "not-yet-met"]},
+        "rationale": {"type": "string"}, "assessedAt": {"type": "string"}
+      }
+    },
+    "witness": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {"name": {"type": "string"}, "role": {"type": "string"}, "signedFormReference": {"type": "string"}}
+    },
+    "quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {"reviewedBy": {"type": "string"}, "reviewedAt": {"type": "string"}, "sampleStatus": {"type": "string"}, "notes": {"type": "string"}}
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "containsPersonalData"],
+      "properties": {
+        "classification": {"enum": ["public", "staff-only", "school-confidential", "special-category"]},
+        "containsPersonalData": {"type": "boolean"}, "retentionReviewAt": {"type": "string"}
+      }
+    },
+    "audit": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["at", "action"],
+        "properties": {"at": {"type": "string"}, "by": {"type": "string"}, "action": {"type": "string"}, "detail": {"type": "string"}}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"recordType": {"const": "learner-evidence"}}},
+      "then": {"required": ["learnerIds", "unit", "criteria", "evidence"]}
+    }
+  ]
+}

@@ -6,6 +6,14 @@
    "cat": "Teacher tools",
    "items": [
     {
+     "f": "Data_Manager_Studio.html",
+     "n": "Data Manager Studio",
+     "d": "Cohorts, stable learner IDs, qualification criteria, evidence coverage, review queues and secure-location backups — all local to this device",
+     "i": "🧭",
+     "c": "#2F6B4D",
+     "new": true
+    },
+    {
      "f": "https://madebymatt.uk/uas/",
      "n": "UAS Register",
      "d": "AQA Unit Award Scheme without the paperwork — date-stamp outcomes, file photo evidence, export one email-ready PDF",
