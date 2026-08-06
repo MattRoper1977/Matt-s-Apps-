@@ -163,7 +163,7 @@ details.acc>.grid,details.acc>.specband{margin:0 1rem 1rem}
 <section class="hero"><div class="hero-in">
 <p class="eyebrow">A Made by Matt collection</p>
 <h1>THE CREATOR <span>HUB</span></h1>
-<p class="lead">Your offline creative workshop. Twenty-eight single-file studios that run straight from the browser — design something, learn something, build something. Nothing installs, nothing uploads.</p>
+<p class="lead">Your offline creative workshop. <span id="leadCount">Thirty</span> single-file studios that run straight from the browser — design something, learn something, build something. Nothing installs, nothing uploads.</p>
 <span class="count" id="count" aria-live="polite">Loading…</span>
 </div></section>
 
@@ -222,6 +222,22 @@ function bridge(){return `<div class="bridge"><span class="stamp">FROM THE LESSO
 <p>These studios make the work — the suite teaches it: a term of art lessons across BUILD (Explore), GROW (Bronze) and LAUNCH (Silver), each with three tiers and a print pack built in.</p>
 <div class="acts"><a href="https://madebymatt.uk/resources/?subject=Art%20%C2%B7%20Teesside%20Studio%20Suite">Browse the suite →</a><a href="https://madebymatt.uk/Lessons/">Lesson Hub →</a></div></div>`}
 function matches(it){const a=audOf(it);return (!Q||[it.n,it.d].join(" ").toLowerCase().includes(Q))&&(!AUD||a===AUD||(AUD==="p"&&a==="s"))}
+/* Number to words, so the lead keeps its rhythm ("Thirty single-file studios")
+   rather than switching to a digit. Falls back to the digit above the table,
+   which reads worse but is never wrong. */
+const ONES=["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten",
+  "Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"];
+const TENS=["","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"];
+function inWords(n){
+  n=Math.max(0,Math.floor(Number(n)||0));
+  if(n<20) return ONES[n];
+  if(n<100){ const t=TENS[Math.floor(n/10)], o=n%10; return o?t+"-"+ONES[o].toLowerCase():t; }
+  return String(n);
+}
+function setLeadCount(total){
+  const el=document.getElementById("leadCount");
+  if(el) el.textContent=inWords(total);
+}
 function render(){
 const spaces=DATA.spaces.map(s=>({cat:s.cat,items:s.items.filter(matches)})).filter(s=>s.items.length&&(!CAT||s.cat===CAT));
 const total=DATA.spaces.reduce((n,s)=>n+s.items.length,0);
@@ -236,6 +252,12 @@ const body=(spec?`<div class="specband"><div class="grid">${s.items.map(card).jo
 return `<details class="acc"${idx===0?" open":""}><summary><span class="aname">${esc(s.cat)}</span>${spec?'<span class="spec">Specialist</span>':''}<span class="apill">${s.items.length} studios</span><span class="chev" aria-hidden="true">▾</span></summary>${body}</details>`}).join("");
 }
 $("#count").textContent=`${shown} of ${total} studios${CAT?" · "+CAT:""}${AUD?" · "+AUDL[AUD]:""}`;
+/* The lead paragraph states the same total in words. It is written here, from
+   the same apps.json the pill counts, so the two cannot drift apart again —
+   the prose said "Twenty-eight" while the pill said "30 of 30" for long enough
+   that it has now been wrong at least twice. The sentence stays handwritten;
+   only the number in it is generated. */
+setLeadCount(total);
 }
 function chips(){
 const c=(label,val,on)=>`<button class="chip" data-cat="${esc(val)}" aria-pressed="${on?"true":"false"}">${esc(label)}</button>`;
