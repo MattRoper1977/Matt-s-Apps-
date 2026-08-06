@@ -6,7 +6,16 @@
 if(window.MBMTeacher&&window.MBMTeacher.version)return;
 var VERSION="1.0.0",CONTEXT_KEY="mbm.teacher.v1.context",OUTBOX_KEY="mbm.teacher.v1.outbox",ROSTERS_KEY="mbm.teacher.v1.rosters",LEGACY_ROSTER_KEY="ps_coldcall_roster",ENABLED_KEY="mbm.teacher.v1.enabled",MAX_OUTBOX=100,MAX_TEXT=12000;
 var script=document.currentScript,app=(script&&script.dataset&&script.dataset.mbmApp)||document.title.replace(/\s*[—|-].*$/g,"").trim()||"Unknown app";
-var staffApps=/Evidence Binder|Rubric|Exit Ticket|Classroom Toolkit|Seating|Whiteboard|Choreo|Graph|PDF|Writing Frames|Flashcards|Quiz|Data Manager/i;
+/* mbm-launcher-gating:v2 (estate decision R-TW01)
+   Default-on only for the apps the Creator Hub AUDMAP classifies as teacher
+   admin ("t"). The pack's default also enabled Whiteboard, Graph & Data, PDF
+   Studio, Writing Frames and Flashcards & Quiz, which AUDMAP classifies as
+   pupil/anyone audiences -- opening the dialog there exposes the shared roster
+   and teacher context on whatever device a pupil is holding. Those apps still
+   load the bridge and keep their hand-off buttons; the launcher now appears
+   there only via ?teacher=1 or MBMTeacher.enable(). Reverting is this one
+   regex. */
+var staffApps=/Evidence Binder|Rubric|Exit Ticket|Classroom Toolkit|Seating|Choreo|Data Manager/i;
 var excluded=/Feelings Check|Regulation Station/i;
 function parse(raw,fallback){try{return JSON.parse(raw)}catch(_){return fallback}}
 function read(key,fallback){try{var v=localStorage.getItem(key);return v==null?fallback:parse(v,fallback)}catch(_){return fallback}}
