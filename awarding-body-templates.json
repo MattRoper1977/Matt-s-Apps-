@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 1,
+  "checkedOn": "2026-08-05",
+  "notice": "These profiles configure local workflow fields only. They are not official forms or specifications. Centres must use current awarding-body documents, training, portals and quality-assurance instructions as the source of truth, and paste exact current criterion wording into each unit.",
+  "profiles": [
+    {
+      "id": "generic-portfolio",
+      "name": "Generic portfolio programme",
+      "awardingBody": "Centre-defined",
+      "qualification": "Portfolio programme",
+      "defaultRecordTypes": [
+        "learner-evidence",
+        "assessment-decision",
+        "witness-observation"
+      ],
+      "criterionFields": [
+        "code",
+        "exact wording",
+        "evidence needed",
+        "source/version"
+      ],
+      "workflow": [
+        "draft",
+        "review",
+        "ready",
+        "submitted",
+        "returned",
+        "archived"
+      ],
+      "requiredPrompts": [
+        "learner",
+        "unit",
+        "criterion",
+        "evidence source",
+        "date",
+        "assessor"
+      ],
+      "notes": [
+        "Use centre terminology and current programme documents."
+      ]
+    },
+    {
+      "id": "aqa-uas",
+      "name": "AQA Unit Award Scheme",
+      "awardingBody": "AQA",
+      "qualification": "Unit Award Scheme",
+      "defaultRecordTypes": [
+        "learner-evidence",
+        "assessment-decision",
+        "witness-observation"
+      ],
+      "criterionFields": [
+        "unit code",
+        "unit title",
+        "outcome number/code",
+        "exact outcome wording",
+        "evidence needed as stated by AQA",
+        "unit approval/version reference"
+      ],
+      "workflow": [
+        "draft",
+        "review",
+        "ready",
+        "submitted",
+        "returned",
+        "archived"
+      ],
+      "requiredPrompts": [
+        "learner identity",
+        "unit",
+        "outcome",
+        "evidence source",
+        "date achieved",
+        "educator confirmation",
+        "summary-sheet status"
+      ],
+      "guardrails": [
+        "Do not infer that a photograph alone proves an outcome; record how the evidence meets the stated outcome and evidence requirement.",
+        "Keep the current AQA unit page and summary sheet as the authoritative source.",
+        "Ready means ready for the centre's claim-preparation process, not certified."
+      ],
+      "officialSources": [
+        {
+          "title": "AQA Unit Award Scheme — about and how it works",
+          "url": "https://www.aqa.org.uk/programmes/unit-award-scheme/about"
+        },
+        {
+          "title": "AQA Unit Award Scheme — certification",
+          "url": "https://www.aqa.org.uk/programmes/unit-award-scheme/certification"
+        }
+      ]
+    },
+    {
+      "id": "asdan-short-course",
+      "name": "ASDAN Short Course",
+      "awardingBody": "ASDAN",
+      "qualification": "Short Course",
+      "defaultRecordTypes": [
+        "learner-evidence",
+        "assessment-decision",
+        "learner-statement"
+      ],
+      "criterionFields": [
+        "module",
+        "challenge reference",
+        "exact challenge wording",
+        "supporting evidence expected",
+        "delivery format/version"
+      ],
+      "workflow": [
+        "draft",
+        "review",
+        "ready",
+        "submitted",
+        "returned",
+        "archived"
+      ],
+      "requiredPrompts": [
+        "challenge completed",
+        "supporting evidence",
+        "planning/review record",
+        "summary of achievement",
+        "skills development",
+        "personal statement"
+      ],
+      "optionalPrompts": [
+        "tutor feedback where the selected course requires it"
+      ],
+      "guardrails": [
+        "Record which delivery format/version is in use where student-book and digital challenge content differ.",
+        "Use the current course book, Equitas content and centre guidance as authoritative."
+      ],
+      "officialSources": [
+        {
+          "title": "ASDAN Expressive Arts Short Course — requirements",
+          "url": "https://www.asdan.org.uk/courses/expressive-arts-short-course/"
+        },
+        {
+          "title": "ASDAN Living Independently Short Course — requirements",
+          "url": "https://www.asdan.org.uk/living-independently-short-course/"
+        }
+      ]
+    },
+    {
+      "id": "asdan-peq",
+      "name": "ASDAN Personal Effectiveness Qualifications",
+      "awardingBody": "ASDAN",
+      "qualification": "Personal Effectiveness Qualification",
+      "defaultRecordTypes": [
+        "learner-evidence",
+        "assessment-decision",
+        "witness-observation"
+      ],
+      "criterionFields": [
+        "qualification size",
+        "level",
+        "unit",
+        "criterion code",
+        "exact criterion wording",
+        "specification/version"
+      ],
+      "coreSkills": [
+        "learning",
+        "communicating",
+        "decision-making",
+        "thinking",
+        "team working",
+        "self-awareness"
+      ],
+      "workflow": [
+        "draft",
+        "review",
+        "ready",
+        "submitted",
+        "returned",
+        "archived"
+      ],
+      "requiredPrompts": [
+        "learner registration/cohort",
+        "unit/criterion",
+        "portfolio evidence",
+        "assessment decision",
+        "quality-assurance sample status"
+      ],
+      "guardrails": [
+        "Portfolio records support, but do not replace, ASDAN registration, assessment plans, specification documents or EQA sampling.",
+        "Ready means ready for the centre's internal process, not awarded."
+      ],
+      "officialSources": [
+        {
+          "title": "ASDAN Personal Effectiveness Qualifications launch",
+          "url": "https://www.asdan.org.uk/news/personal-effectiveness-qualifications-launch-updates-training-and-free-resources/"
+        }
+      ]
+    },
+    {
+      "id": "arts-award",
+      "name": "Arts Award",
+      "awardingBody": "Trinity College London / Arts Award",
+      "qualification": "Arts Award",
+      "defaultRecordTypes": [
+        "learner-evidence",
+        "assessment-decision",
+        "witness-observation",
+        "learner-statement"
+      ],
+      "criterionFields": [
+        "award level",
+        "part/section",
+        "assessment criterion",
+        "exact wording",
+        "evidence locator reference",
+        "guidance/version"
+      ],
+      "workflow": [
+        "draft",
+        "review",
+        "ready",
+        "submitted",
+        "returned",
+        "archived"
+      ],
+      "requiredPrompts": [
+        "young person",
+        "award level",
+        "part/criterion",
+        "evidence locator",
+        "adviser assessment"
+      ],
+      "witnessPrompts": [
+        "witness name",
+        "role",
+        "signed form reference",
+        "observation/scribing/witness type"
+      ],
+      "guardrails": [
+        "Use the current adviser toolkit, assessment criteria, centre operational guidance and moderation guidance.",
+        "Where observations, scribing or witness statements replace learner-created evidence, follow the current formal policy and form requirements.",
+        "Ready means ready for adviser/centre checks, not externally moderated."
+      ],
+      "officialSources": [
+        {
+          "title": "Arts Award access and inclusion",
+          "url": "https://www.artsaward.org.uk/accessandinclusion"
+        },
+        {
+          "title": "Arts Award moderation",
+          "url": "https://www.artsaward.org.uk/moderation"
+        }
+      ]
+    }
+  ]
+}
