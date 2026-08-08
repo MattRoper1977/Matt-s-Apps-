@@ -6,36 +6,104 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: mbm-cross-estate-apps-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  snapshot:
+  publish-verified-content:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      BRANCH: codex/mbm-cross-estate-unification-lessons-apps-2026-08-08
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out the authorised Apps branch
+        uses: actions/checkout@v4
         with:
+          ref: codex/mbm-cross-estate-unification-lessons-apps-2026-08-08
           fetch-depth: 0
-      - name: Measure and archive the exact branch
+
+      - name: Check out the canonical Made by Matt platform
+        uses: actions/checkout@v4
+        with:
+          repository: MattRoper1977/mattroper1977.github.io
+          ref: main
+          path: _reference/site
+          fetch-depth: 1
+
+      - name: Check out the proven Lessons shell
+        uses: actions/checkout@v4
+        with:
+          repository: MattRoper1977/Lessons
+          ref: codex/mbm-cross-estate-unification-lessons-apps-2026-08-08
+          path: _reference/lessons
+          fetch-depth: 1
+
+      - name: Apply the hash-locked Apps content release
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p audit-output
-          {
-            echo "sentinel=mbm-cross-estate-unification-lessons-apps-2026-08-08"
-            echo "repository=$GITHUB_REPOSITORY"
-            echo "head=$(git rev-parse HEAD)"
-            echo "tracked=$(git ls-files | wc -l)"
-            echo "html=$(git ls-files '*.html' '*.htm' | wc -l)"
-            echo "css=$(git ls-files '*.css' | wc -l)"
-            echo "js=$(git ls-files '*.js' '*.mjs' '*.cjs' | wc -l)"
-            echo "json=$(git ls-files '*.json' | wc -l)"
-          } | tee audit-output/repository-state.txt
-          git ls-files | sort > audit-output/file-inventory.txt
-          tar --exclude='./.git' --exclude='./audit-output' -czf audit-output/source.tar.gz .
-      - uses: actions/upload-artifact@v4
-        with:
-          name: mbm-cross-estate-apps-source-${{ github.run_id }}
-          path: audit-output/
-          if-no-files-found: error
-          retention-days: 7
+          git fetch origin main "$BRANCH"
+          git reset --hard "origin/$BRANCH"
+          git merge-base --is-ancestor 298c4381982ef44e69f6b4f20b9dc015bb5ed96d HEAD
+
+          cat .github/mbm-cross-estate-unique.part-* | base64 -d > /tmp/mbm-apps-unique.tar.gz
+          echo "1a96694302fa578c1db1fac55b61acd9d44de0a70388667b44bfa2d238ae5ebe  /tmp/mbm-apps-unique.tar.gz" | sha256sum -c -
+          rm -rf /tmp/mbm-apps-unique
+          mkdir -p /tmp/mbm-apps-unique
+          tar -xzf /tmp/mbm-apps-unique.tar.gz -C /tmp/mbm-apps-unique
+          test -f /tmp/mbm-apps-unique/index.patch
+          test -f /tmp/mbm-apps-unique/docs/MBM_CROSS_ESTATE_UNIFICATION.md
+          patch --batch --forward -p1 < /tmp/mbm-apps-unique/index.patch
+          mkdir -p docs assets tools
+          cp /tmp/mbm-apps-unique/docs/MBM_CROSS_ESTATE_UNIFICATION.md docs/MBM_CROSS_ESTATE_UNIFICATION.md
+
+          cp _reference/site/assets/mbm-platform.css assets/mbm-platform.css
+          cp _reference/site/assets/mbm-platform.js assets/mbm-platform.js
+          cp _reference/site/theme.js assets/mbm-theme.js
+          cp _reference/lessons/assets/mbm-hub.css assets/mbm-hub.css
+          cp _reference/lessons/tools/verify_cross_estate_unification.py tools/verify_cross_estate_unification.py
+          cp _reference/lessons/tools/verify_cross_estate_browser.mjs tools/verify_cross_estate_browser.mjs
+
+          git rm -f --ignore-unmatch .github/mbm-cross-estate-unique.part-00 .github/mbm-cross-estate-unique.part-01
+          git add \
+            index.html \
+            assets/mbm-platform.css \
+            assets/mbm-platform.js \
+            assets/mbm-theme.js \
+            assets/mbm-hub.css \
+            tools/verify_cross_estate_unification.py \
+            tools/verify_cross_estate_browser.mjs \
+            docs/MBM_CROSS_ESTATE_UNIFICATION.md
+          git diff --cached --check
+          git config user.name "Made by Matt cross-estate release"
+          git config user.email "actions@users.noreply.github.com"
+          git commit -m "feat: unify Apps with the Made by Matt platform"
+
+      - name: Run static, syntax and positive-control gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/verify_cross_estate_unification.py --canonical _reference/site --self-test
+          python -m py_compile tools/verify_cross_estate_unification.py
+          python -m json.tool apps.json >/dev/null
+          node --check assets/mbm-platform.js
+          node --check assets/mbm-theme.js
+          node --check tools/verify_cross_estate_browser.mjs
+          python - <<'PY'
+          import pathlib, re
+          text=pathlib.Path('index.html').read_text(encoding='utf-8')
+          out=pathlib.Path('/tmp/mbm-inline-scripts'); out.mkdir(exist_ok=True)
+          for i,body in enumerate(re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>',text,re.S|re.I)):
+              if body.strip(): (out/f'inline-{i}.js').write_text(body,encoding='utf-8')
+          PY
+          for script in /tmp/mbm-inline-scripts/*.js; do node --check "$script"; done
+          git diff --check HEAD^
+
+      - name: Push the verified Apps content commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git push origin "HEAD:$BRANCH"
