@@ -14,7 +14,9 @@ on:
       - docs/MBM_CROSS_ESTATE_UNIFICATION.md
       - .github/workflows/mbm-cross-estate-unification.yml
   push:
-    branches: [main]
+    branches:
+      - main
+      - codex/mbm-cross-estate-unification-lessons-apps-2026-08-08
     paths:
       - index.html
       - assets/mbm-platform.css
@@ -29,6 +31,8 @@ on:
 
 permissions:
   contents: read
+  issues: write
+  pull-requests: write
 
 concurrency:
   group: mbm-cross-estate-${{ github.repository }}-${{ github.event.pull_request.number || github.ref }}
@@ -134,8 +138,20 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+  branch-evidence:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/codex/mbm-cross-estate-unification-lessons-apps-2026-08-08'
+    needs: [static-contract, browser-matrix]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Record the approved same-repository branch proof on PR 5
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh pr comment 5 --repo "$GITHUB_REPOSITORY" --body "Cross-estate static and browser gates passed on exact head \`$GITHUB_SHA\`. Run: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+
   live-proof:
-    if: github.event_name != 'pull_request'
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
     needs: [static-contract, browser-matrix]
     runs-on: ubuntu-latest
     timeout-minutes: 35
