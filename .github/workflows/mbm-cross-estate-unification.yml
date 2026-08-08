@@ -183,9 +183,12 @@ jobs:
           set -euo pipefail
           if [ -f resources.json ]; then prefix=Lessons; manifest=resources.json; else prefix=Matt-s-Apps-; manifest=apps.json; fi
           base="https://madebymatt.uk/$prefix/"
+          versioned="${base}?mbm=${GITHUB_SHA}"
+          mkdir -p audit-output
+          printf '{"source":"%s","base":"%s","versioned":"%s"}\n' "$GITHUB_SHA" "$base" "$versioned" > audit-output/deployment-target.json
           ready=0
           for _ in $(seq 1 60); do
-            if curl -fsS --retry 2 "$base" | grep -q 'mbm-cross-estate-unification-lessons-apps-2026-08-08'; then
+            if curl -fsS --retry 2 -H 'Cache-Control: no-cache, no-store, max-age=0' -H 'Pragma: no-cache' "$versioned" | grep -q 'mbm-cross-estate-unification-lessons-apps-2026-08-08'; then
               ready=1
               break
             fi
@@ -195,9 +198,9 @@ jobs:
           for route in / /games/ /Lessons/ /Matt-s-Apps-/ /tools/ /resources/; do
             curl -fsS --retry 3 "https://madebymatt.uk$route" >/dev/null
           done
-          curl -fsS --retry 3 "$base$manifest" | python -m json.tool >/dev/null
+          curl -fsS --retry 3 -H 'Cache-Control: no-cache, no-store, max-age=0' "${base}${manifest}?mbm=${GITHUB_SHA}" | python -m json.tool >/dev/null
           for asset in mbm-platform.css mbm-platform.js mbm-theme.js mbm-hub.css; do
-            curl -fsS --retry 3 "$base/assets/$asset" -o "/tmp/$asset"
+            curl -fsS --retry 3 -H 'Cache-Control: no-cache, no-store, max-age=0' "${base}assets/$asset?mbm=${GITHUB_SHA}" -o "/tmp/$asset"
             cmp "assets/$asset" "/tmp/$asset"
           done
           echo "$base" > /tmp/mbm-live-base
@@ -206,7 +209,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          MBM_BASE_URL="$(cat /tmp/mbm-live-base)" node tools/verify_cross_estate_browser.mjs
+          MBM_BASE_URL="$(cat /tmp/mbm-live-base)" MBM_CACHE_BUST="$GITHUB_SHA" node tools/verify_cross_estate_browser.mjs
 
       - name: Record production proof on the release PR
         env:
