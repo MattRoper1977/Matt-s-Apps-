@@ -197,6 +197,13 @@ jobs:
           set -euo pipefail
           MBM_BASE_URL="$(cat /tmp/mbm-live-base)" node tools/verify_cross_estate_browser.mjs
 
+      - name: Record production proof on the release PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh pr comment 5 --repo "$GITHUB_REPOSITORY" --body "Production cross-estate proof passed on merged source \`$GITHUB_SHA\`. Run: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+
       - name: Print live evidence
         if: always()
         shell: bash
