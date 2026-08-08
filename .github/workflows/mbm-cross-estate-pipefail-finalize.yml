@@ -22,7 +22,7 @@ jobs:
           ref: codex/mbm-cross-estate-pipefail-poll-fix-2026-08-08
           fetch-depth: 0
 
-      - name: Build and publish the exact workflow payload
+      - name: Build and publish chunked workflow payload
         shell: bash
         run: |
           set -euo pipefail
@@ -38,14 +38,15 @@ jobs:
           path.write_text(text.replace(old, new, 1), encoding='utf-8')
           PY
           grep -Fq -- "-o /tmp/mbm-live-index.html \"\$versioned\" && grep -q" .github/workflows/mbm-cross-estate-unification.yml
-          base64 -w0 .github/workflows/mbm-cross-estate-unification.yml > .github/mbm-cross-estate-workflow-payload.b64
+          rm -f .github/mbm-cross-estate-workflow-payload.b64 .github/mbm-cross-estate-workflow-payload.part-*
+          base64 -w0 .github/workflows/mbm-cross-estate-unification.yml | split -b 3000 -d -a 2 - .github/mbm-cross-estate-workflow-payload.part-
           git checkout -- .github/workflows/mbm-cross-estate-unification.yml
           git config user.name "Made by Matt cross-estate release"
           git config user.email "actions@users.noreply.github.com"
-          git add .github/mbm-cross-estate-workflow-payload.b64
+          git add -A .github/mbm-cross-estate-workflow-payload*
           if git diff --cached --quiet; then
-            echo 'Payload already current.'
+            echo 'Chunked payload already current.'
             exit 0
           fi
-          git commit -m "chore: stage Apps workflow payload"
+          git commit -m "chore: stage chunked Apps workflow payload"
           git push origin HEAD:codex/mbm-cross-estate-pipefail-poll-fix-2026-08-08
