@@ -1,0 +1,58 @@
+name: Finalise Apps live-poll pipefail correction
+
+on:
+  push:
+    branches:
+      - codex/mbm-cross-estate-pipefail-poll-fix-2026-08-08
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mbm-cross-estate-apps-pipefail-finalize
+  cancel-in-progress: false
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the exact repair branch
+        uses: actions/checkout@v4
+        with:
+          ref: codex/mbm-cross-estate-pipefail-poll-fix-2026-08-08
+          fetch-depth: 0
+
+      - name: Replace the pipefail-unsafe sentinel probe
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('.github/workflows/mbm-cross-estate-unification.yml')
+          text = path.read_text(encoding='utf-8')
+          old = """            if curl -fsS --retry 2 -H 'Cache-Control: no-cache, no-store, max-age=0' -H 'Pragma: no-cache' \"$versioned\" | grep -q 'mbm-cross-estate-unification-lessons-apps-2026-08-08'; then"""
+          new = """            if curl -fsS --retry 2 -H 'Cache-Control: no-cache, no-store, max-age=0' -H 'Pragma: no-cache' -o /tmp/mbm-live-index.html \"$versioned\" && grep -q 'mbm-cross-estate-unification-lessons-apps-2026-08-08' /tmp/mbm-live-index.html; then"""
+          if text.count(old) != 1:
+              raise SystemExit(f'expected one pipefail-unsafe probe, found {text.count(old)}')
+          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+          PY
+          grep -Fq "-o /tmp/mbm-live-index.html \"\$versioned\" && grep -q" .github/workflows/mbm-cross-estate-unification.yml
+          if grep -Fq "\"\$versioned\" | grep -q" .github/workflows/mbm-cross-estate-unification.yml; then
+            echo 'pipefail-unsafe probe remains' >&2
+            exit 1
+          fi
+          rm -f .github/workflows/mbm-cross-estate-pipefail-finalize.yml
+          git diff --check
+
+      - name: Commit the permanent one-file correction
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "Made by Matt cross-estate release"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "ci: make Apps deployment polling pipefail-safe"
+          git push origin HEAD:codex/mbm-cross-estate-pipefail-poll-fix-2026-08-08
