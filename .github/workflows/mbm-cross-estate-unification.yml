@@ -188,7 +188,7 @@ jobs:
           printf '{"source":"%s","base":"%s","versioned":"%s"}\n' "$GITHUB_SHA" "$base" "$versioned" > audit-output/deployment-target.json
           ready=0
           for _ in $(seq 1 60); do
-            if curl -fsS --retry 2 -H 'Cache-Control: no-cache, no-store, max-age=0' -H 'Pragma: no-cache' "$versioned" | grep -q 'mbm-cross-estate-unification-lessons-apps-2026-08-08'; then
+            if curl -fsS --retry 2 -H 'Cache-Control: no-cache, no-store, max-age=0' -H 'Pragma: no-cache' "$versioned" -o /tmp/mbm-live-index.html && grep -Fq 'mbm-cross-estate-unification-lessons-apps-2026-08-08' /tmp/mbm-live-index.html; then
               ready=1
               break
             fi
