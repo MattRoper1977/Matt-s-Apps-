@@ -5,6 +5,20 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const base=(process.env.MBM_BASE_URL||process.argv[2]||'http://127.0.0.1:4173/').replace(/\/?$/,'/');
+const cacheBust=(process.env.MBM_CACHE_BUST||'').trim();
+const baseUrl=new URL(base);
+async function prepareContext(context){
+  if(!cacheBust)return;
+  await context.route('**/*',async route=>{
+    const requestUrl=new URL(route.request().url());
+    if(requestUrl.origin===baseUrl.origin&&requestUrl.pathname.startsWith(baseUrl.pathname)&&!requestUrl.searchParams.has('mbm')){
+      requestUrl.searchParams.set('mbm',cacheBust);
+      await route.continue({url:requestUrl.href});
+      return;
+    }
+    await route.continue();
+  });
+}
 const root=process.cwd();
 const kind=fs.existsSync(path.join(root,'resources.json'))?'lessons':fs.existsSync(path.join(root,'apps.json'))?'apps':null;
 if(!kind)throw new Error('Could not detect repository kind');
@@ -13,7 +27,7 @@ const outDir=path.join(root,'audit-output');
 fs.mkdirSync(outDir,{recursive:true});
 const results={
   sentinel:'mbm-cross-estate-unification-lessons-apps-2026-08-08',
-  kind,base,widths:[],standalone:[],reducedMotion:null,errors:[],fatal:null,
+  kind,base,cacheBust,widths:[],standalone:[],reducedMotion:null,errors:[],fatal:null,
 };
 
 function check(condition,message){if(!condition)results.errors.push(message)}
@@ -24,6 +38,7 @@ const browser=await chromium.launch({headless:true});
 try{
   for(const width of widths){
     const context=await browser.newContext({viewport:{width,height:900},deviceScaleFactor:1});
+    await prepareContext(context);
     const page=await context.newPage();
     page.setDefaultTimeout(10000);
     const pageErrors=[];const consoleErrors=[];const failed=[];const badResponses=[];
@@ -133,6 +148,7 @@ try{
   }
 
   const reduced=await browser.newContext({viewport:{width:430,height:900},reducedMotion:'reduce'});
+  await prepareContext(reduced);
   try{
     const page=await reduced.newPage();
     const response=await page.goto(base,{waitUntil:'domcontentloaded',timeout:60000});
@@ -153,6 +169,7 @@ try{
     ['Animation_Studio.html','Data_Manager_Studio.html','Regulation_Station.html','Whiteboard.html'];
   for(const rel of samples){
     const context=await browser.newContext({viewport:{width:390,height:844}});
+    await prepareContext(context);
     const page=await context.newPage();
     page.setDefaultTimeout(10000);
     const pageErrors=[];const consoleErrors=[];const failed=[];const badResponses=[];
