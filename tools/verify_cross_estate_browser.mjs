@@ -94,6 +94,7 @@ try{
         await page.locator('.mbm-nav-more>summary').click();
         check(await page.locator('.mbm-nav-more').evaluate(element=>element.open),`${kind}: More disclosure did not open`);
         await page.locator('.mbm-theme-menu>summary').click();
+        await page.waitForFunction(()=>!document.querySelector('.mbm-nav-more')?.open&&document.querySelector('.mbm-theme-menu')?.open);
         check(!(await page.locator('.mbm-nav-more').evaluate(element=>element.open)),`${kind}: opening Display did not close More`);
         check(await page.locator('.mbm-theme-menu').evaluate(element=>element.open),`${kind}: Display disclosure did not open`);
         await page.locator('.mbm-sw[data-t="pink"]').click();
