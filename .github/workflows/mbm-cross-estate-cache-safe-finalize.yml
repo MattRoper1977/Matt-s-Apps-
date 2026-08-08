@@ -1,0 +1,106 @@
+name: Finalise cache-safe Apps production proof
+
+on:
+  push:
+    branches:
+      - codex/mbm-cross-estate-cache-safe-live-proof-2026-08-08
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mbm-cross-estate-cache-safe-apps
+  cancel-in-progress: false
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the release branch
+        uses: actions/checkout@v4
+        with:
+          ref: codex/mbm-cross-estate-cache-safe-live-proof-2026-08-08
+          fetch-depth: 0
+
+      - name: Make production verification deployment-SHA aware
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          browser = Path('tools/verify_cross_estate_browser.mjs')
+          text = browser.read_text(encoding='utf-8')
+          old = "const base=(process.env.MBM_BASE_URL||process.argv[2]||'http://127.0.0.1:4173/').replace(/\\/?$/,'/');\nconst root=process.cwd();"
+          new = """const base=(process.env.MBM_BASE_URL||process.argv[2]||'http://127.0.0.1:4173/').replace(/\\/?$/,'/');
+const cacheBust=(process.env.MBM_CACHE_BUST||'').trim();
+const baseUrl=new URL(base);
+async function prepareContext(context){
+  if(!cacheBust)return;
+  await context.route('**/*',async route=>{
+    const requestUrl=new URL(route.request().url());
+    if(requestUrl.origin===baseUrl.origin&&requestUrl.pathname.startsWith(baseUrl.pathname)&&!requestUrl.searchParams.has('mbm')){
+      requestUrl.searchParams.set('mbm',cacheBust);
+      await route.continue({url:requestUrl.href});
+      return;
+    }
+    await route.continue();
+  });
+}
+const root=process.cwd();"""
+          if text.count(old) != 1:
+              raise SystemExit('browser base marker drifted')
+          text = text.replace(old, new, 1)
+          text = text.replace("kind,base,widths:[]", "kind,base,cacheBust,widths:[]", 1)
+          replacements = {
+              "    const context=await browser.newContext({viewport:{width,height:900},deviceScaleFactor:1});\n    const page=await context.newPage();": "    const context=await browser.newContext({viewport:{width,height:900},deviceScaleFactor:1});\n    await prepareContext(context);\n    const page=await context.newPage();",
+              "  const reduced=await browser.newContext({viewport:{width:430,height:900},reducedMotion:'reduce'});\n  try{": "  const reduced=await browser.newContext({viewport:{width:430,height:900},reducedMotion:'reduce'});\n  await prepareContext(reduced);\n  try{",
+              "    const context=await browser.newContext({viewport:{width:390,height:844}});\n    const page=await context.newPage();": "    const context=await browser.newContext({viewport:{width:390,height:844}});\n    await prepareContext(context);\n    const page=await context.newPage();",
+          }
+          for source, target in replacements.items():
+              if text.count(source) != 1:
+                  raise SystemExit(f'browser context marker drifted: {source[:60]}')
+              text = text.replace(source, target, 1)
+          browser.write_text(text, encoding='utf-8')
+
+          workflow = Path('.github/workflows/mbm-cross-estate-unification.yml')
+          text = workflow.read_text(encoding='utf-8')
+          source = '''          base="https://madebymatt.uk/$prefix/"
+          ready=0'''
+          target = '''          base="https://madebymatt.uk/$prefix/"
+          versioned="${base}?mbm=${GITHUB_SHA}"
+          mkdir -p audit-output
+          printf '{"source":"%s","base":"%s","versioned":"%s"}\n' "$GITHUB_SHA" "$base" "$versioned" > audit-output/deployment-target.json
+          ready=0'''
+          if text.count(source) != 1:
+              raise SystemExit('workflow deployment marker drifted')
+          text = text.replace(source, target, 1)
+          swaps = {
+              '''            if curl -fsS --retry 2 "$base" | grep -q 'mbm-cross-estate-unification-lessons-apps-2026-08-08'; then''': '''            if curl -fsS --retry 2 -H 'Cache-Control: no-cache, no-store, max-age=0' -H 'Pragma: no-cache' "$versioned" | grep -q 'mbm-cross-estate-unification-lessons-apps-2026-08-08'; then''',
+              '''          curl -fsS --retry 3 "$base$manifest" | python -m json.tool >/dev/null''': '''          curl -fsS --retry 3 -H 'Cache-Control: no-cache, no-store, max-age=0' "${base}${manifest}?mbm=${GITHUB_SHA}" | python -m json.tool >/dev/null''',
+              '''            curl -fsS --retry 3 "$base/assets/$asset" -o "/tmp/$asset"''': '''            curl -fsS --retry 3 -H 'Cache-Control: no-cache, no-store, max-age=0' "${base}assets/$asset?mbm=${GITHUB_SHA}" -o "/tmp/$asset"''',
+              '''          MBM_BASE_URL="$(cat /tmp/mbm-live-base)" node tools/verify_cross_estate_browser.mjs''': '''          MBM_BASE_URL="$(cat /tmp/mbm-live-base)" MBM_CACHE_BUST="$GITHUB_SHA" node tools/verify_cross_estate_browser.mjs''',
+          }
+          for source, target in swaps.items():
+              if text.count(source) != 1:
+                  raise SystemExit(f'workflow live marker drifted: {source.strip()[:80]}')
+              text = text.replace(source, target, 1)
+          workflow.write_text(text, encoding='utf-8')
+          PY
+          node --check tools/verify_cross_estate_browser.mjs
+          grep -q 'MBM_CACHE_BUST' tools/verify_cross_estate_browser.mjs
+          grep -q 'versioned="${base}?mbm=${GITHUB_SHA}"' .github/workflows/mbm-cross-estate-unification.yml
+          rm -f .github/workflows/mbm-cross-estate-cache-safe-finalize.yml
+          git diff --check
+
+      - name: Commit the cache-safe gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "Made by Matt cross-estate release"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "ci: verify the exact deployed Apps revision"
+          git push origin HEAD:codex/mbm-cross-estate-cache-safe-live-proof-2026-08-08
