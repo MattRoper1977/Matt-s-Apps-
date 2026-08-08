@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - codex/mbm-live-proof-broken-pipe-fix-2026-08-08
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: write
