@@ -1,0 +1,383 @@
+/* mbm-cross-estate-unification-lessons-apps-2026-08-08
+   Shared hub integration layer for the Lessons and Matt-s-Apps- project sites.
+   It sits on top of the canonical Made by Matt platform assets. Individual
+   lessons and studios deliberately do not load this file. */
+:root{
+  --mbm-hub-width:1180px;
+  --mbm-hub-accent:var(--mbm-mint-deep,#2F6B4D);
+  --mbm-hub-accent-2:var(--mbm-amber,#F2A24A);
+  --mbm-hub-accent-soft:rgba(185,230,205,.25);
+}
+
+body.mbm-hub{
+  background:var(--cream,var(--mbm-cream,#F6F1E4));
+  color:var(--ink,var(--mbm-ink,#1B2140));
+  overflow-x:hidden;
+}
+body.mbm-hub-lessons{
+  --mbm-hub-accent:#2F6B4D;
+  --mbm-hub-accent-2:#E08A2E;
+  --mbm-hub-accent-soft:rgba(185,230,205,.34);
+}
+body.mbm-hub-apps{
+  --mbm-hub-accent:#6D5CF5;
+  --mbm-hub-accent-2:#E08A2E;
+  --mbm-hub-accent-soft:rgba(109,92,245,.14);
+}
+
+body.mbm-hub main{position:relative;isolation:isolate}
+body.mbm-hub main::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:0 0 auto;
+  height:420px;
+  background:
+    radial-gradient(circle at 12% 18%,var(--mbm-hub-accent-soft),transparent 38%),
+    radial-gradient(circle at 88% 8%,rgba(242,162,74,.12),transparent 34%);
+  pointer-events:none;
+}
+
+/* The same editorial gateway language as the canonical platform, with a
+   pathway-led Lessons identity and a creative Apps identity underneath it. */
+body.mbm-hub .hero{
+  position:relative;
+  overflow:hidden;
+  border-bottom:1px solid var(--mbm-line,#E3DAC5);
+  background:linear-gradient(180deg,rgba(255,253,246,.58),rgba(246,241,228,.42));
+}
+body.mbm-hub .hero::after{
+  content:"";
+  position:absolute;
+  width:340px;
+  height:340px;
+  inset:auto -150px -235px auto;
+  border-radius:50%;
+  border:1px solid rgba(22,29,61,.08);
+  box-shadow:0 0 0 34px rgba(22,29,61,.025),0 0 0 72px rgba(22,29,61,.015);
+  pointer-events:none;
+}
+body.mbm-hub .hero-in{
+  position:relative;
+  z-index:1;
+  max-width:860px;
+  padding:clamp(3rem,7vw,4.8rem) 1rem clamp(2.25rem,5vw,3.5rem);
+}
+body.mbm-hub .eyebrow{
+  color:var(--mbm-amber-deep,#C97F2E);
+  font-size:.7rem;
+  font-weight:850;
+  letter-spacing:.24em;
+}
+body.mbm-hub h1{
+  margin:.45rem 0 .65rem;
+  color:var(--mbm-navy,#161D3D);
+  font-size:clamp(2.25rem,7vw,4.35rem);
+  line-height:.98;
+  letter-spacing:-.035em;
+}
+body.mbm-hub h1 span{color:var(--mbm-hub-accent)}
+body.mbm-hub .lead{
+  max-width:47rem;
+  color:var(--mut,var(--mbm-muted,#4A5170));
+  font-size:clamp(.95rem,2vw,1.08rem);
+  line-height:1.68;
+}
+body.mbm-hub .hero .count{
+  min-height:42px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:1.25rem;
+  padding:.5rem 1.05rem;
+  border:1px solid rgba(22,29,61,.22);
+  border-radius:999px;
+  background:var(--card,var(--mbm-surface,#FFFDF6));
+  box-shadow:var(--mbm-shadow-s,0 4px 14px rgba(22,29,61,.08));
+  color:var(--mbm-navy,#161D3D);
+}
+
+body.mbm-hub .hero26{
+  width:min(calc(100% - 2rem),var(--mbm-hub-width));
+  margin:1.15rem auto 0;
+  padding:.9rem 1.05rem;
+  border:1px solid rgba(185,230,205,.5);
+  border-radius:var(--mbm-radius-m,16px);
+  box-shadow:var(--mbm-shadow-s,0 4px 14px rgba(22,29,61,.08));
+}
+
+/* Shared catalogue controls. */
+body.mbm-hub .toolbar{
+  width:min(calc(100% - 2rem),var(--mbm-hub-width));
+  margin:1.15rem auto .55rem;
+  padding:.9rem;
+  gap:.75rem;
+  border:1px solid var(--mbm-line,#E3DAC5);
+  border-radius:var(--mbm-radius-m,16px);
+  background:rgba(255,253,246,.78);
+  box-shadow:var(--mbm-shadow-s,0 4px 14px rgba(22,29,61,.08));
+}
+body.mbm-hub .toolbar label{min-width:min(100%,190px)}
+body.mbm-hub .toolbar input,
+body.mbm-hub .toolbar select{
+  min-height:46px;
+  border-color:rgba(22,29,61,.28);
+  border-radius:12px;
+  background:var(--card,var(--mbm-surface,#FFFDF6));
+  transition:border-color .16s ease,box-shadow .16s ease,background-color .16s ease;
+}
+body.mbm-hub .toolbar input:hover,
+body.mbm-hub .toolbar select:hover{border-color:rgba(22,29,61,.52)}
+body.mbm-hub .toolbar input:focus,
+body.mbm-hub .toolbar select:focus{
+  outline:none;
+  border-color:var(--mbm-hub-accent-2);
+  box-shadow:0 0 0 4px rgba(242,162,74,.16);
+}
+body.mbm-hub .chiprow,
+body.mbm-hub .segrow{
+  width:min(100%,var(--mbm-hub-width));
+  scroll-padding-inline:1rem;
+  overscroll-behavior-inline:contain;
+}
+body.mbm-hub .chiprow{padding-top:.3rem;padding-bottom:.55rem}
+body.mbm-hub .chip,
+body.mbm-hub .seg{
+  border-color:rgba(22,29,61,.22);
+  box-shadow:0 1px 0 rgba(22,29,61,.025);
+  transition:transform .15s ease,border-color .15s ease,background-color .15s ease,color .15s ease;
+}
+@media (hover:hover) and (pointer:fine){
+  body.mbm-hub .chip:hover,
+  body.mbm-hub .seg:hover{transform:translateY(-1px);border-color:var(--mbm-hub-accent)}
+}
+body.mbm-hub .chip:focus-visible,
+body.mbm-hub .seg:focus-visible{outline:3px solid var(--mbm-amber,#F2A24A);outline-offset:2px}
+body.mbm-hub .status{min-height:1.65rem;line-height:1.45}
+
+/* Cards and native disclosures retain their domain-specific content while
+   sharing surface depth, focus language and touch behaviour. */
+body.mbm-hub .grid{gap:1rem}
+body.mbm-hub .card{
+  border-radius:var(--mbm-radius-m,16px);
+  background:var(--card,var(--mbm-surface,#FFFDF6));
+  box-shadow:var(--mbm-shadow-s,0 4px 14px rgba(22,29,61,.08));
+  transition:transform .18s var(--mbm-ease,cubic-bezier(.2,.75,.25,1)),box-shadow .18s ease,border-color .18s ease;
+}
+@media (hover:hover) and (pointer:fine){
+  body.mbm-hub .card:hover{transform:translateY(-3px);box-shadow:var(--mbm-shadow-m,0 16px 42px rgba(22,29,61,.14))}
+}
+body.mbm-hub .card:focus-within{
+  outline:3px solid var(--mbm-amber,#F2A24A);
+  outline-offset:3px;
+  box-shadow:var(--mbm-shadow-m,0 16px 42px rgba(22,29,61,.14));
+}
+body.mbm-hub .card h3 a:focus-visible{outline:none;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+body.mbm-hub details.acc,
+body.mbm-hub details.legacy{
+  border-color:rgba(22,29,61,.22);
+  border-radius:var(--mbm-radius-m,16px);
+  background:var(--card,var(--mbm-surface,#FFFDF6));
+  box-shadow:var(--mbm-shadow-s,0 4px 14px rgba(22,29,61,.08));
+}
+body.mbm-hub details.acc>summary,
+body.mbm-hub details.legacy>summary{
+  min-height:52px;
+  background:rgba(237,229,210,.62);
+}
+body.mbm-hub details.acc>summary:hover,
+body.mbm-hub details.legacy>summary:hover{background:rgba(242,162,74,.09)}
+body.mbm-hub details.acc>summary:focus-visible,
+body.mbm-hub details.legacy>summary:focus-visible{
+  outline:3px solid var(--mbm-amber,#F2A24A);
+  outline-offset:-3px;
+  border-radius:12px;
+}
+body.mbm-hub .sig>div{
+  border-color:var(--mbm-line,#E3DAC5);
+  border-radius:var(--mbm-radius-m,16px);
+  background:var(--card,var(--mbm-surface,#FFFDF6));
+  box-shadow:var(--mbm-shadow-s,0 4px 14px rgba(22,29,61,.08));
+}
+body.mbm-hub .footer{margin-top:clamp(2.5rem,6vw,4.5rem)}
+
+/* Lessons keeps its pathway and academic-year architecture. */
+body.mbm-hub-lessons .journey{
+  padding-top:1.8rem;
+  padding-bottom:.85rem;
+  border-bottom:0;
+}
+body.mbm-hub-lessons .j-grid{gap:.8rem}
+body.mbm-hub-lessons .j-tier{
+  min-height:164px;
+  border:1px solid var(--mbm-line,#E3DAC5);
+  background:rgba(255,253,246,.62);
+  box-shadow:var(--mbm-shadow-s,0 4px 14px rgba(22,29,61,.08));
+}
+body.mbm-hub-lessons .j-tier[aria-pressed="true"]{border-width:2px;box-shadow:var(--mbm-shadow-m,0 16px 42px rgba(22,29,61,.14))}
+body.mbm-hub-lessons .ytabs{
+  max-width:var(--mbm-hub-width);
+  gap:.75rem;
+  margin-top:1.25rem;
+}
+body.mbm-hub-lessons .ytab{
+  min-height:92px;
+  border-color:var(--mbm-line,#E3DAC5);
+  border-radius:var(--mbm-radius-m,16px);
+  box-shadow:var(--mbm-shadow-s,0 4px 14px rgba(22,29,61,.08));
+}
+body.mbm-hub-lessons .ytab[aria-pressed="true"]{
+  border-color:var(--mbm-hub-accent);
+  background:var(--card,var(--mbm-surface,#FFFDF6));
+  box-shadow:inset 0 0 0 1px var(--mbm-hub-accent),var(--mbm-shadow-m,0 16px 42px rgba(22,29,61,.14));
+}
+body.mbm-hub-lessons .pathhead{border-radius:12px;box-shadow:0 2px 8px rgba(22,29,61,.05)}
+body.mbm-hub-lessons .callout{border-radius:var(--mbm-radius-m,16px);box-shadow:var(--mbm-shadow-s,0 4px 14px rgba(22,29,61,.08))}
+
+/* Apps remains a creative workshop rather than a copy of Lessons. */
+body.mbm-hub-apps .trio{
+  gap:.85rem;
+  padding-top:1.8rem;
+  padding-bottom:.7rem;
+}
+body.mbm-hub-apps .trio .t{
+  min-width:0;
+  padding:1.05rem .9rem;
+  border:1px solid var(--mbm-line,#E3DAC5);
+  border-radius:var(--mbm-radius-m,16px);
+  background:rgba(255,253,246,.72);
+  box-shadow:var(--mbm-shadow-s,0 4px 14px rgba(22,29,61,.08));
+}
+body.mbm-hub-apps .feature>div{
+  border-color:rgba(224,138,46,.7);
+  border-radius:var(--mbm-radius-m,16px);
+  background:linear-gradient(135deg,rgba(251,237,216,.95),rgba(255,253,246,.92));
+  box-shadow:var(--mbm-shadow-s,0 4px 14px rgba(22,29,61,.08));
+}
+body.mbm-hub-apps .feature .go{min-height:44px;display:inline-flex;align-items:center}
+body.mbm-hub-apps .segrow{margin-top:1.2rem;padding-top:.65rem;padding-bottom:.15rem;overflow-x:auto;flex-wrap:nowrap}
+body.mbm-hub-apps .segrow .lbl{flex:0 0 auto}
+body.mbm-hub-apps .specband{box-shadow:inset 0 0 0 1px rgba(224,138,46,.2)}
+body.mbm-hub-apps .bridge{box-shadow:var(--mbm-shadow-s,0 4px 14px rgba(22,29,61,.08))}
+body.mbm-hub-apps .card .open{text-decoration:none}
+
+/* Reading backgrounds stay compatible with the canonical shared storage key. */
+html[data-theme="dark"] body.mbm-hub,
+body.mbm-hub[data-theme="dark"]{--mbm-line:#2E3860}
+html[data-theme="dark"] body.mbm-hub main::before,
+body.mbm-hub[data-theme="dark"] main::before{opacity:.42}
+html[data-theme="dark"] body.mbm-hub .hero,
+body.mbm-hub[data-theme="dark"] .hero{
+  border-color:#2E3860;
+  background:linear-gradient(180deg,rgba(22,29,61,.82),rgba(18,24,52,.68));
+}
+html[data-theme="dark"] body.mbm-hub h1,
+html[data-theme="dark"] body.mbm-hub .cat h2,
+html[data-theme="dark"] body.mbm-hub .feature h2,
+html[data-theme="dark"] body.mbm-hub details.acc .aname,
+body.mbm-hub[data-theme="dark"] h1,
+body.mbm-hub[data-theme="dark"] .cat h2,
+body.mbm-hub[data-theme="dark"] .feature h2,
+body.mbm-hub[data-theme="dark"] details.acc .aname{color:var(--ink,#E8E2D4)}
+html[data-theme="dark"] body.mbm-hub .hero .count,
+html[data-theme="dark"] body.mbm-hub .toolbar,
+html[data-theme="dark"] body.mbm-hub .trio .t,
+body.mbm-hub[data-theme="dark"] .hero .count,
+body.mbm-hub[data-theme="dark"] .toolbar,
+body.mbm-hub[data-theme="dark"] .trio .t{
+  color:var(--ink,#E8E2D4);
+  border-color:#2E3860;
+  background:rgba(27,35,74,.86);
+}
+html[data-theme="dark"] body.mbm-hub details.acc>summary,
+html[data-theme="dark"] body.mbm-hub details.legacy>summary,
+body.mbm-hub[data-theme="dark"] details.acc>summary,
+body.mbm-hub[data-theme="dark"] details.legacy>summary{background:#232C55;color:#E8E2D4}
+html[data-theme="dark"] body.mbm-hub-apps .feature>div,
+body.mbm-hub-apps[data-theme="dark"] .feature>div{background:linear-gradient(145deg,#1F2A52,#182142)}
+
+@media (max-width:900px){
+  body.mbm-hub .hero-in{padding-top:2.75rem}
+  body.mbm-hub .toolbar{width:min(calc(100% - 1.4rem),var(--mbm-hub-width));margin-top:.9rem}
+  body.mbm-hub .hero26{width:calc(100% - 1.4rem)}
+}
+
+@media (max-width:760px){
+  body.mbm-hub-lessons .journey{display:block;padding-inline:.7rem}
+  body.mbm-hub-lessons .jkey{display:none}
+  body.mbm-hub-lessons .j-grid{
+    display:grid;
+    grid-auto-flow:column;
+    grid-auto-columns:minmax(205px,76vw);
+    grid-template-columns:none;
+    gap:.65rem;
+    overflow-x:auto;
+    overscroll-behavior-inline:contain;
+    scroll-snap-type:x proximity;
+    padding:.15rem .05rem .6rem;
+  }
+  body.mbm-hub-lessons .j-tier{min-height:142px;scroll-snap-align:start}
+  body.mbm-hub-lessons .j-more{display:none!important}
+  body.mbm-hub-lessons .j-foot{justify-content:flex-start;padding-inline:.25rem}
+  body.mbm-hub-apps .trio{grid-template-columns:1fr;gap:.65rem;padding-inline:.7rem}
+  body.mbm-hub-apps .trio .t{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;text-align:left;column-gap:.85rem;align-items:center}
+  body.mbm-hub-apps .trio svg{grid-row:1/3}
+  body.mbm-hub-apps .trio .tn{margin-top:0}
+  body.mbm-hub-apps .trio .td{margin-top:.15rem}
+  body.mbm-hub-apps .feature p:not(.fk){display:block}
+}
+
+@media (max-width:560px){
+  body.mbm-hub .hero-in{padding:2.45rem .85rem 2rem}
+  body.mbm-hub h1{font-size:clamp(2.15rem,13vw,3.2rem)}
+  body.mbm-hub .lead{font-size:.92rem;line-height:1.62}
+  body.mbm-hub .toolbar{padding:.75rem;gap:.6rem}
+  body.mbm-hub .toolbar label{flex-basis:100%;min-width:0}
+  body.mbm-hub .ytabs{display:grid;grid-template-columns:1fr;padding-inline:.7rem}
+  body.mbm-hub-lessons .ytab{min-height:78px}
+  body.mbm-hub .grid{grid-template-columns:1fr;padding-inline:.7rem}
+  body.mbm-hub .cat{padding-inline:.7rem}
+  body.mbm-hub .chiprow,body.mbm-hub .segrow{padding-inline:.7rem}
+  body.mbm-hub .status,body.mbm-hub .legend{padding-inline:.75rem}
+  body.mbm-hub .sig{padding-inline:.7rem}
+  body.mbm-hub .sig>div{padding:.9rem}
+  body.mbm-hub-apps .feature{padding-inline:.7rem}
+  body.mbm-hub-apps .feature>div{align-items:flex-start}
+}
+
+@media (prefers-reduced-motion:reduce){
+  body.mbm-hub .chip,
+  body.mbm-hub .seg,
+  body.mbm-hub .card,
+  body.mbm-hub .toolbar input,
+  body.mbm-hub .toolbar select{transition:none!important}
+  body.mbm-hub .card:hover,
+  body.mbm-hub .chip:hover,
+  body.mbm-hub .seg:hover{transform:none!important}
+}
+
+@media print{
+  body.mbm-hub main::before,body.mbm-hub .hero::after{display:none!important}
+}
+
+/* Small functional reset control used by both catalogue filters. */
+body.mbm-hub .mbm-clear{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:40px;
+  margin-inline-start:.45rem;
+  padding:.35rem .75rem;
+  border:1px solid rgba(22,29,61,.28);
+  border-radius:999px;
+  background:var(--card,var(--mbm-surface,#FFFDF6));
+  color:var(--mbm-navy,#161D3D);
+  font:inherit;
+  font-size:.76rem;
+  font-weight:800;
+  cursor:pointer;
+}
+body.mbm-hub .mbm-clear:hover{border-color:var(--mbm-hub-accent-2);background:rgba(242,162,74,.09)}
+body.mbm-hub .mbm-clear:focus-visible{outline:3px solid var(--mbm-amber,#F2A24A);outline-offset:2px}
+html[data-theme="dark"] body.mbm-hub .mbm-clear,
+body.mbm-hub[data-theme="dark"] .mbm-clear{background:#232C55;border-color:#3C476F;color:#E8E2D4}

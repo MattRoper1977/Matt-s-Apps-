@@ -1,0 +1,213 @@
+name: Made by Matt cross-estate unification
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - index.html
+      - assets/mbm-platform.css
+      - assets/mbm-platform.js
+      - assets/mbm-theme.js
+      - assets/mbm-hub.css
+      - tools/verify_cross_estate_unification.py
+      - tools/verify_cross_estate_browser.mjs
+      - docs/MBM_CROSS_ESTATE_UNIFICATION.md
+      - .github/workflows/mbm-cross-estate-unification.yml
+  push:
+    branches:
+      - main
+      - codex/mbm-cross-estate-unification-lessons-apps-2026-08-08
+    paths:
+      - index.html
+      - assets/mbm-platform.css
+      - assets/mbm-platform.js
+      - assets/mbm-theme.js
+      - assets/mbm-hub.css
+      - tools/verify_cross_estate_unification.py
+      - tools/verify_cross_estate_browser.mjs
+      - docs/MBM_CROSS_ESTATE_UNIFICATION.md
+      - .github/workflows/mbm-cross-estate-unification.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: mbm-cross-estate-${{ github.repository }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out exact branch under review
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check out the canonical Made by Matt platform
+        uses: actions/checkout@v4
+        with:
+          repository: MattRoper1977/mattroper1977.github.io
+          ref: main
+          path: _reference/site
+          fetch-depth: 1
+
+      - name: Verify preservation, local shell and positive control
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          python tools/verify_cross_estate_unification.py --base origin/main --canonical _reference/site --self-test
+          python -m json.tool "$([ -f resources.json ] && echo resources.json || echo apps.json)" >/dev/null
+          node --check assets/mbm-platform.js
+          node --check assets/mbm-theme.js
+          node --check tools/verify_cross_estate_browser.mjs
+          python - <<'PY'
+          import pathlib, re
+          text=pathlib.Path('index.html').read_text(encoding='utf-8')
+          out=pathlib.Path('/tmp/mbm-inline-scripts');out.mkdir(exist_ok=True)
+          count=0
+          for body in re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>',text,re.S|re.I):
+              if body.strip():
+                  (out/f'inline-{count}.js').write_text(body,encoding='utf-8')
+                  count+=1
+          print(f'extracted {count} inline script(s)')
+          PY
+          for script in /tmp/mbm-inline-scripts/*.js; do node --check "$script"; done
+          git diff --check origin/main...HEAD
+
+  browser-matrix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out exact branch under review
+        uses: actions/checkout@v4
+
+      - name: Check out canonical root for an accurate mounted-origin test
+        uses: actions/checkout@v4
+        with:
+          repository: MattRoper1977/mattroper1977.github.io
+          ref: main
+          path: _reference/site
+          fetch-depth: 1
+
+      - name: Assemble the same-origin project mount
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -f resources.json ]; then prefix=Lessons; else prefix=Matt-s-Apps-; fi
+          mkdir -p "_served/$prefix"
+          rsync -a --exclude=.git _reference/site/ _served/
+          rsync -a --exclude=.git --exclude=_reference --exclude=_served --exclude=audit-output ./ "_served/$prefix/"
+          echo "$prefix" > /tmp/mbm-prefix
+
+      - name: Install the browser harness
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --no-package-lock playwright@1.54.2
+          npx playwright install --with-deps chromium
+
+      - name: Run responsive, interaction and unchanged-standalone checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m http.server 4173 --bind 127.0.0.1 --directory _served >/tmp/mbm-http.log 2>&1 &
+          server=$!
+          trap 'kill $server || true' EXIT
+          prefix=$(cat /tmp/mbm-prefix)
+          for _ in $(seq 1 30); do curl -fsS "http://127.0.0.1:4173/$prefix/" >/dev/null && break; sleep 1; done
+          MBM_BASE_URL="http://127.0.0.1:4173/$prefix/" node tools/verify_cross_estate_browser.mjs
+
+      - name: Print browser evidence
+        if: always()
+        shell: bash
+        run: |
+          test ! -f audit-output/browser-results.json || cat audit-output/browser-results.json
+
+      - name: Upload responsive evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mbm-cross-estate-${{ github.event.pull_request.number || github.run_id }}-${{ github.run_id }}
+          path: audit-output/
+          if-no-files-found: error
+          retention-days: 14
+
+  branch-evidence:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/codex/mbm-cross-estate-unification-lessons-apps-2026-08-08'
+    needs: [static-contract, browser-matrix]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Record the approved same-repository branch proof on PR 5
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh pr comment 5 --repo "$GITHUB_REPOSITORY" --body "Cross-estate static and browser gates passed on exact head \`$GITHUB_SHA\`. Run: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+
+  live-proof:
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
+    needs: [static-contract, browser-matrix]
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Check out the merged source
+        uses: actions/checkout@v4
+
+      - name: Install the production browser harness
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --no-package-lock playwright@1.54.2
+          npx playwright install --with-deps chromium
+
+      - name: Wait for the exact project deployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -f resources.json ]; then prefix=Lessons; manifest=resources.json; else prefix=Matt-s-Apps-; manifest=apps.json; fi
+          base="https://madebymatt.uk/$prefix/"
+          ready=0
+          for _ in $(seq 1 60); do
+            if curl -fsS --retry 2 "$base" | grep -q 'mbm-cross-estate-unification-lessons-apps-2026-08-08'; then
+              ready=1
+              break
+            fi
+            sleep 10
+          done
+          test "$ready" -eq 1
+          for route in / /games/ /Lessons/ /Matt-s-Apps-/ /tools/ /resources/; do
+            curl -fsS --retry 3 "https://madebymatt.uk$route" >/dev/null
+          done
+          curl -fsS --retry 3 "$base$manifest" | python -m json.tool >/dev/null
+          for asset in mbm-platform.css mbm-platform.js mbm-theme.js mbm-hub.css; do
+            curl -fsS --retry 3 "$base/assets/$asset" -o "/tmp/$asset"
+            cmp "assets/$asset" "/tmp/$asset"
+          done
+          echo "$base" > /tmp/mbm-live-base
+
+      - name: Prove the served responsive and standalone estate
+        shell: bash
+        run: |
+          set -euo pipefail
+          MBM_BASE_URL="$(cat /tmp/mbm-live-base)" node tools/verify_cross_estate_browser.mjs
+
+      - name: Print live evidence
+        if: always()
+        shell: bash
+        run: |
+          test ! -f audit-output/browser-results.json || cat audit-output/browser-results.json
+
+      - name: Upload production evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mbm-cross-estate-live-${{ github.repository_id }}-${{ github.run_id }}
+          path: audit-output/
+          if-no-files-found: error
+          retention-days: 30

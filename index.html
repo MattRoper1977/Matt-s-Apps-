@@ -1,5 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="mbm-platform-version" content="mbm-cross-estate-unification-lessons-apps-2026-08-08">
 <title>The Creator Hub — Made by Matt</title>
 <meta name="description" content="Your offline creative workshop — design, educate and build with catalogue-driven single-file studios that run straight from the browser.">
 <meta name="theme-color" content="#161D3D">
@@ -150,21 +151,33 @@ details.acc>.grid,details.acc>.specband{margin:0 1rem 1rem}
 [data-theme="dark"] details.acc{background:#1B234A;border-color:#2E3860}
 [data-theme="dark"] details.acc .apill{background:#232B52;color:#E8E2D4}
 </style>
+<link rel="stylesheet" href="assets/mbm-platform.css">
+<link rel="stylesheet" href="assets/mbm-hub.css">
+<noscript><style>
+@media(max-width:900px){
+  .mbm-site-header .bar{flex-wrap:wrap}
+  .mbm-site-header .menu{display:none!important}
+  .mbm-site-header .nav,.mbm-site-header .mbm-site-nav{display:flex!important;position:static!important;flex:1 0 100%;max-height:none!important;overflow:visible!important;padding:.55rem 0 0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;flex-direction:column!important;align-items:stretch!important}
+  .mbm-site-header .mbm-primary-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.25rem}
+}
+@media(max-width:350px){.mbm-site-header .mbm-primary-links,.mbm-site-header .mbm-nav-panel{grid-template-columns:1fr}}
+</style></noscript>
 <script>try{var t=localStorage.getItem('mbm_reading_theme');if(t&&t!=='cream')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
-</head><body>
+</head><body class="mbm-hub mbm-hub-apps" data-mbm-estate="apps">
 <a class="skip" href="#main">Skip to content</a>
-<header class="header"><div class="bar">
+<header class="header mbm-site-header" data-mbm-platform="mbm-cross-estate-unification-lessons-apps-2026-08-08"><div class="bar">
 <a class="brand" href="https://madebymatt.uk/"><svg class="mono" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="none" stroke="#B9E6CD" stroke-width="3.4"/><g transform="translate(0 2)"><path d="M28 71 L28 37 L50 59 L72 37 L72 71" fill="none" stroke="#E8E2D4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 22.5 L51.48 28.52 L57.5 30 L51.48 31.48 L50 37.5 L48.52 31.48 L42.5 30 L48.52 28.52 Z" fill="#F2A24A"/></g></svg><span><strong>MADE BY MATT</strong>
 <small>Learn • Build • Explore</small></span></a>
-<nav class="xnav" aria-label="Made by Matt collections"><a href="https://madebymatt.uk/">Home</a><a href="https://madebymatt.uk/games/">Games</a><a href="https://madebymatt.uk/Lessons/">Lessons</a><a href="https://madebymatt.uk/Matt-s-Apps-/" aria-current="page">Apps</a><a href="https://madebymatt.uk/tools/">Tools</a><a href="https://madebymatt.uk/resources/">Resources</a></nav>
+<button class="menu" id="menu" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+<nav class="nav mbm-site-nav" id="nav" aria-label="Site navigation"><div class="mbm-primary-links"><a href="/games/">Games</a><a href="/Lessons/">Lessons</a><a href="/Matt-s-Apps-/" aria-current="page">Apps</a><a href="/tools/">Tools</a><a href="/resources/">Resources</a></div><details class="mbm-nav-more"><summary>More</summary><div class="mbm-nav-panel"><a href="/stats/">Stats</a><a href="/members/">Members</a><a href="/#about">About</a><a href="/privacy/">Privacy</a></div></details><details class="mbm-theme-menu"><summary>Display</summary><div class="mbm-theme-panel" data-mbm-theme-slot></div></details></nav>
 </div></header>
 
 <main id="main">
 <section class="hero"><div class="hero-in">
 <p class="eyebrow">A Made by Matt collection</p>
 <h1>THE CREATOR <span>HUB</span></h1>
-<p class="lead">Your offline creative workshop. Twenty-eight single-file studios that run straight from the browser — design something, learn something, build something. Nothing installs, nothing uploads.</p>
-<span class="count" id="count" aria-live="polite">Loading…</span>
+<p class="lead">Your offline creative workshop. <span id="leadCount">Thirty-one</span> single-file studios that run straight from the browser — design something, learn something, build something. Nothing installs, nothing uploads.</p>
+<span class="count" id="count" aria-live="polite" aria-atomic="true">Loading…</span>
 </div></section>
 
 <section class="trio" aria-label="What you can do here">
@@ -184,11 +197,11 @@ details.acc>.grid,details.acc>.specband{margin:0 1rem 1rem}
 <a class="go" href="Animation_Studio.html">Open Animation Studio</a></div>
 </div></section>
 
-<div class="segrow" role="group" aria-label="Filter studios by audience"><span class="lbl">WHO IS IT FOR:</span><button class="seg" data-aud="" aria-pressed="true">ALL</button><button class="seg" data-aud="t" aria-pressed="false">🍎 TEACHER</button><button class="seg" data-aud="g" aria-pressed="false">🤝 TA / SUPPORT</button><button class="seg" data-aud="p" aria-pressed="false">👤 STUDENT</button></div>
-<div class="toolbar">
+<div class="segrow rail" role="group" aria-label="Filter studios by audience"><span class="lbl">WHO IS IT FOR:</span><button class="seg" data-aud="" aria-pressed="true" aria-controls="groups">ALL</button><button class="seg" data-aud="t" aria-pressed="false" aria-controls="groups">🍎 TEACHER</button><button class="seg" data-aud="g" aria-pressed="false" aria-controls="groups">🤝 TA / SUPPORT</button><button class="seg" data-aud="p" aria-pressed="false" aria-controls="groups">👤 STUDENT</button></div>
+<div class="toolbar" role="search" aria-label="Filter the catalogue">
 <label>Search the studios<input id="search" type="search" placeholder="Try: poster, quiz, stop-motion…" autocomplete="off"></label>
 </div>
-<div class="chiprow" id="chips" aria-label="Browse by space"></div>
+<div class="chiprow rail" id="chips" aria-label="Browse by space"></div>
 <p class="status" id="status" aria-live="polite" aria-atomic="true"></p>
 <div id="groups"></div>
 </main>
@@ -203,6 +216,19 @@ details.acc>.grid,details.acc>.specband{margin:0 1rem 1rem}
 
 <script>const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function safeHref(value){
+  const s=String(value??"").trim();
+  if(!s||/^(?:javascript|data|vbscript):/i.test(s))return"#";
+  if(/^https?:\/\//i.test(s)||s.startsWith("/")||/^[A-Za-z0-9][A-Za-z0-9._~!$&'()*+,;=:@%/?#-]*$/.test(s))return s;
+  return"#";
+}
+function numberWord(n){
+  const one=["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"];
+  const ten=["","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"];
+  if(Number.isInteger(n)&&n>=0&&n<20)return one[n];
+  if(Number.isInteger(n)&&n<100){const t=Math.floor(n/10),u=n%10;return ten[t]+(u?"-"+one[u].toLowerCase():"");}
+  return String(n);
+}
 let DATA=null,CAT="",Q="";
 const SPEC="Teacher tools";
 const AUDMAP={"Data Manager Studio":"t","UAS Register":"t","ASDAN Register":"t","Evidence Binder":"t","Classroom Toolkit":"t","Seating Plan Studio":"t","Rubric & Feedback Studio":"t","Exit Ticket & Quick Marks":"t","ChoreoStudio":"t",
@@ -216,16 +242,24 @@ function card(it){
 return `<article class="card" style="--ac:${hexc(it.c)}">
 <div style="display:flex;justify-content:space-between;align-items:flex-start"><span class="ci" aria-hidden="true">${esc(it.i||"🧰")}</span>${it.new?'<span class="pill">NEW</span>':''}</div>
 <h3>${esc(it.n)}</h3><span class="aud aud-${audOf(it)}">${AUDL[audOf(it)]}</span><p>${esc(it.d||"")}</p>
-<a class="open" href="${esc(it.f)}">LAUNCH STUDIO →</a></article>`}
+<a class="open" href="${esc(safeHref(it.f))}">LAUNCH STUDIO →</a></article>`}
 function bridge(){return `<div class="bridge"><span class="stamp">FROM THE LESSON HUB · ARTS AWARD MAPPED ✓</span>
 <h3>Teesside Art Studio Suite — the full lesson programme</h3>
 <p>These studios make the work — the suite teaches it: a term of art lessons across BUILD (Explore), GROW (Bronze) and LAUNCH (Silver), each with three tiers and a print pack built in.</p>
 <div class="acts"><a href="https://madebymatt.uk/resources/?subject=Art%20%C2%B7%20Teesside%20Studio%20Suite">Browse the suite →</a><a href="https://madebymatt.uk/Lessons/">Lesson Hub →</a></div></div>`}
 function matches(it){const a=audOf(it);return (!Q||[it.n,it.d].join(" ").toLowerCase().includes(Q))&&(!AUD||a===AUD||(AUD==="p"&&a==="s"))}
+function setStatus(shown,total){
+  const el=$("#status");el.replaceChildren();
+  if(!(Q||CAT||AUD))return;
+  el.append(document.createTextNode(`Showing ${shown} of ${total} studios.`));
+  const b=document.createElement("button");b.type="button";b.className="mbm-clear";b.dataset.clearFilters="";b.textContent="Clear filters";
+  el.appendChild(b);
+}
 function render(){
 const spaces=DATA.spaces.map(s=>({cat:s.cat,items:s.items.filter(matches)})).filter(s=>s.items.length&&(!CAT||s.cat===CAT));
 const total=DATA.spaces.reduce((n,s)=>n+s.items.length,0);
 const shown=spaces.reduce((n,s)=>n+s.items.length,0);
+const lead=$("#leadCount");if(lead)lead.textContent=numberWord(total);
 if(Q||CAT){
 $("#groups").innerHTML=shown?spaces.map(s=>`<section class="cat"><h2>${esc(s.cat)}</h2><span class="tot">${s.items.length}</span></section><div class="grid">${s.items.map(card).join("")}</div>`).join(""):'<p class="status">No matches — try fewer words.</p>';
 }else{
@@ -236,17 +270,25 @@ const body=(spec?`<div class="specband"><div class="grid">${s.items.map(card).jo
 return `<details class="acc"${idx===0?" open":""}><summary><span class="aname">${esc(s.cat)}</span>${spec?'<span class="spec">Specialist</span>':''}<span class="apill">${s.items.length} studios</span><span class="chev" aria-hidden="true">▾</span></summary>${body}</details>`}).join("");
 }
 $("#count").textContent=`${shown} of ${total} studios${CAT?" · "+CAT:""}${AUD?" · "+AUDL[AUD]:""}`;
+setStatus(shown,total);
 }
 function chips(){
-const c=(label,val,on)=>`<button class="chip" data-cat="${esc(val)}" aria-pressed="${on?"true":"false"}">${esc(label)}</button>`;
+const c=(label,val,on)=>`<button class="chip" data-cat="${esc(val)}" aria-pressed="${on?"true":"false"}" aria-controls="groups">${esc(label)}</button>`;
 $("#chips").innerHTML=c("All studios","",!CAT)+DATA.spaces.map(s=>c(`${s.cat} (${s.items.length})`,s.cat,CAT===s.cat)).join("");
+}
+function clearFilters(){
+  CAT="";Q="";AUD="";$("#search").value="";
+  document.querySelectorAll(".seg").forEach(x=>x.setAttribute("aria-pressed",x.dataset.aud===""?"true":"false"));
+  chips();render();
 }
 $("#chips").addEventListener("click",e=>{const b=e.target.closest("button[data-cat]");if(!b)return;
 CAT=CAT===b.dataset.cat?"":b.dataset.cat;chips();render();});
 $("#search").addEventListener("input",()=>{Q=$("#search").value.toLowerCase().trim();render();});
 document.querySelector(".segrow").addEventListener("click",e=>{const b=e.target.closest("button[data-aud]");if(!b)return;
 AUD=b.dataset.aud;document.querySelectorAll(".seg").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"));render();});
-fetch("apps.json").then(r=>r.json()).then(d=>{DATA=d;chips();render();})
-.catch(()=>{$("#count").textContent="Couldn't load apps.json"});
-</script><script defer src="/theme.js"></script>
+$("#status").addEventListener("click",e=>{if(e.target.closest("[data-clear-filters]"))clearFilters();});
+fetch("apps.json",{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error(`apps.json ${r.status}`);return r.json()}).then(d=>{
+if(!d||!Array.isArray(d.spaces))throw new Error("Invalid apps.json");DATA=d;chips();render();})
+.catch(()=>{$("#count").textContent="Couldn't load apps.json";$("#status").textContent="The studio catalogue could not be loaded."});
+</script><script defer src="assets/mbm-theme.js"></script><script defer src="assets/mbm-platform.js"></script>
 </body></html>
