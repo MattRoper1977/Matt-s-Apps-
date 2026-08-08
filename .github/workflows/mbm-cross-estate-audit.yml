@@ -1,0 +1,41 @@
+name: MBM cross-estate source audit
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Measure and archive the exact branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p audit-output
+          {
+            echo "sentinel=mbm-cross-estate-unification-lessons-apps-2026-08-08"
+            echo "repository=$GITHUB_REPOSITORY"
+            echo "head=$(git rev-parse HEAD)"
+            echo "tracked=$(git ls-files | wc -l)"
+            echo "html=$(git ls-files '*.html' '*.htm' | wc -l)"
+            echo "css=$(git ls-files '*.css' | wc -l)"
+            echo "js=$(git ls-files '*.js' '*.mjs' '*.cjs' | wc -l)"
+            echo "json=$(git ls-files '*.json' | wc -l)"
+          } | tee audit-output/repository-state.txt
+          git ls-files | sort > audit-output/file-inventory.txt
+          tar --exclude='./.git' --exclude='./audit-output' -czf audit-output/source.tar.gz .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mbm-cross-estate-apps-source-${{ github.run_id }}
+          path: audit-output/
+          if-no-files-found: error
+          retention-days: 7
