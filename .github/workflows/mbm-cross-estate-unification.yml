@@ -39,6 +39,17 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  announce-live-run:
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Index this production run on the release PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh pr comment 5 --repo "$GITHUB_REPOSITORY" --body "Production cross-estate verification started for source \`$GITHUB_SHA\`. Run: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+
   static-contract:
     runs-on: ubuntu-latest
     timeout-minutes: 12
