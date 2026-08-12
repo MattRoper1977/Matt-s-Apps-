@@ -1,0 +1,48 @@
+name: WAVE & OHM origin drive
+
+# Part B's drive half, on the real origin. The served-bytes half runs first as
+# a dispatch of stealth-live-verify with the Part B path list — bytes before
+# behaviour, always. This workflow then DRIVES what those bytes do:
+#
+#   1. both standalones: splash once + Skip at 44px + estate back chip,
+#      zero console errors (tools/wave_ohm_live_drive.mjs);
+#   2. the hub's FULL import matrix (tools/verify_wave_ohm_bridge.mjs):
+#      WAVE and OHM codes minted by the real apps' own QR UI, paste and
+#      artwork paths, MBM3 right-PIN/wrong-PIN, MBM2/MBM1 still resolving
+#      in the original decoder, a garbage prefix dying at the gate, and
+#      scanKnownStorage over HTTP.
+#
+# READ-ONLY against production: every record written lands in the runner's
+# own browser profile, never in the site.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  drive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out main (the deployed tree)
+        uses: actions/checkout@v4
+        with: { ref: main, fetch-depth: 1 }
+
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+
+      - name: Install Playwright Chromium
+        shell: bash
+        run: |
+          npm i --no-save --no-package-lock playwright@1.54.2
+          npx playwright install --with-deps chromium
+
+      - name: Drive both standalones on the origin
+        shell: bash
+        run: node tools/wave_ohm_live_drive.mjs --base https://madebymatt.uk/Matt-s-Apps-/
+
+      - name: Run the full import matrix on the origin
+        shell: bash
+        run: node tools/verify_wave_ohm_bridge.mjs --base https://madebymatt.uk/Matt-s-Apps-/
