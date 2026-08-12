@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "release": "2.3",
+  "tasks": [
+    {
+      "id": "wave-brewster",
+      "tool": "wave-iridescence",
+      "title": "Thin-Film Optics & Polarization Shift",
+      "duration": "10–15 min",
+      "objective": "Connect Brewster’s angle, p-polarised reflectance and colour-contrast changes.",
+      "steps": [
+        "Load the prepared WAVE setup: n₀ = 1.00, n₁ = 1.33, n₂ = 1.50 and p-polarisation.",
+        "Sweep the incidence angle from 0° to 80° while watching first-boundary reflectance.",
+        "Return to θB ≈ 53.1° and record what happens to reflected saturation and contrast.",
+        "Explain why p-polarised reflection approaches zero at the boundary."
+      ],
+      "setupAction": "mbm-load-task",
+      "setupPayload": "wave-brewster",
+      "defaultEnabled": true
+    },
+    {
+      "id": "ohm-inrush",
+      "tool": "ohms-fault-finder",
+      "title": "Filament Thermal Dynamics & Inrush Analysis",
+      "duration": "10 min",
+      "objective": "Explain why a cold filament draws a larger current than a hot operating filament.",
+      "steps": [
+        "Load the prepared series circuit; S1 begins open and L1 begins cool.",
+        "Allow the lamp to remain cool, then close S1 to capture the current peak.",
+        "Compare peak current with the later steady lamp current.",
+        "Use R(T) = R₀(1 + αΔT) to explain the difference."
+      ],
+      "setupAction": "mbm-load-task",
+      "setupPayload": "ohm-inrush",
+      "defaultEnabled": true
+    },
+    {
+      "id": "ohm-fault-diagnostic",
+      "tool": "ohms-fault-finder",
+      "title": "3-Mark Guided Circuit Fault Diagnostic",
+      "duration": "12–18 min",
+      "objective": "Use independent meter evidence to identify and classify a hidden circuit fault.",
+      "steps": [
+        "Load a random hidden fault in challenge mode.",
+        "Record at least two purposeful readings, ideally using more than one meter mode or location.",
+        "Select the faulty area and classify the fault.",
+        "Submit the diagnosis and use the feedback to improve the evidence pathway."
+      ],
+      "setupAction": "mbm-load-task",
+      "setupPayload": "ohm-fault-diagnostic",
+      "defaultEnabled": true
+    },
+    {
+      "id": "ohm-wheatstone-balance",
+      "tool": "ohms-fault-finder",
+      "title": "Wheatstone Bridge Balance Extension",
+      "duration": "8–12 min",
+      "objective": "Relate resistance ratios to a near-zero detector current in a balanced bridge.",
+      "steps": [
+        "Load the balanced Wheatstone bridge and inspect the detector branch.",
+        "Record the near-zero detector current.",
+        "Change one arm resistance, observe imbalance, then restore balance.",
+        "Explain why matching resistance ratios produce no detector current."
+      ],
+      "setupAction": "mbm-load-task",
+      "setupPayload": "ohm-wheatstone-balance",
+      "defaultEnabled": false
+    }
+  ]
+}

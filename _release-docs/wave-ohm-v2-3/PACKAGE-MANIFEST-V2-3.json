@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "suite": "Made by Matt — WAVE, OHM and Master Hub",
+  "release": "2.3",
+  "createdOn": "2026-08-12",
+  "runtimeDependencies": 0,
+  "networkDependencies": 0,
+  "coreLessonTaskCount": 3,
+  "completeLessonTaskCount": 4,
+  "radarAxisCount": 6,
+  "qa": {
+    "overallPass": true,
+    "browserPages": 8,
+    "pngExportsDecoded": 2
+  },
+  "files": [
+    {
+      "name": "wave-interference-iridescence-engine-v2-3.html",
+      "bytes": 84423,
+      "sha256": "a1f99c83415e609ed3955de64fd128dd2cd940c23b0062f74b59e8a16eb32355",
+      "description": "Single-file WAVE & Iridescence Engine with embedded task evidence and PNG telemetry."
+    },
+    {
+      "name": "ohms-law-fault-finder-v2-3.html",
+      "bytes": 96792,
+      "sha256": "74b96fc094f62617f35af6bd83daaf834d4c8c9e8457d18897f7b2c3d27f6649",
+      "description": "Single-file Ohm’s Law Fault-Finder with inrush, fault and Wheatstone task evidence."
+    },
+    {
+      "name": "mbm-master-hub-bridge-v2-3.js",
+      "bytes": 47616,
+      "sha256": "c3fb4dea1e1dd3b98114fcff97bd2b5a3839d48c575c7ecf0a98954b8cfb416e",
+      "description": "Drop-in Master Hub bridge, radar mapper, PNG intake and standalone lesson packager."
+    },
+    {
+      "name": "mbm-master-hub-integration-preview-v2-3.html",
+      "bytes": 70957,
+      "sha256": "af77516aa485ce5bb2c87a8893380dbe4a50ccb450d6e09fd8e25b26a1467382",
+      "description": "Working local integration preview and package builder."
+    },
+    {
+      "name": "made-by-matt-wave-ohm-offline-lesson-v2-3.html",
+      "bytes": 258931,
+      "sha256": "98d748ef104020d0fc9233965cb8ec00dae3a7e5ed475606b2f050ba1f805be7",
+      "description": "Core two-tool offline lesson with three requested investigations."
+    },
+    {
+      "name": "made-by-matt-wave-ohm-complete-offline-lesson-v2-3.html",
+      "bytes": 259695,
+      "sha256": "69c3af808e6df9ea3aad5d34c1da08d5dbef78909e19f029d5c73784e9bfe192",
+      "description": "Complete two-tool offline lesson with the Wheatstone extension."
+    },
+    {
+      "name": "LESSON-TASKS-V2-3.json",
+      "bytes": 2942,
+      "sha256": "30523084be34e14f6d8ab9fec0be609d47a3a9b955448e1cb85f7f9c09e54db0",
+      "description": "Machine-readable task definitions."
+    },
+    {
+      "name": "RADAR-RULES-V2-3.json",
+      "bytes": 1630,
+      "sha256": "1cff6f9b6218006628e4c52a4e8d746bd6c3555ccf479c20c66c1955e462a7e3",
+      "description": "Machine-readable six-axis formulas."
+    },
+    {
+      "name": "README-V2-3.md",
+      "bytes": 8797,
+      "sha256": "9e1c5b76c91601207362c71a125dcfb4fcaccbbbb958b05bdbe36253f802e29a",
+      "description": "Release and usage guide."
+    },
+    {
+      "name": "MASTER-HUB-INSTALL-V2-3.md",
+      "bytes": 6380,
+      "sha256": "0cc4a427b27e1ae0782a2d0d5ae2ac8773ddb19629541465d43d39102683e0fc",
+      "description": "Production integration guide."
+    },
+    {
+      "name": "QA-REPORT-V2-3.md",
+      "bytes": 5199,
+      "sha256": "51305710ed2704ac778cab829e68c99b20529f0821a381bb7e217f5f2b5672f3",
+      "description": "Human-readable verification report."
+    },
+    {
+      "name": "QA-RESULTS-V2-3.json",
+      "bytes": 6709,
+      "sha256": "fc930d6c5094b9f1537610f5d4e3dfc5af9bcbcee4a77a2080e3bc4c8a76745f",
+      "description": "Combined machine-readable QA evidence."
+    },
+    {
+      "name": "STATIC-QA-V2-3.json",
+      "bytes": 2017,
+      "sha256": "c643db63dd1f49be873b3aa74ee897fd6d7790b16e632329f05dcf88660797f9",
+      "description": "Static, syntax and structural QA evidence."
+    }
+  ]
+}

@@ -1,0 +1,792 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Made by Matt — Master Hub Integration Preview v2.3</title>
+<style>
+:root{color-scheme:dark;--bg:#07111f;--panel:#0e2032;--solid:#10273b;--line:#31526a;--text:#f6fbff;--muted:#abc1cf;--accent:#27c5f5;--accent2:#b587ff;--good:#2cd4a7;--warn:#ffbd55;--bad:#ff6478;--shadow:0 18px 50px rgba(0,0,0,.34)}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}body.high{color-scheme:light;--bg:#fff;--panel:#fff;--solid:#fff;--line:#000;--text:#000;--muted:#222;--accent:#005b85;--accent2:#4326a7;--good:#00634f;--warn:#704100;--bad:#970f26;--shadow:none}button,input,textarea{font:inherit}button{min-height:44px;border:1px solid var(--line);border-radius:11px;background:var(--solid);color:var(--text);padding:8px 13px;font-weight:780;cursor:pointer}button:hover,button:focus-visible{border-color:var(--accent);outline:3px solid color-mix(in srgb,var(--accent) 35%,transparent);outline-offset:2px}.primary{background:var(--accent);border-color:var(--accent);color:#001018}.good{background:var(--good);border-color:var(--good);color:#00160f}.warn{background:var(--warn);border-color:var(--warn);color:#1d1000}.danger{background:var(--bad);border-color:var(--bad);color:#fff}.shell{max-width:1540px;margin:auto;padding:14px}.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 14px;border:1px solid var(--line);border-radius:18px;background:color-mix(in srgb,var(--panel) 92%,transparent);backdrop-filter:blur(14px);box-shadow:var(--shadow)}.brand{display:flex;gap:10px;align-items:center;margin-right:auto}.mark{width:46px;height:46px;border:1px solid var(--accent);border-radius:13px;display:grid;place-items:center;font-weight:950;color:var(--accent)}h1{font-size:1.05rem;margin:0}.brand small{display:block;color:var(--muted);font-weight:650}.grid{display:grid;grid-template-columns:minmax(300px,.85fr) minmax(380px,1.15fr);gap:14px;margin-top:14px}.card{border:1px solid var(--line);border-radius:18px;background:var(--panel);box-shadow:var(--shadow);padding:16px;min-width:0}.card h2{margin:0 0 4px;font-size:1rem}.card p{color:var(--muted);line-height:1.45;font-size:.84rem;margin:5px 0 12px}.stack{display:flex;flex-direction:column;gap:10px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.grow{flex:1;min-width:180px}.field{width:100%;min-height:44px;border:1px solid var(--line);border-radius:10px;background:var(--solid);color:var(--text);padding:10px 12px}.code{min-height:110px;resize:vertical;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.77rem}.drop{min-height:126px;border:2px dashed var(--line);border-radius:14px;display:grid;place-items:center;text-align:center;padding:18px;background:color-mix(in srgb,var(--solid) 70%,transparent);transition:.18s}.drop.drag{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--solid))}.drop b{display:block;margin-bottom:4px}.known{display:grid;gap:7px}.known-item{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:var(--solid)}.known-item code{font-size:.69rem;color:var(--muted);word-break:break-all}.badge{border:1px solid var(--line);border-radius:999px;padding:4px 8px;font-size:.68rem;font-weight:850}.badge.ok{border-color:var(--good);color:var(--good)}.badge.empty{color:var(--muted)}.badge.warn{border-color:var(--warn);color:var(--warn)}.record-grid{display:grid;grid-template-columns:330px 1fr;gap:12px}.records{display:flex;flex-direction:column;gap:7px;max-height:430px;overflow:auto}.record{width:100%;text-align:left;background:var(--solid)}.record.active{border-color:var(--accent);box-shadow:inset 4px 0 var(--accent)}.record small{display:block;color:var(--muted);font-weight:600;margin-top:3px}.radar-wrap{display:grid;grid-template-columns:minmax(260px,360px) 1fr;gap:12px;align-items:start}.radar{width:100%;aspect-ratio:1;border:1px solid var(--line);border-radius:14px;background:var(--solid)}pre{white-space:pre-wrap;word-break:break-word;margin:0;max-height:390px;overflow:auto;border:1px solid var(--line);border-radius:12px;background:#050d17;color:#c8f4ff;padding:12px;font-size:.72rem}body.high pre{background:#fff;color:#000}.deck{grid-column:1/-1}.deck-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.tabs{display:flex;gap:7px;overflow:auto;padding:4px 0}.tab.active{background:var(--accent);color:#001018;border-color:var(--accent)}.stage{height:620px;border:1px solid var(--line);border-radius:15px;overflow:hidden;background:#000;position:relative}.tool-frame{position:absolute;inset:0;width:100%;height:100%;border:0;display:none}.tool-frame.active{display:block}.loaded-list{display:grid;gap:8px;margin-top:9px}.loaded-row{display:grid;grid-template-columns:minmax(170px,1fr) minmax(220px,1fr) auto;gap:8px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:10px;background:var(--solid)}.status{position:fixed;z-index:100;left:50%;bottom:18px;transform:translate(-50%,18px);opacity:0;pointer-events:none;background:var(--solid);border:1px solid var(--line);border-radius:999px;padding:10px 16px;font-weight:800;box-shadow:var(--shadow);transition:.2s}.status.show{opacity:1;transform:translate(-50%,0)}.rules{display:grid;grid-template-columns:repeat(2,minmax(250px,1fr));gap:8px}.rule{border:1px solid var(--line);border-radius:11px;padding:10px;background:var(--solid)}.rule b{display:block;font-size:.79rem}.rule code{display:block;color:var(--accent);font-size:.7rem;margin-top:4px;white-space:normal}.task-options{display:grid;grid-template-columns:repeat(2,minmax(260px,1fr));gap:9px}.task-option{border:1px solid var(--line);border-radius:12px;padding:11px;background:var(--solid)}.task-option h3{font-size:.86rem;margin:0 0 4px}.task-option p{font-size:.75rem;margin:3px 0 7px}.task-option label{display:flex;align-items:center;gap:8px;font-size:.76rem;font-weight:750}.task-option input[type=checkbox]{width:22px;height:22px}.privacy{border:1px solid var(--warn);border-radius:12px;background:color-mix(in srgb,var(--warn) 8%,transparent);padding:10px;font-size:.78rem;line-height:1.45}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}@media(max-width:1000px){.grid,.record-grid,.radar-wrap{grid-template-columns:1fr}.rules,.task-options{grid-template-columns:1fr}.stage{height:560px}}@media(max-width:620px){.shell{padding:8px}.brand small{display:none}.card{padding:12px}.loaded-row{grid-template-columns:1fr}.stage{height:520px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="topbar"><div class="brand"><div class="mark">MBM</div><div><h1>Master Hub Integration Preview v2.3</h1><small>Deterministic radar rules, artwork intake and task-aware offline packaging</small></div></div><button id="scanBtn">Scan device storage</button><button id="themeBtn">High lumen</button></header>
+<main class="grid">
+<section class="card"><h2>1 · Estate discovery</h2><p>The bridge recognises the current ORBIT, ENZYME, OHM, WAVE, CALM and OPTICS keys. Discovery remains same-origin and local.</p><div class="known" id="knownList"></div></section>
+<section class="card"><h2>2 · Hand-off and artwork intake</h2><p>Paste a WAVE/OHM envelope or drop an exported PNG. Unencrypted Base64URL records bypass the PIN prompt; MBM2 remains delegated to the existing Hub AES-GCM decoder.</p><div class="stack"><textarea id="codeInput" class="field code" placeholder="MBM.WAVE.RESULT.2.… or MBM.OHM.RESULT.2.…"></textarea><div class="row"><input id="pinInput" class="field grow" type="password" inputmode="numeric" placeholder="PIN only for MBM2"><button class="primary" id="decodeBtn">Decode payload</button></div><label class="drop" id="dropZone"><span><b>Drop an exported WAVE/OHM PNG here</b>or choose a file from this device</span><input id="pngInput" class="sr" type="file" accept="image/png"></label><button id="choosePngBtn">Choose assessment PNG</button><div class="privacy"><b>Privacy guard:</b> WAVE/OHM Base64URL records are portable encodings, not encryption. The preview flags likely identifying fields and recommends MBM2 for confidential records.</div></div></section>
+<section class="card" style="grid-column:1/-1"><div class="row"><div class="grow"><h2>3 · Classroom records and six-axis radar</h2><p>Each radar record includes the exact formula inputs and a task-evidence check where available.</p></div><button id="exportRecordsBtn">Export records</button><button id="clearRecordsBtn" class="danger">Clear</button></div><div class="record-grid"><div class="records" id="records"></div><div class="radar-wrap"><canvas class="radar" id="radar" width="720" height="720" aria-label="Six-axis competency radar"></canvas><pre id="payloadView">Decoded telemetry will appear here.</pre></div></div></section>
+<section class="card" style="grid-column:1/-1"><h2>4 · Deterministic competency rules</h2><p>The formulas below are the rules applied by <code>mapCompetencyRadar()</code>. Scores are clamped to 0–100.</p><div class="rules" id="rules"></div></section>
+<section class="card deck"><div class="deck-head"><div class="grow"><h2>5 · Universal deck controller</h2><p>Load the single-file tools locally, synchronize accessibility states, launch a prepared task and collect live results.</p></div><input id="toolFiles" type="file" accept=".html,text/html" multiple><button id="chooseToolsBtn">Load tool HTML files</button></div><div class="row" style="margin:8px 0"><button data-cmd="theme-dark">Dark</button><button data-cmd="theme-lumen">High lumen</button><button data-cmd="low-on">Low stimulus</button><button data-cmd="low-off">Standard stimulus</button><button data-cmd="pause">Pause all</button><button data-cmd="resume">Resume all</button><button data-cmd="reset" class="warn">Reset all</button><button id="collectBtn" class="good">Collect results</button></div><div class="tabs" id="tabs"></div><div class="stage" id="stage"></div></section>
+<section class="card deck"><h2>6 · Package a task-aware offline lesson</h2><p>Select the lesson tasks to embed. The exported deck includes task cards, local teacher notes, manual completion, live evidence collection, a privacy notice and Blob URL cleanup.</p><div class="task-options" id="taskOptions"></div><div class="row" style="margin-top:10px"><input id="lessonTitle" class="field grow" value="Made by Matt — WAVE & OHM Investigation Lesson"><button id="packageBtn" class="good">Package custom lesson</button></div><div class="loaded-list" id="loadedList"></div></section>
+</main></div><div class="status" id="status" role="status"></div><div class="sr" id="live" aria-live="polite"></div>
+<script>
+/*
+ * Made by Matt — Master Hub Bridge v2.3
+ * Zero-dependency client-side integration helpers for MBM single-file tools.
+ */
+(() => {
+  'use strict';
+
+  const VERSION = '2.3';
+  const MAX_ENVELOPE_CHARS = 262_144;
+  const MAX_JSON_BYTES = 196_608;
+  const MAX_PNG_BYTES = 32 * 1024 * 1024;
+  const MAX_PNG_TEXT_BYTES = 2 * 1024 * 1024;
+
+  const KNOWN = Object.freeze([
+    { key: 'mbm_orbit_vector_v1', app: 'ORBIT//VECTOR', id: 'orbit' },
+    { key: 'mbm_enzyme_overdrive_v1', app: 'ENZYME//OVERDRIVE', id: 'enzyme' },
+    { key: 'mbm_ohms_fault_finder_v2', app: 'OHM’S LAW FAULT-FINDER v2.3', id: 'ohms' },
+    { key: 'mbm_wave_iridescence_v2', app: 'WAVE & IRIDESCENCE ENGINE v2.3', id: 'wave' },
+    { key: 'mbm-calm-noise-monitor-v2', app: 'CALM NOISE MONITOR', id: 'calm' },
+    { key: 'mbm-optics-lab-v2', app: 'OPTICS & RAY-TRACING LAB', id: 'optics' }
+  ]);
+
+  const AXES = Object.freeze([
+    'variableIsolation',
+    'scaleInterpolation',
+    'boundaryControl',
+    'failureReflection',
+    'systemicTroubleshooting',
+    'resourceControl'
+  ]);
+
+  const AXIS_LABELS = Object.freeze({
+    variableIsolation: 'Variable Isolation',
+    scaleInterpolation: 'Scale Interpolation',
+    boundaryControl: 'Boundary Control',
+    failureReflection: 'Failure Reflection',
+    systemicTroubleshooting: 'Systemic Troubleshooting',
+    resourceControl: 'Resource Control'
+  });
+
+  const RADAR_RULES = Object.freeze({
+    variableIsolation: 'clamp(62 + 4 × isolatedAdjustments − 12 × multiVariableWarnings)',
+    waveScaleInterpolation: '84 when a fringe-spacing result is present; otherwise 58',
+    waveBoundaryControl: '82 when Brewster/coherence evidence is present; otherwise 55',
+    waveFailureReflection: 'clamp(52 + 6 × coachEvents + 3 × multiVariableWarnings)',
+    waveSystemicTroubleshooting: '38 baseline for an open-field wave investigation',
+    waveResourceControl: 'clamp(48 + min(20, parameterChanges))',
+    ohmScaleInterpolation: '82 for Wheatstone topology; otherwise 58',
+    ohmBoundaryControl: 'Fuse-headroom bands: overload 38; <0.25 → 86; <0.65 → 75; otherwise 58',
+    ohmFailureReflection: 'clamp(48 + 12 × diagnosticScore + 3 × multiVariableWarnings)',
+    ohmSystemicTroubleshooting: 'clamp(42 + 14 × diagnosticScore + 4 × meterTests)',
+    ohmResourceControl: 'clamp(44 + min(30, 5 × meterTests) + 5 × distinctMeterModes)'
+  });
+
+  const DEFAULT_LESSON_TASKS = Object.freeze([
+    Object.freeze({
+      id: 'wave-brewster',
+      tool: 'wave-iridescence',
+      title: 'Thin-Film Optics & Polarization Shift',
+      duration: '10–15 min',
+      objective: 'Connect Brewster’s angle, p-polarised reflectance and colour-contrast changes.',
+      steps: Object.freeze([
+        'Load the prepared WAVE setup: n₀ = 1.00, n₁ = 1.33, n₂ = 1.50 and p-polarisation.',
+        'Sweep the incidence angle from 0° to 80° while watching first-boundary reflectance.',
+        'Return to θB ≈ 53.1° and record what happens to reflected saturation and contrast.',
+        'Explain why p-polarised reflection approaches zero at the boundary.'
+      ]),
+      success: Object.freeze([
+        'The setup uses p-polarisation and the specified indices.',
+        'The pupil identifies Brewster’s angle within ±2°.',
+        'The pupil links the reflectance minimum to a visible change in the pattern.'
+      ]),
+      setupAction: 'mbm-load-task',
+      setupPayload: 'wave-brewster',
+      defaultEnabled: true
+    }),
+    Object.freeze({
+      id: 'ohm-inrush',
+      tool: 'ohms-fault-finder',
+      title: 'Filament Thermal Dynamics & Inrush Analysis',
+      duration: '10 min',
+      objective: 'Explain why a cold filament draws a larger current than a hot operating filament.',
+      steps: Object.freeze([
+        'Load the prepared series circuit; S1 begins open and L1 begins cool.',
+        'Allow the lamp to remain cool, then close S1 to capture the current peak.',
+        'Compare peak current with the later steady lamp current.',
+        'Use R(T) = R₀(1 + αΔT) to explain the difference.'
+      ]),
+      success: Object.freeze([
+        'A non-zero inrush peak is captured.',
+        'Peak current is greater than steady-state current.',
+        'The explanation links rising temperature to rising resistance.'
+      ]),
+      setupAction: 'mbm-load-task',
+      setupPayload: 'ohm-inrush',
+      defaultEnabled: true
+    }),
+    Object.freeze({
+      id: 'ohm-fault-diagnostic',
+      tool: 'ohms-fault-finder',
+      title: '3-Mark Guided Circuit Fault Diagnostic',
+      duration: '12–18 min',
+      objective: 'Use independent meter evidence to identify and classify a hidden circuit fault.',
+      steps: Object.freeze([
+        'Load a random hidden fault in challenge mode.',
+        'Record at least two purposeful readings, ideally using more than one meter mode or location.',
+        'Select the faulty area and classify the fault.',
+        'Submit the diagnosis and use the feedback to improve the evidence pathway.'
+      ]),
+      success: Object.freeze([
+        'At least two independent readings are logged.',
+        'The diagnosis is submitted.',
+        'A 3/3 result is supported by recorded meter evidence.'
+      ]),
+      setupAction: 'mbm-load-task',
+      setupPayload: 'ohm-fault-diagnostic',
+      defaultEnabled: true
+    }),
+    Object.freeze({
+      id: 'ohm-wheatstone-balance',
+      tool: 'ohms-fault-finder',
+      title: 'Wheatstone Bridge Balance Extension',
+      duration: '8–12 min',
+      objective: 'Relate resistance ratios to a near-zero detector current in a balanced bridge.',
+      steps: Object.freeze([
+        'Load the balanced Wheatstone bridge and inspect the detector branch.',
+        'Record the near-zero detector current.',
+        'Change one arm resistance, observe imbalance, then restore balance.',
+        'Explain why matching resistance ratios produce no detector current.'
+      ]),
+      success: Object.freeze([
+        'The Wheatstone topology is active.',
+        'A near-zero detector current is identified at balance.',
+        'The pupil explains ratio balance rather than simply quoting zero current.'
+      ]),
+      setupAction: 'mbm-load-task',
+      setupPayload: 'ohm-wheatstone-balance',
+      defaultEnabled: false
+    })
+  ]);
+
+  const textDecoder = new TextDecoder();
+  const textEncoder = new TextEncoder();
+  const clamp = (value, min = 0, max = 100) => Math.min(max, Math.max(min, Number(value) || 0));
+
+  function inspectStructure(value, depth = 0) {
+    if (depth > 14) throw new Error('The decoded payload is nested too deeply.');
+    if (Array.isArray(value)) {
+      if (value.length > 5000) throw new Error('The decoded payload contains an oversized array.');
+      value.forEach(item => inspectStructure(item, depth + 1));
+      return;
+    }
+    if (!value || typeof value !== 'object') return;
+    for (const [key, item] of Object.entries(value)) {
+      if (key === '__proto__' || key === 'prototype' || key === 'constructor') throw new Error('The decoded payload contains a prohibited key.');
+      inspectStructure(item, depth + 1);
+    }
+  }
+
+  function safeJsonParse(text) {
+    const source = String(text || '');
+    if (textEncoder.encode(source).length > MAX_JSON_BYTES) throw new Error('The decoded JSON payload is too large.');
+    const value = JSON.parse(source);
+    inspectStructure(value);
+    return value;
+  }
+
+  function b64uToBytes(value) {
+    const raw = String(value || '');
+    if (!raw || raw.length > MAX_ENVELOPE_CHARS) throw new Error('The Base64URL payload is empty or too large.');
+    if (!/^[A-Za-z0-9_-]+$/.test(raw)) throw new Error('The Base64URL payload contains invalid characters.');
+    let source = raw.replace(/-/g, '+').replace(/_/g, '/');
+    while (source.length % 4) source += '=';
+    let binary;
+    try { binary = atob(source); } catch { throw new Error('The Base64URL payload is malformed.'); }
+    if (binary.length > MAX_JSON_BYTES) throw new Error('The decoded payload exceeds the size limit.');
+    const bytes = new Uint8Array(binary.length);
+    for (let index = 0; index < binary.length; index++) bytes[index] = binary.charCodeAt(index);
+    return bytes;
+  }
+
+  function b64ToText(value) {
+    const raw = String(value || '');
+    if (!raw || raw.length > MAX_ENVELOPE_CHARS) throw new Error('The Base64 payload is empty or too large.');
+    let binary;
+    try { binary = atob(raw); } catch { throw new Error('The Base64 payload is malformed.'); }
+    if (binary.length > MAX_JSON_BYTES) throw new Error('The decoded payload exceeds the size limit.');
+    const bytes = new Uint8Array(binary.length);
+    for (let index = 0; index < binary.length; index++) bytes[index] = binary.charCodeAt(index);
+    return textDecoder.decode(bytes);
+  }
+
+  function bytesToB64(bytes) {
+    let binary = '';
+    for (let index = 0; index < bytes.length; index += 32768) {
+      binary += String.fromCharCode(...bytes.subarray(index, index + 32768));
+    }
+    return btoa(binary);
+  }
+
+  function textToB64(text) {
+    return bytesToB64(textEncoder.encode(String(text)));
+  }
+
+  function envelopeSecurity(code) {
+    const raw = String(code || '').trim();
+    if (raw.startsWith('MBM2.')) return { level: 'encrypted', label: 'PIN-protected AES-GCM envelope' };
+    if (raw.startsWith('MBM.WAVE.') || raw.startsWith('MBM.OHM.') || raw.startsWith('MBM1.')) {
+      return { level: 'encoded', label: 'Portable encoding — not encrypted' };
+    }
+    return { level: 'unknown', label: 'Unknown hand-off format' };
+  }
+
+  function findPotentialIdentifiers(payload) {
+    const matches = [];
+    const pattern = /^(student(name|id)?|pupil(name|id)?|learner(name|id)?|full(name)?|email|dateofbirth|dob|upi|identifier)$/i;
+    const visit = (value, path, depth) => {
+      if (depth > 6 || value == null) return;
+      if (Array.isArray(value)) {
+        value.slice(0, 100).forEach((item, index) => visit(item, path.concat(index), depth + 1));
+        return;
+      }
+      if (typeof value !== 'object') return;
+      for (const [key, item] of Object.entries(value)) {
+        const next = path.concat(key);
+        if (pattern.test(key) && item !== '' && item != null) matches.push(next.join('.'));
+        visit(item, next, depth + 1);
+      }
+    };
+    visit(payload, [], 0);
+    return [...new Set(matches)];
+  }
+
+  function inspectEnvelope(code, payload) {
+    const security = envelopeSecurity(code);
+    const potentialIdentifiers = findPotentialIdentifiers(payload);
+    return {
+      ...security,
+      potentialIdentifiers,
+      privacyWarning: security.level !== 'encrypted' && potentialIdentifiers.length
+        ? 'This unencrypted payload appears to contain identifying fields. Use the existing MBM2 PIN route for confidential records.'
+        : security.level !== 'encrypted'
+          ? 'This payload is encoded for portability, not encrypted. Avoid confidential pupil identifiers.'
+          : 'The payload uses the Hub’s encrypted hand-off route.'
+    };
+  }
+
+  function decodeUnencryptedEnvelope(code) {
+    const raw = String(code || '').trim();
+    if (raw.length > MAX_ENVELOPE_CHARS) throw new Error('The MBM hand-off code is too large.');
+    if (!raw.startsWith('MBM.WAVE.') && !raw.startsWith('MBM.OHM.')) {
+      throw new Error('This is not an unencrypted WAVE or OHM envelope.');
+    }
+    const finalDot = raw.lastIndexOf('.');
+    if (finalDot < 0 || finalDot === raw.length - 1) throw new Error('The MBM envelope has no payload.');
+    const jsonText = textDecoder.decode(b64uToBytes(raw.slice(finalDot + 1)));
+    const payload = safeJsonParse(jsonText);
+    validateDecodedEnvelope(raw, payload);
+    return payload;
+  }
+
+  function validateDecodedEnvelope(code, payload) {
+    if (!payload || typeof payload !== 'object' || (Array.isArray(payload) && payload.length === 0)) {
+      throw new Error('The decoded payload is empty or has an invalid root type.');
+    }
+
+    if (code.startsWith('MBM.WAVE.')) {
+      const isResult = payload.tool === 'wave-iridescence' && Number(payload.schema) >= 2;
+      const isCompact = Number(payload.v) === 2 && [0, 1].includes(payload.m) && Array.isArray(payload.t) && payload.t.length <= 32 && Array.isArray(payload.w) && payload.w.length <= 32;
+      if (!isResult && !isCompact) throw new Error('The WAVE payload failed schema validation.');
+    }
+
+    if (code.startsWith('MBM.OHM.')) {
+      const isResult = payload.tool === 'ohms-fault-finder' && Number(payload.schema) >= 2;
+      const isCompactState = Number(payload.v) === 2 && Array.isArray(payload.s) && payload.s.length <= 16 && Array.isArray(payload.p) && payload.p.length <= 16;
+      const isCompactResult = Number(payload.v) === 2 && (payload.tool === 'ohm' || 'score' in payload || 'challenge' in payload);
+      if (!isResult && !isCompactState && !isCompactResult) throw new Error('The OHM payload failed schema validation.');
+    }
+    return true;
+  }
+
+  async function decodeEnvelope(code, options = {}) {
+    const raw = String(code || '').trim();
+    if (!raw) throw new Error('No hand-off code was supplied.');
+    if (raw.length > MAX_ENVELOPE_CHARS) throw new Error('The MBM hand-off code is too large.');
+
+    if (raw.startsWith('MBM.WAVE.') || raw.startsWith('MBM.OHM.')) return decodeUnencryptedEnvelope(raw);
+
+    if (raw.startsWith('MBM1.')) {
+      const parsed = safeJsonParse(b64ToText(raw.slice(5)));
+      if (!parsed || typeof parsed !== 'object') throw new Error('The MBM1 payload is invalid.');
+      return parsed;
+    }
+
+    if (raw.startsWith('MBM2.')) {
+      const decryptMBM2 = options.decryptMBM2;
+      if (typeof decryptMBM2 !== 'function') {
+        throw new Error('This encrypted MBM2 payload requires the existing AES-GCM decoder and PIN workflow.');
+      }
+      const parsed = await decryptMBM2(raw, options.pin);
+      inspectStructure(parsed);
+      return parsed;
+    }
+
+    throw new Error('Unsupported MBM hand-off prefix.');
+  }
+
+  async function decodeEnvelopeRecord(code, options = {}) {
+    const payload = await decodeEnvelope(code, options);
+    return { code: String(code || '').trim(), payload, security: inspectEnvelope(code, payload) };
+  }
+
+  function patchDecryptCode(existingDecryptCode) {
+    if (typeof existingDecryptCode !== 'function') throw new TypeError('existingDecryptCode must be a function.');
+    return async function patchedDecryptCode(code, pin) {
+      const raw = String(code || '').trim();
+      if (raw.startsWith('MBM.WAVE.') || raw.startsWith('MBM.OHM.')) return decodeUnencryptedEnvelope(raw);
+      return existingDecryptCode.call(this, raw, pin);
+    };
+  }
+
+  function scanKnownStorage(storage = localStorage) {
+    const records = [];
+    for (const descriptor of KNOWN) {
+      const raw = storage.getItem(descriptor.key);
+      if (!raw) continue;
+      try {
+        if (raw.length > MAX_JSON_BYTES) throw new Error('Stored record exceeds the size limit.');
+        const payload = safeJsonParse(raw);
+        if (!payload || typeof payload !== 'object') continue;
+        records.push({ ...descriptor, payload, source: 'localStorage' });
+      } catch (error) {
+        records.push({ ...descriptor, payload: null, source: 'localStorage', error: error.message });
+      }
+    }
+    return records;
+  }
+
+  function waveRadar(payload) {
+    const analytics = payload.analytics || {};
+    const diagnostics = payload.diagnostics || {};
+    const warnings = Number(analytics.multiVariableWarnings) || 0;
+    const isolated = Number(analytics.isolatedAdjustments) || 0;
+    const coachEvents = Array.isArray(analytics.coachEvents) ? analytics.coachEvents.length : 0;
+    const paramChanges = Number(analytics.parameterChanges) || 0;
+    const hasFringeCalc = Number.isFinite(diagnostics.fringeSpacingMm) || Number.isFinite(diagnostics.wave?.fringeSpacingMm);
+    const hasBoundary = Number.isFinite(diagnostics.brewsterDeg) || Number.isFinite(diagnostics.coherenceVisibility) || Number.isFinite(diagnostics.thin?.brewsterDeg) || Number.isFinite(diagnostics.thin?.coherenceVisibility);
+
+    const scores = {
+      variableIsolation: clamp(62 + isolated * 4 - warnings * 12),
+      scaleInterpolation: clamp(hasFringeCalc ? 84 : 58),
+      boundaryControl: clamp(hasBoundary ? 82 : 55),
+      failureReflection: clamp(52 + coachEvents * 6 + warnings * 3),
+      systemicTroubleshooting: 38,
+      resourceControl: clamp(48 + Math.min(20, paramChanges))
+    };
+
+    return {
+      scores,
+      evidence: {
+        tool: 'wave-iridescence',
+        isolatedAdjustments: isolated,
+        multiVariableWarnings: warnings,
+        coachEvents,
+        parameterChanges: paramChanges,
+        fringeCalculationPresent: hasFringeCalc,
+        boundaryEvidencePresent: hasBoundary,
+        lessonTask: payload.lessonTask || payload.lessonTaskEvidence?.id || null
+      }
+    };
+  }
+
+  function ohmRadar(payload) {
+    const analytics = payload.analytics || {};
+    const challengeObject = payload.challenge && typeof payload.challenge === 'object' ? payload.challenge : {};
+    const tests = Array.isArray(payload.tests) ? payload.tests : (Array.isArray(challengeObject.tests) ? challengeObject.tests : []);
+    const warnings = Number(analytics.multiVariableWarnings) || 0;
+    const isolated = Number(analytics.isolatedAdjustments) || 0;
+    const score = Number.isFinite(challengeObject.score) ? challengeObject.score : (Number.isFinite(payload.score) ? payload.score : 0);
+    const headroom = Number(analytics.fuseHeadroom);
+    const distinctModes = Number(analytics.distinctMeterModes) || new Set(tests.map(test => test?.mode || test?.[0]).filter(Boolean)).size;
+    const topology = payload.topology || ({ 0: 'hybrid', 1: 'series', 2: 'wheatstone' }[payload.t] || null);
+
+    let boundaryScore = 55;
+    if (Number.isFinite(headroom)) {
+      if (headroom < 0) boundaryScore = 38;
+      else if (headroom < 0.25) boundaryScore = 86;
+      else if (headroom < 0.65) boundaryScore = 75;
+      else boundaryScore = 58;
+    }
+
+    const scores = {
+      variableIsolation: clamp(62 + isolated * 4 - warnings * 12),
+      scaleInterpolation: clamp(topology === 'wheatstone' ? 82 : 58),
+      boundaryControl: clamp(boundaryScore),
+      failureReflection: clamp(48 + score * 12 + warnings * 3),
+      systemicTroubleshooting: clamp(42 + score * 14 + tests.length * 4),
+      resourceControl: clamp(44 + Math.min(30, tests.length * 5) + distinctModes * 5)
+    };
+
+    return {
+      scores,
+      evidence: {
+        tool: 'ohms-fault-finder',
+        isolatedAdjustments: isolated,
+        multiVariableWarnings: warnings,
+        diagnosticScore: score,
+        meterTests: tests.length,
+        distinctMeterModes: distinctModes,
+        fuseHeadroom: Number.isFinite(headroom) ? headroom : null,
+        topology,
+        lessonTask: payload.lessonTask || payload.lessonTaskEvidence?.id || null
+      }
+    };
+  }
+
+  function mapCompetencyRadar(payload) {
+    if (!payload || typeof payload !== 'object') throw new TypeError('A decoded payload object is required.');
+
+    let mapped;
+    if (payload.tool === 'wave-iridescence' || (Array.isArray(payload.t) && Array.isArray(payload.w))) mapped = waveRadar(payload);
+    else if (payload.tool === 'ohms-fault-finder' || payload.tool === 'ohm' || Array.isArray(payload.s)) mapped = ohmRadar(payload);
+    else mapped = { scores: Object.fromEntries(AXES.map(axis => [axis, 50])), evidence: { tool: payload.tool || 'unknown', reason: 'No dedicated mapping rule was available.' } };
+
+    return {
+      axes: [...AXES],
+      labels: { ...AXIS_LABELS },
+      scores: mapped.scores,
+      evidence: mapped.evidence,
+      formulas: { ...RADAR_RULES },
+      rulesVersion: VERSION,
+      generatedAt: new Date().toISOString()
+    };
+  }
+
+  function evaluateLessonTask(taskId, payload) {
+    const embedded = payload?.lessonTaskEvidence;
+    if (embedded && embedded.id === taskId) return embedded;
+
+    if (taskId === 'wave-brewster') {
+      const thin = payload?.diagnostics?.thin || payload?.diagnostics || {};
+      const setupCorrect = thin.polarisation === 'p' && Math.abs(Number(thin.n0) - 1) < 0.02 && Math.abs(Number(thin.n1) - 1.33) < 0.03 && Math.abs(Number(thin.n2) - 1.5) < 0.03;
+      const aligned = Number.isFinite(thin.angleDeg) && Number.isFinite(thin.brewsterDeg) && Math.abs(thin.angleDeg - thin.brewsterDeg) <= 2;
+      const lowReflectance = Number.isFinite(thin.firstBoundaryPReflectance) && thin.firstBoundaryPReflectance <= 0.005;
+      const progress = Math.round((setupCorrect ? 40 : 0) + (aligned ? 35 : 0) + (lowReflectance ? 25 : 0));
+      return { id: taskId, complete: progress === 100, progress, checks: { setupCorrect, alignedToBrewster: aligned, lowPReflectance: lowReflectance } };
+    }
+
+    if (taskId === 'ohm-inrush') {
+      const peak = Number(payload?.supply?.lampInrushPeakA);
+      const current = Number(payload?.supply?.currentA);
+      const peakCaptured = Number.isFinite(peak) && peak > 0;
+      const aboveSteady = peakCaptured && Number.isFinite(current) && current > 0 && peak > current * 1.08;
+      const progress = (peakCaptured ? 55 : 0) + (aboveSteady ? 45 : 0);
+      return { id: taskId, complete: progress === 100, progress, checks: { peakCaptured, inrushAboveSteady: aboveSteady }, metrics: { peakCurrentA: peak, currentA: current } };
+    }
+
+    if (taskId === 'ohm-fault-diagnostic') {
+      const challenge = payload?.challenge && typeof payload.challenge === 'object' ? payload.challenge : {};
+      const tests = Array.isArray(payload?.tests) ? payload.tests : [];
+      const score = Number.isFinite(challenge.score) ? challenge.score : Number(payload?.score) || 0;
+      const independent = new Set(tests.map(test => test?.mode || test?.[0]).filter(Boolean)).size >= 2 || new Set(tests.map(test => `${test?.red}:${test?.black}:${test?.selectedId}`)).size >= 2;
+      const twoReadings = tests.length >= 2;
+      const progress = Math.round((twoReadings ? 30 : Math.min(20, tests.length * 10)) + (independent ? 20 : 0) + Math.min(50, score / 3 * 50));
+      return { id: taskId, complete: score === 3 && twoReadings && independent, progress, checks: { twoReadings, independentEvidence: independent, threeMarks: score === 3 }, metrics: { score, tests: tests.length } };
+    }
+
+    if (taskId === 'ohm-wheatstone-balance') {
+      const current = Number(payload?.diagnostics?.wheatstoneDetectorCurrentA);
+      const topology = payload?.topology;
+      const balanced = topology === 'wheatstone' && Number.isFinite(current) && Math.abs(current) < 0.001;
+      return { id: taskId, complete: balanced, progress: balanced ? 100 : topology === 'wheatstone' ? 45 : 0, checks: { wheatstoneTopology: topology === 'wheatstone', detectorNearZero: balanced }, metrics: { detectorCurrentA: current } };
+    }
+
+    return { id: taskId, complete: false, progress: 0, checks: {} };
+  }
+
+  function readU32(bytes, offset) {
+    return ((bytes[offset] << 24) | (bytes[offset + 1] << 16) | (bytes[offset + 2] << 8) | bytes[offset + 3]) >>> 0;
+  }
+
+  function extractPngText(arrayBuffer) {
+    const bytes = arrayBuffer instanceof Uint8Array ? arrayBuffer : new Uint8Array(arrayBuffer);
+    if (bytes.byteLength > MAX_PNG_BYTES) throw new Error('The PNG exceeds the 32 MB local intake limit.');
+    const signature = [137, 80, 78, 71, 13, 10, 26, 10];
+    if (bytes.length < 8 || signature.some((value, index) => bytes[index] !== value)) throw new Error('The dropped file is not a valid PNG.');
+    const metadata = {};
+    let offset = 8;
+
+    while (offset + 12 <= bytes.length) {
+      const length = readU32(bytes, offset);
+      const type = String.fromCharCode(...bytes.subarray(offset + 4, offset + 8));
+      const dataStart = offset + 8;
+      const dataEnd = dataStart + length;
+      if (dataEnd + 4 > bytes.length) throw new Error('The PNG contains a truncated chunk.');
+      const data = bytes.subarray(dataStart, dataEnd);
+      if ((type === 'tEXt' || type === 'iTXt') && data.length > MAX_PNG_TEXT_BYTES) throw new Error('The PNG metadata chunk is too large.');
+
+      if (type === 'tEXt') {
+        const separator = data.indexOf(0);
+        if (separator > 0) {
+          const keyword = textDecoder.decode(data.subarray(0, separator));
+          metadata[keyword] = textDecoder.decode(data.subarray(separator + 1));
+        }
+      } else if (type === 'iTXt') {
+        const firstZero = data.indexOf(0);
+        if (firstZero > 0 && data[firstZero + 1] === 0) {
+          let cursor = firstZero + 3;
+          const languageEnd = data.indexOf(0, cursor);
+          cursor = languageEnd + 1;
+          const translatedEnd = data.indexOf(0, cursor);
+          cursor = translatedEnd + 1;
+          if (languageEnd > 0 && translatedEnd > 0) {
+            const keyword = textDecoder.decode(data.subarray(0, firstZero));
+            metadata[keyword] = textDecoder.decode(data.subarray(cursor));
+          }
+        }
+      }
+
+      offset = dataEnd + 4;
+      if (type === 'IEND') break;
+    }
+    return metadata;
+  }
+
+  async function intakePngFile(file, options = {}) {
+    if (!file || typeof file.arrayBuffer !== 'function') throw new TypeError('A File or Blob is required.');
+    if (Number(file.size) > MAX_PNG_BYTES) throw new Error('The PNG exceeds the 32 MB local intake limit.');
+    const metadata = extractPngText(await file.arrayBuffer());
+    const envelope = metadata['mbm.telemetry'] || metadata['mbm.state'];
+    if (!envelope) throw new Error('No mbm.telemetry or mbm.state metadata was found in this PNG.');
+    const payload = await decodeEnvelope(envelope, options);
+    return {
+      fileName: file.name || 'untitled.png',
+      fileSize: Number(file.size) || 0,
+      envelope,
+      metadata,
+      payload,
+      security: inspectEnvelope(envelope, payload),
+      radar: mapCompetencyRadar(payload),
+      taskEvidence: payload.lessonTask ? evaluateLessonTask(payload.lessonTask, payload) : null,
+      source: 'png-metadata'
+    };
+  }
+
+  function installPngDropTarget(element, onRecord, options = {}) {
+    if (!(element instanceof Element)) throw new TypeError('A valid drop target element is required.');
+    const callback = typeof onRecord === 'function' ? onRecord : () => {};
+    const prevent = event => { event.preventDefault(); event.stopPropagation(); };
+    const drop = async event => {
+      prevent(event);
+      for (const file of [...(event.dataTransfer?.files || [])]) {
+        try { callback(await intakePngFile(file, options), null); }
+        catch (error) { callback(null, error); }
+      }
+    };
+    element.addEventListener('dragenter', prevent);
+    element.addEventListener('dragover', prevent);
+    element.addEventListener('drop', drop);
+    return () => {
+      element.removeEventListener('dragenter', prevent);
+      element.removeEventListener('dragover', prevent);
+      element.removeEventListener('drop', drop);
+    };
+  }
+
+  function frameList(options = {}) {
+    const root = options.root || document;
+    return [...root.querySelectorAll('iframe')];
+  }
+
+  function broadcast(action, payload, options = {}) {
+    const targetOrigin = options.targetOrigin || '*';
+    const frames = frameList(options);
+    const message = { type: action, action, payload };
+    for (const frame of frames) frame.contentWindow?.postMessage(message, targetOrigin);
+    return frames.length;
+  }
+
+  function sendToTool(tool, action, payload, options = {}) {
+    const targetOrigin = options.targetOrigin || '*';
+    const frames = frameList(options).filter(frame => {
+      const value = `${frame.dataset.tool || ''} ${frame.dataset.id || ''} ${frame.title || ''}`.toLowerCase();
+      return value.includes(String(tool || '').toLowerCase()) || (tool === 'wave-iridescence' && value.includes('wave')) || (tool === 'ohms-fault-finder' && (value.includes('ohm') || value.includes('fault')));
+    });
+    const message = { type: action, action, payload };
+    for (const frame of frames) frame.contentWindow?.postMessage(message, targetOrigin);
+    return frames.length;
+  }
+
+  function collectResults(options = {}) {
+    const timeoutMs = Math.max(100, Number(options.timeoutMs) || 1000);
+    const frames = frameList(options);
+    const allowedSources = new Set(frames.map(frame => frame.contentWindow).filter(Boolean));
+    const expectedTools = new Set(options.expectedTools || []);
+    return new Promise(resolve => {
+      const results = [];
+      const handler = event => {
+        if (allowedSources.size && !allowedSources.has(event.source)) return;
+        const data = event.data;
+        if (!data || data.type !== 'mbm-tool-results' || !data.payload) return;
+        results.push({ ...data, radar: mapCompetencyRadar(data.payload), taskEvidence: data.payload.lessonTask ? evaluateLessonTask(data.payload.lessonTask, data.payload) : null });
+        expectedTools.delete(data.tool);
+        if (expectedTools.size === 0 && options.expectedTools?.length) finish();
+      };
+      const finish = () => {
+        clearTimeout(timer);
+        removeEventListener('message', handler);
+        resolve(results);
+      };
+      addEventListener('message', handler);
+      const timer = setTimeout(finish, timeoutMs);
+      broadcast('mbm-export-results', null, options);
+    });
+  }
+
+  function inferToolType(tool) {
+    if (tool?.tool) return String(tool.tool);
+    const haystack = `${tool?.id || ''} ${tool?.title || ''} ${String(tool?.html || '').slice(0, 1200)}`.toLowerCase();
+    if (haystack.includes('wave') || haystack.includes('iridescence')) return 'wave-iridescence';
+    if (haystack.includes('ohm') || haystack.includes('fault-finder')) return 'ohms-fault-finder';
+    if (haystack.includes('optics') || haystack.includes('ray-tracing')) return 'optics';
+    if (haystack.includes('noise') || haystack.includes('calm')) return 'calm';
+    return String(tool?.id || 'tool');
+  }
+
+  function normaliseLessonTasks(tasks) {
+    const source = Array.isArray(tasks) ? tasks : DEFAULT_LESSON_TASKS.filter(task => task.defaultEnabled);
+    return source.map((task, index) => ({
+      id: String(task.id || `task-${index + 1}`),
+      tool: String(task.tool || ''),
+      title: String(task.title || `Task ${index + 1}`),
+      duration: String(task.duration || ''),
+      objective: String(task.objective || ''),
+      steps: Array.isArray(task.steps) ? task.steps.map(String) : [],
+      success: Array.isArray(task.success) ? task.success.map(String) : [],
+      setupAction: String(task.setupAction || 'mbm-load-task'),
+      setupPayload: task.setupPayload ?? task.id
+    }));
+  }
+
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
+  }
+
+  function buildStandaloneLesson(config = {}) {
+    const title = String(config.title || 'Made by Matt — Custom Offline Lesson');
+    const tools = Array.isArray(config.tools) ? config.tools : [];
+    if (!tools.length) throw new Error('At least one tool source is required.');
+
+    const packedTools = tools.map((tool, index) => {
+      if (!tool || typeof tool.html !== 'string' || !tool.html.trim()) throw new Error(`Tool ${index + 1} has no HTML source.`);
+      return {
+        id: String(tool.id || `tool-${index + 1}`),
+        tool: inferToolType(tool),
+        title: String(tool.title || `Tool ${index + 1}`),
+        htmlB64: textToB64(tool.html),
+        initialHash: String(tool.initialHash || '')
+      };
+    });
+
+    const tasks = normaliseLessonTasks(config.tasks);
+    const data = JSON.stringify(packedTools).replace(/</g, '\\u003c');
+    const taskData = JSON.stringify(tasks).replace(/</g, '\\u003c');
+    const safeTitle = escapeHtml(title);
+    const storageId = `mbm_lesson_${title.toLowerCase().replace(/[^a-z0-9]+/g, '_').slice(0, 48) || 'offline'}`;
+
+    return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>${safeTitle}</title>
+<style>
+:root{color-scheme:dark;--bg:#07111f;--bar:#0d2035;--panel:#10273b;--line:#35536a;--text:#fff;--muted:#abc1cf;--accent:#29c6f5;--good:#2bd4a7;--warn:#ffbd55;--shadow:0 16px 42px rgba(0,0,0,.35)}*{box-sizing:border-box}html,body{height:100%;margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);overflow:hidden}body.high{color-scheme:light;--bg:#fff;--bar:#fff;--panel:#fff;--line:#000;--text:#000;--muted:#222;--accent:#005f87;--good:#00634f;--warn:#704100;--shadow:none}button,input,textarea{font:inherit}button{min-height:46px;border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--text);padding:8px 12px;font-weight:800;cursor:pointer}button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}.active,.primary{background:var(--accent);border-color:var(--accent);color:#001018}.good{background:var(--good);border-color:var(--good);color:#00160f}.warn{background:var(--warn);border-color:var(--warn);color:#1b1000}header{height:70px;display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--bar);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}header strong{font-size:.96rem}.grow{flex:1}.tabs{display:flex;gap:7px}.tabs button{max-width:240px;overflow:hidden;text-overflow:ellipsis}main{height:calc(100% - 70px);position:relative}.tool-frame{position:absolute;inset:0;width:100%;height:100%;border:0;display:none;background:#fff}.tool-frame.active{display:block}.drawer{position:fixed;z-index:50;top:78px;right:10px;bottom:10px;width:min(440px,calc(100vw - 20px));border:1px solid var(--line);border-radius:16px;background:var(--bar);box-shadow:var(--shadow);padding:14px;overflow:auto;transform:translateX(calc(100% + 24px));transition:transform .22s}.drawer.open{transform:translateX(0)}.drawer h2{font-size:1.05rem;margin:0 0 8px}.drawer p{font-size:.82rem;color:var(--muted);line-height:1.45}.task{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--panel);margin:10px 0}.task h3{font-size:.94rem;margin:0}.meta{color:var(--muted);font-size:.7rem;font-weight:750}.task ol,.task ul{padding-left:20px;font-size:.78rem;line-height:1.45}.task-actions{display:flex;gap:7px;flex-wrap:wrap}.progress{height:9px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;margin:8px 0}.progress span{display:block;height:100%;width:0;background:var(--good);transition:width .2s}.checkline{display:flex;align-items:center;gap:8px;font-size:.78rem}.checkline input{width:22px;height:22px}.notes{width:100%;min-height:66px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--text);padding:8px;resize:vertical}.privacy{border:1px solid var(--warn);border-radius:12px;padding:10px;background:color-mix(in srgb,var(--warn) 9%,transparent);font-size:.76rem;line-height:1.45}.evidence{display:grid;gap:8px}.evidence-item{border:1px solid var(--line);border-radius:11px;padding:9px;background:var(--panel);font-size:.76rem}.status{position:fixed;z-index:90;left:50%;bottom:14px;transform:translate(-50%,20px);opacity:0;pointer-events:none;border:1px solid var(--line);border-radius:999px;padding:10px 15px;background:var(--bar);font-weight:800;transition:.2s}.status.show{opacity:1;transform:translate(-50%,0)}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}@media(max-width:760px){header{height:64px;padding:7px 8px}main{height:calc(100% - 64px)}header strong{display:none}.drawer{top:70px}.tabs button{max-width:150px}}
+</style></head>
+<body><header><strong>${safeTitle}</strong><div class="tabs" id="tabs"></div><span class="grow"></span><button id="tasksBtn">Tasks</button><button id="evidenceBtn">Evidence</button><button id="themeBtn">High lumen</button><button id="focusBtn">Low stimulus</button><button id="pauseBtn">Pause all</button><button id="resetBtn" class="warn">Reset all</button></header><main id="stage"></main>
+<aside class="drawer" id="drawer"><div id="taskView"><h2>Lesson tasks</h2><p>Use Load setup to place the correct tool in its starting state. Manual completion and teacher notes remain on this device.</p><div id="taskList"></div><div class="privacy"><b>Privacy:</b> WAVE/OHM QR and Base64URL records are encoded, not encrypted. Do not add confidential pupil identifiers. Use the Master Hub’s MBM2 PIN workflow for personal data.</div></div><div id="evidenceView" hidden><h2>Collected evidence</h2><p>Evidence is requested directly from the embedded tools and remains in this page until downloaded or cleared.</p><div class="evidence" id="evidenceList"></div><p><button class="good" id="collectBtn">Collect evidence now</button> <button id="downloadBtn">Download JSON</button> <button id="clearEvidenceBtn">Clear</button></p></div></aside>
+<div class="status" id="status" role="status"></div><div class="sr" id="live" aria-live="polite"></div>
+<script>
+'use strict';
+const tools=${data};const tasks=${taskData};const storageKey=${JSON.stringify(storageId)};const stage=document.getElementById('stage'),tabs=document.getElementById('tabs'),drawer=document.getElementById('drawer'),taskView=document.getElementById('taskView'),evidenceView=document.getElementById('evidenceView');
+let paused=false,low=false,high=false,statusTimer=0;const objectUrls=new Map(),evidence=[];let saved={tasks:{},notes:{}};try{saved=Object.assign(saved,JSON.parse(localStorage.getItem(storageKey)||'{}'))}catch(error){}
+function toast(text){clearTimeout(statusTimer);document.getElementById('status').textContent=text;document.getElementById('status').classList.add('show');document.getElementById('live').textContent=text;statusTimer=setTimeout(function(){document.getElementById('status').classList.remove('show')},2600)}
+function esc(value){return String(value==null?'':value).replace(/[&<>\"']/g,function(ch){return{'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[ch]})}
+function decodeUtf8(b64){const bin=atob(b64),bytes=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);return new TextDecoder().decode(bytes)}
+function cleanupFrames(){document.querySelectorAll('iframe').forEach(function(frame){frame.src='about:blank';frame.remove()});for(const url of objectUrls.values())URL.revokeObjectURL(url);objectUrls.clear()}
+function send(type,payload,toolType){const message={type:type,action:type,payload:payload};let count=0;document.querySelectorAll('iframe').forEach(function(frame){if(toolType&&frame.dataset.tool!==toolType)return;frame.contentWindow&&frame.contentWindow.postMessage(message,'*');count++});return count}
+function select(id){document.querySelectorAll('.tool-frame').forEach(function(frame){frame.classList.toggle('active',frame.dataset.id===id)});document.querySelectorAll('[data-tab]').forEach(function(button){button.classList.toggle('active',button.dataset.tab===id)})}
+function selectToolType(type){const frame=[...document.querySelectorAll('iframe')].find(function(item){return item.dataset.tool===type});if(frame)select(frame.dataset.id)}
+function buildFrames(){cleanupFrames();stage.innerHTML='';tabs.innerHTML='';tools.forEach(function(tool,index){const blob=new Blob([decodeUtf8(tool.htmlB64)],{type:'text/html'}),url=URL.createObjectURL(blob);objectUrls.set(tool.id,url);const frame=document.createElement('iframe');frame.className='tool-frame'+(index===0?' active':'');frame.dataset.id=tool.id;frame.dataset.tool=tool.tool;frame.src=url+(tool.initialHash||'');frame.title=tool.title;stage.appendChild(frame);const button=document.createElement('button');button.dataset.tab=tool.id;button.textContent=tool.title;button.className=index===0?'active':'';button.onclick=function(){select(tool.id)};tabs.appendChild(button)})}
+function save(){try{localStorage.setItem(storageKey,JSON.stringify(saved))}catch(error){}}
+function evaluateTask(id,payload){if(payload&&payload.lessonTaskEvidence&&payload.lessonTaskEvidence.id===id)return payload.lessonTaskEvidence;if(id==='wave-brewster'){const d=(payload.diagnostics&&payload.diagnostics.thin)||payload.diagnostics||{},setup=d.polarisation==='p'&&Math.abs(Number(d.n1)-1.33)<.03&&Math.abs(Number(d.n2)-1.5)<.03,aligned=Number.isFinite(d.angleDeg)&&Number.isFinite(d.brewsterDeg)&&Math.abs(d.angleDeg-d.brewsterDeg)<=2,lowR=Number.isFinite(d.firstBoundaryPReflectance)&&d.firstBoundaryPReflectance<=.005,p=(setup?40:0)+(aligned?35:0)+(lowR?25:0);return{id:id,progress:p,complete:p===100}}if(id==='ohm-inrush'){const peak=Number(payload.supply&&payload.supply.lampInrushPeakA),current=Number(payload.supply&&payload.supply.currentA),captured=Number.isFinite(peak)&&peak>0,above=captured&&Number.isFinite(current)&&current>0&&peak>current*1.08,p=(captured?55:0)+(above?45:0);return{id:id,progress:p,complete:p===100}}if(id==='ohm-fault-diagnostic'){const ch=payload.challenge&&typeof payload.challenge==='object'?payload.challenge:{},tests=Array.isArray(payload.tests)?payload.tests:[],score=Number.isFinite(ch.score)?ch.score:(Number(payload.score)||0),p=(tests.length>=2?30:Math.min(20,tests.length*10))+Math.min(70,score/3*70);return{id:id,progress:Math.round(p),complete:score===3&&tests.length>=2}}if(id==='ohm-wheatstone-balance'){const current=Number(payload.diagnostics&&payload.diagnostics.wheatstoneDetectorCurrentA),ok=payload.topology==='wheatstone'&&Number.isFinite(current)&&Math.abs(current)<.001;return{id:id,progress:ok?100:payload.topology==='wheatstone'?45:0,complete:ok}}return{id:id,progress:0,complete:false}}
+function renderTasks(){const list=document.getElementById('taskList');list.innerHTML='';tasks.forEach(function(task){const card=document.createElement('article');card.className='task';const done=!!saved.tasks[task.id],note=saved.notes[task.id]||'',safeId=esc(task.id);card.innerHTML='<h3>'+esc(task.title)+'</h3><div class="meta">'+esc(task.duration)+' · '+esc(task.tool)+'</div><p>'+esc(task.objective)+'</p><ol>'+task.steps.map(function(step){return'<li>'+esc(step)+'</li>'}).join('')+'</ol><details><summary>Success checks</summary><ul>'+task.success.map(function(item){return'<li>'+esc(item)+'</li>'}).join('')+'</ul></details><div class="progress"><span id="prog-'+safeId+'"></span></div><div class="task-actions"><button class="primary" data-load="'+safeId+'">Load setup</button><label class="checkline"><input type="checkbox" data-done="'+safeId+'" '+(done?'checked':'')+'> Mark complete</label></div><textarea class="notes" data-note="'+safeId+'" placeholder="Teacher note or pupil response…">'+esc(note)+'</textarea>';list.appendChild(card)});list.querySelectorAll('[data-load]').forEach(function(button){button.onclick=function(){const task=tasks.find(function(item){return item.id===button.dataset.load});if(!task)return;selectToolType(task.tool);const count=send(task.setupAction,task.setupPayload,task.tool);toast(count?'Task setup loaded':'Matching tool is not in this lesson')}});list.querySelectorAll('[data-done]').forEach(function(input){input.onchange=function(){saved.tasks[input.dataset.done]=input.checked;save()}});list.querySelectorAll('[data-note]').forEach(function(area){area.oninput=function(){saved.notes[area.dataset.note]=area.value;save()}})}
+function showDrawer(view){drawer.classList.add('open');taskView.hidden=view!=='tasks';evidenceView.hidden=view!=='evidence'}
+function renderEvidence(){const list=document.getElementById('evidenceList');list.innerHTML=evidence.length?'':'<div class="evidence-item">No evidence collected yet.</div>';evidence.forEach(function(item,index){const task=item.payload.lessonTask,assessment=task?evaluateTask(task,item.payload):null;const div=document.createElement('div');div.className='evidence-item';div.innerHTML='<b>'+esc(item.tool||'Tool result')+'</b><br><span>'+esc(new Date(item.collectedAt).toLocaleString())+'</span>'+(assessment?'<br>Task progress: '+Math.round(assessment.progress||0)+'%':'');list.appendChild(div);if(assessment){const bar=document.getElementById('prog-'+assessment.id);if(bar)bar.style.width=Math.max(0,Math.min(100,assessment.progress||0))+'%'}})}
+function collect(){const sources=new Set([...document.querySelectorAll('iframe')].map(function(frame){return frame.contentWindow}));let count=0;const handler=function(event){if(sources.size&&!sources.has(event.source))return;const data=event.data;if(!data||data.type!=='mbm-tool-results'||!data.payload)return;evidence.push({tool:data.tool,payload:data.payload,collectedAt:new Date().toISOString()});count++;renderEvidence()};window.addEventListener('message',handler);send('mbm-export-results',null);setTimeout(function(){window.removeEventListener('message',handler);toast(count+' result'+(count===1?'':'s')+' collected')},1100)}
+function downloadEvidence(){if(!evidence.length)return toast('Collect evidence first');const blob=new Blob([JSON.stringify({lesson:${JSON.stringify(title)},exportedAt:new Date().toISOString(),tasks:tasks,records:evidence},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='made-by-matt-offline-lesson-evidence.json';a.click();setTimeout(function(){URL.revokeObjectURL(url)},2000)}
+document.getElementById('tasksBtn').onclick=function(){showDrawer('tasks')};document.getElementById('evidenceBtn').onclick=function(){showDrawer('evidence')};document.getElementById('themeBtn').onclick=function(){high=!high;document.body.classList.toggle('high',high);send('mbm-set-theme',high?'high-lumen':'dark');this.textContent=high?'Dark':'High lumen'};document.getElementById('focusBtn').onclick=function(){low=!low;send('mbm-set-low-stimulus',low);this.textContent=low?'Standard stimulus':'Low stimulus'};document.getElementById('pauseBtn').onclick=function(){paused=!paused;send('mbm-pause-all',paused);this.textContent=paused?'Resume all':'Pause all'};document.getElementById('resetBtn').onclick=function(){send('mbm-reset-all',null);toast('All tools reset')};document.getElementById('collectBtn').onclick=collect;document.getElementById('downloadBtn').onclick=downloadEvidence;document.getElementById('clearEvidenceBtn').onclick=function(){evidence.length=0;renderEvidence();toast('Collected evidence cleared')};drawer.addEventListener('dblclick',function(event){if(event.target===drawer)drawer.classList.remove('open')});window.addEventListener('keydown',function(event){if(event.key==='Escape')drawer.classList.remove('open')});window.addEventListener('pagehide',cleanupFrames);window.addEventListener('beforeunload',cleanupFrames);buildFrames();renderTasks();renderEvidence();
+<\/script></body></html>`;
+  }
+
+  function downloadStandaloneLesson(config = {}) {
+    const html = buildStandaloneLesson(config);
+    const blob = new Blob([html], { type: 'text/html' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.href = url;
+    link.download = String(config.fileName || 'made-by-matt-custom-offline-lesson.html');
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    return blob;
+  }
+
+  window.MBMTeacherToolsBridge = Object.freeze({
+    version: VERSION,
+    KNOWN,
+    AXES,
+    AXIS_LABELS,
+    RADAR_RULES,
+    DEFAULT_LESSON_TASKS,
+    b64uToBytes,
+    envelopeSecurity,
+    findPotentialIdentifiers,
+    inspectEnvelope,
+    decodeEnvelope,
+    decodeEnvelopeRecord,
+    decodeUnencryptedEnvelope,
+    validateDecodedEnvelope,
+    patchDecryptCode,
+    scanKnownStorage,
+    mapCompetencyRadar,
+    evaluateLessonTask,
+    extractPngText,
+    intakePngFile,
+    installPngDropTarget,
+    broadcast,
+    sendToTool,
+    collectResults,
+    inferToolType,
+    normaliseLessonTasks,
+    buildStandaloneLesson,
+    downloadStandaloneLesson
+  });
+})();
+
+</script>
+<script>
+(() => {
+'use strict';
+const $=id=>document.getElementById(id),bridge=window.MBMTeacherToolsBridge,records=[],loaded=[];let activeRecord=-1,statusTimer=0;
+function toast(text){clearTimeout(statusTimer);$('status').textContent=text;$('status').classList.add('show');$('live').textContent=text;statusTimer=setTimeout(()=>$('status').classList.remove('show'),3000)}
+function cleanupUrls(){for(const tool of loaded){if(tool.url){URL.revokeObjectURL(tool.url);tool.url=null}}}
+function renderKnown(){let found=[];try{found=bridge.scanKnownStorage()}catch(e){toast('Storage discovery is unavailable for this origin')};const map=new Map(found.map(r=>[r.key,r]));$('knownList').innerHTML='';for(const item of bridge.KNOWN){const row=document.createElement('div');row.className='known-item';const rec=map.get(item.key);row.innerHTML='<div><b>'+item.app+'</b><code>'+item.key+'</code></div><span class="badge '+(rec?'ok':'empty')+'">'+(rec?'FOUND':'NOT FOUND')+'</span>';$('knownList').append(row)}}
+function renderRules(){const labels={variableIsolation:'Variable Isolation',waveScaleInterpolation:'WAVE · Scale Interpolation',waveBoundaryControl:'WAVE · Boundary Control',waveFailureReflection:'WAVE · Failure Reflection',waveSystemicTroubleshooting:'WAVE · Troubleshooting',waveResourceControl:'WAVE · Resource Control',ohmScaleInterpolation:'OHM · Scale Interpolation',ohmBoundaryControl:'OHM · Boundary Control',ohmFailureReflection:'OHM · Failure Reflection',ohmSystemicTroubleshooting:'OHM · Troubleshooting',ohmResourceControl:'OHM · Resource Control'};$('rules').innerHTML='';for(const [key,formula] of Object.entries(bridge.RADAR_RULES)){const div=document.createElement('div');div.className='rule';div.innerHTML='<b>'+(labels[key]||key)+'</b><code>'+formula+'</code>';$('rules').append(div)}}
+function drawRadar(radar){const c=$('radar'),g=c.getContext('2d'),w=c.width,h=c.height,cx=w/2,cy=h/2,R=Math.min(w,h)*.32,axes=radar?.axes||bridge.AXES,scores=radar?.scores||Object.fromEntries(axes.map(a=>[a,0]));g.clearRect(0,0,w,h);const css=getComputedStyle(document.body),line=css.getPropertyValue('--line').trim(),text=css.getPropertyValue('--text').trim(),accent=css.getPropertyValue('--accent').trim();g.lineJoin='round';for(let ring=1;ring<=5;ring++){g.beginPath();for(let i=0;i<axes.length;i++){const a=-Math.PI/2+i*Math.PI*2/axes.length,r=R*ring/5,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i?g.lineTo(x,y):g.moveTo(x,y)}g.closePath();g.strokeStyle=line;g.lineWidth=2;g.stroke()}for(let i=0;i<axes.length;i++){const a=-Math.PI/2+i*Math.PI*2/axes.length,x=cx+Math.cos(a)*R,y=cy+Math.sin(a)*R;g.beginPath();g.moveTo(cx,cy);g.lineTo(x,y);g.strokeStyle=line;g.stroke();const label=radar?.labels?.[axes[i]]||axes[i].replace(/([A-Z])/g,' $1').replace(/^./,m=>m.toUpperCase()),lx=cx+Math.cos(a)*(R+78),ly=cy+Math.sin(a)*(R+78);g.fillStyle=text;g.font='700 22px system-ui';g.textAlign=Math.cos(a)>.2?'left':Math.cos(a)<-.2?'right':'center';g.textBaseline='middle';g.fillText(label,lx,ly);g.font='900 21px system-ui';g.fillStyle=accent;g.fillText(Math.round(scores[axes[i]]||0),lx,ly+25)}g.beginPath();axes.forEach((axis,i)=>{const a=-Math.PI/2+i*Math.PI*2/axes.length,r=R*(scores[axis]||0)/100,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i?g.lineTo(x,y):g.moveTo(x,y)});g.closePath();g.fillStyle=accent+'44';g.strokeStyle=accent;g.lineWidth=5;g.fill();g.stroke()}
+function addRecord(payload,source='pasted code',label='Imported assessment',security=null){const radar=bridge.mapCompetencyRadar(payload),taskEvidence=payload.lessonTask?bridge.evaluateLessonTask(payload.lessonTask,payload):null;records.push({payload,radar,taskEvidence,source,label,security,time:new Date().toISOString()});selectRecord(records.length-1);toast('Assessment imported locally')}
+function renderRecords(){$('records').innerHTML='';records.forEach((r,i)=>{const b=document.createElement('button');b.className='record'+(i===activeRecord?' active':'');const security=r.security?.level||'local';b.innerHTML='<b>'+r.label+'</b><small>'+(r.payload.tool||'MBM payload')+' · '+r.source+' · '+security+'</small>';b.onclick=()=>selectRecord(i);$('records').append(b)});if(!records.length)$('records').innerHTML='<div class="known-item"><span>No imported records yet.</span><span class="badge empty">WAITING</span></div>'}
+function selectRecord(i){activeRecord=i;renderRecords();const r=records[i];if(!r)return;drawRadar(r.radar);$('payloadView').textContent=JSON.stringify({source:r.source,security:r.security,taskEvidence:r.taskEvidence,radar:r.radar,payload:r.payload},null,2)}
+async function decodeText(){const code=$('codeInput').value.trim();if(!code)return toast('Paste an MBM hand-off code first');try{const record=await bridge.decodeEnvelopeRecord(code,{pin:$('pinInput').value,decryptMBM2:window.decryptMBM2FromHub});addRecord(record.payload,'pasted hand-off',record.payload.tool==='wave-iridescence'?'WAVE assessment':record.payload.tool==='ohms-fault-finder'?'OHM assessment':'MBM assessment',record.security);if(record.security.privacyWarning)toast(record.security.privacyWarning)}catch(e){toast(e.message);$('payloadView').textContent='Import error: '+e.message}}
+async function readPng(file){try{const record=await bridge.intakePngFile(file,{decryptMBM2:window.decryptMBM2FromHub,pin:$('pinInput').value});addRecord(record.payload,'PNG metadata',file.name,record.security)}catch(e){toast(e.message);$('payloadView').textContent='PNG intake error: '+e.message}}
+function updateLoadedList(){$('loadedList').innerHTML='';if(!loaded.length){$('loadedList').innerHTML='<div class="known-item"><span>Load tool HTML files above first.</span><span class="badge empty">0 TOOLS</span></div>';return}loaded.forEach((tool,i)=>{const row=document.createElement('div');row.className='loaded-row';const name=document.createElement('b'),hash=document.createElement('input'),remove=document.createElement('button');name.textContent=tool.title+' · '+tool.tool;hash.className='field';hash.placeholder='Optional initial hash, e.g. #s=…';hash.value=tool.initialHash||'';hash.oninput=()=>tool.initialHash=hash.value.trim();remove.textContent='Remove';remove.onclick=()=>removeTool(i);row.append(name,hash,remove);$('loadedList').append(row)})}
+function rebuildFrames(){cleanupUrls();$('stage').innerHTML='';$('tabs').innerHTML='';loaded.forEach((tool,i)=>{tool.url=URL.createObjectURL(new Blob([tool.html],{type:'text/html'}));const frame=document.createElement('iframe');frame.className='tool-frame'+(i===0?' active':'');frame.dataset.index=i;frame.dataset.id=tool.id;frame.dataset.tool=tool.tool;frame.title=tool.title;frame.src=tool.url+(tool.initialHash||'');$('stage').append(frame);const tab=document.createElement('button');tab.className='tab'+(i===0?' active':'');tab.textContent=tool.title;tab.onclick=()=>{document.querySelectorAll('.tool-frame').forEach((f,j)=>f.classList.toggle('active',j===i));document.querySelectorAll('.tab').forEach((b,j)=>b.classList.toggle('active',j===i))};$('tabs').append(tab)});if(!loaded.length){$('stage').innerHTML='<div style="display:grid;place-items:center;height:100%;color:#9bb1bf;text-align:center;padding:20px">Tool projection area<br><small>The loaded files never leave this browser.</small></div>';$('tabs').innerHTML='<span class="badge empty">Load one or more HTML tools</span>'}updateLoadedList()}
+function removeTool(index){loaded.splice(index,1);rebuildFrames();toast('Tool removed and its Blob URL released')}
+async function loadTools(files){for(const file of files){if(!/\.html?$/i.test(file.name))continue;const html=await file.text();loaded.push({id:file.name.replace(/\.html?$/i,'').replace(/[^a-z0-9]+/gi,'-').toLowerCase(),title:file.name.replace(/\.html?$/i,''),html,tool:bridge.inferToolType({id:file.name,title:file.name,html}),initialHash:''})}rebuildFrames();toast(loaded.length+' tool'+(loaded.length===1?'':'s')+' loaded locally')}
+function send(type,payload){const count=bridge.broadcast(type,payload,{root:document});toast(type+' sent to '+count+' embedded tool'+(count===1?'':'s'))}
+function renderTaskOptions(){$('taskOptions').innerHTML='';bridge.DEFAULT_LESSON_TASKS.forEach(task=>{const div=document.createElement('div');div.className='task-option';div.innerHTML='<h3>'+task.title+'</h3><p>'+task.objective+'</p><div class="row"><label class="grow"><input type="checkbox" data-task-check="'+task.id+'" '+(task.defaultEnabled?'checked':'')+'> Include in export</label><button data-task-load="'+task.id+'">Load setup</button></div>';$('taskOptions').append(div)});document.querySelectorAll('[data-task-load]').forEach(btn=>btn.onclick=()=>{const task=bridge.DEFAULT_LESSON_TASKS.find(t=>t.id===btn.dataset.taskLoad);if(!task)return;const count=bridge.sendToTool(task.tool,task.setupAction,task.setupPayload,{root:document});if(count){const tool=loaded.find(t=>t.tool===task.tool),index=loaded.indexOf(tool);if(index>=0){document.querySelectorAll('.tool-frame').forEach((f,j)=>f.classList.toggle('active',j===index));document.querySelectorAll('.tab').forEach((b,j)=>b.classList.toggle('active',j===index))}}toast(count?'Prepared task loaded':'Load the matching tool first')})}
+function exportRecords(){if(!records.length)return toast('No records to export');const blob=new Blob([JSON.stringify({schema:1,exportedAt:new Date().toISOString(),records},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='mbm-master-hub-records-v2-3.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)}
+$('scanBtn').onclick=renderKnown;$('themeBtn').onclick=()=>{document.body.classList.toggle('high');$('themeBtn').textContent=document.body.classList.contains('high')?'Dark mode':'High lumen';drawRadar(records[activeRecord]?.radar)};$('decodeBtn').onclick=decodeText;$('choosePngBtn').onclick=()=>$('pngInput').click();$('pngInput').onchange=e=>{if(e.target.files[0])readPng(e.target.files[0])};for(const type of['dragenter','dragover'])$('dropZone').addEventListener(type,e=>{e.preventDefault();$('dropZone').classList.add('drag')});for(const type of['dragleave','drop'])$('dropZone').addEventListener(type,e=>{e.preventDefault();$('dropZone').classList.remove('drag')});$('dropZone').ondrop=e=>{for(const f of e.dataTransfer.files)if(f.type==='image/png'||/\.png$/i.test(f.name))readPng(f)};$('dropZone').onclick=e=>{if(e.target===$('dropZone')||e.target.closest('span'))$('pngInput').click()};$('chooseToolsBtn').onclick=()=>$('toolFiles').click();$('toolFiles').onchange=e=>loadTools([...e.target.files]);document.querySelectorAll('[data-cmd]').forEach(btn=>btn.onclick=()=>{const cmd=btn.dataset.cmd;if(cmd==='theme-dark')send('mbm-set-theme','dark');if(cmd==='theme-lumen')send('mbm-set-theme','high-lumen');if(cmd==='low-on')send('mbm-set-low-stimulus',true);if(cmd==='low-off')send('mbm-set-low-stimulus',false);if(cmd==='pause')send('mbm-pause-all',true);if(cmd==='resume')send('mbm-pause-all',false);if(cmd==='reset')send('mbm-reset-all',null)});$('collectBtn').onclick=async()=>{if(!loaded.length)return toast('Load at least one tool first');const results=await bridge.collectResults({root:document,timeoutMs:1300});for(const item of results)addRecord(item.payload,'postMessage deck export',item.tool+' live result',{level:'local',label:'Live local result'});toast(results.length+' live result'+(results.length===1?'':'s')+' collected')};$('packageBtn').onclick=()=>{if(!loaded.length)return toast('Load at least one tool HTML file first');const taskIds=[...document.querySelectorAll('[data-task-check]:checked')].map(input=>input.dataset.taskCheck),tasks=bridge.DEFAULT_LESSON_TASKS.filter(task=>taskIds.includes(task.id));try{bridge.downloadStandaloneLesson({title:$('lessonTitle').value.trim(),fileName:'made-by-matt-task-aware-offline-lesson-v2-3.html',tasks,tools:loaded.map(t=>({id:t.id,title:t.title,tool:t.tool,html:t.html,initialHash:t.initialHash}))});toast('Task-aware standalone lesson created')}catch(e){toast(e.message)}};$('exportRecordsBtn').onclick=exportRecords;$('clearRecordsBtn').onclick=()=>{records.length=0;activeRecord=-1;renderRecords();drawRadar(null);$('payloadView').textContent='Decoded telemetry will appear here.';toast('Session records cleared')};addEventListener('pagehide',cleanupUrls);addEventListener('beforeunload',cleanupUrls);
+renderKnown();renderRules();renderTaskOptions();renderRecords();rebuildFrames();drawRadar(null);
+})();
+</script>
+</body>
+</html>

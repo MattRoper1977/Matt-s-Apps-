@@ -1,0 +1,14 @@
+a1f99c83415e609ed3955de64fd128dd2cd940c23b0062f74b59e8a16eb32355  wave-interference-iridescence-engine-v2-3.html
+74b96fc094f62617f35af6bd83daaf834d4c8c9e8457d18897f7b2c3d27f6649  ohms-law-fault-finder-v2-3.html
+c3fb4dea1e1dd3b98114fcff97bd2b5a3839d48c575c7ecf0a98954b8cfb416e  mbm-master-hub-bridge-v2-3.js
+af77516aa485ce5bb2c87a8893380dbe4a50ccb450d6e09fd8e25b26a1467382  mbm-master-hub-integration-preview-v2-3.html
+98d748ef104020d0fc9233965cb8ec00dae3a7e5ed475606b2f050ba1f805be7  made-by-matt-wave-ohm-offline-lesson-v2-3.html
+69c3af808e6df9ea3aad5d34c1da08d5dbef78909e19f029d5c73784e9bfe192  made-by-matt-wave-ohm-complete-offline-lesson-v2-3.html
+30523084be34e14f6d8ab9fec0be609d47a3a9b955448e1cb85f7f9c09e54db0  LESSON-TASKS-V2-3.json
+1cff6f9b6218006628e4c52a4e8d746bd6c3555ccf479c20c66c1955e462a7e3  RADAR-RULES-V2-3.json
+9e1c5b76c91601207362c71a125dcfb4fcaccbbbb958b05bdbe36253f802e29a  README-V2-3.md
+0cc4a427b27e1ae0782a2d0d5ae2ac8773ddb19629541465d43d39102683e0fc  MASTER-HUB-INSTALL-V2-3.md
+51305710ed2704ac778cab829e68c99b20529f0821a381bb7e217f5f2b5672f3  QA-REPORT-V2-3.md
+fc930d6c5094b9f1537610f5d4e3dfc5af9bcbcee4a77a2080e3bc4c8a76745f  QA-RESULTS-V2-3.json
+c643db63dd1f49be873b3aa74ee897fd6d7790b16e632329f05dcf88660797f9  STATIC-QA-V2-3.json
+934a5cbcd1a59d34ffef2f05660e484fcdc8facbff7b7a1fe120952ccfa075ce  PACKAGE-MANIFEST-V2-3.json

@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "release": "2.3",
+  "range": [0, 100],
+  "axes": [
+    "variableIsolation",
+    "scaleInterpolation",
+    "boundaryControl",
+    "failureReflection",
+    "systemicTroubleshooting",
+    "resourceControl"
+  ],
+  "labels": {
+    "variableIsolation": "Variable Isolation",
+    "scaleInterpolation": "Scale Interpolation",
+    "boundaryControl": "Boundary Control",
+    "failureReflection": "Failure Reflection",
+    "systemicTroubleshooting": "Systemic Troubleshooting",
+    "resourceControl": "Resource Control"
+  },
+  "wave": {
+    "variableIsolation": "clamp(62 + 4 * isolatedAdjustments - 12 * multiVariableWarnings)",
+    "scaleInterpolation": "84 if fringe-spacing evidence is present, else 58",
+    "boundaryControl": "82 if Brewster-angle or coherence evidence is present, else 55",
+    "failureReflection": "clamp(52 + 6 * coachEvents + 3 * multiVariableWarnings)",
+    "systemicTroubleshooting": "38",
+    "resourceControl": "clamp(48 + min(20, parameterChanges))"
+  },
+  "ohm": {
+    "variableIsolation": "clamp(62 + 4 * isolatedAdjustments - 12 * multiVariableWarnings)",
+    "scaleInterpolation": "82 for Wheatstone topology, else 58",
+    "boundaryControl": "38 if fuseHeadroom < 0; 86 if < 0.25; 75 if < 0.65; else 58",
+    "failureReflection": "clamp(48 + 12 * diagnosticScore + 3 * multiVariableWarnings)",
+    "systemicTroubleshooting": "clamp(42 + 14 * diagnosticScore + 4 * meterTests)",
+    "resourceControl": "clamp(44 + min(30, 5 * meterTests) + 5 * distinctMeterModes)"
+  },
+  "notice": "These are transparent formative indicators from tool telemetry, not standardised attainment grades."
+}

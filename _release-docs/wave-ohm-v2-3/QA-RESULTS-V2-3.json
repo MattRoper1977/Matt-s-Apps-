@@ -1,0 +1,228 @@
+{
+  "schema": 1,
+  "release": "2.3",
+  "generatedAt": "2026-08-12T18:20:48.730914+00:00",
+  "overallPass": true,
+  "results": {
+    "static": {
+      "static": {
+        "previewBridgeExactMatch": true,
+        "bridgeHasExactFormula": true,
+        "bridgeHasMemoryCleanup": true,
+        "bridgeHasPrivacyInspection": true,
+        "bridgeHasTaskLayer": true,
+        "coreDeckHasThreeDefaultTasks": true,
+        "completeDeckHasWheatstoneExtension": true
+      },
+      "files": {
+        "mbm-master-hub-bridge-v2-3.js": {
+          "nodeCheck": true,
+          "bytes": 47616,
+          "sha256": "c3fb4dea1e1dd3b98114fcff97bd2b5a3839d48c575c7ecf0a98954b8cfb416e"
+        },
+        "made-by-matt-wave-ohm-complete-offline-lesson-v2-3.html": {
+          "bytes": 259695,
+          "sha256": "69c3af808e6df9ea3aad5d34c1da08d5dbef78909e19f029d5c73784e9bfe192",
+          "duplicateIds": [],
+          "scriptBlocks": 1,
+          "scriptsValid": true,
+          "externalHttpAssets": [],
+          "networkCalls": []
+        },
+        "made-by-matt-wave-ohm-offline-lesson-v2-3.html": {
+          "bytes": 258931,
+          "sha256": "98d748ef104020d0fc9233965cb8ec00dae3a7e5ed475606b2f050ba1f805be7",
+          "duplicateIds": [],
+          "scriptBlocks": 1,
+          "scriptsValid": true,
+          "externalHttpAssets": [],
+          "networkCalls": []
+        },
+        "mbm-master-hub-integration-preview-v2-3.html": {
+          "bytes": 70957,
+          "sha256": "af77516aa485ce5bb2c87a8893380dbe4a50ccb450d6e09fd8e25b26a1467382",
+          "duplicateIds": [],
+          "scriptBlocks": 2,
+          "scriptsValid": true,
+          "externalHttpAssets": [],
+          "networkCalls": []
+        },
+        "ohms-law-fault-finder-v2-3.html": {
+          "bytes": 96792,
+          "sha256": "74b96fc094f62617f35af6bd83daaf834d4c8c9e8457d18897f7b2c3d27f6649",
+          "duplicateIds": [],
+          "scriptBlocks": 1,
+          "scriptsValid": true,
+          "externalHttpAssets": [],
+          "networkCalls": []
+        },
+        "wave-interference-iridescence-engine-v2-3.html": {
+          "bytes": 84423,
+          "sha256": "a1f99c83415e609ed3955de64fd128dd2cd940c23b0062f74b59e8a16eb32355",
+          "duplicateIds": [],
+          "scriptBlocks": 1,
+          "scriptsValid": true,
+          "externalHttpAssets": [],
+          "networkCalls": []
+        }
+      },
+      "ok": true
+    },
+    "bridge": {
+      "ok": true,
+      "waveScores": {
+        "variableIsolation": 58,
+        "scaleInterpolation": 84,
+        "boundaryControl": 82,
+        "failureReflection": 76,
+        "systemicTroubleshooting": 38,
+        "resourceControl": 65
+      },
+      "ohmScores": {
+        "variableIsolation": 58,
+        "scaleInterpolation": 82,
+        "boundaryControl": 86,
+        "failureReflection": 75,
+        "systemicTroubleshooting": 82,
+        "resourceControl": 69
+      },
+      "lessonBytes": 258726,
+      "defaultTasks": [
+        "wave-brewster",
+        "ohm-inrush",
+        "ohm-fault-diagnostic"
+      ],
+      "privacyWarning": "This unencrypted payload appears to contain identifying fields. Use the existing MBM2 PIN route for confidential records."
+    },
+    "browser": {
+      "ok": true,
+      "pages": {
+        "waveDesktop": {
+          "pageErrors": [],
+          "consoleErrors": [],
+          "checks": {
+            "release": true,
+            "taskLoaded": true,
+            "taskComplete": true,
+            "brewster": true,
+            "lowStimulus": true,
+            "noHorizontalOverflow": true
+          }
+        },
+        "waveMobile": {
+          "pageErrors": [],
+          "consoleErrors": [],
+          "checks": {
+            "noHorizontalOverflow": true,
+            "touchTargets": true
+          }
+        },
+        "ohmDesktop": {
+          "pageErrors": [],
+          "consoleErrors": [],
+          "checks": {
+            "release": true,
+            "inrushTaskLoaded": true,
+            "inrushCaptured": true,
+            "inrushTaskComplete": true,
+            "thermalDeltaClamp": true,
+            "wheatstoneBalanced": true,
+            "faultTaskLoaded": true,
+            "lowStimulus": true,
+            "noHorizontalOverflow": true
+          }
+        },
+        "ohmMobile": {
+          "pageErrors": [],
+          "consoleErrors": [],
+          "checks": {
+            "noHorizontalOverflow": true,
+            "touchTargets": true
+          }
+        },
+        "taskDeck": {
+          "pageErrors": [],
+          "consoleErrors": [],
+          "checks": {
+            "twoTools": true,
+            "threeTaskCards": true,
+            "taskActionReachedTool": true,
+            "themeSync": true,
+            "evidenceCollected": true
+          }
+        },
+        "completeDeck": {
+          "pageErrors": [],
+          "consoleErrors": [],
+          "checks": {
+            "fourTaskCards": true,
+            "wheatstoneCard": true
+          }
+        },
+        "hubPreview": {
+          "pageErrors": [],
+          "consoleErrors": [],
+          "checks": {
+            "bridgeVersion": true,
+            "fourTaskOptions": true,
+            "localToolsLoaded": true,
+            "previewTaskSetup": true,
+            "packageDownloaded": true
+          }
+        },
+        "hubPreviewMobile": {
+          "pageErrors": [],
+          "consoleErrors": [],
+          "checks": {
+            "noHorizontalOverflow": true
+          }
+        }
+      },
+      "downloads": {
+        "previewPackage": {
+          "suggestedFilename": "made-by-matt-task-aware-offline-lesson-v2-3.html",
+          "bytes": 259004
+        }
+      }
+    },
+    "png": {
+      "ok": true,
+      "files": {
+        "wave-assessment-v2-3.png": {
+          "bytes": 1138577,
+          "metadataKeys": [
+            "mbm.telemetry",
+            "mbm.state"
+          ],
+          "tool": "wave-iridescence",
+          "lessonTask": "wave-brewster",
+          "radar": {
+            "variableIsolation": 62,
+            "scaleInterpolation": 84,
+            "boundaryControl": 82,
+            "failureReflection": 52,
+            "systemicTroubleshooting": 38,
+            "resourceControl": 48
+          }
+        },
+        "ohm-assessment-v2-3.png": {
+          "bytes": 156706,
+          "metadataKeys": [
+            "mbm.telemetry",
+            "mbm.state"
+          ],
+          "tool": "ohms-fault-finder",
+          "lessonTask": "ohm-inrush",
+          "radar": {
+            "variableIsolation": 62,
+            "scaleInterpolation": 58,
+            "boundaryControl": 58,
+            "failureReflection": 48,
+            "systemicTroubleshooting": 42,
+            "resourceControl": 44
+          }
+        }
+      }
+    }
+  }
+}
