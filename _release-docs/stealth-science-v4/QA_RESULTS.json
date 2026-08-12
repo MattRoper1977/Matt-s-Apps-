@@ -1,0 +1,692 @@
+{
+  "schema": "mbm-stealth-science-qa-4.0",
+  "release": {
+    "name": "Stealth Science Ecosystem v4",
+    "owner": "Matt Roper / Made by Matt",
+    "releaseDate": "2026-08-12",
+    "generatedAtUtc": "2026-08-12T18:30:24+00:00",
+    "outcome": "PASS",
+    "qualification": "Recorded release regression, not a formal certification across every browser, WebView, assistive technology or camera. Velocity Verlet greatly reduces numerical drift but does not guarantee mathematically exact closure for every timestep and initial condition."
+  },
+  "environment": {
+    "os": "Debian GNU/Linux 13 (trixie)",
+    "chromium": "144.0.7559.96",
+    "node": "v22.16.0",
+    "python": "3.13.5",
+    "viewportWidthsCssPx": [
+      320,
+      360,
+      768,
+      1024,
+      1440
+    ]
+  },
+  "files": {
+    "orbit-vector-diagnostic.html": {
+      "bytes": 135566,
+      "sha256": "82d13671bde72694db9ba6e3aef5b6196fffd81f4eb2dfcb3c0cc7d62b003b51",
+      "inlineScripts": 1,
+      "inlineStyles": 1,
+      "externalScriptRefs": [],
+      "externalStylesheetRefs": [],
+      "networkApiTokens": [],
+      "httpUrlTokens": 2,
+      "title": "ORBIT//VECTOR v4 — Stealth Science Diagnostic"
+    },
+    "enzyme-reactor-overdrive.html": {
+      "bytes": 137310,
+      "sha256": "b5283f79024bec24bd214868d3f4013557a07321847d3e97f282d9deb0050d06",
+      "inlineScripts": 1,
+      "inlineStyles": 1,
+      "externalScriptRefs": [],
+      "externalStylesheetRefs": [],
+      "networkApiTokens": [],
+      "httpUrlTokens": 2,
+      "title": "ENZYME//OVERDRIVE v4 — Boundary-Failure Reactor"
+    },
+    "mbm-master-hub.html": {
+      "bytes": 423394,
+      "sha256": "33166bde197144055c18abb51a4e7f33c741aa7a7094186326a24c47961daa75",
+      "inlineScripts": 3,
+      "inlineStyles": 1,
+      "externalScriptRefs": [],
+      "externalStylesheetRefs": [],
+      "networkApiTokens": [],
+      "httpUrlTokens": 0,
+      "title": "MBM//SCIENCE PORTFOLIO v4 — Offline Master Hub"
+    },
+    "mbm-legacy-adapter.js": {
+      "bytes": 9951,
+      "sha256": "1aa3a458d5d57ef58d708eb22c199d4129d338f94753ef2aab873cb8236739eb"
+    },
+    "README.md": {
+      "bytes": 14303,
+      "sha256": "a327daca55550ca81071bd8df5df368908489b9ba3d2eab4f771d924ea9ee000"
+    },
+    "QA_REPORT.md": {
+      "bytes": 12574,
+      "sha256": "47e69d30e6057980dfb2182301e21f6628a7df7d3fc4d6bdb428571b633fbeed"
+    },
+    "THIRD_PARTY_NOTICES.md": {
+      "bytes": 1504,
+      "sha256": "87519eaffc95ee0977cd3fa90d0e7aea4eef2b1b36b7cef1d332edbbed0ad5b6"
+    }
+  },
+  "staticVerification": {
+    "javascriptSyntax": "PASS",
+    "zeroRuntimeDependencies": true,
+    "noExternalScripts": true,
+    "noExternalStylesheets": true,
+    "noApplicationNetworkApis": true,
+    "embeddedHubAppsByteIdentical": true,
+    "directIframeFileReferencesAbsent": true,
+    "blobFrameCreationPresent": true,
+    "strictSandboxWithoutSameOrigin": true
+  },
+  "protocol": {
+    "telemetrySchema": "mbm-telemetry-v3.0",
+    "packetBytes": 16,
+    "packetMagic": "0xB3",
+    "schemaMajor": 3,
+    "crc": {
+      "algorithm": "CRC-8",
+      "polynomial": "0x07"
+    },
+    "axes": [
+      "Variable Isolation",
+      "Scale Interpolation",
+      "Systemic Troubleshooting",
+      "Boundary Control",
+      "Failure Reflection",
+      "Resource Control"
+    ],
+    "encrypted": {
+      "prefix": "MBM3",
+      "cipher": "AES-GCM-256",
+      "keyDerivation": "PBKDF2-HMAC-SHA-256",
+      "iterations": 60000,
+      "envelopeBytes": 52,
+      "encodedCharacters": 75,
+      "qrModules": 33
+    },
+    "failSoft": {
+      "prefix": "MBM3U",
+      "encrypted": false,
+      "encodedCharacters": 28,
+      "qrModules": 25,
+      "visibleWarning": true,
+      "pinDisplay": "NOT USED"
+    },
+    "decryptedPacketChecks": {
+      "orbit": {
+        "envelopeBytes": 52,
+        "packetBytes": 16,
+        "magic": 179,
+        "schemaMajor": 3,
+        "appCode": 1,
+        "crc": 102,
+        "crcValid": true,
+        "axes": [
+          0.502,
+          0.98,
+          0.741,
+          0.988,
+          0.502,
+          0.961
+        ],
+        "events": 1,
+        "successNibble": 15,
+        "flags": 5,
+        "hex": "b33180fabdfc80f5119402124001f566"
+      },
+      "enzyme": {
+        "envelopeBytes": 52,
+        "packetBytes": 16,
+        "magic": 179,
+        "schemaMajor": 3,
+        "appCode": 2,
+        "crc": 88,
+        "crcValid": true,
+        "axes": [
+          0.502,
+          0.529,
+          0.6,
+          0.69,
+          0.702,
+          0.549
+        ],
+        "events": 2,
+        "successNibble": 0,
+        "flags": 0,
+        "hex": "b332808799b0b38c0bb801f480020058"
+      }
+    }
+  },
+  "orbit": {
+    "browser": {
+      "title": "ORBIT//VECTOR v4 — Stealth Science Diagnostic",
+      "integratorHud": "VERLET ΔE 1.9e-5%",
+      "console": "[ORBIT LOCK] Sustained inverse-square orbit. Mean radius 91.1, radial span 2.0. Score 2994.",
+      "ariaVoice": "Audio descriptions on.",
+      "qr": {
+        "status": "MBM3 16-byte packet • AES-GCM • 75 characters • QR 33×33. Keep the PIN separate.",
+        "modules": 33,
+        "payloadLength": 75,
+        "mode": "Secure mode: the fixed 16-byte mbm-telemetry-v3.0 packet is AES-GCM encrypted with a separate six-digit PIN."
+      },
+      "transferLength": 75,
+      "worksheet": {
+        "name": "orbit-vector-worksheet-2026-08-12.svg",
+        "bytes": 5685,
+        "whiteBackground": true,
+        "vectors": true,
+        "metadata": true
+      },
+      "canvasSample": 126720,
+      "accessibility": {
+        "unnamed": [],
+        "tiny": [],
+        "bodyFont": "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "dataFont": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", monospace"
+      },
+      "events": {
+        "page_errors": [],
+        "console_errors": [],
+        "requests": [
+          "http://127.0.0.1:8765/orbit-vector-diagnostic.html",
+          "blob:http://127.0.0.1:8765/7d4ce4c3-51f8-488d-8e4f-cddb5a283356"
+        ]
+      }
+    },
+    "independentPhysicsRegression": {
+      "period": 10.729355327059789,
+      "duration20Periods": 214.5871065411958,
+      "verlet20Periods": {
+        "relativeEnergyDrift": 7.530616130679845e-15,
+        "relativeAngularMomentumDrift": 3.6430280514468426e-15,
+        "radiusSpan": 0.0009876489034184033,
+        "closureDistance": 0.1751679973128995,
+        "finalRadius": 90.00000000171441
+      },
+      "euler20Periods": {
+        "relativeEnergyDrift": 0.39577673539721564,
+        "relativeAngularMomentumDrift": 0.28640928332034626,
+        "radiusSpan": 60.44574413876407,
+        "closureDistance": 159.08336657538993,
+        "finalRadius": 150.44574413876407
+      },
+      "browserMissionEquivalentVerlet18sSpeed53": {
+        "relativeEnergyDrift": 1.9415677056326439e-07,
+        "relativeAngularMomentumDrift": 1.3346882415954922e-15,
+        "radiusSpan": 2.0471874819653237,
+        "closureDistance": 162.72218447445977,
+        "finalRadius": 91.6356199975158
+      },
+      "packets": {
+        "orbit": {
+          "envelopeBytes": 52,
+          "packetBytes": 16,
+          "magic": 179,
+          "schemaMajor": 3,
+          "appCode": 1,
+          "crc": 102,
+          "crcValid": true,
+          "axes": [
+            0.502,
+            0.98,
+            0.741,
+            0.988,
+            0.502,
+            0.961
+          ],
+          "events": 1,
+          "successNibble": 15,
+          "flags": 5,
+          "hex": "b33180fabdfc80f5119402124001f566"
+        },
+        "enzyme": {
+          "envelopeBytes": 52,
+          "packetBytes": 16,
+          "magic": 179,
+          "schemaMajor": 3,
+          "appCode": 2,
+          "crc": 88,
+          "crcValid": true,
+          "axes": [
+            0.502,
+            0.529,
+            0.6,
+            0.69,
+            0.702,
+            0.549
+          ],
+          "events": 2,
+          "successNibble": 0,
+          "flags": 0,
+          "hex": "b332808799b0b38c0bb801f480020058"
+        }
+      },
+      "energyDriftImprovementFactor": 52555691131940.08
+    },
+    "integrator": "Velocity Verlet",
+    "coreTimestep": 0.008,
+    "twentyPeriodComparison": {
+      "velocityVerletRelativeEnergyDrift": 7.530616130679845e-15,
+      "explicitEulerRelativeEnergyDrift": 0.39577673539721564,
+      "velocityVerletRadiusSpan": 0.0009876489034184033,
+      "explicitEulerRadiusSpan": 60.44574413876407,
+      "energyDriftImprovementFactor": 52555691131940.08
+    }
+  },
+  "enzyme": {
+    "browser": {
+      "title": "ENZYME//OVERDRIVE v4 — Boundary-Failure Reactor",
+      "ariaVoice": "Audio descriptions on.",
+      "panelVisible": true,
+      "competitiveNote": "Competitive: steeper slope with the same y-intercept — apparent Km rises while Vmax is preserved.",
+      "competitiveAria": "Lineweaver-Burk plot. Apparent K m 75.0. Effective V max 100.0. Competitive: steeper slope with the same y-intercept — apparent Km rises while Vmax is preserved.",
+      "noncompetitiveNote": "Non-competitive: the y-intercept rises — effective Vmax falls, so extra substrate cannot restore the original ceiling.",
+      "noncompetitiveAria": "Lineweaver-Burk plot. Apparent K m 25.0. Effective V max 33.3. Non-competitive: the y-intercept rises — effective Vmax falls, so extra substrate cannot restore the original ceiling.",
+      "plotPixels": 45500,
+      "q10": {
+        "q1.2": 20.0,
+        "q3.0": 50.0,
+        "higherIsFaster": true
+      },
+      "qr": {
+        "status": "MBM3 16-byte packet • AES-GCM • 75 characters • QR 33×33. Keep the PIN separate.",
+        "modules": 33,
+        "payloadLength": 75,
+        "mode": "Secure mode: the fixed 16-byte mbm-telemetry-v3.0 packet is AES-GCM encrypted with a separate six-digit PIN."
+      },
+      "transferLength": 75,
+      "worksheet": {
+        "name": "enzyme-overdrive-worksheet-2026-08-12.svg",
+        "bytes": 3970,
+        "whiteBackground": true,
+        "doubleReciprocal": true,
+        "activationEnergy": true,
+        "metadata": true
+      },
+      "canvasSample": 132480,
+      "accessibility": {
+        "unnamed": [],
+        "tiny": [],
+        "bodyFont": "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "dataFont": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", monospace"
+      },
+      "events": {
+        "page_errors": [],
+        "console_errors": [],
+        "requests": [
+          "http://127.0.0.1:8765/enzyme-reactor-overdrive.html"
+        ]
+      }
+    },
+    "lineweaverBurk": {
+      "competitive": {
+        "apparentKm": 75.0,
+        "effectiveVmax": 100.0,
+        "signature": "same y-intercept, steeper slope"
+      },
+      "nonCompetitive": {
+        "apparentKm": 25.0,
+        "effectiveVmax": 33.3,
+        "signature": "higher y-intercept, lower Vmax"
+      },
+      "optionalPanelVisible": true
+    },
+    "q10ReferenceAnchorCelsius": 20,
+    "q10At30C": {
+      "q1.2": 20.0,
+      "q3.0": 50.0,
+      "higherIsFaster": true
+    }
+  },
+  "hub": {
+    "browser": {
+      "title": "MBM//SCIENCE PORTFOLIO v4 — Offline Master Hub",
+      "frameInfo": [
+        {
+          "protocol": "blob:",
+          "sandbox": "allow-scripts allow-modals allow-downloads"
+        },
+        {
+          "protocol": "blob:",
+          "sandbox": "allow-scripts allow-modals allow-downloads"
+        }
+      ],
+      "ready": "ENZYME//OVERDRIVE CONFIRMED RESUMED",
+      "afterCollect": "LOCAL ONLY // 2 EVIDENCE RECORDS",
+      "collectedSchemas": [
+        {
+          "app": "orbit",
+          "schema": "mbm-telemetry-v3.0",
+          "axes": [
+            "Variable Isolation",
+            "Scale Interpolation",
+            "Systemic Troubleshooting",
+            "Boundary Control",
+            "Failure Reflection",
+            "Resource Control"
+          ]
+        },
+        {
+          "app": "enzyme",
+          "schema": "mbm-telemetry-v3.0",
+          "axes": [
+            "Variable Isolation",
+            "Scale Interpolation",
+            "Systemic Troubleshooting",
+            "Boundary Control",
+            "Failure Reflection",
+            "Resource Control"
+          ]
+        }
+      ],
+      "themeStatus": "ENZYME//OVERDRIVE CONFIRMED FULL VISUAL",
+      "focusStatus": "ENZYME//OVERDRIVE CONFIRMED LOW-STIM",
+      "pauseStatus": "ENZYME//OVERDRIVE CONFIRMED PAUSED",
+      "resumeStatus": "ENZYME//OVERDRIVE CONFIRMED RESUMED",
+      "wrongPin": "Import failed: The PIN is incorrect or the QR text is damaged.",
+      "correctPin": "Imported ORBIT//VECTOR. The code was processed locally and has not been sent anywhere.",
+      "artResult": "1 artwork evidence record added.",
+      "mbm3uResult": "Imported WAVE ENGINE. The code was processed locally and has not been sent anywhere.",
+      "finalRecords": 5,
+      "allProfilesSixAxes": true,
+      "accessibility": {
+        "unnamed": [],
+        "tiny": [],
+        "bodyFont": "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "dataFont": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", monospace"
+      },
+      "events": {
+        "page_errors": [],
+        "console_errors": [],
+        "requests": [
+          "http://127.0.0.1:8765/mbm-master-hub.html",
+          "blob:http://127.0.0.1:8765/ee13c2e0-75b7-4601-9577-2435a3264d73",
+          "blob:http://127.0.0.1:8765/180c2c52-779e-4227-b211-110e98b50e70",
+          "blob:null/60fa4f11-9e27-47a2-b890-0661064b3c5a"
+        ]
+      }
+    },
+    "frames": {
+      "sourceProtocol": "blob:",
+      "sandbox": "allow-scripts allow-modals allow-downloads",
+      "allowSameOrigin": false,
+      "readyAnnouncements": [
+        "READY v4.0",
+        "READY v4.0"
+      ]
+    },
+    "legacyImportsSupported": [
+      "MBM2",
+      "MBM1"
+    ],
+    "nativeImportsSupported": [
+      "MBM3",
+      "MBM3U",
+      "JSON",
+      "SVG metadata",
+      "localStorage adapters"
+    ],
+    "archiveRegression": {
+      "before": {
+        "privacy": "LOCAL ONLY // 81 EVIDENCE RECORDS",
+        "alertHidden": false,
+        "buttonHidden": false
+      },
+      "archive": {
+        "filename": "mbm-science-portfolio-archive-2026-08-12T18-25-48-955Z.json",
+        "records": 81,
+        "schema": "mbm-master-hub-4.0"
+      },
+      "after": {
+        "privacy": "LOCAL ONLY // 0 EVIDENCE RECORDS",
+        "records": 0,
+        "lastArchiveAt": "2026-08-12T18:25:48.955Z"
+      }
+    }
+  },
+  "adapter": {
+    "schema": "mbm-telemetry-v3.0",
+    "adapterSchema": "mbm-legacy-adapter-2.0",
+    "axes": [
+      "Variable Isolation",
+      "Scale Interpolation",
+      "Systemic Troubleshooting",
+      "Boundary Control",
+      "Failure Reflection",
+      "Resource Control"
+    ],
+    "complete": true,
+    "packet": {
+      "ready": true,
+      "bytes": 16,
+      "appCode": 4,
+      "encoding": "base64url",
+      "payload": "szQcOFRwjKgEzgHIAgiw9w",
+      "transferCode": "MBM3U.szQcOFRwjKgEzgHIAgiw9w",
+      "checksum": 247
+    },
+    "apiVersion": "2.0"
+  },
+  "offline": {
+    "directFile": {
+      "orbit-vector-diagnostic.html": {
+        "title": "ORBIT//VECTOR v4 — Stealth Science Diagnostic",
+        "crypto": true,
+        "scroll": 1200,
+        "client": 1200,
+        "frames": [],
+        "statuses": [],
+        "errors": [],
+        "consoleErrors": [],
+        "requests": [
+          "file:///mnt/data/Stealth_Science_Ecosystem_v4/orbit-vector-diagnostic.html",
+          "blob:file:///2f17345e-5e88-4ac4-a4ac-27550b1fcf5a"
+        ]
+      },
+      "enzyme-reactor-overdrive.html": {
+        "title": "ENZYME//OVERDRIVE v4 — Boundary-Failure Reactor",
+        "crypto": true,
+        "scroll": 1200,
+        "client": 1200,
+        "frames": [],
+        "statuses": [],
+        "errors": [],
+        "consoleErrors": [],
+        "requests": [
+          "file:///mnt/data/Stealth_Science_Ecosystem_v4/enzyme-reactor-overdrive.html"
+        ]
+      },
+      "mbm-master-hub.html": {
+        "title": "MBM//SCIENCE PORTFOLIO v4 — Offline Master Hub",
+        "crypto": true,
+        "scroll": 1200,
+        "client": 1200,
+        "frames": [
+          "blob:file:///a68a57e5-d3cf-428f-8363-a0e931577201",
+          "blob:file:///bdaf8f9b-f3ef-4079-bf86-17d481ae875b"
+        ],
+        "statuses": [
+          "READY v4.0",
+          "READY v4.0"
+        ],
+        "errors": [],
+        "consoleErrors": [],
+        "requests": [
+          "file:///mnt/data/Stealth_Science_Ecosystem_v4/mbm-master-hub.html",
+          "blob:file:///a68a57e5-d3cf-428f-8363-a0e931577201",
+          "blob:file:///bdaf8f9b-f3ef-4079-bf86-17d481ae875b",
+          "blob:null/2884ca64-3abf-4c0e-b100-499915b2866a"
+        ]
+      }
+    },
+    "pass": true,
+    "observedExternalHttpHttpsRequests": 0
+  },
+  "failSoftRegression": {
+    "orbit-vector-diagnostic.html": {
+      "status": "MBM3U UNENCRYPTED OFFLINE MODE • 16-byte packet • QR 25×25. Use only for deliberate same-room hand-off.",
+      "pin": "NOT USED",
+      "mode": "Unencrypted Offline Mode: WebCrypto is unavailable. The MBM3U bit-packed QR is readable by anyone who scans it.",
+      "modules": "25",
+      "payload": "28",
+      "subtle": false,
+      "errors": []
+    },
+    "enzyme-reactor-overdrive.html": {
+      "status": "MBM3U UNENCRYPTED OFFLINE MODE • 16-byte packet • QR 25×25. Use only for deliberate same-room hand-off.",
+      "pin": "NOT USED",
+      "mode": "Unencrypted Offline Mode: WebCrypto is unavailable. The MBM3U bit-packed QR is readable by anyone who scans it.",
+      "modules": "25",
+      "payload": "28",
+      "subtle": false,
+      "errors": []
+    }
+  },
+  "responsive": {
+    "results": {
+      "orbit-vector-diagnostic.html": {
+        "320": {
+          "scroll": 320,
+          "client": 320,
+          "overflow": false
+        },
+        "360": {
+          "scroll": 360,
+          "client": 360,
+          "overflow": false
+        },
+        "768": {
+          "scroll": 768,
+          "client": 768,
+          "overflow": false
+        },
+        "1024": {
+          "scroll": 1024,
+          "client": 1024,
+          "overflow": false
+        },
+        "1440": {
+          "scroll": 1440,
+          "client": 1440,
+          "overflow": false
+        }
+      },
+      "enzyme-reactor-overdrive.html": {
+        "320": {
+          "scroll": 320,
+          "client": 320,
+          "overflow": false
+        },
+        "360": {
+          "scroll": 360,
+          "client": 360,
+          "overflow": false
+        },
+        "768": {
+          "scroll": 768,
+          "client": 768,
+          "overflow": false
+        },
+        "1024": {
+          "scroll": 1024,
+          "client": 1024,
+          "overflow": false
+        },
+        "1440": {
+          "scroll": 1440,
+          "client": 1440,
+          "overflow": false
+        }
+      },
+      "mbm-master-hub.html": {
+        "320": {
+          "scroll": 320,
+          "client": 320,
+          "overflow": false
+        },
+        "360": {
+          "scroll": 360,
+          "client": 360,
+          "overflow": false
+        },
+        "768": {
+          "scroll": 768,
+          "client": 768,
+          "overflow": false
+        },
+        "1024": {
+          "scroll": 1024,
+          "client": 1024,
+          "overflow": false
+        },
+        "1440": {
+          "scroll": 1440,
+          "client": 1440,
+          "overflow": false
+        }
+      }
+    },
+    "pass": true
+  },
+  "accessibility": {
+    "noUnnamedVisibleControls": true,
+    "minimumVisibleControlTargetRegression": "PASS",
+    "ariaLiveNarratorMirror": "PASS",
+    "canvasTextUnderStrokes": "PASS",
+    "systemSansUiAndMonospaceData": "PASS"
+  },
+  "printAndArtwork": {
+    "orbitWorksheet": {
+      "name": "orbit-vector-worksheet-2026-08-12.svg",
+      "bytes": 5685,
+      "whiteBackground": true,
+      "vectors": true,
+      "metadata": true
+    },
+    "enzymeWorksheet": {
+      "name": "enzyme-overdrive-worksheet-2026-08-12.svg",
+      "bytes": 3970,
+      "whiteBackground": true,
+      "doubleReciprocal": true,
+      "activationEnergy": true,
+      "metadata": true
+    },
+    "cleanWhiteWorksheetMode": true,
+    "embeddedEvidenceMetadata": true,
+    "hubArtworkImport": "1 artwork evidence record added."
+  },
+  "recordArchive": {
+    "before": {
+      "privacy": "LOCAL ONLY // 81 EVIDENCE RECORDS",
+      "alertHidden": false,
+      "buttonHidden": false
+    },
+    "archive": {
+      "filename": "mbm-science-portfolio-archive-2026-08-12T18-25-48-955Z.json",
+      "records": 81,
+      "schema": "mbm-master-hub-4.0"
+    },
+    "after": {
+      "privacy": "LOCAL ONLY // 0 EVIDENCE RECORDS",
+      "records": 0,
+      "lastArchiveAt": "2026-08-12T18:25:48.955Z"
+    }
+  },
+  "aggregateAssertions": {
+    "noRuntimePageOrConsoleErrors": true,
+    "directFilePass": true,
+    "responsivePass": true,
+    "accessibilityPass": true,
+    "bothEncryptedQr33By33": true,
+    "bothEncryptedPayloads75Chars": true,
+    "bothFailSoftQr25By25": true,
+    "hubProfilesHaveAllSixAxes": true,
+    "archiveRetainedAll81Records": true,
+    "outcome": "PASS"
+  }
+}
