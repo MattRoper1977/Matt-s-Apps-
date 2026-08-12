@@ -1,0 +1,1788 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="data:,">
+<meta name="theme-color" content="#120917">
+<title>ENZYME//OVERDRIVE v4 — Boundary-Failure Reactor — Made by Matt</title>
+<style>
+  :root{
+    --ink:#fff3e8;--muted:#c7aeb8;--dim:#826d78;--bg:#09050d;--panel:#170d1c;--panel2:#211129;
+    --line:#57304f;--magenta:#ff68c6;--violet:#a980ff;--cyan:#5cf2e8;--amber:#ffd166;--red:#ff5f6d;--green:#71f7a4;
+    --shadow:0 20px 60px rgba(0,0,0,.45);--focus:0 0 0 3px #09050d,0 0 0 6px var(--amber);
+    --font-ui:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--font-data:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+  }
+  *{box-sizing:border-box}html{color-scheme:dark;background:var(--bg);font-family:var(--font-ui)}
+  body{margin:0;min-height:100vh;color:var(--ink);background:
+    radial-gradient(circle at 8% 0,rgba(255,104,198,.14),transparent 36rem),
+    radial-gradient(circle at 95% 15%,rgba(92,242,232,.1),transparent 40rem),
+    linear-gradient(180deg,#120817,#08040b 78%);overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(90deg,transparent 0 31px,rgba(255,255,255,.025) 32px),repeating-linear-gradient(0deg,transparent 0 31px,rgba(255,255,255,.018) 32px);mask-image:linear-gradient(#000,transparent 95%)}
+  button,input,select{font:inherit;font-family:var(--font-ui)}button{color:inherit}button:focus-visible,input:focus-visible,select:focus-visible{outline:none;box-shadow:var(--focus)}
+  .skip{position:fixed;left:12px;top:-80px;z-index:1000;background:var(--amber);color:#120817;padding:12px 16px;border-radius:10px;font-weight:900}.skip:focus{top:12px}
+  .app{width:min(1500px,100%);margin:auto;padding:16px clamp(12px,2vw,28px) 36px;position:relative}
+  header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px}
+  .brand{display:flex;align-items:center;gap:12px;min-width:0}.logo{width:54px;height:54px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(145deg,#2a1530,#120817);display:grid;place-items:center;cursor:pointer;box-shadow:inset 0 0 26px rgba(255,104,198,.1);position:relative;flex:none}.logo::before{content:"";position:absolute;width:29px;height:19px;border:3px solid var(--magenta);border-radius:52% 45% 55% 42%;transform:rotate(-18deg);box-shadow:0 0 15px rgba(255,104,198,.65)}.logo::after{content:"";position:absolute;width:7px;height:7px;border-radius:50%;background:var(--cyan);transform:translate(8px,-1px);box-shadow:0 0 10px var(--cyan)}
+  .title-wrap{min-width:0}.eyebrow{font-size:.71rem;color:var(--magenta);letter-spacing:.16em;font-weight:900}.title{font-size:clamp(1.05rem,2vw,1.55rem);font-weight:1000;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sub{font-size:.72rem;color:var(--muted);margin-top:2px}
+  .top-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.icon-btn,.mode-btn{min-height:44px;border:1px solid var(--line);border-radius:12px;background:#1a0e20;color:var(--muted);cursor:pointer;padding:0 13px;font-weight:900}.icon-btn:hover,.mode-btn:hover{border-color:var(--magenta);color:var(--ink)}.mode-btn{color:var(--cyan);border-color:#315f64}
+  .status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 9px var(--green);margin-right:7px}
+  .layout{display:grid;grid-template-columns:minmax(0,1.68fr) minmax(330px,.82fr);gap:14px;align-items:start}.panel{border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,rgba(33,17,41,.97),rgba(19,10,25,.97));box-shadow:var(--shadow);overflow:hidden}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line);background:rgba(9,5,13,.45)}.panel-title{font-size:.78rem;color:var(--magenta);font-weight:1000;letter-spacing:.11em;text-transform:uppercase}.tiny{font-size:.68rem;color:var(--muted)}
+  .shift-strip{display:grid;grid-template-columns:1fr auto;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}.shift-name{font-size:clamp(1rem,2vw,1.3rem);font-weight:1000}.shift-brief{font-size:.78rem;color:var(--muted);line-height:1.5;margin-top:5px;max-width:78ch}.shift-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.tag{border:1px solid #63365b;background:#1a0e20;border-radius:999px;padding:5px 8px;font-size:.68rem;color:#e1c6d3}.tag strong{color:var(--amber)}.shift-number{font-size:.72rem;color:var(--muted);white-space:nowrap}.shift-number b{color:var(--ink)}
+  .canvas-wrap{position:relative;background:#08040b;isolation:isolate}#reactorCanvas{display:block;width:100%;aspect-ratio:16/9.2;max-height:590px;background:#08040b}.scanlines{position:absolute;inset:0;pointer-events:none;z-index:2;opacity:.1;background:repeating-linear-gradient(to bottom,rgba(255,255,255,.09) 0 1px,transparent 1px 4px);mix-blend-mode:screen}.canvas-hud{position:absolute;left:12px;bottom:12px;z-index:3;display:flex;gap:7px;flex-wrap:wrap;pointer-events:none}.hud-chip{background:rgba(8,4,11,.8);border:1px solid rgba(255,104,198,.28);border-radius:8px;padding:6px 8px;font-size:.66rem;color:#e1c6d3;backdrop-filter:blur(4px)}
+  .console{min-height:82px;padding:10px 14px;background:#08040b;border-top:1px solid var(--line);font-size:.73rem;line-height:1.5;color:#d4b9c7;display:grid;align-content:center}.console .accent{color:var(--magenta)}.console .good{color:var(--green)}.console .warn{color:var(--amber)}.console .bad{color:var(--red)}.console .cyan{color:var(--cyan)}
+  .side{display:grid;gap:14px}.controls{padding:13px;display:grid;gap:11px}.resource-grid{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center}.resource-label{font-size:.72rem;color:var(--muted)}.resource-label strong{color:var(--ink)}.resource-chip{font-size:.65rem;border:1px solid #5d3558;border-radius:999px;padding:5px 7px;color:#e3c5d4}.resource-track{grid-column:1/-1;height:10px;border-radius:999px;background:#0c0710;border:1px solid #5d3558;overflow:hidden}.resource-fill{height:100%;width:100%;background:linear-gradient(90deg,var(--red),var(--amber),var(--green));transition:width .25s}
+  .control{border:1px solid #542d4d;background:rgba(12,7,16,.68);border-radius:14px;padding:10px}.control-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:7px}.control-name{font-size:.74rem;font-weight:1000;letter-spacing:.045em}.control-value{font-size:.68rem;color:var(--cyan);font-weight:900}.dial-row{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:6px}.step-btn{width:44px;height:44px;border:1px solid #6a3b61;border-radius:11px;background:#201126;cursor:pointer;font-size:1.15rem;font-weight:1000}.step-btn:hover{border-color:var(--magenta);color:var(--magenta)}.step-btn:disabled{opacity:.32;cursor:not-allowed}.range-wrap{position:relative;padding:7px 1px 14px}.range-wrap input{width:100%;height:26px;margin:0;accent-color:var(--magenta);cursor:pointer}.ticks{position:absolute;left:7px;right:7px;bottom:0;display:flex;justify-content:space-between;font-size:.55rem;color:var(--dim);pointer-events:none}.ticks span::before{content:"";display:block;width:1px;height:5px;background:#744c6d;margin:0 auto 2px}
+  .run-row{display:grid;grid-template-columns:1fr auto;gap:8px}.run{min-height:56px;border:1px solid #8e3975;border-radius:14px;background:linear-gradient(180deg,#ff68c6,#b83287);color:#210019;font-weight:1000;letter-spacing:.08em;cursor:pointer;box-shadow:0 8px 24px rgba(255,104,198,.2)}.run:hover{filter:brightness(1.07)}.run:disabled{filter:grayscale(.7);opacity:.45;cursor:not-allowed}.skip-cycle{min-width:75px;border:1px solid #5c476a;border-radius:14px;background:#24152c;color:var(--violet);font-weight:900;cursor:pointer}.skip-cycle:disabled{opacity:.32;cursor:not-allowed}
+  .action-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.action-btn{min-height:48px;border:1px solid #5e3858;background:#1b0f21;border-radius:12px;color:var(--muted);cursor:pointer;font-weight:900;font-size:.69rem;line-height:1.15}.action-btn:hover{border-color:var(--cyan);color:var(--ink)}.action-btn strong{display:block;color:var(--cyan);font-size:.75rem}.action-btn:disabled{opacity:.35;cursor:not-allowed}.danger-action strong{color:var(--amber)}
+  .sandbox{display:none;border:1px dashed #69415f;border-radius:13px;padding:10px;background:rgba(255,104,198,.04);gap:9px}.sandbox.show{display:grid}.sandbox label{display:grid;grid-template-columns:1fr auto;gap:7px;align-items:center;font-size:.69rem;color:var(--muted)}.sandbox select{min-height:42px;border:1px solid #603757;border-radius:10px;background:#140b19;color:var(--ink);padding:0 9px}.sandbox input{accent-color:var(--cyan)}
+  .shifts{padding:12px;display:grid;grid-template-columns:repeat(6,1fr);gap:6px}.shift-btn{min-width:0;height:48px;border:1px solid #57304f;border-radius:11px;background:#130b18;color:var(--dim);cursor:pointer;font-weight:1000}.shift-btn.active{border-color:var(--magenta);color:var(--magenta);box-shadow:inset 0 0 18px rgba(255,104,198,.09)}.shift-btn.complete{color:var(--amber);border-color:#7b6130}.shift-btn:disabled{opacity:.28;cursor:not-allowed}.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px}.score{border:1px solid #4e2b48;border-radius:12px;background:#130b18;padding:10px;text-align:center}.score b{display:block;color:var(--amber);font-size:1.1rem}.score span{font-size:.62rem;color:var(--muted)}.privacy{padding:10px 13px 13px;color:var(--dim);font-size:.65rem;line-height:1.45}.privacy button{min-height:44px;display:inline-flex;align-items:center;background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;padding:0 8px;border-radius:8px}
+  dialog{border:1px solid var(--line);border-radius:20px;background:#140a19;color:var(--ink);box-shadow:0 30px 90px #000;max-width:min(980px,calc(100vw - 24px));max-height:calc(100vh - 24px);padding:0}.modal::backdrop{background:rgba(5,1,8,.84);backdrop-filter:blur(6px)}.modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 18px;border-bottom:1px solid var(--line);background:#211129}.modal-head h2{font-size:1rem;margin:0;color:var(--magenta)}.close{width:44px;height:44px;border:1px solid #65385d;border-radius:12px;background:#160c1b;cursor:pointer}.modal-body{padding:18px;overflow:auto}.modal-body h3{font-size:.86rem;color:var(--amber);margin:18px 0 8px}.modal-body p,.modal-body li{font-size:.78rem;line-height:1.58;color:#dfc7d3}.modal-actions{display:flex;gap:8px;flex-wrap:wrap;padding:0 18px 18px}.dialog-action{min-height:44px;border:1px solid #6c3d63;border-radius:12px;background:#211129;padding:0 15px;font-weight:900;cursor:pointer}.dialog-action.primary{background:var(--magenta);color:#240018;border-color:#ff9ad8}.dialog-action.danger{border-color:#87404b;color:#ff9ca5;background:#2a0f16}
+  .notice{border-left:4px solid var(--amber);background:#211b0d;padding:10px 12px;border-radius:8px;font-size:.7rem;line-height:1.5;color:#ead99e;margin-bottom:14px}.equation{padding:12px;border:1px solid #5a3654;border-radius:12px;background:#0d0710;color:var(--cyan);font-size:.76rem;overflow:auto}.complete-view{text-align:center;padding:12px}.stars{font-size:2rem;letter-spacing:.1em;color:var(--amber);text-shadow:0 0 20px rgba(255,209,102,.35)}.complete-view h2{color:var(--magenta);margin:8px 0}.complete-view p{color:var(--muted);font-size:.78rem;line-height:1.5}
+  .teacher-layout{display:grid;grid-template-columns:minmax(300px,.9fr) minmax(360px,1.1fr);gap:16px}.radar-card{border:1px solid #593250;border-radius:16px;background:#0d0710;padding:12px}.radar-card canvas{display:block;width:100%;height:auto;max-width:450px;margin:auto}.metric-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.metric{border:1px solid #593250;border-radius:12px;background:#130b18;padding:10px}.metric b{display:block;color:var(--magenta);font-size:1.05rem}.metric span{font-size:.65rem;color:var(--muted)}.table-wrap{overflow:auto;border:1px solid #593250;border-radius:12px}table{width:100%;border-collapse:collapse;font-size:.7rem}th,td{text-align:left;padding:8px;border-bottom:1px solid #3a2035;white-space:nowrap}th{color:var(--magenta);background:#130b18;position:sticky;top:0}td{color:#dfc7d3}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:#211129;border:1px solid var(--magenta);border-radius:12px;padding:11px 14px;color:var(--ink);font-size:.72rem;z-index:999;opacity:0;pointer-events:none;transition:.22s}.toast.show{opacity:1;transform:translate(-50%,0)}.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+  body.high-contrast{--bg:#000;--panel:#000;--panel2:#050505;--line:#fff;--muted:#fff;--dim:#ddd;--magenta:#ff00ff;--violet:#fff;--cyan:#00ffff;--amber:#ffff00;--red:#ff4444;--green:#00ff66}.high-contrast .panel,.high-contrast .control,.high-contrast .score,.high-contrast .metric{background:#000}
+  @media (max-width:1000px){.layout{grid-template-columns:1fr}.side{grid-template-columns:1fr 1fr}.side .panel:first-child{grid-row:span 2}.teacher-layout{grid-template-columns:1fr}}
+  @media (max-width:740px){header{align-items:flex-start}.sub{display:none}.top-actions .label-hide{display:none}.side{grid-template-columns:1fr}.shift-strip{grid-template-columns:1fr}.shift-number{text-align:left}#reactorCanvas{aspect-ratio:4/3}.canvas-hud{display:none}.teacher-layout{grid-template-columns:1fr}.app{padding-top:10px}.logo{width:48px;height:48px}.title{font-size:1rem}}
+  @media (max-width:440px){.top-actions{gap:5px}.icon-btn,.mode-btn{padding:0 9px}.eyebrow{font-size:.6rem}.shifts{gap:4px}.shift-btn{height:44px}.control{padding:9px}.panel-head{padding:10px 12px}.shift-strip{padding:12px}.action-grid{grid-template-columns:1fr}.metric-cards{grid-template-columns:1fr}.score-grid{gap:5px}.score{padding:8px 4px}}
+  .control-icon{display:inline-grid;place-items:center;min-width:1.45em;color:var(--cyan);font-size:1rem;margin-right:4px}.label-text{display:inline}
+  body.icon-mode .control-name .label-text{display:none}body.icon-mode .control-name{font-size:1.05rem}body.icon-mode .control-icon{margin-right:0}
+  body.light-theme{color-scheme:light;--ink:#311522;--muted:#745364;--dim:#967b88;--bg:#fff5fa;--panel:#fffafd;--panel2:#f8e8f2;--line:#b879a2;--magenta:#a50d72;--violet:#5f3eb0;--cyan:#006b67;--amber:#8b5b00;--red:#b4233b;--green:#087f43;background:linear-gradient(180deg,#fffafd,#f6e7f0 82%)}
+  .light-theme .panel,.light-theme .control,.light-theme .score,.light-theme .metric,.light-theme .icon-btn,.light-theme .mode-btn,.light-theme .action-btn{background:#fffafd}.light-theme .console,.light-theme .qr-card,.light-theme .handoff-notes{background:#351328;color:#fff4fa}.light-theme .canvas-wrap{box-shadow:inset 0 0 0 2px #b879a2}
+  body.ecosystem-paused .status-dot{background:var(--amber);box-shadow:0 0 9px var(--amber)}body.ecosystem-paused #main{filter:saturate(.55)}
+  .handoff-grid{display:grid;grid-template-columns:minmax(300px,.8fr) minmax(300px,1.2fr);gap:16px;margin-top:18px}.qr-card,.handoff-notes{border:1px solid #57304f;border-radius:16px;background:#0d0710;padding:14px}.qr-card canvas{display:block;width:min(100%,560px);height:auto;aspect-ratio:1;margin:8px auto;background:#fff;border-radius:10px;image-rendering:pixelated}.transfer-pin{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #6d3d62;border-radius:12px;padding:10px;margin-top:10px}.transfer-pin b{font-size:1.35rem;letter-spacing:.22em;color:var(--amber)}.handoff-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.handoff-status{font-size:.68rem;line-height:1.45;color:var(--muted);min-height:2.8em}.ecosystem-badge{display:inline-flex;align-items:center;gap:7px;border:1px solid #6d3d62;border-radius:999px;padding:6px 9px;color:var(--cyan);font-size:.67rem}.art-action strong{color:var(--magenta)}
+  @media (max-width:760px){.handoff-grid{grid-template-columns:1fr}}
+  @media (max-width:430px){header{display:grid;grid-template-columns:1fr}.brand{width:100%}.top-actions{justify-content:flex-start}.title{white-space:normal;overflow:visible;text-overflow:clip}}
+  .prompt-strip{display:flex;flex-wrap:wrap;gap:8px;padding:9px 14px 12px;background:var(--bg);border-top:1px solid var(--line)}.prompt-strip[hidden]{display:none}.prompt-chip{min-height:40px;border:1px solid var(--amber);border-radius:999px;background:var(--panel2);color:var(--ink);padding:7px 12px;font-size:.68rem;line-height:1.25;cursor:pointer;text-align:left}.prompt-chip:hover{border-color:var(--cyan)}
+  body.low-stim{background:var(--bg)!important;font-family:Arial,Helvetica,system-ui,sans-serif}body.low-stim::before,.low-stim .scanlines{display:none!important}.low-stim .panel,.low-stim .logo,.low-stim .run,.low-stim dialog,.low-stim .toast{box-shadow:none!important}.low-stim .logo::after,.low-stim .status-dot{box-shadow:none!important}.low-stim *,.low-stim *::before,.low-stim *::after{animation:none!important;transition:none!important;backdrop-filter:none!important}.low-stim .canvas-wrap{background:var(--bg)}.low-stim .hud-chip{backdrop-filter:none;background:var(--panel)}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+  .icon-btn{min-width:44px;flex:0 0 auto}.close{flex:0 0 44px}
+  code,.tiny,.hud-chip,.control-value,.resource-chip,.score b,.metric b,.transfer-pin,.table-wrap,.equation,.cycle-display{font-family:var(--font-data)}
+  .kinetics-panel{position:absolute;z-index:5;right:12px;top:12px;width:min(46%,440px);border:2px solid var(--line);border-radius:15px;background:var(--panel);background:color-mix(in srgb,var(--panel) 94%,transparent);box-shadow:0 18px 48px rgba(0,0,0,.48);padding:10px;backdrop-filter:blur(8px)}.kinetics-panel[hidden]{display:none}.kinetics-head{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--cyan);font-size:.72rem;font-weight:1000;letter-spacing:.08em}.kinetics-head span:last-child{color:var(--muted);font-family:var(--font-data);font-size:.62rem}.kinetics-panel canvas{display:block;width:100%;height:auto;margin-top:6px;background:var(--bg);border:1px solid var(--line);border-radius:10px}.kinetics-note{font-size:.67rem;line-height:1.42;color:var(--muted);margin:7px 2px 1px}.kinetics-note strong{color:var(--amber)}
+  @media (max-width:740px){.kinetics-panel{position:relative;right:auto;top:auto;width:auto;margin:10px}.canvas-wrap.kinetics-open #reactorCanvas{aspect-ratio:4/3}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to reactor controls</a>
+<div class="app">
+  <header>
+    <div class="brand">
+      <button class="logo" id="logo" aria-label="ENZYME OVERDRIVE logo"></button>
+      <div class="title-wrap"><div class="eyebrow">MADE BY MATT // FAILURE LAB</div><div class="title">ENZYME//OVERDRIVE</div><div class="sub">Boundary-testing bioreactor operations</div></div>
+    </div>
+    <div class="top-actions">
+      <button class="mode-btn" id="modeBtn">OPEN LAB</button>
+      <button class="icon-btn" id="kineticsBtn" aria-pressed="false" title="Toggle Lineweaver-Burk double-reciprocal plot">↗ <span class="label-hide">1/v PLOT</span></button>
+      <button class="icon-btn" id="soundBtn" aria-pressed="true" title="Toggle sound">♪ <span class="label-hide">SOUND</span></button>
+      <button class="icon-btn" id="speechBtn" aria-pressed="false" title="Read status messages aloud">◖ <span class="label-hide">VOICE</span></button>
+      <button class="icon-btn" id="iconModeBtn" aria-pressed="false" title="Toggle icon-only control labels">◫ <span class="label-hide">ICONS</span></button>
+      <button class="icon-btn" id="focusBtn" aria-pressed="false" title="Toggle low-stimulus high-focus mode">◎ <span class="label-hide">FOCUS</span></button>
+      <button class="icon-btn" id="contrastBtn" aria-pressed="false" title="Toggle high contrast">◐ <span class="label-hide">CONTRAST</span></button>
+      <button class="icon-btn" id="helpBtn" title="How to play">? <span class="label-hide">HELP</span></button>
+      <button class="icon-btn" id="systemBtn"><span class="status-dot"></span><span class="label-hide">CORE </span>ONLINE</button>
+    </div>
+  </header>
+
+  <main id="main" class="layout">
+    <section class="panel" aria-labelledby="shiftTitle">
+      <div class="panel-head"><span class="panel-title" id="viewTitle">Reactor Window</span><span class="tiny" id="cycleDisplay">CYCLE 0 / 8</span></div>
+      <div class="shift-strip">
+        <div><div class="shift-name" id="shiftTitle">COLD START</div><div class="shift-brief" id="shiftBrief"></div><div class="shift-meta" id="shiftMeta"></div></div>
+        <div class="shift-number">SHIFT <b id="shiftNum">01</b></div>
+      </div>
+      <div class="canvas-wrap">
+        <canvas id="reactorCanvas" width="960" height="552" role="img" aria-label="Bioreactor model showing enzyme shape, active-site integrity, particles, output and recent cycles.">Your browser needs Canvas support to show the reactor model.</canvas>
+        <section class="kinetics-panel" id="kineticsPanel" hidden aria-labelledby="kineticsTitle">
+          <div class="kinetics-head"><span id="kineticsTitle">LINEWEAVER–BURK DIAGNOSTIC</span><span>1/v AGAINST 1/[S]</span></div>
+          <canvas id="lbCanvas" width="520" height="350" role="img" aria-label="Double-reciprocal enzyme kinetics plot comparing the current inhibitor condition with an uninhibited reference."></canvas>
+          <p class="kinetics-note" id="kineticsInterpretation">Toggle a contaminant in Open Lab to compare apparent K<sub>m</sub> and V<sub>max</sub>.</p>
+        </section>
+        <div class="scanlines"></div>
+        <div class="canvas-hud" aria-hidden="true"><span class="hud-chip" id="integrityHud">SITE 100%</span><span class="hud-chip" id="inhibitorHud">CONTAMINANT NONE</span><span class="hud-chip" id="stabilityHud">STABILITY 0 / 2</span></div>
+      </div>
+      <div class="console" id="console" aria-live="polite"><span><span class="accent">[CORE]</span> Configure one variable, commit a cycle, and observe where the model bends or breaks.</span></div>
+      <div class="prompt-strip" id="promptStrip" hidden aria-label="Live reasoning prompts"></div>
+    </section>
+
+    <aside class="side">
+      <section class="panel" aria-labelledby="controlTitle">
+        <div class="panel-head"><span class="panel-title" id="controlTitle">Reactor Console</span><span class="tiny">DETERMINISTIC CYCLES</span></div>
+        <div class="controls">
+          <div class="resource-grid"><div class="resource-label">CONTROL ENERGY <strong id="energyText">100</strong></div><div class="resource-chip" id="shieldText">SHIELD ×2</div><div class="resource-chip" id="cartridgeText">CORE ×2</div><div class="resource-track" aria-hidden="true"><div class="resource-fill" id="energyFill"></div></div></div>
+
+          <div class="control" data-param="temperature"><div class="control-top"><span class="control-name"><span class="control-icon" aria-hidden="true">♨</span><span class="label-text">CORE HEAT</span></span><span class="control-value" id="temperatureValue">20°C</span></div><div class="dial-row"><button class="step-btn" data-step="temperature" data-dir="-1" aria-label="Decrease temperature">−</button><div class="range-wrap"><input id="temperature" type="range" min="0" max="90" step="1" value="20" aria-label="Core temperature in degrees Celsius"><div class="ticks" aria-hidden="true"><span>0</span><span>20</span><span>40</span><span>60</span><span>80</span><span>90</span></div></div><button class="step-btn" data-step="temperature" data-dir="1" aria-label="Increase temperature">+</button></div></div>
+
+          <div class="control" data-param="substrate"><div class="control-top"><span class="control-name"><span class="control-icon" aria-hidden="true">◇</span><span class="label-text">FUEL FEED / SUBSTRATE</span></span><span class="control-value" id="substrateValue">30 mM</span></div><div class="dial-row"><button class="step-btn" data-step="substrate" data-dir="-1" aria-label="Decrease substrate concentration">−</button><div class="range-wrap"><input id="substrate" type="range" min="0" max="120" step="2" value="30" aria-label="Substrate concentration in millimoles per litre"><div class="ticks" aria-hidden="true"><span>0</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span><span>120</span></div></div><button class="step-btn" data-step="substrate" data-dir="1" aria-label="Increase substrate concentration">+</button></div></div>
+
+          <div class="control" data-param="ph"><div class="control-top"><span class="control-name"><span class="control-icon" aria-hidden="true">◒</span><span class="label-text">COOLANT BUFFER / pH</span></span><span class="control-value" id="phValue">pH 7.0</span></div><div class="dial-row"><button class="step-btn" data-step="ph" data-dir="-1" aria-label="Decrease pH">−</button><div class="range-wrap"><input id="ph" type="range" min="0" max="14" step="0.1" value="7" aria-label="pH"><div class="ticks" aria-hidden="true"><span>0</span><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span><span>12</span><span>14</span></div></div><button class="step-btn" data-step="ph" data-dir="1" aria-label="Increase pH">+</button></div></div>
+
+          <div class="sandbox" id="sandboxControls">
+            <label><span>Contaminant geometry</span><select id="inhibitorType" aria-label="Inhibitor type"><option value="none">None</option><option value="competitive">Competitive</option><option value="noncompetitive">Non-competitive</option></select></label>
+            <label><span>Contaminant level <b id="inhibitorValue">0</b></span><input id="inhibitorLevel" type="range" min="0" max="60" step="5" value="0" aria-label="Inhibitor concentration"></label>
+            <label><span>Q<sub>10</sub> coefficient <b id="q10Value">2.0</b></span><input id="q10" type="range" min="1.2" max="3" step="0.1" value="2" aria-label="Q ten temperature coefficient"></label>
+          </div>
+
+          <div class="run-row"><button class="run" id="runBtn">COMMIT 10 s CYCLE</button><button class="skip-cycle" id="skipBtn" disabled>SKIP</button></div>
+          <div class="action-grid"><button class="action-btn" id="shieldBtn"><strong>SHIELD PULSE</strong>remove contaminant</button><button class="action-btn danger-action" id="replaceBtn"><strong>REPLACE CATALYST</strong>restore active site</button><button class="action-btn" id="resetControlsBtn"><strong>RESET DIALS</strong>starting values</button><button class="action-btn" id="resetLabBtn"><strong>SAFE RESET (R)</strong>new local run</button><button class="action-btn art-action" id="artExportBtn"><strong>ART SVG</strong>biomorphic print</button><button class="action-btn" id="worksheetExportBtn"><strong>WORKSHEET SVG</strong>clean labelled print</button></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="mapTitle">
+        <div class="panel-head"><span class="panel-title" id="mapTitle">Shift Map</span><span class="tiny" id="unlockText">1 / 6 OPEN</span></div>
+        <div class="shifts" id="shiftButtons"></div>
+        <div class="score-grid"><div class="score"><b id="totalScore">0000</b><span>TOTAL SCORE</span></div><div class="score"><b id="bestStars">0</b><span>STARS</span></div><div class="score"><b id="stableRate">—</b><span>STABLE CYCLES</span></div></div>
+        <div class="privacy">Cycle observations remain in this browser. No account, internet, name, camera, or microphone is used. <button id="dataInfoBtn">Data details</button></div>
+      </section>
+    </aside>
+  </main>
+</div>
+
+<dialog class="modal" id="helpDialog"><div class="modal-head"><h2>REACTOR MANUAL</h2><button class="close" data-close="helpDialog" aria-label="Close help">×</button></div><div class="modal-body"><div class="notice">This is a boundary-testing model. The important evidence appears when output plateaus, the active site distorts, or damage becomes irreversible.</div><h3>Mission mode</h3><p>Keep output inside the target band for consecutive cycles. Adjust core heat, fuel feed, and pH buffer. A completed adjustment costs one energy; each committed cycle costs five. The same configuration always gives the same result.</p><h3>Failure rules</h3><p>Low or moderate heat changes collision frequency. Excess heat permanently lowers active-site integrity; cooling afterwards cannot rebuild a denatured catalyst. Extreme pH changes active-site charge and shape but is reversible in this model. Competitive contaminants occupy the active site; non-competitive contaminants deform it elsewhere.</p><h3>Open Lab</h3><p>Switch to Open Lab to set contaminant type, concentration, and the Q<sub>10</sub> coefficient directly. The optional 1/v plot compares the current condition with an uninhibited reference so changes in apparent K<sub>m</sub> and V<sub>max</sub> are visible. Before the optimum, Q<sub>10</sub> controls how strongly rate rises for each 10°C increase; beyond the optimum, structural damage dominates.</p><h3>Access</h3><p>Controls work with touch, mouse, and keyboard. There is no reflex timing. Press <strong>R</strong> for a panic-free baseline reset. Voice reads status callouts aloud; icon mode removes visible wording while retaining accessible names. Low-stimulus mode removes scanlines, glows, motion and continuous sonification while retaining all model evidence.</p><h3>Lesson-deck control</h3><p>When embedded, the app accepts <code>mbm-set-theme</code>, <code>mbm-set-focus</code>, <code>mbm-pause-all</code>, and <code>mbm-export-all</code> messages.</p></div><div class="modal-actions"><button class="dialog-action primary" data-close="helpDialog">RETURN TO CORE</button><button class="dialog-action" id="modelBtn">VIEW MODEL NOTES</button></div></dialog>
+
+<dialog class="modal" id="modelDialog"><div class="modal-head"><h2>CONCEPTUAL MODEL NOTES</h2><button class="close" data-close="modelDialog" aria-label="Close model notes">×</button></div><div class="modal-body"><div class="notice">This is a teaching model, not laboratory prediction software. Values are deliberately simplified to make boundary behaviours visible.</div><div class="equation">temperature multiplier = Q₁₀^((min(T, Topt) − Tref)/10), where Tref = 20°C; teaching rate ≈ Vmax × integrity × (multiplier / 4) × post-optimum structure factor × pH factor × [S] / (apparent Km + [S])</div><p>Q<sub>10</sub> is anchored at a standard 20°C reference, so a larger coefficient always produces the larger pre-denaturation rate rise at 30°C. The division by four preserves the original mission calibration when Q<sub>10</sub> = 2 and T = 40°C. Above the optimum, structural loss is modelled separately. The activation-energy graphic shows a high uncatalysed reference hump and a lower catalyst pathway; loss of active-site integrity raises the effective barrier again. Competitive inhibition raises apparent Km. Non-competitive inhibition lowers effective Vmax. Heat damage remains irreversible within a run.</p></div><div class="modal-actions"><button class="dialog-action primary" data-close="modelDialog">CLOSE NOTES</button></div></dialog>
+
+<dialog class="modal" id="dataDialog"><div class="modal-head"><h2>LOCAL PLAY DATA</h2><button class="close" data-close="dataDialog" aria-label="Close data information">×</button></div><div class="modal-body"><p>The app records cycle settings, output, active-site integrity, variables changed between cycles, saturation-related fuel increases, heat-collapse responses, and contaminant strategies. This supports a teacher conversation about enzyme kinetics and scientific method. It is not a medical, psychological, or ability diagnosis.</p><p>Data stays in this browser using <code>localStorage</code>. It is never transmitted automatically. A teacher can open the local review panel from the logo, export or erase the session, or display a PIN-protected QR hand-off for deliberate offline transfer.</p></div><div class="modal-actions"><button class="dialog-action primary" data-close="dataDialog">UNDERSTOOD</button></div></dialog>
+
+<dialog class="modal" id="completeDialog"><div class="modal-head"><h2>SHIFT STABILISED</h2><button class="close" data-close="completeDialog" aria-label="Close result">×</button></div><div class="modal-body complete-view"><div class="stars" id="completeStars">★★★</div><h2 id="completeTitle">CORE STABLE</h2><p id="completeSummary"></p></div><div class="modal-actions" style="justify-content:center"><button class="dialog-action" id="replayBtn">REPLAY SHIFT</button><button class="dialog-action primary" id="nextBtn">NEXT SHIFT</button></div></dialog>
+
+<dialog class="modal" id="teacherDialog"><div class="modal-head"><h2>LOCAL TEACHER REVIEW // BOUNDARY REASONING PROFILE</h2><button class="close" data-close="teacherDialog" aria-label="Close teacher review">×</button></div><div class="modal-body"><div class="notice">Interpret alongside classroom knowledge. These are observations from one model session, not grades or diagnostic labels. A low indicator can reflect interruption, unfamiliar controls, or exploratory play.</div><div class="teacher-layout"><div><div class="radar-card"><canvas id="radarCanvas" width="460" height="460" aria-label="Radar chart of observed enzyme model competencies"></canvas></div><h3>Session indicators</h3><div class="metric-cards" id="metricCards"></div></div><div><h3>Plain-language interpretation</h3><div id="interpretation" class="tiny" style="line-height:1.7;color:#dfc7d3"></div><h3>Shift evidence</h3><div class="table-wrap"><table><thead><tr><th>Shift</th><th>Cycles</th><th>Best band error</th><th>Stars</th><th>Status</th></tr></thead><tbody id="shiftEvidence"></tbody></table></div><h3>Recent cycles</h3><div class="table-wrap" style="max-height:250px"><table><thead><tr><th>#</th><th>Shift</th><th>Temp</th><th>pH</th><th>[S]</th><th>Output</th><th>Integrity</th><th>Changed</th></tr></thead><tbody id="cycleEvidence"></tbody></table></div></div></div><div class="handoff-grid"><section class="qr-card"><span class="ecosystem-badge">OFFLINE QR HAND-OFF</span><canvas id="transferQrCanvas" width="900" height="900" aria-label="QR symbol containing an encrypted compact evidence record"></canvas><div class="transfer-pin"><span>TRANSFER PIN</span><b id="transferPin">—— ——</b></div><p class="handoff-status" id="transferStatus">Preparing compact evidence…</p><div class="handoff-actions"><button class="dialog-action" id="regenQrBtn">REGENERATE</button><button class="dialog-action" id="copyTransferBtn">COPY QR CODE</button><button class="dialog-action" id="saveQrBtn">SAVE QR PNG</button></div></section><section class="handoff-notes"><h3>Private hand-off</h3><p class="tiny" id="transferModeNotice" style="line-height:1.7">The QR contains a compact profile, summary metrics and shift evidence—not raw cycle logs or a learner name. In a current browser it is encrypted locally with AES-GCM and a separate six-digit PIN. On restricted school WebViews without WebCrypto, a clearly labelled unencrypted offline Base64 mode remains available for deliberate same-room hand-off.</p><h3>Deck protocol</h3><p class="tiny" style="line-height:1.7"><code>mbm-set-theme</code>, <code>mbm-set-focus</code>, <code>mbm-pause-all</code>, and <code>mbm-export-all</code> are available to a same-device presentation hub.</p></section></div></div><div class="modal-actions"><button class="dialog-action primary" id="exportJsonBtn">DOWNLOAD JSON</button><button class="dialog-action" id="copyCodeBtn">COPY BASE64 CODE</button><button class="dialog-action" id="teacherArtBtn">ART SVG</button><button class="dialog-action" id="teacherWorksheetBtn">WORKSHEET SVG</button><button class="dialog-action danger" id="eraseBtn">ERASE LOCAL SESSION</button></div></dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="sr-only" id="srNarrator" role="status" aria-live="polite" aria-atomic="true"></div>
+<script>
+/* QRCode for JavaScript — vendored for fully offline QR rendering.
+   Copyright (c) 2009 Kazuhiko Arase
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in
+   all copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+   THE SOFTWARE. */
+const MBMQR=(()=>{const defs=Object.create(null),cache=Object.create(null);const define=(id,fn)=>defs[id]=fn;const req=id=>{if(cache[id])return cache[id].exports;if(!defs[id])throw new Error('QR module missing: '+id);const module={exports:{}};cache[id]=module;defs[id](module,module.exports,req);return module.exports;};
+define('./QRMode',function(module,exports,require){
+module.exports = {
+    MODE_NUMBER :       1 << 0,
+    MODE_ALPHA_NUM :    1 << 1,
+    MODE_8BIT_BYTE :    1 << 2,
+    MODE_KANJI :        1 << 3
+};
+
+});
+define('./QRErrorCorrectLevel',function(module,exports,require){
+module.exports = {
+	L : 1,
+	M : 0,
+	Q : 3,
+	H : 2
+};
+
+
+});
+define('./QRMaskPattern',function(module,exports,require){
+module.exports = {
+	PATTERN000 : 0,
+	PATTERN001 : 1,
+	PATTERN010 : 2,
+	PATTERN011 : 3,
+	PATTERN100 : 4,
+	PATTERN101 : 5,
+	PATTERN110 : 6,
+	PATTERN111 : 7
+};
+
+});
+define('./QRMath',function(module,exports,require){
+var QRMath = {
+
+	glog : function(n) {
+	
+		if (n < 1) {
+			throw new Error("glog(" + n + ")");
+		}
+		
+		return QRMath.LOG_TABLE[n];
+	},
+	
+	gexp : function(n) {
+	
+		while (n < 0) {
+			n += 255;
+		}
+	
+		while (n >= 256) {
+			n -= 255;
+		}
+	
+		return QRMath.EXP_TABLE[n];
+	},
+	
+	EXP_TABLE : new Array(256),
+	
+	LOG_TABLE : new Array(256)
+
+};
+	
+for (var i = 0; i < 8; i++) {
+	QRMath.EXP_TABLE[i] = 1 << i;
+}
+for (var i = 8; i < 256; i++) {
+	QRMath.EXP_TABLE[i] = QRMath.EXP_TABLE[i - 4]
+		^ QRMath.EXP_TABLE[i - 5]
+		^ QRMath.EXP_TABLE[i - 6]
+		^ QRMath.EXP_TABLE[i - 8];
+}
+for (var i = 0; i < 255; i++) {
+	QRMath.LOG_TABLE[QRMath.EXP_TABLE[i] ] = i;
+}
+
+module.exports = QRMath;
+
+});
+define('./QRPolynomial',function(module,exports,require){
+var QRMath = require('./QRMath');
+
+function QRPolynomial(num, shift) {
+	if (num.length === undefined) {
+		throw new Error(num.length + "/" + shift);
+	}
+
+	var offset = 0;
+
+	while (offset < num.length && num[offset] === 0) {
+		offset++;
+	}
+
+	this.num = new Array(num.length - offset + shift);
+	for (var i = 0; i < num.length - offset; i++) {
+		this.num[i] = num[i + offset];
+	}
+}
+
+QRPolynomial.prototype = {
+
+	get : function(index) {
+		return this.num[index];
+	},
+	
+	getLength : function() {
+		return this.num.length;
+	},
+	
+	multiply : function(e) {
+	
+		var num = new Array(this.getLength() + e.getLength() - 1);
+	
+		for (var i = 0; i < this.getLength(); i++) {
+			for (var j = 0; j < e.getLength(); j++) {
+				num[i + j] ^= QRMath.gexp(QRMath.glog(this.get(i) ) + QRMath.glog(e.get(j) ) );
+			}
+		}
+	
+		return new QRPolynomial(num, 0);
+	},
+	
+	mod : function(e) {
+	
+		if (this.getLength() - e.getLength() < 0) {
+			return this;
+		}
+	
+		var ratio = QRMath.glog(this.get(0) ) - QRMath.glog(e.get(0) );
+	
+		var num = new Array(this.getLength() );
+		
+		for (var i = 0; i < this.getLength(); i++) {
+			num[i] = this.get(i);
+		}
+		
+		for (var x = 0; x < e.getLength(); x++) {
+			num[x] ^= QRMath.gexp(QRMath.glog(e.get(x) ) + ratio);
+		}
+	
+		// recursive call
+		return new QRPolynomial(num, 0).mod(e);
+	}
+};
+
+module.exports = QRPolynomial;
+
+});
+define('./QRRSBlock',function(module,exports,require){
+var QRErrorCorrectLevel = require('./QRErrorCorrectLevel');
+
+function QRRSBlock(totalCount, dataCount) {
+	this.totalCount = totalCount;
+	this.dataCount  = dataCount;
+}
+
+QRRSBlock.RS_BLOCK_TABLE = [
+
+	// L
+	// M
+	// Q
+	// H
+
+	// 1
+	[1, 26, 19],
+	[1, 26, 16],
+	[1, 26, 13],
+	[1, 26, 9],
+	
+	// 2
+	[1, 44, 34],
+	[1, 44, 28],
+	[1, 44, 22],
+	[1, 44, 16],
+
+	// 3
+	[1, 70, 55],
+	[1, 70, 44],
+	[2, 35, 17],
+	[2, 35, 13],
+
+	// 4		
+	[1, 100, 80],
+	[2, 50, 32],
+	[2, 50, 24],
+	[4, 25, 9],
+	
+	// 5
+	[1, 134, 108],
+	[2, 67, 43],
+	[2, 33, 15, 2, 34, 16],
+	[2, 33, 11, 2, 34, 12],
+	
+	// 6
+	[2, 86, 68],
+	[4, 43, 27],
+	[4, 43, 19],
+	[4, 43, 15],
+	
+	// 7		
+	[2, 98, 78],
+	[4, 49, 31],
+	[2, 32, 14, 4, 33, 15],
+	[4, 39, 13, 1, 40, 14],
+	
+	// 8
+	[2, 121, 97],
+	[2, 60, 38, 2, 61, 39],
+	[4, 40, 18, 2, 41, 19],
+	[4, 40, 14, 2, 41, 15],
+	
+	// 9
+	[2, 146, 116],
+	[3, 58, 36, 2, 59, 37],
+	[4, 36, 16, 4, 37, 17],
+	[4, 36, 12, 4, 37, 13],
+	
+	// 10		
+	[2, 86, 68, 2, 87, 69],
+	[4, 69, 43, 1, 70, 44],
+	[6, 43, 19, 2, 44, 20],
+	[6, 43, 15, 2, 44, 16],
+
+	// 11
+	[4, 101, 81],
+	[1, 80, 50, 4, 81, 51],
+	[4, 50, 22, 4, 51, 23],
+	[3, 36, 12, 8, 37, 13],
+
+	// 12
+	[2, 116, 92, 2, 117, 93],
+	[6, 58, 36, 2, 59, 37],
+	[4, 46, 20, 6, 47, 21],
+	[7, 42, 14, 4, 43, 15],
+
+	// 13
+	[4, 133, 107],
+	[8, 59, 37, 1, 60, 38],
+	[8, 44, 20, 4, 45, 21],
+	[12, 33, 11, 4, 34, 12],
+
+	// 14
+	[3, 145, 115, 1, 146, 116],
+	[4, 64, 40, 5, 65, 41],
+	[11, 36, 16, 5, 37, 17],
+	[11, 36, 12, 5, 37, 13],
+
+	// 15
+	[5, 109, 87, 1, 110, 88],
+	[5, 65, 41, 5, 66, 42],
+	[5, 54, 24, 7, 55, 25],
+	[11, 36, 12],
+
+	// 16
+	[5, 122, 98, 1, 123, 99],
+	[7, 73, 45, 3, 74, 46],
+	[15, 43, 19, 2, 44, 20],
+	[3, 45, 15, 13, 46, 16],
+
+	// 17
+	[1, 135, 107, 5, 136, 108],
+	[10, 74, 46, 1, 75, 47],
+	[1, 50, 22, 15, 51, 23],
+	[2, 42, 14, 17, 43, 15],
+
+	// 18
+	[5, 150, 120, 1, 151, 121],
+	[9, 69, 43, 4, 70, 44],
+	[17, 50, 22, 1, 51, 23],
+	[2, 42, 14, 19, 43, 15],
+
+	// 19
+	[3, 141, 113, 4, 142, 114],
+	[3, 70, 44, 11, 71, 45],
+	[17, 47, 21, 4, 48, 22],
+	[9, 39, 13, 16, 40, 14],
+
+	// 20
+	[3, 135, 107, 5, 136, 108],
+	[3, 67, 41, 13, 68, 42],
+	[15, 54, 24, 5, 55, 25],
+	[15, 43, 15, 10, 44, 16],
+
+	// 21
+	[4, 144, 116, 4, 145, 117],
+	[17, 68, 42],
+	[17, 50, 22, 6, 51, 23],
+	[19, 46, 16, 6, 47, 17],
+
+	// 22
+	[2, 139, 111, 7, 140, 112],
+	[17, 74, 46],
+	[7, 54, 24, 16, 55, 25],
+	[34, 37, 13],
+
+	// 23
+	[4, 151, 121, 5, 152, 122],
+	[4, 75, 47, 14, 76, 48],
+	[11, 54, 24, 14, 55, 25],
+	[16, 45, 15, 14, 46, 16],
+
+	// 24
+	[6, 147, 117, 4, 148, 118],
+	[6, 73, 45, 14, 74, 46],
+	[11, 54, 24, 16, 55, 25],
+	[30, 46, 16, 2, 47, 17],
+
+	// 25
+	[8, 132, 106, 4, 133, 107],
+	[8, 75, 47, 13, 76, 48],
+	[7, 54, 24, 22, 55, 25],
+	[22, 45, 15, 13, 46, 16],
+
+	// 26
+	[10, 142, 114, 2, 143, 115],
+	[19, 74, 46, 4, 75, 47],
+	[28, 50, 22, 6, 51, 23],
+	[33, 46, 16, 4, 47, 17],
+
+	// 27
+	[8, 152, 122, 4, 153, 123],
+	[22, 73, 45, 3, 74, 46],
+	[8, 53, 23, 26, 54, 24],
+	[12, 45, 15, 28, 46, 16],
+
+	// 28
+	[3, 147, 117, 10, 148, 118],
+	[3, 73, 45, 23, 74, 46],
+	[4, 54, 24, 31, 55, 25],
+	[11, 45, 15, 31, 46, 16],
+
+	// 29
+	[7, 146, 116, 7, 147, 117],
+	[21, 73, 45, 7, 74, 46],
+	[1, 53, 23, 37, 54, 24],
+	[19, 45, 15, 26, 46, 16],
+
+	// 30
+	[5, 145, 115, 10, 146, 116],
+	[19, 75, 47, 10, 76, 48],
+	[15, 54, 24, 25, 55, 25],
+	[23, 45, 15, 25, 46, 16],
+
+	// 31
+	[13, 145, 115, 3, 146, 116],
+	[2, 74, 46, 29, 75, 47],
+	[42, 54, 24, 1, 55, 25],
+	[23, 45, 15, 28, 46, 16],
+
+	// 32
+	[17, 145, 115],
+	[10, 74, 46, 23, 75, 47],
+	[10, 54, 24, 35, 55, 25],
+	[19, 45, 15, 35, 46, 16],
+
+	// 33
+	[17, 145, 115, 1, 146, 116],
+	[14, 74, 46, 21, 75, 47],
+	[29, 54, 24, 19, 55, 25],
+	[11, 45, 15, 46, 46, 16],
+
+	// 34
+	[13, 145, 115, 6, 146, 116],
+	[14, 74, 46, 23, 75, 47],
+	[44, 54, 24, 7, 55, 25],
+	[59, 46, 16, 1, 47, 17],
+
+	// 35
+	[12, 151, 121, 7, 152, 122],
+	[12, 75, 47, 26, 76, 48],
+	[39, 54, 24, 14, 55, 25],
+	[22, 45, 15, 41, 46, 16],
+
+	// 36
+	[6, 151, 121, 14, 152, 122],
+	[6, 75, 47, 34, 76, 48],
+	[46, 54, 24, 10, 55, 25],
+	[2, 45, 15, 64, 46, 16],
+
+	// 37
+	[17, 152, 122, 4, 153, 123],
+	[29, 74, 46, 14, 75, 47],
+	[49, 54, 24, 10, 55, 25],
+	[24, 45, 15, 46, 46, 16],
+
+	// 38
+	[4, 152, 122, 18, 153, 123],
+	[13, 74, 46, 32, 75, 47],
+	[48, 54, 24, 14, 55, 25],
+	[42, 45, 15, 32, 46, 16],
+
+	// 39
+	[20, 147, 117, 4, 148, 118],
+	[40, 75, 47, 7, 76, 48],
+	[43, 54, 24, 22, 55, 25],
+	[10, 45, 15, 67, 46, 16],
+
+	// 40
+	[19, 148, 118, 6, 149, 119],
+	[18, 75, 47, 31, 76, 48],
+	[34, 54, 24, 34, 55, 25],
+	[20, 45, 15, 61, 46, 16]
+];
+
+QRRSBlock.getRSBlocks = function(typeNumber, errorCorrectLevel) {
+	
+	var rsBlock = QRRSBlock.getRsBlockTable(typeNumber, errorCorrectLevel);
+	
+	if (rsBlock === undefined) {
+		throw new Error("bad rs block @ typeNumber:" + typeNumber + "/errorCorrectLevel:" + errorCorrectLevel);
+	}
+
+	var length = rsBlock.length / 3;
+	
+	var list = [];
+	
+	for (var i = 0; i < length; i++) {
+
+		var count = rsBlock[i * 3 + 0];
+		var totalCount = rsBlock[i * 3 + 1];
+		var dataCount  = rsBlock[i * 3 + 2];
+
+		for (var j = 0; j < count; j++) {
+			list.push(new QRRSBlock(totalCount, dataCount) );	
+		}
+	}
+	
+	return list;
+};
+
+QRRSBlock.getRsBlockTable = function(typeNumber, errorCorrectLevel) {
+
+	switch(errorCorrectLevel) {
+	case QRErrorCorrectLevel.L :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
+	case QRErrorCorrectLevel.M :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
+	case QRErrorCorrectLevel.Q :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
+	case QRErrorCorrectLevel.H :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
+	default :
+		return undefined;
+	}
+};
+
+module.exports = QRRSBlock;
+
+});
+define('./QRBitBuffer',function(module,exports,require){
+function QRBitBuffer() {
+	this.buffer = [];
+	this.length = 0;
+}
+
+QRBitBuffer.prototype = {
+
+	get : function(index) {
+		var bufIndex = Math.floor(index / 8);
+		return ( (this.buffer[bufIndex] >>> (7 - index % 8) ) & 1) == 1;
+	},
+	
+	put : function(num, length) {
+		for (var i = 0; i < length; i++) {
+			this.putBit( ( (num >>> (length - i - 1) ) & 1) == 1);
+		}
+	},
+	
+	getLengthInBits : function() {
+		return this.length;
+	},
+	
+	putBit : function(bit) {
+	
+		var bufIndex = Math.floor(this.length / 8);
+		if (this.buffer.length <= bufIndex) {
+			this.buffer.push(0);
+		}
+	
+		if (bit) {
+			this.buffer[bufIndex] |= (0x80 >>> (this.length % 8) );
+		}
+	
+		this.length++;
+	}
+};
+
+module.exports = QRBitBuffer;
+
+});
+define('./QR8bitByte',function(module,exports,require){
+var QRMode = require('./QRMode');
+
+function QR8bitByte(data) {
+	this.mode = QRMode.MODE_8BIT_BYTE;
+	this.data = data;
+}
+
+QR8bitByte.prototype = {
+
+	getLength : function() {
+		return this.data.length;
+	},
+	
+	write : function(buffer) {
+		for (var i = 0; i < this.data.length; i++) {
+			// not JIS ...
+			buffer.put(this.data.charCodeAt(i), 8);
+		}
+	}
+};
+
+module.exports = QR8bitByte;
+
+});
+define('./QRUtil',function(module,exports,require){
+var QRMode = require('./QRMode');
+var QRPolynomial = require('./QRPolynomial');
+var QRMath = require('./QRMath');
+var QRMaskPattern = require('./QRMaskPattern');
+
+var QRUtil = {
+
+    PATTERN_POSITION_TABLE : [
+        [],
+        [6, 18],
+        [6, 22],
+        [6, 26],
+        [6, 30],
+        [6, 34],
+        [6, 22, 38],
+        [6, 24, 42],
+        [6, 26, 46],
+        [6, 28, 50],
+        [6, 30, 54],        
+        [6, 32, 58],
+        [6, 34, 62],
+        [6, 26, 46, 66],
+        [6, 26, 48, 70],
+        [6, 26, 50, 74],
+        [6, 30, 54, 78],
+        [6, 30, 56, 82],
+        [6, 30, 58, 86],
+        [6, 34, 62, 90],
+        [6, 28, 50, 72, 94],
+        [6, 26, 50, 74, 98],
+        [6, 30, 54, 78, 102],
+        [6, 28, 54, 80, 106],
+        [6, 32, 58, 84, 110],
+        [6, 30, 58, 86, 114],
+        [6, 34, 62, 90, 118],
+        [6, 26, 50, 74, 98, 122],
+        [6, 30, 54, 78, 102, 126],
+        [6, 26, 52, 78, 104, 130],
+        [6, 30, 56, 82, 108, 134],
+        [6, 34, 60, 86, 112, 138],
+        [6, 30, 58, 86, 114, 142],
+        [6, 34, 62, 90, 118, 146],
+        [6, 30, 54, 78, 102, 126, 150],
+        [6, 24, 50, 76, 102, 128, 154],
+        [6, 28, 54, 80, 106, 132, 158],
+        [6, 32, 58, 84, 110, 136, 162],
+        [6, 26, 54, 82, 110, 138, 166],
+        [6, 30, 58, 86, 114, 142, 170]
+    ],
+
+    G15 : (1 << 10) | (1 << 8) | (1 << 5) | (1 << 4) | (1 << 2) | (1 << 1) | (1 << 0),
+    G18 : (1 << 12) | (1 << 11) | (1 << 10) | (1 << 9) | (1 << 8) | (1 << 5) | (1 << 2) | (1 << 0),
+    G15_MASK : (1 << 14) | (1 << 12) | (1 << 10)    | (1 << 4) | (1 << 1),
+
+    getBCHTypeInfo : function(data) {
+        var d = data << 10;
+        while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15) >= 0) {
+            d ^= (QRUtil.G15 << (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15) ) );    
+        }
+        return ( (data << 10) | d) ^ QRUtil.G15_MASK;
+    },
+
+    getBCHTypeNumber : function(data) {
+        var d = data << 12;
+        while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18) >= 0) {
+            d ^= (QRUtil.G18 << (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18) ) );    
+        }
+        return (data << 12) | d;
+    },
+
+    getBCHDigit : function(data) {
+
+        var digit = 0;
+
+        while (data !== 0) {
+            digit++;
+            data >>>= 1;
+        }
+
+        return digit;
+    },
+
+    getPatternPosition : function(typeNumber) {
+        return QRUtil.PATTERN_POSITION_TABLE[typeNumber - 1];
+    },
+
+    getMask : function(maskPattern, i, j) {
+        
+        switch (maskPattern) {
+            
+        case QRMaskPattern.PATTERN000 : return (i + j) % 2 === 0;
+        case QRMaskPattern.PATTERN001 : return i % 2 === 0;
+        case QRMaskPattern.PATTERN010 : return j % 3 === 0;
+        case QRMaskPattern.PATTERN011 : return (i + j) % 3 === 0;
+        case QRMaskPattern.PATTERN100 : return (Math.floor(i / 2) + Math.floor(j / 3) ) % 2 === 0;
+        case QRMaskPattern.PATTERN101 : return (i * j) % 2 + (i * j) % 3 === 0;
+        case QRMaskPattern.PATTERN110 : return ( (i * j) % 2 + (i * j) % 3) % 2 === 0;
+        case QRMaskPattern.PATTERN111 : return ( (i * j) % 3 + (i + j) % 2) % 2 === 0;
+
+        default :
+            throw new Error("bad maskPattern:" + maskPattern);
+        }
+    },
+
+    getErrorCorrectPolynomial : function(errorCorrectLength) {
+
+        var a = new QRPolynomial([1], 0);
+
+        for (var i = 0; i < errorCorrectLength; i++) {
+            a = a.multiply(new QRPolynomial([1, QRMath.gexp(i)], 0) );
+        }
+
+        return a;
+    },
+
+    getLengthInBits : function(mode, type) {
+
+        if (1 <= type && type < 10) {
+
+            // 1 - 9
+
+            switch(mode) {
+            case QRMode.MODE_NUMBER     : return 10;
+            case QRMode.MODE_ALPHA_NUM  : return 9;
+            case QRMode.MODE_8BIT_BYTE  : return 8;
+            case QRMode.MODE_KANJI      : return 8;
+            default :
+                throw new Error("mode:" + mode);
+            }
+
+        } else if (type < 27) {
+
+            // 10 - 26
+
+            switch(mode) {
+            case QRMode.MODE_NUMBER     : return 12;
+            case QRMode.MODE_ALPHA_NUM  : return 11;
+            case QRMode.MODE_8BIT_BYTE  : return 16;
+            case QRMode.MODE_KANJI      : return 10;
+            default :
+                throw new Error("mode:" + mode);
+            }
+
+        } else if (type < 41) {
+
+            // 27 - 40
+
+            switch(mode) {
+            case QRMode.MODE_NUMBER     : return 14;
+            case QRMode.MODE_ALPHA_NUM  : return 13;
+            case QRMode.MODE_8BIT_BYTE  : return 16;
+            case QRMode.MODE_KANJI      : return 12;
+            default :
+                throw new Error("mode:" + mode);
+            }
+
+        } else {
+            throw new Error("type:" + type);
+        }
+    },
+
+    getLostPoint : function(qrCode) {
+        
+        var moduleCount = qrCode.getModuleCount();
+        var lostPoint = 0;
+        var row = 0; 
+        var col = 0;
+
+        
+        // LEVEL1
+        
+        for (row = 0; row < moduleCount; row++) {
+
+            for (col = 0; col < moduleCount; col++) {
+
+                var sameCount = 0;
+                var dark = qrCode.isDark(row, col);
+
+                for (var r = -1; r <= 1; r++) {
+
+                    if (row + r < 0 || moduleCount <= row + r) {
+                        continue;
+                    }
+
+                    for (var c = -1; c <= 1; c++) {
+
+                        if (col + c < 0 || moduleCount <= col + c) {
+                            continue;
+                        }
+
+                        if (r === 0 && c === 0) {
+                            continue;
+                        }
+
+                        if (dark === qrCode.isDark(row + r, col + c) ) {
+                            sameCount++;
+                        }
+                    }
+                }
+
+                if (sameCount > 5) {
+                    lostPoint += (3 + sameCount - 5);
+                }
+            }
+        }
+
+        // LEVEL2
+
+        for (row = 0; row < moduleCount - 1; row++) {
+            for (col = 0; col < moduleCount - 1; col++) {
+                var count = 0;
+                if (qrCode.isDark(row,     col    ) ) count++;
+                if (qrCode.isDark(row + 1, col    ) ) count++;
+                if (qrCode.isDark(row,     col + 1) ) count++;
+                if (qrCode.isDark(row + 1, col + 1) ) count++;
+                if (count === 0 || count === 4) {
+                    lostPoint += 3;
+                }
+            }
+        }
+
+        // LEVEL3
+
+        for (row = 0; row < moduleCount; row++) {
+            for (col = 0; col < moduleCount - 6; col++) {
+                if (qrCode.isDark(row, col) && 
+                        !qrCode.isDark(row, col + 1) && 
+                         qrCode.isDark(row, col + 2) && 
+                         qrCode.isDark(row, col + 3) && 
+                         qrCode.isDark(row, col + 4) && 
+                        !qrCode.isDark(row, col + 5) && 
+                         qrCode.isDark(row, col + 6) ) {
+                    lostPoint += 40;
+                }
+            }
+        }
+
+        for (col = 0; col < moduleCount; col++) {
+            for (row = 0; row < moduleCount - 6; row++) {
+                if (qrCode.isDark(row, col) &&
+                        !qrCode.isDark(row + 1, col) &&
+                         qrCode.isDark(row + 2, col) &&
+                         qrCode.isDark(row + 3, col) &&
+                         qrCode.isDark(row + 4, col) &&
+                        !qrCode.isDark(row + 5, col) &&
+                         qrCode.isDark(row + 6, col) ) {
+                    lostPoint += 40;
+                }
+            }
+        }
+
+        // LEVEL4
+        
+        var darkCount = 0;
+
+        for (col = 0; col < moduleCount; col++) {
+            for (row = 0; row < moduleCount; row++) {
+                if (qrCode.isDark(row, col) ) {
+                    darkCount++;
+                }
+            }
+        }
+        
+        var ratio = Math.abs(100 * darkCount / moduleCount / moduleCount - 50) / 5;
+        lostPoint += ratio * 10;
+
+        return lostPoint;       
+    }
+
+};
+
+module.exports = QRUtil;
+
+});
+define('./index',function(module,exports,require){
+var QR8bitByte = require('./QR8bitByte');
+var QRUtil = require('./QRUtil');
+var QRPolynomial = require('./QRPolynomial');
+var QRRSBlock = require('./QRRSBlock');
+var QRBitBuffer = require('./QRBitBuffer');
+
+function QRCode(typeNumber, errorCorrectLevel) {
+	this.typeNumber = typeNumber;
+	this.errorCorrectLevel = errorCorrectLevel;
+	this.modules = null;
+	this.moduleCount = 0;
+	this.dataCache = null;
+	this.dataList = [];
+}
+
+QRCode.prototype = {
+	
+	addData : function(data) {
+		var newData = new QR8bitByte(data);
+		this.dataList.push(newData);
+		this.dataCache = null;
+	},
+	
+	isDark : function(row, col) {
+		if (row < 0 || this.moduleCount <= row || col < 0 || this.moduleCount <= col) {
+			throw new Error(row + "," + col);
+		}
+		return this.modules[row][col];
+	},
+
+	getModuleCount : function() {
+		return this.moduleCount;
+	},
+	
+	make : function() {
+		// Calculate automatically typeNumber if provided is < 1
+		if (this.typeNumber < 1 ){
+			var typeNumber = 1;
+			for (typeNumber = 1; typeNumber < 40; typeNumber++) {
+				var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, this.errorCorrectLevel);
+
+				var buffer = new QRBitBuffer();
+				var totalDataCount = 0;
+				for (var i = 0; i < rsBlocks.length; i++) {
+					totalDataCount += rsBlocks[i].dataCount;
+				}
+
+				for (var x = 0; x < this.dataList.length; x++) {
+					var data = this.dataList[x];
+					buffer.put(data.mode, 4);
+					buffer.put(data.getLength(), QRUtil.getLengthInBits(data.mode, typeNumber) );
+					data.write(buffer);
+				}
+				if (buffer.getLengthInBits() <= totalDataCount * 8)
+					break;
+			}
+			this.typeNumber = typeNumber;
+		}
+		this.makeImpl(false, this.getBestMaskPattern() );
+	},
+	
+	makeImpl : function(test, maskPattern) {
+		
+		this.moduleCount = this.typeNumber * 4 + 17;
+		this.modules = new Array(this.moduleCount);
+		
+		for (var row = 0; row < this.moduleCount; row++) {
+			
+			this.modules[row] = new Array(this.moduleCount);
+			
+			for (var col = 0; col < this.moduleCount; col++) {
+				this.modules[row][col] = null;//(col + row) % 3;
+			}
+		}
+	
+		this.setupPositionProbePattern(0, 0);
+		this.setupPositionProbePattern(this.moduleCount - 7, 0);
+		this.setupPositionProbePattern(0, this.moduleCount - 7);
+		this.setupPositionAdjustPattern();
+		this.setupTimingPattern();
+		this.setupTypeInfo(test, maskPattern);
+		
+		if (this.typeNumber >= 7) {
+			this.setupTypeNumber(test);
+		}
+	
+		if (this.dataCache === null) {
+			this.dataCache = QRCode.createData(this.typeNumber, this.errorCorrectLevel, this.dataList);
+		}
+	
+		this.mapData(this.dataCache, maskPattern);
+	},
+
+	setupPositionProbePattern : function(row, col)  {
+		
+		for (var r = -1; r <= 7; r++) {
+			
+			if (row + r <= -1 || this.moduleCount <= row + r) continue;
+			
+			for (var c = -1; c <= 7; c++) {
+				
+				if (col + c <= -1 || this.moduleCount <= col + c) continue;
+				
+				if ( (0 <= r && r <= 6 && (c === 0 || c === 6) ) || 
+                     (0 <= c && c <= 6 && (r === 0 || r === 6) ) || 
+                     (2 <= r && r <= 4 && 2 <= c && c <= 4) ) {
+					this.modules[row + r][col + c] = true;
+				} else {
+					this.modules[row + r][col + c] = false;
+				}
+			}		
+		}		
+	},
+	
+	getBestMaskPattern : function() {
+	
+		var minLostPoint = 0;
+		var pattern = 0;
+	
+		for (var i = 0; i < 8; i++) {
+			
+			this.makeImpl(true, i);
+	
+			var lostPoint = QRUtil.getLostPoint(this);
+	
+			if (i === 0 || minLostPoint >  lostPoint) {
+				minLostPoint = lostPoint;
+				pattern = i;
+			}
+		}
+	
+		return pattern;
+	},
+	
+	createMovieClip : function(target_mc, instance_name, depth) {
+	
+		var qr_mc = target_mc.createEmptyMovieClip(instance_name, depth);
+		var cs = 1;
+	
+		this.make();
+
+		for (var row = 0; row < this.modules.length; row++) {
+			
+			var y = row * cs;
+			
+			for (var col = 0; col < this.modules[row].length; col++) {
+	
+				var x = col * cs;
+				var dark = this.modules[row][col];
+			
+				if (dark) {
+					qr_mc.beginFill(0, 100);
+					qr_mc.moveTo(x, y);
+					qr_mc.lineTo(x + cs, y);
+					qr_mc.lineTo(x + cs, y + cs);
+					qr_mc.lineTo(x, y + cs);
+					qr_mc.endFill();
+				}
+			}
+		}
+		
+		return qr_mc;
+	},
+
+	setupTimingPattern : function() {
+		
+		for (var r = 8; r < this.moduleCount - 8; r++) {
+			if (this.modules[r][6] !== null) {
+				continue;
+			}
+			this.modules[r][6] = (r % 2 === 0);
+		}
+	
+		for (var c = 8; c < this.moduleCount - 8; c++) {
+			if (this.modules[6][c] !== null) {
+				continue;
+			}
+			this.modules[6][c] = (c % 2 === 0);
+		}
+	},
+	
+	setupPositionAdjustPattern : function() {
+	
+		var pos = QRUtil.getPatternPosition(this.typeNumber);
+		
+		for (var i = 0; i < pos.length; i++) {
+		
+			for (var j = 0; j < pos.length; j++) {
+			
+				var row = pos[i];
+				var col = pos[j];
+				
+				if (this.modules[row][col] !== null) {
+					continue;
+				}
+				
+				for (var r = -2; r <= 2; r++) {
+				
+					for (var c = -2; c <= 2; c++) {
+					
+						if (Math.abs(r) === 2 || 
+                            Math.abs(c) === 2 ||
+                            (r === 0 && c === 0) ) {
+							this.modules[row + r][col + c] = true;
+						} else {
+							this.modules[row + r][col + c] = false;
+						}
+					}
+				}
+			}
+		}
+	},
+	
+	setupTypeNumber : function(test) {
+	
+		var bits = QRUtil.getBCHTypeNumber(this.typeNumber);
+        var mod;
+	
+		for (var i = 0; i < 18; i++) {
+			mod = (!test && ( (bits >> i) & 1) === 1);
+			this.modules[Math.floor(i / 3)][i % 3 + this.moduleCount - 8 - 3] = mod;
+		}
+	
+		for (var x = 0; x < 18; x++) {
+			mod = (!test && ( (bits >> x) & 1) === 1);
+			this.modules[x % 3 + this.moduleCount - 8 - 3][Math.floor(x / 3)] = mod;
+		}
+	},
+	
+	setupTypeInfo : function(test, maskPattern) {
+	
+		var data = (this.errorCorrectLevel << 3) | maskPattern;
+		var bits = QRUtil.getBCHTypeInfo(data);
+        var mod;
+	
+		// vertical		
+		for (var v = 0; v < 15; v++) {
+	
+			mod = (!test && ( (bits >> v) & 1) === 1);
+	
+			if (v < 6) {
+				this.modules[v][8] = mod;
+			} else if (v < 8) {
+				this.modules[v + 1][8] = mod;
+			} else {
+				this.modules[this.moduleCount - 15 + v][8] = mod;
+			}
+		}
+	
+		// horizontal
+		for (var h = 0; h < 15; h++) {
+	
+			mod = (!test && ( (bits >> h) & 1) === 1);
+			
+			if (h < 8) {
+				this.modules[8][this.moduleCount - h - 1] = mod;
+			} else if (h < 9) {
+				this.modules[8][15 - h - 1 + 1] = mod;
+			} else {
+				this.modules[8][15 - h - 1] = mod;
+			}
+		}
+	
+		// fixed module
+		this.modules[this.moduleCount - 8][8] = (!test);
+	
+	},
+	
+	mapData : function(data, maskPattern) {
+		
+		var inc = -1;
+		var row = this.moduleCount - 1;
+		var bitIndex = 7;
+		var byteIndex = 0;
+		
+		for (var col = this.moduleCount - 1; col > 0; col -= 2) {
+	
+			if (col === 6) col--;
+	
+			while (true) {
+	
+				for (var c = 0; c < 2; c++) {
+					
+					if (this.modules[row][col - c] === null) {
+						
+						var dark = false;
+	
+						if (byteIndex < data.length) {
+							dark = ( ( (data[byteIndex] >>> bitIndex) & 1) === 1);
+						}
+	
+						var mask = QRUtil.getMask(maskPattern, row, col - c);
+	
+						if (mask) {
+							dark = !dark;
+						}
+						
+						this.modules[row][col - c] = dark;
+						bitIndex--;
+	
+						if (bitIndex === -1) {
+							byteIndex++;
+							bitIndex = 7;
+						}
+					}
+				}
+								
+				row += inc;
+	
+				if (row < 0 || this.moduleCount <= row) {
+					row -= inc;
+					inc = -inc;
+					break;
+				}
+			}
+		}
+		
+	}
+
+};
+
+QRCode.PAD0 = 0xEC;
+QRCode.PAD1 = 0x11;
+
+QRCode.createData = function(typeNumber, errorCorrectLevel, dataList) {
+	
+	var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
+	
+	var buffer = new QRBitBuffer();
+	
+	for (var i = 0; i < dataList.length; i++) {
+		var data = dataList[i];
+		buffer.put(data.mode, 4);
+		buffer.put(data.getLength(), QRUtil.getLengthInBits(data.mode, typeNumber) );
+		data.write(buffer);
+	}
+
+	// calc num max data.
+	var totalDataCount = 0;
+	for (var x = 0; x < rsBlocks.length; x++) {
+		totalDataCount += rsBlocks[x].dataCount;
+	}
+
+	if (buffer.getLengthInBits() > totalDataCount * 8) {
+		throw new Error("code length overflow. (" + 
+            buffer.getLengthInBits() + 
+            ">" +  
+            totalDataCount * 8 + 
+            ")");
+	}
+
+	// end code
+	if (buffer.getLengthInBits() + 4 <= totalDataCount * 8) {
+		buffer.put(0, 4);
+	}
+
+	// padding
+	while (buffer.getLengthInBits() % 8 !== 0) {
+		buffer.putBit(false);
+	}
+
+	// padding
+	while (true) {
+		
+		if (buffer.getLengthInBits() >= totalDataCount * 8) {
+			break;
+		}
+		buffer.put(QRCode.PAD0, 8);
+		
+		if (buffer.getLengthInBits() >= totalDataCount * 8) {
+			break;
+		}
+		buffer.put(QRCode.PAD1, 8);
+	}
+
+	return QRCode.createBytes(buffer, rsBlocks);
+};
+
+QRCode.createBytes = function(buffer, rsBlocks) {
+
+	var offset = 0;
+	
+	var maxDcCount = 0;
+	var maxEcCount = 0;
+	
+	var dcdata = new Array(rsBlocks.length);
+	var ecdata = new Array(rsBlocks.length);
+	
+	for (var r = 0; r < rsBlocks.length; r++) {
+
+		var dcCount = rsBlocks[r].dataCount;
+		var ecCount = rsBlocks[r].totalCount - dcCount;
+
+		maxDcCount = Math.max(maxDcCount, dcCount);
+		maxEcCount = Math.max(maxEcCount, ecCount);
+		
+		dcdata[r] = new Array(dcCount);
+		
+		for (var i = 0; i < dcdata[r].length; i++) {
+			dcdata[r][i] = 0xff & buffer.buffer[i + offset];
+		}
+		offset += dcCount;
+		
+		var rsPoly = QRUtil.getErrorCorrectPolynomial(ecCount);
+		var rawPoly = new QRPolynomial(dcdata[r], rsPoly.getLength() - 1);
+
+		var modPoly = rawPoly.mod(rsPoly);
+		ecdata[r] = new Array(rsPoly.getLength() - 1);
+		for (var x = 0; x < ecdata[r].length; x++) {
+            var modIndex = x + modPoly.getLength() - ecdata[r].length;
+			ecdata[r][x] = (modIndex >= 0)? modPoly.get(modIndex) : 0;
+		}
+
+	}
+	
+	var totalCodeCount = 0;
+	for (var y = 0; y < rsBlocks.length; y++) {
+		totalCodeCount += rsBlocks[y].totalCount;
+	}
+
+	var data = new Array(totalCodeCount);
+	var index = 0;
+
+	for (var z = 0; z < maxDcCount; z++) {
+		for (var s = 0; s < rsBlocks.length; s++) {
+			if (z < dcdata[s].length) {
+				data[index++] = dcdata[s][z];
+			}
+		}
+	}
+
+	for (var xx = 0; xx < maxEcCount; xx++) {
+		for (var t = 0; t < rsBlocks.length; t++) {
+			if (xx < ecdata[t].length) {
+				data[index++] = ecdata[t][xx];
+			}
+		}
+	}
+
+	return data;
+
+};
+
+module.exports = QRCode;
+
+});
+return {QRCode:req('./index'),ErrorLevel:req('./QRErrorCorrectLevel')};})();
+(() => {
+  'use strict';
+  const STORAGE_KEY='mbm_enzyme_overdrive_v1',SCHEMA='enzyme-overdrive-4.0',TELEMETRY_SCHEMA='mbm-telemetry-v3.0',APP_ID='mbm-enzyme-overdrive',APP_VERSION='4.0';
+  const TELEMETRY_AXES=['Variable Isolation','Scale Interpolation','Systemic Troubleshooting','Boundary Control','Failure Reflection','Resource Control'];
+  const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),round=(v,d=1)=>Number(v.toFixed(d));
+  function cssVar(name,fallback){const value=getComputedStyle(document.body).getPropertyValue(name).trim();return value||fallback}
+  function withAlpha(color,alpha){const c=String(color).trim();if(/^#[0-9a-f]{3}$/i.test(c)){const h=c.slice(1).split('').map(x=>x+x).join('');return `rgba(${parseInt(h.slice(0,2),16)},${parseInt(h.slice(2,4),16)},${parseInt(h.slice(4,6),16)},${alpha})`}if(/^#[0-9a-f]{6}$/i.test(c))return `rgba(${parseInt(c.slice(1,3),16)},${parseInt(c.slice(3,5),16)},${parseInt(c.slice(5,7),16)},${alpha})`;return c}
+  function canvasPalette(){const low=document.body.classList.contains('low-stim');return {ink:cssVar('--ink','#fff3e8'),muted:cssVar('--muted','#c7aeb8'),dim:cssVar('--dim','#826d78'),bg:cssVar('--bg','#09050d'),panel:cssVar('--panel','#170d1c'),panel2:cssVar('--panel2','#211129'),line:cssVar('--line','#57304f'),magenta:cssVar('--magenta','#ff68c6'),violet:cssVar('--violet','#a980ff'),cyan:cssVar('--cyan','#5cf2e8'),amber:cssVar('--amber','#ffd166'),red:cssVar('--red','#ff5f6d'),green:cssVar('--green','#71f7a4'),low,glow:low?0:16}}
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const textEncoder=new TextEncoder();
+  const bytesToB64u=bytes=>{let s='';for(let i=0;i<bytes.length;i+=0x8000)s+=String.fromCharCode(...bytes.subarray(i,i+0x8000));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')};
+  function randomBytes(n){const a=new Uint8Array(n);if(globalThis.crypto?.getRandomValues)crypto.getRandomValues(a);else for(let i=0;i<n;i++)a[i]=Math.floor(Math.random()*256);return a}
+  function crc8(bytes){let crc=0;for(const value of bytes){crc^=value;for(let bit=0;bit<8;bit++)crc=(crc&0x80)?((crc<<1)^0x07)&0xff:(crc<<1)&0xff}return crc}
+  function packTelemetryV3({appCode,axes,primary=0,secondary=0,tertiary=0,events=0,success=0,flags=0}){const out=new Uint8Array(16),view=new DataView(out.buffer);out[0]=0xb3;out[1]=(3<<4)|(appCode&15);TELEMETRY_AXES.forEach((axis,i)=>out[2+i]=Math.round(clamp(Number(axes?.[axis])||0,0,1)*255));view.setUint16(8,clamp(Math.round(primary),0,65535));view.setUint16(10,clamp(Math.round(secondary),0,65535));out[12]=clamp(Math.round(tertiary),0,255);out[13]=clamp(Math.round(events),0,255);out[14]=(clamp(Math.round(success*15),0,15)<<4)|(flags&15);out[15]=crc8(out.subarray(0,15));return out}
+  async function encryptTransferPayload(packet,pin){if(!(packet instanceof Uint8Array)||packet.length!==16)throw new Error('Telemetry packet must be exactly 16 bytes.');if(!globalThis.crypto?.subtle)return {code:'MBM3U.'+bytesToB64u(packet),encrypted:false,packetBytes:16};const salt=randomBytes(8),iv=randomBytes(12),material=await crypto.subtle.importKey('raw',textEncoder.encode(pin),'PBKDF2',false,['deriveKey']),key=await crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:60000,hash:'SHA-256'},material,{name:'AES-GCM',length:256},false,['encrypt']),cipher=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},key,packet)),envelope=new Uint8Array(salt.length+iv.length+cipher.length);envelope.set(salt,0);envelope.set(iv,salt.length);envelope.set(cipher,salt.length+iv.length);return {code:'MBM3.'+bytesToB64u(envelope),encrypted:true,packetBytes:16}}
+  function drawTransferQR(canvas,text){const QR=MBMQR;if(!QR)throw new Error('QR engine unavailable');let qrCode=null;for(let type=1;type<=40;type++){try{const q=new QR.QRCode(type,QR.ErrorLevel.L);q.addData(text);q.make();qrCode=q;break}catch{}}if(!qrCode)throw new Error('Compact evidence is too large for one QR symbol');const n=qrCode.getModuleCount(),quiet=4,cell=Math.max(3,Math.floor(Math.min(canvas.width,canvas.height)/(n+quiet*2))),size=cell*(n+quiet*2),ox=Math.floor((canvas.width-size)/2),oy=Math.floor((canvas.height-size)/2),c=canvas.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#fff';c.fillRect(0,0,canvas.width,canvas.height);c.fillStyle='#000';for(let r=0;r<n;r++)for(let col=0;col<n;col++)if(qrCode.isDark(r,col))c.fillRect(ox+(col+quiet)*cell,oy+(r+quiet)*cell,cell,cell);canvas.dataset.modules=String(n);canvas.dataset.payloadLength=String(text.length);return {modules:n,cell}}
+  function downloadBlob(data,type,name){const blob=data instanceof Blob?data:new Blob([data],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),800)}
+
+  const SHIFTS=[
+    {id:'cold',number:'01',name:'COLD START',brief:'The catalyst is intact but collision traffic is too slow. Bring the core online without overshooting into the damage zone.',target:[52,72],hold:2,maxCycles:7,start:{temperature:18,substrate:70,ph:7,inhibitorType:'none',inhibitorLevel:0},tags:['COLLISION RATE','NO CONTAMINANT','WARM CAREFULLY']},
+    {id:'plateau',number:'02',name:'SATURATION CEILING',brief:'Fuel is limited. Find the output ceiling, then stop feeding a system whose active sites are already occupied.',target:[68,82],hold:2,maxCycles:8,start:{temperature:40,substrate:18,ph:7,inhibitorType:'none',inhibitorLevel:0},tags:['Vmax BOUNDARY','LIMITING FACTOR','AVOID WASTE']},
+    {id:'acid',number:'03',name:'ACID DRIFT',brief:'The thermal channel is healthy, but charge conditions have warped the binding pocket. Restore compatibility through the buffer channel.',target:[58,80],hold:2,maxCycles:8,start:{temperature:40,substrate:82,ph:4.2,inhibitorType:'none',inhibitorLevel:0},tags:['pH DISTORTION','REVERSIBLE','ACTIVE-SITE SHAPE']},
+    {id:'thermal',number:'04',name:'THERMAL OVERDRIVE',brief:'A heat surge is threatening the catalyst. Cross the collision-energy boundary and the active site will not return when cooled.',target:[56,78],hold:2,maxCycles:8,start:{temperature:68,substrate:88,ph:7,inhibitorType:'none',inhibitorLevel:0},tags:['DENATURATION','IRREVERSIBLE','CORE INTEGRITY']},
+    {id:'competitive',number:'05',name:'ACTIVE-SITE INTRUDER',brief:'A look-alike contaminant is occupying binding pockets. Decide whether fuel pressure can outcompete it before spending a shield pulse.',target:[55,74],hold:2,maxCycles:9,start:{temperature:40,substrate:38,ph:7,inhibitorType:'competitive',inhibitorLevel:35},tags:['COMPETITIVE','APPARENT Km','SUBSTRATE RESPONSE']},
+    {id:'noncompetitive',number:'06',name:'ALLOSTERIC LOCK',brief:'The contaminant is attached away from the fuel gate, deforming the catalyst. More fuel cannot restore the original ceiling.',target:[52,72],hold:2,maxCycles:9,start:{temperature:40,substrate:96,ph:7,inhibitorType:'noncompetitive',inhibitorLevel:35},tags:['NON-COMPETITIVE','Vmax REDUCED','SHIELD REQUIRED']}
+  ];
+
+  function model(params,integrity,commit=false){
+    const temp=params.temperature,ph=params.ph,S=params.substrate,I=params.inhibitorLevel,type=params.inhibitorType,q10=clamp(params.q10||2,1.2,3),Tref=20,Topt=40;
+    const q10Multiplier=Math.pow(q10,(Math.min(temp,Topt)-Tref)/10),kineticFactor=q10Multiplier/4,postOptFactor=temp<=Topt?1:Math.exp(-Math.pow((temp-Topt)/16,2));
+    const tempFactor=kineticFactor*postOptFactor,phFactor=Math.exp(-0.5*Math.pow((ph-7)/1.45,2)),Km=25,Ki=25;
+    let apparentKm=Km,vmaxInhibition=1;if(type==='competitive')apparentKm=Km*(1+I/Ki);if(type==='noncompetitive')vmaxInhibition=1/(1+I/Ki);
+    const substrateFactor=S/(apparentKm+S||1);let damage=0;if(commit&&temp>47){damage=Math.pow((temp-47)/43,1.55)*.68;if(temp>=75)damage=Math.max(damage,.9)}
+    const integrityAfter=clamp(integrity-damage,0,1),vmaxBase=100*integrityAfter*tempFactor*phFactor,vmaxApp=vmaxBase*vmaxInhibition,output=vmaxApp*substrateFactor;
+    const nextS=Math.min(120,S+20),saturationGain=vmaxApp*(nextS/(apparentKm+nextS||1)-substrateFactor),distortion=clamp((1-phFactor)*.55+(1-integrityAfter)*.9+(type==='noncompetitive'?I/100:0),0,1.35);
+    const catalystStrength=clamp(integrityAfter*phFactor*vmaxInhibition,0,1),eaReference=82,eaCatalysed=eaReference-46*catalystStrength;
+    return {output:clamp(output,0,100),rawOutput:output,tempFactor,q10Multiplier,kineticFactor,postOptFactor,q10,Tref,Topt,phFactor,substrateFactor,vmaxInhibition,vmaxBase,vmaxApp,apparentKm,Km,damage,integrityAfter,saturationGain,distortion,catalystStrength,eaReference,eaCatalysed,collapsed:integrityAfter<.12};
+  }
+
+  class ReactorTelemetry{
+    constructor(raw={}){
+      this.logs=Array.isArray(raw.logs)?raw.logs:[];this.shiftStats=raw.shiftStats||{};this.lastCycle=raw.lastCycle||null;
+      this.singleVarChanges=raw.singleVarChanges||0;this.multiVarChanges=raw.multiVarChanges||0;
+      this.saturationWaste=raw.saturationWaste||0;this.saturationHolds=raw.saturationHolds||0;
+      this.thermalCollapses=raw.thermalCollapses||0;this.coolOnlyAfterCollapse=raw.coolOnlyAfterCollapse||0;this.replacementsAfterCollapse=raw.replacementsAfterCollapse||0;
+      this.correctCompetitive=raw.correctCompetitive||0;this.wrongCompetitive=raw.wrongCompetitive||0;this.correctNoncompetitive=raw.correctNoncompetitive||0;this.wrongNoncompetitive=raw.wrongNoncompetitive||0;
+      this.phCorrections=raw.phCorrections||[];this.adjustments=raw.adjustments||0;this.pendingActions=raw.pendingActions||[];this.collapsePending=raw.collapsePending||false;
+    }
+    action(name,context={}){
+      this.pendingActions.push({name,time:Date.now(),...context});
+      if(name==='replace'&&this.collapsePending){this.replacementsAfterCollapse++;this.collapsePending=false;}
+      if(name==='adjust-temperature'&&this.collapsePending&&context.to<47)this.coolOnlyAfterCollapse++;
+      this.adjustments++;
+    }
+    cycle(shift,mode,params,before,result,cycle,energy){
+      let changed=[];
+      if(this.lastCycle&&this.lastCycle.shiftId===shift.id&&this.lastCycle.mode===mode){
+        changed=['temperature','substrate','ph','inhibitorLevel'].filter(k=>Math.abs((this.lastCycle.params[k]||0)-(params[k]||0))>.01);
+        if(this.lastCycle.params.inhibitorType!==params.inhibitorType)changed.push('inhibitorType');
+        if(changed.length===1)this.singleVarChanges++;else if(changed.length>1)this.multiVarChanges++;
+      }
+      if(before.saturationGain<2.5&&params.substrate>=80){
+        const prior=this.lastCycle?.params?.substrate;
+        if(prior!=null&&params.substrate>prior)this.saturationWaste++;
+        else this.saturationHolds++;
+      }
+      if(shift.id==='acid')this.phCorrections.push(Math.abs(params.ph-7));
+      if(result.collapsed&&!this.collapsePending){this.thermalCollapses++;this.collapsePending=true;}
+      if(shift.id==='competitive'){
+        const actions=this.pendingActions.map(a=>a.name);
+        const priorS=this.lastCycle?.params?.substrate??params.substrate;
+        if(params.substrate>priorS&&!actions.includes('shield'))this.correctCompetitive++;
+        if(actions.includes('replace'))this.wrongCompetitive++;
+      }
+      if(shift.id==='noncompetitive'){
+        const actions=this.pendingActions.map(a=>a.name),priorS=this.lastCycle?.params?.substrate??params.substrate;
+        if(actions.includes('shield'))this.correctNoncompetitive++;
+        if(params.substrate>priorS&&params.substrate>=90)this.wrongNoncompetitive++;
+      }
+      const target=mode==='mission'?shift.target:null;
+      const bandError=target?result.output<target[0]?target[0]-result.output:result.output>target[1]?result.output-target[1]:0:0;
+      const log={id:this.logs.length+1,time:new Date().toISOString(),timestamp:Date.now(),shiftId:shift.id,shiftName:shift.name,mode,cycle,params:{...params},integrityBefore:before.integrityAfter,integrityAfter:result.integrityAfter,output:round(result.output,2),bandError:round(bandError,2),damage:round(result.damage,3),changed,actions:this.pendingActions.slice(),energy,stable:target?bandError===0:false,collapsed:result.collapsed};
+      this.logs.push(log);this.pendingActions=[];this.lastCycle={shiftId:shift.id,mode,params:{...params},output:result.output,integrity:result.integrityAfter};
+      const s=this.shiftStats[shift.id]||(this.shiftStats[shift.id]={cycles:0,stable:0,bestBandError:Infinity,stars:0,complete:false,collapses:0});s.cycles++;if(log.stable)s.stable++;s.bestBandError=Math.min(s.bestBandError,bandError);if(result.collapsed)s.collapses++;
+      return log;
+    }
+    markComplete(id,stars){const s=this.shiftStats[id]||(this.shiftStats[id]={cycles:0,stable:0,bestBandError:Infinity,stars:0,complete:false,collapses:0});s.complete=true;s.stars=Math.max(s.stars,stars)}
+    profile(){
+      const changes=this.singleVarChanges+this.multiVarChanges,isolation=changes?this.singleVarChanges/changes:.5;
+      const satTotal=this.saturationWaste+this.saturationHolds,saturation=satTotal?this.saturationHolds/satTotal:.55;
+      const thermal=this.thermalCollapses===0?.82:clamp((this.replacementsAfterCollapse+0.2)/(this.thermalCollapses+this.coolOnlyAfterCollapse*.7),0,1);
+      const ph=this.phCorrections.length?clamp(1-(this.phCorrections.reduce((a,b)=>a+b,0)/this.phCorrections.length)/4,0,1):.5;
+      const compTotal=this.correctCompetitive+this.wrongCompetitive,nonTotal=this.correctNoncompetitive+this.wrongNoncompetitive;
+      const comp=compTotal?this.correctCompetitive/compTotal:.5,non=nonTotal?this.correctNoncompetitive/nonTotal:.5,inhib=(comp+non)/2;
+      const recovery=this.thermalCollapses?clamp(this.replacementsAfterCollapse/this.thermalCollapses,0,1):.7;
+      return {'Variable Isolation':round(isolation,2),'Saturation Sense':round(saturation,2),'Thermal Boundary':round(thermal,2),'pH Control':round(ph,2),'Inhibitor Strategy':round(inhib,2),'Collapse Recovery':round(recovery,2)};
+    }
+    metrics(){const complete=this.logs.filter(l=>l.mode==='mission'),sandbox=this.logs.filter(l=>l.mode==='sandbox'),stable=complete.filter(l=>l.stable).length;return {cycles:complete.length,sandboxCycles:sandbox.length,totalCycles:this.logs.length,stable,stableRate:complete.length?stable/complete.length:0,collapses:this.thermalCollapses,coolOnlyAfterCollapse:this.coolOnlyAfterCollapse,replacementsAfterCollapse:this.replacementsAfterCollapse,saturationWaste:this.saturationWaste,oneVariable:this.singleVarChanges,multiVariable:this.multiVarChanges}}
+    serialize(){return {logs:this.logs,shiftStats:this.shiftStats,lastCycle:this.lastCycle,singleVarChanges:this.singleVarChanges,multiVarChanges:this.multiVarChanges,saturationWaste:this.saturationWaste,saturationHolds:this.saturationHolds,thermalCollapses:this.thermalCollapses,coolOnlyAfterCollapse:this.coolOnlyAfterCollapse,replacementsAfterCollapse:this.replacementsAfterCollapse,correctCompetitive:this.correctCompetitive,wrongCompetitive:this.wrongCompetitive,correctNoncompetitive:this.correctNoncompetitive,wrongNoncompetitive:this.wrongNoncompetitive,phCorrections:this.phCorrections,adjustments:this.adjustments,pendingActions:this.pendingActions,collapsePending:this.collapsePending}}
+  }
+
+  class RadarChart{constructor(canvas){this.canvas=canvas;this.ctx=canvas.getContext('2d')}render(metrics){const c=this.ctx,pal=canvasPalette(),w=this.canvas.width,h=this.canvas.height,cx=w/2,cy=h/2,r=Math.min(w,h)*.29,keys=Object.keys(metrics),vals=Object.values(metrics),n=keys.length,step=Math.PI*2/n;c.clearRect(0,0,w,h);c.save();c.translate(.5,.5);c.strokeStyle=withAlpha(pal.magenta,.22);c.lineWidth=1;for(let ring=1;ring<=5;ring++){c.beginPath();for(let i=0;i<n;i++){const a=-Math.PI/2+i*step,rr=r*ring/5,x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr;i?c.lineTo(x,y):c.moveTo(x,y)}c.closePath();c.stroke()}c.font=`700 13px ${cssVar('--font-ui','system-ui,sans-serif')}`;c.textAlign='center';c.textBaseline='middle';for(let i=0;i<n;i++){const a=-Math.PI/2+i*step,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;c.beginPath();c.moveTo(cx,cy);c.lineTo(x,y);c.stroke();const lx=cx+Math.cos(a)*(r+60),ly=cy+Math.sin(a)*(r+60),words=keys[i].split(' ');words.forEach((word,j)=>outlinedText(c,word,lx,ly+(j-(words.length-1)/2)*15,pal.ink));c.font=`700 12px ${cssVar('--font-data','ui-monospace,monospace')}`;outlinedText(c,Math.round(vals[i]*100)+'%',lx,ly+((words.length+1)/2)*15,pal.cyan);c.font=`700 13px ${cssVar('--font-ui','system-ui,sans-serif')}`}c.beginPath();vals.forEach((v,i)=>{const a=-Math.PI/2+i*step,rr=r*clamp(v,0,1),x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr;i?c.lineTo(x,y):c.moveTo(x,y)});c.closePath();c.fillStyle=withAlpha(pal.magenta,.2);c.strokeStyle=pal.magenta;c.lineWidth=3;c.fill();c.stroke();vals.forEach((v,i)=>{const a=-Math.PI/2+i*step,rr=r*clamp(v,0,1),x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr;c.beginPath();c.arc(x,y,5,0,Math.PI*2);c.fillStyle=pal.cyan;c.shadowColor=pal.cyan;c.shadowBlur=pal.glow;c.fill();c.shadowBlur=0});c.restore()}}
+  class Synth{
+    constructor(){this.enabled=true;this.ctx=null;this.reactorOsc=null;this.reactorGain=null;this.reactorShape=null;this.lowStim=false}
+    ensure(){if(!this.ctx){const A=window.AudioContext||window.webkitAudioContext;if(A)this.ctx=new A()}if(this.ctx?.state==='suspended')this.ctx.resume()}
+    tone(f=440,d=.08,type='square',g=.03,delay=0){if(!this.enabled)return;this.ensure();if(!this.ctx)return;const t=this.ctx.currentTime+delay,o=this.ctx.createOscillator(),v=this.ctx.createGain();o.type=type;o.frequency.setValueAtTime(f,t);v.gain.setValueAtTime(0,t);v.gain.linearRampToValueAtTime(g,t+.006);v.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(v).connect(this.ctx.destination);o.start(t);o.stop(t+d+.02)}
+    distortionCurve(amount=0){const n=512,curve=new Float32Array(n),k=clamp(amount,0,1)*140;for(let i=0;i<n;i++){const x=i*2/n-1;curve[i]=(3+k)*x*20*Math.PI/180/(Math.PI+k*Math.abs(x))}return curve}
+    startReactor(result){if(!this.enabled||this.lowStim)return;this.ensure();if(!this.ctx||this.reactorOsc)return;const o=this.ctx.createOscillator(),shape=this.ctx.createWaveShaper(),g=this.ctx.createGain();o.type='sine';shape.oversample='2x';shape.curve=this.distortionCurve(1-(result?.integrityAfter??1));g.gain.value=.0001;o.connect(shape).connect(g).connect(this.ctx.destination);o.start();g.gain.setTargetAtTime(.018,this.ctx.currentTime,.04);this.reactorOsc=o;this.reactorShape=shape;this.reactorGain=g;this.updateReactor(result||{output:0,integrityAfter:1},0)}
+    updateReactor(result,progress=0){if(!this.reactorOsc||!this.ctx)return;const freq=90+clamp(result.output||0,0,100)*3.1+Math.sin(progress*Math.PI*2)*6;this.reactorOsc.frequency.setTargetAtTime(freq,this.ctx.currentTime,.035);this.reactorShape.curve=this.distortionCurve(1-clamp(result.integrityAfter??1,0,1));this.reactorGain.gain.setTargetAtTime(.01+.012*clamp(result.output/100,0,1),this.ctx.currentTime,.04)}
+    stopReactor(){if(!this.reactorOsc||!this.ctx)return;const o=this.reactorOsc,g=this.reactorGain;this.reactorOsc=this.reactorGain=this.reactorShape=null;try{g.gain.setTargetAtTime(.0001,this.ctx.currentTime,.025);setTimeout(()=>{try{o.stop()}catch{}},100)}catch{try{o.stop()}catch{}}}
+    setLowStim(on){this.lowStim=!!on;if(on)this.stopReactor()}
+    click(){this.tone(230,.035,'square',.016)}cycle(){this.tone(105,.22,'sawtooth',.03);this.tone(210,.18,'square',.015,.06)}stable(){[392,523,659].forEach((f,i)=>this.tone(f,.16,'square',.024,i*.07))}fail(){this.tone(150,.13,'square',.03);this.tone(80,.28,'sawtooth',.028,.1)}
+  }
+  class Narrator{constructor(enabled=false){this.enabled=!!enabled}speak(text){if(!this.enabled||!text)return;const clean=String(text).replace(/\s+/g,' ').trim(),live=$('#srNarrator');if(live){live.textContent='';requestAnimationFrame(()=>live.textContent=clean)}if(!('speechSynthesis' in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(clean);u.rate=.93;u.pitch=.96;speechSynthesis.speak(u)}stop(){if('speechSynthesis' in window)speechSynthesis.cancel()}}
+
+  function fresh(){return {schema:SCHEMA,currentShift:0,unlocked:1,totalScore:0,stars:0,shiftResults:{},settings:{sound:true,speech:false,contrast:false,iconMode:false,lowStim:false,kineticsPlot:false,theme:'dark'},telemetry:{},savedAt:null}}
+  function load(){try{const x=JSON.parse(localStorage.getItem(STORAGE_KEY));if(!x||!String(x.schema||'').startsWith('enzyme-overdrive-'))return fresh();const f=fresh();return {...f,...x,schema:SCHEMA,settings:{...f.settings,...(x.settings||{})}}}catch{return fresh()}}
+  let state=load(),telemetry=new ReactorTelemetry(state.telemetry),synth=new Synth();synth.enabled=state.settings.sound!==false;const narrator=new Narrator(!!state.settings.speech);
+  let mode='mission',currentShift=clamp(state.currentShift||0,0,SHIFTS.length-1),runtime=null,integrity=1,cycleHistory=[],animation=null,animationDone=null,ecosystemPaused=false,transferCode='',transferPin='',transferEncrypted=true,lastCycleFinishedAt=0,currentReflectionMs=0,kineticsVisible=!!state.settings.kineticsPlot;
+  const canvas=$('#reactorCanvas'),ctx=canvas.getContext('2d'),lbCanvas=$('#lbCanvas'),lbCtx=lbCanvas.getContext('2d');const controls={temperature:$('#temperature'),substrate:$('#substrate'),ph:$('#ph')};
+  const values={temperature:$('#temperatureValue'),substrate:$('#substrateValue'),ph:$('#phValue')};
+
+  function save(){state.currentShift=currentShift;state.telemetry=telemetry.serialize();state.savedAt=new Date().toISOString();try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch{}}
+  function toast(msg){const e=$('#toast');e.textContent=msg;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),2200)}
+  function setConsole(html,spoken=''){const box=$('#console');box.innerHTML='<span>'+html+'</span>';if(narrator.enabled)narrator.speak(spoken||box.textContent)}
+  function renderPrompts(prompts=[]){const root=$('#promptStrip');const unique=[...new Map(prompts.filter(Boolean).map(p=>[p.text,p])).values()].slice(0,2);root.hidden=!unique.length;root.innerHTML=unique.map(p=>`<button class="prompt-chip" type="button" data-spoken="${String(p.spoken||p.text).replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">${p.icon||'◇'} ${p.text}</button>`).join('')}
+  function params(){return {temperature:+controls.temperature.value,substrate:+controls.substrate.value,ph:+controls.ph.value,inhibitorType:$('#inhibitorType').value,inhibitorLevel:+$('#inhibitorLevel').value,q10:+$('#q10').value||2}}
+  function setParams(p){controls.temperature.value=p.temperature;controls.substrate.value=p.substrate;controls.ph.value=p.ph;$('#inhibitorType').value=p.inhibitorType||'none';$('#inhibitorLevel').value=p.inhibitorLevel||0;$('#q10').value=p.q10||2;updateControls()}
+
+  function initShift(index){
+    stopAnimation();renderPrompts([]);mode='mission';currentShift=index;state.currentShift=index;const s=SHIFTS[index];integrity=1;cycleHistory=[];runtime={cycles:0,energy:100,shields:2,cartridges:2,stableStreak:0,complete:false,adjustments:0};setParams({...s.start,q10:2});
+    $('#sandboxControls').classList.remove('show');$('#modeBtn').textContent='OPEN LAB';$('#viewTitle').textContent='REACTOR WINDOW';$('#shiftTitle').textContent=s.name;$('#shiftBrief').textContent=s.brief;$('#shiftNum').textContent=s.number;$('#shiftMeta').innerHTML=[`TARGET ${s.target[0]}–${s.target[1]} MW`,...s.tags].map((t,i)=>`<span class="tag">${i===0?'<strong>BAND</strong> ':''}${t}</span>`).join('');
+    $('#inhibitorType').value=s.start.inhibitorType;$('#inhibitorLevel').value=s.start.inhibitorLevel;updateControls();updateUI();updateShiftButtons();draw();
+    setConsole(`<span class="accent">[SHIFT ${s.number}]</span> Target band <span class="cyan">${s.target[0]}–${s.target[1]} MW</span> for ${s.hold} consecutive cycles. Change one control, then commit the model.`);save();
+  }
+  function initSandbox(){
+    stopAnimation();renderPrompts([]);mode='sandbox';integrity=1;cycleHistory=[];runtime={cycles:0,energy:100,shields:99,cartridges:99,stableStreak:0,complete:false,adjustments:0};setParams({temperature:40,substrate:50,ph:7,inhibitorType:'none',inhibitorLevel:0,q10:2});
+    $('#sandboxControls').classList.add('show');$('#modeBtn').textContent='MISSION MODE';$('#viewTitle').textContent='OPEN FAILURE LAB';$('#shiftTitle').textContent='BOUNDARY SANDBOX';$('#shiftBrief').textContent='Push temperature, pH, substrate, and inhibitor geometry beyond the ideal region. The model preserves irreversible heat damage until the catalyst is replaced.';$('#shiftNum').textContent='∞';$('#shiftMeta').innerHTML=['NO SCORE','FULL RANGE','Q₁₀ CONTROL','MODEL BOUNDARIES'].map(t=>`<span class="tag">${t}</span>`).join('');updateUI();draw();setConsole('<span class="accent">[OPEN LAB]</span> No target band. Alter parameters, commit cycles, and map where output plateaus, distorts, or collapses.');
+  }
+  function updateControls(){const p=params();values.temperature.textContent=Math.round(p.temperature)+'°C';values.substrate.textContent=Math.round(p.substrate)+' mM';values.ph.textContent='pH '+p.ph.toFixed(1);$('#inhibitorValue').textContent=Math.round(p.inhibitorLevel);$('#q10Value').textContent=p.q10.toFixed(1);Object.entries(controls).forEach(([k,e])=>e.setAttribute('aria-valuetext',values[k].textContent));draw()}
+  function updateUI(){
+    const s=SHIFTS[currentShift];$('#energyText').textContent=Math.max(0,runtime.energy);$('#energyFill').style.width=clamp(runtime.energy,0,100)+'%';$('#shieldText').textContent='SHIELD ×'+(mode==='sandbox'?'∞':runtime.shields);$('#cartridgeText').textContent='CORE ×'+(mode==='sandbox'?'∞':runtime.cartridges);
+    $('#cycleDisplay').textContent=mode==='mission'?`CYCLE ${runtime.cycles} / ${s.maxCycles}`:`CYCLE ${runtime.cycles} / ∞`;$('#stabilityHud').textContent=mode==='mission'?`STABILITY ${runtime.stableStreak} / ${s.hold}`:'BOUNDARY FREE';
+    $('#integrityHud').textContent='SITE '+Math.round(integrity*100)+'%';const p=params();$('#inhibitorHud').textContent='CONTAMINANT '+(p.inhibitorType==='none'?'NONE':p.inhibitorType.toUpperCase()+' '+p.inhibitorLevel);
+    $('#runBtn').disabled=ecosystemPaused||runtime.complete||runtime.energy<=0||!!animation;$('#skipBtn').disabled=ecosystemPaused||!animation;$('#shieldBtn').disabled=ecosystemPaused||p.inhibitorType==='none'||p.inhibitorLevel<=0||(mode==='mission'&&runtime.shields<=0)||!!animation;$('#replaceBtn').disabled=ecosystemPaused||(mode==='mission'&&runtime.cartridges<=0)||integrity>=.995||!!animation;$('#resetControlsBtn').disabled=ecosystemPaused;$('#resetLabBtn').disabled=ecosystemPaused;$('#artExportBtn').disabled=ecosystemPaused;Object.values(controls).forEach(e=>e.disabled=ecosystemPaused);$('#inhibitorType').disabled=ecosystemPaused||mode!=='sandbox';$('#inhibitorLevel').disabled=ecosystemPaused||mode!=='sandbox';$('#q10').disabled=ecosystemPaused||mode!=='sandbox';$$('[data-step]').forEach(e=>e.disabled=ecosystemPaused);updateScores();
+  }
+  function updateScores(){const m=telemetry.metrics();$('#totalScore').textContent=String(state.totalScore||0).padStart(4,'0');$('#bestStars').textContent=state.stars||0;$('#stableRate').textContent=m.cycles?Math.round(m.stableRate*100)+'%':'—';$('#unlockText').textContent=`${state.unlocked} / ${SHIFTS.length} OPEN`}
+  function updateShiftButtons(){const root=$('#shiftButtons');root.innerHTML='';SHIFTS.forEach((s,i)=>{const b=document.createElement('button');b.className='shift-btn';b.textContent=s.number;b.title=s.name;b.disabled=i>=state.unlocked;b.classList.toggle('active',mode==='mission'&&i===currentShift);b.classList.toggle('complete',!!state.shiftResults[s.id]?.complete);b.setAttribute('aria-label',`${s.name}${b.disabled?', locked':''}${state.shiftResults[s.id]?.complete?', complete':''}`);b.addEventListener('click',()=>initShift(i));root.appendChild(b)})}
+  function adjust(name){if(ecosystemPaused)return;runtime.adjustments++;runtime.energy=Math.max(0,runtime.energy-1);telemetry.action('adjust-'+name,{to:+controls[name]?.value||0});synth.click();updateUI();save()}
+  Object.entries(controls).forEach(([k,e])=>{e.addEventListener('input',updateControls);e.addEventListener('change',()=>adjust(k))});
+  $$('[data-step]').forEach(b=>b.addEventListener('click',()=>{if(ecosystemPaused)return;const k=b.dataset.step,e=controls[k];e.value=clamp(+e.value+(+e.step)*(+b.dataset.dir),+e.min,+e.max);updateControls();adjust(k)}));
+  $('#inhibitorType').addEventListener('change',()=>{if(ecosystemPaused)return;runtime.adjustments++;runtime.energy=Math.max(0,runtime.energy-1);telemetry.action('adjust-inhibitorType');updateControls();updateUI()});$('#inhibitorLevel').addEventListener('input',updateControls);$('#inhibitorLevel').addEventListener('change',()=>{if(ecosystemPaused)return;runtime.adjustments++;runtime.energy=Math.max(0,runtime.energy-1);telemetry.action('adjust-inhibitorLevel',{to:+$('#inhibitorLevel').value});updateUI()});$('#q10').addEventListener('input',updateControls);$('#q10').addEventListener('change',()=>{if(ecosystemPaused)return;runtime.adjustments++;telemetry.action('adjust-q10',{to:+$('#q10').value});updateUI();save()});
+
+  function shield(){const p=params();if(p.inhibitorType==='none'||p.inhibitorLevel<=0)return;if(mode==='mission')runtime.shields--;runtime.energy=Math.max(0,runtime.energy-8);$('#inhibitorLevel').value=Math.max(0,p.inhibitorLevel-25);telemetry.action('shield',{from:p.inhibitorLevel,to:+$('#inhibitorLevel').value,type:p.inhibitorType});synth.tone(700,.1,'square',.025);synth.tone(980,.1,'square',.02,.08);updateControls();updateUI();setConsole(`<span class="cyan">[SHIELD]</span> Contaminant level reduced from ${p.inhibitorLevel} to ${$('#inhibitorLevel').value}. Geometry remains ${p.inhibitorType}.`);save()}
+  function replace(){if(mode==='mission')runtime.cartridges--;runtime.energy=Math.max(0,runtime.energy-12);integrity=1;telemetry.action('replace');synth.tone(250,.1,'square',.025);synth.tone(500,.16,'square',.025,.08);updateUI();draw();setConsole('<span class="warn">[CORE SWAP]</span> Catalyst replaced. Active-site integrity restored; environmental conditions and contaminants are unchanged.');save()}
+  function resetDials(){const p=mode==='mission'?{...SHIFTS[currentShift].start,q10:2}:{temperature:40,substrate:50,ph:7,inhibitorType:'none',inhibitorLevel:0,q10:2};setParams(p);runtime.energy=Math.max(0,runtime.energy-3);telemetry.action('reset-dials');updateUI();setConsole('<span class="warn">[DIAL RESET]</span> Control values returned to the run starting configuration. Catalyst damage was not repaired.');save()}
+  function resetReactor(){if(ecosystemPaused)return;if(mode==='mission')initShift(currentShift);else initSandbox();setConsole('<span class="cyan">[SAFE RESET]</span> Baseline restored. Existing teacher evidence remains available.','Baseline restored.')}
+
+  function runCycle(){
+    if(ecosystemPaused||runtime.complete||runtime.energy<=0)return;const s=SHIFTS[currentShift],p=params(),before=model(p,integrity,false);currentReflectionMs=lastCycleFinishedAt?Date.now()-lastCycleFinishedAt:0;runtime.cycles++;runtime.energy=Math.max(0,runtime.energy-5);const result=model(p,integrity,true);integrity=result.integrityAfter;synth.cycle();synth.startReactor(result);updateUI();setConsole(`<span class="accent">[CYCLE ${runtime.cycles}]</span> Processing 10 seconds at ${p.temperature}°C, pH ${p.ph.toFixed(1)}, fuel ${p.substrate} mM, Q10 ${p.q10.toFixed(1)}…`);
+    const finish=()=>finishCycle(s,p,before,result);animateCycle(result,finish);save();
+  }
+  function animateCycle(result,done){stopAnimation(false);animationDone=done;$('#skipBtn').disabled=false;if(reduced||document.body.classList.contains('low-stim')){draw(result,1);synth.updateReactor(result,1);animation=setTimeout(()=>{animation=null;synth.stopReactor();done()},120);return}const dur=1700;let last=performance.now(),elapsed=0;const tick=t=>{if(ecosystemPaused){last=t;animation=requestAnimationFrame(tick);return}elapsed+=t-last;last=t;const q=clamp(elapsed/dur,0,1);draw(result,q);synth.updateReactor(result,q);if(q<1)animation=requestAnimationFrame(tick);else{animation=null;synth.stopReactor();done()}};animation=requestAnimationFrame(tick)}
+  function stopAnimation(clear=true){if(typeof animation==='number'){cancelAnimationFrame(animation);clearTimeout(animation)}animation=null;synth.stopReactor();$('#skipBtn').disabled=true;if(clear)animationDone=null}
+  function skip(){if(!animationDone)return;const f=animationDone;stopAnimation(false);animationDone=null;draw(null,1);f()}
+  function finishCycle(s,p,before,result){
+    animationDone=null;cycleHistory.push({output:result.output,integrity:result.integrityAfter,temp:p.temperature,ph:p.ph,substrate:p.substrate});if(cycleHistory.length>14)cycleHistory.shift();const log=telemetry.cycle(s,mode,p,before,result,runtime.cycles,runtime.energy);log.reflectionTime=currentReflectionMs;
+    if(mode==='mission'){
+      const [lo,hi]=s.target,stable=result.output>=lo&&result.output<=hi&&!result.collapsed;runtime.stableStreak=stable?runtime.stableStreak+1:0;
+      if(result.collapsed){synth.fail();setConsole('<span class="bad">[ACTIVE-SITE COLLAPSE]</span> Output is locked near zero. Cooling changes collision energy but cannot rebuild the denatured catalyst.','Active-site collapse. Cooling cannot rebuild the catalyst.');}
+      else if(stable){synth.stable();setConsole(`<span class="good">[STABLE]</span> Output ${result.output.toFixed(1)} MW inside target band. Hold ${runtime.stableStreak} / ${s.hold}. Integrity ${Math.round(integrity*100)}%.`,'Stable output inside target band.');}
+      else setConsole(describeResult(s,p,result));
+      if(runtime.stableStreak>=s.hold)completeShift(result);
+      else if(runtime.cycles>=s.maxCycles||runtime.energy<=0){runtime.energy=Math.max(runtime.energy,20);setConsole('<span class="warn">[EXTENDED RUN]</span> The shift remains open. Use the trace and active-site shape to plan one controlled change.');}
+    }else{
+      setConsole(describeSandbox(p,result));if(result.collapsed)synth.fail();
+    }
+    const prompts=[];
+    if(log.changed.length>1)prompts.push({icon:'◇',text:`VARIABLE CHECK: ${log.changed.join(' + ')} changed together.`,spoken:`Variable check. ${log.changed.join(' and ')} changed together. Isolate one dial before the next cycle.`});
+    if(currentReflectionMs>0&&currentReflectionMs<1200)prompts.push({icon:'⏸',text:'PAUSE CHECK: name 1 cause before recommitting.',spoken:'Pause check. Name one cause before recommitting.'});
+    if(result.collapsed)prompts.push({icon:'△',text:'STRUCTURE CHECK: cooling changes collisions—not lost shape.',spoken:'Structure check. Cooling changes collisions, not lost active-site shape.'});
+    else if(result.saturationGain<2.5&&p.substrate>70)prompts.push({icon:'≋',text:'PLATEAU CHECK: will more fuel change the ceiling?',spoken:'Plateau check. Will more fuel change the ceiling?'});
+    renderPrompts(prompts);lastCycleFinishedAt=Date.now();updateUI();draw();save();
+  }
+  function describeResult(s,p,r){
+    const [lo,hi]=s.target;
+    if(r.output<lo){
+      if(r.integrityAfter<.45)return `<span class="bad">[LOW OUTPUT ${r.output.toFixed(1)} MW]</span> Active-site integrity is ${Math.round(r.integrityAfter*100)}%; cooling alone will not restore lost structure.`;
+      if(r.phFactor<.35)return `<span class="warn">[CHARGE MISMATCH]</span> Output ${r.output.toFixed(1)} MW. The binding pocket is visibly distorted by pH conditions.`;
+      if(p.inhibitorType==='noncompetitive'&&p.inhibitorLevel>0)return `<span class="warn">[CEILING SUPPRESSED]</span> Output ${r.output.toFixed(1)} MW. Extra fuel cannot remove an allosteric lock.`;
+      if(p.inhibitorType==='competitive'&&p.inhibitorLevel>0)return `<span class="warn">[GATE CONTESTED]</span> Output ${r.output.toFixed(1)} MW. Fuel and contaminant are competing for the same pocket.`;
+      if(r.tempFactor<.45)return `<span class="warn">[COLLISION FLOW LOW]</span> Output ${r.output.toFixed(1)} MW. The core is outside the efficient thermal window.`;
+      return `<span class="warn">[UNDER BAND]</span> Output ${r.output.toFixed(1)} MW. Next +20 mM fuel would add only ${r.saturationGain.toFixed(1)} MW.`;
+    }
+    if(r.output>hi)return `<span class="warn">[OVER BAND]</span> Output ${r.output.toFixed(1)} MW. Reduce one driver without crossing a structural boundary.`;
+    return `<span class="cyan">[TRACE]</span> Output ${r.output.toFixed(1)} MW // integrity ${Math.round(r.integrityAfter*100)}% // projected +20 mM fuel gain ${r.saturationGain.toFixed(1)} MW.`;
+  }
+  function describeSandbox(p,r){
+    const parts=[`Output <span class="cyan">${r.output.toFixed(1)} MW</span>`,`integrity ${Math.round(r.integrityAfter*100)}%`,`+20 mM marginal gain ${r.saturationGain.toFixed(1)} MW`];
+    if(r.collapsed&&p.temperature<=47)return `<span class="bad">[IRREVERSIBLE COLLAPSE]</span> The core is cooler, but active-site integrity remains ${Math.round(r.integrityAfter*100)}%. Cooling changed collision energy; it did not rebuild the denatured structure. Replace the catalyst.`;if(r.collapsed)return '<span class="bad">[MODEL FAILURE]</span> Active-site integrity collapsed. Lower temperature to test reversibility, then replace the catalyst to restore structure.';
+    if(r.saturationGain<2.5&&p.substrate>70)parts.push('<span class="warn">saturation plateau</span>');if(r.phFactor<.25)parts.push('<span class="warn">pH distortion</span>');if(r.damage>0)parts.push(`<span class="bad">irreversible damage −${Math.round(r.damage*100)}%</span>`);return '<span class="accent">[BOUNDARY TRACE]</span> '+parts.join(' // ');
+  }
+  function completeShift(result){const s=SHIFTS[currentShift];runtime.complete=true;const stars=runtime.cycles<=3&&runtime.energy>=78&&telemetry.shiftStats[s.id]?.collapses===0?3:runtime.cycles<=5&&runtime.energy>=45?2:1;const score=Math.max(100,stars*750+runtime.energy*5+Math.round(integrity*350));const prev=state.shiftResults[s.id]||{score:0,stars:0};state.totalScore=(state.totalScore||0)-prev.score+Math.max(prev.score,score);state.stars=(state.stars||0)-prev.stars+Math.max(prev.stars,stars);state.shiftResults[s.id]={complete:true,score:Math.max(prev.score,score),stars:Math.max(prev.stars,stars),cycles:runtime.cycles,integrity:round(integrity,2)};telemetry.markComplete(s.id,stars);state.unlocked=Math.max(state.unlocked,Math.min(SHIFTS.length,currentShift+2));$('#completeStars').textContent='★'.repeat(stars)+'☆'.repeat(3-stars);$('#completeTitle').textContent=s.name+' STABLE';$('#completeSummary').textContent=`${runtime.cycles} cycles, ${runtime.energy} energy remaining, active-site integrity ${Math.round(integrity*100)}%, ${score} shift points.`;$('#nextBtn').textContent=currentShift===SHIFTS.length-1?'VIEW FINAL MAP':'NEXT SHIFT';$('#completeDialog').showModal();updateShiftButtons();save()}
+
+  function draw(animResult=null,progress=1){
+    const w=canvas.width,h=canvas.height,p=params(),r=animResult||model(p,integrity,false),pal=canvasPalette();ctx.clearRect(0,0,w,h);const bg=ctx.createRadialGradient(w*.43,h*.42,30,w*.43,h*.42,w*.62);bg.addColorStop(0,pal.low?pal.panel:withAlpha(pal.magenta,.16));bg.addColorStop(.55,pal.panel);bg.addColorStop(1,pal.bg);ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);drawGrid(w,h,pal);
+    const cx=w*.39,cy=h*.39,R=Math.min(w,h)*.27,heat=clamp(p.temperature/90,0,1);ctx.save();ctx.shadowColor=p.temperature>60?pal.red:pal.magenta;ctx.shadowBlur=pal.glow*heat;ctx.strokeStyle='#000';ctx.lineWidth=18;ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);ctx.stroke();ctx.strokeStyle=p.temperature>70?pal.red:pal.line;ctx.lineWidth=13;ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;ctx.fillStyle=withAlpha(p.temperature>60?pal.red:pal.magenta,pal.low?.08:.18+heat*.18);ctx.beginPath();ctx.arc(cx,cy,R-8,0,Math.PI*2);ctx.fill();ctx.restore();
+    drawParticles(cx,cy,R,p,r,progress,pal);drawEnzyme(cx,cy,p,r,progress,pal);drawGauges(w,h,p,r,pal);drawBarrierGraph(w,h,p,r,pal);drawGraph(w,h,pal);if(kineticsVisible)drawLineweaverBurk(p,r,pal);
+  }
+  function drawGrid(w,h,pal){if(pal.low)return;ctx.save();ctx.strokeStyle=withAlpha(pal.magenta,.055);ctx.lineWidth=1;for(let x=0;x<w;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}for(let y=0;y<h;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}ctx.restore()}
+  function drawParticles(cx,cy,R,p,r,progress,pal){
+    let seed=Math.round(p.substrate*17+p.temperature*7+p.ph*13+p.inhibitorLevel*5),rand=()=>{seed=(seed*9301+49297)%233280;return seed/233280};const count=Math.round((pal.low?4:8)+(pal.low?Math.min(8,p.substrate/15):p.substrate/5));ctx.save();for(let i=0;i<count;i++){const a=rand()*Math.PI*2,rr=R*(.35+rand()*.58),orbit=pal.low?0:(progress*Math.PI*2*(.25+r.tempFactor*.5))*(i%2?1:-1),x=cx+Math.cos(a+orbit)*rr,y=cy+Math.sin(a+orbit)*rr*.72;ctx.translate(x,y);ctx.rotate(a+orbit);ctx.fillStyle=pal.cyan;ctx.shadowColor=pal.cyan;ctx.shadowBlur=pal.low?0:5;ctx.beginPath();ctx.moveTo(-5,5);ctx.lineTo(0,-6);ctx.lineTo(5,5);ctx.closePath();ctx.fill();ctx.shadowBlur=0;ctx.setTransform(1,0,0,1,0,0)}
+    const ic=Math.round(p.inhibitorLevel/(pal.low?12:6));for(let i=0;i<ic;i++){const a=rand()*Math.PI*2,rr=R*(.42+rand()*.48),move=pal.low?0:progress*.8,x=cx+Math.cos(a-move)*rr,y=cy+Math.sin(a-move)*rr*.72;ctx.fillStyle=pal.red;ctx.beginPath();if(p.inhibitorType==='competitive'){ctx.rect(x-5,y-5,10,10)}else{ctx.arc(x,y,6,0,Math.PI*2)}ctx.fill()}ctx.restore()}
+  function drawEnzyme(cx,cy,p,r,progress,pal){
+    const d=r.distortion,integ=r.integrityAfter,wave=pal.low?1:1+Math.sin(progress*Math.PI*2)*.025*r.tempFactor;ctx.save();ctx.translate(cx,cy);ctx.scale(wave,1/wave);ctx.shadowColor=integ<.3?pal.red:pal.violet;ctx.shadowBlur=pal.glow;ctx.fillStyle=withAlpha(integ<.3?pal.red:pal.violet,pal.low?.28:.68);ctx.strokeStyle=integ<.3?pal.red:pal.ink;ctx.lineWidth=4;ctx.beginPath();
+    const pts=28;for(let i=0;i<=pts;i++){const a=i/pts*Math.PI*2,noise=Math.sin(a*3+d*3)*12*d+Math.sin(a*5)*4,rad=(92+noise)*(0.72+integ*.28),x=Math.cos(a)*rad,y=Math.sin(a)*(rad*.7+Math.cos(a*2)*d*9);i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.closePath();ctx.fill();ctx.save();ctx.strokeStyle='#000';ctx.lineWidth=8;ctx.stroke();ctx.restore();ctx.stroke();ctx.shadowBlur=0;
+    const pocketX=48+d*10,pocketY=-10,open=clamp(28-(1-r.phFactor)*18-(1-integ)*20,5,30);ctx.globalCompositeOperation='destination-out';ctx.beginPath();ctx.arc(pocketX,pocketY,open,Math.PI*.55,Math.PI*1.45);ctx.lineTo(110,-48);ctx.lineTo(110,35);ctx.closePath();ctx.fill();ctx.globalCompositeOperation='source-over';ctx.strokeStyle=pal.cyan;ctx.lineWidth=3;ctx.beginPath();ctx.arc(pocketX,pocketY,open,Math.PI*.58,Math.PI*1.42);ctx.stroke();
+    if(p.inhibitorType==='competitive'&&p.inhibitorLevel>0){ctx.fillStyle=pal.red;ctx.shadowColor=pal.red;ctx.shadowBlur=pal.low?0:10;ctx.fillRect(pocketX+open-4,-16,18,18);ctx.shadowBlur=0}
+    if(p.inhibitorType==='noncompetitive'&&p.inhibitorLevel>0){ctx.fillStyle=pal.red;ctx.shadowColor=pal.red;ctx.shadowBlur=pal.low?0:10;ctx.beginPath();ctx.arc(-58,38,11,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.strokeStyle=pal.red;ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(-48,30);ctx.lineTo(30,-4);ctx.stroke();ctx.setLineDash([])}
+    if(integ<.15){ctx.strokeStyle=pal.red;ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(-62,-48);ctx.lineTo(65,52);ctx.moveTo(60,-50);ctx.lineTo(-68,48);ctx.stroke()}
+    ctx.restore();ctx.font=`700 12px ${cssVar('--font-ui','system-ui,sans-serif')}`;ctx.textAlign='center';outlinedText(ctx,'ACTIVE-SITE MODEL',cx,cy+135,pal.ink);outlinedText(ctx,Math.round(integ*100)+'% STRUCTURAL INTEGRITY',cx,cy+153,integ<.3?pal.red:pal.cyan);
+  }
+  function drawGauges(w,h,p,r,pal){const x=w*.72,y=74,gW=w*.23;ctx.fillStyle=withAlpha(pal.panel,.88);ctx.strokeStyle=pal.line;ctx.lineWidth=2;roundRect(ctx,x-22,y-38,gW+44,250,16);ctx.fill();ctx.stroke();ctx.font=`700 12px ${cssVar('--font-ui','system-ui,sans-serif')}`;ctx.textAlign='left';outlinedText(ctx,'REACTOR TELEMETRY',x,y-12,pal.magenta);gauge('OUTPUT',r.output,100,x,y+18,gW,r.output>80?pal.red:pal.green,' MW',pal);gauge('SITE',r.integrityAfter*100,100,x,y+72,gW,r.integrityAfter<.3?pal.red:pal.violet,'%',pal);gauge('BINDING',r.substrateFactor*100,100,x,y+126,gW,pal.cyan,'%',pal);gauge('pH FIT',r.phFactor*100,100,x,y+180,gW,pal.amber,'%',pal);ctx.font=`11px ${cssVar('--font-data','ui-monospace,monospace')}`;ctx.textAlign='left';outlinedText(ctx,'MARGINAL +20 mM: '+r.saturationGain.toFixed(1)+' MW',x,y+207,pal.muted)}
+  function drawBarrierGraph(w,h,p,r,pal){const x=w*.72,y=318,gW=w*.23,gH=60;ctx.fillStyle=withAlpha(pal.panel,.9);ctx.strokeStyle=pal.line;ctx.lineWidth=2;roundRect(ctx,x-22,y-28,gW+44,gH+52,14);ctx.fill();ctx.stroke();ctx.font=`700 11px ${cssVar('--font-ui','system-ui,sans-serif')}`;ctx.textAlign='left';outlinedText(ctx,'ACTIVATION ENERGY BARRIER',x,y-7,pal.magenta);const base=y+gH,peakRef=y+8,peakCat=y+gH*(.22+.48*r.catalystStrength);ctx.strokeStyle=withAlpha(pal.amber,.58);ctx.setLineDash([5,5]);ctx.lineWidth=2;ctx.beginPath();for(let i=0;i<=40;i++){const q=i/40,yy=base-(base-peakRef)*Math.sin(Math.PI*q);i?ctx.lineTo(x+q*gW,yy):ctx.moveTo(x,yy)}ctx.stroke();ctx.setLineDash([]);ctx.strokeStyle=r.catalystStrength<.3?pal.red:pal.cyan;ctx.lineWidth=3;ctx.beginPath();for(let i=0;i<=40;i++){const q=i/40,yy=base-(base-peakCat)*Math.sin(Math.PI*q);i?ctx.lineTo(x+q*gW,yy):ctx.moveTo(x,yy)}ctx.stroke();ctx.fillStyle=pal.muted;ctx.font=`10px ${cssVar('--font-data','ui-monospace,monospace')}`;outlinedText(ctx,`Ea ${r.eaCatalysed.toFixed(0)} // Q10 ${r.q10.toFixed(1)} @ ${r.Tref}°C`,x,y+gH+15,pal.muted);ctx.textAlign='right';ctx.fillStyle=pal.amber;ctx.font=`700 9px ${cssVar('--font-ui','system-ui,sans-serif')}`;outlinedText(ctx,'REFERENCE',x+gW,y+8,pal.amber,'right');ctx.textAlign='left'}
+  function gauge(label,value,max,x,y,w,color,suffix,pal){ctx.font=`700 11px ${cssVar('--font-ui','system-ui,sans-serif')}`;ctx.textAlign='left';outlinedText(ctx,label,x,y,pal.muted);ctx.font=`700 11px ${cssVar('--font-data','ui-monospace,monospace')}`;ctx.textAlign='right';outlinedText(ctx,value.toFixed(1)+suffix,x+w,y,color,'right');ctx.fillStyle=pal.bg;ctx.fillRect(x,y+9,w,10);ctx.fillStyle=color;ctx.fillRect(x,y+9,w*clamp(value/max,0,1),10)}
+  function drawGraph(w,h,pal){const x=48,y=h-114,gW=w-96,gH=72;ctx.fillStyle=withAlpha(pal.panel,.88);ctx.strokeStyle=pal.line;roundRect(ctx,x-12,y-26,gW+24,gH+48,12);ctx.fill();ctx.stroke();ctx.font=`700 11px ${cssVar('--font-ui','system-ui,sans-serif')}`;ctx.textAlign='left';outlinedText(ctx,'OUTPUT TRACE // RECENT COMMITTED CYCLES',x,y-8,pal.muted);ctx.strokeStyle=withAlpha(pal.ink,.1);for(let i=0;i<=4;i++){const yy=y+gH*i/4;ctx.beginPath();ctx.moveTo(x,yy);ctx.lineTo(x+gW,yy);ctx.stroke()}if(mode==='mission'){const [lo,hi]=SHIFTS[currentShift].target;ctx.fillStyle=withAlpha(pal.green,.09);ctx.fillRect(x,y+gH*(1-hi/100),gW,gH*(hi-lo)/100)}if(!cycleHistory.length){outlinedText(ctx,'NO CYCLES COMMITTED',x+10,y+38,pal.dim);return}ctx.strokeStyle=pal.magenta;ctx.lineWidth=3;ctx.beginPath();cycleHistory.forEach((d,i)=>{const px=x+(cycleHistory.length===1?0:i/(Math.max(1,cycleHistory.length-1)))*gW,py=y+gH*(1-d.output/100);i?ctx.lineTo(px,py):ctx.moveTo(px,py)});ctx.stroke();cycleHistory.forEach((d,i)=>{const px=x+(cycleHistory.length===1?0:i/(Math.max(1,cycleHistory.length-1)))*gW,py=y+gH*(1-d.output/100);ctx.fillStyle=d.integrity<.15?pal.red:pal.cyan;ctx.beginPath();ctx.arc(px,py,4,0,Math.PI*2);ctx.fill()})}
+  function drawLineweaverBurk(p,r,pal=canvasPalette()){
+    const c=lbCtx,w=lbCanvas.width,h=lbCanvas.height,left=58,right=18,top=38,bottom=50,plotW=w-left-right,plotH=h-top-bottom,xMin=-.065,xMax=.20;
+    const ref={label:'NO INHIBITOR',km:r.Km,vmax:Math.max(4,r.vmaxBase),color:pal.amber},cur={label:'CURRENT',km:r.apparentKm,vmax:Math.max(4,r.vmaxApp),color:p.inhibitorType==='none'?pal.cyan:pal.magenta};
+    const lines=[ref,cur],at=(line,x)=>(line.km/line.vmax)*x+1/line.vmax,yMax=Math.max(.075,...lines.map(line=>at(line,xMax)))*1.12;
+    const X=x=>left+(x-xMin)/(xMax-xMin)*plotW,Y=y=>top+plotH-(y/yMax)*plotH;c.clearRect(0,0,w,h);c.fillStyle=pal.bg;c.fillRect(0,0,w,h);
+    c.strokeStyle=withAlpha(pal.ink,.16);c.lineWidth=1;for(let i=0;i<=5;i++){const y=top+plotH*i/5;c.beginPath();c.moveTo(left,y);c.lineTo(w-right,y);c.stroke()}
+    const x0=X(0),y0=Y(0);c.strokeStyle='#000';c.lineWidth=6;c.beginPath();c.moveTo(left,y0);c.lineTo(w-right,y0);c.moveTo(x0,top);c.lineTo(x0,top+plotH);c.stroke();c.strokeStyle=pal.ink;c.lineWidth=2;c.beginPath();c.moveTo(left,y0);c.lineTo(w-right,y0);c.moveTo(x0,top);c.lineTo(x0,top+plotH);c.stroke();
+    lines.forEach((line,index)=>{c.strokeStyle='#000';c.lineWidth=7;c.beginPath();c.moveTo(X(xMin),Y(at(line,xMin)));c.lineTo(X(xMax),Y(at(line,xMax)));c.stroke();c.strokeStyle=line.color;c.lineWidth=index?4:3;c.setLineDash(index?[]:[8,6]);c.beginPath();c.moveTo(X(xMin),Y(at(line,xMin)));c.lineTo(X(xMax),Y(at(line,xMax)));c.stroke();c.setLineDash([]);c.fillStyle=line.color;c.beginPath();c.arc(X(-1/line.km),y0,5,0,Math.PI*2);c.fill();c.beginPath();c.arc(x0,Y(1/line.vmax),5,0,Math.PI*2);c.fill()});
+    c.font=`700 13px ${cssVar('--font-ui','system-ui,sans-serif')}`;c.textAlign='left';outlinedText(c,'1/v',8,top+8,pal.ink);c.textAlign='right';outlinedText(c,'1/[S]',w-8,h-12,pal.ink,'right');c.font=`700 11px ${cssVar('--font-data','ui-monospace,monospace')}`;outlinedText(c,`CURRENT  Km ${r.apparentKm.toFixed(1)}  Vmax ${r.vmaxApp.toFixed(1)}`,w-14,20,cur.color,'right');outlinedText(c,`REFERENCE Km ${r.Km.toFixed(1)}  Vmax ${r.vmaxBase.toFixed(1)}`,w-14,35,ref.color,'right');
+    const note=p.inhibitorType==='competitive'?'<strong>Competitive:</strong> steeper slope with the same y-intercept — apparent K<sub>m</sub> rises while V<sub>max</sub> is preserved.':p.inhibitorType==='noncompetitive'?'<strong>Non-competitive:</strong> the y-intercept rises — effective V<sub>max</sub> falls, so extra substrate cannot restore the original ceiling.':'<strong>No inhibitor:</strong> current and reference lines coincide. Add a contaminant in Open Lab to separate them.';$('#kineticsInterpretation').innerHTML=note;lbCanvas.setAttribute('aria-label',`Lineweaver-Burk plot. Apparent K m ${r.apparentKm.toFixed(1)}. Effective V max ${r.vmaxApp.toFixed(1)}. ${$('#kineticsInterpretation').textContent}`);
+  }
+  function setKineticsVisible(on,announce=false){kineticsVisible=!!on;state.settings.kineticsPlot=kineticsVisible;$('#kineticsPanel').hidden=!kineticsVisible;$('#kineticsPanel').closest('.canvas-wrap')?.classList.toggle('kinetics-open',kineticsVisible);$('#kineticsBtn').setAttribute('aria-pressed',String(kineticsVisible));if(kineticsVisible)drawLineweaverBurk(params(),model(params(),integrity,false),canvasPalette());if(announce)toast(kineticsVisible?'Double-reciprocal plot opened':'Double-reciprocal plot closed');save()}
+  function roundRect(c,x,y,w,h,r){c.beginPath();c.roundRect?c.roundRect(x,y,w,h,r):c.rect(x,y,w,h)}
+  function outlinedText(c,text,x,y,fill,align=c.textAlign){c.save();c.textAlign=align;c.lineJoin='round';c.strokeStyle='#000';c.lineWidth=4;c.strokeText(String(text),x,y);c.fillStyle=fill;c.fillText(String(text),x,y);c.restore()}
+
+  function openTeacher(){const profile=telemetry.profile(),m=telemetry.metrics();new RadarChart($('#radarCanvas')).render(profile);$('#metricCards').innerHTML=[['Mission cycles',m.cycles],['Stable cycles',m.stable],['One-variable changes',m.oneVariable],['Multi-variable changes',m.multiVariable],['Heat collapses',m.collapses],['Fuel increases at plateau',m.saturationWaste]].map(([a,b])=>`<div class="metric"><b>${b}</b><span>${a}</span></div>`).join('');const say=(k,hi,mid,lo)=>profile[k]>=.75?hi:profile[k]>=.45?mid:lo;$('#interpretation').innerHTML=`<p><strong>Variable isolation:</strong> ${say('Variable Isolation','Most cycles changed one factor, so cause-and-effect evidence was clear.','The learner alternated between controlled tests and multi-factor changes.','Many cycles changed several factors together; prompt a one-variable prediction before committing.')}</p><p><strong>Saturation:</strong> ${say('Saturation Sense','The learner generally stopped increasing substrate once marginal gain was small.','The plateau was partly recognised but some extra fuel was added.','Repeated substrate increases continued after active-site saturation; compare output gain per equal fuel step.')}</p><p><strong>Thermal boundary:</strong> ${say('Thermal Boundary','The learner respected or correctly recovered from irreversible heat damage.','Heat damage was encountered with mixed recovery choices.','Cooling was sometimes treated as if it could rebuild denatured enzyme; contrast temperature reduction with catalyst replacement.')}</p><p><strong>Inhibitors:</strong> ${say('Inhibitor Strategy','Responses distinguished active-site competition from allosteric suppression.','Some inhibitor responses matched the model while others were ambiguous.','The same response was often used for both inhibitor geometries; replay shifts 05 and 06 side by side.')}</p>`;$('#shiftEvidence').innerHTML=SHIFTS.map(s=>{const d=telemetry.shiftStats[s.id]||{};return `<tr><td>${s.number}</td><td>${d.cycles||0}</td><td>${Number.isFinite(d.bestBandError)?d.bestBandError.toFixed(1)+' MW':'—'}</td><td>${d.stars||0}</td><td>${d.complete?'STABLE':'OPEN'}</td></tr>`}).join('');$('#cycleEvidence').innerHTML=telemetry.logs.slice(-35).reverse().map(l=>`<tr><td>${l.id}</td><td>${l.shiftId.toUpperCase()}</td><td>${l.params.temperature}°C</td><td>${l.params.ph.toFixed(1)}</td><td>${l.params.substrate}</td><td>${l.output.toFixed(1)}</td><td>${Math.round(l.integrityAfter*100)}%</td><td>${l.changed.length?l.changed.join(', '):'baseline'}</td></tr>`).join('')||'<tr><td colspan="8">No cycles recorded.</td></tr>';$('#teacherDialog').showModal();generateTransferQR()}
+  function canonicalCompetencies(){const p=telemetry.profile(),mean=(...v)=>round(v.reduce((a,b)=>a+(Number(b)||0),0)/v.length,2);return {'Variable Isolation':p['Variable Isolation'],'Scale Interpolation':mean(p['pH Control'],p['Saturation Sense']),'Systemic Troubleshooting':mean(p['Inhibitor Strategy'],p['Collapse Recovery']),'Boundary Control':mean(p['Thermal Boundary'],p['Saturation Sense']),'Failure Reflection':p['Collapse Recovery'],'Resource Control':p['Saturation Sense']}}
+  function telemetryPacket(){const p=params(),m=telemetry.metrics(),flags=(Object.values(state.shiftResults||{}).some(v=>v?.complete)?1:0)|(state.settings.lowStim?2:0)|(integrity<.15?4:0);return packTelemetryV3({appCode:2,axes:canonicalCompetencies(),primary:p.temperature*100,secondary:p.substrate*10,tertiary:p.ph/14*255,events:m.totalCycles,success:m.stableRate||0,flags})}
+  function payload(){return {schema:SCHEMA,telemetrySchema:TELEMETRY_SCHEMA,app:APP_ID,appId:APP_ID,appVersion:APP_VERSION,exportedAt:new Date().toISOString(),privacy:'local-only; no identifiers',summary:telemetry.metrics(),profile:canonicalCompetencies(),competencies:canonicalCompetencies(),appProfile:telemetry.profile(),shiftStats:telemetry.shiftStats,cycles:telemetry.logs,protocol:{packetBytes:16,qrPrefix:'MBM3',axes:TELEMETRY_AXES}}}
+  async function makeTransferBundle(){const pin=String(Math.floor(100000+Math.random()*900000)),out=await encryptTransferPayload(telemetryPacket(),pin);return {code:out.code,encrypted:out.encrypted,pin:out.encrypted?pin:'',packetBytes:16}}
+  async function generateTransferQR(){const canvas=$('#transferQrCanvas');$('#transferStatus').textContent='Preparing compact evidence locally…';try{const bundle=await makeTransferBundle();transferCode=bundle.code;transferPin=bundle.pin;transferEncrypted=bundle.encrypted;$('#transferPin').textContent=bundle.encrypted?bundle.pin.slice(0,3)+' '+bundle.pin.slice(3):'NOT USED';const q=drawTransferQR(canvas,transferCode);$('#transferStatus').textContent=bundle.encrypted?`MBM3 16-byte packet • AES-GCM • ${transferCode.length} characters • QR ${q.modules}×${q.modules}. Keep the PIN separate.`:`MBM3U UNENCRYPTED OFFLINE MODE • 16-byte packet • QR ${q.modules}×${q.modules}. Use only for deliberate same-room hand-off.`;$('#transferModeNotice').innerHTML=bundle.encrypted?'<strong>Secure mode:</strong> the fixed 16-byte mbm-telemetry-v3.0 packet is AES-GCM encrypted with a separate six-digit PIN.':'<strong>Unencrypted Offline Mode:</strong> WebCrypto is unavailable. The MBM3U bit-packed QR is readable by anyone who scans it.'}catch(e){transferCode='';$('#transferStatus').textContent='QR could not be generated: '+e.message;const c=canvas.getContext('2d');c.fillStyle='#fff';c.fillRect(0,0,canvas.width,canvas.height);c.fillStyle='#111';c.font='28px sans-serif';c.fillText('QR unavailable',50,95)}}
+  async function copyTransfer(){if(!transferCode){await generateTransferQR();if(!transferCode)return toast('QR unavailable here; use the JSON export')}try{await navigator.clipboard.writeText(transferCode);toast(transferEncrypted?'Encrypted QR transfer code copied':'Unencrypted offline transfer code copied')}catch{toast('Clipboard unavailable; scan the QR symbol')}}
+  function saveTransferQR(){if(!transferCode)return;const a=document.createElement('a');a.href=$('#transferQrCanvas').toDataURL('image/png');a.download='enzyme-overdrive-'+(transferEncrypted?'encrypted':'offline')+'-qr-'+new Date().toISOString().slice(0,10)+'.png';a.click();toast('QR image saved')}
+  async function exportArtSVG(){const bundle=await makeTransferBundle(),p=params(),r=model(p,integrity,false),W=1400,H=1000,cx=650,cy=470,pts=[];for(let i=0;i<=180;i++){const a=i/180*Math.PI*2,noise=Math.sin(a*3+r.distortion*3)*95*r.distortion+Math.sin(a*5)*28,rad=(280+noise)*(.72+r.integrityAfter*.28),x=cx+Math.cos(a)*rad,y=cy+Math.sin(a)*(rad*.7+Math.cos(a*2)*r.distortion*70);pts.push(`${x.toFixed(1)},${y.toFixed(1)}`)}const particles=Array.from({length:Math.round(20+p.substrate/3)},(_,i)=>{const a=i*2.399963,rr=150+(i%11)*34,x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr*.7;return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${4+(i%4)}" fill="none" stroke="hsl(${175+i*7} 75% 52%)" stroke-width="3"/>`}).join('');const metadata=`<metadata id="mbm-eval" data-format="${bundle.encrypted?'MBM3':'MBM3U'}" data-app="${APP_ID}" data-schema="${TELEMETRY_SCHEMA}"><![CDATA[${bundle.code}]]></metadata>`,svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><title>ENZYME OVERDRIVE biomorphic evidence map</title>${metadata}<rect width="100%" height="100%" fill="#fff7fb"/><g opacity=".22" stroke="#8a4d78">${Array.from({length:24},(_,i)=>`<path d="M0 ${i*44}H1400"/>`).join('')}</g>${particles}<polygon points="${pts.join(' ')}" fill="hsl(${300-r.distortion*60} 70% 70% / .48)" stroke="#6a2d71" stroke-width="7"/><path d="M110 870 C 320 ${870-r.eaReference*5}, 490 ${870-r.eaReference*5}, 700 870" fill="none" stroke="#c89b2d" stroke-width="5" stroke-dasharray="14 12"/><path d="M700 870 C 910 ${870-r.eaCatalysed*5}, 1080 ${870-r.eaCatalysed*5}, 1290 870" fill="none" stroke="#07877f" stroke-width="8"/><text x="70" y="80" font-family="monospace" font-size="34" fill="#421332">ENZYME//OVERDRIVE BIOMORPHIC MAP</text><text x="70" y="125" font-family="monospace" font-size="22" fill="#745364">T ${p.temperature}°C · pH ${p.ph.toFixed(1)} · substrate ${p.substrate} mM · Q10 ${p.q10.toFixed(1)} · integrity ${Math.round(r.integrityAfter*100)}% · EMBEDDED MBM EVIDENCE</text></svg>`;downloadBlob(svg,'image/svg+xml','enzyme-overdrive-biomorphic-'+new Date().toISOString().slice(0,10)+'.svg');transferCode=bundle.code;transferPin=bundle.pin;transferEncrypted=bundle.encrypted;const key=bundle.encrypted?bundle.pin.slice(0,3)+' '+bundle.pin.slice(3):'NOT REQUIRED';setConsole(bundle.encrypted?`<span class="accent">[ART BUNDLE]</span> Biomorphic artwork saved with encrypted evidence metadata. Portfolio key <span class="warn">${key}</span>.`:`<span class="warn">[ART BUNDLE // UNENCRYPTED]</span> Biomorphic artwork saved with compact evidence metadata. No key is required.`);toast(bundle.encrypted?`Art SVG saved • portfolio key ${key}`:'Art SVG saved • unencrypted offline metadata')}
+  async function exportWorksheetSVG(){
+    const bundle=await makeTransferBundle(),p=params(),r=model(p,integrity,false),W=1400,H=1000,cx=350,cy=380,pts=[];for(let i=0;i<=120;i++){const a=i/120*Math.PI*2,noise=Math.sin(a*3+r.distortion*3)*42*r.distortion+Math.sin(a*5)*12,rad=(180+noise)*(.72+r.integrityAfter*.28),x=cx+Math.cos(a)*rad,y=cy+Math.sin(a)*(rad*.7+Math.cos(a*2)*r.distortion*30);pts.push(`${x.toFixed(1)},${y.toFixed(1)}`)}
+    const x0=790,y0=490,pw=500,ph=310,xMin=-.065,xMax=.20,refV=Math.max(4,r.vmaxBase),curV=Math.max(4,r.vmaxApp),at=(km,v,x)=>(km/v)*x+1/v,yMax=Math.max(.075,at(r.Km,refV,xMax),at(r.apparentKm,curV,xMax))*1.12,X=x=>x0+(x-xMin)/(xMax-xMin)*pw,Y=y=>y0-y/yMax*ph;
+    const metadata=`<metadata id="mbm-eval" data-format="${bundle.encrypted?'MBM3':'MBM3U'}" data-app="${APP_ID}" data-schema="${TELEMETRY_SCHEMA}"><![CDATA[${bundle.code}]]></metadata>`;
+    const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><title>ENZYME OVERDRIVE worksheet print</title>${metadata}<rect width="100%" height="100%" fill="#fff"/><style>text{font-family:Arial,system-ui,sans-serif;fill:#111}.data{font-family:ui-monospace,monospace}.axis{stroke:#111;stroke-width:3}.guide{stroke:#777;stroke-width:1}.label{font-size:20px}.small{font-size:16px}</style><text x="70" y="70" font-size="34" font-weight="700">ENZYME//OVERDRIVE — KINETICS WORKSHEET</text><text class="data small" x="70" y="108">T ${p.temperature}°C · pH ${p.ph.toFixed(1)} · [S] ${p.substrate} mM · inhibitor ${p.inhibitorType} ${p.inhibitorLevel} · integrity ${Math.round(r.integrityAfter*100)}%</text><text class="label" x="70" y="155" font-weight="700">1. Active-site structure and activation-energy pathway</text><polygon points="${pts.join(' ')}" fill="#f4dbea" stroke="#111" stroke-width="5"/><path d="M110 660 C220 ${660-r.eaReference*4.4},420 ${660-r.eaReference*4.4},620 660" fill="none" stroke="#777" stroke-width="4" stroke-dasharray="12 9"/><path d="M110 660 C220 ${660-r.eaCatalysed*4.4},420 ${660-r.eaCatalysed*4.4},620 660" fill="none" stroke="#111" stroke-width="6"/><text class="small" x="110" y="700">Label: substrate · active site · catalyst pathway · uncatalysed pathway</text><text class="label" x="760" y="155" font-weight="700">2. Lineweaver–Burk: 1/v against 1/[S]</text><line class="axis" x1="${x0}" y1="${Y(0)}" x2="${x0+pw}" y2="${Y(0)}"/><line class="axis" x1="${X(0)}" y1="${y0-ph}" x2="${X(0)}" y2="${y0}"/><line x1="${X(xMin)}" y1="${Y(at(r.Km,refV,xMin))}" x2="${X(xMax)}" y2="${Y(at(r.Km,refV,xMax))}" stroke="#777" stroke-width="4" stroke-dasharray="12 9"/><line x1="${X(xMin)}" y1="${Y(at(r.apparentKm,curV,xMin))}" x2="${X(xMax)}" y2="${Y(at(r.apparentKm,curV,xMax))}" stroke="#111" stroke-width="6"/><text class="small data" x="790" y="535">Reference: Km ${r.Km.toFixed(1)}, Vmax ${r.vmaxBase.toFixed(1)}</text><text class="small data" x="790" y="562">Current: Km ${r.apparentKm.toFixed(1)}, Vmax ${r.vmaxApp.toFixed(1)}</text><text class="small" x="790" y="600">Circle the intercept that changes. Explain what that means for inhibition.</text><text class="label" x="70" y="790" font-weight="700">Prediction before the next cycle:</text><line class="guide" x1="390" y1="785" x2="1320" y2="785"/><text class="label" x="70" y="855" font-weight="700">Evidence from both plots:</text><line class="guide" x1="340" y1="850" x2="1320" y2="850"/><text class="label" x="70" y="920" font-weight="700">Next single-variable change:</text><line class="guide" x1="360" y1="915" x2="1320" y2="915"/></svg>`;downloadBlob(svg,'image/svg+xml','enzyme-overdrive-worksheet-'+new Date().toISOString().slice(0,10)+'.svg');transferCode=bundle.code;transferPin=bundle.pin;transferEncrypted=bundle.encrypted;toast('Printable kinetics worksheet SVG saved')
+  }
+  function applyTheme(theme='dark'){state.settings.theme=theme;document.body.classList.toggle('light-theme',theme==='light');document.body.classList.toggle('high-contrast',theme==='high-contrast');state.settings.contrast=theme==='high-contrast';$('#contrastBtn').setAttribute('aria-pressed',String(state.settings.contrast));draw();save()}
+  function applyLowStim(on,announce=false){state.settings.lowStim=!!on;document.body.classList.toggle('low-stim',!!on);$('#focusBtn').setAttribute('aria-pressed',String(!!on));synth.setLowStim(!!on);draw();if(announce)toast(on?'Low-stimulus high-focus mode on':'Full visual mode restored');save()}
+  function setEcosystemPaused(paused){ecosystemPaused=!!paused;document.body.classList.toggle('ecosystem-paused',ecosystemPaused);if(ecosystemPaused){synth.stopReactor();narrator.stop()}updateUI();setConsole(ecosystemPaused?'<span class="warn">[DECK HOLD]</span> Reactor controls paused by the lesson deck.':'<span class="cyan">[DECK RELEASE]</span> Reactor controls restored.',ecosystemPaused?'Reactor paused.':'Reactor restored.')}
+  function respondToMessage(event,type,payload={}){try{event.source?.postMessage({type,app:APP_ID,version:APP_VERSION,...payload},event.origin==='null'?'*':event.origin)}catch{try{window.parent.postMessage({type,app:APP_ID,version:APP_VERSION,...payload},'*')}catch{}}}
+  window.addEventListener('message',event=>{const d=event.data||{};if(typeof d!=='object')return;if(d.type==='mbm-set-theme'){applyTheme(d.theme||'dark');respondToMessage(event,'mbm-theme-applied',{theme:d.theme||'dark',requestId:d.requestId})}else if(d.type==='mbm-set-focus'){applyLowStim(d.enabled!==false);respondToMessage(event,'mbm-focus-applied',{enabled:state.settings.lowStim,requestId:d.requestId})}else if(d.type==='mbm-pause-all'){setEcosystemPaused(d.paused!==false);respondToMessage(event,'mbm-pause-applied',{paused:ecosystemPaused,requestId:d.requestId})}else if(d.type==='mbm-export-all'){save();respondToMessage(event,'mbm-export-response',{requestId:d.requestId,payload:payload()})}});
+  function download(){const b=new Blob([JSON.stringify(payload(),null,2)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='enzyme-overdrive-session-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),500);toast('JSON session exported')}
+  async function copy(){const t=btoa(unescape(encodeURIComponent(JSON.stringify(payload()))));try{await navigator.clipboard.writeText(t);toast('Base64 session code copied')}catch{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();toast('Base64 session code copied')}}
+  function erase(){if(!confirm('Erase all ENZYME//OVERDRIVE progress and local cycle observations from this browser?'))return;localStorage.removeItem(STORAGE_KEY);state=fresh();location.reload()}
+
+  let clicks=0,timer;$('#logo').addEventListener('click',()=>{clicks++;clearTimeout(timer);timer=setTimeout(()=>clicks=0,700);if(clicks>=3){clicks=0;openTeacher()}});document.addEventListener('keydown',e=>{if(e.altKey&&e.shiftKey&&e.key.toLowerCase()==='d'){e.preventDefault();openTeacher()}else if(!e.altKey&&!e.ctrlKey&&!e.metaKey&&e.key.toLowerCase()==='r'&&!document.querySelector('dialog[open]')){e.preventDefault();resetReactor()}});
+  $('#modeBtn').addEventListener('click',()=>{if(!ecosystemPaused)(mode==='mission'?initSandbox():initShift(currentShift))});$('#kineticsBtn').addEventListener('click',()=>setKineticsVisible(!kineticsVisible,true));$('#soundBtn').addEventListener('click',e=>{synth.enabled=!synth.enabled;state.settings.sound=synth.enabled;if(!synth.enabled)synth.stopReactor();e.currentTarget.setAttribute('aria-pressed',String(synth.enabled));e.currentTarget.innerHTML=(synth.enabled?'♪':'×')+' <span class="label-hide">SOUND</span>';if(synth.enabled)synth.click();save()});$('#speechBtn').addEventListener('click',e=>{narrator.enabled=!narrator.enabled;state.settings.speech=narrator.enabled;e.currentTarget.setAttribute('aria-pressed',String(narrator.enabled));e.currentTarget.innerHTML=(narrator.enabled?'◉':'◖')+' <span class="label-hide">VOICE</span>';narrator.speak(narrator.enabled?'Audio descriptions on.':'');save()});$('#iconModeBtn').addEventListener('click',e=>{state.settings.iconMode=!state.settings.iconMode;document.body.classList.toggle('icon-mode',state.settings.iconMode);e.currentTarget.setAttribute('aria-pressed',String(state.settings.iconMode));save()});$('#focusBtn').addEventListener('click',()=>applyLowStim(!state.settings.lowStim,true));$('#contrastBtn').addEventListener('click',()=>applyTheme(document.body.classList.contains('high-contrast')?'dark':'high-contrast'));$('#systemBtn').addEventListener('click',()=>toast('Local conceptual model online // no network required'));$('#helpBtn').addEventListener('click',()=>$('#helpDialog').showModal());$('#dataInfoBtn').addEventListener('click',()=>$('#dataDialog').showModal());$('#modelBtn').addEventListener('click',()=>{$('#helpDialog').close();$('#modelDialog').showModal()});$$('[data-close]').forEach(b=>b.addEventListener('click',()=>$('#'+b.dataset.close).close()));
+  $('#promptStrip').addEventListener('click',e=>{const b=e.target.closest('.prompt-chip');if(b)narrator.speak(b.dataset.spoken||b.textContent)});
+  $('#runBtn').addEventListener('click',runCycle);$('#skipBtn').addEventListener('click',skip);$('#shieldBtn').addEventListener('click',shield);$('#replaceBtn').addEventListener('click',replace);$('#resetControlsBtn').addEventListener('click',resetDials);$('#resetLabBtn').addEventListener('click',resetReactor);$('#artExportBtn').addEventListener('click',exportArtSVG);$('#worksheetExportBtn').addEventListener('click',exportWorksheetSVG);$('#replayBtn').addEventListener('click',()=>{$('#completeDialog').close();initShift(currentShift)});$('#nextBtn').addEventListener('click',()=>{$('#completeDialog').close();if(currentShift<SHIFTS.length-1)initShift(Math.min(currentShift+1,state.unlocked-1));else toast('All shifts remain available from the map')});$('#exportJsonBtn').addEventListener('click',download);$('#copyCodeBtn').addEventListener('click',copy);$('#teacherArtBtn').addEventListener('click',exportArtSVG);$('#teacherWorksheetBtn').addEventListener('click',exportWorksheetSVG);$('#regenQrBtn').addEventListener('click',generateTransferQR);$('#copyTransferBtn').addEventListener('click',copyTransfer);$('#saveQrBtn').addEventListener('click',saveTransferQR);$('#eraseBtn').addEventListener('click',erase);
+  window.addEventListener('resize',()=>draw());document.addEventListener('visibilitychange',()=>{if(document.hidden){save();synth.stopReactor()}});window.addEventListener('beforeunload',()=>{save();synth.stopReactor()});
+  applyTheme(state.settings.theme||(state.settings.contrast?'high-contrast':'dark'));document.body.classList.toggle('icon-mode',!!state.settings.iconMode);$('#iconModeBtn').setAttribute('aria-pressed',String(!!state.settings.iconMode));$('#speechBtn').setAttribute('aria-pressed',String(!!narrator.enabled));$('#soundBtn').setAttribute('aria-pressed',String(synth.enabled));applyLowStim(!!state.settings.lowStim);setKineticsVisible(!!state.settings.kineticsPlot);initShift(currentShift);try{window.parent!==window&&window.parent.postMessage({type:'mbm-app-ready',app:APP_ID,version:APP_VERSION,capabilities:['mbm-set-theme','mbm-set-focus','mbm-pause-all','mbm-export-all']},'*')}catch{}
+})();
+</script>
+
+<!-- mbm-splash-inline: canonical Made by Matt splash, inlined from the games estate standard. -->
+<script>
+/* Made by Matt splash v2 — single file, no dependencies, self-styling.
+   Usage: MadeByMattSplash.start({title:"BOSS BATTLE", kicker:"A Made by Matt Simulation",
+          duration:3200, onComplete:function(){}});                                      */
+(function (g) {
+  var CSS = ".mbm-splash{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;" +
+    "background:radial-gradient(circle at 50% 38%,#222B55,#161D3D 68%);color:#E8E2D4;" +
+    "font-family:Poppins,'Segoe UI',system-ui,sans-serif;transition:opacity .55s ease,visibility .55s}" +
+    ".mbm-splash.is-leaving{opacity:0;visibility:hidden}" +
+    ".mbm-stage{text-align:center;padding:24px;max-width:860px}" +
+    ".mbm-mark{width:min(34vmin,200px);height:auto;filter:drop-shadow(0 18px 32px #0008)}" +
+    ".mbm-mark .mpath{stroke-dasharray:1;stroke-dashoffset:1;animation:mbmDraw 1s cubic-bezier(.6,0,.3,1) .2s forwards}" +
+    ".mbm-mark .mstar{transform-origin:50px 30px;transform:scale(0);opacity:0;" +
+    "animation:mbmPop .45s cubic-bezier(.34,1.56,.64,1) 1.1s forwards}" +
+    ".mbm-kicker,.mbm-title,.mbm-tagline{opacity:0;transform:translateY(12px);animation:mbmRise .6s ease forwards}" +
+    ".mbm-kicker{animation-delay:1.3s;margin-top:20px;color:#F2A24A;font-size:.78rem;" +
+    "letter-spacing:.32em;text-transform:uppercase}" +
+    ".mbm-title{animation-delay:1.45s;margin:.35rem 0 .2rem;font-size:clamp(2rem,7vw,5rem);" +
+    "line-height:.95;letter-spacing:.04em;text-transform:uppercase;font-weight:700}" +
+    ".mbm-tagline{animation-delay:1.65s;color:#B9E6CD;letter-spacing:.18em;text-transform:uppercase;font-weight:700}" +
+    ".mbm-skip{position:absolute;right:22px;bottom:20px;border:1px solid #b9e6cd70;border-radius:99px;" +
+    "background:#0a1026aa;color:#E8E2D4;padding:.65rem 1rem;cursor:pointer;font:inherit}" +
+    ".mbm-skip:focus-visible{outline:3px solid #F2A24A;outline-offset:3px}" +
+    "@keyframes mbmDraw{to{stroke-dashoffset:0}}@keyframes mbmPop{to{transform:scale(1);opacity:1}}" +
+    "@keyframes mbmRise{to{opacity:1;transform:translateY(0)}}" +
+    "@media(prefers-reduced-motion:reduce){.mbm-splash{transition:none}" +
+    ".mbm-mark .mpath{animation:none;stroke-dashoffset:0}.mbm-mark .mstar{animation:none;transform:scale(1);opacity:1}" +
+    ".mbm-kicker,.mbm-title,.mbm-tagline{animation:none;opacity:1;transform:none}}";
+  var MARK = '<svg class="mbm-mark" viewBox="0 0 100 100" role="img" aria-label="Made by Matt">' +
+    '<circle cx="50" cy="50" r="47" fill="none" stroke="#B9E6CD" stroke-width="3.4"/>' +
+    '<path class="mpath" pathLength="1" d="M28 71 L28 37 L50 59 L72 37 L72 71" fill="none" ' +
+    'stroke="#E8E2D4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '<path class="mstar" d="M50 22.5 L51.48 28.52 L57.5 30 L51.48 31.48 L50 37.5 ' +
+    'L48.52 31.48 L42.5 30 L48.52 28.52 Z" fill="#F2A24A"/></svg>';
+
+  function start(o) {
+    o = Object.assign({ title: "", kicker: "A Made by Matt Experience",
+      duration: 3200, onComplete: null }, o || {});
+    if (!document.getElementById("mbm-splash-css")) {
+      var st = document.createElement("style");
+      st.id = "mbm-splash-css"; st.textContent = CSS;
+      document.head.appendChild(st);
+    }
+    var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var prevFocus = document.activeElement;
+    var el = document.createElement("section");
+    el.className = "mbm-splash";
+    el.setAttribute("role", "dialog");
+    el.setAttribute("aria-modal", "true");
+    el.setAttribute("aria-label", "Made by Matt introduction");
+    el.innerHTML = '<div class="mbm-stage">' + MARK +
+      '<p class="mbm-kicker"></p><h1 class="mbm-title"></h1>' +
+      '<p class="mbm-tagline">Learn \u2022 Build \u2022 Explore</p></div>' +
+      '<button class="mbm-skip" type="button">Skip intro</button>';
+    el.querySelector(".mbm-kicker").textContent = o.kicker;
+    el.querySelector(".mbm-title").textContent = o.title;
+    document.body.appendChild(el);
+    var done = false, timer;
+    function close() {
+      if (done) return;
+      done = true;
+      clearTimeout(timer);
+      el.classList.add("is-leaving");
+      setTimeout(function () {
+        el.remove();
+        if (prevFocus && prevFocus.focus) prevFocus.focus();
+        if (typeof o.onComplete === "function") o.onComplete();
+      }, reduced ? 0 : 600);
+    }
+    el.querySelector(".mbm-skip").addEventListener("click", close);
+    el.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" || e.key === "Enter" || e.key === " ") { e.preventDefault(); close(); }
+    });
+    el.tabIndex = -1;
+    el.focus();
+    timer = setTimeout(close, reduced ? Math.min(o.duration, 1200) : o.duration);
+    return { close: close, element: el };
+  }
+  g.MadeByMattSplash = { start: start };
+})(window);
+</script>
+<style>
+/* The donor's Skip button sizes from the host page's font (padding + font:inherit).
+   It lands 110x42 here against 107x48 on Nova Siege — same donor, smaller body font.
+   Raised from outside the donor block so the donor stays byte-identical. */
+.mbm-splash .mbm-skip{min-height:44px}
+</style>
+<script>
+/* Framed inside the Portfolio Hub's Lesson Deck, this page must not splash again:
+   the hub splashes once at hub level. Reference comparison only — legal from an
+   opaque-origin sandbox, where touching window.top.location would throw. */
+(function(){var framed=true;try{framed=(window.self!==window.top)}catch(e){framed=true}
+if(framed&&window.MadeByMattSplash){window.MadeByMattSplash.start=function(){return{close:function(){},element:null}}}})();
+</script>
+<script>
+(function(){if(window.MadeByMattSplash)window.MadeByMattSplash.start({title:"ENZYME//OVERDRIVE"})})();
+</script>
+<script defer src="/hud.js"></script>
+</body>
+</html>
