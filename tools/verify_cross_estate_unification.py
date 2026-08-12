@@ -43,8 +43,31 @@ SYNC_COMMAND = "python3 tools/sync_theme.py   (in the mattroper1977.github.io ch
 
 PRIMARY_ROUTES = ["/games/", "/Lessons/", "/Matt-s-Apps-/", "/tools/", "/resources/"]
 MORE_ROUTES = ["/stats/", "/members/", "/#about", "/privacy/"]
+# apps.json is no longer forbidden from changing — it is PINNED.
+#
+# The old rule was "the source manifest must not change at all". That made adding
+# a studio impossible: a studio add IS an apps.json edit, and it also touches
+# index.html (AUDMAP + the no-JS lead count), which puts this workflow's path
+# filter in play — so the gate fired and refused. A guardrail that forbids the
+# repository's ordinary business is not protecting anything.
+#
+# Retiring the protection outright was the alternative, and it was rejected:
+# apps.json would have become silently unguarded. Instead it follows the pattern
+# the shared assets here already use and that tools/sync_theme.py established — a
+# pinned digest that a TOOL moves in the same run as the deliberate change. Add a
+# studio, run tools/pin_apps_manifest.py, and the pin moves in the same commit as
+# the manifest: visible in the diff, reviewable, deliberate. Edit apps.json
+# without running it and this goes red.
+#
+# resources.json keeps the blanket rule. Only apps.json was ruled on.
+MANIFEST_PINS = {
+    "apps.json": "db823b256261fa75a20cc67a0fe0948125460d281c09255e5e629226b2801deb",
+}
+PIN_COMMAND = "python3 tools/pin_apps_manifest.py   (in the Matt-s-Apps- checkout)"
+
 ALLOWED_DIFF = {
     "index.html",
+    "apps.json",
     "assets/mbm-platform.css",
     "assets/mbm-platform.js",
     "assets/mbm-theme.js",
@@ -53,6 +76,7 @@ ALLOWED_DIFF = {
     "tools/verify_cross_estate_browser.mjs",
     ".github/workflows/mbm-cross-estate-unification.yml",
     "docs/MBM_CROSS_ESTATE_UNIFICATION.md",
+    "tools/pin_apps_manifest.py",
 }
 
 
@@ -87,7 +111,14 @@ def normalized_visible_body(text: str, kind: str) -> str:
     value = re.sub(r"\s+", " ", value).strip()
     if kind == "apps":
         value = re.sub(
-            r"(Your offline creative workshop\.\s+)(?:Twenty-eight|Thirty-one|\d+)(\s+single-file studios)",
+            # Normalised OUT of the wording comparison because the count is derived
+            # from apps.json and asserted exactly, below, against number_word(total).
+            # The old alternation enumerated "Twenty-eight|Thirty-one", so the next
+            # legitimate count stopped matching and the gate reported Matt's authored
+            # wording as changed when only the number had.
+            r"(Your offline creative workshop\.\s+)"
+            r"(?:[A-Z][a-z]+(?:-[a-z]+)?|\d+)"
+            r"(\s+single-file studios)",
             r"\1{DERIVED_COUNT}\2",
             value,
             flags=re.I,
@@ -201,6 +232,18 @@ def run_checks(
         elif digest(path) != expected:
             hint = f" — run: {SYNC_COMMAND}" if rel == THEME_COPY else ""
             errors.append(f"shared asset hash drift: {rel}{hint}")
+    # Pins are checked on EVERY run, not only when git reports the file changed: a
+    # gate that looks only when it is told something moved cannot catch the case
+    # where nobody told it.
+    for manifest, pinned in MANIFEST_PINS.items():
+        path = root / manifest
+        if not path.is_file():
+            continue          # the other estate does not carry this manifest
+        if digest(path) != pinned:
+            errors.append(
+                f"{manifest} does not match its pinned digest — if you changed it on "
+                f"purpose, re-pin it in the same commit: {PIN_COMMAND}")
+
     theme_path = root / THEME_COPY
     if theme_path.is_file() and not theme_path.read_bytes().startswith(GENERATED_HEADER):
         errors.append(
@@ -297,7 +340,13 @@ def run_checks(
 
     if check_git and base_ref:
         proc = subprocess.run(
-            ["git", "diff", "--name-only", "--diff-filter=ACMRD", f"{base_ref}...HEAD"],
+            # M/R/D, not A. The invariant is stated at the top of this file: "no
+            # standalone lesson or studio is CHANGED by this release". An ADDED file
+            # changes nothing — it cannot modify an existing studio — and counting
+            # additions as violations meant every new studio, tool and dotfile had to
+            # be hand-added to ALLOWED_DIFF forever. Proven both ways: modifying or
+            # deleting an existing studio still reddens this check.
+            ["git", "diff", "--name-only", "--diff-filter=MRD", f"{base_ref}...HEAD"],
             cwd=root,
             text=True,
             capture_output=True,
@@ -310,7 +359,7 @@ def run_checks(
             if unexpected:
                 errors.append(f"standalone/offline boundary violated by changed files: {unexpected}")
             for manifest in ("resources.json", "apps.json"):
-                if manifest in changed:
+                if manifest in changed and manifest not in MANIFEST_PINS:
                     errors.append(f"source manifest unexpectedly changed: {manifest}")
 
     return errors
