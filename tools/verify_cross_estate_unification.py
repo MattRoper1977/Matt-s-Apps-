@@ -61,7 +61,7 @@ MORE_ROUTES = ["/stats/", "/members/", "/#about", "/privacy/"]
 #
 # resources.json keeps the blanket rule. Only apps.json was ruled on.
 MANIFEST_PINS = {
-    "apps.json": "db823b256261fa75a20cc67a0fe0948125460d281c09255e5e629226b2801deb",
+    "apps.json": "0e539ff6a0856138af89f45aec348c594b5646f6c442bfb6d4d6fced8e75108c",
 }
 PIN_COMMAND = "python3 tools/pin_apps_manifest.py   (in the Matt-s-Apps- checkout)"
 

@@ -188,6 +188,30 @@ def start_block(title: str) -> str:
     )
 
 
+# The hub shipped a download control for a file that is not in the release.
+#
+#     <a href="mbm-legacy-adapter.js" download>the included adapter bridge</a>
+#
+# mbm-legacy-adapter.js is one of the two files named in the release and absent
+# from it. Reconstructing it was forbidden at intake, so the control could never
+# resolve: fetched over HTTP it returns 404. A control that promises a download
+# the runtime cannot deliver is a lie the page tells on Matt's behalf, and the
+# prose around it made the lie explicit by calling the file "included".
+#
+# Ruled 2026-08-12: drop the link, keep the sentence honest. The rest of the
+# claim is true and stays — the hub really does discover mbm_adapter_ keys — so
+# only the promise of a download goes.
+DEAD_LINK = ('<a href="mbm-legacy-adapter.js" download>the included adapter bridge</a>')
+DEAD_LINK_FIX = ('an adapter bridge <span class="tiny">(not included in this release)</span>')
+
+
+def drop_dead_adapter_link(text: str, name: str) -> str:
+    if DEAD_LINK not in text:
+        return text
+    print(f"  {name}: removed the download link to the absent mbm-legacy-adapter.js")
+    return text.replace(DEAD_LINK, DEAD_LINK_FIX, 1)
+
+
 def retitle(text: str) -> tuple[str, str]:
     m = re.search(r"<title>(.*?)</title>", text, re.S)
     if not m:
@@ -352,7 +376,12 @@ def prove(donor: str, root: Path = OUT) -> list[str]:
         if not t.startswith(title.split("//")[0]):
             problems.append(f"{name}: title no longer leads with the app's own name ({t!r})")
 
-        # 4. the estate loader is present, once, before the close
+        # 4. no control promises a file the release does not contain
+        if 'href="mbm-legacy-adapter.js"' in text:
+            problems.append(f"{name}: still links to mbm-legacy-adapter.js, which is not in "
+                            f"this release and 404s when fetched")
+
+        # 5. the estate loader is present, once, before the close
         if text.count(HUD) != 1:
             problems.append(f"{name}: {text.count(HUD)} hud.js loaders, expected 1")
 
@@ -452,6 +481,7 @@ def main() -> int:
         for src, name, title, framed in FILES:
             text = (SRC / src).read_text(encoding="utf-8")
             before = len(text.encode())
+            text = drop_dead_adapter_link(text, name)
             text, newtitle = retitle(text)
             text = install(text, title, framed, donor)
             (OUT / name).write_text(text, encoding="utf-8")
