@@ -1,0 +1,79 @@
+name: Reading-theme parity with the canonical engine
+
+# assets/mbm-theme.js is generated from the site repository's theme.js, and the
+# Creator hub carries its own [data-theme] CSS for every theme it offers. This
+# is the cheap, fast check that those still agree with the canonical.
+#
+# It is separate from mbm-cross-estate-unification.yml deliberately: that
+# workflow is the heavy release gate — browser matrix, live proof — and this
+# needs to be able to run on a schedule without dragging all of it along. The
+# same file exists in the Lessons repository, scoped to that estate.
+#
+# The schedule is the point, not an afterthought. The three repositories merge
+# in dependency order, site first, so a theme change lands in the canonical
+# engine BEFORE it lands here — and nothing in this repository changes at that
+# moment to trigger anything. The daily run is what notices that the canonical
+# has moved and this copy has not.
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - assets/mbm-theme.js
+      - index.html
+      - .github/workflows/theme-parity.yml
+  push:
+    branches: [main]
+    paths:
+      - assets/mbm-theme.js
+      - index.html
+      - .github/workflows/theme-parity.yml
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: theme-parity-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out this repository
+        uses: actions/checkout@v4
+
+      - name: Check out the canonical Made by Matt platform
+        uses: actions/checkout@v4
+        with:
+          repository: MattRoper1977/mattroper1977.github.io
+          ref: main
+          path: _reference/site
+          fetch-depth: 1
+
+      - name: The six themes are the same six here as in the canonical engine
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 _reference/site/tools/verify_theme_parity.py \
+            --scope apps --apps "$GITHUB_WORKSPACE" --self-test
+
+      - name: The generated copy is still what the canonical would generate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 _reference/site/tools/sync_theme.py \
+            --check --apps "$GITHUB_WORKSPACE"
+
+      - name: The canonical checkout left nothing behind in this tree
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf _reference
+          test -z "$(git status --porcelain)" || {
+            echo "residue left in the working tree:"; git status --porcelain; exit 1; }
