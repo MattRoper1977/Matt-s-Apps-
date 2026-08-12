@@ -77,6 +77,11 @@ ALLOWED_DIFF = {
     ".github/workflows/mbm-cross-estate-unification.yml",
     "docs/MBM_CROSS_ESTATE_UNIFICATION.md",
     "tools/pin_apps_manifest.py",
+    # The pass ledger. It exists to change on every pass — a boundary that reds
+    # on the ledger guarantees false failures on exactly the well-behaved passes
+    # that record their work. Ruled onto the list 2026-08-12 (Ruling 6). The
+    # entry is harmless in the Apps copy, where no such file exists.
+    "_teachgreen/DECISIONS.md",
 }
 
 
