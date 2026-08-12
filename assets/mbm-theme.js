@@ -1,3 +1,4 @@
+/* GENERATED from madebymatt.github.io/theme.js — edit there, run tools/sync_theme.py. Hand edits will be reverted. */
 /* Made by Matt — shared reading-theme engine.
    Applies the stored reading background (mbm_reading_theme) and injects the
    swatch control into whatever nav/header the host page provides.

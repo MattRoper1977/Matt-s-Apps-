@@ -24,9 +24,23 @@ SENTINEL = "mbm-cross-estate-unification-lessons-apps-2026-08-08"
 CANONICAL_HASHES = {
     "assets/mbm-platform.css": "e3eb9b83d3c791eca059386999c306711678877bba27248cc78a1ef584e1031d",
     "assets/mbm-platform.js": "0958a73a78a9f6d428d6cbe6c77a8a1cd5f015022ce9a6acbba92e6bee901fd2",
-    "assets/mbm-theme.js": "af946d77c39aece10c3b6f4d7e119033c7c3ce419d79f0c97286e27bab512da7",
+    "assets/mbm-theme.js": "5d711139ee95f2a9814917c516ffe674fbd52fd0b42c8fd6e22a1efbc19f002b",
     "assets/mbm-hub.css": "1643f51bcfe7f89923e908cf4f79b36a80d8bfa767779ab1c9cebe2e1a8b513c",
 }
+
+# assets/mbm-theme.js is not maintained here. It is generated from the site
+# repository's theme.js by tools/sync_theme.py, and is that file verbatim with
+# one header line in front. The checks below assert that exact concatenation
+# rather than plain byte-identity: equally strict — a byte either side of the
+# header still fails — but it lets the copy carry, at the top of itself, the
+# notice telling the next person where to edit and what to run.
+THEME_COPY = "assets/mbm-theme.js"
+GENERATED_HEADER = (
+    "/* GENERATED from madebymatt.github.io/theme.js — edit there, run "
+    "tools/sync_theme.py. Hand edits will be reverted. */\n"
+).encode("utf-8")
+SYNC_COMMAND = "python3 tools/sync_theme.py   (in the mattroper1977.github.io checkout)"
+
 PRIMARY_ROUTES = ["/games/", "/Lessons/", "/Matt-s-Apps-/", "/tools/", "/resources/"]
 MORE_ROUTES = ["/stats/", "/members/", "/#about", "/privacy/"]
 ALLOWED_DIFF = {
@@ -185,17 +199,34 @@ def run_checks(
         if not path.is_file():
             errors.append(f"missing shared local asset {rel}")
         elif digest(path) != expected:
-            errors.append(f"shared asset hash drift: {rel}")
+            hint = f" — run: {SYNC_COMMAND}" if rel == THEME_COPY else ""
+            errors.append(f"shared asset hash drift: {rel}{hint}")
+    theme_path = root / THEME_COPY
+    if theme_path.is_file() and not theme_path.read_bytes().startswith(GENERATED_HEADER):
+        errors.append(
+            f"{THEME_COPY} has lost its generated-file header, so the next person to open "
+            f"it has nothing telling them it is output — run: {SYNC_COMMAND}")
     if canonical:
         pairs = {
             "assets/mbm-platform.css": canonical / "assets/mbm-platform.css",
             "assets/mbm-platform.js": canonical / "assets/mbm-platform.js",
-            "assets/mbm-theme.js": canonical / "theme.js",
+            THEME_COPY: canonical / "theme.js",
         }
         for local_rel, reference in pairs.items():
             if not reference.is_file():
                 errors.append(f"canonical reference missing: {reference}")
-            elif (root / local_rel).read_bytes() != reference.read_bytes():
+                continue
+            expected_bytes = reference.read_bytes()
+            if local_rel == THEME_COPY:
+                expected_bytes = GENERATED_HEADER + expected_bytes
+            if (root / local_rel).read_bytes() == expected_bytes:
+                continue
+            if local_rel == THEME_COPY:
+                errors.append(
+                    f"{local_rel} is not the generated copy of the canonical theme.js. "
+                    f"Do not edit it here — edit theme.js in the site repository, then run: "
+                    f"{SYNC_COMMAND}")
+            else:
                 errors.append(f"local copy no longer equals canonical source: {local_rel}")
 
     if 'href="assets/mbm-platform.css"' not in text or 'href="assets/mbm-hub.css"' not in text:

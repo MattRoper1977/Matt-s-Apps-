@@ -20,10 +20,20 @@ This repository carries controlled local copies so the creator hub does not requ
 
 - `assets/mbm-platform.css` — SHA-256 `e3eb9b83d3c791eca059386999c306711678877bba27248cc78a1ef584e1031d`
 - `assets/mbm-platform.js` — SHA-256 `0958a73a78a9f6d428d6cbe6c77a8a1cd5f015022ce9a6acbba92e6bee901fd2`
-- `assets/mbm-theme.js` — SHA-256 `af946d77c39aece10c3b6f4d7e119033c7c3ce419d79f0c97286e27bab512da7`
+- `assets/mbm-theme.js` — SHA-256 `5d711139ee95f2a9814917c516ffe674fbd52fd0b42c8fd6e22a1efbc19f002b`
 - `assets/mbm-hub.css` — shared Lessons/Apps integration layer, SHA-256 `1643f51bcfe7f89923e908cf4f79b36a80d8bfa767779ab1c9cebe2e1a8b513c`
 
-The permanent contract test compares the first three files byte-for-byte with the current canonical repository. Updating the platform shell is therefore an explicit synchronisation operation rather than silent drift.
+The permanent contract test compares these copies with the current canonical
+repository. `mbm-platform.css` and `mbm-platform.js` must match it byte-for-byte.
+`mbm-theme.js` is not a maintained file at all: it is **generated** from the
+site repository's `theme.js` by `tools/sync_theme.py`, and the test asserts it
+is that file verbatim behind one header line — the same strictness, plus a
+notice at the top of the copy telling the next person where to edit. The digest
+above is written by the same run that writes the copy, so it cannot go stale on
+its own. See `docs/THEME_ENGINE.md` in the site repository.
+
+Updating the platform shell is therefore an explicit synchronisation operation
+rather than silent drift.
 
 ## What changes
 
