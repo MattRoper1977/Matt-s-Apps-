@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#08121d">
+  <title>Ohm’s Law Fault-Finder v2.3 — Made by Matt</title>
+  <style>
+    :root{
+      color-scheme:dark;
+      --bg:#08121d;--panel:rgba(10,25,39,.91);--solid:#0e2234;--border:rgba(203,231,250,.19);
+      --text:#f7fbff;--muted:#9eb5c5;--accent:#44ccff;--accent2:#ad83ff;--success:#2dd4a7;--warn:#f4b94f;--danger:#ef6f78;--focus:#ffe18b;--shadow:0 18px 60px rgba(0,0,0,.38);
+      --wire:#b9d3e5;--node:#f4b94f;
+    }
+    body.light{color-scheme:light;--bg:#edf6fa;--panel:rgba(255,255,255,.94);--solid:#fff;--border:rgba(20,52,73,.2);--text:#10293b;--muted:#536d7e;--accent:#007eae;--accent2:#6347c5;--success:#087c65;--warn:#985c00;--danger:#b72b3d;--focus:#3d2900;--shadow:0 18px 50px rgba(25,67,94,.18);--wire:#203e52;--node:#935700}
+    body.high-lumen{color-scheme:light;--bg:#fff;--panel:#fff;--solid:#fff;--border:#000;--text:#000;--muted:#222;--accent:#005b85;--accent2:#4326a7;--success:#00634f;--warn:#744000;--danger:#980f26;--focus:#000;--shadow:none;--wire:#000;--node:#000}
+    body.low-stimulus{--shadow:none;--panel:var(--solid)}body.low-stimulus .panel{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important}body.low-stimulus *{animation:none!important;transition:none!important}body.low-stimulus .brand-mark{background:var(--solid);box-shadow:none}body.low-stimulus .btn,body.low-stimulus .icon-btn,body.low-stimulus .seg-btn,body.low-stimulus select,body.low-stimulus summary,body.low-stimulus .toggle{min-height:48px}body.low-stimulus .switch{height:48px;width:62px}body.low-stimulus .switch i{inset:9px 4px}body.low-stimulus input[type=range]{height:48px;margin:0;background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 58%,transparent),rgba(255,255,255,.12)) center/100% 12px no-repeat;border:0}body.low-stimulus input[type=range]::-webkit-slider-thumb{width:34px;height:34px;box-shadow:none}body.low-stimulus input[type=range]::-moz-range-thumb{width:30px;height:30px;box-shadow:none}
+    *{box-sizing:border-box}[hidden]{display:none!important}
+    html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent}
+    body.readable{font-family:Verdana,Arial,sans-serif;letter-spacing:.025em;line-height:1.43}
+    button,input,select{font:inherit}button,select,input{touch-action:manipulation}
+    button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--focus);outline-offset:3px}body.high-lumen button:focus-visible,body.high-lumen select:focus-visible,body.high-lumen input:focus-visible{outline-width:4px;outline-offset:4px}
+    #canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;background:var(--bg)}
+    .panel{background:var(--panel);border:1px solid var(--border);box-shadow:var(--shadow);backdrop-filter:blur(18px) saturate(1.12);-webkit-backdrop-filter:blur(18px) saturate(1.12)}body.high-lumen .panel{backdrop-filter:none;-webkit-backdrop-filter:none;border-width:3px}
+    .topbar{position:fixed;z-index:20;top:max(10px,env(safe-area-inset-top));left:max(10px,env(safe-area-inset-left));right:max(10px,env(safe-area-inset-right));min-height:70px;border-radius:18px;padding:9px 10px;display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:thin;transition:transform .25s ease,opacity .2s ease}
+    .topbar.hidden{transform:translateY(calc(-100% - 24px));opacity:0;pointer-events:none}
+    .brand{display:flex;align-items:center;gap:9px;flex:0 0 auto}.brand-mark{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(68,204,255,.24),rgba(173,131,255,.27));border:1px solid rgba(112,216,255,.45);font-size:1.2rem}.brand h1{font-size:.97rem;line-height:1.05;margin:0;white-space:nowrap}.brand small{display:block;color:var(--muted);font-size:.67rem;margin-top:3px}.sep{width:1px;height:40px;background:var(--border);flex:0 0 auto;margin:0 2px}
+    .btn,.icon-btn,.seg-btn,select{min-height:44px;border:1px solid var(--border);background:rgba(255,255,255,.065);color:var(--text);border-radius:12px;padding:0 12px;font-weight:730;cursor:pointer;white-space:nowrap}body.light .btn,body.light .icon-btn,body.light .seg-btn,body.light select{background:rgba(12,52,78,.045)}body.high-lumen .btn,body.high-lumen .icon-btn,body.high-lumen .seg-btn,body.high-lumen select{background:#fff;border-color:#000;color:#000}
+    .btn:hover,.icon-btn:hover,.seg-btn:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,transparent)}.btn.primary,.seg-btn.active{background:color-mix(in srgb,var(--accent) 22%,var(--solid));border-color:var(--accent)}.btn.success{background:color-mix(in srgb,var(--success) 22%,var(--solid));border-color:var(--success)}.btn.warn{background:color-mix(in srgb,var(--warn) 20%,var(--solid));border-color:var(--warn)}.btn.danger{background:color-mix(in srgb,var(--danger) 19%,var(--solid));border-color:var(--danger)}.icon-btn{width:46px;padding:0;display:grid;place-items:center;font-size:1.05rem;flex:0 0 auto}
+    .segmented{display:flex;gap:4px;padding:3px;border:1px solid var(--border);border-radius:14px;flex:0 0 auto}.seg-btn{border:0;min-height:38px;border-radius:10px;padding:0 11px}
+    .left-panel{position:fixed;z-index:15;left:max(10px,env(safe-area-inset-left));top:92px;bottom:84px;width:min(340px,calc(100vw - 20px));border-radius:18px;padding:12px;overflow:auto;scrollbar-width:thin;transition:transform .25s ease,opacity .2s ease}.left-panel.hidden{transform:translateX(calc(-100% - 24px));opacity:0;pointer-events:none}
+    .inspector{position:fixed;z-index:15;right:max(10px,env(safe-area-inset-right));top:92px;width:290px;max-height:calc(100vh - 178px);border-radius:18px;padding:12px;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;transition:transform .25s ease,opacity .2s ease}.inspector.hidden{transform:translateX(calc(100% + 24px));opacity:0;pointer-events:none}
+    .panel-title{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}.panel-title h2{font-size:.92rem;margin:0}.badge{padding:4px 8px;border-radius:999px;border:1px solid var(--border);font-size:.66rem;font-weight:850;color:var(--muted);white-space:nowrap}.badge.live{border-color:var(--success);color:var(--success)}.badge.fault{border-color:var(--warn);color:var(--warn)}
+    details{border:1px solid var(--border);border-radius:14px;margin:8px 0;background:rgba(255,255,255,.035);overflow:hidden}details[open]{background:rgba(255,255,255,.045)}summary{list-style:none;min-height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-weight:800;cursor:pointer}summary::-webkit-details-marker{display:none}summary::after{content:'＋';color:var(--accent)}details[open] summary::after{content:'−'}.section-body{padding:2px 12px 12px}
+    .row{margin:10px 0}.label-line{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.78rem;font-weight:720;color:var(--muted)}.value{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:850}
+    input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:12px;border-radius:999px;margin:9px 0 1px;background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 58%,transparent),rgba(255,255,255,.12));border:1px solid var(--border);cursor:pointer}input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:30px;height:30px;border-radius:50%;background:var(--solid);border:3px solid var(--accent);box-shadow:0 3px 12px rgba(0,0,0,.35)}input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--solid);border:3px solid var(--accent)}
+    .toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;border:1px solid var(--border);border-radius:12px;padding:8px 10px;margin-top:8px}.toggle span{font-size:.78rem;font-weight:760}.toggle small{display:block;color:var(--muted);font-weight:500;margin-top:2px}.switch{position:relative;width:58px;height:44px;flex:0 0 auto}.switch input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}.switch i{position:absolute;inset:7px 2px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid var(--border);transition:.2s}.switch i::after{content:'';position:absolute;width:22px;height:22px;left:3px;top:3px;border-radius:50%;background:var(--text);transition:.2s}.switch input:checked+i{background:var(--success)}.switch input:checked+i::after{transform:translateX(24px);background:white}
+    .meter{border:2px solid var(--border);border-radius:16px;background:var(--solid);padding:10px;margin-top:8px}.meter-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.meter-screen{margin:9px 0 8px;min-height:70px;border-radius:10px;border:2px solid color-mix(in srgb,var(--success) 65%,#000);background:#dff6c8;color:#17380f;padding:9px 12px;font-family:"Courier New",monospace;display:flex;align-items:center;justify-content:space-between;gap:12px}.meter-reading{font-size:1.55rem;font-weight:900;letter-spacing:.03em}.meter-unit{font-size:.9rem;font-weight:800}.meter-sub{font-size:.68rem;color:#315e26;line-height:1.25}.meter-modes{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.meter-mode{min-height:44px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.06);color:var(--text);font-weight:850;cursor:pointer}.meter-mode.active{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 20%,var(--solid))}.probe-key{display:flex;gap:12px;font-size:.72rem;color:var(--muted);margin:8px 2px 0}.probe-dot{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:-2px;margin-right:4px;border:2px solid #fff}.probe-dot.red{background:#ef4455}.probe-dot.black{background:#171717}
+    .button-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.button-grid .btn{white-space:normal;line-height:1.1;padding:7px}.full{width:100%;margin-top:8px}#bridgeProbesBtn{white-space:normal;line-height:1.15;min-height:54px;padding:7px 10px}
+    .challenge-card{border:1px solid var(--warn);border-radius:13px;padding:10px;background:color-mix(in srgb,var(--warn) 8%,transparent)}.challenge-card h3{font-size:.88rem;margin:0 0 5px}.challenge-card p{font-size:.74rem;color:var(--muted);line-height:1.4;margin:0}.challenge-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}.stat{border:1px solid var(--border);border-radius:9px;padding:6px;text-align:center}.stat b{display:block;font-size:.65rem;color:var(--muted)}.stat span{font-size:.9rem;font-weight:850}.feedback{border-radius:10px;padding:8px;font-size:.74rem;line-height:1.4;margin-top:8px;background:rgba(255,255,255,.05);border:1px solid var(--border)}
+    .test-log{max-height:150px;overflow:auto;margin-top:8px}.test-item{font-size:.69rem;border-bottom:1px solid var(--border);padding:6px 2px;display:grid;grid-template-columns:42px 1fr auto;gap:5px}.test-item span:last-child{font-variant-numeric:tabular-nums;font-weight:800;color:var(--accent)}
+    #ivCanvas{width:100%;height:135px;border:1px solid var(--border);border-radius:12px;background:rgba(0,0,0,.15);display:block;margin-top:8px}.component-stats{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.component-stat{border:1px solid var(--border);border-radius:10px;padding:7px}.component-stat b{display:block;color:var(--muted);font-size:.66rem}.component-stat span{font-weight:850;font-variant-numeric:tabular-nums}.locked-note{font-size:.72rem;color:var(--warn);line-height:1.4;border:1px solid var(--warn);border-radius:10px;padding:8px;margin-top:8px}
+    .help{font-size:.72rem;color:var(--muted);line-height:1.42}.kbd{display:inline-block;border:1px solid var(--border);border-bottom-width:3px;border-radius:6px;padding:1px 5px;color:var(--text);font-weight:750}
+    .bottom-bar{position:fixed;z-index:14;left:max(10px,env(safe-area-inset-left));right:max(10px,env(safe-area-inset-right));bottom:max(10px,env(safe-area-inset-bottom));min-height:62px;border-radius:17px;padding:8px 12px;display:flex;align-items:center;gap:14px;overflow-x:auto;scrollbar-width:thin}.bottom-item{flex:0 0 auto;min-width:112px}.bottom-item b{display:block;color:var(--muted);font-size:.69rem;margin-bottom:3px}.bottom-item span{font-weight:850;font-variant-numeric:tabular-nums}.safety{font-size:.7rem;color:var(--muted);line-height:1.25;max-width:260px}
+    .floating{position:fixed;z-index:22;right:max(12px,env(safe-area-inset-right));bottom:88px;display:flex;flex-direction:column;gap:8px}.toast{position:fixed;z-index:40;left:50%;bottom:90px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--solid);border:1px solid var(--border);border-radius:999px;padding:10px 16px;font-size:.8rem;font-weight:800;box-shadow:var(--shadow);transition:.22s ease}.toast.show{opacity:1;transform:translate(-50%,0)}
+    .coach-prompt{position:fixed;z-index:41;top:92px;left:50%;width:min(620px,calc(100vw - 28px));transform:translate(-50%,-14px);opacity:0;pointer-events:none;border:2px solid var(--warn);border-radius:15px;padding:10px 14px;background:var(--solid);box-shadow:var(--shadow);font-size:.8rem;font-weight:780;line-height:1.35;text-align:center}.coach-prompt.show{opacity:1;transform:translate(-50%,0)}
+    .modal-overlay{position:fixed;z-index:80;inset:0;display:grid;place-items:center;padding:18px;background:rgba(0,0,0,.76);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .2s}.modal-overlay.active{opacity:1;pointer-events:auto}.modal-card{width:min(560px,100%);max-height:calc(100vh - 36px);overflow:auto;border-radius:22px;padding:18px;background:var(--solid);border:2px solid var(--border);box-shadow:var(--shadow)}.modal-card h2{font-size:1.05rem;margin:0 0 6px}.modal-card p{font-size:.76rem;color:var(--muted);line-height:1.42}.qr-frame{width:min(420px,100%);padding:10px;margin:12px auto;background:#fff;border-radius:14px}.qr-frame canvas{display:block;width:100%;height:auto;image-rendering:pixelated}.payload-field{width:100%;min-height:76px;resize:vertical;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.06);color:var(--text);padding:9px;font:650 .72rem ui-monospace,SFMono-Regular,Consolas,monospace;user-select:text;-webkit-user-select:text}.modal-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.modal-actions .btn{flex:1 1 130px}
+    #printSheet{display:none}
+    @media print{@page{size:A4 landscape;margin:10mm}body *{visibility:hidden!important}html,body{overflow:visible;background:#fff!important;color:#000!important}#printSheet,#printSheet *{visibility:visible!important}#printSheet{display:block!important;position:absolute;inset:0;font-family:Arial,sans-serif;color:#000;background:#fff}.print-head{display:flex;justify-content:space-between;border-bottom:2px solid #000;padding-bottom:8px;margin-bottom:10px}.print-head h1{font-size:22px;margin:0 0 4px}.print-head p{margin:2px 0;font-size:11px}.print-meta{text-align:right;line-height:1.7}#printImage{display:block;width:100%;max-height:140mm;object-fit:contain;border:1px solid #000}.print-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:9px}.print-card{border:1px solid #000;padding:7px;font-size:11px}.print-card b{display:block;margin-bottom:3px}.print-log{border:1px solid #000;margin-top:9px;padding:8px;font-size:10px;line-height:1.45}.print-log ol{columns:2;margin:5px 0 0 20px}}
+    @media(max-width:1080px){.inspector{display:none}.left-panel{width:min(350px,calc(100vw - 20px))}.brand small{display:none}}
+    @media(max-width:700px){.left-panel{top:84px;bottom:78px}.topbar{left:8px;right:8px;top:8px;min-height:64px}.brand-mark{width:40px;height:40px}.bottom-bar{left:8px;right:8px;bottom:8px}.safety{display:none}.floating{bottom:80px}.sep{height:34px}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <canvas id="canvas" aria-label="Interactive low-voltage circuit fault-finding simulation"></canvas>
+
+  <header class="topbar panel" id="topbar">
+    <div class="brand"><div class="brand-mark" aria-hidden="true">Ω</div><div><h1>Ohm’s Law Fault-Finder v2.3</h1><small>Made by Matt · Glitch-the-model circuit lab</small></div></div>
+    <div class="sep" aria-hidden="true"></div>
+    <div class="segmented" role="group" aria-label="Application mode"><button class="seg-btn active" id="sandboxMode" type="button">Sandbox</button><button class="seg-btn" id="challengeMode" type="button">Fault challenge</button></div>
+    <select id="challengeSelect" aria-label="Choose a fault challenge">
+      <option value="random">Random fault</option><option value="fuseOpen">Blown fuse</option><option value="r2Drift">Resistance drift</option><option value="lampOpen">Blown lamp</option><option value="shortR1">Hidden short</option><option value="leakage">Leakage path</option><option value="switchContact">Poor switch contact</option>
+    </select>
+    <button class="btn primary" id="newChallengeBtn" type="button">New challenge</button>
+    <button class="btn success" id="runBtn" type="button">Ⅱ Pause circuit</button>
+    <button class="btn" id="resetBtn" type="button">Reset</button>
+    <button class="btn success" id="shareBtn" type="button">Share setup</button>
+    <button class="btn" id="qrBtn" type="button">▦ QR hand-off</button>
+    <div class="sep" aria-hidden="true"></div>
+    <button class="icon-btn" id="themeBtn" type="button" title="Light/dark theme" aria-label="Toggle light and dark theme">☀</button>
+    <button class="icon-btn" id="lumenBtn" type="button" title="High-lumen projector mode" aria-label="Toggle high-lumen projector mode">◩</button>
+    <button class="icon-btn" id="fullBtn" type="button" title="Fullscreen" aria-label="Toggle fullscreen">⛶</button>
+  </header>
+
+  <aside class="left-panel panel" id="leftPanel">
+    <div class="panel-title"><h2>Investigation deck</h2><span class="badge live" id="modeBadge">SANDBOX</span></div>
+
+    <details open>
+      <summary>Virtual multimeter</summary>
+      <div class="section-body">
+        <div class="meter">
+          <div class="meter-top"><b>MBM DIGITAL METER</b><span class="badge" id="meterStatus">LIVE</span></div>
+          <div class="meter-screen"><div><div class="meter-reading" id="meterReading">0.00</div><div class="meter-sub" id="meterSub">Red N4 · Black N0</div></div><div class="meter-unit" id="meterUnit">V</div></div>
+          <div class="meter-modes" role="group" aria-label="Meter mode"><button class="meter-mode active" data-meter="voltage">V</button><button class="meter-mode" data-meter="resistance">Ω</button><button class="meter-mode" data-meter="continuity">)))</button><button class="meter-mode" data-meter="current">A</button></div>
+          <div class="probe-key"><span><i class="probe-dot red"></i>Red probe</span><span><i class="probe-dot black"></i>Black probe</span></div>
+          <button class="btn primary full" id="takeReadingBtn" type="button">Record this reading</button>
+        </div>
+        <div class="test-log" id="testLog" aria-label="Recorded meter evidence"></div>
+      </div>
+    </details>
+
+    <details open id="supplyDetails">
+      <summary>Supply & protection</summary>
+      <div class="section-body">
+        <div class="row"><div class="label-line"><span>Circuit topology</span></div><select id="topologySelect" style="width:100%;margin-top:6px"><option value="hybrid">Series–parallel hybrid</option><option value="series">Series chain</option><option value="wheatstone">Wheatstone bridge</option></select></div>
+        <div class="row"><div class="label-line"><span>Supply voltage</span><span class="value" id="supplyOut">12.0 V</span></div><input id="supplyVoltage" type="range" min="3" max="24" step="0.5" value="12"></div>
+        <div class="row"><div class="label-line"><span>Internal resistance</span><span class="value" id="internalOut">0.40 Ω</span></div><input id="internalResistance" type="range" min="0.05" max="3" step="0.05" value="0.4"></div>
+        <div class="row"><div class="label-line"><span>Fuse rating</span><span class="value" id="fuseOut">1.00 A</span></div><input id="fuseRating" type="range" min="0.25" max="3" step="0.05" value="1"></div>
+        <div class="toggle"><span>Main switch<small>Open or close S1</small></span><label class="switch"><input id="switchToggle" type="checkbox" checked><i></i></label></div>
+        <div class="button-grid"><button class="btn" id="replaceFuseBtn" type="button">Replace fuse</button><button class="btn" id="repairAllBtn" type="button">Repair burnouts</button></div>
+      </div>
+    </details>
+
+    <details open id="challengeDetails" hidden>
+      <summary>Fault diagnosis</summary>
+      <div class="section-body">
+        <div class="challenge-card"><h3 id="challengeTitle">Unknown circuit fault</h3><p id="challengePrompt">Use the meter to identify the faulty part and fault type. Try to justify your answer with at least two readings.</p></div>
+        <div class="challenge-stats"><div class="stat"><b>TIME</b><span id="challengeTime">00:00</span></div><div class="stat"><b>TESTS</b><span id="challengeTests">0</span></div><div class="stat"><b>BEST</b><span id="challengeBest">—</span></div></div>
+        <div class="row"><div class="label-line"><span>Faulty area</span></div><select id="diagnosisComponent" style="width:100%;margin-top:6px"><option value="F1">Fuse F1</option><option value="S1">Switch S1</option><option value="R1">Resistor R1 branch</option><option value="L1">Lamp L1</option><option value="R2">Resistor R2</option><option value="RETURN">Return wiring</option><option value="BUS">Main supply bus</option></select></div>
+        <div class="row"><div class="label-line"><span>Fault type</span></div><select id="diagnosisType" style="width:100%;margin-top:6px"><option value="open">Open circuit</option><option value="drift">Resistance increased</option><option value="short">Short circuit</option><option value="leakage">Leakage current</option><option value="contact">High-resistance contact</option></select></div>
+        <button class="btn success full" id="submitDiagnosisBtn" type="button">Submit 3-mark diagnosis</button>
+        <button class="btn warn full" id="revealFaultBtn" type="button">Reveal fault</button>
+        <div class="feedback" id="challengeFeedback">No diagnosis submitted yet.</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Accessibility & outputs</summary>
+      <div class="section-body">
+        <div class="toggle"><span>Readable typography<small>Wider spacing and sturdy system fonts</small></span><label class="switch"><input id="readableToggle" type="checkbox"><i></i></label></div>
+        <div class="toggle"><span>Low-stimulus focus mode<small>Flat panels, no probe glow, and 48 px controls</small></span><label class="switch"><input id="lowStimToggle" type="checkbox"><i></i></label></div>
+        <div class="row"><div class="label-line"><span>Keyboard component selection</span></div><select id="componentSelect" style="width:100%;margin-top:6px" aria-label="Select a circuit component for inspection"></select></div>
+        <div class="button-grid"><button class="btn success" id="downloadSummaryBtn" type="button">Download evidence</button><button class="btn success" id="printBtn" type="button">Print evidence</button></div>
+        <p class="help"><span class="kbd">H</span> hides the deck, <span class="kbd">F</span> enters fullscreen and <span class="kbd">Space</span> pauses. Large 32–44 px probe and node hit areas support interactive whiteboards.</p>
+      </div>
+    </details>
+  </aside>
+
+  <aside class="inspector panel" id="inspector">
+    <div class="panel-title"><h2 id="inspectTitle">Component inspector</h2><span class="badge" id="inspectBadge">SELECT</span></div>
+    <p class="help" id="inspectHelp">Tap a component to inspect it. Double-click a component, the title, or the selector to bridge both probes across its terminals.</p>
+    <div id="editControls" hidden>
+      <div class="row" id="resistanceRow"><div class="label-line"><span>Resistance</span><span class="value" id="resistanceOut">18.0 Ω</span></div><input id="componentResistance" type="range" min="1" max="150" step="1" value="18"></div>
+      <div class="row" id="ratingRow"><div class="label-line"><span>Power rating</span><span class="value" id="ratingOut">3.0 W</span></div><input id="componentRating" type="range" min="0.25" max="15" step="0.25" value="3"></div>
+      <div class="toggle" id="componentSwitchRow"><span>Contact state<small>Toggle the selected switch</small></span><label class="switch"><input id="componentSwitch" type="checkbox"><i></i></label></div>
+    </div>
+    <div class="locked-note" id="lockedNote" hidden>Challenge values are hidden. Use the virtual multimeter rather than the inspector to gather evidence.</div>
+    <div class="component-stats" id="componentStats">
+      <div class="component-stat"><b>VOLTAGE</b><span id="statV">—</span></div><div class="component-stat"><b>CURRENT</b><span id="statI">—</span></div><div class="component-stat"><b>POWER</b><span id="statP">—</span></div><div class="component-stat"><b>THERMAL</b><span id="statT">—</span></div>
+    </div>
+    <canvas id="ivCanvas" width="520" height="260" aria-label="Selected component current-voltage characteristic"></canvas>
+    <button class="btn primary full" id="bridgeProbesBtn" type="button" title="Double-click a circuit component for the same action">Bridge probes across selected component</button>
+    <button class="btn danger full" id="burnComponentBtn" type="button">Inject open-circuit fault</button>
+  </aside>
+
+  <div class="floating"><button class="icon-btn panel" id="panelBtn" type="button" aria-label="Show or hide investigation deck">☰</button><button class="icon-btn panel" id="readBtn" type="button" aria-label="Toggle readable typography">Aa</button></div>
+
+  <section class="bottom-bar panel" aria-label="Live circuit status">
+    <div class="bottom-item"><b>SUPPLY CURRENT</b><span id="supplyCurrent">0.000 A</span></div><div class="bottom-item"><b>SUPPLY POWER</b><span id="supplyPower">0.00 W</span></div><div class="bottom-item"><b>FUSE</b><span id="fuseState">INTACT</span></div><div class="bottom-item"><b>LAMP INRUSH PEAK</b><span id="inrushPeak">—</span></div><div class="bottom-item"><b>HOTTEST PART</b><span id="hotPart">—</span></div><div class="safety">Simulation only: use low-voltage laboratory practice and your setting’s approved electrical safety procedures with real equipment.</div>
+  </section>
+
+  <div class="coach-prompt" id="coachPrompt" role="status" aria-live="polite"></div><div class="toast" id="toast" role="status"></div><div id="live" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)"></div>
+
+  <div class="modal-overlay" id="qrModal" role="dialog" aria-modal="true" aria-labelledby="qrTitle">
+    <div class="modal-card">
+      <h2 id="qrTitle">Offline QR hand-off</h2>
+      <p>Generate a setup payload or a compact challenge result without contacting a server. Payloads are Base64URL encoded, not encrypted.</p>
+      <select id="qrPayloadType" aria-label="Choose QR payload type" style="width:100%"><option value="state">Compact circuit setup</option><option value="result">Challenge score and evidence</option><option value="link">Shareable setup link</option></select>
+      <div class="qr-frame"><canvas id="qrCanvas" width="512" height="512" aria-label="QR code containing the selected circuit payload"></canvas></div>
+      <p id="qrNote">Ready to generate a local QR code.</p>
+      <textarea class="payload-field" id="qrPayloadField" readonly aria-label="Encoded QR payload"></textarea>
+      <div class="modal-actions"><button class="btn primary" id="copyQrPayloadBtn" type="button">Copy payload</button><button class="btn success" id="downloadQrBtn" type="button">Download QR PNG</button><button class="btn" id="closeQrBtn" type="button">Close</button></div>
+    </div>
+  </div>
+
+  <section id="printSheet">
+    <div class="print-head"><div><h1>Ohm’s Law Fault-Finding Evidence</h1><p>Made by Matt · Virtual multimeter investigation</p></div><div class="print-meta"><p><b>Name:</b> __________________________</p><p><b>Date:</b> _______________ <b>Class:</b> ________</p></div></div>
+    <img id="printImage" alt="Circuit diagram and meter probes">
+    <div class="print-grid"><div class="print-card"><b>Mode</b><span id="printMode"></span></div><div class="print-card"><b>Diagnosis</b><span id="printDiagnosis"></span></div><div class="print-card"><b>Score</b><span id="printScore"></span></div><div class="print-card"><b>Supply</b><span id="printSupply"></span></div></div>
+    <div class="print-log"><b>Recorded evidence:</b><ol id="printLog"></ol></div>
+  </section>
+
+<script>
+(() => {
+  'use strict';
+  const STORAGE_KEY='mbm_ohms_fault_finder_v2', LEGACY_STORAGE_KEY='mbm_ohms_fault_finder_v1', PROGRESS_KEY='mbm_ohms_fault_progress_v1', SCHEMA=2;
+  const $=id=>document.getElementById(id), clamp=(v,a,b)=>Math.min(b,Math.max(a,v)), deep=o=>JSON.parse(JSON.stringify(o));
+  const state={schema:SCHEMA,release:'2.3',mode:'sandbox',running:true,theme:'dark',highLumen:false,readable:false,lowStimulus:false,topology:'hybrid',meterMode:'voltage',probeRed:4,probeBlack:0,supply:{voltage:12,internalR:.4,fuseRating:1},switchClosed:true,currentFault:null,challenge:null,progress:{},selectedId:'R1',inrushPeak:0,lampInrushPeak:0,inrushUntil:0,lessonTask:null};
+  const canvas=$('canvas'),ctx=canvas.getContext('2d');let cssW=innerWidth,cssH=innerHeight,dpr=1,last=performance.now(),lastUi=0,toastTimer=0,saveTimer=0,cueCtx=null;
+  const activePointers=new Map(),probeDrags=new Map(),probePreview={red:null,black:null},snapCandidate={red:null,black:null};let layout={x:360,y:105,w:Math.max(560,innerWidth-680),h:Math.max(430,innerHeight-200),scale:1};
+  let coachTimer=0,isolationTimer=0,recentVariableChanges=[];const sessionMetrics={parameterChanges:0,multiVariableWarnings:0,isolatedAdjustments:0,lastWarningAt:0,coachEvents:[]};const taskRuntime={startedAt:null,openedAt:null,closedAt:null,cooledBeforeClose:false};
+
+  const topologyTemplates={
+    hybrid:{
+      label:'Series–parallel hybrid',
+      nodes:[{id:0,label:'N0',x:120,y:560},{id:1,label:'N1',x:120,y:160},{id:2,label:'N2',x:250,y:160},{id:3,label:'N3',x:390,y:160},{id:4,label:'N4',x:540,y:160},{id:5,label:'N5',x:760,y:160},{id:6,label:'N6',x:540,y:390},{id:7,label:'N7',x:760,y:390},{id:8,label:'N8',x:760,y:560},{id:9,label:'N9',x:540,y:560}],
+      components:[
+        {id:'BAT',name:'Battery supply',type:'battery',a:0,b:1},{id:'RI',name:'Battery internal resistance',type:'internal',a:1,b:2,value:.4,rating:20,temp:0,burned:false},{id:'F1',name:'Fuse F1',type:'fuse',a:2,b:3,value:.05,rating:1,temp:0,burned:false,over:0},{id:'S1',name:'Switch S1',type:'switch',a:3,b:4,value:.06,rating:5,temp:0,burned:false},{id:'R1',name:'Resistor R1',type:'resistor',a:4,b:5,value:18,rating:3,temp:0,burned:false},{id:'L1',name:'Lamp L1',type:'lamp',a:5,b:8,value:24,rating:6,ratedV:12,coldR:3,alpha:.002823,ambientC:20,hotC:2500,temp:0,burned:false,over:0},{id:'R2',name:'Resistor R2',type:'resistor',a:4,b:6,value:36,rating:5,temp:0,burned:false},{id:'W67',name:'Branch wire',type:'wire',a:6,b:7,value:.03,rating:20,temp:0,burned:false},{id:'W78',name:'Branch return',type:'wire',a:7,b:8,value:.03,rating:20,temp:0,burned:false},{id:'W89',name:'Return wire right',type:'wire',a:8,b:9,value:.03,rating:20,temp:0,burned:false},{id:'W90',name:'Return wire left',type:'wire',a:9,b:0,value:.03,rating:20,temp:0,burned:false}
+      ]
+    },
+    series:{
+      label:'Series chain',
+      nodes:[{id:0,label:'N0',x:120,y:560},{id:1,label:'N1',x:120,y:160},{id:2,label:'N2',x:260,y:160},{id:3,label:'N3',x:400,y:160},{id:4,label:'N4',x:540,y:160},{id:5,label:'N5',x:760,y:160},{id:6,label:'N6',x:760,y:560}],
+      components:[
+        {id:'BAT',name:'Battery supply',type:'battery',a:0,b:1},{id:'RI',name:'Battery internal resistance',type:'internal',a:1,b:2,value:.4,rating:20,temp:0,burned:false},{id:'F1',name:'Fuse F1',type:'fuse',a:2,b:3,value:.05,rating:1,temp:0,burned:false,over:0},{id:'S1',name:'Switch S1',type:'switch',a:3,b:4,value:.06,rating:5,temp:0,burned:false},{id:'R1',name:'Resistor R1',type:'resistor',a:4,b:5,value:18,rating:5,temp:0,burned:false},{id:'L1',name:'Lamp L1',type:'lamp',a:5,b:6,value:24,rating:6,ratedV:12,coldR:3,alpha:.002823,ambientC:20,hotC:2500,temp:0,burned:false,over:0},{id:'W60',name:'Series return',type:'wire',a:6,b:0,value:.03,rating:20,temp:0,burned:false}
+      ]
+    },
+    wheatstone:{
+      label:'Wheatstone bridge',
+      nodes:[{id:0,label:'N0',x:120,y:560},{id:1,label:'N1',x:120,y:160},{id:2,label:'N2',x:260,y:160},{id:3,label:'N3',x:390,y:160},{id:4,label:'TOP',x:540,y:160},{id:5,label:'LEFT',x:410,y:350},{id:6,label:'RIGHT',x:670,y:350},{id:7,label:'BOTTOM',x:540,y:560}],
+      components:[
+        {id:'BAT',name:'Battery supply',type:'battery',a:0,b:1},{id:'RI',name:'Battery internal resistance',type:'internal',a:1,b:2,value:.4,rating:20,temp:0,burned:false},{id:'F1',name:'Fuse F1',type:'fuse',a:2,b:3,value:.05,rating:1,temp:0,burned:false,over:0},{id:'S1',name:'Switch S1',type:'switch',a:3,b:4,value:.06,rating:5,temp:0,burned:false},{id:'R1',name:'Bridge R1',type:'resistor',a:4,b:5,value:100,rating:2,temp:0,burned:false},{id:'R2',name:'Bridge R2',type:'resistor',a:5,b:7,value:100,rating:2,temp:0,burned:false},{id:'R3',name:'Bridge R3',type:'resistor',a:4,b:6,value:100,rating:2,temp:0,burned:false},{id:'R4',name:'Bridge R4',type:'resistor',a:6,b:7,value:100,rating:2,temp:0,burned:false},{id:'RB',name:'Bridge detector resistor',type:'resistor',a:5,b:6,value:200,rating:1,temp:0,burned:false},{id:'W70',name:'Bridge return',type:'wire',a:7,b:0,value:.03,rating:20,temp:0,burned:false}
+      ]
+    }
+  };
+  let nodes=deep(topologyTemplates.hybrid.nodes),baseComponents=deep(topologyTemplates.hybrid.components);
+  let components=deep(baseComponents), solution={v:Array(nodes.length).fill(0),edges:[],sourceCurrent:0,totalPower:0};
+  const faults={
+    fuseOpen:{title:'Protection path fault',prompt:'The load rails are dead even though the battery is healthy.',component:'F1',type:'open',description:'Fuse F1 is open circuit.'},
+    r2Drift:{title:'Parallel branch imbalance',prompt:'One branch draws much less current than its design value.',component:'R2',type:'drift',description:'R2 has drifted to a much higher resistance.'},
+    lampOpen:{title:'Dark lamp branch',prompt:'The resistor branch still works, but the lamp branch carries no current.',component:'L1',type:'open',description:'Lamp L1 has failed open circuit.'},
+    shortR1:{title:'Bypassed series resistor',prompt:'The lamp branch current is unexpectedly high and R1 has almost no potential difference.',component:'R1',type:'short',description:'A hidden low-resistance path bypasses R1.'},
+    leakage:{title:'Unexpected supply drain',prompt:'Supply current is too high even though both intended branches appear plausible.',component:'BUS',type:'leakage',description:'A hidden leakage path connects the main bus to the return.'},
+    switchContact:{title:'Voltage lost at a closed switch',prompt:'S1 appears closed, but a large voltage is dropped across its contacts.',component:'S1',type:'contact',description:'S1 has developed a high-resistance contact.'}
+  };
+
+  function announce(t){$('live').textContent='';requestAnimationFrame(()=>$('live').textContent=t)}function toast(t){clearTimeout(toastTimer);$('toast').textContent=t;$('toast').classList.add('show');toastTimer=setTimeout(()=>$('toast').classList.remove('show'),1800);announce(t)}
+  function showCoach(text){clearTimeout(coachTimer);$('coachPrompt').textContent=text;$('coachPrompt').classList.add('show');coachTimer=setTimeout(()=>$('coachPrompt').classList.remove('show'),5200);announce(text)}
+  function recordVariableChange(id,label){const now=performance.now();sessionMetrics.parameterChanges++;recentVariableChanges=recentVariableChanges.filter(v=>now-v.time<800);recentVariableChanges.push({id,label,time:now});const labels=[...new Map(recentVariableChanges.map(v=>[v.id,v.label])).values()];clearTimeout(isolationTimer);if(labels.length>1&&now-sessionMetrics.lastWarningAt>900){sessionMetrics.lastWarningAt=now;sessionMetrics.multiVariableWarnings++;const text=`You changed ${labels.slice(-2).join(' and ')} within 0.8 seconds. Hold one variable steady before judging the circuit response.`;sessionMetrics.coachEvents.push({time:new Date().toISOString(),text});sessionMetrics.coachEvents=sessionMetrics.coachEvents.slice(-12);showCoach(text)}else isolationTimer=setTimeout(()=>sessionMetrics.isolatedAdjustments++,850)}
+  function component(id){return components.find(c=>c.id===id)}
+  function nodePos(id){const n=nodes[id];return{x:layout.x+n.x/900*layout.w,y:layout.y+(n.y-120)/500*layout.h}}
+  function updateLayout(){cssW=innerWidth;cssH=innerHeight;dpr=Math.min(2.5,devicePixelRatio||1);canvas.width=Math.round(cssW*dpr);canvas.height=Math.round(cssH*dpr);canvas.style.width=cssW+'px';canvas.style.height=cssH+'px';ctx.setTransform(dpr,0,0,dpr,0,0);const left=cssW>900?360:20,right=cssW>1080?320:20;layout={x:left,y:105,w:Math.max(360,cssW-left-right),h:Math.max(360,cssH-205)};}
+
+  function migrateLoaded(o){if(!o||typeof o!=='object')return null;if(o.schema===1){o=deep(o);o.schema=SCHEMA;o.topology='hybrid';}if(typeof o.lowStimulus!=='boolean')o.lowStimulus=false;if(typeof o.lessonTask!=='string')o.lessonTask=null;return o}
+  function validate(o){o=migrateLoaded(o);return !!(o&&o.schema===SCHEMA&&['sandbox','challenge'].includes(o.mode)&&topologyTemplates[o.topology||'hybrid']&&o.supply&&Number.isFinite(o.supply.voltage)&&Number.isInteger(o.probeRed)&&Number.isInteger(o.probeBlack))}
+  function bytesToB64(bytes){let s='';for(let i=0;i<bytes.length;i+=32768)s+=String.fromCharCode(...bytes.subarray(i,i+32768));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+  function b64ToBytes(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';const b=atob(s),out=new Uint8Array(b.length);for(let i=0;i<b.length;i++)out[i]=b.charCodeAt(i);return out}
+  function serialisable(){return{schema:SCHEMA,release:'2.3',mode:state.mode,topology:state.topology,theme:state.theme,highLumen:state.highLumen,readable:state.readable,lowStimulus:state.lowStimulus,meterMode:state.meterMode,probeRed:state.probeRed,probeBlack:state.probeBlack,supply:state.supply,switchClosed:state.switchClosed,currentFault:state.mode==='challenge'?state.currentFault:null,lessonTask:state.lessonTask,selectedId:state.selectedId,componentValues:components.filter(c=>['resistor','lamp'].includes(c.type)).map(c=>({id:c.id,value:c.value,rating:c.rating}))}}
+  function encode(){return bytesToB64(new TextEncoder().encode(JSON.stringify(serialisable())))}function decode(s){return JSON.parse(new TextDecoder().decode(b64ToBytes(s)))}
+  function scheduleSave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{history.replaceState(null,'','#s='+encode());localStorage.setItem(STORAGE_KEY,JSON.stringify(serialisable()));localStorage.setItem(PROGRESS_KEY,JSON.stringify(state.progress));emitState()}catch(e){console.warn(e)}},220)}
+  function load(){let o=null;try{if(location.hash.startsWith('#s='))o=decode(location.hash.slice(3));else{const raw=localStorage.getItem(STORAGE_KEY)||localStorage.getItem(LEGACY_STORAGE_KEY);if(raw)o=JSON.parse(raw)}const p=localStorage.getItem(PROGRESS_KEY);if(p)state.progress=JSON.parse(p)}catch(e){console.warn(e)}o=migrateLoaded(o);if(!validate(o))return false;Object.assign(state,o);applyTopology(state.mode==='challenge'?'hybrid':(state.topology||'hybrid'),{announceChange:false});for(const v of o.componentValues||[]){const c=component(v.id);if(c){c.value=v.value;c.rating=v.rating}}state.probeRed=clamp(o.probeRed,0,nodes.length-1);state.probeBlack=clamp(o.probeBlack,0,nodes.length-1);state.selectedId=component(o.selectedId)?o.selectedId:(component('R1')?'R1':components[1]?.id);return true}
+
+  function applyTopology(name,{announceChange=true}={}){
+    if(!topologyTemplates[name])name='hybrid';state.topology=name;nodes=deep(topologyTemplates[name].nodes);baseComponents=deep(topologyTemplates[name].components);components=deep(baseComponents);component('RI').value=state.supply.internalR;component('F1').rating=state.supply.fuseRating;state.probeBlack=0;state.probeRed=Math.min(4,nodes.length-1);state.selectedId=component('R1')?'R1':components.find(c=>c.type!=='battery')?.id||'BAT';state.inrushPeak=0;state.lampInrushPeak=0;state.inrushUntil=state.switchClosed&&component('L1')?performance.now()+2200:0;solution={v:Array(nodes.length).fill(0),edges:[],sourceCurrent:0,totalPower:0};setupSelector();if(announceChange)toast(topologyTemplates[name].label+' loaded');
+  }
+  function resetComponents(){const keep=state.topology;applyTopology(keep,{announceChange:false});}
+  function effectiveR(c){
+    if(c.burned)return Infinity;
+    if(c.type==='internal')return Math.max(.001,state.supply.internalR);
+    if(c.type==='fuse'){if(state.currentFault==='fuseOpen')return Infinity;return Math.max(.01,c.value)}
+    if(c.type==='switch'){if(!state.switchClosed)return Infinity;if(state.currentFault==='switchContact')return 18;return .06}
+    if(c.type==='resistor'){let r=c.value;if(state.currentFault==='r2Drift'&&c.id==='R2')r*=3.35;return Math.max(.02,r)}
+    if(c.type==='lamp'){if(state.currentFault==='lampOpen')return Infinity;const ambient=c.ambientC||20,hotC=c.hotC||2500,tempC=ambient+clamp(c.temp,0,1)*(hotC-ambient),R0=c.coldR||Math.max(.5,(c.ratedV*c.ratedV)/Math.max(.1,c.rating)/8),alpha=c.alpha||.002823;return Math.max(.05,R0*(1+alpha*(tempC-ambient)))}
+    if(c.type==='wire'){if(state.currentFault==='returnOpen'&&c.id==='W90')return Infinity;return c.value}
+    return Infinity;
+  }
+  function passiveEdges(){const list=[];for(const c of components){if(c.type==='battery')continue;const r=effectiveR(c);if(Number.isFinite(r)&&r<1e10)list.push({id:c.id,a:c.a,b:c.b,r,component:c})}if(state.currentFault==='shortR1')list.push({id:'FAULT_SHORT',a:4,b:5,r:.12,component:null});if(state.currentFault==='leakage')list.push({id:'FAULT_LEAK',a:4,b:9,r:18,component:null});return list}
+  function gaussian(A,b){const n=b.length;for(let i=0;i<n;i++){let pivot=i;for(let r=i+1;r<n;r++)if(Math.abs(A[r][i])>Math.abs(A[pivot][i]))pivot=r;[A[i],A[pivot]]=[A[pivot],A[i]];[b[i],b[pivot]]=[b[pivot],b[i]];let d=A[i][i];if(Math.abs(d)<1e-14){A[i][i]=d=1e-12}for(let r=i+1;r<n;r++){const f=A[r][i]/d;if(!Number.isFinite(f))continue;for(let c=i;c<n;c++)A[r][c]-=f*A[i][c];b[r]-=f*b[i]}}const x=Array(n).fill(0);for(let i=n-1;i>=0;i--){let s=b[i];for(let c=i+1;c<n;c++)s-=A[i][c]*x[c];x[i]=s/(A[i][i]||1e-12)}return x}
+  function solveNetwork(edges,known,injections={}){const unknown=nodes.map(n=>n.id).filter(id=>!(id in known)),idx=new Map(unknown.map((id,i)=>[id,i]));const N=unknown.length,A=Array.from({length:N},()=>Array(N).fill(0)),b=Array(N).fill(0);for(const e of edges){const g=1/e.r,ai=idx.get(e.a),bi=idx.get(e.b),aKnown=e.a in known,bKnown=e.b in known;if(!aKnown){A[ai][ai]+=g;if(!bKnown)A[ai][bi]-=g;else b[ai]+=g*known[e.b]}if(!bKnown){A[bi][bi]+=g;if(!aKnown)A[bi][ai]-=g;else b[bi]+=g*known[e.a]}}for(const [id,current] of Object.entries(injections)){const i=idx.get(Number(id));if(i!==undefined)b[i]+=current}for(let i=0;i<N;i++)A[i][i]+=1e-10;const x=gaussian(A,b),v=Array(nodes.length).fill(0);for(const [id,val] of Object.entries(known))v[Number(id)]=val;unknown.forEach((id,i)=>v[id]=x[i]);return v}
+  function solveCircuit(){const edges=passiveEdges(),v=solveNetwork(edges,{0:0,1:state.supply.voltage}),out=[];for(const e of edges){const current=(v[e.a]-v[e.b])/e.r;out.push({...e,current,power:current*current*e.r,voltage:v[e.a]-v[e.b]})}const intEdge=out.find(e=>e.id==='RI'),sourceCurrent=intEdge?Math.max(0,intEdge.current):0;solution={v,edges:out,sourceCurrent,totalPower:sourceCurrent*state.supply.voltage};return solution}
+  function equivalentResistance(a,b){if(a===b)return 0;const edges=passiveEdges().filter(e=>e.id!=='RI');const v=solveNetwork(edges,{[b]:0},{[a]:1});const r=Math.abs(v[a]);return !Number.isFinite(r)||r>1e8?Infinity:r}
+  function edgeResult(id){return solution.edges.find(e=>e.id===id)}
+
+  function updatePhysics(dt){
+    solveCircuit();if(performance.now()<state.inrushUntil){state.inrushPeak=Math.max(state.inrushPeak,solution.sourceCurrent);const lampEdge=edgeResult('L1');if(lampEdge)state.lampInrushPeak=Math.max(state.lampInrushPeak,Math.abs(lampEdge.current));}
+    if(!state.running)return;const challengeLocked=state.mode==='challenge';
+    for(const c of components){const e=edgeResult(c.id);if(!e)continue;
+      if(c.type==='lamp'){const target=clamp(e.power/Math.max(.1,c.rating),0,1.15),tau=target>c.temp?.38:1.7,ambient=c.ambientC||20,hotC=c.hotC||2500,maxNormDelta=150/Math.max(1,hotC-ambient),rawDelta=(target-c.temp)*(1-Math.exp(-Math.max(0,dt)/tau)),safeDelta=clamp(rawDelta,-maxNormDelta,maxNormDelta);c.temp=clamp(c.temp+safeDelta,0,1.15);if(!challengeLocked){c.over=e.power>c.rating*2.5?c.over+dt:c.over-dt*.8;if(c.over>1.8){c.burned=true;toast(c.id+' has burned open')}}}
+      else if(c.type==='resistor'||c.type==='internal'){const heat=Math.max(0,e.power/Math.max(.1,c.rating)-.2);c.temp=clamp(c.temp+heat*dt*.32-dt*.08,0,1.5);if(!challengeLocked&&c.temp>1.15&&e.power>c.rating*1.7){c.burned=true;toast(c.name+' has burned open')}}
+      else if(c.type==='fuse'){const ratio=Math.abs(e.current)/Math.max(.05,state.supply.fuseRating);c.over=ratio>1?c.over+dt*ratio*ratio:c.over-dt*.8;c.over=Math.max(0,c.over);if(!challengeLocked&&c.over>1.15){c.burned=true;toast('Fuse F1 has blown')}}
+    }solveCircuit();
+  }
+  function setSwitchClosed(next,{announceChange=true}={}){const was=state.switchClosed;state.switchClosed=!!next;if(!was&&state.switchClosed){if(state.lessonTask==='ohm-inrush'){taskRuntime.closedAt=Date.now();taskRuntime.cooledBeforeClose=(component('L1')?.temp??1)<=.08;}state.inrushPeak=0;state.lampInrushPeak=0;state.inrushUntil=performance.now()+2200;if(announceChange)toast('Switch closed — capturing cold-filament inrush');}if(was&&!state.switchClosed){if(state.lessonTask==='ohm-inrush')taskRuntime.openedAt=Date.now();state.inrushUntil=0;if(announceChange)toast('Switch opened — filament cooling');}syncUI();scheduleSave();}
+
+  function loadLessonTask(taskId){
+    const id=typeof taskId==='string'?taskId:taskId?.id;
+    if(id==='ohm-inrush'){
+      taskRuntime.startedAt=Date.now();taskRuntime.openedAt=Date.now();taskRuntime.closedAt=null;taskRuntime.cooledBeforeClose=false;
+      state.lessonTask=id;state.mode='sandbox';state.currentFault=null;state.challenge={tests:[]};state.supply={voltage:12,internalR:.4,fuseRating:1};
+      applyTopology('series',{announceChange:false});
+      for(const c of components){c.burned=false;c.over=0;if(Number.isFinite(c.temp))c.temp=0;}
+      state.switchClosed=false;state.running=true;state.inrushPeak=0;state.lampInrushPeak=0;state.inrushUntil=0;state.meterMode='current';state.selectedId='L1';
+      const lamp=component('L1');if(lamp)bridgeProbesAcross(lamp);
+      solveCircuit();syncUI();scheduleSave();toast('Cold-filament inrush investigation prepared: S1 is open and L1 is cool');return true;
+    }
+    if(id==='ohm-fault-diagnostic'){
+      taskRuntime.startedAt=Date.now();taskRuntime.openedAt=null;taskRuntime.closedAt=null;taskRuntime.cooledBeforeClose=false;
+      state.lessonTask=id;loadChallenge('random');scheduleSave();toast('Random 3-mark fault challenge prepared');return true;
+    }
+    if(id==='ohm-wheatstone-balance'){
+      taskRuntime.startedAt=Date.now();taskRuntime.openedAt=null;taskRuntime.closedAt=null;taskRuntime.cooledBeforeClose=false;
+      state.lessonTask=id;state.mode='sandbox';state.currentFault=null;state.challenge={tests:[]};applyTopology('wheatstone',{announceChange:false});state.switchClosed=true;state.running=true;state.meterMode='current';state.selectedId='RB';const detector=component('RB');if(detector)bridgeProbesAcross(detector);solveCircuit();syncUI();scheduleSave();toast('Balanced Wheatstone bridge investigation prepared');return true;
+    }
+    return false;
+  }
+
+  function drawLine(a,b,colour,width=4,dash=[]){ctx.save();ctx.strokeStyle=colour;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.lineCap='round';ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();ctx.restore()}
+  function drawResistor(a,b,c){const dx=b.x-a.x,dy=b.y-a.y,L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L,nx=-uy,ny=ux,start=.18*L,end=.82*L,steps=8,amp=10;ctx.save();ctx.translate(a.x,a.y);ctx.strokeStyle=componentColour(c);ctx.lineWidth=4;ctx.lineJoin='round';ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(ux*start,uy*start);for(let i=0;i<=steps;i++){const t=start+(end-start)*i/steps,side=i%2?amp:-amp;ctx.lineTo(ux*t+nx*side,uy*t+ny*side)}ctx.lineTo(ux*end,uy*end);ctx.lineTo(dx,dy);ctx.stroke();ctx.restore()}
+  function drawFuse(a,b,c){drawLine(a,b,componentColour(c),4);const mx=(a.x+b.x)/2,my=(a.y+b.y)/2,ang=Math.atan2(b.y-a.y,b.x-a.x);ctx.save();ctx.translate(mx,my);ctx.rotate(ang);ctx.fillStyle=state.highLumen?'#fff':getCss('--solid');ctx.strokeStyle=componentColour(c);ctx.lineWidth=3;ctx.fillRect(-28,-11,56,22);ctx.strokeRect(-28,-11,56,22);ctx.restore()}
+  function drawSwitch(a,b,c){const dx=b.x-a.x,dy=b.y-a.y,L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L;const p1={x:a.x+ux*L*.35,y:a.y+uy*L*.35},p2={x:a.x+ux*L*.65,y:a.y+uy*L*.65};drawLine(a,p1,componentColour(c),4);drawLine(p2,b,componentColour(c),4);ctx.fillStyle=componentColour(c);for(const p of[p1,p2]){ctx.beginPath();ctx.arc(p.x,p.y,6,0,Math.PI*2);ctx.fill()}const end=state.switchClosed?p2:{x:p2.x-uy*28,y:p2.y+ux*28};drawLine(p1,end,componentColour(c),4)}
+  function drawLamp(a,b,c){drawLine(a,{x:(a.x+b.x)/2,y:(a.y+b.y)/2-28},componentColour(c),4);drawLine({x:(a.x+b.x)/2,y:(a.y+b.y)/2+28},b,componentColour(c),4);const mx=(a.x+b.x)/2,my=(a.y+b.y)/2;ctx.save();ctx.strokeStyle=componentColour(c);ctx.lineWidth=4;ctx.fillStyle=c.temp>.65&&!c.burned?'rgba(255,196,63,.28)':'rgba(255,255,255,.03)';ctx.beginPath();ctx.arc(mx,my,30,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.beginPath();ctx.moveTo(mx-18,my-18);ctx.lineTo(mx+18,my+18);ctx.moveTo(mx+18,my-18);ctx.lineTo(mx-18,my+18);ctx.stroke();ctx.restore()}
+  function drawBattery(a,b){const mx=(a.x+b.x)/2;drawLine(a,{x:a.x,y:(a.y+b.y)/2+18},getCss('--wire'),4);drawLine({x:b.x,y:(a.y+b.y)/2-18},b,getCss('--wire'),4);ctx.save();ctx.strokeStyle=getCss('--wire');ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(mx-22,(a.y+b.y)/2+18);ctx.lineTo(mx+22,(a.y+b.y)/2+18);ctx.moveTo(mx-34,(a.y+b.y)/2-18);ctx.lineTo(mx+34,(a.y+b.y)/2-18);ctx.stroke();ctx.fillStyle=getCss('--text');ctx.font='800 14px system-ui';ctx.fillText('−',mx+42,(a.y+b.y)/2+23);ctx.fillText('+',mx+42,(a.y+b.y)/2-13);ctx.restore()}
+  function componentColour(c){if(c.burned||effectiveR(c)===Infinity)return getCss('--danger');if(c.temp>.9)return getCss('--warn');if(state.selectedId===c.id)return getCss('--accent');return getCss('--wire')}
+  function getCss(name){return getComputedStyle(document.body).getPropertyValue(name).trim()}
+  function colorMix(colour,alpha){if(/^#([0-9a-f]{6})$/i.test(colour)){const n=parseInt(colour.slice(1),16);return `rgba(${n>>16},${n>>8&255},${n&255},${alpha})`}return colour}
+  function labelComponent(c,a,b){const mx=(a.x+b.x)/2,my=(a.y+b.y)/2;ctx.save();ctx.fillStyle=state.highLumen?'#fff':'rgba(4,14,23,.76)';ctx.strokeStyle=getCss('--border');ctx.lineWidth=1;const text=c.id==='BAT'?`${state.supply.voltage.toFixed(1)} V`:c.id;ctx.font='800 12px system-ui';const w=ctx.measureText(text).width+14;ctx.beginPath();ctx.roundRect(mx-w/2,my-9,w,18,8);ctx.fill();ctx.stroke();ctx.fillStyle=getCss('--text');ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,mx,my);ctx.restore()}
+  function drawCircuit(){ctx.clearRect(0,0,cssW,cssH);ctx.save();ctx.fillStyle=state.highLumen?'#fff':getCss('--bg');ctx.fillRect(0,0,cssW,cssH);const grid=state.highLumen?'rgba(0,0,0,.07)':'rgba(220,240,255,.045)';ctx.strokeStyle=grid;ctx.lineWidth=1;for(let x=layout.x;x<layout.x+layout.w;x+=40){ctx.beginPath();ctx.moveTo(x,layout.y);ctx.lineTo(x,layout.y+layout.h);ctx.stroke()}for(let y=layout.y;y<layout.y+layout.h;y+=40){ctx.beginPath();ctx.moveTo(layout.x,y);ctx.lineTo(layout.x+layout.w,y);ctx.stroke()}
+    for(const c of components){const a=nodePos(c.a),b=nodePos(c.b);if(c.type==='battery')drawBattery(a,b);else if(c.type==='resistor'||c.type==='internal')drawResistor(a,b,c);else if(c.type==='fuse')drawFuse(a,b,c);else if(c.type==='switch')drawSwitch(a,b,c);else if(c.type==='lamp')drawLamp(a,b,c);else drawLine(a,b,componentColour(c),4);labelComponent(c,a,b)}
+    for(const n of nodes){const p=nodePos(n.id);ctx.fillStyle=getCss('--node');ctx.strokeStyle=state.highLumen?'#fff':'#07111f';ctx.lineWidth=3;ctx.beginPath();ctx.arc(p.x,p.y,7,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle=getCss('--muted');ctx.font='700 11px system-ui';ctx.textAlign='center';ctx.fillText(n.label,p.x,p.y+20)}
+    if(probeDrags.size){for(const n of nodes){const p=nodePos(n.id),isHot=snapCandidate.red===n.id||snapCandidate.black===n.id;ctx.save();ctx.strokeStyle=isHot?getCss('--accent'):colorMix(getCss('--accent'),.32);ctx.lineWidth=isHot?5:2;ctx.shadowColor=getCss('--accent');ctx.shadowBlur=state.lowStimulus?0:(isHot?20:7);ctx.beginPath();ctx.arc(p.x,p.y,isHot?24:17,0,Math.PI*2);ctx.stroke();ctx.restore();}}
+    drawProbe('black',state.probeBlack);drawProbe('red',state.probeRed);
+    if(state.currentFault==='leakage'&&state.challenge?.revealed){const a=nodePos(4),b=nodePos(9);drawLine(a,b,getCss('--danger'),3,[8,7]);ctx.fillStyle=getCss('--danger');ctx.font='800 13px system-ui';ctx.fillText('LEAK', (a.x+b.x)/2+8,(a.y+b.y)/2)}
+    if(state.currentFault==='shortR1'&&state.challenge?.revealed){const a=nodePos(4),b=nodePos(5);drawLine({x:a.x,y:a.y+26},{x:b.x,y:b.y+26},getCss('--danger'),3,[8,7]);}
+    ctx.restore()}
+  function drawProbe(kind,nodeId){const p=nodePos(nodeId),red=kind==='red',colour=red?'#ef4455':'#171717',preview=probePreview[kind],px=preview?.x??p.x+(red?18:-18),py=preview?.y??p.y-28;ctx.save();ctx.shadowColor=colour;ctx.shadowBlur=state.lowStimulus?0:12;ctx.fillStyle=colour;ctx.strokeStyle='#fff';ctx.lineWidth=3;ctx.beginPath();ctx.arc(px,py,16,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.fillStyle='#fff';ctx.font='900 12px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(red?'R':'B',px,py);ctx.strokeStyle=colour;ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(px,py+16);ctx.lineTo(p.x,p.y);ctx.stroke();ctx.restore()}
+
+  function distancePointSegment(p,a,b){const dx=b.x-a.x,dy=b.y-a.y,l2=dx*dx+dy*dy;if(!l2)return Math.hypot(p.x-a.x,p.y-a.y);let t=((p.x-a.x)*dx+(p.y-a.y)*dy)/l2;t=clamp(t,0,1);return Math.hypot(p.x-(a.x+t*dx),p.y-(a.y+t*dy))}
+  function componentAt(x,y){let best=null,bd=32;for(const c of components){const d=distancePointSegment({x,y},nodePos(c.a),nodePos(c.b));if(d<bd){best=c;bd=d}}return best}
+  function nearestNode(x,y,max=64){let id=null,bd=max;for(const n of nodes){const p=nodePos(n.id),d=Math.hypot(x-p.x,y-p.y);if(d<bd){id=n.id;bd=d}}return id}
+  function probeHit(x,y){for(const [kind,id] of [['red',state.probeRed],['black',state.probeBlack]]){const p=nodePos(id),px=p.x+(kind==='red'?18:-18),py=p.y-28;if(Math.hypot(x-px,y-py)<34)return kind}return null}
+  function palmLike(e){return e.pointerType==='touch'&&Math.max(e.width||0,e.height||0)>45}
+  canvas.addEventListener('pointerdown',e=>{if(palmLike(e))return;canvas.setPointerCapture?.(e.pointerId);activePointers.set(e.pointerId,{x:e.clientX,y:e.clientY});const ph=probeHit(e.clientX,e.clientY);if(ph){probeDrags.set(e.pointerId,ph);probePreview[ph]={x:e.clientX,y:e.clientY};snapCandidate[ph]=ph==='red'?state.probeRed:state.probeBlack;e.preventDefault();return}const c=componentAt(e.clientX,e.clientY);if(c){selectComponent(c.id);if(state.meterMode==='current')updateMeter();e.preventDefault()}});
+  canvas.addEventListener('pointermove',e=>{if(!activePointers.has(e.pointerId))return;activePointers.set(e.pointerId,{x:e.clientX,y:e.clientY});const kind=probeDrags.get(e.pointerId);if(kind){probePreview[kind]={x:e.clientX,y:e.clientY};const n=nearestNode(e.clientX,e.clientY,82);snapCandidate[kind]=n;if(n!==null){if(kind==='red')state.probeRed=n;else state.probeBlack=n;updateMeter()}e.preventDefault()}});
+  function endPointer(e){const kind=probeDrags.get(e.pointerId);activePointers.delete(e.pointerId);probeDrags.delete(e.pointerId);if(kind){const candidate=snapCandidate[kind];if(candidate!==null){if(kind==='red')state.probeRed=candidate;else state.probeBlack=candidate;}probePreview[kind]=null;snapCandidate[kind]=null;const id=kind==='red'?state.probeRed:state.probeBlack;announce(`${kind==='red'?'Red':'Black'} probe magnetically snapped to ${nodes[id].label}`);scheduleSave();updateMeter();}}
+  canvas.addEventListener('pointerup',endPointer);canvas.addEventListener('pointercancel',endPointer);
+  function bridgeProbesAcross(c){if(!c)return;state.probeRed=c.a;state.probeBlack=c.b;state.selectedId=c.id;selectComponent(c.id);updateMeter();scheduleSave();toast(`Probes bridged across ${c.id}`);announce(`Red probe ${nodes[c.a].label}, black probe ${nodes[c.b].label}, across ${c.name}`)}
+  canvas.addEventListener('dblclick',e=>{const c=componentAt(e.clientX,e.clientY);if(c)bridgeProbesAcross(c)});
+
+  function formatValue(v,unit){if(!Number.isFinite(v))return['OL',unit];const a=Math.abs(v);if(unit==='Ω'&&a>=1000)return[(v/1000).toFixed(2),'kΩ'];if(unit==='A'&&a<.1)return[(v*1000).toFixed(1),'mA'];if(unit==='V'&&a<1)return[(v*1000).toFixed(0),'mV'];return[a>=100?v.toFixed(0):a>=10?v.toFixed(2):v.toFixed(3),unit]}
+  function meterValue(){if(state.meterMode==='voltage')return{value:solution.v[state.probeRed]-solution.v[state.probeBlack],unit:'V',desc:`Red ${nodes[state.probeRed].label} · Black ${nodes[state.probeBlack].label}`};if(state.meterMode==='resistance'||state.meterMode==='continuity'){const r=equivalentResistance(state.probeRed,state.probeBlack);return{value:r,unit:'Ω',desc:`Power isolated · ${nodes[state.probeRed].label} to ${nodes[state.probeBlack].label}`}}const e=edgeResult(state.selectedId),peak=state.selectedId==='L1'&&state.lampInrushPeak?` · peak hold ${state.lampInrushPeak.toFixed(3)} A`:'';return{value:e?Math.abs(e.current):NaN,unit:'A',desc:e?`Virtual branch-current clamp on ${state.selectedId}${peak}`:'Select a component'} }
+  function updateMeter(){const m=meterValue(),[num,unit]=formatValue(m.value,m.unit);$('meterReading').textContent=num;$('meterUnit').textContent=unit;$('meterSub').textContent=m.desc;$('meterStatus').textContent=state.running?'LIVE':'PAUSED';if(state.meterMode==='continuity')$('meterStatus').textContent=Number.isFinite(m.value)&&m.value<3?'BEEP':'OPEN'}
+  async function ensureCue(){try{if(!cueCtx)cueCtx=new (AudioContext||webkitAudioContext)();if(cueCtx.state==='suspended')await cueCtx.resume()}catch(e){}}
+  async function continuityBeep(){await ensureCue();if(!cueCtx)return;const o=cueCtx.createOscillator(),g=cueCtx.createGain();o.frequency.value=740;o.type='sine';g.gain.setValueAtTime(.08,cueCtx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,cueCtx.currentTime+.18);o.connect(g).connect(cueCtx.destination);o.start();o.stop(cueCtx.currentTime+.2)}
+  function recordReading(){const m=meterValue(),[num,unit]=formatValue(m.value,m.unit),entry={time:Date.now(),mode:state.meterMode,description:m.desc,value:num+' '+unit,red:state.probeRed,black:state.probeBlack,selectedId:state.selectedId,topology:state.topology};if(!state.challenge)state.challenge={tests:[]};state.challenge.tests=state.challenge.tests||[];state.challenge.tests.push(entry);if(state.challenge.tests.length>20)state.challenge.tests.shift();renderLog();if(state.mode==='challenge')$('challengeTests').textContent=state.challenge.tests.length;if(state.meterMode==='continuity'&&Number.isFinite(m.value)&&m.value<3)continuityBeep();toast('Reading recorded: '+entry.value);scheduleSave()}
+  function renderLog(){const tests=state.challenge?.tests||[];$('testLog').innerHTML=tests.length?tests.slice().reverse().map(t=>`<div class="test-item"><span>${t.mode.slice(0,4).toUpperCase()}</span><span>${escapeHtml(t.description)}</span><span>${escapeHtml(t.value)}</span></div>`).join(''):'<p class="help">No readings recorded yet.</p>'}
+  function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+
+  function selectComponent(id){state.selectedId=id;const c=component(id);$('componentSelect').value=id;if(!c)return;$('inspectTitle').textContent=c.name;$('inspectBadge').textContent=c.id;$('inspectHelp').textContent=componentDescription(c);const locked=state.mode==='challenge'&&!state.challenge?.revealed;$('lockedNote').hidden=!locked;$('editControls').hidden=locked||!['resistor','internal','switch'].includes(c.type);$('burnComponentBtn').hidden=locked||c.type==='battery';$('componentSwitchRow').hidden=c.type!=='switch';$('resistanceRow').hidden=!['resistor','internal'].includes(c.type);$('ratingRow').hidden=!['resistor','internal'].includes(c.type);if(c.type==='resistor'||c.type==='internal'){$('componentResistance').value=c.value;$('resistanceOut').textContent=c.value.toFixed(1)+' Ω';$('componentRating').value=c.rating;$('ratingOut').textContent=c.rating.toFixed(2)+' W'}if(c.type==='switch')$('componentSwitch').checked=state.switchClosed;updateInspectorStats();drawIV();scheduleSave();announce(`${c.name} selected`)}
+  function componentDescription(c){const d={battery:'Ideal DC source with adjustable internal resistance.',internal:'Models voltage lost inside the power supply.',fuse:'Opens the circuit after sustained over-current.',switch:'May be open, closed or develop resistive contacts.',resistor:'Ohmic component with a power rating and thermal failure model.',lamp:'Cold filament follows R(T) = R₀(1 + αΔT), producing a brief inrush before heating.',wire:'Low-resistance connection that can still become an open path.'};return d[c.type]||''}
+  function updateInspectorStats(){const c=component(state.selectedId),e=edgeResult(state.selectedId),locked=state.mode==='challenge'&&!state.challenge?.revealed;if(!c||locked){for(const id of['statV','statI','statP','statT'])$(id).textContent=locked?'HIDDEN':'—';return}$('statV').textContent=e?Math.abs(e.voltage).toFixed(2)+' V':'0 V';$('statI').textContent=e?Math.abs(e.current).toFixed(3)+' A':'0 A';$('statP').textContent=e?e.power.toFixed(2)+' W':'0 W';$('statT').textContent=c.burned?'OPEN':Math.round(clamp(c.temp,0,1)*100)+'%'}
+  function drawIV(){const c=component(state.selectedId),cv=$('ivCanvas'),g=cv.getContext('2d'),w=cv.width,h=cv.height;g.clearRect(0,0,w,h);g.fillStyle=state.highLumen?'#fff':'#08121d';g.fillRect(0,0,w,h);g.strokeStyle=state.highLumen?'#000':'rgba(255,255,255,.22)';g.lineWidth=2;g.beginPath();g.moveTo(42,h/2);g.lineTo(w-12,h/2);g.moveTo(w/2,12);g.lineTo(w/2,h-28);g.stroke();g.fillStyle=state.highLumen?'#000':'#d8efff';g.font='700 18px system-ui';g.fillText('I',w/2+8,24);g.fillText('V',w-26,h/2-8);if(!c)return;g.strokeStyle=getCss('--accent');g.lineWidth=5;g.beginPath();for(let i=0;i<=120;i++){const V=-15+30*i/120;let I=0;if(c.type==='lamp'){const Rhot=(c.ratedV*c.ratedV)/Math.max(.1,c.rating),sign=Math.sign(V);I=sign*Math.pow(Math.abs(V)/Math.max(.1,Rhot),.62)}else{const R=['resistor','internal'].includes(c.type)?c.value:effectiveR(c);I=Number.isFinite(R)?V/Math.max(.03,R):0}const x=42+(V+15)/30*(w-58),y=h/2-clamp(I,-2,2)/4*(h-54);if(i===0)g.moveTo(x,y);else g.lineTo(x,y)}g.stroke()}
+
+  function setupSelector(){$('componentSelect').innerHTML=components.map(c=>`<option value="${c.id}">${c.id} — ${escapeHtml(c.name)}</option>`).join('');$('componentSelect').value=state.selectedId}
+  function syncUI(){document.body.classList.toggle('light',state.theme==='light'&&!state.highLumen);document.body.classList.toggle('high-lumen',state.highLumen);document.body.classList.toggle('readable',state.readable);document.body.classList.toggle('low-stimulus',state.lowStimulus);$('sandboxMode').classList.toggle('active',state.mode==='sandbox');$('challengeMode').classList.toggle('active',state.mode==='challenge');$('modeBadge').textContent=state.mode==='sandbox'?'SANDBOX':'FAULT MODE';$('modeBadge').className='badge '+(state.mode==='sandbox'?'live':'fault');$('challengeDetails').hidden=state.mode!=='challenge';$('supplyDetails').hidden=state.mode==='challenge';$('runBtn').textContent=state.running?'Ⅱ Pause circuit':'▶ Run circuit';$('switchToggle').checked=state.switchClosed;$('topologySelect').value=state.topology;$('supplyVoltage').value=state.supply.voltage;$('internalResistance').value=state.supply.internalR;$('fuseRating').value=state.supply.fuseRating;$('supplyOut').textContent=state.supply.voltage.toFixed(1)+' V';$('internalOut').textContent=state.supply.internalR.toFixed(2)+' Ω';$('fuseOut').textContent=state.supply.fuseRating.toFixed(2)+' A';$('readableToggle').checked=state.readable;$('lowStimToggle').checked=state.lowStimulus;$('readBtn').classList.toggle('primary',state.readable);$('lumenBtn').classList.toggle('primary',state.highLumen);$('themeBtn').textContent=state.theme==='light'?'☾':'☀';document.querySelectorAll('[data-meter]').forEach(b=>b.classList.toggle('active',b.dataset.meter===state.meterMode));setupSelector();selectComponent(state.selectedId);renderLog();updateChallengeUI()}
+
+  function loadChallenge(id){if(id==='random'){const keys=Object.keys(faults);id=keys[Math.floor(Math.random()*keys.length)]}applyTopology('hybrid',{announceChange:false});state.mode='challenge';state.currentFault=id;state.switchClosed=true;state.running=true;state.challenge={id,startedAt:Date.now(),tests:[],submitted:false,revealed:false,score:null,stars:0};state.probeRed=4;state.probeBlack=0;solution=solveCircuit();syncUI();scheduleSave();toast('New hidden fault loaded')}
+  function updateChallengeUI(){if(state.mode!=='challenge'||!state.challenge)return;const f=faults[state.currentFault];$('challengeTitle').textContent=f.title;$('challengePrompt').textContent=f.prompt;$('challengeTests').textContent=(state.challenge.tests||[]).length;const best=state.progress[state.currentFault]||0;$('challengeBest').textContent=best?'★'.repeat(best):'—';if(state.challenge.submitted){$('challengeFeedback').textContent=state.challenge.feedback}else if(state.challenge.revealed){$('challengeFeedback').textContent='Revealed: '+f.description}else $('challengeFeedback').textContent='No diagnosis submitted yet.';$('revealFaultBtn').textContent=state.challenge.revealed?'Fault revealed':'Reveal fault';$('lockedNote').hidden=state.challenge.revealed;}
+  function samePair(t,a,b){return (t.red===a&&t.black===b)||(t.red===b&&t.black===a)}
+  function evidenceHint(area,tests){
+    const c=component(area);if(c){const relevant=tests.some(t=>((t.mode==='voltage'||t.mode==='resistance'||t.mode==='continuity')&&samePair(t,c.a,c.b))||(t.mode==='current'&&t.selectedId===area));if(!relevant)return `No potential-difference, resistance, continuity or branch-current reading has been recorded across ${area} yet.`;return'';}
+    if(area==='BUS'){if(!tests.some(t=>(t.mode==='current'&&['RI','F1','S1'].includes(t.selectedId))||((t.mode==='voltage'||t.mode==='resistance')&&samePair(t,4,0))))return'No supply-current or main-bus-to-return reading has been recorded yet.';}
+    if(area==='RETURN'){if(!tests.some(t=>['continuity','resistance','voltage'].includes(t.mode)&&(t.red===0||t.black===0)))return'No return-path continuity, resistance or potential-difference reading has been recorded yet.';}
+    return'';
+  }
+  function submitDiagnosis(){if(state.mode!=='challenge')return;const f=faults[state.currentFault],comp=$('diagnosisComponent').value,type=$('diagnosisType').value,tests=state.challenge.tests||[],hint=evidenceHint(comp,tests);if(hint){$('challengeFeedback').textContent='Evidence prompt: '+hint;toast('Take a matching meter reading first');announce(hint);return;}let score=0,feedback=[];if(comp===f.component){score++;feedback.push('✓ Faulty area identified.')}else feedback.push('✗ Faulty area does not match the hidden fault.');if(type===f.type){score++;feedback.push('✓ Fault type identified.')}else feedback.push('✗ Fault type is not correct.');if(tests.length>=2){score++;feedback.push('✓ At least two meter readings recorded as evidence.')}else feedback.push('✗ Record at least two purposeful meter readings.');const elapsed=(Date.now()-state.challenge.startedAt)/1000;let stars=score===3&&tests.length<=5&&elapsed<120?3:score>=2?2:1;state.challenge.submitted=true;state.challenge.score=score;state.challenge.stars=stars;state.challenge.feedback=`${score}/3 marks · ${'★'.repeat(stars)} ${feedback.join(' ')}`;state.progress[state.currentFault]=Math.max(state.progress[state.currentFault]||0,stars);updateChallengeUI();scheduleSave();toast(`${score} out of 3 marks`)}
+
+  function updateStatus(){const f=component('F1'),hottest=components.filter(c=>Number.isFinite(c.temp)).sort((a,b)=>b.temp-a.temp)[0];$('supplyCurrent').textContent=solution.sourceCurrent.toFixed(3)+' A';$('supplyPower').textContent=solution.totalPower.toFixed(2)+' W';$('fuseState').textContent=(f?.burned||state.currentFault==='fuseOpen')?'OPEN':'INTACT';$('fuseState').style.color=(f?.burned||state.currentFault==='fuseOpen')?getCss('--danger'):getCss('--success');$('inrushPeak').textContent=component('L1')?(state.lampInrushPeak?state.lampInrushPeak.toFixed(3)+' A':'arm by opening S1'):'not used';$('hotPart').textContent=hottest&&hottest.temp>.05?`${hottest.id} ${Math.round(hottest.temp*100)}%`:'COOL';updateMeter();updateInspectorStats();if(state.mode==='challenge'&&state.challenge){const sec=Math.floor((Date.now()-state.challenge.startedAt)/1000),m=String(Math.floor(sec/60)).padStart(2,'0'),s=String(sec%60).padStart(2,'0');$('challengeTime').textContent=m+':'+s}}
+
+  function frame(ts){const dt=Math.min(.05,(ts-last)/1000||0);last=ts;updatePhysics(dt);drawCircuit();if(ts-lastUi>220){updateStatus();lastUi=ts}requestAnimationFrame(frame)}
+
+  $('topologySelect').onchange=e=>{if(state.mode==='challenge')return;recordVariableChange('topology','circuit topology');applyTopology(e.target.value);syncUI();solveCircuit();scheduleSave()};$('supplyVoltage').oninput=e=>{state.supply.voltage=parseFloat(e.target.value);recordVariableChange('voltage','supply voltage');syncUI();scheduleSave()};$('internalResistance').oninput=e=>{state.supply.internalR=parseFloat(e.target.value);component('RI').value=state.supply.internalR;recordVariableChange('internalR','internal resistance');syncUI();scheduleSave()};$('fuseRating').oninput=e=>{state.supply.fuseRating=parseFloat(e.target.value);component('F1').rating=state.supply.fuseRating;recordVariableChange('fuseRating','fuse rating');syncUI();scheduleSave()};$('switchToggle').onchange=e=>{recordVariableChange('switch','switch state');setSwitchClosed(e.target.checked);announce(`Switch S1 ${state.switchClosed?'closed':'open'}`)};
+  document.querySelectorAll('[data-meter]').forEach(b=>b.onclick=async()=>{await ensureCue();state.meterMode=b.dataset.meter;syncUI();updateMeter();scheduleSave();announce(`Meter set to ${state.meterMode}`)});$('takeReadingBtn').onclick=async()=>{await ensureCue();recordReading()};
+  $('sandboxMode').onclick=()=>{state.mode='sandbox';state.currentFault=null;state.challenge={tests:[]};applyTopology(state.topology||'hybrid',{announceChange:false});syncUI();scheduleSave();toast('Sandbox mode')};$('challengeMode').onclick=()=>loadChallenge('random');$('newChallengeBtn').onclick=()=>loadChallenge($('challengeSelect').value);$('submitDiagnosisBtn').onclick=submitDiagnosis;$('revealFaultBtn').onclick=()=>{if(!state.challenge)return;state.challenge.revealed=true;updateChallengeUI();selectComponent(state.selectedId);toast(faults[state.currentFault].description);scheduleSave()};
+  $('runBtn').onclick=async()=>{await ensureCue();state.running=!state.running;syncUI();scheduleSave()};$('resetBtn').onclick=()=>{const mode=state.mode,fault=state.currentFault,topology=state.topology;resetComponents();state.switchClosed=true;state.running=true;state.inrushPeak=0;state.lampInrushPeak=0;if(mode==='challenge')loadChallenge(fault);else{state.topology=topology;state.challenge={tests:[]};syncUI();scheduleSave();toast('Circuit reset')}};$('replaceFuseBtn').onclick=()=>{const fuse=component('F1');if(fuse){fuse.burned=false;fuse.over=0;toast('Fuse replaced')}};$('repairAllBtn').onclick=()=>{components.forEach(c=>{c.burned=false;c.temp=0;c.over=0});toast('Burned components repaired')};
+  $('componentSelect').onchange=e=>selectComponent(e.target.value);$('componentSelect').ondblclick=()=>bridgeProbesAcross(component(state.selectedId));$('inspectTitle').ondblclick=()=>bridgeProbesAcross(component(state.selectedId));$('bridgeProbesBtn').onclick=()=>bridgeProbesAcross(component(state.selectedId));$('componentResistance').oninput=e=>{const c=component(state.selectedId);if(c){c.value=parseFloat(e.target.value);recordVariableChange('componentResistance',c.id+' resistance');$('resistanceOut').textContent=c.value.toFixed(1)+' Ω';drawIV();scheduleSave()}};$('componentRating').oninput=e=>{const c=component(state.selectedId);if(c){c.rating=parseFloat(e.target.value);recordVariableChange('componentRating',c.id+' power rating');$('ratingOut').textContent=c.rating.toFixed(2)+' W';drawIV();scheduleSave()}};$('componentSwitch').onchange=e=>setSwitchClosed(e.target.checked);$('burnComponentBtn').onclick=()=>{const c=component(state.selectedId);if(c&&c.type!=='battery'){c.burned=!c.burned;toast(c.burned?`${c.id} opened`:`${c.id} repaired`)}};
+  $('themeBtn').onclick=()=>{state.highLumen=false;state.theme=state.theme==='light'?'dark':'light';syncUI();scheduleSave()};$('lumenBtn').onclick=()=>{state.highLumen=!state.highLumen;syncUI();scheduleSave();toast(state.highLumen?'High-lumen mode':'Standard projection mode')};$('fullBtn').onclick=async()=>{try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();else await document.exitFullscreen()}catch(e){toast('Fullscreen unavailable')}};$('panelBtn').onclick=()=>{$('leftPanel').classList.toggle('hidden');toast($('leftPanel').classList.contains('hidden')?'Deck hidden':'Deck shown')};$('readBtn').onclick=()=>{state.readable=!state.readable;syncUI();scheduleSave()};$('readableToggle').onchange=e=>{state.readable=e.target.checked;syncUI();scheduleSave()};$('lowStimToggle').onchange=e=>{state.lowStimulus=e.target.checked;syncUI();scheduleSave();toast(state.lowStimulus?'Low-stimulus focus mode':'Standard visual mode')};
+
+const QR = (()=>{
+  const RS_L=[
+    [1,26,19],[1,44,34],[1,70,55],[1,100,80],[1,134,108],[2,86,68],[2,98,78],[2,121,97],[2,146,116],[2,86,68,2,87,69],
+    [4,101,81],[2,116,92,2,117,93],[4,133,107],[3,145,115,1,146,116],[5,109,87,1,110,88],[5,122,98,1,123,99],[1,135,107,5,136,108],[5,150,120,1,151,121],[3,141,113,4,142,114],[3,135,107,5,136,108]
+  ];
+  const POS=[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90]];
+  const EXP=new Array(512).fill(0), LOG=new Array(256).fill(0);
+  let x=1;
+  for(let i=0;i<255;i++){EXP[i]=x;LOG[x]=i;x<<=1;if(x&0x100)x^=0x11d;}
+  for(let i=255;i<512;i++)EXP[i]=EXP[i-255];
+  const mul=(a,b)=>a&&b?EXP[LOG[a]+LOG[b]]:0;
+  const blocksFor=v=>{const row=RS_L[v-1],out=[];for(let i=0;i<row.length;i+=3)for(let c=0;c<row[i];c++)out.push({total:row[i+1],data:row[i+2]});return out;};
+  const bitLength=v=>v<10?8:16;
+  class Bits{constructor(){this.bytes=[];this.length=0;} put(n,len){for(let i=len-1;i>=0;i--)this.bit((n>>>i)&1);} bit(v){const index=this.length>>3;if(this.bytes.length<=index)this.bytes.push(0);if(v)this.bytes[index]|=0x80>>(this.length&7);this.length++;}}
+  const generator=degree=>{let poly=[1];for(let i=0;i<degree;i++){const next=new Array(poly.length+1).fill(0);for(let j=0;j<poly.length;j++){next[j]^=poly[j];next[j+1]^=mul(poly[j],EXP[i]);}poly=next;}return poly;};
+  const ecc=(data,count)=>{const gen=generator(count),res=new Array(count).fill(0);for(const byte of data){const factor=byte^res[0];res.shift();res.push(0);for(let i=0;i<count;i++)res[i]^=mul(gen[i+1],factor);}return res;};
+  const bchDigit=n=>{let d=0;while(n){d++;n>>>=1;}return d;};
+  const bchTypeInfo=data=>{const G15=0x537,G15MASK=0x5412;let d=data<<10;while(bchDigit(d)-bchDigit(G15)>=0)d^=G15<<(bchDigit(d)-bchDigit(G15));return ((data<<10)|d)^G15MASK;};
+  const bchVersion=v=>{const G18=0x1f25;let d=v<<12;while(bchDigit(d)-bchDigit(G18)>=0)d^=G18<<(bchDigit(d)-bchDigit(G18));return (v<<12)|d;};
+  const mask=(p,r,c)=>[ (r+c)%2===0, r%2===0, c%3===0, (r+c)%3===0, (Math.floor(r/2)+Math.floor(c/3))%2===0, (r*c)%2+(r*c)%3===0, ((r*c)%2+(r*c)%3)%2===0, ((r*c)%3+(r+c)%2)%2===0 ][p];
+  const penalty=m=>{
+    const n=m.length;let score=0;
+    for(let r=0;r<n;r++){let run=1;for(let c=1;c<n;c++){if(m[r][c]===m[r][c-1])run++;else{if(run>=5)score+=3+run-5;run=1;}}if(run>=5)score+=3+run-5;}
+    for(let c=0;c<n;c++){let run=1;for(let r=1;r<n;r++){if(m[r][c]===m[r-1][c])run++;else{if(run>=5)score+=3+run-5;run=1;}}if(run>=5)score+=3+run-5;}
+    for(let r=0;r<n-1;r++)for(let c=0;c<n-1;c++){const v=m[r][c];if(m[r+1][c]===v&&m[r][c+1]===v&&m[r+1][c+1]===v)score+=3;}
+    const patterns=['10111010000','00001011101'];
+    for(let r=0;r<n;r++){const s=m[r].map(v=>v?'1':'0').join('');for(const p of patterns){let i=0;while((i=s.indexOf(p,i))!==-1){score+=40;i++;}}}
+    for(let c=0;c<n;c++){let s='';for(let r=0;r<n;r++)s+=m[r][c]?'1':'0';for(const p of patterns){let i=0;while((i=s.indexOf(p,i))!==-1){score+=40;i++;}}}
+    let dark=0;for(const row of m)for(const v of row)if(v)dark++;score+=Math.floor(Math.abs(dark*100/(n*n)-50)/5)*10;return score;
+  };
+  function dataBytes(text,version){
+    const bytes=[...new TextEncoder().encode(text)],blocks=blocksFor(version),capacity=blocks.reduce((s,b)=>s+b.data,0)*8;
+    const bits=new Bits();bits.put(4,4);bits.put(bytes.length,bitLength(version));bytes.forEach(b=>bits.put(b,8));
+    if(bits.length>capacity)throw new Error('QR data too long');
+    for(let i=0;i<Math.min(4,capacity-bits.length);i++)bits.bit(0);
+    while(bits.length%8)bits.bit(0);
+    let pad=0;while(bits.length<capacity){bits.put(pad++%2?0x11:0xec,8);}
+    const dc=[],ec=[];let offset=0,maxD=0,maxE=0;
+    for(const b of blocks){const d=bits.bytes.slice(offset,offset+b.data);offset+=b.data;const e=ecc(d,b.total-b.data);dc.push(d);ec.push(e);maxD=Math.max(maxD,d.length);maxE=Math.max(maxE,e.length);}
+    const out=[];for(let i=0;i<maxD;i++)for(const d of dc)if(i<d.length)out.push(d[i]);for(let i=0;i<maxE;i++)for(const e of ec)if(i<e.length)out.push(e[i]);return out;
+  }
+  function matrix(text,forcedMask=null){
+    const bytes=[...new TextEncoder().encode(text)];let version=0;
+    for(let v=1;v<=20;v++){const cap=blocksFor(v).reduce((s,b)=>s+b.data,0)*8;const need=4+bitLength(v)+bytes.length*8;if(need<=cap){version=v;break;}}
+    if(!version)throw new Error('The shared link is too long for the built-in QR generator.');
+    const data=dataBytes(text,version),size=version*4+17;
+    const make=maskIndex=>{
+      const m=Array.from({length:size},()=>Array(size).fill(null));
+      const finder=(row,col)=>{for(let r=-1;r<=7;r++)for(let c=-1;c<=7;c++){if(row+r<0||row+r>=size||col+c<0||col+c>=size)continue;m[row+r][col+c]=(r>=0&&r<=6&&(c===0||c===6))||(c>=0&&c<=6&&(r===0||r===6))||(r>=2&&r<=4&&c>=2&&c<=4);}};
+      finder(0,0);finder(size-7,0);finder(0,size-7);
+      for(const row of POS[version-1])for(const col of POS[version-1]){if(m[row][col]!==null)continue;for(let r=-2;r<=2;r++)for(let c=-2;c<=2;c++)m[row+r][col+c]=r===-2||r===2||c===-2||c===2||(r===0&&c===0);}
+      for(let i=8;i<size-8;i++){if(m[i][6]===null)m[i][6]=i%2===0;if(m[6][i]===null)m[6][i]=i%2===0;}
+      const typeBits=bchTypeInfo((1<<3)|maskIndex);
+      for(let i=0;i<15;i++){const bit=((typeBits>>i)&1)===1;if(i<6)m[i][8]=bit;else if(i<8)m[i+1][8]=bit;else m[size-15+i][8]=bit;}
+      for(let i=0;i<15;i++){const bit=((typeBits>>i)&1)===1;if(i<8)m[8][size-i-1]=bit;else if(i<9)m[8][15-i]=bit;else m[8][15-i-1]=bit;}
+      m[size-8][8]=true;
+      if(version>=7){const bits=bchVersion(version);for(let i=0;i<18;i++){const bit=((bits>>i)&1)===1;m[Math.floor(i/3)][i%3+size-11]=bit;m[i%3+size-11][Math.floor(i/3)]=bit;}}
+      let inc=-1,row=size-1,bitIndex=7,byteIndex=0;
+      for(let col=size-1;col>0;col-=2){if(col<=6)col--;while(true){for(const c of [col,col-1])if(m[row][c]===null){let dark=false;if(byteIndex<data.length)dark=((data[byteIndex]>>bitIndex)&1)===1;if(mask(maskIndex,row,c))dark=!dark;m[row][c]=dark;bitIndex--;if(bitIndex<0){byteIndex++;bitIndex=7;}}row+=inc;if(row<0||row>=size){row-=inc;inc=-inc;break;}}}
+      return m;
+    };
+    if(forcedMask!==null)return make(forcedMask);
+    let best=null,bestScore=Infinity;for(let i=0;i<8;i++){const m=make(i),s=penalty(m);if(s<bestScore){best=m;bestScore=s;}}return best;
+  }
+  function draw(text,canvasEl){const m=matrix(text),n=m.length,q=4,size=canvasEl.width,cell=Math.floor(size/(n+q*2)),used=cell*(n+q*2),offset=Math.floor((size-used)/2);const c=canvasEl.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#fff';c.fillRect(0,0,size,size);c.fillStyle='#000';for(let r=0;r<n;r++)for(let col=0;col<n;col++)if(m[r][col])c.fillRect(offset+(col+q)*cell,offset+(r+q)*cell,cell,cell);return m;}
+  return {matrix,draw};
+})();
+
+  function baseUrl(){return location.href.split('#')[0];}
+  function compactCircuitPayload(){return {v:2,m:state.mode==='challenge'?1:0,t:{hybrid:0,series:1,wheatstone:2}[state.topology]??0,r:state.running?1:0,s:[state.supply.voltage,state.supply.internalR,state.supply.fuseRating,state.switchClosed?1:0],p:[state.probeRed,state.probeBlack,{voltage:0,resistance:1,continuity:2,current:3}[state.meterMode]??0],c:components.filter(c=>['resistor','lamp'].includes(c.type)).map(c=>[c.id,+c.value.toFixed(2),+c.rating.toFixed(2)]),f:state.mode==='challenge'?state.currentFault:null};}
+  function challengeResult(){const ch=state.challenge||{},tests=(ch.tests||[]).slice(-8).map(t=>[t.mode,t.value,t.red,t.black,t.selectedId]);return {v:2,tool:'ohm',challenge:state.currentFault||null,score:ch.score??null,stars:ch.stars??0,tests,elapsedSec:ch.startedAt?Math.round((Date.now()-ch.startedAt)/1000):0,topology:state.topology};}
+  function encodeCompact(prefix,obj){return prefix+bytesToB64(new TextEncoder().encode(JSON.stringify(obj)));}
+  function qrPayload(){const kind=$('qrPayloadType').value;if(kind==='result')return encodeCompact('MBM.OHM.RESULT.2.',challengeResult());if(kind==='link')return `${baseUrl()}#s=${encode()}`;return encodeCompact('MBM.OHM.STATE.2.',compactCircuitPayload());}
+  function renderQrPayload(){const payload=qrPayload();$('qrPayloadField').value=payload;$('qrNote').textContent='Generated locally. No payload has been uploaded.';try{QR.draw(payload,$('qrCanvas'));}catch(error){const q=$('qrCanvas').getContext('2d');q.fillStyle='#fff';q.fillRect(0,0,512,512);q.fillStyle='#111';q.font='700 28px system-ui';q.textAlign='center';q.fillText('Payload too long for QR',256,244);q.font='22px system-ui';q.fillText('Use Copy payload instead',256,282);$('qrNote').textContent=error.message;}}
+  function openQr(){$('qrPayloadType').value=state.mode==='challenge'&&state.challenge?.submitted?'result':'state';renderQrPayload();$('qrModal').classList.add('active');$('closeQrBtn').focus();}
+  function closeQr(){$('qrModal').classList.remove('active');$('qrBtn').focus();}
+  $('qrBtn').onclick=openQr;$('closeQrBtn').onclick=closeQr;$('qrPayloadType').onchange=renderQrPayload;$('qrModal').addEventListener('click',e=>{if(e.target===$('qrModal'))closeQr()});
+  $('copyQrPayloadBtn').onclick=async()=>{const text=$('qrPayloadField').value;try{await navigator.clipboard.writeText(text);toast('QR payload copied')}catch(e){$('qrPayloadField').select();document.execCommand('copy');toast('QR payload copied')}};
+  $('downloadQrBtn').onclick=()=>$('qrCanvas').toBlob(b=>downloadBlob(b,`mbm-ohms-qr-${Date.now()}.png`),'image/png');
+  const CRC_TABLE=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=(c&1)?0xedb88320^(c>>>1):c>>>1;t[n]=c>>>0;}return t;})();function crc32(bytes){let c=0xffffffff;for(const b of bytes)c=CRC_TABLE[(c^b)&255]^(c>>>8);return(c^0xffffffff)>>>0}function u32be(n){return new Uint8Array([(n>>>24)&255,(n>>>16)&255,(n>>>8)&255,n&255])}function concatBytes(...parts){const len=parts.reduce((s,p)=>s+p.length,0),out=new Uint8Array(len);let o=0;for(const p of parts){out.set(p,o);o+=p.length}return out}function pngTextChunk(keyword,text){const type=new TextEncoder().encode('tEXt'),data=new TextEncoder().encode(keyword+'\0'+text),body=concatBytes(type,data);return concatBytes(u32be(data.length),body,u32be(crc32(body)))}async function addPngTextChunks(blob,chunks){const src=new Uint8Array(await blob.arrayBuffer());let offset=8,iend=src.length;while(offset+12<=src.length){const len=(src[offset]<<24)|(src[offset+1]<<16)|(src[offset+2]<<8)|src[offset+3],type=String.fromCharCode(...src.subarray(offset+4,offset+8));if(type==='IEND'){iend=offset;break}offset+=12+(len>>>0)}const extras=chunks.map(([k,v])=>pngTextChunk(k,v));return new Blob([src.subarray(0,iend),...extras,src.subarray(iend)],{type:'image/png'})}
+  function lessonTaskEvidence(){
+    if(!state.lessonTask)return null;
+    if(state.lessonTask==='ohm-inrush'){
+      const steady=Math.abs(edgeResult('L1')?.current||0),peak=Number(state.lampInrushPeak)||0,opened=Number.isFinite(taskRuntime.openedAt),closed=Number.isFinite(taskRuntime.closedAt)&&taskRuntime.closedAt>=taskRuntime.openedAt,cool=!!taskRuntime.cooledBeforeClose,peakCaptured=peak>0,inrushAboveSteady=peak>steady*1.08;
+      const progress=Math.round((opened?15:0)+(cool?25:0)+(closed?20:0)+(peakCaptured?15:0)+(inrushAboveSteady?25:0));
+      return {id:'ohm-inrush',title:'Filament Thermal Dynamics & Inrush Analysis',complete:progress===100,progress,checks:{switchOpened:opened,cooledBeforeClose:cool,switchClosedAfterCooling:closed,peakCaptured,inrushAboveSteady},metrics:{peakCurrentA:+peak.toFixed(5),steadyLampCurrentA:+steady.toFixed(5),ratio:steady>0?+(peak/steady).toFixed(3):null},startedAt:taskRuntime.startedAt};
+    }
+    if(state.lessonTask==='ohm-fault-diagnostic'){
+      const ch=state.challenge||{},tests=ch.tests||[],modes=[...new Set(tests.map(t=>t.mode))],score=Number.isFinite(ch.score)?ch.score:0,twoReadings=tests.length>=2,independent=modes.length>=2||new Set(tests.map(t=>`${t.red}:${t.black}:${t.selectedId}`)).size>=2,submitted=!!ch.submitted;
+      const progress=Math.round((twoReadings?25:Math.min(20,tests.length*10))+(independent?20:0)+(submitted?15:0)+Math.min(40,score/3*40));
+      return {id:'ohm-fault-diagnostic',title:'3-Mark Guided Circuit Fault Diagnostic',complete:score===3&&twoReadings&&independent,progress,checks:{twoReadings,independentEvidence:independent,diagnosisSubmitted:submitted,threeMarks:score===3},metrics:{score,tests:tests.length,distinctModes:modes.length,fault:state.currentFault},startedAt:taskRuntime.startedAt};
+    }
+    if(state.lessonTask==='ohm-wheatstone-balance'){
+      const edge=edgeResult('RB'),current=edge?Math.abs(edge.current):null,balanced=current!=null&&current<.001;
+      return {id:'ohm-wheatstone-balance',title:'Wheatstone Bridge Balance',complete:balanced,progress:balanced?100:35,checks:{wheatstoneTopology:state.topology==='wheatstone',detectorNearZero:balanced},metrics:{detectorCurrentA:current==null?null:+current.toFixed(6)},startedAt:taskRuntime.startedAt};
+    }
+    return {id:state.lessonTask,complete:false,progress:0,checks:{}};
+  }
+
+  function exportResults(){const fuseHeadroom=state.supply.fuseRating>0?1-solution.sourceCurrent/state.supply.fuseRating:0,bridgeEdge=edgeResult('RB'),bridgeCurrent=bridgeEdge?Math.abs(bridgeEdge.current):null;return {schema:2,release:'2.3',tool:'ohms-fault-finder',timestamp:new Date().toISOString(),mode:state.mode,topology:state.topology,lessonTask:state.lessonTask,lessonTaskEvidence:lessonTaskEvidence(),running:state.running,accessibility:{lowStimulus:state.lowStimulus,readable:state.readable},analytics:{...deep(sessionMetrics),meterReadings:(state.challenge?.tests||[]).length,distinctMeterModes:[...new Set((state.challenge?.tests||[]).map(t=>t.mode))].length,fuseHeadroom:+fuseHeadroom.toFixed(4)},diagnostics:{wheatstoneDetectorCurrentA:bridgeCurrent==null?null:+bridgeCurrent.toFixed(6),wheatstoneBalanced:bridgeCurrent==null?null:bridgeCurrent<.001,filamentTemperatureFraction:+(component('L1')?.temp||0).toFixed(5)},supply:{...state.supply,currentA:+solution.sourceCurrent.toFixed(5),powerW:+solution.totalPower.toFixed(4),inrushPeakA:+state.inrushPeak.toFixed(5),lampInrushPeakA:+state.lampInrushPeak.toFixed(5)},challenge:state.mode==='challenge'?challengeResult():null,tests:deep(state.challenge?.tests||[])};}
+  function sendResults(target=window.parent){const message={type:'mbm-tool-results',tool:'ohms-fault-finder',payload:exportResults()};try{target?.postMessage(message,'*')}catch(e){console.warn(e)}return message;}
+
+  function evidenceCanvas(){const out=document.createElement('canvas');out.width=1600;out.height=1131;const g=out.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,out.width,out.height);g.fillStyle='#000';g.font='800 44px Arial';g.fillText('Ohm’s Law Fault-Finding Evidence',48,62);g.font='22px Arial';g.fillText('Made by Matt · Low-voltage DC simulation',48,96);g.strokeStyle='#000';g.lineWidth=3;g.strokeRect(40,116,1520,700);g.drawImage(canvas,40,116,1520,700);g.font='700 24px Arial';const diagnosis=state.mode==='challenge'?(state.challenge?.feedback||'Not submitted'):'Sandbox investigation';g.fillText(`Mode: ${state.mode==='challenge'?'Fault challenge':'Sandbox'} · Topology: ${topologyTemplates[state.topology].label}`,48,866);g.fillText(`Supply: ${state.supply.voltage.toFixed(1)} V · Current: ${solution.sourceCurrent.toFixed(3)} A · Power: ${solution.totalPower.toFixed(2)} W`,48,904);g.font='20px Arial';wrapText(g,'Diagnosis: '+diagnosis,48,944,1490,28);let y=1006;g.font='18px Arial';for(const t of(state.challenge?.tests||[]).slice(-4)){g.fillText(`• ${t.mode}: ${t.description} = ${t.value}`,58,y);y+=28}return out}
+  function wrapText(g,text,x,y,max,line){const words=text.split(' ');let row='';for(const w of words){const test=row+w+' ';if(g.measureText(test).width>max){g.fillText(row,x,y);row=w+' ';y+=line}else row=test}g.fillText(row,x,y)}function downloadBlob(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500)}
+  function encodeResultEnvelope(){return 'MBM.OHM.RESULT.2.'+bytesToB64(new TextEncoder().encode(JSON.stringify(exportResults())))}
+  $('downloadSummaryBtn').onclick=async()=>{const raw=await new Promise(resolve=>evidenceCanvas().toBlob(resolve,'image/png'));const tagged=await addPngTextChunks(raw,[['mbm.telemetry',encodeResultEnvelope()],['mbm.state',encodeCompact('MBM.OHM.STATE.2.',compactCircuitPayload())]]);downloadBlob(tagged,`ohms-fault-evidence-${Date.now()}.png`);toast('Evidence PNG exported with embedded telemetry')};$('printBtn').onclick=()=>{const ev=evidenceCanvas();$('printImage').src=ev.toDataURL('image/png');$('printMode').textContent=state.mode==='challenge'?'Fault challenge':'Sandbox';$('printDiagnosis').textContent=state.mode==='challenge'?(state.challenge?.feedback||'Not submitted'):'Open investigation';$('printScore').textContent=state.challenge?.score!=null?`${state.challenge.score}/3 · ${'★'.repeat(state.challenge.stars)}`:'—';$('printSupply').textContent=`${state.supply.voltage.toFixed(1)} V · ${solution.sourceCurrent.toFixed(3)} A`;$('printLog').innerHTML=(state.challenge?.tests||[]).map(t=>`<li>${escapeHtml(t.mode)}: ${escapeHtml(t.description)} = ${escapeHtml(t.value)}</li>`).join('')||'<li>No recorded readings.</li>';setTimeout(()=>window.print(),120)};
+  $('shareBtn').onclick=async()=>{scheduleSave();await new Promise(r=>setTimeout(r,260));try{await navigator.clipboard.writeText(location.href);toast('Setup link copied')}catch(e){prompt('Copy this setup link:',location.href)}};
+
+  function emitState(){if(parent===window)return;parent.postMessage({type:'mbm-tool-state',tool:'ohms-fault-finder',state:{release:'2.3',mode:state.mode,topology:state.topology,lessonTask:state.lessonTask,running:state.running,current:solution.sourceCurrent,faultTests:state.challenge?.tests?.length||0,highLumen:state.highLumen,lowStimulus:state.lowStimulus}},'*')}
+  function applyDeckTheme(payload){const theme=typeof payload==='string'?payload:payload?.theme;if(!theme)return;state.highLumen=theme==='high-lumen';state.theme=theme==='light'?'light':'dark';syncUI();scheduleSave();}
+  addEventListener('message',e=>{if(window.parent!==window&&e.source!==window.parent)return;const m=e.data;if(!m||typeof m!=='object')return;const a=m.action||m.type;if(a==='mbm-set-theme')applyDeckTheme(m.payload);else if(a==='mbm-set-low-stimulus'){state.lowStimulus=typeof m.payload==='object'?!!m.payload.enabled:!!m.payload;syncUI();scheduleSave()}else if(a==='mbm-pause-all'){state.running=m.payload===false?true:false;syncUI();scheduleSave()}else if(a==='mbm-export-results'||a==='mbm-request-state')sendResults(e.source||window.parent);else if(a==='mbm-reset-all'||a==='reset')$('resetBtn').click();else if(a==='setMode'&&['sandbox','challenge'].includes(m.payload)){m.payload==='challenge'?loadChallenge('random'):$('sandboxMode').click()}else if(a==='setTopology'&&topologyTemplates[m.payload]&&state.mode==='sandbox'){applyTopology(m.payload);syncUI();scheduleSave()}else if(a==='loadChallenge'&&faults[m.payload])loadChallenge(m.payload);else if(a==='mbm-load-task'||a==='mbm-apply-lesson-task')loadLessonTask(m.payload);else if(a==='triggerPrint')$('printBtn').click();else if(a==='pause'){state.running=!m.payload;syncUI();scheduleSave()}});
+  addEventListener('keydown',e=>{if(e.target.matches('input,select,button'))return;if(e.code==='Space'){e.preventDefault();$('runBtn').click()}else if(e.code==='KeyH')$('panelBtn').click();else if(e.code==='KeyF')$('fullBtn').click();else if(e.code==='KeyL')$('lumenBtn').click();else if(e.code==='KeyR')$('resetBtn').click()});addEventListener('resize',updateLayout);
+
+  if(!load()){applyTopology('hybrid',{announceChange:false});state.challenge={tests:[]}}else if(state.mode==='challenge'&&state.currentFault){applyTopology('hybrid',{announceChange:false});state.challenge={id:state.currentFault,startedAt:Date.now(),tests:[],submitted:false,revealed:false,score:null,stars:0}}
+  updateLayout();solveCircuit();syncUI();
+  window.MBMOHmTool={getState:()=>deep({...serialisable(),running:state.running}),getResults:exportResults,setTopology:name=>{applyTopology(name);syncUI();solveCircuit();return state.topology},bridge:id=>bridgeProbesAcross(component(id)),setSwitch:setSwitchClosed,setMeter:mode=>{if(['voltage','resistance','continuity','current'].includes(mode)){state.meterMode=mode;syncUI();updateMeter();scheduleSave();}return state.meterMode},recordReading:()=>{recordReading();return deep((state.challenge?.tests||[]).at(-1)||null)},loadChallenge:id=>{loadChallenge(faults[id]?id:'random');return state.currentFault},step:(seconds=.5)=>{for(let i=0;i<Math.ceil(seconds/0.01);i++)updatePhysics(.01);updateStatus();return exportResults()},stepFrame:(seconds=.2)=>{const before=component('L1')?.temp??0;updatePhysics(seconds);updateStatus();return {before,after:component('L1')?.temp??0,results:exportResults()}},evidenceHint:(area)=>evidenceHint(area,state.challenge?.tests||[]),getComponents:()=>deep(components),getSolution:()=>deep(solution),setLowStimulus:value=>{state.lowStimulus=!!value;syncUI();scheduleSave();return state.lowStimulus},loadLessonTask,encodeResult:encodeResultEnvelope};
+  if(window.parent!==window)window.parent.postMessage({type:'mbm-tool-ready',tool:'ohms-fault-finder',release:'2.3',capabilities:['mbm-set-theme','mbm-set-low-stimulus','mbm-pause-all','mbm-reset-all','mbm-export-results','mbm-request-state','mbm-load-task','mbm-apply-lesson-task']},'*');requestAnimationFrame(frame);
+})();
+</script>
+
+<!-- mbm-splash-inline: canonical Made by Matt splash, inlined from the games estate standard. -->
+<script>
+/* Made by Matt splash v2 — single file, no dependencies, self-styling.
+   Usage: MadeByMattSplash.start({title:"BOSS BATTLE", kicker:"A Made by Matt Simulation",
+          duration:3200, onComplete:function(){}});                                      */
+(function (g) {
+  var CSS = ".mbm-splash{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;" +
+    "background:radial-gradient(circle at 50% 38%,#222B55,#161D3D 68%);color:#E8E2D4;" +
+    "font-family:Poppins,'Segoe UI',system-ui,sans-serif;transition:opacity .55s ease,visibility .55s}" +
+    ".mbm-splash.is-leaving{opacity:0;visibility:hidden}" +
+    ".mbm-stage{text-align:center;padding:24px;max-width:860px}" +
+    ".mbm-mark{width:min(34vmin,200px);height:auto;filter:drop-shadow(0 18px 32px #0008)}" +
+    ".mbm-mark .mpath{stroke-dasharray:1;stroke-dashoffset:1;animation:mbmDraw 1s cubic-bezier(.6,0,.3,1) .2s forwards}" +
+    ".mbm-mark .mstar{transform-origin:50px 30px;transform:scale(0);opacity:0;" +
+    "animation:mbmPop .45s cubic-bezier(.34,1.56,.64,1) 1.1s forwards}" +
+    ".mbm-kicker,.mbm-title,.mbm-tagline{opacity:0;transform:translateY(12px);animation:mbmRise .6s ease forwards}" +
+    ".mbm-kicker{animation-delay:1.3s;margin-top:20px;color:#F2A24A;font-size:.78rem;" +
+    "letter-spacing:.32em;text-transform:uppercase}" +
+    ".mbm-title{animation-delay:1.45s;margin:.35rem 0 .2rem;font-size:clamp(2rem,7vw,5rem);" +
+    "line-height:.95;letter-spacing:.04em;text-transform:uppercase;font-weight:700}" +
+    ".mbm-tagline{animation-delay:1.65s;color:#B9E6CD;letter-spacing:.18em;text-transform:uppercase;font-weight:700}" +
+    ".mbm-skip{position:absolute;right:22px;bottom:20px;border:1px solid #b9e6cd70;border-radius:99px;" +
+    "background:#0a1026aa;color:#E8E2D4;padding:.65rem 1rem;cursor:pointer;font:inherit}" +
+    ".mbm-skip:focus-visible{outline:3px solid #F2A24A;outline-offset:3px}" +
+    "@keyframes mbmDraw{to{stroke-dashoffset:0}}@keyframes mbmPop{to{transform:scale(1);opacity:1}}" +
+    "@keyframes mbmRise{to{opacity:1;transform:translateY(0)}}" +
+    "@media(prefers-reduced-motion:reduce){.mbm-splash{transition:none}" +
+    ".mbm-mark .mpath{animation:none;stroke-dashoffset:0}.mbm-mark .mstar{animation:none;transform:scale(1);opacity:1}" +
+    ".mbm-kicker,.mbm-title,.mbm-tagline{animation:none;opacity:1;transform:none}}";
+  var MARK = '<svg class="mbm-mark" viewBox="0 0 100 100" role="img" aria-label="Made by Matt">' +
+    '<circle cx="50" cy="50" r="47" fill="none" stroke="#B9E6CD" stroke-width="3.4"/>' +
+    '<path class="mpath" pathLength="1" d="M28 71 L28 37 L50 59 L72 37 L72 71" fill="none" ' +
+    'stroke="#E8E2D4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '<path class="mstar" d="M50 22.5 L51.48 28.52 L57.5 30 L51.48 31.48 L50 37.5 ' +
+    'L48.52 31.48 L42.5 30 L48.52 28.52 Z" fill="#F2A24A"/></svg>';
+
+  function start(o) {
+    o = Object.assign({ title: "", kicker: "A Made by Matt Experience",
+      duration: 3200, onComplete: null }, o || {});
+    if (!document.getElementById("mbm-splash-css")) {
+      var st = document.createElement("style");
+      st.id = "mbm-splash-css"; st.textContent = CSS;
+      document.head.appendChild(st);
+    }
+    var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var prevFocus = document.activeElement;
+    var el = document.createElement("section");
+    el.className = "mbm-splash";
+    el.setAttribute("role", "dialog");
+    el.setAttribute("aria-modal", "true");
+    el.setAttribute("aria-label", "Made by Matt introduction");
+    el.innerHTML = '<div class="mbm-stage">' + MARK +
+      '<p class="mbm-kicker"></p><h1 class="mbm-title"></h1>' +
+      '<p class="mbm-tagline">Learn \u2022 Build \u2022 Explore</p></div>' +
+      '<button class="mbm-skip" type="button">Skip intro</button>';
+    el.querySelector(".mbm-kicker").textContent = o.kicker;
+    el.querySelector(".mbm-title").textContent = o.title;
+    document.body.appendChild(el);
+    var done = false, timer;
+    function close() {
+      if (done) return;
+      done = true;
+      clearTimeout(timer);
+      el.classList.add("is-leaving");
+      setTimeout(function () {
+        el.remove();
+        if (prevFocus && prevFocus.focus) prevFocus.focus();
+        if (typeof o.onComplete === "function") o.onComplete();
+      }, reduced ? 0 : 600);
+    }
+    el.querySelector(".mbm-skip").addEventListener("click", close);
+    el.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" || e.key === "Enter" || e.key === " ") { e.preventDefault(); close(); }
+    });
+    el.tabIndex = -1;
+    el.focus();
+    timer = setTimeout(close, reduced ? Math.min(o.duration, 1200) : o.duration);
+    return { close: close, element: el };
+  }
+  g.MadeByMattSplash = { start: start };
+})(window);
+</script>
+<style>
+/* The donor's Skip button sizes from the host page's font (padding + font:inherit).
+   It lands 110x42 here against 107x48 on Nova Siege — same donor, smaller body font.
+   Raised from outside the donor block so the donor stays byte-identical. */
+.mbm-splash .mbm-skip{min-height:44px}
+</style>
+<script>
+/* Framed inside the Portfolio Hub's Lesson Deck, this page must not splash again:
+   the hub splashes once at hub level. Reference comparison only — legal from an
+   opaque-origin sandbox, where touching window.top.location would throw. */
+(function(){var framed=true;try{framed=(window.self!==window.top)}catch(e){framed=true}
+if(framed&&window.MadeByMattSplash){window.MadeByMattSplash.start=function(){return{close:function(){},element:null}}}})();
+</script>
+<script>
+(function(){if(window.MadeByMattSplash)window.MadeByMattSplash.start({title:"OHM'S LAW FAULT-FINDER"})})();
+</script>
+<script defer src="/hud.js"></script>
+</body>
+</html>
