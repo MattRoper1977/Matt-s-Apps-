@@ -61,11 +61,11 @@ MORE_ROUTES = ["/stats/", "/members/", "/#about", "/privacy/"]
 #
 # resources.json keeps the blanket rule. Only apps.json was ruled on.
 MANIFEST_PINS = {
-    "apps.json": "0e539ff6a0856138af89f45aec348c594b5646f6c442bfb6d4d6fced8e75108c",
+    "apps.json": "94fb05b883d92b11bda14417420ac5af06a308059241043cb4dbe4a5b147e9b4",
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
-    "resources.json": "e35d632482e3829cc860f88b96a6f8dcf1d369528fb3fb95c3e1c78f725a52b0",
+    "resources.json": "dd8955ba6e0ea20482f98edd2e17f85f25637ffa4a94397f82c52d8cc471ed60",
 }
 PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it writes both gate copies or neither)"
 

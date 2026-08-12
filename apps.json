@@ -281,6 +281,22 @@
           "i": "🧪",
           "c": "#0fa36b",
           "new": true
+        },
+        {
+          "f": "wave-interference-iridescence-engine-v2-3.html",
+          "n": "WAVE & Iridescence Engine",
+          "d": "Layer waves, tune thin films and read the iridescence that falls out — interference physics you can break and rebuild. Hands over evidence by QR, runs offline, all local to this device",
+          "i": "🌊",
+          "c": "#0e7490",
+          "new": true
+        },
+        {
+          "f": "ohms-law-fault-finder-v2-3.html",
+          "n": "Ohm's Law Fault-Finder",
+          "d": "Hunt the fault in a live circuit — read meters, isolate variables and prove where it broke, V = I × R doing real work. Evidence by QR, runs offline, all local to this device",
+          "i": "🔌",
+          "c": "#b4892c",
+          "new": true
         }
       ]
     }
