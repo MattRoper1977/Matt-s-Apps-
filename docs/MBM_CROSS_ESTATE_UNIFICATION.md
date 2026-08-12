@@ -35,6 +35,22 @@ its own. See `docs/THEME_ENGINE.md` in the site repository.
 Updating the platform shell is therefore an explicit synchronisation operation
 rather than silent drift.
 
+### Changing the theme engine from here
+
+You do not. `assets/mbm-theme.js` is generated. Edit `theme.js` in the
+`mattroper1977.github.io` checkout and run, from that checkout:
+
+```sh
+python3 tools/sync_theme.py          # writes the copies AND every pinned digest
+python3 tools/sync_theme.py --check  # what CI runs; reports drift, writes nothing
+```
+
+Then land the pull requests in dependency order — **site first**, because it owns
+the canonical engine. `.github/workflows/theme-parity.yml` in this repository
+checks the copy and this estate's themed pages against the canonical on every
+relevant push and once a day, so a site-only change cannot sit here unnoticed.
+
+
 ## What changes
 
 - A common Made by Matt header with the route order Games, Lessons, Apps, Tools and Resources.
