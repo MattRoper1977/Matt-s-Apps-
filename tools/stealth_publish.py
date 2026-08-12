@@ -47,9 +47,12 @@ from __future__ import annotations
 import argparse
 import base64
 import hashlib
+import os
 import re
 import shutil
+import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 APPS = Path(__file__).resolve().parent.parent
@@ -90,6 +93,11 @@ EMBEDS = {
 }
 
 HUD = '<script defer src="/hud.js"></script>'
+
+# Script types that are DATA, not JavaScript: the embedded payloads and any
+# importmap. Both fail node --check by design, so they are excluded — and the
+# exclusion is justified by feeding one to the checker, not by assertion.
+DATA_TYPES = {"application/octet-stream", "importmap", "application/json", "text/plain"}
 
 
 def sha(b: bytes) -> str:
@@ -232,6 +240,65 @@ def reembed(hub: str, payloads: dict[str, bytes]) -> str:
 
 # ------------------------------------------------------------------ the gates
 
+def syntax_check(root: Path, problems: list[str]) -> None:
+    """node --check every piece of executable JavaScript, including the piece
+    that does not live in a <script> block.
+
+    ORBIT builds a Web Worker out of a 2160-character template literal:
+        new Worker(URL.createObjectURL(new Blob([source],{type:'text/javascript'})))
+    That string is executable JavaScript the browser will run, and a gate that
+    only walks <script> elements never sees it. Enumerating script tags and
+    calling the file covered is how executable code ships unparsed.
+
+    Data blocks are excluded — application/octet-stream is the embedded payload
+    and importmap is JSON, both of which fail node --check by design. The
+    exclusion is justified by running one through the checker rather than
+    asserted.
+    """
+    import subprocess
+    import tempfile
+
+    def check_js(src: str, label: str) -> None:
+        with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False, encoding="utf-8") as f:
+            f.write(src)
+            path = f.name
+        try:
+            r = subprocess.run(["node", "--check", path], capture_output=True, text=True)
+            if r.returncode:
+                problems.append(f"{label}: node --check failed — "
+                                f"{r.stderr.strip().splitlines()[0] if r.stderr.strip() else '?'}")
+        finally:
+            os.unlink(path)
+
+    # Prove the instrument can fail before believing any of its passes.
+    with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False) as f:
+        f.write("function(){")
+        broken = f.name
+    can_fail = subprocess.run(["node", "--check", broken], capture_output=True).returncode != 0
+    os.unlink(broken)
+    if not can_fail:
+        problems.append("node --check accepted deliberately broken syntax; the checks below mean nothing")
+
+    total = worker_units = 0
+    for _src, name, _t, _f in FILES:
+        text = (root / name).read_text(encoding="utf-8")
+        for m in re.finditer(r"<script\b([^>]*)>(.*?)</script>", text, re.S):
+            attrs, body = m.group(1), m.group(2)
+            ty = re.search(r'type="([^"]+)"', attrs)
+            if ty and ty.group(1) in DATA_TYPES:
+                continue
+            if not body.strip():
+                continue
+            total += 1
+            check_js(body, f"{name} script block")
+        # …and the worker source, which is in no script block at all.
+        for lit in re.finditer(r"const\s+source\s*=\s*`([^`]{200,})`", text, re.S):
+            worker_units += 1
+            check_js(lit.group(1), f"{name} Worker source (template literal)")
+    print(f"  node --check: instrument can fail={can_fail}; {total} script block(s) + "
+          f"{worker_units} Worker source(s) checked")
+
+
 def prove(donor: str, root: Path = OUT) -> list[str]:
     problems: list[str] = []
     dsha = sha(donor.encode())
@@ -292,7 +359,11 @@ def prove(donor: str, root: Path = OUT) -> list[str]:
         print(f"  {name:34} donor={'ok' if ok_donor else 'DRIFT':5} "
               f"blocks={n_marker} start={n_start} guard={n_guard} hud={text.count(HUD)}  {t!r}")
 
-    # 5. THE TRAP: the hub's embedded copies must decode to the published standalones
+    # 5. every piece of executable JavaScript parses, including the Worker source
+    print()
+    syntax_check(root, problems)
+
+    # 6. THE TRAP: the hub's embedded copies must decode to the published standalones
     print()
     hub_p = root / HUB
     if hub_p.is_file():
