@@ -62,12 +62,21 @@ MORE_ROUTES = ["/stats/", "/members/", "/#about", "/privacy/"]
 # resources.json keeps the blanket rule. Only apps.json was ruled on.
 MANIFEST_PINS = {
     "apps.json": "0e539ff6a0856138af89f45aec348c594b5646f6c442bfb6d4d6fced8e75108c",
+    # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
+    # resources.json edit, and the blanket rule forbade it the same way it
+    # once forbade studio adds. Same pattern, same tool, same commit rule.
+    "resources.json": "e35d632482e3829cc860f88b96a6f8dcf1d369528fb3fb95c3e1c78f725a52b0",
 }
-PIN_COMMAND = "python3 tools/pin_apps_manifest.py   (in the Matt-s-Apps- checkout)"
+PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it writes both gate copies or neither)"
 
 ALLOWED_DIFF = {
     "index.html",
     "apps.json",
+    # Guarded by digest, not prohibition — the resources.json half of the same
+    # ruling that pinned apps.json. The pin check above is what makes an edit
+    # here deliberate-or-red; this entry only stops the boundary check from
+    # forbidding the repository's ordinary business outright.
+    "resources.json",
     "assets/mbm-platform.css",
     "assets/mbm-platform.js",
     "assets/mbm-theme.js",
@@ -76,7 +85,10 @@ ALLOWED_DIFF = {
     "tools/verify_cross_estate_browser.mjs",
     ".github/workflows/mbm-cross-estate-unification.yml",
     "docs/MBM_CROSS_ESTATE_UNIFICATION.md",
+    # renamed to pin_manifests.py under Ruling 3; the old entry stays so the
+    # rename's deletion remains legal in any historical diff span.
     "tools/pin_apps_manifest.py",
+    "tools/pin_manifests.py",
     # The pass ledger. It exists to change on every pass — a boundary that reds
     # on the ledger guarantees false failures on exactly the well-behaved passes
     # that record their work. Ruled onto the list 2026-08-12 (Ruling 6). The
