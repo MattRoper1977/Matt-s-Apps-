@@ -31,6 +31,32 @@ const results={
 };
 
 function check(condition,message){if(!condition)results.errors.push(message)}
+/* The lead count is DERIVED from the served apps.json, never written down here.
+   This line used to read  metrics.leadCount==='Thirty-one'  — a frozen constant
+   wearing the label "manifest-derived". The third instance of that failure
+   class in this gate family (the Python normaliser enumerated counts; the Apps
+   manifest pin went stale; this one froze the word outright): the moment the
+   manifest legitimately grew to thirty-four studios, the gate reported the
+   page as wrong when the page was right. Worse, it was blind in the one
+   direction that matters — a page stuck on 'Thirty-one' over a changed
+   manifest read as green. numberWord mirrors the page's own implementation
+   and the Python gate's number_word, so all three derive from the same file.
+   Fetched from the served base, not the checkout: the served tree is what
+   every other limb of this gate measures. */
+function numberWord(n){
+  const one=["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"];
+  const ten=["","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"];
+  if(Number.isInteger(n)&&n>=0&&n<20)return one[n];
+  if(Number.isInteger(n)&&n>=20&&n<100){const t=Math.floor(n/10),u=n%10;return ten[t]+(u?"-"+one[u].toLowerCase():"");}
+  return String(n);
+}
+async function manifestLeadWord(){
+  const res=await fetch(new URL('apps.json',base));
+  if(!res.ok)throw new Error(`apps.json unfetchable from the served tree (HTTP ${res.status}) — the derivation has nothing to derive from`);
+  const data=await res.json();
+  const total=(data.spaces||[]).reduce((n,s)=>n+((s&&s.items&&s.items.length)||0),0);
+  return numberWord(total);
+}
 function sameOrigin(url){try{return new URL(url).origin===new URL(base).origin}catch{return false}}
 function errorText(error){return error?.stack||error?.message||String(error)}
 
@@ -129,7 +155,8 @@ try{
           await page.locator('[data-clear-filters]').click();
           check((await page.locator('#search').inputValue())==='',`lessons: clear filters did not reset search`);
         }else{
-          check(metrics.leadCount==='Thirty-one',`apps: manifest-derived lead count was '${metrics.leadCount}'`);
+          const expectedLead=await manifestLeadWord();
+          check(metrics.leadCount===expectedLead,`apps: manifest-derived lead count was '${metrics.leadCount}', apps.json derives '${expectedLead}'`);
           await page.locator('.seg[data-aud="t"]').click();
           check((await page.locator('#status').innerText()).includes('Showing'),`apps: filtered result announcement missing`);
           await page.locator('[data-clear-filters]').click();
