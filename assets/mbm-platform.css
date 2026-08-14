@@ -1,4 +1,5 @@
 /* mbm-site-professional-design-upgrade-2026-08-07
+   mbm-homepage-audience-routing-2026-08-09
    Shared platform layer: navigation, audience routing, interaction polish and
    responsive/accessibility safeguards. The Made by Matt logo and page copy are
    intentionally outside this file. */
@@ -242,7 +243,7 @@ html{scroll-padding-top:calc(var(--mbm-header-height) + 18px)}
 .mbm-audience-head p{margin:0;color:#8A5620;font-size:.7rem;font-weight:850;letter-spacing:.2em;text-transform:uppercase}
 .mbm-audience-head h2{margin:.2rem 0 0;color:var(--mbm-navy);font-size:clamp(1.35rem,3.5vw,2rem);letter-spacing:-.02em;line-height:1.1}
 .mbm-audience-head>a{color:#8A5620;font-size:.78rem;font-weight:800;text-underline-offset:3px}
-.mbm-audience-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem}
+.mbm-audience-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));gap:.75rem}
 .mbm-audience-card{
   position:relative;
   min-width:0;
@@ -263,6 +264,24 @@ html{scroll-padding-top:calc(var(--mbm-header-height) + 18px)}
   letter-spacing:.1em;
 }
 .mbm-audience-card h3{margin:0 2rem .65rem 0;color:var(--mbm-navy);font-size:1rem;line-height:1.2}
+/* The chooser card carries the audience's own accent, the same four fields the
+   root's .mf-choice card uses. Same family, existing tokens, no new CSS system.
+   The icon chip is accent-on-soft, measured at worst 3.76:1 across the seven
+   (non-text floor 3:1) rather than assumed from the panel measurement, which
+   was a different pairing. */
+.mbm-audience-card{border-left:4px solid var(--card-accent,var(--mbm-line))}
+.mbm-audience-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;height:34px;
+  margin:0 0 .6rem;
+  border-radius:10px;
+  background:var(--card-soft,#EFEADC);
+  color:var(--card-accent,var(--mbm-navy));
+}
+.mbm-audience-glyph{width:19px;height:19px;display:block}
+.mbm-audience-desc{margin:0 0 .7rem;color:rgba(22,29,61,.74);font-size:.79rem;line-height:1.45}
 .mbm-audience-links{display:flex;flex-wrap:wrap;gap:.35rem}
 .mbm-audience-links a{
   display:inline-flex;
@@ -282,6 +301,7 @@ html{scroll-padding-top:calc(var(--mbm-header-height) + 18px)}
 .mbm-audience-links a:focus-visible{outline:3px solid var(--mbm-amber);outline-offset:2px}
 body[data-theme="dark"] .mbm-audience{background:linear-gradient(180deg,#121834,#161D3D);border-color:#2E3860;color:#E8E2D4}
 body[data-theme="dark"] .mbm-audience-card{background:#1B234A;border-color:#2E3860}
+body[data-theme="dark"] .mbm-audience-desc{color:#A9B2CC}
 body[data-theme="dark"] .mbm-audience-head h2,
 body[data-theme="dark"] .mbm-audience-card h3{color:#E8E2D4}
 body[data-theme="dark"] .mbm-audience-links a{background:#161D3D;border-color:#3C476F;color:#E8E2D4}
@@ -501,3 +521,9 @@ body.mbm-platform .rx-chiprow[tabindex="0"]:focus-visible{outline:3px solid var(
   .mbm-site-header,.mbm-audience,.mbm-backtop{display:none!important}
   .mbm-reveal{opacity:1!important;transform:none!important}
 }
+
+/* High lumen — projector / IWB. Additive. */
+[data-theme="highlumen"] .mbm-audience-desc{color:#3A3A3A}
+[data-theme="highlumen"] .mbm-audience-card{background:#FFFFFF;border-color:#4A4A4A}
+[data-theme="highlumen"] .mbm-audience{background:#FFFFFF}
+[data-theme="highlumen"] .mbm-audience-head p,[data-theme="highlumen"] .mbm-audience-head a{color:#7A4A00}

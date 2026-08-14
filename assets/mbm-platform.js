@@ -1,6 +1,8 @@
 /* mbm-site-professional-design-upgrade-2026-08-07
-   Progressive platform navigation and interaction layer. No content depends on
-   this file: if it fails, native links, details and page content remain usable. */
+   mbm-accounts-members-mailing-2026-08-08
+   mbm-homepage-audience-routing-2026-08-09
+   Progressive platform navigation and interaction layer. No public content
+   depends on this file: if it fails, native links and page content remain usable. */
 (function(){
   'use strict';
   if(window.__mbmPlatform)return;
@@ -50,8 +52,6 @@
       if(brand&&brand.parentNode)brand.parentNode.insertBefore(menu,nav);
       else header.insertBefore(menu,nav);
     }else{
-      /* Legacy pages bind their own click handlers. Replacing the node removes
-         those handlers so one click always means one state change. */
       var clean=menu.cloneNode(true);
       menu.parentNode.replaceChild(clean,menu);
       menu=clean;
@@ -76,9 +76,7 @@
     doc.addEventListener('pointerdown',function(e){
       if(!header.contains(e.target)){if(isOpen)setOpen(false,false);else closeDetails(header);}
     },{passive:true});
-    each(header.querySelectorAll('details'),function(d){
-      d.addEventListener('toggle',function(){if(d.open)closeDetails(header,d);});
-    });
+    each(header.querySelectorAll('details'),function(d){d.addEventListener('toggle',function(){if(d.open)closeDetails(header,d);});});
     window.addEventListener('resize',function(){if(window.innerWidth>900&&isOpen)setOpen(false,false);},{passive:true});
 
     var here=pathOf(location.href);
@@ -96,6 +94,109 @@
     function reflectScroll(){header.classList.toggle('is-scrolled',window.scrollY>12);}
     reflectScroll();
     window.addEventListener('scroll',reflectScroll,{passive:true});
+  }
+
+  /* Account discovery is part of the platform shell, not copied into hundreds
+     of games/lessons. It always points at a real route. When Supabase is not
+     configured the route explains that safely; it never creates a local
+     password as a fallback. */
+  function adultFeaturesAllowed(){
+    return !doc.body||doc.body.getAttribute('data-mbm-adult-features')!=='off';
+  }
+  function accountTargets(){
+    var links=[];
+    if(!adultFeaturesAllowed())return links;
+    each(doc.querySelectorAll('header.header nav'),function(nav){
+      var existing=nav.querySelector('a[href="/account/"],a[href="https://madebymatt.uk/account/"]');
+      if(existing){existing.setAttribute('data-mbm-account-nav','1');links.push(existing);return;}
+      var panel=nav.querySelector('.mbm-nav-panel');
+      if(!panel)return;
+      var a=doc.createElement('a');a.href='/account/';a.textContent='Account';a.setAttribute('data-mbm-account-nav','1');
+      var members=panel.querySelector('a[href="/members/"],a[href$="/members/"]');
+      if(members)panel.insertBefore(a,members);else panel.appendChild(a);
+      links.push(a);
+    });
+    return links;
+  }
+  function ensureSecondaryLink(href,text,attr){
+    if(!adultFeaturesAllowed())return;
+    each(doc.querySelectorAll('header.header nav .mbm-nav-panel'),function(panel){
+      if(panel.querySelector('a['+attr+']'))return;
+      var a=doc.createElement('a');a.href=href;a.textContent=text;a.setAttribute(attr,'1');
+      var privacy=panel.querySelector('a[href="/privacy/"],a[href$="/privacy/"]');
+      if(privacy)panel.insertBefore(a,privacy);else panel.appendChild(a);
+    });
+  }
+  function removeSecondary(attr){each(doc.querySelectorAll('a['+attr+']'),function(a){if(a.parentNode)a.parentNode.removeChild(a);});}
+  function ensurePlatformExtrasStyle(){
+    if(doc.getElementById('mbmPlatformExtrasStyle'))return;
+    var style=doc.createElement('style');style.id='mbmPlatformExtrasStyle';
+    style.textContent='.mbm-mailing-cta{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.55rem .9rem;border-radius:999px;background:#F2A24A;color:#161D3D!important;font-size:.8rem;font-weight:850;text-decoration:none;box-shadow:0 2px 0 #C97F2E}.mbm-mailing-cta:focus-visible{outline:3px solid #F2A24A;outline-offset:3px;box-shadow:0 0 0 6px rgba(22,29,61,.7)}';
+    doc.head.appendChild(style);
+  }
+  function reflectMailingFooter(enabled){
+    if(!adultFeaturesAllowed()||doc.body.getAttribute('data-mbm-mailing-footer')==='off')enabled=false;
+    each(doc.querySelectorAll('footer.footer'),function(footer){
+      var existing=footer.querySelector('[data-mbm-mailing-cta]');
+      if(!enabled||footer.getAttribute('data-mbm-mailing-cta')==='off'){if(existing&&existing.parentNode)existing.parentNode.removeChild(existing);return;}
+      if(existing)return;
+      ensurePlatformExtrasStyle();
+      var a=doc.createElement('a');a.href='/mailing-list/';a.textContent='Join mailing list';a.className='mbm-mailing-cta';a.setAttribute('data-mbm-mailing-cta','1');
+      var bar=footer.querySelector('.bar')||footer;bar.appendChild(a);
+    });
+  }
+  function reflectAccountNav(s){
+    each(doc.querySelectorAll('[data-mbm-account-nav]'),function(a){
+      var current=a.getAttribute('aria-current')==='page';
+      a.textContent=current?'Account':(s.configured?(s.user?'Account':'Log in'):'Account');
+      a.setAttribute('aria-label',s.configured?(s.user?'Account settings':'Log in to Made by Matt'):'Made by Matt account');
+    });
+    if(s.configured&&!s.user)ensureSecondaryLink('/account/?mode=register','Create account','data-mbm-register-nav');else removeSecondary('data-mbm-register-nav');
+    var mailing=s.config&&s.config.mailing;
+    var mailingOn=!!(mailing&&mailing.enabled===true);
+    if(mailingOn)ensureSecondaryLink('/mailing-list/','Mailing list','data-mbm-mailing-nav');else removeSecondary('data-mbm-mailing-nav');
+    reflectMailingFooter(mailingOn);
+  }
+  function retireLegacyTeacherList(){
+    /* The homepage used to post marketing opt-ins through FormSubmit. Keep the
+       contact form untouched, but make the teacher-updates block point at the
+       single managed mailing route instead. This also removes stale local-only
+       account wording without rewriting unrelated homepage content. */
+    var box=doc.querySelector('.dx-teach');
+    if(!box||box.getAttribute('data-mbm-mailing-replaced')==='1')return;
+    var form=box.querySelector('form.dx-tform[action^="https://formsubmit.co/"]');
+    if(!form)return;
+    box.setAttribute('data-mbm-mailing-replaced','1');
+    var notes=box.querySelectorAll('.dx-cnote');
+    if(notes[1])notes[1].innerHTML='<b>This is separate from an account.</b> Creating an account never joins the mailing list, and joining the mailing list never creates an account. Subscriptions use the dedicated Made by Matt mailing service and keep unsubscribe separate.';
+    var link=doc.createElement('a');
+    link.href='/mailing-list/';
+    link.className='mbm-mailing-cta';
+    link.setAttribute('data-mbm-home-mailing','1');
+    link.textContent='Join the mailing list';
+    ensurePlatformExtrasStyle();
+    form.replaceWith(link);
+  }
+
+  function initAccountNav(){
+    if(!adultFeaturesAllowed()){
+      removeSecondary('data-mbm-account-nav');
+      removeSecondary('data-mbm-register-nav');
+      removeSecondary('data-mbm-mailing-nav');
+      reflectMailingFooter(false);
+      return;
+    }
+    accountTargets();
+    retireLegacyTeacherList();
+    function attach(){
+      if(!window.MBMAccount)return false;
+      window.MBMAccount.subscribe(reflectAccountNav);
+      return true;
+    }
+    if(attach())return;
+    if(doc.querySelector('script[data-mbm-account-client]'))return;
+    var s=doc.createElement('script');s.src='/assets/mbm-account.js';s.defer=true;s.setAttribute('data-mbm-account-client','1');s.onload=attach;s.onerror=function(){reflectAccountNav({configured:false,user:null,config:null});};
+    doc.head.appendChild(s);
   }
 
   function initRails(){
@@ -138,6 +239,7 @@
     if(!doc.body)return;
     setPageClass();
     each(doc.querySelectorAll('header.header'),initHeader);
+    initAccountNav();
     initRails();
     initReveals();
     initBackToTop();
