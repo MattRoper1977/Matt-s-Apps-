@@ -21,9 +21,22 @@ from collections import Counter
 from pathlib import Path
 
 SENTINEL = "mbm-cross-estate-unification-lessons-apps-2026-08-08"
+# These pin the bytes THIS repository serves. They are not the cross-estate
+# check — that is the `if canonical:` block below, which compares these same two
+# files against the site repository byte for byte. The distinction matters: the
+# pins alone cannot detect divergence, because each repository's copy of this
+# gate pins its own local bytes. Apps and Lessons pinned two different versions
+# of mbm-platform.css/js for weeks and both were green.
+#
+# mbm-platform.css/js re-pinned when Apps was brought to the canonical site
+# copy: css e3eb9b83 (17,937 B) -> b520cf36 (19,380 B), js 0958a73a (6,195 B)
+# -> 095a29e6 (13,226 B). Measured before and after on the Creator Hub at
+# 390x844 and 1440x900: identical on every metric, including the fail-closed
+# adult-affordance count (acct/mail/register all 0, mbm-account.js not
+# requested), so the August exposure regression does not reproduce here.
 CANONICAL_HASHES = {
-    "assets/mbm-platform.css": "e3eb9b83d3c791eca059386999c306711678877bba27248cc78a1ef584e1031d",
-    "assets/mbm-platform.js": "0958a73a78a9f6d428d6cbe6c77a8a1cd5f015022ce9a6acbba92e6bee901fd2",
+    "assets/mbm-platform.css": "b520cf36a9c87af618e03ea534b66c261e8fd05e70d8eb5634f323aee9310698",
+    "assets/mbm-platform.js": "095a29e61f8d7d549a5b58dd1aa1dd74b885416ebb09291ddb218d90ea740c28",
     "assets/mbm-theme.js": "5d711139ee95f2a9814917c516ffe674fbd52fd0b42c8fd6e22a1efbc19f002b",
     "assets/mbm-hub.css": "1643f51bcfe7f89923e908cf4f79b36a80d8bfa767779ab1c9cebe2e1a8b513c",
 }
