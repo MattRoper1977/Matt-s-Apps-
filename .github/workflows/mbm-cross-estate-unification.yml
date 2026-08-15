@@ -27,6 +27,27 @@ on:
       - tools/verify_cross_estate_browser.mjs
       - docs/MBM_CROSS_ESTATE_UNIFICATION.md
       - .github/workflows/mbm-cross-estate-unification.yml
+  # Every trigger above is a path filter over files THIS repository owns. What
+  # this workflow exists to catch is divergence from the canonical site platform,
+  # and the canonical lives in another repository — so the change that matters
+  # most is precisely the one that moves no file here and fires nothing.
+  #
+  # Measured, not supposed: this repository's mbm-platform.css/js sat 1,443 and
+  # 7,031 bytes behind the canonical, and the gate was green throughout, because
+  # every commit that moved the canonical was a site-side commit and no path
+  # filter here can see one. theme-parity.yml already carries a daily schedule
+  # for this reason and says so in its own comment.
+  #
+  # Daily rather than weekly because the canonical moved twice in two days
+  # (6bdeafa on 08-14, bc67b82 on 08-15). Offset off :17 (theme-parity) and off
+  # :53 (the Lessons copy of this workflow) so the three do not queue together.
+  #
+  # Safe to add here without touching job conditions: announce-live-run and
+  # live-proof both already name push and workflow_dispatch positively, so the
+  # schedule cannot reach the steps that comment on PR 5. The Lessons copy was
+  # gated on `!= 'pull_request'` and did need that fixed in the same pass.
+  schedule:
+    - cron: '9 7 * * *'
   workflow_dispatch:
 
 permissions:
