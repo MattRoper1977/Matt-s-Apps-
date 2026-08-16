@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+
+# Transient browser-audit output: screenshots and JSON rewritten on every run.
+audit-output/
