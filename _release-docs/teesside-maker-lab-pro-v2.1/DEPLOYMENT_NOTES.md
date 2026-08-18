@@ -1,0 +1,1 @@
+Teesside Cross-Curricular Maker Lab PRO v2.1.0 — deployed from package teesside-maker-lab-pro-v2.1-autonomous-deploy-2026-08-18-r2. Runtime folder Teesside_Maker_Lab_PRO/. Patches M1–M5 documented in Teesside_Maker_Lab_PRO/PATCH_NOTES_v2.1.md. Do not revert M1 (allow-same-origin) or M2 (e.source guard).

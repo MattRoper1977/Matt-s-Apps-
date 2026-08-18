@@ -1,0 +1,172 @@
+{
+  "suite": "Teesside Cross-Curricular Maker Lab PRO v2",
+  "version": "2.1.0",
+  "generated": "2026-08-15",
+  "apps": [
+    {
+      "n": "01",
+      "id": "shadow_rig_pro_v2",
+      "title": "Anamorphic Shadow Rig Studio",
+      "short": "Shadow Rig",
+      "file": "01_Anamorphic_Shadow_Rig_Studio_PRO_v2.html",
+      "chain": "Light → form → print",
+      "accent": "#55c7ff",
+      "hook": "Engineer a deliberately chaotic armature whose projected shadow resolves into a controlled industrial silhouette.",
+      "original": [
+        "Tolerance storm",
+        "Sensitivity-ranked assembly",
+        "Physical shadow photo analysis"
+      ]
+    },
+    {
+      "n": "02",
+      "id": "token_foundry_pro_v2",
+      "title": "Ironopolis Token Foundry Studio",
+      "short": "Token Foundry",
+      "file": "02_Ironopolis_Token_Foundry_Studio_PRO_v2.html",
+      "chain": "Object → exchange → power",
+      "accent": "#e7a34b",
+      "hook": "Design a two-sided fictional trade token, then diagnose flow, release and registration before making a cold-craft matrix.",
+      "original": [
+        "Topology X-ray",
+        "Abstract flow theatre",
+        "Token transfer to App 08"
+      ]
+    },
+    {
+      "n": "03",
+      "id": "smuggling_hydro_pro_v2",
+      "title": "Tees Smuggling & Hydrographic Rig",
+      "short": "Smuggling Chart",
+      "file": "03_Tees_Smuggling_Hydrographic_Rig_PRO_v2.html",
+      "chain": "Survey → route → mechanism",
+      "accent": "#6bc4d8",
+      "hook": "Spend limited soundings, plan through uncertainty, and autopsy a changing-tide route before building a hidden magnetic channel.",
+      "original": [
+        "Fog of hydrography",
+        "Tide-window mission",
+        "Route autopsy"
+      ]
+    },
+    {
+      "n": "04",
+      "id": "architectural_relief_pro_v2",
+      "title": "Cyber-Industrial Architectural Relief Lab",
+      "short": "Relief Lab",
+      "file": "04_Cyber_Industrial_Architectural_Relief_Lab_PRO_v2.html",
+      "chain": "Light → form → print",
+      "accent": "#d97945",
+      "hook": "Compose an industrial relief, stress-test it under raking light and viewing distance, then prepare a safe mould plan and exhibition interpretation.",
+      "original": [
+        "Raking-light theatre",
+        "Mould-release X-ray",
+        "Patina watershed"
+      ]
+    },
+    {
+      "n": "05",
+      "id": "steelplate_cam_pro_v2",
+      "title": "Dorman Long Steelplate & Rivet CAM",
+      "short": "Steelplate CAM",
+      "file": "05_Dorman_Long_Steelplate_Rivet_CAM_PRO_v2.html",
+      "chain": "Identity → fabrication → place",
+      "accent": "#68b7d8",
+      "hook": "Solve a maker’s plate layout, optimise the punch route, model fabrication tolerance and tile a true-scale pattern across A4 sheets.",
+      "original": [
+        "Constraint solver",
+        "500-trial tolerance model",
+        "Tiled 1:1 fabrication pack"
+      ]
+    },
+    {
+      "n": "06",
+      "id": "tidal_contour_pro_v2",
+      "title": "Tees Tidal Contour Relief & Hydro-Board",
+      "short": "Hydro-Board",
+      "file": "06_Tees_Tidal_Contour_Hydro_Board_PRO_v2.html",
+      "chain": "Survey → route → mechanism",
+      "accent": "#57b8c7",
+      "hook": "Choose sparse sounding locations, infer a hidden seabed, reveal error, nest contour layers and synthesise a conceptual tide cam.",
+      "original": [
+        "Active survey design",
+        "Hidden-truth error map",
+        "Layer nesting + cam synthesis"
+      ]
+    },
+    {
+      "n": "07",
+      "id": "collagraph_pro_v2",
+      "title": "Brutalist Collagraph Matrix Engine",
+      "short": "Collagraph Engine",
+      "file": "07_Brutalist_Collagraph_Matrix_Engine_PRO_v2.html",
+      "chain": "Light → form → print",
+      "accent": "#c89a63",
+      "hook": "Build a material matrix, pull a virtual edition, track wear and compare a photographed physical proof region by region.",
+      "original": [
+        "Edition-wear memory",
+        "Physical proof comparison",
+        "Sensory station card"
+      ]
+    },
+    {
+      "n": "08",
+      "id": "truck_system_pro_v2",
+      "title": "Truck System “Tommy Shop” Economy Lab",
+      "short": "Economy Lab",
+      "file": "08_Truck_System_Tommy_Shop_Economy_Lab_PRO_v2.html",
+      "chain": "Object → exchange → power",
+      "accent": "#d59a55",
+      "hook": "Run a 12-week restricted-payment counterfactual, reveal shocks, test reforms and build a sourced multi-perspective argument.",
+      "original": [
+        "Prediction-locked shock deck",
+        "Policy counterfactuals",
+        "Perspective tribunal"
+      ]
+    }
+  ],
+  "portable_project_format": "MBM_MAKER_PRO_V2",
+  "studio_plan_format": "MBM_MAKER_STUDIO_PLAN_V2",
+  "platform": [
+    {
+      "id": "studio_shell",
+      "title": "Studio Shell & Travelling Maker Passport",
+      "file": "STUDIO_SHELL.html",
+      "format": "MBM_MAKER_STUDIO_V2"
+    },
+    {
+      "id": "teacher_director",
+      "title": "Teacher Studio Director",
+      "file": "TEACHER_STUDIO_DIRECTOR.html",
+      "format": "MBM_MAKER_CLASS_V2"
+    },
+    {
+      "id": "portfolio_hub",
+      "title": "Portfolio & Moderation Hub",
+      "file": "PORTFOLIO_MODERATION_HUB.html",
+      "format": "MBM_MAKER_HUB_V2"
+    }
+  ],
+  "portable_formats": {
+    ".makerlab": "MBM_MAKER_PRO_V2",
+    ".makerstudio": "MBM_MAKER_STUDIO_V2",
+    ".makerclass": "MBM_MAKER_CLASS_V2",
+    ".makerhub": "MBM_MAKER_HUB_V2"
+  },
+  "relays": [
+    {
+      "from": "02",
+      "to": "08",
+      "type": "token_transfer"
+    },
+    {
+      "from": "06",
+      "to": "03",
+      "type": "hydro_survey"
+    },
+    {
+      "from": "04",
+      "to": "07",
+      "type": "relief_matrix"
+    }
+  ]
+}

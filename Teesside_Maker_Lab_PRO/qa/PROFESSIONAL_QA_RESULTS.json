@@ -1,0 +1,261 @@
+[
+  {
+    "file": "index.html",
+    "kind": "launcher",
+    "checks": {
+      "boot": "PASS",
+      "eight_engines": "PASS",
+      "platform_routes": "PASS"
+    },
+    "errors": [],
+    "warnings": [],
+    "ok": true
+  },
+  {
+    "file": "STUDIO_DIRECTOR.html",
+    "kind": "compatibility_router",
+    "checks": {
+      "boot": "PASS",
+      "compatibility_routes": "PASS"
+    },
+    "errors": [],
+    "warnings": [],
+    "ok": true
+  },
+  {
+    "file": "TEACHER_STUDIO_DIRECTOR.html",
+    "kind": "teacher_director",
+    "checks": {
+      "boot": "PASS",
+      "resource_aware_rotation": "PASS",
+      "station_cards": "PASS",
+      "live_pulse": "PASS"
+    },
+    "errors": [],
+    "warnings": [],
+    "ok": true
+  },
+  {
+    "file": "STUDIO_SHELL.html",
+    "kind": "studio_shell",
+    "checks": {
+      "boot": "PASS",
+      "eight_engine_rail": "PASS",
+      "postmessage_sync": "PASS",
+      "constraint_relay": "PASS",
+      "evidence_constellation": "PASS"
+    },
+    "errors": [],
+    "warnings": [],
+    "ok": true
+  },
+  {
+    "file": "PORTFOLIO_MODERATION_HUB.html",
+    "kind": "portfolio_hub",
+    "checks": {
+      "boot": "PASS",
+      "makerlab_import": "PASS",
+      "sampling_engine": "PASS",
+      "dossier_assembly": "PASS"
+    },
+    "errors": [],
+    "warnings": [],
+    "ok": true
+  },
+  {
+    "file": "QUICK_START.html",
+    "kind": "guide",
+    "checks": {
+      "boot": "PASS",
+      "release_route": "PASS"
+    },
+    "errors": [],
+    "warnings": [],
+    "ok": true
+  },
+  {
+    "file": "01_Anamorphic_Shadow_Rig_Studio_PRO_v2.html",
+    "kind": "specialist_app",
+    "checks": {
+      "boot": "PASS",
+      "specialist_test": "PASS",
+      "professional_record": "PASS",
+      "visual_capture": "PASS"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "timeline_events": 8,
+      "calibrations": 1,
+      "evidence_items": 2,
+      "completed_stages": [
+        "Predict",
+        "Understand",
+        "Test"
+      ]
+    },
+    "ok": true
+  },
+  {
+    "file": "02_Ironopolis_Token_Foundry_Studio_PRO_v2.html",
+    "kind": "specialist_app",
+    "checks": {
+      "boot": "PASS",
+      "specialist_test": "PASS",
+      "professional_record": "PASS",
+      "visual_capture": "PASS"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "timeline_events": 7,
+      "calibrations": 1,
+      "evidence_items": 1,
+      "completed_stages": [
+        "Predict",
+        "Test",
+        "Understand"
+      ]
+    },
+    "ok": true
+  },
+  {
+    "file": "03_Tees_Smuggling_Hydrographic_Rig_PRO_v2.html",
+    "kind": "specialist_app",
+    "checks": {
+      "boot": "PASS",
+      "specialist_test": "PASS",
+      "professional_record": "PASS",
+      "visual_capture": "PASS"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "timeline_events": 8,
+      "calibrations": 1,
+      "evidence_items": 1,
+      "completed_stages": [
+        "Predict",
+        "Make",
+        "Test",
+        "Understand"
+      ]
+    },
+    "ok": true
+  },
+  {
+    "file": "04_Cyber_Industrial_Architectural_Relief_Lab_PRO_v2.html",
+    "kind": "specialist_app",
+    "checks": {
+      "boot": "PASS",
+      "specialist_test": "PASS",
+      "professional_record": "PASS",
+      "visual_capture": "PASS"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "timeline_events": 7,
+      "calibrations": 1,
+      "evidence_items": 1,
+      "completed_stages": [
+        "Predict",
+        "Test",
+        "Understand"
+      ]
+    },
+    "ok": true
+  },
+  {
+    "file": "05_Dorman_Long_Steelplate_Rivet_CAM_PRO_v2.html",
+    "kind": "specialist_app",
+    "checks": {
+      "boot": "PASS",
+      "specialist_test": "PASS",
+      "professional_record": "PASS",
+      "visual_capture": "PASS"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "timeline_events": 7,
+      "calibrations": 1,
+      "evidence_items": 1,
+      "completed_stages": [
+        "Predict",
+        "Test",
+        "Understand"
+      ]
+    },
+    "ok": true
+  },
+  {
+    "file": "06_Tees_Tidal_Contour_Hydro_Board_PRO_v2.html",
+    "kind": "specialist_app",
+    "checks": {
+      "boot": "PASS",
+      "specialist_test": "PASS",
+      "professional_record": "PASS",
+      "visual_capture": "PASS"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "timeline_events": 8,
+      "calibrations": 1,
+      "evidence_items": 1,
+      "completed_stages": [
+        "Predict",
+        "Test",
+        "Understand"
+      ]
+    },
+    "ok": true
+  },
+  {
+    "file": "07_Brutalist_Collagraph_Matrix_Engine_PRO_v2.html",
+    "kind": "specialist_app",
+    "checks": {
+      "boot": "PASS",
+      "specialist_test": "PASS",
+      "professional_record": "PASS",
+      "visual_capture": "PASS"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "timeline_events": 7,
+      "calibrations": 1,
+      "evidence_items": 1,
+      "completed_stages": [
+        "Predict",
+        "Test",
+        "Understand"
+      ]
+    },
+    "ok": true
+  },
+  {
+    "file": "08_Truck_System_Tommy_Shop_Economy_Lab_PRO_v2.html",
+    "kind": "specialist_app",
+    "checks": {
+      "boot": "PASS",
+      "specialist_test": "PASS",
+      "professional_record": "PASS",
+      "visual_capture": "PASS"
+    },
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "timeline_events": 9,
+      "calibrations": 1,
+      "evidence_items": 1,
+      "completed_stages": [
+        "Predict",
+        "Test",
+        "Understand"
+      ]
+    },
+    "ok": true
+  }
+]
