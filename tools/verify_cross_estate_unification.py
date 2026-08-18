@@ -97,7 +97,7 @@ MORE_ROUTES = ["/stats/", "/members/", "/#about", "/privacy/"]
 #
 # resources.json keeps the blanket rule. Only apps.json was ruled on.
 MANIFEST_PINS = {
-    "apps.json": "b70fdca96ba9238fd92bc97e24711d058c38f8a9bddd0fc3279a2b6546b4eab1",
+    "apps.json": "758489c54bd27e72cbebd2e68464e80e43631c3a56744e27273a63f7bddb3551",
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
@@ -119,6 +119,13 @@ ALLOWED_DIFF = {
     "assets/mbm-hub.css",
     "tools/verify_cross_estate_unification.py",
     "tools/verify_cross_estate_browser.mjs",
+    # Git metadata, not a served file. It declares which payload docs carry
+    # Markdown hard line breaks so the static-contract whitespace check stops
+    # reading them as stray spaces. The first payload to need that ADDED the
+    # file, which --diff-filter=MRD ignores; the second MODIFIES it, and a
+    # boundary that reds on it would forbid the ordinary business of installing
+    # a second bytes-unaltered payload. It cannot change a studio's bytes.
+    ".gitattributes",
     ".github/workflows/mbm-cross-estate-unification.yml",
     "docs/MBM_CROSS_ESTATE_UNIFICATION.md",
     # renamed to pin_manifests.py under Ruling 3; the old entry stays so the

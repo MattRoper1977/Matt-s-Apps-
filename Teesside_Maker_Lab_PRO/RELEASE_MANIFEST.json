@@ -1,0 +1,258 @@
+{
+  "format": "MBM_MAKER_RELEASE_MANIFEST_V2",
+  "suite": "Teesside Cross-Curricular Maker Lab PRO",
+  "version": "2.1.0",
+  "release_date": "2026-08-15",
+  "verification_status": "PASS",
+  "payload_file_count": 48,
+  "payload_bytes": 5863245,
+  "excluded_recursive_metadata": [
+    "RELEASE_MANIFEST.json",
+    "RELEASE_SELF_CHECK.html",
+    "SHA256SUMS.txt"
+  ],
+  "files": [
+    {
+      "path": "01_Anamorphic_Shadow_Rig_Studio_PRO_v2.html",
+      "bytes": 64870,
+      "sha256": "2ec0314c624d723f9806fa4889c1508987d424bf400fca007d7604400fd96c87"
+    },
+    {
+      "path": "02_Ironopolis_Token_Foundry_Studio_PRO_v2.html",
+      "bytes": 65525,
+      "sha256": "17883573d5bed46a05b92e1d69186624acb724481f395680ca15e50c3bec0f9b"
+    },
+    {
+      "path": "03_Tees_Smuggling_Hydrographic_Rig_PRO_v2.html",
+      "bytes": 65016,
+      "sha256": "174c88a5148a3bd25f0e1baee1b6d242160519402502f50a402b2592b2dd0496"
+    },
+    {
+      "path": "04_Cyber_Industrial_Architectural_Relief_Lab_PRO_v2.html",
+      "bytes": 64022,
+      "sha256": "9ad854598d528f3e489f5980c0eaf9343728867055b16c3fc2a9e9f89c4b8761"
+    },
+    {
+      "path": "05_Dorman_Long_Steelplate_Rivet_CAM_PRO_v2.html",
+      "bytes": 65336,
+      "sha256": "1d2b5869d4bebacc708c4edc0013ed353b1c2712aea61b598c8056ccd95d9ecf"
+    },
+    {
+      "path": "06_Tees_Tidal_Contour_Hydro_Board_PRO_v2.html",
+      "bytes": 64139,
+      "sha256": "e245771f89d4aaa8cab7ae5a90f6f63c716cfcd1f5a6fa48c44bfbd8f713ffe1"
+    },
+    {
+      "path": "07_Brutalist_Collagraph_Matrix_Engine_PRO_v2.html",
+      "bytes": 66995,
+      "sha256": "c81f1d683fba076a37600ed87d8dfcbb19cff0ea292596b92e1f67adb64b20d5"
+    },
+    {
+      "path": "08_Truck_System_Tommy_Shop_Economy_Lab_PRO_v2.html",
+      "bytes": 69227,
+      "sha256": "34fada88f18b2bb7f83ddac5d01e4396b62097c6e8b336af787e23ffd580ec5c"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 2442,
+      "sha256": "5d7bacbd131665523b69dfff3d0dc880adb02f647c095658be4d45f5d1c0cdd2"
+    },
+    {
+      "path": "DATA_PRIVACY_AND_RETENTION.md",
+      "bytes": 2417,
+      "sha256": "e410b48618e796c2cdb37f140813a736f62c9f8abc3985c80a1dbb5038ad777e"
+    },
+    {
+      "path": "DEPLOYMENT_GUIDE.md",
+      "bytes": 4404,
+      "sha256": "78992297516f03c004b06ff73a78c95dc37008b1846f80814260d04bd3d4500d"
+    },
+    {
+      "path": "INTEROPERABILITY_AND_PORTABLE_EVIDENCE.md",
+      "bytes": 4211,
+      "sha256": "070b5c4efc40b91b19983932da0c004dee06e20a25aa88585f7948d24bcd96bb"
+    },
+    {
+      "path": "PATHWAY_AND_EVIDENCE_MAP_PRO.md",
+      "bytes": 1997,
+      "sha256": "5b979ca5e6b905e35706cecb9649f3fd4dfa6d7c61e8db903489c68e24e11fab"
+    },
+    {
+      "path": "PORTFOLIO_MODERATION_HUB.html",
+      "bytes": 28997,
+      "sha256": "4ac94a3e942cb83ee209a27dbf4516158ea5ebf2f3a535407b0ab16d37a8690f"
+    },
+    {
+      "path": "PROFESSIONAL_UPGRADE_ARCHITECTURE.md",
+      "bytes": 5989,
+      "sha256": "539f2821cd50347a3f916c5e2df141e2bec4a172eefcb3fd624c3f43a86ada2c"
+    },
+    {
+      "path": "QUICK_START.html",
+      "bytes": 5173,
+      "sha256": "d4980ff6fdc37f4bcde8a3ac0cf5cf72d2e0370bb545e5dbd9bd40eadd022407"
+    },
+    {
+      "path": "README.md",
+      "bytes": 7612,
+      "sha256": "11737ab73370409651e264ab58b2afc6783e8d8f384943c73897dd809a360314"
+    },
+    {
+      "path": "SAFETY_TRUTH_AND_PROFESSIONAL_BOUNDARY.md",
+      "bytes": 2447,
+      "sha256": "2ff2054859ef9893fd0ac927e7a7d37abff7cb94e69e4a9eef393ccdd2a10e29"
+    },
+    {
+      "path": "SOURCE_NOTES.md",
+      "bytes": 1015,
+      "sha256": "8021632a962517a75b50a1bb8adbd4cdfa9f74e05d60e5ad797ba4201e63849e"
+    },
+    {
+      "path": "STUDIO_CATALOGUE.json",
+      "bytes": 5711,
+      "sha256": "4ef96718bd5e75f4dede02f3c22a04caf801d511c8db519bd979157ef75db2df"
+    },
+    {
+      "path": "STUDIO_DIRECTOR.html",
+      "bytes": 2038,
+      "sha256": "5ac51ef84b31cdc81b8fc20226ffe30623747a4ce9723da8e55a94ddd2b985e4"
+    },
+    {
+      "path": "STUDIO_SHELL.html",
+      "bytes": 33154,
+      "sha256": "07486a2e39f83baf8391303f44f676b8be6a1e7f6ff362095f689195463881f7"
+    },
+    {
+      "path": "TEACHER_STUDIO_DIRECTOR.html",
+      "bytes": 28089,
+      "sha256": "6640ff894c7773fbe13c3a2079f15ed7a4fa25f5b6da2115a0b16b1283c472fc"
+    },
+    {
+      "path": "TEACHER_WORKSHOP_MATRIX_PRO.md",
+      "bytes": 3747,
+      "sha256": "dd643737b904e9d8a04bf41b82d3e2789737f8f37dc7f6fe166e848400515023"
+    },
+    {
+      "path": "VERIFICATION_REPORT.md",
+      "bytes": 5077,
+      "sha256": "9d2911af4aab25306cd8d91b6f40e4dbec7d8e3ba067c16456975a9376fccc37"
+    },
+    {
+      "path": "VERSION.txt",
+      "bytes": 6,
+      "sha256": "c28fcca53637bc88e124af1725df13cb98c69dedefd62fb3cdbe1cdb6b760624"
+    },
+    {
+      "path": "index.html",
+      "bytes": 14535,
+      "sha256": "43100252fbf47b295b29c46fcc6abb53878e4f3528edb8f6bf11a16e4b9918a5"
+    },
+    {
+      "path": "qa/MOBILE_QA_RESULTS.json",
+      "bytes": 2784,
+      "sha256": "16f46240fb4e3dff891789f07d7ed0c35d152b48da7d8a3acbd44f63190afb72"
+    },
+    {
+      "path": "qa/PORTABLE_EXPORT_QA_RESULTS.json",
+      "bytes": 1508,
+      "sha256": "a4791ef065526620cd135cd93b4ee869776b84516c7315e5b1f54eb9717258b3"
+    },
+    {
+      "path": "qa/PROFESSIONAL_QA_RESULTS.json",
+      "bytes": 5498,
+      "sha256": "fcd828df816bd61739e21e0e072b7ab121d1beba1fc149afeddb7fc702f4ce04"
+    },
+    {
+      "path": "qa/PRO_QA_01.png",
+      "bytes": 386615,
+      "sha256": "493ebddd27842a503432c6631602387a76022ea314e99c465b45dc4441601521"
+    },
+    {
+      "path": "qa/PRO_QA_02.png",
+      "bytes": 255576,
+      "sha256": "80a99b97af47634559aefd57463365f55912484ed006c4ca168f9f954514043b"
+    },
+    {
+      "path": "qa/PRO_QA_03.png",
+      "bytes": 391195,
+      "sha256": "600cc40d76b5cf815c91299d26f7ccba207346cb9e532a546e3cca61f10a7a89"
+    },
+    {
+      "path": "qa/PRO_QA_04.png",
+      "bytes": 268582,
+      "sha256": "4f49c8e27a63427c229ce98665e65666e88dff1cc55f1dac156ba9f9b17ee915"
+    },
+    {
+      "path": "qa/PRO_QA_05.png",
+      "bytes": 487069,
+      "sha256": "cc6cbd1cb1836dcb8b60524bf4dd9af0553b7351caf04e33752a586db2a076e8"
+    },
+    {
+      "path": "qa/PRO_QA_06.png",
+      "bytes": 333809,
+      "sha256": "23d6a62a94ea09ca95c9de051732614ae64328dee82d17d820e84680427e1eaf"
+    },
+    {
+      "path": "qa/PRO_QA_07.png",
+      "bytes": 259359,
+      "sha256": "e28d2c156f7853f948bfdf14b90d5c6b22ffe01b20a1b505fe25447d20980d80"
+    },
+    {
+      "path": "qa/PRO_QA_08.png",
+      "bytes": 266548,
+      "sha256": "84c7763cd776e4bed6fc28e3161bf0ae0c07bab0a6df6ed44003054f334f9399"
+    },
+    {
+      "path": "qa/PRO_QA_COMPATIBILITY_ROUTER.png",
+      "bytes": 208058,
+      "sha256": "03c06d3a1cc0711f0f8982b4083b818752d69193170886f6f0bbd0d4b3a55bb7"
+    },
+    {
+      "path": "qa/PRO_QA_LAUNCHER.png",
+      "bytes": 517529,
+      "sha256": "bb8ba1f5c9e9f3757f13c7e1a0713b36e887729a90c3953d7b8861c2651547c8"
+    },
+    {
+      "path": "qa/PRO_QA_MOBILE_APP01.png",
+      "bytes": 160194,
+      "sha256": "fb4264cf1201a3d5bff1b185d47efda1bd877a9b9a6172de41203d97bb970831"
+    },
+    {
+      "path": "qa/PRO_QA_MOBILE_LAUNCHER.png",
+      "bytes": 184607,
+      "sha256": "b553eb009cec855cf55e8c6e9dbfcde409d82cc8b64d59a5ed4119036781f6be"
+    },
+    {
+      "path": "qa/PRO_QA_PORTFOLIO_HUB.png",
+      "bytes": 173450,
+      "sha256": "8bb2a57cdf009ac285484b88d80f92ada1174ffdb20533a6647b0acec8e10fd7"
+    },
+    {
+      "path": "qa/PRO_QA_STUDIO_SHELL.png",
+      "bytes": 186749,
+      "sha256": "6e12027600859c5c1fee8630908e223aee79ed89a7bf4e5d97b1ad2f53e434ea"
+    },
+    {
+      "path": "qa/PRO_QA_TEACHER_DIRECTOR.png",
+      "bytes": 153621,
+      "sha256": "3efff77b8e16b994dfa7cf83c827ebf9af08659fedada6b57a6865c21026a90d"
+    },
+    {
+      "path": "qa/STATIC_CHECK_RESULTS.json",
+      "bytes": 4023,
+      "sha256": "f6184430f021dbcc5be889e3532fd5c095b4c10c3090f6d25d8cc16538c1a823"
+    },
+    {
+      "path": "qa/SUITE_PRO_V2_MONTAGE.jpg",
+      "bytes": 466140,
+      "sha256": "49c9273057782615fcab0bc07cd739d8d16fa559b7478aa84e92a02517bf5a3d"
+    },
+    {
+      "path": "qa/SUITE_VISUAL_QA_MONTAGE.jpg",
+      "bytes": 466140,
+      "sha256": "49c9273057782615fcab0bc07cd739d8d16fa559b7478aa84e92a02517bf5a3d"
+    }
+  ],
+  "patched_from": "2.0.0 (2026-08-15)",
+  "patch_notes": "PATCH_NOTES_v2.1.md"
+}

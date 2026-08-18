@@ -2,3 +2,8 @@
 # their trailing double-spaces are Markdown hard line breaks, not accidents.
 LundyLoop_Professional_OS/*.md whitespace=-blank-at-eol
 _release-docs/lundyloop-professional-os-v2/*.md whitespace=-blank-at-eol
+
+# Maker Lab payload docs are installed bytes-unaltered from the release package;
+# same reason — the trailing double-spaces are Markdown hard line breaks.
+Teesside_Maker_Lab_PRO/*.md whitespace=-blank-at-eol
+_release-docs/teesside-maker-lab-pro-v2.1/*.md whitespace=-blank-at-eol

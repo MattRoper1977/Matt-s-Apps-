@@ -1,0 +1,57 @@
+name: Verify Teesside Maker Lab PRO
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'Teesside_Maker_Lab_PRO/**'
+      - '_release-docs/teesside-maker-lab-pro-v2.1/**'
+      - 'tools/makerlab/**'
+      - '.github/workflows/verify-teesside-maker-lab-pro.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'Teesside_Maker_Lab_PRO/**'
+      - '_release-docs/teesside-maker-lab-pro-v2.1/**'
+      - 'tools/makerlab/**'
+      - '.github/workflows/verify-teesside-maker-lab-pro.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: teesside-maker-lab-pro-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Suite structure, offline boundary and inventory
+        run: python3 tools/makerlab/verify_makerlab_static.py . --self-test
+
+  live-bytes:
+    # Published bytes can only be proven once the merge is on main and Pages has
+    # rebuilt, so this is the one job that cannot run on a pull request.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: static
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Exact published-byte proof
+        run: |
+          python3 tools/makerlab/verify_live_bytes.py \
+            --repo-root . \
+            --base https://madebymatt.uk/Matt-s-Apps-/ \
+            --sha "$GITHUB_SHA" \
+            --json-out live-proof.json
+      - name: Upload live proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: teesside-maker-lab-live-${{ github.run_id }}
+          path: live-proof.json
+          if-no-files-found: error

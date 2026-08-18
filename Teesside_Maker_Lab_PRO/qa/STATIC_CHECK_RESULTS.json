@@ -1,0 +1,144 @@
+{
+  "release": "Teesside Cross-Curricular Maker Lab PRO v2.0.0",
+  "generated": "2026-08-15",
+  "overall": "PASS",
+  "summary": {
+    "html_files": 15,
+    "specialist_apps": 8,
+    "inline_scripts_checked": 21,
+    "zero_byte_files": 0,
+    "missing_links": 0,
+    "duplicate_ids": 0,
+    "external_runtime_dependencies": 0,
+    "runtime_network_calls": 0,
+    "javascript_syntax_errors": 0
+  },
+  "files": [
+    {
+      "file": "01_Anamorphic_Shadow_Rig_Studio_PRO_v2.html",
+      "bytes": 64870,
+      "inline_scripts": 2,
+      "javascript_syntax": "PASS",
+      "external_runtime_dependencies": false,
+      "runtime_network_calls": 0
+    },
+    {
+      "file": "02_Ironopolis_Token_Foundry_Studio_PRO_v2.html",
+      "bytes": 65525,
+      "inline_scripts": 2,
+      "javascript_syntax": "PASS",
+      "external_runtime_dependencies": false,
+      "runtime_network_calls": 0
+    },
+    {
+      "file": "03_Tees_Smuggling_Hydrographic_Rig_PRO_v2.html",
+      "bytes": 65016,
+      "inline_scripts": 2,
+      "javascript_syntax": "PASS",
+      "external_runtime_dependencies": false,
+      "runtime_network_calls": 0
+    },
+    {
+      "file": "04_Cyber_Industrial_Architectural_Relief_Lab_PRO_v2.html",
+      "bytes": 64022,
+      "inline_scripts": 2,
+      "javascript_syntax": "PASS",
+      "external_runtime_dependencies": false,
+      "runtime_network_calls": 0
+    },
+    {
+      "file": "05_Dorman_Long_Steelplate_Rivet_CAM_PRO_v2.html",
+      "bytes": 65336,
+      "inline_scripts": 2,
+      "javascript_syntax": "PASS",
+      "external_runtime_dependencies": false,
+      "runtime_network_calls": 0
+    },
+    {
+      "file": "06_Tees_Tidal_Contour_Hydro_Board_PRO_v2.html",
+      "bytes": 64139,
+      "inline_scripts": 2,
+      "javascript_syntax": "PASS",
+      "external_runtime_dependencies": false,
+      "runtime_network_calls": 0
+    },
+    {
+      "file": "07_Brutalist_Collagraph_Matrix_Engine_PRO_v2.html",
+      "bytes": 66995,
+      "inline_scripts": 2,
+      "javascript_syntax": "PASS",
+      "external_runtime_dependencies": false,
+      "runtime_network_calls": 0
+    },
+    {
+      "file": "08_Truck_System_Tommy_Shop_Economy_Lab_PRO_v2.html",
+      "bytes": 69227,
+      "inline_scripts": 2,
+      "javascript_syntax": "PASS",
+      "external_runtime_dependencies": false,
+      "runtime_network_calls": 0
+    },
+    {
+      "file": "PORTFOLIO_MODERATION_HUB.html",
+      "bytes": 28997,
+      "inline_scripts": 1,
+      "javascript_syntax": "PASS",
+      "external_runtime_dependencies": false,
+      "runtime_network_calls": 0
+    },
+    {
+      "file": "QUICK_START.html",
+      "bytes": 5173,
+      "inline_scripts": 0,
+      "javascript_syntax": "PASS",
+      "external_runtime_dependencies": false,
+      "runtime_network_calls": 0
+    },
+    {
+      "file": "RELEASE_SELF_CHECK.html",
+      "bytes": 12825,
+      "inline_scripts": 1,
+      "javascript_syntax": "PASS",
+      "external_runtime_dependencies": false,
+      "runtime_network_calls": 0
+    },
+    {
+      "file": "STUDIO_DIRECTOR.html",
+      "bytes": 2038,
+      "inline_scripts": 0,
+      "javascript_syntax": "PASS",
+      "external_runtime_dependencies": false,
+      "runtime_network_calls": 0
+    },
+    {
+      "file": "STUDIO_SHELL.html",
+      "bytes": 33154,
+      "inline_scripts": 2,
+      "javascript_syntax": "PASS",
+      "external_runtime_dependencies": false,
+      "runtime_network_calls": 0
+    },
+    {
+      "file": "TEACHER_STUDIO_DIRECTOR.html",
+      "bytes": 28089,
+      "inline_scripts": 1,
+      "javascript_syntax": "PASS",
+      "external_runtime_dependencies": false,
+      "runtime_network_calls": 0
+    },
+    {
+      "file": "index.html",
+      "bytes": 14535,
+      "inline_scripts": 0,
+      "javascript_syntax": "PASS",
+      "external_runtime_dependencies": false,
+      "runtime_network_calls": 0
+    }
+  ],
+  "zero_byte_files": [],
+  "missing_links": [],
+  "duplicate_ids": {},
+  "external_runtime_dependencies": [],
+  "runtime_network_calls": [],
+  "javascript_syntax_errors": []
+}
