@@ -55,3 +55,22 @@ jobs:
           name: teesside-maker-lab-live-${{ github.run_id }}
           path: live-proof.json
           if-no-files-found: error
+
+  live-acceptance:
+    # M1 and M2 are both about how a real browser treats a real origin, so the
+    # acceptance test is repeated where the suite is actually opened. It runs
+    # after live-bytes, which has already waited for the deploy to be live.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: live-bytes
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.54.2
+          npx playwright install --with-deps chromium
+      - name: Acceptance test and forged-message control on the published origin
+        run: node tools/makerlab/verify_live_acceptance.mjs https://madebymatt.uk/Matt-s-Apps-/
