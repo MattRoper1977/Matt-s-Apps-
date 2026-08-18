@@ -1,0 +1,98 @@
+name: Verify LundyLoop Professional OS
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'LundyLoop_Professional_OS.html'
+      - 'LundyLoop_Professional_OS/**'
+      - '_release-docs/lundyloop-professional-os-v2/**'
+      - 'apps.json'
+      - 'index.html'
+      - 'tools/lundyloop/**'
+      - 'tools/verify_cross_estate_unification.py'
+      - '.github/workflows/verify-lundyloop-professional-os.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'LundyLoop_Professional_OS.html'
+      - 'LundyLoop_Professional_OS/**'
+      - '_release-docs/lundyloop-professional-os-v2/**'
+      - 'apps.json'
+      - 'index.html'
+      - 'tools/lundyloop/**'
+      - 'tools/verify_cross_estate_unification.py'
+      - '.github/workflows/verify-lundyloop-professional-os.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lundyloop-professional-os-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # The static verifier's forbidden-artefact sweep walks the whole tree, so it
+      # must run BEFORE the site reference checkout lands in _reference/site —
+      # otherwise it flags the site's own webmanifest/media as production artefacts.
+      # (Found on this workflow's first real CI run; the package was built without CI.)
+      - name: Static payload, catalogue, links and JavaScript
+        run: python3 tools/lundyloop/verify_lundyloop_static.py . --self-test --json-out audit-output/lundyloop/static.json
+      - uses: actions/checkout@v4
+        with:
+          repository: MattRoper1977/mattroper1977.github.io
+          ref: main
+          path: _reference/site
+      - name: Existing Apps cross-estate gate
+        run: |
+          git fetch origin main
+          python3 tools/verify_cross_estate_unification.py --base origin/main --canonical _reference/site --self-test
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.54.2
+          npx playwright install --with-deps chromium
+      - name: Serve branch
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/lundyloop-http.log 2>&1 &
+          for _ in $(seq 1 30); do curl -fsS http://127.0.0.1:4173/ >/dev/null && break; sleep 1; done
+      - name: Browser workflow and Apps-card proof
+        run: node tools/lundyloop/verify_lundyloop_browser.mjs --base http://127.0.0.1:4173/ --artifacts audit-output/lundyloop
+      - name: Upload proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lundyloop-professional-os-${{ github.run_id }}
+          path: audit-output/lundyloop/
+          if-no-files-found: error
+          retention-days: 30
+
+  live-bytes:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Exact published-byte proof
+        run: |
+          python3 tools/lundyloop/verify_live_bytes.py \
+            --repo-root . \
+            --base https://madebymatt.uk/Matt-s-Apps-/ \
+            --sha "$GITHUB_SHA" \
+            --json-out live-proof.json
+      - name: Upload live proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: lundyloop-live-${{ github.run_id }}
+          path: live-proof.json
+          if-no-files-found: error

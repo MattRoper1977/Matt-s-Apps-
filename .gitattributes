@@ -1,0 +1,4 @@
+# LundyLoop payload docs are installed bytes-unaltered from the release package;
+# their trailing double-spaces are Markdown hard line breaks, not accidents.
+LundyLoop_Professional_OS/*.md whitespace=-blank-at-eol
+_release-docs/lundyloop-professional-os-v2/*.md whitespace=-blank-at-eol
