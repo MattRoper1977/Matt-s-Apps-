@@ -1,0 +1,12 @@
+{
+  "schema": "made-by-matt-browser-release/v1",
+  "product": "LundyLoop Professional OS",
+  "version": "2.1.1",
+  "release_date": "2026-08-18",
+  "package_id": "lundyloop-professional-os-v2-autonomous-deploy-2026-08-18-r4",
+  "runtime_owner_repository": "MattRoper1977/Matt-s-Apps-",
+  "flagship_route": "/Matt-s-Apps-/LundyLoop_Professional_OS.html",
+  "suite_route": "/Matt-s-Apps-/LundyLoop_Professional_OS/",
+  "source_archive_sha256": "3e078d8f691117f466e42b03aad0502cc5b8582162ce1baf3916fc46cc6d9a05",
+  "patched_from": "2.0.0 (2026-08-15)"
+}

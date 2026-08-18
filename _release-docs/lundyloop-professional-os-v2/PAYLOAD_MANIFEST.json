@@ -1,0 +1,144 @@
+{
+  "schema": "made-by-matt-apps-payload/v2",
+  "package_id": "lundyloop-professional-os-v2-autonomous-deploy-2026-08-18-r4",
+  "runtime_repository": "MattRoper1977/Matt-s-Apps-",
+  "records": [
+    {
+      "path": "LundyLoop_Professional_OS.html",
+      "kind": "runtime",
+      "bytes": 178005,
+      "sha256": "97a84d6b58989e5fd2fcbc5071aa784e7b140e63f5c6b5060f4bc3240b986bfc"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/DATA_PROTECTION_AND_SAFEGUARDING_BOUNDARIES.md",
+      "kind": "documentation",
+      "bytes": 7620,
+      "sha256": "dab153a8a9aa258cc04a4448ac80e38a82f79ebc6f4e3a08b53b47dc2bd7706b"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/DEPLOYMENT_ADAPTATIONS.md",
+      "kind": "documentation",
+      "bytes": 1313,
+      "sha256": "e27f840dff5b731f58c2d57f44f6b121355c88f71f4aa4c1f04fabf65537578d"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/DEPLOYMENT_MANIFEST.json",
+      "kind": "documentation",
+      "bytes": 3206,
+      "sha256": "13e52ec287a14dede914698b15a8fa6f6a937fc8ba300200fa4fe27d5e55f3a2"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/LundyLoop_PRO_LAUNCHER.html",
+      "kind": "runtime",
+      "bytes": 13410,
+      "sha256": "19b32ad3493790c17eb0efcd02ff9606b37affd1cfce248e47b730e8773da653"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/LundyLoop_PRO_Participation_Operating_System.html",
+      "kind": "runtime",
+      "bytes": 177995,
+      "sha256": "dec3630866c0a52070d26d196bdea55cc3af8f06ef64b815991788e9b0523ba8"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/PATCH_NOTES_v2.1.md",
+      "kind": "documentation",
+      "bytes": 4220,
+      "sha256": "9ffbe1f1b2eb445fcef0295c5d317742e84c54c12b73030621752d741bf0e602"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/PROFESSIONAL_IMPLEMENTATION_GUIDE.md",
+      "kind": "documentation",
+      "bytes": 11665,
+      "sha256": "e0461018794427bcef919f0e29600b54183b0f348d3648a1b78a38b4945cceb6"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/README.md",
+      "kind": "documentation",
+      "bytes": 1458,
+      "sha256": "fcd5fa7617005ccc6c607f48ea1867a1f27f01401e3e02215faee094aad7dcfb"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/SHA256SUMS.txt",
+      "kind": "documentation",
+      "bytes": 1860,
+      "sha256": "3ce084f67bf600d7fd4097e8c1e8f3341b294f226376d3d78d73ec20b7402893"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/SOURCE_NOTES.md",
+      "kind": "documentation",
+      "bytes": 5981,
+      "sha256": "fa5138e10cb36568413f3e4773a2de815cf87d3c992317e79831c29d8de4d100"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/SOURCE_RELEASE_README.md",
+      "kind": "documentation",
+      "bytes": 6019,
+      "sha256": "64ebd456ec4df8c7f67c4204e2c78bf51f9d5be4e0619fc8d73999378622ecae"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/VERIFICATION_REPORT.md",
+      "kind": "documentation",
+      "bytes": 10344,
+      "sha256": "a2b4005d818ab3ebab7f7f348f9ff5aa00f591614ad00f5dc43ede135a48377a"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/VERSION.json",
+      "kind": "documentation",
+      "bytes": 550,
+      "sha256": "80ce9c0a1cef7b1f646530ebbaa9e844d54db5f961e44639e3e9dc75dd6ce3d7"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/index.html",
+      "kind": "runtime",
+      "bytes": 13410,
+      "sha256": "19b32ad3493790c17eb0efcd02ff9606b37affd1cfce248e47b730e8773da653"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/pupil_tools/01_LundyLoop_Pupil_Explainer_PRO.html",
+      "kind": "runtime",
+      "bytes": 27382,
+      "sha256": "61a44e86756cfa42627271d003c2520a8c41940528428a8b8d326e82514adc25"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/pupil_tools/02_LundyLoop_Tokenism_Detective.html",
+      "kind": "runtime",
+      "bytes": 13237,
+      "sha256": "bb4b11134a4b58196e202713fd755a3cbaf3f45fb1a54aa711aad8259fe06f73"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/pupil_tools/03_LundyLoop_Live_Class_Board.html",
+      "kind": "runtime",
+      "bytes": 18071,
+      "sha256": "b3ec6ece862f2dab21b1b1652b97dc5a881da09901b4c9252231a5255f5d0bb6"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/pupil_tools/04_LundyLoop_Influence_Receipt_Maker.html",
+      "kind": "runtime",
+      "bytes": 14665,
+      "sha256": "b2e58b15fc5c1540022be777801d171e801e3da318c826bbea552c1d8341f0ad"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/pupil_tools/STAFF_DELIVERY_GUIDE.md",
+      "kind": "documentation",
+      "bytes": 2004,
+      "sha256": "1faa13349392c5174a6ecc8a29b0a3235127f66febec55eb0bfd88177270b2a3"
+    },
+    {
+      "path": "LundyLoop_Professional_OS/qa/LundyLoop_PRO_VISUAL_QA_MONTAGE.jpg",
+      "kind": "runtime",
+      "bytes": 1080119,
+      "sha256": "e4df651d8702aa71e0434001b71b231b22c5c97e8c175ff8b641751fb1d06089"
+    },
+    {
+      "path": "_release-docs/lundyloop-professional-os-v2/DEPLOYMENT_NOTES.md",
+      "kind": "documentation",
+      "bytes": 472,
+      "sha256": "ff3c99031795df796965edf9b601a662608d310ee2b66c7a7a8c2c7e9905ee6c"
+    }
+  ],
+  "key_hashes": {
+    "root_flagship": "657b804a26f497b4ec5d61e3a45f8e471a1f3f313784e457317bacda8b88bc2b",
+    "suite_launcher": "19b32ad3493790c17eb0efcd02ff9606b37affd1cfce248e47b730e8773da653",
+    "suite_flagship": "e73e7474e6797a6582031539c2ccabc40645517f7e2b81f0ae3b7fdba99e8827"
+  }
+}
