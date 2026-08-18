@@ -119,6 +119,13 @@ ALLOWED_DIFF = {
     "assets/mbm-hub.css",
     "tools/verify_cross_estate_unification.py",
     "tools/verify_cross_estate_browser.mjs",
+    # Git metadata, not a served file. It declares which payload docs carry
+    # Markdown hard line breaks so the static-contract whitespace check stops
+    # reading them as stray spaces. The first payload to need that ADDED the
+    # file, which --diff-filter=MRD ignores; the second MODIFIES it, and a
+    # boundary that reds on it would forbid the ordinary business of installing
+    # a second bytes-unaltered payload. It cannot change a studio's bytes.
+    ".gitattributes",
     ".github/workflows/mbm-cross-estate-unification.yml",
     "docs/MBM_CROSS_ESTATE_UNIFICATION.md",
     # renamed to pin_manifests.py under Ruling 3; the old entry stays so the
