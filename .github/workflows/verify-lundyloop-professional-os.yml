@@ -40,13 +40,17 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      # The static verifier's forbidden-artefact sweep walks the whole tree, so it
+      # must run BEFORE the site reference checkout lands in _reference/site —
+      # otherwise it flags the site's own webmanifest/media as production artefacts.
+      # (Found on this workflow's first real CI run; the package was built without CI.)
+      - name: Static payload, catalogue, links and JavaScript
+        run: python3 tools/lundyloop/verify_lundyloop_static.py . --self-test --json-out audit-output/lundyloop/static.json
       - uses: actions/checkout@v4
         with:
           repository: MattRoper1977/mattroper1977.github.io
           ref: main
           path: _reference/site
-      - name: Static payload, catalogue, links and JavaScript
-        run: python3 tools/lundyloop/verify_lundyloop_static.py . --self-test --json-out audit-output/lundyloop/static.json
       - name: Existing Apps cross-estate gate
         run: |
           git fetch origin main
