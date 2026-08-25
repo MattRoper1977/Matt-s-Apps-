@@ -1,0 +1,42 @@
+# The filter-free PR check this repo never had (Order TS §2.2, decision D6;
+# backlog 5p's prerequisite).
+#
+# Every other PR-firing check here carries a `paths:` filter, so a PR touching
+# none of those paths merges with zero checks — and a ruleset cannot require a
+# filtered check without jamming those PRs for ever. This fires on EVERY pull
+# request: no `paths:`, no branch condition, no PR-excluding job `if:`. It
+# asserts the repo's cheapest real invariant — the catalogue parses, its route
+# census resolves, every served page parses — never a `true` stamp.
+#
+# Matt's ruleset click (his alone): require the check named
+# "PR apps contract / aggregate" once this is on main.
+name: PR apps contract
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - id: checkout
+        if: always()
+        uses: actions/checkout@v4
+      - id: census
+        if: always()
+        run: python3 tools/pr_route_census.py
+  aggregate:
+    needs: [contract]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - id: verdict
+        if: always()
+        run: |
+          set -euo pipefail
+          # Skipped is not passed; a job that did not run did not pass.
+          [ "${{ needs.contract.result }}" = "success" ] || { echo "contract job result: ${{ needs.contract.result }} — not a pass"; exit 1; }
+          echo "census succeeded"
