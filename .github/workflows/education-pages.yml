@@ -1,0 +1,16 @@
+name: Education Pages publication
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+jobs:
+  publication:
+    # Pinned 2026-09-05 reviewed domain-split publisher; this workflow reads
+    # this repository's current source commit and never edits source content.
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@fc6a175f3b8a91bd26ccf27b993ff8675024d5fe
+    with:
+      builder_ref: fc6a175f3b8a91bd26ccf27b993ff8675024d5fe
