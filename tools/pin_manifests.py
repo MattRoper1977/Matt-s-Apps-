@@ -102,6 +102,9 @@ def preflight(targets: list[Path]) -> str | None:
             if not rx.search(text):
                 return (f"{g} carries no {name} pin to move — an older copy of the gate. "
                         f"Bring both copies to the same version first.")
+    if len({g.read_bytes() for g in targets}) != 1:
+        return ("the gate copies already differ — reconcile the reviewed verifier "
+                "changes first; no pin or gate copy was written")
     return None
 
 

@@ -101,9 +101,70 @@ MANIFEST_PINS = {
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
-    "resources.json": "90b7a70afd5ac375a6c875c628b69d48a94650719008878a3b3b7ba8295d75f1",
+    "resources.json": "f099164ecd5790d4c4372e51c57366687ff7749f7a1828e589f3247ed7437a58",
 }
 PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it writes both gate copies or neither)"
+
+# Explicit education catalogue release, 2026-09-05. Matt authorised a new
+# browsing design, so the old Lessons wording comparison must permit exactly
+# the reviewed result. These pins do not exempt a directory or a lesson: every
+# named byte set is checked, including additions, on every Lessons gate run.
+# Apps retains its original authored-wording comparison. This block is updated
+# in both gate copies by tools/catalogue/pin_catalogue_contract.py after review.
+# BEGIN REVIEWED CATALOGUE PINS
+CATALOGUE_PINS = {
+    "visible_body_sha256": "eb062cfe49c8193ba47d6e9824b36012bc28d31fcd3a553bbad7aacc36c36817",
+    "files": {
+        "index.html": "36da7b95bf15ccc0d0bb8daf152cba4f8ce34e8996aed8514066f5af6e665ce7",
+        "Science_Teesside/index.html": "afc7e215cccd0da801eb7e498e921929f0d9b532e5e86d264ad5e4e1c8fe1173",
+        "Humanities_Teesside/index.html": "130a2d7377836543cc39d6f03829468cd3f3b81662736b81804a49b3d11b84b7",
+        "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
+        "Humanities_Teesside/David_Cover_Autumn1_W3-W7/index.html": "996b0f0e61e894922c05b85e93b6bc733326730011701abc85825ee8222b8d87",
+        "assets/catalogue/catalogue.css": "05c54b517738aa863d324064bba3fe1b01cf6bfc2f24d40591004b76581bc9c0",
+        "assets/catalogue/catalogue.js": "62e72770017e72a4a2f212d355d907ad14af924704d6a222093b3ef063661ac8",
+        "assets/catalogue/lesson-navigation.js": "170a8bbede970c5b4f68318168ed5fbc14ab4a632cc627af37455d4bd51c6c1f",
+        "assets/catalogue/science-shelf.css": "f664655e57c086abe35499f5dedf737eddaa0942e6629dd4a7fcf4e801536508",
+        "assets/catalogue/science-shelf.js": "ca08024f3039b61e41dfa0eabbe492e2c20e629999b7ab579d2d32457d737f39",
+        "assets/catalogue/terms-and-styles.json": "80f53f53a26e008df2d3dfe6bfcd1f532cc68c5dbeb11f70d3f63c1c751859b9",
+        "assets/catalogue/science-shelf.json": "116a62dd58b0a65822446ff67997095a5cef4403a45c1c6fa5e3862fb9012bb3",
+        "assets/catalogue/humanities-shelf.json": "74afc429c5f67a2cf557483715687e9327209c269d70fcd1c6c6495e7516e734",
+        "tools/catalogue/build_catalogue.py": "43ab03f58ac1197d37e332e061aec6869d6337498c0b2ec9f619819e8ea863ac",
+        "tools/catalogue/build_science_shelf.py": "6d8332933ccef7562e9c09ccd8357ff36928cb9781fd392bbeeb2d89b3e18aae",
+        "tools/catalogue/build_humanities_shelf.py": "175562cc1087acd62739c55c8a7fb1e1b50c6f29bebcda18a84c0df85cb23af5",
+        "tools/catalogue/check_catalogue_static.py": "4c5728322c88fd1706e30bb1ffacbc80daaad11703cb39bd3dd9ff0aa3f3c02c",
+        "tools/catalogue/check_catalogue_dom.cjs": "fb68840e61b0e30097227324b171633c77104e94d2b13b589bd9889424534efd",
+        "tools/catalogue/verify_education_navigation.cjs": "8cb5aeaa436887f7f74a37860eab18725130d8a70cdeeb3112046532698a68d5",
+        "tools/catalogue/SHELF_SELECTION.json": "d6699b2e420992a15ae9674d1a93c394ec93b66af477fdeb6fd1a857ab8ff935",
+        "tools/catalogue/HUMANITIES_SELECTION.json": "a79ff3234a0d504d439b8c9861ad8199f91c61921d7419c05fea2ac2a51cbcb0",
+        "tools/easter/science_original_browser.cjs": "650884c0ef6ec714edc429bbf7c5601e26176df44012661462c37ee3de7478d1",
+        "tools/prepare_served_publications.py": "e0623cc295854f41e353d521d99b998e9be21568506799f6e01f3b16ce12f7c4",
+        "tools/test_served_publications.py": "128f691b0a1f5880a68190540266e3f78993e4849cd75d7f1b6db75e098e1d31",
+        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "dd2d184a57232168b918aecc7a6118c2b78e1a16f4fe08d69e4e5fdd558f2c2c",
+        "tools/catalogue/TERM_REVIEW.json": "a1f7226e874474207a4a6f916e1b3e9379d4525da63edfbda6c8d115cc6c6f0e"
+    }
+}
+# END REVIEWED CATALOGUE PINS
+
+# These semantic pins are deliberately outside the movable file/manifest block.
+# Neither the catalogue pin tool nor the generic manifest pin tool can bless
+# an edited, deleted or reordered original resource, or an extra lesson row.
+CATALOGUE_ORIGINAL_ROWS = 734
+CATALOGUE_ORIGINAL_ROWS_SHA256 = "b8ffcb16f5fd2a413e8a0b06ad2d4b112f450364fa294377869dc32c8235bb2c"
+CATALOGUE_SHELF_ROWS = 3
+CATALOGUE_SHELF_ROWS_SHA256 = "7b569ef3ab423e8ce5d2ca028c3b2fd8179a49c62844e93af0609a374f71d5d7"
+
+# These named review records and review tools can change with their reviewed
+# transaction. Tools are not served assets; they are reviewed as executable
+# gate logic, rather than recursively hashing themselves. No lesson payload,
+# game payload, shared platform asset or arbitrary directory is exempted.
+CATALOGUE_RECORD_PATHS = {
+    "tools/catalogue/STATIC_CHECK_RESULTS.json",
+    "tools/catalogue/DOM_CHECK_RESULTS.json",
+    "tools/catalogue/RECOVERY_2026-09-05.md",
+    "tools/catalogue/README.md",
+    "tools/catalogue/pin_catalogue_contract.py",
+    "tools/catalogue/verify_catalogue_contract_controls.py",
+}
 
 ALLOWED_DIFF = {
     "index.html",
@@ -137,6 +198,25 @@ ALLOWED_DIFF = {
     # that record their work. Ruled onto the list 2026-08-12 (Ruling 6). The
     # entry is harmless in the Apps copy, where no such file exists.
     "_teachgreen/DECISIONS.md",
+    # ORDER AAV-NIGHT, 2026-09-05. The same shape as Ruling 6 above, recurring
+    # because the campaign ledger was renamed and the boundary still names the
+    # old one. A night order requires a ledger write on EVERY stage, so any pass
+    # that touches the shared surface and records its work reds here on the
+    # record rather than on the work — which is the failure Ruling 6 identified
+    # and fixed for _teachgreen/DECISIONS.md.
+    #
+    # Every entry below is a file that cannot change a studio's served bytes:
+    # two Markdown records, two gate tools that run in CI and ship nothing, the
+    # CI job definition itself, and the §6c hub control. None is a served asset,
+    # none is in CANONICAL_HASHES, and none can alter the standalone/offline
+    # payload this boundary exists to protect.
+    "_sownb/vb/EASTER_LEDGER.md",
+    "_sownb/vb/EASTER_HUMAN.md",
+    "_sownb/vb/tools/g26_reading_band.py",
+    "_sownb/vb/tools/g28_cell_existence.py",
+    "_sownb/vb/tools/mechanism_battery.py",
+    ".github/workflows/fieldops-p2-and-sweep.yml",
+    "tools/verify_hub_catalogue.py",
 }
 
 
@@ -184,6 +264,48 @@ def normalized_visible_body(text: str, kind: str) -> str:
             flags=re.I,
         )
     return value
+
+
+def catalogue_errors(root: Path, kind: str, text: str) -> list[str]:
+    if kind != "lessons":
+        return []
+    errors = []
+    wanted = CATALOGUE_PINS.get("visible_body_sha256")
+    actual = hashlib.sha256(normalized_visible_body(text, kind).encode("utf-8")).hexdigest()
+    if actual != wanted:
+        errors.append("Lessons hub wording differs from the explicitly reviewed catalogue digest")
+    try:
+        rows = json.loads((root / "resources.json").read_text("utf-8"))
+        if not isinstance(rows, list) or len(rows) != CATALOGUE_ORIGINAL_ROWS + CATALOGUE_SHELF_ROWS:
+            errors.append("reviewed catalogue requires the original 734 rows plus exactly three hub rows")
+        else:
+            def row_digest(value):
+                encoded = json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+                return hashlib.sha256(encoded).hexdigest()
+            if row_digest(rows[:CATALOGUE_ORIGINAL_ROWS]) != CATALOGUE_ORIGINAL_ROWS_SHA256:
+                errors.append("an original catalogue row was removed, reordered or edited")
+            if row_digest(rows[CATALOGUE_ORIGINAL_ROWS:]) != CATALOGUE_SHELF_ROWS_SHA256:
+                errors.append("the three reviewed catalogue hub rows changed")
+    except (ValueError, OSError) as exc:
+        errors.append(f"reviewed catalogue row preservation could not be verified: {exc}")
+    pins = CATALOGUE_PINS.get("files", {})
+    if not pins or "index.html" not in pins or "humanities_teesside.html" not in pins:
+        errors.append("reviewed catalogue file pins are incomplete")
+    for rel, expected in pins.items():
+        path = root / rel
+        if Path(rel).is_absolute() or ".." in Path(rel).parts:
+            errors.append(f"invalid reviewed catalogue path: {rel}")
+        elif not path.is_file() or digest(path) != expected:
+            errors.append(f"reviewed catalogue bytes differ: {rel}")
+    return errors
+
+
+def boundary_errors(changed: set[str], kind: str) -> list[str]:
+    allowed = ALLOWED_DIFF
+    if kind == "lessons":
+        allowed = allowed | set(CATALOGUE_PINS.get("files", {})) | CATALOGUE_RECORD_PATHS
+    unexpected = sorted(changed - allowed)
+    return [f"standalone/offline boundary violated by changed files: {unexpected}"] if unexpected else []
 
 
 def css_balanced(text: str) -> bool:
@@ -250,6 +372,7 @@ def run_checks(
     if not index_path.is_file():
         return ["missing index.html"]
     text = index_path.read_text("utf-8")
+    errors.extend(catalogue_errors(root, kind, text))
 
     if SENTINEL not in text:
         errors.append("sentinel/version marker missing from index.html")
@@ -403,7 +526,7 @@ def run_checks(
         current_brand = extract(r'(<a class="brand"[^>]*>.*?</a>)', text, "current brand", errors)
         if base_brand and current_brand and base_brand != current_brand:
             errors.append("Made by Matt logo/brand markup changed")
-        if normalized_visible_body(base_html, kind) != normalized_visible_body(text, kind):
+        if kind == "apps" and normalized_visible_body(base_html, kind) != normalized_visible_body(text, kind):
             errors.append("existing authored hub wording changed outside the derived Apps count")
 
     if check_git and base_ref:
@@ -423,9 +546,7 @@ def run_checks(
             errors.append(f"git diff failed: {proc.stderr.strip()}")
         else:
             changed = {line.strip() for line in proc.stdout.splitlines() if line.strip()}
-            unexpected = sorted(changed - ALLOWED_DIFF)
-            if unexpected:
-                errors.append(f"standalone/offline boundary violated by changed files: {unexpected}")
+            errors.extend(boundary_errors(changed, kind))
             for manifest in ("resources.json", "apps.json"):
                 if manifest in changed and manifest not in MANIFEST_PINS:
                     errors.append(f"source manifest unexpectedly changed: {manifest}")
@@ -442,7 +563,7 @@ def self_test(root: Path, kind: str, canonical: Path) -> None:
     # catch that leg being broken, not only the local ones.
     with tempfile.TemporaryDirectory(prefix="mbm-cross-estate-positive-control-") as temp:
         fixture = Path(temp)
-        for rel in ["index.html", "resources.json" if kind == "lessons" else "apps.json", *CANONICAL_HASHES]:
+        for rel in set(["index.html", "resources.json" if kind == "lessons" else "apps.json", *CANONICAL_HASHES] + (list(CATALOGUE_PINS.get("files", {})) if kind == "lessons" else [])):
             src = root / rel
             dst = fixture / rel
             dst.parent.mkdir(parents=True, exist_ok=True)
