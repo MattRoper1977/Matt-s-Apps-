@@ -122,7 +122,7 @@ CATALOGUE_PINS = {
         "Humanities_Teesside/David_Cover_Autumn1_W3-W7/index.html": "996b0f0e61e894922c05b85e93b6bc733326730011701abc85825ee8222b8d87",
         "assets/catalogue/catalogue.css": "05c54b517738aa863d324064bba3fe1b01cf6bfc2f24d40591004b76581bc9c0",
         "assets/catalogue/catalogue.js": "62e72770017e72a4a2f212d355d907ad14af924704d6a222093b3ef063661ac8",
-        "assets/catalogue/lesson-navigation.js": "170a8bbede970c5b4f68318168ed5fbc14ab4a632cc627af37455d4bd51c6c1f",
+        "assets/catalogue/lesson-navigation.js": "1eee8ac8cda1f578880d00b51cad44cd7821e55d1af1d982ebfd75bd853a562f",
         "assets/catalogue/science-shelf.css": "f664655e57c086abe35499f5dedf737eddaa0942e6629dd4a7fcf4e801536508",
         "assets/catalogue/science-shelf.js": "ca08024f3039b61e41dfa0eabbe492e2c20e629999b7ab579d2d32457d737f39",
         "assets/catalogue/terms-and-styles.json": "80f53f53a26e008df2d3dfe6bfcd1f532cc68c5dbeb11f70d3f63c1c751859b9",
