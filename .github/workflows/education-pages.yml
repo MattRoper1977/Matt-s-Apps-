@@ -11,6 +11,6 @@ jobs:
   publication:
     # Pinned 2026-09-05 reviewed domain-split publisher; this workflow reads
     # this repository's current source commit and never edits source content.
-    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@d8633c92960cc2f16939d81f61ea610204471a40
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@00b32a5987be5c2c39327d84692da6fb775519cc
     with:
-      builder_ref: d8633c92960cc2f16939d81f61ea610204471a40
+      builder_ref: 00b32a5987be5c2c39327d84692da6fb775519cc
