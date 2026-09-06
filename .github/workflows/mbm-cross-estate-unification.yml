@@ -12,6 +12,7 @@ on:
       - tools/verify_cross_estate_unification.py
       - tools/verify_cross_estate_browser.mjs
       - docs/MBM_CROSS_ESTATE_UNIFICATION.md
+      - .github/workflows/education-pages.yml
       - .github/workflows/mbm-cross-estate-unification.yml
   push:
     branches:
@@ -26,6 +27,7 @@ on:
       - tools/verify_cross_estate_unification.py
       - tools/verify_cross_estate_browser.mjs
       - docs/MBM_CROSS_ESTATE_UNIFICATION.md
+      - .github/workflows/education-pages.yml
       - .github/workflows/mbm-cross-estate-unification.yml
   # Every trigger above is a path filter over files THIS repository owns. What
   # this workflow exists to catch is divergence from the canonical site platform,
