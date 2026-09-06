@@ -410,6 +410,15 @@ PUBLICATION_CALLER_SHA256 = "1abd1b6fee66d00b57f98a633b927bbaa4894f78bbd07c82b04
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
 
+# HC3, 2026-09-06: exact reviewed CI-only LundyLoop proof transaction.
+# Full hashes remain checked on every Apps run, including files not in the diff.
+# No standalone payload or arbitrary CI path is granted. Both gate copies match.
+LUNDYLOOP_CI_PINS = {
+    ".github/workflows/verify-lundyloop-professional-os.yml": "d7a8b5885ce4c385527b41aed8e1d9a9be841d715156f6842504a942773d6669",
+    "tools/lundyloop/verify_live_bytes.py": "a27f791633260e7e2d8ba7ca2abe5a35db105b9ccbf96d26205628dcc1e636ad",
+    "tools/lundyloop/test_live_bytes.py": "8ed14d4fa73e9017d9ba8cd2ae0b21931867d49a985f39a36ce45d4edf005d97"
+}
+
 ALLOWED_DIFF = {
     PUBLICATION_CALLER_PATH,
     "index.html",
@@ -597,8 +606,18 @@ def publication_errors(root: Path) -> list[str]:
     return errors
 
 
+def lundyloop_ci_errors(root: Path, kind: str) -> list[str]:
+    if kind != "apps":
+        return []
+    return ["reviewed LundyLoop CI bytes differ or are missing: " + rel
+            for rel, expected in LUNDYLOOP_CI_PINS.items()
+            if not (root / rel).is_file() or digest(root / rel) != expected]
+
+
 def boundary_errors(changed: set[str], kind: str) -> list[str]:
     allowed = ALLOWED_DIFF
+    if kind == "apps":
+        allowed = allowed | set(LUNDYLOOP_CI_PINS)
     if kind == "lessons":
         allowed = allowed | set(CATALOGUE_PINS.get("files", {})) | CATALOGUE_RECORD_PATHS
     unexpected = sorted(changed - allowed)
@@ -664,7 +683,7 @@ def run_checks(
     check_git: bool = False,
     base_ref: str | None = None,
 ) -> list[str]:
-    errors: list[str] = publication_errors(root)
+    errors: list[str] = publication_errors(root) + lundyloop_ci_errors(root, kind)
     index_path = root / "index.html"
     if not index_path.is_file():
         return ["missing index.html"]
@@ -860,7 +879,7 @@ def self_test(root: Path, kind: str, canonical: Path) -> None:
     # catch that leg being broken, not only the local ones.
     with tempfile.TemporaryDirectory(prefix="mbm-cross-estate-positive-control-") as temp:
         fixture = Path(temp)
-        for rel in set(["index.html", "resources.json" if kind == "lessons" else "apps.json", PUBLICATION_CALLER_PATH, PUBLICATION_GATE_WORKFLOW_PATH, *CANONICAL_HASHES] + (list(CATALOGUE_PINS.get("files", {})) if kind == "lessons" else [])):
+        for rel in set(["index.html", "resources.json" if kind == "lessons" else "apps.json", PUBLICATION_CALLER_PATH, PUBLICATION_GATE_WORKFLOW_PATH, *CANONICAL_HASHES] + (list(CATALOGUE_PINS.get("files", {})) if kind == "lessons" else list(LUNDYLOOP_CI_PINS))):
             src = root / rel
             dst = fixture / rel
             dst.parent.mkdir(parents=True, exist_ok=True)
@@ -868,6 +887,21 @@ def self_test(root: Path, kind: str, canonical: Path) -> None:
         good = run_checks(fixture, kind=kind, canonical=canonical)
         if good:
             raise RuntimeError(f"positive-control fixture was not initially valid: {good}")
+        if kind == "apps":
+            for rel in LUNDYLOOP_CI_PINS:
+                target = fixture / rel
+                original = target.read_bytes()
+                target.write_bytes(original + b"\n# planted unreviewed byte\n")
+                if not lundyloop_ci_errors(fixture, kind):
+                    raise RuntimeError("LundyLoop CI byte mutation was not detected: " + rel)
+                target.write_bytes(original)
+                if lundyloop_ci_errors(fixture, kind):
+                    raise RuntimeError("Restored LundyLoop CI bytes did not pass")
+            if not boundary_errors({"tools/unreviewed.py"}, kind):
+                raise RuntimeError("An arbitrary CI path escaped the boundary")
+            if not boundary_errors({"LundyLoop_Professional_OS.html"}, kind):
+                raise RuntimeError("A standalone payload escaped the boundary")
+            print("LundyLoop CI controls: real green / planted byte red / restored green; unrelated paths red")
         index = fixture / "index.html"
         text = index.read_text("utf-8")
         index.write_text(text.replace('<a href="/Lessons/"', '<a href="/lessons/"', 1), "utf-8")

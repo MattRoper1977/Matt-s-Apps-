@@ -46,11 +46,18 @@ jobs:
       # (Found on this workflow's first real CI run; the package was built without CI.)
       - name: Static payload, catalogue, links and JavaScript
         run: python3 tools/lundyloop/verify_lundyloop_static.py . --self-test --json-out audit-output/lundyloop/static.json
+      - name: Resolve this publication's immutable builder
+        id: builder
+        run: echo "ref=$(python3 tools/lundyloop/verify_live_bytes.py --print-builder-ref)" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v4
         with:
           repository: MattRoper1977/mattroper1977.github.io
-          ref: main
+          ref: ${{ steps.builder.outputs.ref }}
           path: _reference/site
+      - name: Published-byte firing and provenance controls
+        run: |
+          python3 tools/lundyloop/test_live_bytes.py
+          PYTHONPATH=_reference/site/tools python3 -m unittest test_published_site.ProvenanceControls
       - name: Existing Apps cross-estate gate
         run: |
           git fetch origin main
@@ -79,11 +86,24 @@ jobs:
   live-bytes:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: verify
+    permissions:
+      contents: read
+      actions: read
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - name: Resolve this publication's immutable builder
+        id: builder
+        run: echo "ref=$(python3 tools/lundyloop/verify_live_bytes.py --print-builder-ref)" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        with:
+          repository: MattRoper1977/mattroper1977.github.io
+          ref: ${{ steps.builder.outputs.ref }}
+          path: _reference/site
       - name: Exact published-byte proof
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           python3 tools/lundyloop/verify_live_bytes.py \
             --repo-root . \
@@ -91,6 +111,7 @@ jobs:
             --sha "$GITHUB_SHA" \
             --json-out live-proof.json
       - name: Upload live proof
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: lundyloop-live-${{ github.run_id }}
