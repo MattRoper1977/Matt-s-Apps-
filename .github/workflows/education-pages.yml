@@ -9,8 +9,8 @@ permissions:
   id-token: write
 jobs:
   publication:
-    # Pinned 2026-09-06 shared-navigation publisher (Site PR #262); this workflow reads
+    # Pinned 2026-09-06 education-only publisher (Site PR #263); this workflow reads
     # this repository's current source commit and never edits source content.
-    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@384c619956411393cc8a9b4e55e617114ddf175b
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@0d5858e672e95505d344a0e408b8536997b590a0
     with:
-      builder_ref: 384c619956411393cc8a9b4e55e617114ddf175b
+      builder_ref: 0d5858e672e95505d344a0e408b8536997b590a0
