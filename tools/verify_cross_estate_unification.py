@@ -113,27 +113,27 @@ PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it wri
 # in both gate copies by tools/catalogue/pin_catalogue_contract.py after review.
 # BEGIN REVIEWED CATALOGUE PINS
 CATALOGUE_PINS = {
-    "visible_body_sha256": "eb062cfe49c8193ba47d6e9824b36012bc28d31fcd3a553bbad7aacc36c36817",
+    "visible_body_sha256": "37ff4df8fe69632eb8d02279a3b78e9155b10b2e9c183df74bf146b30eb62d24",
     "files": {
-        "index.html": "36da7b95bf15ccc0d0bb8daf152cba4f8ce34e8996aed8514066f5af6e665ce7",
-        "Science_Teesside/index.html": "afc7e215cccd0da801eb7e498e921929f0d9b532e5e86d264ad5e4e1c8fe1173",
+        "index.html": "df91d45cfa15b2c0f5b41f6a01535a73a017014ba02680bff3ab12fd4e44b4c8",
+        "Science_Teesside/index.html": "86bd6cc0642dfaaf2c4b0cf0cc57dfc027fe53d2c26904c15fbcdeebf0e9bef1",
         "Humanities_Teesside/index.html": "130a2d7377836543cc39d6f03829468cd3f3b81662736b81804a49b3d11b84b7",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
         "Humanities_Teesside/David_Cover_Autumn1_W3-W7/index.html": "996b0f0e61e894922c05b85e93b6bc733326730011701abc85825ee8222b8d87",
         "assets/catalogue/catalogue.css": "a11ee200d86a6a8aaf89dc3bc0215bdd345b15122008d11311be6650857d4d30",
         "assets/catalogue/catalogue.js": "62e72770017e72a4a2f212d355d907ad14af924704d6a222093b3ef063661ac8",
-        "assets/catalogue/lesson-navigation.js": "1eee8ac8cda1f578880d00b51cad44cd7821e55d1af1d982ebfd75bd853a562f",
+        "assets/catalogue/lesson-navigation.js": "ff819d9bc8224de397ab4cea1b2df0528910a2d8765c985b177017f675fdbcc1",
         "assets/catalogue/science-shelf.css": "f664655e57c086abe35499f5dedf737eddaa0942e6629dd4a7fcf4e801536508",
-        "assets/catalogue/science-shelf.js": "ca08024f3039b61e41dfa0eabbe492e2c20e629999b7ab579d2d32457d737f39",
+        "assets/catalogue/science-shelf.js": "b47b998866401f136968a2e1e94cc5beb65be83fbd342f49ff5a811804792651",
         "assets/catalogue/terms-and-styles.json": "80f53f53a26e008df2d3dfe6bfcd1f532cc68c5dbeb11f70d3f63c1c751859b9",
         "assets/catalogue/science-shelf.json": "116a62dd58b0a65822446ff67997095a5cef4403a45c1c6fa5e3862fb9012bb3",
         "assets/catalogue/humanities-shelf.json": "74afc429c5f67a2cf557483715687e9327209c269d70fcd1c6c6495e7516e734",
         "tools/catalogue/build_catalogue.py": "43ab03f58ac1197d37e332e061aec6869d6337498c0b2ec9f619819e8ea863ac",
-        "tools/catalogue/build_science_shelf.py": "6d8332933ccef7562e9c09ccd8357ff36928cb9781fd392bbeeb2d89b3e18aae",
+        "tools/catalogue/build_science_shelf.py": "e88560a488c58e520d4050edaadce9a360091879e45c1cf7f1905d895fe4d99b",
         "tools/catalogue/build_humanities_shelf.py": "175562cc1087acd62739c55c8a7fb1e1b50c6f29bebcda18a84c0df85cb23af5",
         "tools/catalogue/check_catalogue_static.py": "4c5728322c88fd1706e30bb1ffacbc80daaad11703cb39bd3dd9ff0aa3f3c02c",
-        "tools/catalogue/check_catalogue_dom.cjs": "fb68840e61b0e30097227324b171633c77104e94d2b13b589bd9889424534efd",
-        "tools/catalogue/verify_education_navigation.cjs": "e1e8b6b9175af3320c6c4fd534441534de18caf432e63b97c78e5ace60ea8b02",
+        "tools/catalogue/check_catalogue_dom.cjs": "8ff483960a979b548269246813978c56c91deade611810e50807aeda48ad894d",
+        "tools/catalogue/verify_education_navigation.cjs": "edacb1c9036b1cba9dc41671593529fbde7fbb63ff6a7f0695a4e292060d47cc",
         "tools/catalogue/SHELF_SELECTION.json": "d6699b2e420992a15ae9674d1a93c394ec93b66af477fdeb6fd1a857ab8ff935",
         "tools/catalogue/HUMANITIES_SELECTION.json": "a79ff3234a0d504d439b8c9861ad8199f91c61921d7419c05fea2ac2a51cbcb0",
         "tools/easter/science_original_browser.cjs": "650884c0ef6ec714edc429bbf7c5601e26176df44012661462c37ee3de7478d1",
@@ -151,8 +151,11 @@ CATALOGUE_PINS = {
         "tools/humanities_resources/check_resources.py": "ec5383e3a34cbff999f190b0014a4a73e00a3a29e2714498f7620fd638dc2aa5",
         "tools/humanities_resources/resource.css": "1aed9aaca0d73a4b200c4e5d0977e73f4e906c747d7340c7a62f4197a8344bae",
         "tools/humanities_resources/resource.js": "ad40afed95490bfcce92dc062da46e1b27bcb96bdc80e37eabdfe02bf6ffc446",
-        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "dd2d184a57232168b918aecc7a6118c2b78e1a16f4fe08d69e4e5fdd558f2c2c",
-        "tools/catalogue/TERM_REVIEW.json": "a1f7226e874474207a4a6f916e1b3e9379d4525da63edfbda6c8d115cc6c6f0e"
+        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "64123b8c85c08eeebff6aa2172ee017e613ef33a2eae19e36bc938db06995894",
+        "tools/catalogue/TERM_REVIEW.json": "a1f7226e874474207a4a6f916e1b3e9379d4525da63edfbda6c8d115cc6c6f0e",
+        "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "84a9fccdc0ea27ca9c57287d1dfce5de198420f92df2b1e73a2d2fcd5df79a88",
+        "primary/year5/science/autumn/forces/Lesson8_ExploreGravity.html": "20047720bf1d309055abdf232d341b6fd99b833631efa0bcbfb3dabed9671196",
+        "primary/year5/science/autumn/forces/Y5_Forces_SoW_and_Plans.docx": "ca36cfd92f1c768ea66f0eb748d47e6227f67569f77b5472d0da13d03f92f2e6"
     }
 }
 # END REVIEWED CATALOGUE PINS
@@ -183,8 +186,8 @@ CATALOGUE_RECORD_PATHS = {
 # this named workflow, and require its complete reviewed bytes on every run.
 # A broader permission, trigger, job, floating ref or mismatched builder is red.
 PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
-# Reviewed education-only publication caller, Site PR #263, 2026-09-06.
-PUBLICATION_CALLER_SHA256 = "7a9ea7152020578c4542cec4ac22347bf4ebc059f82c8019870f55be175efbb1"
+# Reviewed Education recovery publication caller, Site PR #267, 2026-09-06.
+PUBLICATION_CALLER_SHA256 = "c10cca4aad4cbb35551b3f8ee18e71908b708ee933bc94b878888d7771361576"
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
 
