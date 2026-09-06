@@ -178,7 +178,17 @@ CATALOGUE_RECORD_PATHS = {
     "tools/catalogue/verify_catalogue_contract_controls.py",
 }
 
+# The education publisher is executable release configuration, not a hub asset.
+# Both callers advance together to the same reviewed Site commit. Permit only
+# this named workflow, and require its complete reviewed bytes on every run.
+# A broader permission, trigger, job, floating ref or mismatched builder is red.
+PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
+PUBLICATION_CALLER_SHA256 = "4f638f7dbbffb24de919ca825f36606882dbf01ccf179e0327fc854e4d2ee078"
+PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
+
+
 ALLOWED_DIFF = {
+    PUBLICATION_CALLER_PATH,
     "index.html",
     "apps.json",
     # Guarded by digest, not prohibition — the resources.json half of the same
@@ -312,6 +322,58 @@ def catalogue_errors(root: Path, kind: str, text: str) -> list[str]:
     return errors
 
 
+def publication_trigger_errors(root: Path) -> list[str]:
+    workflow = root / PUBLICATION_GATE_WORKFLOW_PATH
+    if not workflow.is_file():
+        return ["education publisher guard workflow is missing"]
+    # These existing workflows use explicit YAML block lists. Read only their
+    # top-level `on` block; comments or similarly named job text cannot qualify.
+    lines = workflow.read_text("utf-8").splitlines()
+    starts = [i for i, line in enumerate(lines) if line == "on:"]
+    if len(starts) != 1:
+        return ["education publisher guard requires one explicit on block"]
+    body = []
+    for line in lines[starts[0] + 1:]:
+        if line and not line[0].isspace() and not line.lstrip().startswith("#"):
+            break
+        body.append(line)
+    errors = []
+    for event in ("pull_request", "push"):
+        positions = [i for i, line in enumerate(body) if line == "  " + event + ":"]
+        if len(positions) != 1:
+            errors.append("education publisher guard lacks explicit " + event + " trigger")
+            continue
+        event_lines = []
+        for line in body[positions[0] + 1:]:
+            if line.startswith("  ") and not line.startswith("   ") and line.strip() and not line.lstrip().startswith("#"):
+                break
+            event_lines.append(line)
+        paths = [i for i, line in enumerate(event_lines) if line == "    paths:"]
+        if len(paths) != 1:
+            errors.append("education publisher guard lacks explicit " + event + " paths")
+            continue
+        values = []
+        for line in event_lines[paths[0] + 1:]:
+            if not line.strip() or line.lstrip().startswith("#"):
+                continue
+            if not line.startswith("      - "):
+                break
+            values.append(line[len("      - "):].strip().strip("\"'"))
+        if values.count(PUBLICATION_CALLER_PATH) != 1:
+            errors.append("education publisher caller must be watched exactly once by " + event)
+    return errors
+
+
+def publication_errors(root: Path) -> list[str]:
+    errors = publication_trigger_errors(root)
+    caller = root / PUBLICATION_CALLER_PATH
+    if not caller.is_file():
+        errors.append("reviewed education publication caller is missing")
+    elif digest(caller) != PUBLICATION_CALLER_SHA256:
+        errors.append("education publication caller differs from the reviewed immutable publisher pin")
+    return errors
+
+
 def boundary_errors(changed: set[str], kind: str) -> list[str]:
     allowed = ALLOWED_DIFF
     if kind == "lessons":
@@ -379,7 +441,7 @@ def run_checks(
     check_git: bool = False,
     base_ref: str | None = None,
 ) -> list[str]:
-    errors: list[str] = []
+    errors: list[str] = publication_errors(root)
     index_path = root / "index.html"
     if not index_path.is_file():
         return ["missing index.html"]
@@ -575,7 +637,7 @@ def self_test(root: Path, kind: str, canonical: Path) -> None:
     # catch that leg being broken, not only the local ones.
     with tempfile.TemporaryDirectory(prefix="mbm-cross-estate-positive-control-") as temp:
         fixture = Path(temp)
-        for rel in set(["index.html", "resources.json" if kind == "lessons" else "apps.json", *CANONICAL_HASHES] + (list(CATALOGUE_PINS.get("files", {})) if kind == "lessons" else [])):
+        for rel in set(["index.html", "resources.json" if kind == "lessons" else "apps.json", PUBLICATION_CALLER_PATH, PUBLICATION_GATE_WORKFLOW_PATH, *CANONICAL_HASHES] + (list(CATALOGUE_PINS.get("files", {})) if kind == "lessons" else [])):
             src = root / rel
             dst = fixture / rel
             dst.parent.mkdir(parents=True, exist_ok=True)
