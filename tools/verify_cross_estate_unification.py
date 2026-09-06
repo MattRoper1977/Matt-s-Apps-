@@ -151,7 +151,7 @@ CATALOGUE_PINS = {
         "tools/humanities_resources/check_resources.py": "ec5383e3a34cbff999f190b0014a4a73e00a3a29e2714498f7620fd638dc2aa5",
         "tools/humanities_resources/resource.css": "1aed9aaca0d73a4b200c4e5d0977e73f4e906c747d7340c7a62f4197a8344bae",
         "tools/humanities_resources/resource.js": "ad40afed95490bfcce92dc062da46e1b27bcb96bdc80e37eabdfe02bf6ffc446",
-        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "64123b8c85c08eeebff6aa2172ee017e613ef33a2eae19e36bc938db06995894",
+        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "8d0afc3b0cfa5eab586e9e2f594c7f5d75bb9cc446af23c4903a2379757a5ffc",
         "tools/catalogue/TERM_REVIEW.json": "a1f7226e874474207a4a6f916e1b3e9379d4525da63edfbda6c8d115cc6c6f0e",
         "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "84a9fccdc0ea27ca9c57287d1dfce5de198420f92df2b1e73a2d2fcd5df79a88",
         "primary/year5/science/autumn/forces/Lesson8_ExploreGravity.html": "20047720bf1d309055abdf232d341b6fd99b833631efa0bcbfb3dabed9671196",
@@ -406,7 +406,7 @@ CATALOGUE_RECORD_PATHS = {
 # A broader permission, trigger, job, floating ref or mismatched builder is red.
 PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # Reviewed Education completion publication caller, Site PR #268, 2026-09-06.
-PUBLICATION_CALLER_SHA256 = "dede47d7314afadf97d08e1753a1d4d6e5acecbf3a84ec5fc963bf20385b009f"
+PUBLICATION_CALLER_SHA256 = "1abd1b6fee66d00b57f98a633b927bbaa4894f78bbd07c82b045da4f3f6dd1b4"
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
 
