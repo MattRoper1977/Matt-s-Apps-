@@ -183,7 +183,8 @@ CATALOGUE_RECORD_PATHS = {
 # this named workflow, and require its complete reviewed bytes on every run.
 # A broader permission, trigger, job, floating ref or mismatched builder is red.
 PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
-PUBLICATION_CALLER_SHA256 = "b1956b0d4f113722b79b8a43c61518737e72e386afd08d57f6506108712be499"
+# Reviewed shared-navigation publication caller, Site PR #262, 2026-09-06.
+PUBLICATION_CALLER_SHA256 = "a48095b531a4903a4dfc74202b2a8eec2d9a5b832310dbe08382e27cb542d78d"
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
 
