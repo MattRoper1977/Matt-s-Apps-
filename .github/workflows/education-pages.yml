@@ -11,6 +11,6 @@ jobs:
   publication:
     # Pinned 2026-09-06 reviewed Education completion publisher (Site PR #268); this workflow reads
     # this repository's current source commit and never edits source content.
-    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@f811ecd18083a276a749823312a2be303e079637
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@cd7c0568865c44300a2a8c8de10512af9d982165
     with:
-      builder_ref: f811ecd18083a276a749823312a2be303e079637
+      builder_ref: cd7c0568865c44300a2a8c8de10512af9d982165
