@@ -157,6 +157,12 @@ jobs:
           for _ in $(seq 1 30); do curl -fsS "http://127.0.0.1:4173/$prefix/" >/dev/null && break; sleep 1; done
           MBM_BASE_URL="http://127.0.0.1:4173/$prefix/" node tools/verify_cross_estate_browser.mjs
 
+      - name: Verify the published Education menu and unchanged standalone pages
+        shell: bash
+        run: |
+          if [ -f resources.json ]; then prefix=Lessons; else prefix=Matt-s-Apps-; fi
+          MBM_NAVIGATION_MODE=education MBM_BASE_URL="https://madebymatt.uk/$prefix/" MBM_BROWSER_OUTPUT=audit-output/published-navigation node tools/verify_cross_estate_browser.mjs
+
       - name: Print browser evidence
         if: always()
         shell: bash
@@ -232,7 +238,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          MBM_BASE_URL="$(cat /tmp/mbm-live-base)" MBM_CACHE_BUST="$GITHUB_SHA" node tools/verify_cross_estate_browser.mjs
+          MBM_NAVIGATION_MODE=education MBM_BASE_URL="$(cat /tmp/mbm-live-base)" MBM_CACHE_BUST="$GITHUB_SHA" node tools/verify_cross_estate_browser.mjs
 
       - name: Record production proof on the release PR
         env:

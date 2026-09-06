@@ -6,6 +6,9 @@ import path from 'node:path';
 
 const base=(process.env.MBM_BASE_URL||process.argv[2]||'http://127.0.0.1:4173/').replace(/\/?$/,'/');
 const cacheBust=(process.env.MBM_CACHE_BUST||'').trim();
+const navigationMode=process.env.MBM_NAVIGATION_MODE||'legacy';
+if(!['legacy','education'].includes(navigationMode))throw new Error('Unknown navigation verification mode');
+const educationNavigation=navigationMode==='education';
 const baseUrl=new URL(base);
 async function prepareContext(context){
   if(!cacheBust)return;
@@ -23,11 +26,11 @@ const root=process.cwd();
 const kind=fs.existsSync(path.join(root,'resources.json'))?'lessons':fs.existsSync(path.join(root,'apps.json'))?'apps':null;
 if(!kind)throw new Error('Could not detect repository kind');
 const widths=[320,360,390,430,768,1024,1280,1440];
-const outDir=path.join(root,'audit-output');
+const outDir=path.resolve(process.env.MBM_BROWSER_OUTPUT||path.join(root,'audit-output'));
 fs.mkdirSync(outDir,{recursive:true});
 const results={
   sentinel:'mbm-cross-estate-unification-lessons-apps-2026-08-08',
-  kind,base,cacheBust,widths:[],standalone:[],reducedMotion:null,errors:[],fatal:null,
+  kind,base,cacheBust,navigationMode,widths:[],standalone:[],reducedMotion:null,errors:[],fatal:null,
 };
 
 function check(condition,message){if(!condition)results.errors.push(message)}
@@ -79,7 +82,7 @@ try{
       record.httpStatus=response?.status()||0;
       check(response&&response.ok(),`${kind} ${width}: hub HTTP response was not successful (${record.httpStatus})`);
       await page.waitForTimeout(1200);
-      const metrics=await page.evaluate((kind)=>{
+      const metrics=await page.evaluate(({kind,educationNavigation})=>{
         const q=selector=>document.querySelector(selector);
         const box=element=>{
           if(!element)return {width:0,height:0,visible:false,missing:true};
@@ -92,15 +95,18 @@ try{
           leadCount:q('#leadCount')?.textContent?.trim()||'',
           cards:document.querySelectorAll('.card').length,
           overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,
-          active:[...document.querySelectorAll('.mbm-primary-links a[aria-current="page"]')].map(anchor=>anchor.getAttribute('href')),
-          menu:box(q('#menu')),
-          nav:box(q('#nav')),
+          headerCount:document.querySelectorAll('[data-mbm-navigation="education"]').length,
+          active:[...document.querySelectorAll(educationNavigation?'#mbm-navigation-panel a[aria-current="page"]':'.mbm-primary-links a[aria-current="page"]')].map(anchor=>anchor.getAttribute('href')),
+          menu:box(q(educationNavigation?'.mbm-unified-menu>summary':'#menu')),
+          nav:box(q(educationNavigation?'#mbm-navigation-panel':'#nav')),
+          quick:box(q('.mbm-unified-quick')),
+          quickActive:[...document.querySelectorAll('.mbm-unified-quick a[aria-current="page"]')].map(anchor=>anchor.getAttribute('href')),
           themeButtons:document.querySelectorAll('[data-mbm-theme-slot] .mbm-sw').length,
           bodyClass:document.body.className,
           readyState:document.readyState,
           kind,
         };
-      },kind);
+      },{kind,educationNavigation});
       Object.assign(record,metrics);
       check(!/^Loading/.test(metrics.count),`${kind} ${width}: catalogue remained in its loading state`);
       check(!/^Couldn't load/.test(metrics.count),`${kind} ${width}: catalogue reported '${metrics.count}'`);
@@ -112,7 +118,25 @@ try{
       check(failed.length===0,`${kind} ${width}: failed first-party requests ${JSON.stringify(failed)}`);
       check(badResponses.length===0,`${kind} ${width}: non-success first-party responses ${JSON.stringify(badResponses)}`);
 
-      if(width<=900){
+      if(educationNavigation){
+        check(metrics.headerCount===1,`${kind} ${width}: expected exactly one published Education header`);
+        check(metrics.menu.visible&&metrics.menu.width>=44&&metrics.menu.height>=44,`${kind} ${width}: published menu target below 44px`);
+        check(!metrics.nav.visible,`${kind} ${width}: published menu should begin closed`);
+        if(!metrics.quick.missing){
+          check(metrics.quick.visible===(width>1000),`${kind} ${width}: published quick navigation visibility`);
+          check(metrics.quickActive.length===1&&metrics.quickActive[0]===(kind==='lessons'?'/Lessons/':'/Matt-s-Apps-/'),`${kind} ${width}: incorrect published quick navigation`);
+        }
+        const summary=page.locator('.mbm-unified-menu>summary');
+        await summary.click();
+        check(await page.locator('.mbm-unified-menu').evaluate(element=>element.open),`${kind} ${width}: native menu did not open`);
+        check(await page.locator('#mbm-navigation-panel').isVisible(),`${kind} ${width}: published menu panel is not visible`);
+        const targets=await page.locator('#mbm-navigation-panel a:visible, #mbm-navigation-panel summary:visible').evaluateAll(elements=>elements.map(element=>({text:element.textContent.trim(),height:element.getBoundingClientRect().height})));
+        check(targets.length>0,`${kind} ${width}: published menu has no targets`);
+        for(const target of targets)check(target.height>=44,`${kind} ${width}: published navigation target '${target.text}' is ${target.height}px tall`);
+        await page.keyboard.press('Escape');
+        check(!(await page.locator('#mbm-navigation-panel').isVisible()),`${kind} ${width}: Escape did not close published navigation`);
+        check(await summary.evaluate(element=>document.activeElement===element),`${kind} ${width}: Escape did not focus published Menu`);
+      }else if(width<=900){
         check(metrics.menu.visible&&metrics.menu.width>=44&&metrics.menu.height>=44,`${kind} ${width}: mobile menu target below 44px`);
         check(!metrics.nav.visible,`${kind} ${width}: mobile navigation should begin closed`);
         if(!metrics.menu.missing){
@@ -131,6 +155,11 @@ try{
       }
 
       if(width===390&&metrics.themeButtons>0){
+        if(educationNavigation){
+          await page.locator('.mbm-unified-menu>summary').click();
+          await page.locator('.mbm-menu-display>summary').click();
+          check(await page.locator('.mbm-menu-display').evaluate(element=>element.open),`${kind}: published Display disclosure did not open`);
+        }else{
         await page.locator('#menu').click();
         await page.locator('.mbm-nav-more>summary').click();
         check(await page.locator('.mbm-nav-more').evaluate(element=>element.open),`${kind}: More disclosure did not open`);
@@ -138,6 +167,7 @@ try{
         await page.waitForFunction(()=>!document.querySelector('.mbm-nav-more')?.open&&document.querySelector('.mbm-theme-menu')?.open);
         check(!(await page.locator('.mbm-nav-more').evaluate(element=>element.open)),`${kind}: opening Display did not close More`);
         check(await page.locator('.mbm-theme-menu').evaluate(element=>element.open),`${kind}: Display disclosure did not open`);
+        }
         await page.locator('.mbm-sw[data-t="pink"]').click();
         check(await page.evaluate(()=>document.documentElement.getAttribute('data-theme')==='pink'&&document.body.getAttribute('data-theme')==='pink'),`${kind}: pink reading background was not applied`);
         check(await page.evaluate(()=>localStorage.getItem('mbm_reading_theme')==='pink'),`${kind}: shared reading-theme key was not persisted`);
