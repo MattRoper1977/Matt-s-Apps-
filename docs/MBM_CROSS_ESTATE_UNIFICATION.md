@@ -88,3 +88,4 @@ MBM_BASE_URL=http://127.0.0.1:4173/Matt-s-Apps-/ \
 The static positive control deliberately changes `/Lessons/` to `/lessons/` in a temporary fixture and must fail before the release can pass. The same navigation contract is used in both repositories, so this catches case drift from either hub.
 
 - 2026-09-07 (RX3 P1): `tools/verify_cross_estate_unification.py` mirrored byte-for-byte from Lessons `a91780fceea8a1eade23e8a682391902bf7d3ae8` for verifier parity (two `CATALOGUE_PINS` digests and `PUBLICATION_CALLER_SHA256`); Site #316 pairs this commit.
+- 2026-09-07 (RX3 P1b/P4): the gate mirrored again from Lessons `c926b93bbebf8a11c3675da3d9109944ba0fd915` and the publisher pin lines moved to Site `e33ad2cc` (Site #319: the Lumins hold-menu revision), keeping both callers byte-identical.
