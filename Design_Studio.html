@@ -8,7 +8,7 @@
 <style>
 :root{--ink:#15203a;--acc:#4f46e5;--accSoft:#e4e2fb;--stage:#e9eaf2;--panel:#ffffff;--line:#d8dde6;--shadow:0 6px 18px rgba(21,32,58,.16)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;margin:0;overflow:hidden;touch-action:none}
+html,body{height:100%;margin:0;overflow:hidden;touch-action:pinch-zoom}
 body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--stage);display:flex;flex-direction:column;height:100vh;height:100dvh}
 button{font-family:inherit;cursor:pointer;border:0;border-radius:11px;background:#fff;color:var(--ink);font-weight:600;font-size:14px;min-height:44px;padding:0 12px}
 button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
@@ -33,7 +33,7 @@ select{font-family:inherit;font-size:14px;border:2px solid var(--line);border-ra
 .tool svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .tool.on{background:var(--acc);color:#fff}
 #stage{flex:1;min-width:0;position:relative;overflow:hidden;background:var(--stage)}
-#disp{position:absolute;left:0;top:0;display:block;touch-action:none}
+#disp{position:absolute;left:0;top:0;display:block;touch-action:pinch-zoom}
 #textWrap{position:absolute;display:none;z-index:8}
 #textArea{display:block;font-family:Arial,Helvetica,sans-serif;line-height:1.2;border:2px dashed #64748b;background:rgba(255,255,255,.92);padding:3px 5px;min-width:160px;min-height:44px;border-radius:5px;resize:both;color:#111;font-size:18px}
 #textDone{margin-top:5px;background:var(--acc);color:#fff;min-height:44px;box-shadow:var(--shadow)}
