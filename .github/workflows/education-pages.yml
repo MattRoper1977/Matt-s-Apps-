@@ -9,8 +9,8 @@ permissions:
   id-token: write
 jobs:
   publication:
-    # Pinned 2026-09-06 reviewed Education completion publisher (Site PR #268); this workflow reads
+    # Pinned 2026-09-07 reviewed Science download registry publisher (Site PR #290); this workflow reads
     # this repository's current source commit and never edits source content.
-    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@cd7c0568865c44300a2a8c8de10512af9d982165
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@16098fcc5b172ad99a2c767fbb7123d7f39ddae6
     with:
-      builder_ref: cd7c0568865c44300a2a8c8de10512af9d982165
+      builder_ref: 16098fcc5b172ad99a2c767fbb7123d7f39ddae6
