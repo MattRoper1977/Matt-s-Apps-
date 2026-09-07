@@ -128,7 +128,7 @@ CATALOGUE_PINS = {
         "assets/catalogue/lesson-navigation.js": "eac7081b5c02e450e5baa5200421e275196fb1f0e9599b5ffe9bf101ee593e99",
         "assets/catalogue/science-shelf.css": "f664655e57c086abe35499f5dedf737eddaa0942e6629dd4a7fcf4e801536508",
         "assets/catalogue/science-shelf.js": "b47b998866401f136968a2e1e94cc5beb65be83fbd342f49ff5a811804792651",
-        "assets/catalogue/terms-and-styles.json": "80f53f53a26e008df2d3dfe6bfcd1f532cc68c5dbeb11f70d3f63c1c751859b9",
+        "assets/catalogue/terms-and-styles.json": "1212bcb599e8981d0c78fa0a7705062b47d49960a714ab7390a56bc7332eafa1",
         "assets/catalogue/science-shelf.json": "116a62dd58b0a65822446ff67997095a5cef4403a45c1c6fa5e3862fb9012bb3",
         "assets/catalogue/humanities-shelf.json": "74afc429c5f67a2cf557483715687e9327209c269d70fcd1c6c6495e7516e734",
         "tools/catalogue/build_catalogue.py": "43ab03f58ac1197d37e332e061aec6869d6337498c0b2ec9f619819e8ea863ac",
@@ -154,7 +154,7 @@ CATALOGUE_PINS = {
         "tools/humanities_resources/check_resources.py": "ec5383e3a34cbff999f190b0014a4a73e00a3a29e2714498f7620fd638dc2aa5",
         "tools/humanities_resources/resource.css": "1aed9aaca0d73a4b200c4e5d0977e73f4e906c747d7340c7a62f4197a8344bae",
         "tools/humanities_resources/resource.js": "ad40afed95490bfcce92dc062da46e1b27bcb96bdc80e37eabdfe02bf6ffc446",
-        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "8d0afc3b0cfa5eab586e9e2f594c7f5d75bb9cc446af23c4903a2379757a5ffc",
+        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "4307aa80225958f8372afca634963181b03b5971be8e00e390c2cbac8e45071a",
         "tools/catalogue/TERM_REVIEW.json": "a1f7226e874474207a4a6f916e1b3e9379d4525da63edfbda6c8d115cc6c6f0e",
         "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "84a9fccdc0ea27ca9c57287d1dfce5de198420f92df2b1e73a2d2fcd5df79a88",
         "primary/year5/science/autumn/forces/Lesson8_ExploreGravity.html": "20047720bf1d309055abdf232d341b6fd99b833631efa0bcbfb3dabed9671196",
@@ -572,7 +572,7 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # Reviewed Education completion publication caller, Site PR #268, 2026-09-06;
 # advanced to Site #299 47811e56, then Site #301 50877370 (Play revision registry: Glitch HUD and
 # §3.3 touch-action revisions, transition pairs) by Order HC4.
-PUBLICATION_CALLER_SHA256 = "9f492fd154fd150d7d95652381f0e76ec346f940c8493cdc116b315dbc8b6de6"
+PUBLICATION_CALLER_SHA256 = "40a145703475e8badcff1f74d8c17198431e44ba7ec0bd0bc8b461bfd6d99f19"
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
 
