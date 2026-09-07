@@ -113,11 +113,11 @@ PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it wri
 # in both gate copies by tools/catalogue/pin_catalogue_contract.py after review.
 # BEGIN REVIEWED CATALOGUE PINS
 CATALOGUE_PINS = {
-    "visible_body_sha256": "3b4a554f4bb993f9f61e8f897b2e5c1ff020f3da51e9014b0be30cde90b5129b",
+    "visible_body_sha256": "0629f3c402ca56983bd74b52350d1aa995bbaf7b2abf99aaf28434bf5959dc9a",
     "files": {
-        "index.html": "a344542b1770c9db997b42868c59bf41cafef8232f3dd0b86eb899f0e1afa36f",
+        "index.html": "293bea4107c951e2143897ad7eec8b86eb07dada30f5dcc7836bba2cd1e3ce87",
         "Science_Teesside/index.html": "5ceaf391ba9cebc77e72bd86afcb4f092565cb8b20b7a0ced74d7c53b494a4cc",
-        "Humanities_Teesside/index.html": "ee2758cd5b9bb69b18c005100292607d9eab9e7eb389425853cbce374ceafd72",
+        "Humanities_Teesside/index.html": "1d327bf9e0502cb1fadd04633ffd5b0a6e22076978fdfb2c8599eadf496312c8",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
         "Humanities_Teesside/David_Cover_Autumn1_W3-W7/index.html": "4e25eb9ca8f9f93c720d88d945f3d6d79580f3362a88698fe7af75d146f01e96",
         "assets/catalogue/catalogue.css": "a11ee200d86a6a8aaf89dc3bc0215bdd345b15122008d11311be6650857d4d30",
