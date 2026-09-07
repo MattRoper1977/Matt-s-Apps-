@@ -7,3 +7,5 @@ Rollback before implementation: Matt-s-Apps- main 753baf41f65370f20ef69a4f87999c
 Firing controls: real workflow contract PASS; one planted push-before-publication live condition FAIL; restored PASS. Check upstream SHA A independently of current HEAD B, unsuccessful/foreign/non-main upstream exclusion, and retained PR/push fixture gates. Existing payload byte controls remain intact.
 
 Served-proof plan: all applicable PR checks green, expected-head merge, Education Pages deploy at the merged source, then workflow_run verification using that source and all nine live byte rows. No branch deletion. This plan-only draft precedes implementation.
+
+Checkpoint 2026-09-07 04:16 UTC: HELD, plan only. The workspace execution service became unavailable before any scheduling implementation or tests. No scheduling behavior or CI digest has changed. The controls above are the required future proof plan, not completed results. Existing deployed releases are preserved. Resume with working execution, verify ownership, implement and prove the paired change before resolving this hold.
