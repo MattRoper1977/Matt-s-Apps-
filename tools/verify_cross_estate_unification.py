@@ -567,7 +567,7 @@ CATALOGUE_RECORD_PATHS = {
 # A broader permission, trigger, job, floating ref or mismatched builder is red.
 PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # Reviewed Education completion publication caller, Site PR #268, 2026-09-06.
-PUBLICATION_CALLER_SHA256 = "8a498237be8fa2a23e1c0cc315db964e063f18961e0f7b1bc879f76f71716619"
+PUBLICATION_CALLER_SHA256 = "5379f94f0cf8d8aa7f280e979063e2d30c5cdb8cf6b5fe0e739f3ef7886220fd"
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
 

@@ -9,8 +9,8 @@ permissions:
   id-token: write
 jobs:
   publication:
-    # Pinned 2026-09-07 reviewed all-file education admission publisher (Site PR #289); this workflow reads
+    # Pinned 2026-09-07 reviewed Glitch handoff and all-file admission publisher (Site PR #292); this workflow reads
     # this repository's current source commit and never edits source content.
-    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@ef6574547cc5d11e0aec36b76e25b2e681152ce7
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@0a8fdac899b0d4e7664f51eb885a88d1ae8b26bb
     with:
-      builder_ref: ef6574547cc5d11e0aec36b76e25b2e681152ce7
+      builder_ref: 0a8fdac899b0d4e7664f51eb885a88d1ae8b26bb
