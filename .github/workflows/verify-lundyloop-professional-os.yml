@@ -24,22 +24,28 @@ on:
       - 'tools/verify_cross_estate_unification.py'
       - '.github/workflows/verify-lundyloop-professional-os.yml'
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Education Pages publication"]
+    types: [completed]
+    branches: [main]
 
 permissions:
   contents: read
 
 concurrency:
-  group: lundyloop-professional-os-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  group: lundyloop-professional-os-${{ github.event_name }}-${{ github.event.workflow_run.id || github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name != 'workflow_run' }}
 
 jobs:
   verify:
+    if: github.event_name != 'workflow_run' || (github.event.action == 'completed' && github.event.workflow_run.status == 'completed' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == github.repository && (github.event.workflow_run.event == 'push' || github.event.workflow_run.event == 'workflow_dispatch'))
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
       # The static verifier's forbidden-artefact sweep walks the whole tree, so it
       # must run BEFORE the site reference checkout lands in _reference/site —
       # otherwise it flags the site's own webmanifest/media as production artefacts.
@@ -56,6 +62,7 @@ jobs:
           path: _reference/site
       - name: Published-byte firing and provenance controls
         run: |
+          python3 -m pip install PyYAML==6.0.3
           python3 tools/lundyloop/test_live_bytes.py
           PYTHONPATH=_reference/site/tools python3 -m unittest test_published_site.ProvenanceControls
       - name: Existing Apps cross-estate gate
@@ -84,7 +91,7 @@ jobs:
           retention-days: 30
 
   live-bytes:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'workflow_run' && github.event.action == 'completed' && github.event.workflow_run.status == 'completed' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == github.repository && (github.event.workflow_run.event == 'push' || github.event.workflow_run.event == 'workflow_dispatch')
     needs: verify
     permissions:
       contents: read
@@ -93,6 +100,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
       - name: Resolve this publication's immutable builder
         id: builder
         run: echo "ref=$(python3 tools/lundyloop/verify_live_bytes.py --print-builder-ref)" >> "$GITHUB_OUTPUT"
@@ -104,11 +113,12 @@ jobs:
       - name: Exact published-byte proof
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          PUBLICATION_SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           python3 tools/lundyloop/verify_live_bytes.py \
             --repo-root . \
             --base https://madebymatt.uk/Matt-s-Apps-/ \
-            --sha "$GITHUB_SHA" \
+            --sha "$PUBLICATION_SOURCE_SHA" \
             --json-out live-proof.json
       - name: Upload live proof
         if: always()
