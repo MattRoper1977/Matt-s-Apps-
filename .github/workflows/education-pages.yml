@@ -9,8 +9,8 @@ permissions:
   id-token: write
 jobs:
   publication:
-    # Reviewed Science download registry publisher (Site PR #290); this workflow reads
+    # Pinned 2026-09-07 reviewed Science download registry publisher (Site PR #290); this workflow reads
     # this repository's current source commit and never edits source content.
-    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@be9fa5f8ce4daa89ec8e272b98ef06b046d6fd36
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@abb23325d065b3468ffcab756eb8bb4c8dd19c74
     with:
-      builder_ref: be9fa5f8ce4daa89ec8e272b98ef06b046d6fd36
+      builder_ref: abb23325d065b3468ffcab756eb8bb4c8dd19c74
