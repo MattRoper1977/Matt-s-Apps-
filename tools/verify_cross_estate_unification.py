@@ -113,9 +113,9 @@ PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it wri
 # in both gate copies by tools/catalogue/pin_catalogue_contract.py after review.
 # BEGIN REVIEWED CATALOGUE PINS
 CATALOGUE_PINS = {
-    "visible_body_sha256": "65fcef2607bd18a79fe27942320defa60e7f967568f4daa7ad2b936e40471d76",
+    "visible_body_sha256": "3b4a554f4bb993f9f61e8f897b2e5c1ff020f3da51e9014b0be30cde90b5129b",
     "files": {
-        "index.html": "d24c248f5609e6d166045e0a9201964574ad2767713ca079cde0c5d1996108d1",
+        "index.html": "a344542b1770c9db997b42868c59bf41cafef8232f3dd0b86eb899f0e1afa36f",
         "Science_Teesside/index.html": "5ceaf391ba9cebc77e72bd86afcb4f092565cb8b20b7a0ced74d7c53b494a4cc",
         "Humanities_Teesside/index.html": "ee2758cd5b9bb69b18c005100292607d9eab9e7eb389425853cbce374ceafd72",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
