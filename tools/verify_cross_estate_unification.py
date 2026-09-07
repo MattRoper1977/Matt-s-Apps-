@@ -575,9 +575,9 @@ PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification
 # Full hashes remain checked on every Apps run, including files not in the diff.
 # No standalone payload or arbitrary CI path is granted. Both gate copies match.
 LUNDYLOOP_CI_PINS = {
-    ".github/workflows/verify-lundyloop-professional-os.yml": "d7a8b5885ce4c385527b41aed8e1d9a9be841d715156f6842504a942773d6669",
+    ".github/workflows/verify-lundyloop-professional-os.yml": "79f2df4bab2df52719160ccf9d1fe8d0ae543555778ab7d3a660094dfb0796d0",
     "tools/lundyloop/verify_live_bytes.py": "a27f791633260e7e2d8ba7ca2abe5a35db105b9ccbf96d26205628dcc1e636ad",
-    "tools/lundyloop/test_live_bytes.py": "8ed14d4fa73e9017d9ba8cd2ae0b21931867d49a985f39a36ce45d4edf005d97"
+    "tools/lundyloop/test_live_bytes.py": "972ca2ae06da44722bfd011fda03a361c6011c699f95bb6ce78bca95b71f2e77"
 }
 
 ALLOWED_DIFF = {
