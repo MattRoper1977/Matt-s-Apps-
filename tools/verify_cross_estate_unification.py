@@ -101,7 +101,7 @@ MANIFEST_PINS = {
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
-    "resources.json": "2e227f569e024f09ba750fabb4fcc00c9f277fdc04570f97bdab261418648b83",
+    "resources.json": "d321ad08c57ca9656862fee2be6cd9a56738052e0fdf32c1cd5eb7d4fdd95742",
 }
 PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it writes both gate copies or neither)"
 
@@ -548,8 +548,8 @@ CATALOGUE_PINS = {
 # an edited, deleted or reordered original resource, or an extra lesson row.
 CATALOGUE_ORIGINAL_ROWS = 734
 CATALOGUE_ORIGINAL_ROWS_SHA256 = "b8ffcb16f5fd2a413e8a0b06ad2d4b112f450364fa294377869dc32c8235bb2c"
-CATALOGUE_SHELF_ROWS = 3
-CATALOGUE_SHELF_ROWS_SHA256 = "a8bca8febd5bd9482aa7cd648577159cb69c52f77ff1e754fd041c8c81819621"
+CATALOGUE_SHELF_ROWS = 9
+CATALOGUE_SHELF_ROWS_SHA256 = "4760121a8c6b657d7a7723d72ef6796254534371bc668e061b63c3ee67cb4664"
 
 # These named review records and review tools can change with their reviewed
 # transaction. Tools are not served assets; they are reviewed as executable
@@ -697,7 +697,7 @@ def catalogue_errors(root: Path, kind: str, text: str) -> list[str]:
     try:
         rows = json.loads((root / "resources.json").read_text("utf-8"))
         if not isinstance(rows, list) or len(rows) != CATALOGUE_ORIGINAL_ROWS + CATALOGUE_SHELF_ROWS:
-            errors.append("reviewed catalogue requires the original 734 rows plus exactly three hub rows")
+            errors.append("reviewed catalogue requires the original 734 rows plus exactly the reviewed hub rows")
         else:
             def row_digest(value):
                 encoded = json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
@@ -705,7 +705,7 @@ def catalogue_errors(root: Path, kind: str, text: str) -> list[str]:
             if row_digest(rows[:CATALOGUE_ORIGINAL_ROWS]) != CATALOGUE_ORIGINAL_ROWS_SHA256:
                 errors.append("an original catalogue row was removed, reordered or edited")
             if row_digest(rows[CATALOGUE_ORIGINAL_ROWS:]) != CATALOGUE_SHELF_ROWS_SHA256:
-                errors.append("the three reviewed catalogue hub rows changed")
+                errors.append("the reviewed catalogue hub rows changed")
     except (ValueError, OSError) as exc:
         errors.append(f"reviewed catalogue row preservation could not be verified: {exc}")
     pins = CATALOGUE_PINS.get("files", {})
