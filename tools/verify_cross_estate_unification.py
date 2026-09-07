@@ -101,7 +101,7 @@ MANIFEST_PINS = {
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
-    "resources.json": "d321ad08c57ca9656862fee2be6cd9a56738052e0fdf32c1cd5eb7d4fdd95742",
+    "resources.json": "a95c284b852f6fb6697c39e939cb571861249af3d1679640236cdaba95849a78",
 }
 PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it writes both gate copies or neither)"
 
@@ -116,9 +116,9 @@ APPS_HUB_REVIEWED_WORDING_SHA256 = "696efb97549286f33b9514308bee48d82d3af654cf61
 
 # BEGIN REVIEWED CATALOGUE PINS
 CATALOGUE_PINS = {
-    "visible_body_sha256": "0629f3c402ca56983bd74b52350d1aa995bbaf7b2abf99aaf28434bf5959dc9a",
+    "visible_body_sha256": "8b140286356c91f346d64c5ad32ca44aa6a9b467d1dd89525eca5e4728d8f444",
     "files": {
-        "index.html": "293bea4107c951e2143897ad7eec8b86eb07dada30f5dcc7836bba2cd1e3ce87",
+        "index.html": "deeaf7df09b256a115d8a9b24637d1d2e787bf90245cbf0f158a438bb5b7bd8a",
         "Science_Teesside/index.html": "5ceaf391ba9cebc77e72bd86afcb4f092565cb8b20b7a0ced74d7c53b494a4cc",
         "Humanities_Teesside/index.html": "1d327bf9e0502cb1fadd04633ffd5b0a6e22076978fdfb2c8599eadf496312c8",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
@@ -548,8 +548,8 @@ CATALOGUE_PINS = {
 # an edited, deleted or reordered original resource, or an extra lesson row.
 CATALOGUE_ORIGINAL_ROWS = 734
 CATALOGUE_ORIGINAL_ROWS_SHA256 = "b8ffcb16f5fd2a413e8a0b06ad2d4b112f450364fa294377869dc32c8235bb2c"
-CATALOGUE_SHELF_ROWS = 9
-CATALOGUE_SHELF_ROWS_SHA256 = "4760121a8c6b657d7a7723d72ef6796254534371bc668e061b63c3ee67cb4664"
+CATALOGUE_SHELF_ROWS = 17
+CATALOGUE_SHELF_ROWS_SHA256 = "b512a72f265ddd7a20ec280294b3485f274ecb7d5b2be2aaa0889b1917383160"
 
 # These named review records and review tools can change with their reviewed
 # transaction. Tools are not served assets; they are reviewed as executable
