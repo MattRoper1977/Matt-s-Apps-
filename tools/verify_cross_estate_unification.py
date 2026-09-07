@@ -111,6 +111,9 @@ PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it wri
 # named byte set is checked, including additions, on every Lessons gate run.
 # Apps retains its original authored-wording comparison. This block is updated
 # in both gate copies by tools/catalogue/pin_catalogue_contract.py after review.
+# Apps Creator Hub wording after HC5 D2 (Ko-fi line removed), reviewed 2026-09-07.
+APPS_HUB_REVIEWED_WORDING_SHA256 = "696efb97549286f33b9514308bee48d82d3af654cf611e1f522d6362adcedc1e"
+
 # BEGIN REVIEWED CATALOGUE PINS
 CATALOGUE_PINS = {
     "visible_body_sha256": "0629f3c402ca56983bd74b52350d1aa995bbaf7b2abf99aaf28434bf5959dc9a",
@@ -1006,7 +1009,13 @@ def run_checks(
         if base_brand and current_brand and base_brand != current_brand:
             errors.append("Made by Matt logo/brand markup changed")
         if kind == "apps" and normalized_visible_body(base_html, kind) != normalized_visible_body(text, kind):
-            errors.append("existing authored hub wording changed outside the derived Apps count")
+            # HC5 D2 (Matt's ruling, 2026-09-07): support buttons live on adult
+            # pages only, so the Creator Hub's "Buy me a coffee" line leaves the
+            # pupil surface. The reviewed result is admitted by exact digest of
+            # its normalised visible body; any other wording change still reds.
+            current = hashlib.sha256(normalized_visible_body(text, kind).encode("utf-8")).hexdigest()
+            if current != APPS_HUB_REVIEWED_WORDING_SHA256:
+                errors.append("existing authored hub wording changed outside the derived Apps count")
 
     if check_git and base_ref:
         proc = subprocess.run(
