@@ -8,7 +8,7 @@
 <style>
 :root{--ink:#15203a;--acc:#d9488b;--accSoft:#fbe0ee;--stage:#ece9ee;--panel:#ffffff;--line:#d8dde6;--shadow:0 6px 18px rgba(21,32,58,.16)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;margin:0;overflow:hidden;touch-action:none}
+html,body{height:100%;margin:0;overflow:hidden;touch-action:pinch-zoom}
 body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--stage);display:flex;flex-direction:column;height:100vh;height:100dvh}
 button{font-family:inherit;cursor:pointer;border:0;border-radius:11px;background:#fff;color:var(--ink);font-weight:600;font-size:14px;min-height:40px;padding:0 12px}
 button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
@@ -32,7 +32,7 @@ input[type=range]{accent-color:var(--acc);width:100%;height:30px}
 .tool svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .tool.on{background:var(--acc);color:#fff}
 #stage{flex:1;min-width:0;position:relative;overflow:hidden;background:var(--stage)}
-#disp{position:absolute;left:0;top:0;display:block;touch-action:none}
+#disp{position:absolute;left:0;top:0;display:block;touch-action:pinch-zoom}
 #cursor{position:absolute;border:2px solid rgba(21,32,58,.55);border-radius:50%;pointer-events:none;display:none;z-index:5;mix-blend-mode:difference}
 #emptyHint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:4;pointer-events:none}
 #emptyHint button{pointer-events:auto;border:3px dashed var(--acc);background:rgba(255,255,255,.9);border-radius:18px;padding:22px 28px;font-size:17px;font-weight:800;color:var(--acc);box-shadow:var(--shadow)}
