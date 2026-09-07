@@ -533,7 +533,7 @@ CATALOGUE_PINS = {
         "tools/science_teaching_packs/refresh_packs.py": "ce14bfa3c503bde2a5e0a8a07effbfe52d6c7262894cf062dcad358c473e7d47",
         "Science_Teesside/Teaching_Packs/GROW/Image_Credits.docx": "b7fe4b107695458bd8138170b0c98d14adddfe156871bd228db798790dbf3786",
         "Science_Teesside/Teaching_Packs/GROW/Image_Credits.pdf": "651dcd9f749c6cfb5ffccd73eb9ffb14a57f8ff8a8860f348969b34114396f86",
-        "tools/science_teaching_packs/check_hub_browser.cjs": "229693ae48a63b49e824bf8499a0b92aeb0784dd5b6d5d86e14e3121835b8c69",
+        "tools/science_teaching_packs/check_hub_browser.cjs": "9b3315cee78c36eeba3a0053fa8c790ab66c7d0ee5ee8d46b8752343d8872645",
         "tools/science_teaching_packs/VISUAL_REFRESH_QA.json": "3ce5b90abaf89fc5a2a4085791bb16e09667545cf489a985c1c525bd7698fc80",
         ".github/workflows/science-teaching-packs.yml": "bc177669ef54ecaf7f21247ecca0aa75993476679eab978e716c76385960e9ce"
     }
