@@ -11,6 +11,6 @@ jobs:
   publication:
     # Pinned 2026-09-07 reviewed Glitch handoff and all-file admission publisher (Site PR #292); this workflow reads
     # this repository's current source commit and never edits source content.
-    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@9ac472b8866f31ec44498faae03302dd20d56b6a
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@02ee9b8dc7349b8a3da1b24faac9f0204452f732
     with:
-      builder_ref: 9ac472b8866f31ec44498faae03302dd20d56b6a
+      builder_ref: 02ee9b8dc7349b8a3da1b24faac9f0204452f732
