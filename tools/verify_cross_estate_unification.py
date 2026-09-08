@@ -146,7 +146,7 @@ CATALOGUE_PINS = {
         "_glv3/tools/verify_change_boundary.py": "83abbfb09690729b65da0a0d8adeec1564f6f0f7b198b8de2e2334be5039fcfa",
         "_glv3/tools/browser_verify.mjs": "ce70c354380ed8fedba90714981465dce39fb7d9b6452a12f6a0b2d782969e86",
         "_glv3/tools/chip_gate.mjs": "0f2ffe5e738fb5d5998755e172e47dc3695944b2513dc86da66a5dd2a1c51723",
-        "tools/humanities_resources/SOURCE_MANIFEST.json": "e0c8edae9ec76ae48b957ba4b46b5340e7257174084d38816fa12391772930e6",
+        "tools/humanities_resources/SOURCE_MANIFEST.json": "8b9c0bec517a7357fb210979712e62d465dfd9d2f2dd5f349dd2d398d9bf5cef",
         "tools/humanities_resources/DOWNLOAD_MANIFEST.json": "1d872aa4e9d01d7f10d26a0e8d182ddcb4513598413314f7c38d055318d39a2f",
         "tools/humanities_resources/CONTENT.json": "335ea55d7964d8095064e2c67c95fbd8d65e28b4d1ddf25f6e4ee812abd29b98",
         "tools/humanities_resources/ORIGINAL_MEMBER_MANIFEST.json": "c4ce9e5a0a5d966ee31f401ae476a2dc10a43aa8dc749e09b2cef87b745db073",
@@ -154,9 +154,9 @@ CATALOGUE_PINS = {
         "tools/humanities_resources/check_resources.py": "ec5383e3a34cbff999f190b0014a4a73e00a3a29e2714498f7620fd638dc2aa5",
         "tools/humanities_resources/resource.css": "1aed9aaca0d73a4b200c4e5d0977e73f4e906c747d7340c7a62f4197a8344bae",
         "tools/humanities_resources/resource.js": "ad40afed95490bfcce92dc062da46e1b27bcb96bdc80e37eabdfe02bf6ffc446",
-        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "852ebc9ca7ea616dfa4ae0929c42257dfcbb4f9813fd978e5fa2a297efd24fd1",
+        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "7e122e1638489b259969aea4baa8b6dbecd50e5f7db028629fb1c389f27a436b",
         "tools/catalogue/TERM_REVIEW.json": "b0ed0d82fe21a222c75f6a38390b01defc0d5d958fac8e85421b7901ce6d201d",
-        "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "26e0ec9a1aabe2cb7dfefd7ffe92648db4ceeb225ec12e4bea3001f9659ddb06",
+        "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "47688911605aefe71d8baa935df7ecc3bd28cb68df35bd54d05fb89ecdac71a5",
         "primary/year5/science/autumn/forces/Lesson8_ExploreGravity.html": "20047720bf1d309055abdf232d341b6fd99b833631efa0bcbfb3dabed9671196",
         "primary/year5/science/autumn/forces/Y5_Forces_SoW_and_Plans.docx": "ca36cfd92f1c768ea66f0eb748d47e6227f67569f77b5472d0da13d03f92f2e6",
         "assets/catalogue/science-download-bindings.json": "efb435f7e0dc4c9083050f5bb3e348494838422fe7de6e809fbdf8f877d9b10d",
@@ -572,7 +572,7 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # Reviewed Education completion publication caller, Site PR #268, 2026-09-06;
 # advanced to Site #299 47811e56, then Site #301 50877370 (Play revision registry: Glitch HUD and
 # §3.3 touch-action revisions, transition pairs) by Order HC4.
-PUBLICATION_CALLER_SHA256 = "8b7c49ce2373745dc0292239836c49ada4637d7b3e1701ce6ee151fc2a89b5be"
+PUBLICATION_CALLER_SHA256 = "30085564dd29c8c7c9c94a60ab9788716d21cb850d308258203f8f2755c304d3"
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
 
