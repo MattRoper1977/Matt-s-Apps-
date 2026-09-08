@@ -572,7 +572,7 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # Reviewed Education completion publication caller, Site PR #268, 2026-09-06;
 # advanced to Site #299 47811e56, then Site #301 50877370 (Play revision registry: Glitch HUD and
 # §3.3 touch-action revisions, transition pairs) by Order HC4.
-PUBLICATION_CALLER_SHA256 = "bebfb9381cc5c80636f136d57bf4e445ae39185cb5c2ae32dcbe217faa838da3"
+PUBLICATION_CALLER_SHA256 = "241ffdfef641b39762d21783aacb68a88219d3ffb342648af51de394cad9aedb"
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
 
