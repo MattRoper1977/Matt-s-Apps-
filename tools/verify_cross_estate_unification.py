@@ -101,7 +101,7 @@ MANIFEST_PINS = {
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
-    "resources.json": "a95c284b852f6fb6697c39e939cb571861249af3d1679640236cdaba95849a78",
+    "resources.json": "ca4ce5ade391130b2dee4a85a8c57363d2c4c6ce175f0a62cbe46e245a8a9e1c",
 }
 PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it writes both gate copies or neither)"
 
@@ -119,8 +119,8 @@ CATALOGUE_PINS = {
     "visible_body_sha256": "8b140286356c91f346d64c5ad32ca44aa6a9b467d1dd89525eca5e4728d8f444",
     "files": {
         "index.html": "deeaf7df09b256a115d8a9b24637d1d2e787bf90245cbf0f158a438bb5b7bd8a",
-        "Science_Teesside/index.html": "5ceaf391ba9cebc77e72bd86afcb4f092565cb8b20b7a0ced74d7c53b494a4cc",
-        "Humanities_Teesside/index.html": "1d327bf9e0502cb1fadd04633ffd5b0a6e22076978fdfb2c8599eadf496312c8",
+        "Science_Teesside/index.html": "47e85a28c6cb17663a051f38646126d0afea0e59d71942671c40553567424fd9",
+        "Humanities_Teesside/index.html": "7594ce3f6bd34025e32f556d736d39fd218b409a36511ab57e779c4080c4cd86",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
         "Humanities_Teesside/David_Cover_Autumn1_W3-W7/index.html": "4e25eb9ca8f9f93c720d88d945f3d6d79580f3362a88698fe7af75d146f01e96",
         "assets/catalogue/catalogue.css": "59abee137c41a8a015e42cf0b32d20b7f4e5fc8e3d236a1cd735322386bf8569",
@@ -128,17 +128,17 @@ CATALOGUE_PINS = {
         "assets/catalogue/lesson-navigation.js": "eac7081b5c02e450e5baa5200421e275196fb1f0e9599b5ffe9bf101ee593e99",
         "assets/catalogue/science-shelf.css": "f664655e57c086abe35499f5dedf737eddaa0942e6629dd4a7fcf4e801536508",
         "assets/catalogue/science-shelf.js": "b47b998866401f136968a2e1e94cc5beb65be83fbd342f49ff5a811804792651",
-        "assets/catalogue/terms-and-styles.json": "c3236d133b9e66a311f6e0fa1487f8a130805814919701ffffc5e9c8637b3563",
-        "assets/catalogue/science-shelf.json": "e8cff82789c88f28efc498110f7b62f3215dbe9496fcfc14ea0eafe42ebf4e32",
-        "assets/catalogue/humanities-shelf.json": "e5f759f022a74e6bf59cbc32c8111b548b36f61fbf7b9c3572046d1bf90ea645",
+        "assets/catalogue/terms-and-styles.json": "1a0d8085e1054e5dfb361eb2e8d473e0ae72f9bff908e599cf19305c75827cf0",
+        "assets/catalogue/science-shelf.json": "f933067000b614300df6da45ed0a3169c4ecff9187c7867de408f70bd4701371",
+        "assets/catalogue/humanities-shelf.json": "b2facaa50c6781f0fdf19fad5b3b170bfaef54546c030e951956ccf47223f8c0",
         "tools/catalogue/build_catalogue.py": "4a009a17c37ae7336056329e2250c590910d6d054001ad92e57228e157bc8c90",
         "tools/catalogue/build_science_shelf.py": "a06ce779e4331661dadcdeb896b5d533374ca82bba812f605860c6fe53d11335",
-        "tools/catalogue/build_humanities_shelf.py": "89721c1adf644fd7e5f7a03449ff166eb2c9cfd99fb2aa65482fda6693da48b7",
-        "tools/catalogue/check_catalogue_static.py": "4c5728322c88fd1706e30bb1ffacbc80daaad11703cb39bd3dd9ff0aa3f3c02c",
-        "tools/catalogue/check_catalogue_dom.cjs": "9a07df734e9aebe2cbfb6fac81b961d58df0f577f3effa9ba112b63ec681945e",
+        "tools/catalogue/build_humanities_shelf.py": "ef74f9eced59fd6ec33f22c02cf0d39d518ac6f2eb8873aaf21517859fb78662",
+        "tools/catalogue/check_catalogue_static.py": "41923331f350007d958703697f4871a06ae07cee1512fba53730399e390329c9",
+        "tools/catalogue/check_catalogue_dom.cjs": "ded778b35a0fba80de06cdbd6fd99afc30e126d2f1039033cf07b61472a6dab4",
         "tools/catalogue/verify_education_navigation.cjs": "3c2732e4d302579fe011745abdf7c36ffa63c062ee22e7777a1eb3876c615580",
-        "tools/catalogue/SHELF_SELECTION.json": "d6699b2e420992a15ae9674d1a93c394ec93b66af477fdeb6fd1a857ab8ff935",
-        "tools/catalogue/HUMANITIES_SELECTION.json": "a79ff3234a0d504d439b8c9861ad8199f91c61921d7419c05fea2ac2a51cbcb0",
+        "tools/catalogue/SHELF_SELECTION.json": "95def027287e7cc1eb1190bafa21733c9c0999286c15a231dc17dfe7a56331f4",
+        "tools/catalogue/HUMANITIES_SELECTION.json": "5df3e69d4d9d3825225bcc80376b3fbebf61656df6e333f6b9a8aaded1893bf4",
         "tools/easter/science_original_browser.cjs": "650884c0ef6ec714edc429bbf7c5601e26176df44012661462c37ee3de7478d1",
         "tools/prepare_served_publications.py": "e0623cc295854f41e353d521d99b998e9be21568506799f6e01f3b16ce12f7c4",
         "tools/test_served_publications.py": "128f691b0a1f5880a68190540266e3f78993e4849cd75d7f1b6db75e098e1d31",
@@ -154,9 +154,9 @@ CATALOGUE_PINS = {
         "tools/humanities_resources/check_resources.py": "ec5383e3a34cbff999f190b0014a4a73e00a3a29e2714498f7620fd638dc2aa5",
         "tools/humanities_resources/resource.css": "1aed9aaca0d73a4b200c4e5d0977e73f4e906c747d7340c7a62f4197a8344bae",
         "tools/humanities_resources/resource.js": "ad40afed95490bfcce92dc062da46e1b27bcb96bdc80e37eabdfe02bf6ffc446",
-        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "4307aa80225958f8372afca634963181b03b5971be8e00e390c2cbac8e45071a",
-        "tools/catalogue/TERM_REVIEW.json": "a1f7226e874474207a4a6f916e1b3e9379d4525da63edfbda6c8d115cc6c6f0e",
-        "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "84a9fccdc0ea27ca9c57287d1dfce5de198420f92df2b1e73a2d2fcd5df79a88",
+        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "852ebc9ca7ea616dfa4ae0929c42257dfcbb4f9813fd978e5fa2a297efd24fd1",
+        "tools/catalogue/TERM_REVIEW.json": "b0ed0d82fe21a222c75f6a38390b01defc0d5d958fac8e85421b7901ce6d201d",
+        "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "26e0ec9a1aabe2cb7dfefd7ffe92648db4ceeb225ec12e4bea3001f9659ddb06",
         "primary/year5/science/autumn/forces/Lesson8_ExploreGravity.html": "20047720bf1d309055abdf232d341b6fd99b833631efa0bcbfb3dabed9671196",
         "primary/year5/science/autumn/forces/Y5_Forces_SoW_and_Plans.docx": "ca36cfd92f1c768ea66f0eb748d47e6227f67569f77b5472d0da13d03f92f2e6",
         "assets/catalogue/science-download-bindings.json": "efb435f7e0dc4c9083050f5bb3e348494838422fe7de6e809fbdf8f877d9b10d",
@@ -548,8 +548,8 @@ CATALOGUE_PINS = {
 # an edited, deleted or reordered original resource, or an extra lesson row.
 CATALOGUE_ORIGINAL_ROWS = 734
 CATALOGUE_ORIGINAL_ROWS_SHA256 = "b8ffcb16f5fd2a413e8a0b06ad2d4b112f450364fa294377869dc32c8235bb2c"
-CATALOGUE_SHELF_ROWS = 17
-CATALOGUE_SHELF_ROWS_SHA256 = "b512a72f265ddd7a20ec280294b3485f274ecb7d5b2be2aaa0889b1917383160"
+CATALOGUE_SHELF_ROWS = 49
+CATALOGUE_SHELF_ROWS_SHA256 = "3ab3e66308af203301acf75d57fa78728c83e6a336ba8a17d0392d9a092859c5"
 
 # These named review records and review tools can change with their reviewed
 # transaction. Tools are not served assets; they are reviewed as executable
