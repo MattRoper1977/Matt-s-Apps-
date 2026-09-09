@@ -126,11 +126,11 @@ APPS_HUB_REVIEWED_WORDING_SHA256 = "696efb97549286f33b9514308bee48d82d3af654cf61
 CATALOGUE_PINS = {
     "visible_body_sha256": "bc1011a2b1241c790cb35b98d7581168b7f2376c7754aaa531bf34d4c7589ca4",
     "files": {
-        "index.html": "a583d509cff551ac8215618dd4ffe723a21614c920302030863394aafaad4cc6",
+        "index.html": "e2184fb0cfb6850572c6747810fa0ae87211ed107fed73facc3c55100b14c867",
         "Science_Teesside/index.html": "47e85a28c6cb17663a051f38646126d0afea0e59d71942671c40553567424fd9",
         "Humanities_Teesside/index.html": "7594ce3f6bd34025e32f556d736d39fd218b409a36511ab57e779c4080c4cd86",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
-        "subject.html": "bd7d2277bce74c92095afd11dd96f005b5c1fef384e9909c839f9dc32a1e4106",
+        "subject.html": "945de02091c332965218847d64da6651baa6a93d35fa80a99503ed8bdd84138a",
         "assets/catalogue/hub.js": "6054f0d89ee498df171cc8861e0a292f3154315a6462d895f130eaadbf7e71a6",
         "assets/catalogue/hub.css": "96192065b59e2d5113f92e03da3386c45e7425aa2443b79e8203914b587eeca9",
         "data/calendar-spine.json": "d199474b13c9d340add2c87165396d83712b0f1c9f8bd03b7b12e8fdf6af0d61",
