@@ -682,6 +682,15 @@ ALLOWED_DIFF = {
     ".github/workflows/ux2-gates.yml",
     "tools/ux2/hub_gates.mjs",
     "tools/ux2/unit_tags.py",
+    # UX2 D3 added the companion-pack deriver and its placement manifest but did
+    # not list them here, though every peer is listed (build_spine, unit_tags,
+    # resource_sizes, calendar-spine.json, resource-sizes.json ...). The gap was
+    # invisible because it only bites a PR that changes one of them AND this
+    # file, which only a contract re-pin forces. pin_catalogue_contract.py --
+    # already allowed -- imports the deriver and reads the manifest to rebuild
+    # the pack tail, so both are catalogue-record machinery, not lesson payload.
+    "tools/ux2/companion_catalogue.py",
+    "data/companion-packs.json",
     "tools/ux2/check_catalogue_schema.py",
     "tools/ux2/prove_catalogue_gate.py",
     "tools/ux2/build_spine.py",
