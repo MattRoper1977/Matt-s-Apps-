@@ -596,13 +596,23 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # #438, #442; the order writes nothing to the Apps repository), so this digest is the
 # LESSONS caller's, and the Apps caller carries its own reviewed digest below.
 PUBLICATION_CALLER_SHA256 = "b6d0358f28ae3efccb351da7abba822009abdca5c6f6a8495b92cb101b6cedbd"
-# One reviewed caller digest per repository kind. The Apps entry is the Apps
-# caller at the Site's reviewed Apps pin 924ab986 (Site domain-split-verify.yml;
-# the caller there names Site 23a4f360), which the Site's catalogue contract
-# control runs this gate against as kind "apps". Moving that pin moves this.
+# One reviewed caller digest per repository kind. detect_kind() reads the root
+# it is standing in, so this entry is only ever compared against the Apps
+# repository's own caller: the Lessons gate run and the Apps gate runs are the
+# only callers of publication_errors(), and the Site repository invokes this
+# verifier in no workflow at all.
+# UX2 A5 pinned this to the Apps caller at 924ab986 -- the commit Site
+# domain-split-verify.yml checks out, whose caller names Site 23a4f360 -- on the
+# premise that a Site catalogue-contract control ran this gate against that
+# checkout. No such control exists, and 924ab986 is behind Apps main. The
+# reviewed Apps caller is the merged one: Apps #72 advanced it 23a4f360 ->
+# 6430f23f (CX3 cycle C) on 2026-09-08, superseding c420519111f6 thirty-six
+# minutes after it was written. The mismatch stayed invisible while the Apps
+# gate copy predated UX2 A5 and so had no by-kind map to read; putting the two
+# copies back in step is what made it fire.
 PUBLICATION_CALLER_SHA256_BY_KIND = {
     "lessons": PUBLICATION_CALLER_SHA256,
-    "apps": "c420519111f6c73c54db0b5b506033b9c5edb41696335235edf48bae5f1c7178",
+    "apps": "732591ddeae08b96f5a2aedcf9cbc52246c7ade65fc256507d40ee4030359eff",
 }
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
