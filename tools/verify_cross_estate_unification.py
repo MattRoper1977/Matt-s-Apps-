@@ -62,6 +62,14 @@ CANONICAL_HASHES = {
     "assets/mbm-platform.js": "095a29e61f8d7d549a5b58dd1aa1dd74b885416ebb09291ddb218d90ea740c28",
     "assets/mbm-theme.js": "5d711139ee95f2a9814917c516ffe674fbd52fd0b42c8fd6e22a1efbc19f002b",
     "assets/mbm-hub.css": "1643f51bcfe7f89923e908cf4f79b36a80d8bfa767779ab1c9cebe2e1a8b513c",
+    # SW2 T1/T5. The design-token vocabulary, copied from the site repository the
+    # same way the four above are, and pinned for the same reason the 2026-08
+    # drift recorded above happened: the site moved twice and no path filter
+    # fired in either repository. A root-absolute /assets/ path would have
+    # avoided the copy and was rejected -- this repository has no root-absolute
+    # asset reference, every shared asset here is a pinned copy, and a
+    # cross-repo runtime path would break a local checkout and skip this gate.
+    "assets/mbm-tokens.css": "01fbb17686866b97e7591781e4a78f2e9d38fb5ba35ed8acf935ce2a199643dd",
 }
 
 # assets/mbm-theme.js is not maintained here. It is generated from the site
