@@ -595,7 +595,12 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # both repositories' callers. UX2 moved the Lessons caller alone (Lessons #436,
 # #438, #442; the order writes nothing to the Apps repository), so this digest is the
 # LESSONS caller's, and the Apps caller carries its own reviewed digest below.
-PUBLICATION_CALLER_SHA256 = "b6d0358f28ae3efccb351da7abba822009abdca5c6f6a8495b92cb101b6cedbd"
+# Advanced 2026-09-09 (SX1/SX2): the Lessons caller's publisher pin moves Site
+# 92abc460 -> 94ae15f8 so the all-file admission registry admits the Spring/Summer
+# Science batch. The Site commit is 92abc460 byte-identical except that registry and
+# the retained usage-registry baseline; education-publication.yml is unchanged between
+# them, so no builder, Play or usage-discovery code moves with the pin.
+PUBLICATION_CALLER_SHA256 = "92122bb7b40715002b3ea19c5ff749102e0ab3256388b224705f9956df6c756b"
 # One reviewed caller digest per repository kind. detect_kind() reads the root
 # it is standing in, so this entry is only ever compared against the Apps
 # repository's own caller: the Lessons gate run and the Apps gate runs are the
