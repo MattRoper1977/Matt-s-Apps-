@@ -101,7 +101,7 @@ MANIFEST_PINS = {
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
-    "resources.json": "ca4ce5ade391130b2dee4a85a8c57363d2c4c6ce175f0a62cbe46e245a8a9e1c",
+    "resources.json": "59753f2bb92e9dd9d3cac5ec1901b514420de163503c4f715b9572d9ad1da5ee",
 }
 PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it writes both gate copies or neither)"
 
@@ -116,16 +116,20 @@ APPS_HUB_REVIEWED_WORDING_SHA256 = "696efb97549286f33b9514308bee48d82d3af654cf61
 
 # BEGIN REVIEWED CATALOGUE PINS
 CATALOGUE_PINS = {
-    "visible_body_sha256": "8b140286356c91f346d64c5ad32ca44aa6a9b467d1dd89525eca5e4728d8f444",
+    "visible_body_sha256": "bc1011a2b1241c790cb35b98d7581168b7f2376c7754aaa531bf34d4c7589ca4",
     "files": {
-        "index.html": "deeaf7df09b256a115d8a9b24637d1d2e787bf90245cbf0f158a438bb5b7bd8a",
+        "index.html": "a583d509cff551ac8215618dd4ffe723a21614c920302030863394aafaad4cc6",
         "Science_Teesside/index.html": "47e85a28c6cb17663a051f38646126d0afea0e59d71942671c40553567424fd9",
         "Humanities_Teesside/index.html": "7594ce3f6bd34025e32f556d736d39fd218b409a36511ab57e779c4080c4cd86",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
+        "subject.html": "bd7d2277bce74c92095afd11dd96f005b5c1fef384e9909c839f9dc32a1e4106",
+        "assets/catalogue/hub.js": "6054f0d89ee498df171cc8861e0a292f3154315a6462d895f130eaadbf7e71a6",
+        "assets/catalogue/hub.css": "96192065b59e2d5113f92e03da3386c45e7425aa2443b79e8203914b587eeca9",
+        "data/calendar-spine.json": "d199474b13c9d340add2c87165396d83712b0f1c9f8bd03b7b12e8fdf6af0d61",
         "Humanities_Teesside/David_Cover_Autumn1_W3-W7/index.html": "4e25eb9ca8f9f93c720d88d945f3d6d79580f3362a88698fe7af75d146f01e96",
         "assets/catalogue/catalogue.css": "59abee137c41a8a015e42cf0b32d20b7f4e5fc8e3d236a1cd735322386bf8569",
         "assets/catalogue/catalogue.js": "a0fd3efc8356377effad7249be7222984ce92947a8143259148851dc399de5c7",
-        "assets/catalogue/lesson-navigation.js": "eac7081b5c02e450e5baa5200421e275196fb1f0e9599b5ffe9bf101ee593e99",
+        "assets/catalogue/lesson-navigation.js": "e16ccd86a1d29dbb2d1867fa8d33dac738e061545c61983e8adcb165b79c0bce",
         "assets/catalogue/science-shelf.css": "f664655e57c086abe35499f5dedf737eddaa0942e6629dd4a7fcf4e801536508",
         "assets/catalogue/science-shelf.js": "b47b998866401f136968a2e1e94cc5beb65be83fbd342f49ff5a811804792651",
         "assets/catalogue/terms-and-styles.json": "1a0d8085e1054e5dfb361eb2e8d473e0ae72f9bff908e599cf19305c75827cf0",
@@ -134,9 +138,9 @@ CATALOGUE_PINS = {
         "tools/catalogue/build_catalogue.py": "4a009a17c37ae7336056329e2250c590910d6d054001ad92e57228e157bc8c90",
         "tools/catalogue/build_science_shelf.py": "a06ce779e4331661dadcdeb896b5d533374ca82bba812f605860c6fe53d11335",
         "tools/catalogue/build_humanities_shelf.py": "ef74f9eced59fd6ec33f22c02cf0d39d518ac6f2eb8873aaf21517859fb78662",
-        "tools/catalogue/check_catalogue_static.py": "41923331f350007d958703697f4871a06ae07cee1512fba53730399e390329c9",
-        "tools/catalogue/check_catalogue_dom.cjs": "ded778b35a0fba80de06cdbd6fd99afc30e126d2f1039033cf07b61472a6dab4",
-        "tools/catalogue/verify_education_navigation.cjs": "3c2732e4d302579fe011745abdf7c36ffa63c062ee22e7777a1eb3876c615580",
+        "tools/catalogue/check_catalogue_static.py": "1f55f22846763ded7bd27fdc389b57d1cba3b1eb58c066c944dde9b6b70617df",
+        "tools/catalogue/check_catalogue_dom.cjs": "9afa5c7b5355940199f602fca443fb6436882426058cc7ac1cba5bd0a94ac257",
+        "tools/catalogue/verify_education_navigation.cjs": "b0d9297a33fb9ea2494fecaa45e02ae6fcf6fa88e6a62ced35cf521fbb1851fd",
         "tools/catalogue/SHELF_SELECTION.json": "95def027287e7cc1eb1190bafa21733c9c0999286c15a231dc17dfe7a56331f4",
         "tools/catalogue/HUMANITIES_SELECTION.json": "5df3e69d4d9d3825225bcc80376b3fbebf61656df6e333f6b9a8aaded1893bf4",
         "tools/easter/science_original_browser.cjs": "650884c0ef6ec714edc429bbf7c5601e26176df44012661462c37ee3de7478d1",
@@ -144,8 +148,8 @@ CATALOGUE_PINS = {
         "tools/test_served_publications.py": "128f691b0a1f5880a68190540266e3f78993e4849cd75d7f1b6db75e098e1d31",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
         "_glv3/tools/verify_change_boundary.py": "83abbfb09690729b65da0a0d8adeec1564f6f0f7b198b8de2e2334be5039fcfa",
-        "_glv3/tools/browser_verify.mjs": "ce70c354380ed8fedba90714981465dce39fb7d9b6452a12f6a0b2d782969e86",
-        "_glv3/tools/chip_gate.mjs": "0f2ffe5e738fb5d5998755e172e47dc3695944b2513dc86da66a5dd2a1c51723",
+        "_glv3/tools/browser_verify.mjs": "ec094d38eb6ebeda1525a35f4141dba5d99c685a6e939671afa39de632005dc7",
+        "_glv3/tools/chip_gate.mjs": "5011665dcdb1d4eed917e2500a825efc4539cebe7e30b493492a035ecca83479",
         "tools/humanities_resources/SOURCE_MANIFEST.json": "8b9c0bec517a7357fb210979712e62d465dfd9d2f2dd5f349dd2d398d9bf5cef",
         "tools/humanities_resources/DOWNLOAD_MANIFEST.json": "1d872aa4e9d01d7f10d26a0e8d182ddcb4513598413314f7c38d055318d39a2f",
         "tools/humanities_resources/CONTENT.json": "335ea55d7964d8095064e2c67c95fbd8d65e28b4d1ddf25f6e4ee812abd29b98",
@@ -154,7 +158,7 @@ CATALOGUE_PINS = {
         "tools/humanities_resources/check_resources.py": "ec5383e3a34cbff999f190b0014a4a73e00a3a29e2714498f7620fd638dc2aa5",
         "tools/humanities_resources/resource.css": "1aed9aaca0d73a4b200c4e5d0977e73f4e906c747d7340c7a62f4197a8344bae",
         "tools/humanities_resources/resource.js": "ad40afed95490bfcce92dc062da46e1b27bcb96bdc80e37eabdfe02bf6ffc446",
-        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "b3c42bb35042e2f7e92be6def847aad1a5261c6c9f30561e9e76b2ed4e5bdad4",
+        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "c0cfcc042ebd7dcf9fe232d17cde403d3e4215c7058ccd1216fe7309c61bb4b5",
         "tools/catalogue/TERM_REVIEW.json": "b0ed0d82fe21a222c75f6a38390b01defc0d5d958fac8e85421b7901ce6d201d",
         "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "f3375440baa49ffe39a4fb7e34ccbf1cf788ed6d73b283abc15d6e1440203238",
         "primary/year5/science/autumn/forces/Lesson8_ExploreGravity.html": "20047720bf1d309055abdf232d341b6fd99b833631efa0bcbfb3dabed9671196",
@@ -536,7 +540,7 @@ CATALOGUE_PINS = {
         "tools/science_teaching_packs/refresh_packs.py": "ce14bfa3c503bde2a5e0a8a07effbfe52d6c7262894cf062dcad358c473e7d47",
         "Science_Teesside/Teaching_Packs/GROW/Image_Credits.docx": "b7fe4b107695458bd8138170b0c98d14adddfe156871bd228db798790dbf3786",
         "Science_Teesside/Teaching_Packs/GROW/Image_Credits.pdf": "651dcd9f749c6cfb5ffccd73eb9ffb14a57f8ff8a8860f348969b34114396f86",
-        "tools/science_teaching_packs/check_hub_browser.cjs": "27756f9dfc18bae97722b2f4514cb1bf3606a416c698fcd309a62437a6ff91ae",
+        "tools/science_teaching_packs/check_hub_browser.cjs": "cf95cd468472495950f24a3dd0b1f4b9794f0a7df251ca7ab0c4e3098a276ad8",
         "tools/science_teaching_packs/VISUAL_REFRESH_QA.json": "3ce5b90abaf89fc5a2a4085791bb16e09667545cf489a985c1c525bd7698fc80",
         ".github/workflows/science-teaching-packs.yml": "bc177669ef54ecaf7f21247ecca0aa75993476679eab978e716c76385960e9ce"
     }
@@ -548,8 +552,20 @@ CATALOGUE_PINS = {
 # an edited, deleted or reordered original resource, or an extra lesson row.
 CATALOGUE_ORIGINAL_ROWS = 734
 CATALOGUE_ORIGINAL_ROWS_SHA256 = "b8ffcb16f5fd2a413e8a0b06ad2d4b112f450364fa294377869dc32c8235bb2c"
-CATALOGUE_SHELF_ROWS = 49
-CATALOGUE_SHELF_ROWS_SHA256 = "3ab3e66308af203301acf75d57fa78728c83e6a336ba8a17d0392d9a092859c5"
+# The appended rows are the 49 reviewed hub rows followed, since UX2 D3
+# (2026-09-08), by the companion-pack entries DERIVED from
+# data/companion-packs.json by tools/ux2/companion_catalogue.py. The count and
+# digest below are re-cut by tools/catalogue/pin_catalogue_contract.py from
+# rows it has verified against that derivation; an edit to any appended row,
+# a removed pack row or an extra lesson row still reds here.
+CATALOGUE_SHELF_ROWS = 216
+# UX2 A1: keys that may be appended to an original row without moving its
+# digest (see catalogue_errors). Nothing else is additive. No original row
+# carried either key before the ruling (measured 2026-09-08: 0 of 734), so the
+# second set is empty and the allowance cannot launder a pre-existing value.
+CATALOGUE_ADDITIVE_TAG_KEYS = frozenset({"halfTerm", "unit"})
+CATALOGUE_ORIGINAL_KEYS_BEFORE_TAGS = frozenset()
+CATALOGUE_SHELF_ROWS_SHA256 = "b04f6823dd790ee070d522e4d42cd9e9b240bd9000da093b42144e6aa683eb36"
 
 # These named review records and review tools can change with their reviewed
 # transaction. Tools are not served assets; they are reviewed as executable
@@ -562,17 +578,32 @@ CATALOGUE_RECORD_PATHS = {
     "tools/catalogue/README.md",
     "tools/catalogue/pin_catalogue_contract.py",
     "tools/catalogue/verify_catalogue_contract_controls.py",
+    # UX2 A1 (2026-09-08): the record's schema travels with the record. It is
+    # data, not a lesson payload; it is enforced by tools/ux2/check_catalogue_schema.py.
+    "resources.schema.json",
 }
 
 # The education publisher is executable release configuration, not a hub asset.
-# Both callers advance together to the same reviewed Site commit. Permit only
-# this named workflow, and require its complete reviewed bytes on every run.
-# A broader permission, trigger, job, floating ref or mismatched builder is red.
+# Permit only this named workflow, and require its complete reviewed bytes on
+# every run. A broader permission, trigger, job, floating ref or mismatched
+# builder is red.
 PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # Reviewed Education completion publication caller, Site PR #268, 2026-09-06;
 # advanced to Site #299 47811e56, then Site #301 50877370 (Play revision registry: Glitch HUD and
 # §3.3 touch-action revisions, transition pairs) by Order HC4.
-PUBLICATION_CALLER_SHA256 = "732591ddeae08b96f5a2aedcf9cbc52246c7ade65fc256507d40ee4030359eff"
+# Until Order UX2 both callers advanced together and this one digest served
+# both repositories' callers. UX2 moved the Lessons caller alone (Lessons #436,
+# #438, #442; the order writes nothing to the Apps repository), so this digest is the
+# LESSONS caller's, and the Apps caller carries its own reviewed digest below.
+PUBLICATION_CALLER_SHA256 = "b6d0358f28ae3efccb351da7abba822009abdca5c6f6a8495b92cb101b6cedbd"
+# One reviewed caller digest per repository kind. The Apps entry is the Apps
+# caller at the Site's reviewed Apps pin 924ab986 (Site domain-split-verify.yml;
+# the caller there names Site 23a4f360), which the Site's catalogue contract
+# control runs this gate against as kind "apps". Moving that pin moves this.
+PUBLICATION_CALLER_SHA256_BY_KIND = {
+    "lessons": PUBLICATION_CALLER_SHA256,
+    "apps": "c420519111f6c73c54db0b5b506033b9c5edb41696335235edf48bae5f1c7178",
+}
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
 
@@ -637,6 +668,38 @@ ALLOWED_DIFF = {
     "_sownb/vb/tools/mechanism_battery.py",
     ".github/workflows/fieldops-p2-and-sweep.yml",
     "tools/verify_hub_catalogue.py",
+    # ORDER UX2, 2026-09-08 (Parts A and D). The same shape again: the order's
+    # ledger (written on every part), the README (documents the size table), the
+    # re-pointed chip gate, the UX2 gates workflow and its tools (run in CI, ship
+    # nothing), and three DERIVED data files the hub reads at runtime. The data
+    # files are regenerated by tools/ux2 and checked against their derivation by
+    # .github/workflows/ux2-gates.yml on every change; a lesson edit regenerates
+    # the size table, so a boundary that reds on it would red every ordinary
+    # lesson pull request. None of these is a studio and none can alter one.
+    "UX2_LEDGER.md",
+    "README.md",
+    "tools/verify_lessons_chips.mjs",
+    ".github/workflows/ux2-gates.yml",
+    "tools/ux2/hub_gates.mjs",
+    "tools/ux2/unit_tags.py",
+    "tools/ux2/check_catalogue_schema.py",
+    "tools/ux2/prove_catalogue_gate.py",
+    "tools/ux2/build_spine.py",
+    "tools/ux2/resource_sizes.py",
+    "tools/ux2/fixtures/hub-hrefs-before-ux2.txt",
+    "tools/ux2/fixtures/appendix-a-lessons.json",
+    "tools/ux2/fixtures/retired-hrefs.json",
+    "data/calendar-spine.json",
+    "data/resource-sizes.json",
+    "data/planning-keys.json",
+    # ORDER UX2 Part D2 (2026-09-08): each subject's checksum manifest is
+    # regenerated in the content PR that places companion packs (the order
+    # requires it). A checksum list is a record of bytes, not a studio; the
+    # gate that proves the packs is tools/ux2/check_companion_packs.py.
+    "Humanities_Teesside/Teaching_Packs/SHA256SUMS.txt",
+    "Science_Teesside/Teaching_Packs/BUILD/SHA256SUMS.txt",
+    "Science_Teesside/Teaching_Packs/GROW/SHA256SUMS.txt",
+    "Science_Teesside/Teaching_Packs/LAUNCH/SHA256SUMS.txt",
 }
 
 
@@ -702,9 +765,26 @@ def catalogue_errors(root: Path, kind: str, text: str) -> list[str]:
             def row_digest(value):
                 encoded = json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
                 return hashlib.sha256(encoded).hexdigest()
-            if row_digest(rows[:CATALOGUE_ORIGINAL_ROWS]) != CATALOGUE_ORIGINAL_ROWS_SHA256:
+            # UX2 A1 (2026-09-08): the two ADDITIVE tag keys, `halfTerm` and `unit`,
+            # may be appended to an original row. Every other byte of every
+            # original row stays under the digest: the keys are stripped before
+            # hashing, so an edit to any existing value, a removal or a reorder
+            # still reds here. The tag values themselves are gated by
+            # tools/ux2/unit_tags.py --check (derivation) and
+            # tools/ux2/check_catalogue_schema.py (enum/shape). Proved red on a
+            # planted title edit and a planted unknown key by
+            # tools/ux2/prove_catalogue_gate.py.
+            def without_tags(value):
+                return [{k: v for k, v in row.items() if k not in CATALOGUE_ADDITIVE_TAG_KEYS} for row in value]
+            if row_digest(without_tags(rows[:CATALOGUE_ORIGINAL_ROWS])) != CATALOGUE_ORIGINAL_ROWS_SHA256:
                 errors.append("an original catalogue row was removed, reordered or edited")
-            if row_digest(rows[CATALOGUE_ORIGINAL_ROWS:]) != CATALOGUE_SHELF_ROWS_SHA256:
+            for index, row in enumerate(rows[:CATALOGUE_ORIGINAL_ROWS]):
+                for key in row:
+                    if key in CATALOGUE_ADDITIVE_TAG_KEYS and key not in CATALOGUE_ORIGINAL_KEYS_BEFORE_TAGS:
+                        continue
+                    if key in CATALOGUE_ADDITIVE_TAG_KEYS:
+                        errors.append(f"original row {index} carried {key} before the tag ruling; refusing to treat it as additive")
+            if row_digest(without_tags(rows[CATALOGUE_ORIGINAL_ROWS:])) != CATALOGUE_SHELF_ROWS_SHA256:
                 errors.append("the reviewed catalogue hub rows changed")
     except (ValueError, OSError) as exc:
         errors.append(f"reviewed catalogue row preservation could not be verified: {exc}")
@@ -762,12 +842,12 @@ def publication_trigger_errors(root: Path) -> list[str]:
     return errors
 
 
-def publication_errors(root: Path) -> list[str]:
+def publication_errors(root: Path, kind: str = "lessons") -> list[str]:
     errors = publication_trigger_errors(root)
     caller = root / PUBLICATION_CALLER_PATH
     if not caller.is_file():
         errors.append("reviewed education publication caller is missing")
-    elif digest(caller) != PUBLICATION_CALLER_SHA256:
+    elif digest(caller) != PUBLICATION_CALLER_SHA256_BY_KIND.get(kind, PUBLICATION_CALLER_SHA256):
         errors.append("education publication caller differs from the reviewed immutable publisher pin")
     return errors
 
@@ -849,7 +929,7 @@ def run_checks(
     check_git: bool = False,
     base_ref: str | None = None,
 ) -> list[str]:
-    errors: list[str] = publication_errors(root) + lundyloop_ci_errors(root, kind)
+    errors: list[str] = publication_errors(root, kind) + lundyloop_ci_errors(root, kind)
     index_path = root / "index.html"
     if not index_path.is_file():
         return ["missing index.html"]
@@ -997,7 +1077,13 @@ def run_checks(
             years = Counter(item.get("year") for item in data)
             if not years.get("2026-27") or not years.get("2025-26"):
                 errors.append(f"academic collection data missing: {dict(years)}")
-            for token in ("${a.length} of ${ALL.length} resources", "fillTabCounts", "buildQuicknav"):
+            # UX2 A2 (2026-09-08): the hub derives both count lines from the catalogue it
+            # fetches at runtime — the browse line "<M> resources · <S> subjects" and the
+            # results line "<n> of <M> resources". The retired year tabs and subject
+            # chips (fillTabCounts, buildQuicknav) no longer exist, so the contract names
+            # the expressions that replace them and the fetch they derive from.
+            for token in ("${rows.length} of ${H.state.rows.length} resources",
+                          "${rows.length} resources · ${cards.length} subjects", "H.loadAll()"):
                 if token not in text:
                     errors.append(f"derived Lessons count contract missing: {token}")
         except Exception as exc:  # pragma: no cover - diagnostic path
