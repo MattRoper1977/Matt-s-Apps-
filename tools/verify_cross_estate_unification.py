@@ -146,6 +146,7 @@ CATALOGUE_PINS = {
         "tools/easter/science_original_browser.cjs": "650884c0ef6ec714edc429bbf7c5601e26176df44012661462c37ee3de7478d1",
         "tools/prepare_served_publications.py": "acae94bb9c142e20479bc9e5e103b09af87ba84ba3b1dde7baaa86cdb0792629",
         "tools/test_served_publications.py": "063e76bc6579402a41b0bd0b7a79ae99be301cb9db97deb5b7257b85687b851b",
+        ".github/workflows/watch-main.yml": "32d09fcb959c9a9c950feca5927afce2e31578b78af00d2e668e571e7fa9084d",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
         "_glv3/tools/verify_change_boundary.py": "83abbfb09690729b65da0a0d8adeec1564f6f0f7b198b8de2e2334be5039fcfa",
         "_glv3/tools/browser_verify.mjs": "ec094d38eb6ebeda1525a35f4141dba5d99c685a6e939671afa39de632005dc7",
