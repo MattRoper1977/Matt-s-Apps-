@@ -62,14 +62,6 @@ CANONICAL_HASHES = {
     "assets/mbm-platform.js": "095a29e61f8d7d549a5b58dd1aa1dd74b885416ebb09291ddb218d90ea740c28",
     "assets/mbm-theme.js": "5d711139ee95f2a9814917c516ffe674fbd52fd0b42c8fd6e22a1efbc19f002b",
     "assets/mbm-hub.css": "1643f51bcfe7f89923e908cf4f79b36a80d8bfa767779ab1c9cebe2e1a8b513c",
-    # SW2 T1/T5. The design-token vocabulary, copied from the site repository the
-    # same way the four above are, and pinned for the same reason the 2026-08
-    # drift recorded above happened: the site moved twice and no path filter
-    # fired in either repository. A root-absolute /assets/ path would have
-    # avoided the copy and was rejected -- this repository has no root-absolute
-    # asset reference, every shared asset here is a pinned copy, and a
-    # cross-repo runtime path would break a local checkout and skip this gate.
-    "assets/mbm-tokens.css": "01fbb17686866b97e7591781e4a78f2e9d38fb5ba35ed8acf935ce2a199643dd",
 }
 
 # assets/mbm-theme.js is not maintained here. It is generated from the site
@@ -126,11 +118,11 @@ APPS_HUB_REVIEWED_WORDING_SHA256 = "696efb97549286f33b9514308bee48d82d3af654cf61
 CATALOGUE_PINS = {
     "visible_body_sha256": "bc1011a2b1241c790cb35b98d7581168b7f2376c7754aaa531bf34d4c7589ca4",
     "files": {
-        "index.html": "e2184fb0cfb6850572c6747810fa0ae87211ed107fed73facc3c55100b14c867",
+        "index.html": "a583d509cff551ac8215618dd4ffe723a21614c920302030863394aafaad4cc6",
         "Science_Teesside/index.html": "47e85a28c6cb17663a051f38646126d0afea0e59d71942671c40553567424fd9",
         "Humanities_Teesside/index.html": "7594ce3f6bd34025e32f556d736d39fd218b409a36511ab57e779c4080c4cd86",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
-        "subject.html": "945de02091c332965218847d64da6651baa6a93d35fa80a99503ed8bdd84138a",
+        "subject.html": "bd7d2277bce74c92095afd11dd96f005b5c1fef384e9909c839f9dc32a1e4106",
         "assets/catalogue/hub.js": "6054f0d89ee498df171cc8861e0a292f3154315a6462d895f130eaadbf7e71a6",
         "assets/catalogue/hub.css": "96192065b59e2d5113f92e03da3386c45e7425aa2443b79e8203914b587eeca9",
         "data/calendar-spine.json": "d199474b13c9d340add2c87165396d83712b0f1c9f8bd03b7b12e8fdf6af0d61",
@@ -152,8 +144,8 @@ CATALOGUE_PINS = {
         "tools/catalogue/SHELF_SELECTION.json": "95def027287e7cc1eb1190bafa21733c9c0999286c15a231dc17dfe7a56331f4",
         "tools/catalogue/HUMANITIES_SELECTION.json": "5df3e69d4d9d3825225bcc80376b3fbebf61656df6e333f6b9a8aaded1893bf4",
         "tools/easter/science_original_browser.cjs": "650884c0ef6ec714edc429bbf7c5601e26176df44012661462c37ee3de7478d1",
-        "tools/prepare_served_publications.py": "e0623cc295854f41e353d521d99b998e9be21568506799f6e01f3b16ce12f7c4",
-        "tools/test_served_publications.py": "128f691b0a1f5880a68190540266e3f78993e4849cd75d7f1b6db75e098e1d31",
+        "tools/prepare_served_publications.py": "acae94bb9c142e20479bc9e5e103b09af87ba84ba3b1dde7baaa86cdb0792629",
+        "tools/test_served_publications.py": "063e76bc6579402a41b0bd0b7a79ae99be301cb9db97deb5b7257b85687b851b",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
         "_glv3/tools/verify_change_boundary.py": "83abbfb09690729b65da0a0d8adeec1564f6f0f7b198b8de2e2334be5039fcfa",
         "_glv3/tools/browser_verify.mjs": "ec094d38eb6ebeda1525a35f4141dba5d99c685a6e939671afa39de632005dc7",
@@ -608,7 +600,13 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # Science batch. The Site commit is 92abc460 byte-identical except that registry and
 # the retained usage-registry baseline; education-publication.yml is unchanged between
 # them, so no builder, Play or usage-discovery code moves with the pin.
-PUBLICATION_CALLER_SHA256 = "92122bb7b40715002b3ea19c5ff749102e0ab3256388b224705f9956df6c756b"
+# Advanced 2026-09-10 (AMEND-3R-GC1 P6): the publisher pin moves Site 2a154e33 ->
+# 2e49afdd. Unlike every advance above it, this one moves BUILDER code and not only
+# the admission registry -- .sb3 is added to the publisher extension allowlist and
+# to the admission census, without which the 23 Scratch projects in the GROW
+# Computing unit never reach the served tree. education-publication.yml is
+# unchanged between the two, so the gate itself still does not move.
+PUBLICATION_CALLER_SHA256 = "8123e3827e238e4233bf5afa16a025e29779d9184a6c63fff0bed4ec607fcc0c"
 # One reviewed caller digest per repository kind. detect_kind() reads the root
 # it is standing in, so this entry is only ever compared against the Apps
 # repository's own caller: the Lessons gate run and the Apps gate runs are the
@@ -640,6 +638,11 @@ LUNDYLOOP_CI_PINS = {
 }
 
 ALLOWED_DIFF = {
+    # Gate reconciliation to Lessons main c603cb56 + two ALLOWED_DIFF entries.
+    # Authorised by Matt, Order AR3, 2026-09-10. Allowlist entries are temporary —
+    # remove when SW2 T5 re-lands with admitted registry digests.
+    "assets/mbm-tokens.css",
+    "tools/sw2/check_tokens_inert.cjs",
     PUBLICATION_CALLER_PATH,
     "index.html",
     "apps.json",
