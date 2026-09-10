@@ -144,8 +144,8 @@ CATALOGUE_PINS = {
         "tools/catalogue/SHELF_SELECTION.json": "95def027287e7cc1eb1190bafa21733c9c0999286c15a231dc17dfe7a56331f4",
         "tools/catalogue/HUMANITIES_SELECTION.json": "5df3e69d4d9d3825225bcc80376b3fbebf61656df6e333f6b9a8aaded1893bf4",
         "tools/easter/science_original_browser.cjs": "650884c0ef6ec714edc429bbf7c5601e26176df44012661462c37ee3de7478d1",
-        "tools/prepare_served_publications.py": "e0623cc295854f41e353d521d99b998e9be21568506799f6e01f3b16ce12f7c4",
-        "tools/test_served_publications.py": "128f691b0a1f5880a68190540266e3f78993e4849cd75d7f1b6db75e098e1d31",
+        "tools/prepare_served_publications.py": "acae94bb9c142e20479bc9e5e103b09af87ba84ba3b1dde7baaa86cdb0792629",
+        "tools/test_served_publications.py": "063e76bc6579402a41b0bd0b7a79ae99be301cb9db97deb5b7257b85687b851b",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
         "_glv3/tools/verify_change_boundary.py": "83abbfb09690729b65da0a0d8adeec1564f6f0f7b198b8de2e2334be5039fcfa",
         "_glv3/tools/browser_verify.mjs": "ec094d38eb6ebeda1525a35f4141dba5d99c685a6e939671afa39de632005dc7",
@@ -600,7 +600,13 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # Science batch. The Site commit is 92abc460 byte-identical except that registry and
 # the retained usage-registry baseline; education-publication.yml is unchanged between
 # them, so no builder, Play or usage-discovery code moves with the pin.
-PUBLICATION_CALLER_SHA256 = "92122bb7b40715002b3ea19c5ff749102e0ab3256388b224705f9956df6c756b"
+# Advanced 2026-09-10 (AMEND-3R-GC1 P6): the publisher pin moves Site 2a154e33 ->
+# 2e49afdd. Unlike every advance above it, this one moves BUILDER code and not only
+# the admission registry -- .sb3 is added to the publisher extension allowlist and
+# to the admission census, without which the 23 Scratch projects in the GROW
+# Computing unit never reach the served tree. education-publication.yml is
+# unchanged between the two, so the gate itself still does not move.
+PUBLICATION_CALLER_SHA256 = "8123e3827e238e4233bf5afa16a025e29779d9184a6c63fff0bed4ec607fcc0c"
 # One reviewed caller digest per repository kind. detect_kind() reads the root
 # it is standing in, so this entry is only ever compared against the Apps
 # repository's own caller: the Lessons gate run and the Apps gate runs are the
@@ -632,6 +638,11 @@ LUNDYLOOP_CI_PINS = {
 }
 
 ALLOWED_DIFF = {
+    # Gate reconciliation to Lessons main c603cb56 + two ALLOWED_DIFF entries.
+    # Authorised by Matt, Order AR3, 2026-09-10. Allowlist entries are temporary —
+    # remove when SW2 T5 re-lands with admitted registry digests.
+    "assets/mbm-tokens.css",
+    "tools/sw2/check_tokens_inert.cjs",
     PUBLICATION_CALLER_PATH,
     "index.html",
     "apps.json",
