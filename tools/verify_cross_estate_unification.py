@@ -62,14 +62,6 @@ CANONICAL_HASHES = {
     "assets/mbm-platform.js": "095a29e61f8d7d549a5b58dd1aa1dd74b885416ebb09291ddb218d90ea740c28",
     "assets/mbm-theme.js": "5d711139ee95f2a9814917c516ffe674fbd52fd0b42c8fd6e22a1efbc19f002b",
     "assets/mbm-hub.css": "1643f51bcfe7f89923e908cf4f79b36a80d8bfa767779ab1c9cebe2e1a8b513c",
-    # SW2 T1/T5. The design-token vocabulary, copied from the site repository the
-    # same way the four above are, and pinned for the same reason the 2026-08
-    # drift recorded above happened: the site moved twice and no path filter
-    # fired in either repository. A root-absolute /assets/ path would have
-    # avoided the copy and was rejected -- this repository has no root-absolute
-    # asset reference, every shared asset here is a pinned copy, and a
-    # cross-repo runtime path would break a local checkout and skip this gate.
-    "assets/mbm-tokens.css": "01fbb17686866b97e7591781e4a78f2e9d38fb5ba35ed8acf935ce2a199643dd",
 }
 
 # assets/mbm-theme.js is not maintained here. It is generated from the site
@@ -126,11 +118,11 @@ APPS_HUB_REVIEWED_WORDING_SHA256 = "696efb97549286f33b9514308bee48d82d3af654cf61
 CATALOGUE_PINS = {
     "visible_body_sha256": "bc1011a2b1241c790cb35b98d7581168b7f2376c7754aaa531bf34d4c7589ca4",
     "files": {
-        "index.html": "e2184fb0cfb6850572c6747810fa0ae87211ed107fed73facc3c55100b14c867",
+        "index.html": "a583d509cff551ac8215618dd4ffe723a21614c920302030863394aafaad4cc6",
         "Science_Teesside/index.html": "47e85a28c6cb17663a051f38646126d0afea0e59d71942671c40553567424fd9",
         "Humanities_Teesside/index.html": "7594ce3f6bd34025e32f556d736d39fd218b409a36511ab57e779c4080c4cd86",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
-        "subject.html": "945de02091c332965218847d64da6651baa6a93d35fa80a99503ed8bdd84138a",
+        "subject.html": "bd7d2277bce74c92095afd11dd96f005b5c1fef384e9909c839f9dc32a1e4106",
         "assets/catalogue/hub.js": "6054f0d89ee498df171cc8861e0a292f3154315a6462d895f130eaadbf7e71a6",
         "assets/catalogue/hub.css": "96192065b59e2d5113f92e03da3386c45e7425aa2443b79e8203914b587eeca9",
         "data/calendar-spine.json": "d199474b13c9d340add2c87165396d83712b0f1c9f8bd03b7b12e8fdf6af0d61",
