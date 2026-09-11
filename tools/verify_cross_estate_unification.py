@@ -147,6 +147,9 @@ CATALOGUE_PINS = {
         "tools/science_pack/browser_checks.cjs": "058c9bc1f06c876f2994a23d467d83fced683c6355eb92d0ef43986d3e28d72d",
         "tools/prepare_served_publications.py": "acae94bb9c142e20479bc9e5e103b09af87ba84ba3b1dde7baaa86cdb0792629",
         "tools/test_served_publications.py": "063e76bc6579402a41b0bd0b7a79ae99be301cb9db97deb5b7257b85687b851b",
+        "tools/ux2/resource_sizes.py": "2e8d36613fb39e3114c2006337771ddc9c724f9b6333a6e05cfed4e646e4224b",
+        "tools/ux2/s1m_published_input_proof.py": "95b82480a9fdbb607fcaf3077d1e58dc1e9a5eafd96581fdbec281c979de1d10",
+        ".github/workflows/s1m-published-input-proof.yml": "fcc9f4c6b6a550873bda92346bb73e47d9ec0cfe95664a8eec66d0e7947dfb76",
         ".github/workflows/watch-main.yml": "32d09fcb959c9a9c950feca5927afce2e31578b78af00d2e668e571e7fa9084d",
         "tools/verify_v6fin_w7_r1_r7.py": "2be87c68256802e46131d9a4c70228e3d8635c51eb1789c01b94f2b316960dae",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
@@ -609,7 +612,7 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # to the admission census, without which the 23 Scratch projects in the GROW
 # Computing unit never reach the served tree. education-publication.yml is
 # unchanged between the two, so the gate itself still does not move.
-PUBLICATION_CALLER_SHA256 = "906b2303e427297937b34bd1b78c5475c63917d00c628107b9cf5adc155c7578"
+PUBLICATION_CALLER_SHA256 = "ccce374caae8c14c1712f890d85e237143705666f86bc84960fad2dd85d82e5a"
 # One reviewed caller digest per repository kind. detect_kind() reads the root
 # it is standing in, so this entry is only ever compared against the Apps
 # repository's own caller: the Lessons gate run and the Apps gate runs are the
