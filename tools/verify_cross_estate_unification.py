@@ -58,6 +58,8 @@ SENTINEL = "mbm-cross-estate-unification-lessons-apps-2026-08-08"
 #   Apps     before  0/0/0/0 at both viewports already — the fail-closed reader
 #            after   had reached that copy, so the sync changed no metric there
 CANONICAL_HASHES = {
+    # SW2-T5R1: reviewed inert vocabulary; no component styling changes.
+    "assets/mbm-tokens.css": "01fbb17686866b97e7591781e4a78f2e9d38fb5ba35ed8acf935ce2a199643dd",
     "assets/mbm-platform.css": "b520cf36a9c87af618e03ea534b66c261e8fd05e70d8eb5634f323aee9310698",
     "assets/mbm-platform.js": "095a29e61f8d7d549a5b58dd1aa1dd74b885416ebb09291ddb218d90ea740c28",
     "assets/mbm-theme.js": "5d711139ee95f2a9814917c516ffe674fbd52fd0b42c8fd6e22a1efbc19f002b",
@@ -118,11 +120,12 @@ APPS_HUB_REVIEWED_WORDING_SHA256 = "696efb97549286f33b9514308bee48d82d3af654cf61
 CATALOGUE_PINS = {
     "visible_body_sha256": "bc1011a2b1241c790cb35b98d7581168b7f2376c7754aaa531bf34d4c7589ca4",
     "files": {
-        "index.html": "a583d509cff551ac8215618dd4ffe723a21614c920302030863394aafaad4cc6",
+        "tools/sw2/check_tokens_inert.cjs": "a07e340131b88606bd29ea75717a171eb57f64dedb13fa84b77d1ccb88004e79",
+        "index.html": "e2184fb0cfb6850572c6747810fa0ae87211ed107fed73facc3c55100b14c867",
         "Science_Teesside/index.html": "47e85a28c6cb17663a051f38646126d0afea0e59d71942671c40553567424fd9",
         "Humanities_Teesside/index.html": "7594ce3f6bd34025e32f556d736d39fd218b409a36511ab57e779c4080c4cd86",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
-        "subject.html": "bd7d2277bce74c92095afd11dd96f005b5c1fef384e9909c839f9dc32a1e4106",
+        "subject.html": "945de02091c332965218847d64da6651baa6a93d35fa80a99503ed8bdd84138a",
         "assets/catalogue/hub.js": "6054f0d89ee498df171cc8861e0a292f3154315a6462d895f130eaadbf7e71a6",
         "assets/catalogue/hub.css": "96192065b59e2d5113f92e03da3386c45e7425aa2443b79e8203914b587eeca9",
         "data/calendar-spine.json": "d199474b13c9d340add2c87165396d83712b0f1c9f8bd03b7b12e8fdf6af0d61",
@@ -616,7 +619,8 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # Computing unit never reach the served tree. education-publication.yml is
 # unchanged between the two, so the gate itself still does not move.
 # GC1 12 September: reviewed 810ae8f8 -> 3c2743fb registration-only carrier.
-PUBLICATION_CALLER_SHA256 = "5cfa6df685237dc5a3b85f32673da403bf180c13c4b0ea80ca7bbca7aa564683"
+# SW2-T5R1: consumer-specific registry-only carriers, with unchanged publisher code.
+PUBLICATION_CALLER_SHA256 = "7eed145576a043ab0dbfd78c77b6d609904f553dd9860a6ef57e9c8e4aa3a86b"
 # One reviewed caller digest per repository kind. detect_kind() reads the root
 # it is standing in, so this entry is only ever compared against the Apps
 # repository's own caller: the Lessons gate run and the Apps gate runs are the
@@ -633,7 +637,7 @@ PUBLICATION_CALLER_SHA256 = "5cfa6df685237dc5a3b85f32673da403bf180c13c4b0ea80ca7
 # copies back in step is what made it fire.
 PUBLICATION_CALLER_SHA256_BY_KIND = {
     "lessons": PUBLICATION_CALLER_SHA256,
-    "apps": "732591ddeae08b96f5a2aedcf9cbc52246c7ade65fc256507d40ee4030359eff",
+    "apps": "7b4451623baafa223022a03e7b2572b65eccb861fb2cb7521b21e9bd19b34294",
 }
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
@@ -642,17 +646,14 @@ PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification
 # Full hashes remain checked on every Apps run, including files not in the diff.
 # No standalone payload or arbitrary CI path is granted. Both gate copies match.
 LUNDYLOOP_CI_PINS = {
-    ".github/workflows/verify-lundyloop-professional-os.yml": "6d0237c9756954b07cfd4d2752136b78fb766d3c72d4f66342f7d6374e0f4fe2",
+    # SW2-T5R1: the shared browser proof is also required at reviewed bytes.
+    "tools/sw2/check_tokens_inert.cjs": "a07e340131b88606bd29ea75717a171eb57f64dedb13fa84b77d1ccb88004e79",
+    ".github/workflows/verify-lundyloop-professional-os.yml": "7e6cf886ff1af45cc3bcf255ee6a688b75dbb4034fce20b609fe0188a63c11ce",
     "tools/lundyloop/verify_live_bytes.py": "a27f791633260e7e2d8ba7ca2abe5a35db105b9ccbf96d26205628dcc1e636ad",
     "tools/lundyloop/test_live_bytes.py": "972ca2ae06da44722bfd011fda03a361c6011c699f95bb6ce78bca95b71f2e77"
 }
 
 ALLOWED_DIFF = {
-    # Gate reconciliation to Lessons main c603cb56 + two ALLOWED_DIFF entries.
-    # Authorised by Matt, Order AR3, 2026-09-10. Allowlist entries are temporary —
-    # remove when SW2 T5 re-lands with admitted registry digests.
-    "assets/mbm-tokens.css",
-    "tools/sw2/check_tokens_inert.cjs",
     PUBLICATION_CALLER_PATH,
     "index.html",
     "apps.json",
@@ -910,7 +911,9 @@ def lundyloop_ci_errors(root: Path, kind: str) -> list[str]:
 
 
 def boundary_errors(changed: set[str], kind: str) -> list[str]:
-    allowed = ALLOWED_DIFF
+    # SW2-T5R1 retires AR3: shared assets are admitted only through their
+    # required exact-byte registry, checked on every run above.
+    allowed = ALLOWED_DIFF | set(CANONICAL_HASHES)
     if kind == "apps":
         allowed = allowed | set(LUNDYLOOP_CI_PINS)
     if kind == "lessons":

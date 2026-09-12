@@ -13,12 +13,14 @@ on:
       - 'assets/mbm-platform.css'
       - 'assets/mbm-platform.js'
       - 'assets/mbm-theme.js'
+      - 'assets/mbm-tokens.css'
       - 'docs/MBM_CROSS_ESTATE_UNIFICATION.md'
       - 'index.html'
       - 'tools/lundyloop/test_live_bytes.py'
       - 'tools/lundyloop/verify_live_bytes.py'
       - 'tools/pin1/derive_triggers.py'
       - 'tools/pin1/test_derive_triggers.py'
+      - 'tools/sw2/check_tokens_inert.cjs'
       - 'tools/verify_cross_estate_browser.mjs'
       - 'tools/verify_cross_estate_unification.py'
       # END PIN1 DERIVED PATHS
@@ -36,12 +38,14 @@ on:
       - 'assets/mbm-platform.css'
       - 'assets/mbm-platform.js'
       - 'assets/mbm-theme.js'
+      - 'assets/mbm-tokens.css'
       - 'docs/MBM_CROSS_ESTATE_UNIFICATION.md'
       - 'index.html'
       - 'tools/lundyloop/test_live_bytes.py'
       - 'tools/lundyloop/verify_live_bytes.py'
       - 'tools/pin1/derive_triggers.py'
       - 'tools/pin1/test_derive_triggers.py'
+      - 'tools/sw2/check_tokens_inert.cjs'
       - 'tools/verify_cross_estate_browser.mjs'
       - 'tools/verify_cross_estate_unification.py'
       # END PIN1 DERIVED PATHS
@@ -174,6 +178,7 @@ jobs:
           prefix=$(cat /tmp/mbm-prefix)
           for _ in $(seq 1 30); do curl -fsS "http://127.0.0.1:4173/$prefix/" >/dev/null && break; sleep 1; done
           MBM_BASE_URL="http://127.0.0.1:4173/$prefix/" node tools/verify_cross_estate_browser.mjs
+          node tools/sw2/check_tokens_inert.cjs --base "http://127.0.0.1:4173/$prefix/"
 
       - name: Verify the published Education menu and unchanged standalone pages
         shell: bash
@@ -257,6 +262,7 @@ jobs:
         run: |
           set -euo pipefail
           MBM_NAVIGATION_MODE=education MBM_BASE_URL="$(cat /tmp/mbm-live-base)" MBM_CACHE_BUST="$GITHUB_SHA" node tools/verify_cross_estate_browser.mjs
+          node tools/sw2/check_tokens_inert.cjs --base "$(cat /tmp/mbm-live-base)" --output audit-output/sw2-token-inertness-live.json
 
       - name: Record production proof on the release PR
         env:
