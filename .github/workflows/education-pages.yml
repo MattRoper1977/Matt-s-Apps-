@@ -1,3 +1,4 @@
+# PIN1 dependency control: comment only; never merge this branch.
 name: Education Pages publication
 on:
   push:
