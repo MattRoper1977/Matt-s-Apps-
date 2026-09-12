@@ -4,25 +4,47 @@ on:
   pull_request:
     branches: [main]
     paths:
+      # BEGIN PIN1 DERIVED PATHS
+      - '.github/workflows/education-pages.yml'
+      - '.github/workflows/verify-lundyloop-professional-os.yml'
       - 'LundyLoop_Professional_OS.html'
       - 'LundyLoop_Professional_OS/**'
       - '_release-docs/lundyloop-professional-os-v2/**'
       - 'apps.json'
+      - 'assets/mbm-hub.css'
+      - 'assets/mbm-platform.css'
+      - 'assets/mbm-platform.js'
+      - 'assets/mbm-theme.js'
       - 'index.html'
       - 'tools/lundyloop/**'
+      - 'tools/lundyloop/test_live_bytes.py'
+      - 'tools/lundyloop/verify_live_bytes.py'
+      - 'tools/pin1/derive_triggers.py'
+      - 'tools/pin1/test_derive_triggers.py'
       - 'tools/verify_cross_estate_unification.py'
-      - '.github/workflows/verify-lundyloop-professional-os.yml'
+      # END PIN1 DERIVED PATHS
   push:
     branches: [main]
     paths:
+      # BEGIN PIN1 DERIVED PATHS
+      - '.github/workflows/education-pages.yml'
+      - '.github/workflows/verify-lundyloop-professional-os.yml'
       - 'LundyLoop_Professional_OS.html'
       - 'LundyLoop_Professional_OS/**'
       - '_release-docs/lundyloop-professional-os-v2/**'
       - 'apps.json'
+      - 'assets/mbm-hub.css'
+      - 'assets/mbm-platform.css'
+      - 'assets/mbm-platform.js'
+      - 'assets/mbm-theme.js'
       - 'index.html'
       - 'tools/lundyloop/**'
+      - 'tools/lundyloop/test_live_bytes.py'
+      - 'tools/lundyloop/verify_live_bytes.py'
+      - 'tools/pin1/derive_triggers.py'
+      - 'tools/pin1/test_derive_triggers.py'
       - 'tools/verify_cross_estate_unification.py'
-      - '.github/workflows/verify-lundyloop-professional-os.yml'
+      # END PIN1 DERIVED PATHS
   workflow_dispatch:
   workflow_run:
     workflows: ["Education Pages publication"]
@@ -46,6 +68,10 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+      - name: Verify registry-derived pin triggers and controls
+        run: |
+          python3 tools/pin1/derive_triggers.py --check
+          python3 tools/pin1/test_derive_triggers.py
       # The static verifier's forbidden-artefact sweep walks the whole tree, so it
       # must run BEFORE the site reference checkout lands in _reference/site —
       # otherwise it flags the site's own webmanifest/media as production artefacts.
