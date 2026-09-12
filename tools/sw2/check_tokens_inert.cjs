@@ -18,12 +18,33 @@ const OUT=arg('--output','audit-output/sw2-token-inertness.json');
 const PUBLISHED={apps:{'':'a5d85054907c9b4b478b2e8da68a23a42d284dbd976981b8f2547f1aa12632d6'},lessons:{'':'c2dd140b85b9234e0118f9e5a4324bb9ee491dc5333069e1e17154a3422f38b9','subject.html':'945de02091c332965218847d64da6651baa6a93d35fa80a99503ed8bdd84138a'}};
 const published=process.argv.includes('--published');
 const routes=KIND==='lessons'?['','subject.html','subject.html?subject=science']:[''];
+async function waitForPublished(){
+  if(!published)return;
+  const wanted={...PUBLISHED[KIND],'assets/mbm-tokens.css':TOKEN};
+  let last=[];
+  for(let attempt=0;attempt<60;attempt++){
+    last=[];
+    for(const [route,digest] of Object.entries(wanted)){
+      try{
+        const url=new URL(route,BASE.endsWith('/')?BASE:BASE+'/');
+        url.searchParams.set('sw2-proof',Date.now()+'-'+attempt);
+        const response=await fetch(url,{headers:{'Cache-Control':'no-cache, no-store','Pragma':'no-cache'},signal:AbortSignal.timeout(10000)});
+        const actual=crypto.createHash('sha256').update(Buffer.from(await response.arrayBuffer())).digest('hex');
+        if(response.status!==200||actual!==digest)last.push({route,status:response.status,actual});
+      }catch(error){last.push({route,error:String(error)});}
+    }
+    if(!last.length){console.log('Exact published HTML and token bytes are ready');return;}
+    if(attempt<59)await new Promise(resolve=>setTimeout(resolve,5000));
+  }
+  throw Error('Expected admitted publication did not become ready: '+JSON.stringify(last));
+}
+
 async function settle(page){await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));await page.waitForTimeout(350);}
 async function snap(page){return page.evaluate(()=>Array.from(document.querySelectorAll('*')).filter(e=>e.tagName!=='STYLE').map(e=>{let vals=[];for(const pseudo of [null,'::before','::after']){let s=getComputedStyle(e,pseudo);vals.push(Array.from(s).filter(p=>!p.startsWith('--')).map(p=>[p,s.getPropertyValue(p)]));}let r=e.getBoundingClientRect();return {tag:e.tagName,id:e.id,styles:vals,rect:[r.x,r.y,r.width,r.height]};}));}
 function diffs(a,b){if(a.length!==b.length)throw Error('DOM changed during measurement');let d=[];for(let i=0;i<a.length;i++)if(JSON.stringify(a[i])!==JSON.stringify(b[i]))d.push({index:i,tag:a[i].tag,id:a[i].id});return d;}
-(async()=>{const browser=await chromium.launch();let rows=[];try{
+(async()=>{await waitForPublished();const browser=await chromium.launch();let rows=[];try{
 for(const route of routes)for(const width of [390,1440])for(const mode of ['light','dark','preferences']){
-const ctx=await browser.newContext({viewport:{width,height:900},colorScheme:mode==='dark'?'dark':'light',reducedMotion:mode==='preferences'?'reduce':'no-preference',contrast:mode==='preferences'?'more':'no-preference'});const p=await ctx.newPage();let tokenResponse,errors=[];p.on('pageerror',e=>errors.push(String(e)));p.on('response',r=>{if(new URL(r.url()).pathname.endsWith('/assets/mbm-tokens.css'))tokenResponse=r;});
+const ctx=await browser.newContext({extraHTTPHeaders:{'Cache-Control':'no-cache, no-store','Pragma':'no-cache'},viewport:{width,height:900},colorScheme:mode==='dark'?'dark':'light',reducedMotion:mode==='preferences'?'reduce':'no-preference',contrast:mode==='preferences'?'more':'no-preference'});const p=await ctx.newPage();let tokenResponse,errors=[];p.on('pageerror',e=>errors.push(String(e)));p.on('response',r=>{if(new URL(r.url()).pathname.endsWith('/assets/mbm-tokens.css'))tokenResponse=r;});
 const response=await p.goto(new URL(route,BASE.endsWith('/')?BASE:BASE+'/').href,{waitUntil:'networkidle'});
 if(published){const expected=PUBLISHED[KIND][route.split('?')[0]];if(!expected||response.status()!==200||crypto.createHash('sha256').update(await response.body()).digest('hex')!==expected)throw Error('Published HTML differs from admitted builder output: '+route);}await p.evaluate(()=>document.fonts.ready);await settle(p);
 if(!tokenResponse||tokenResponse.status()!==200)throw Error('Token did not load '+route);if(crypto.createHash('sha256').update(await tokenResponse.body()).digest('hex')!==TOKEN)throw Error('Wrong token bytes');
