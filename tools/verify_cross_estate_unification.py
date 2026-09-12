@@ -642,7 +642,7 @@ PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification
 # Full hashes remain checked on every Apps run, including files not in the diff.
 # No standalone payload or arbitrary CI path is granted. Both gate copies match.
 LUNDYLOOP_CI_PINS = {
-    ".github/workflows/verify-lundyloop-professional-os.yml": "79f2df4bab2df52719160ccf9d1fe8d0ae543555778ab7d3a660094dfb0796d0",
+    ".github/workflows/verify-lundyloop-professional-os.yml": "6d0237c9756954b07cfd4d2752136b78fb766d3c72d4f66342f7d6374e0f4fe2",
     "tools/lundyloop/verify_live_bytes.py": "a27f791633260e7e2d8ba7ca2abe5a35db105b9ccbf96d26205628dcc1e636ad",
     "tools/lundyloop/test_live_bytes.py": "972ca2ae06da44722bfd011fda03a361c6011c699f95bb6ce78bca95b71f2e77"
 }
@@ -667,6 +667,10 @@ ALLOWED_DIFF = {
     "assets/mbm-hub.css",
     "tools/verify_cross_estate_unification.py",
     "tools/verify_cross_estate_browser.mjs",
+    # PIN1 Apps, 2026-09-12: exact internal trigger-derivation machinery.
+    # Both workflows check its output; no payload or directory is exempted.
+    "tools/pin1/derive_triggers.py",
+    "tools/pin1/test_derive_triggers.py",
     # Git metadata, not a served file. It declares which payload docs carry
     # Markdown hard line breaks so the static-contract whitespace check stops
     # reading them as stray spaces. The first payload to need that ADDED the

@@ -4,31 +4,47 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - index.html
-      - assets/mbm-platform.css
-      - assets/mbm-platform.js
-      - assets/mbm-theme.js
-      - assets/mbm-hub.css
-      - tools/verify_cross_estate_unification.py
-      - tools/verify_cross_estate_browser.mjs
-      - docs/MBM_CROSS_ESTATE_UNIFICATION.md
-      - .github/workflows/education-pages.yml
-      - .github/workflows/mbm-cross-estate-unification.yml
+      # BEGIN PIN1 DERIVED PATHS
+      - '.github/workflows/education-pages.yml'
+      - '.github/workflows/mbm-cross-estate-unification.yml'
+      - '.github/workflows/verify-lundyloop-professional-os.yml'
+      - 'apps.json'
+      - 'assets/mbm-hub.css'
+      - 'assets/mbm-platform.css'
+      - 'assets/mbm-platform.js'
+      - 'assets/mbm-theme.js'
+      - 'docs/MBM_CROSS_ESTATE_UNIFICATION.md'
+      - 'index.html'
+      - 'tools/lundyloop/test_live_bytes.py'
+      - 'tools/lundyloop/verify_live_bytes.py'
+      - 'tools/pin1/derive_triggers.py'
+      - 'tools/pin1/test_derive_triggers.py'
+      - 'tools/verify_cross_estate_browser.mjs'
+      - 'tools/verify_cross_estate_unification.py'
+      # END PIN1 DERIVED PATHS
   push:
     branches:
       - main
       - codex/mbm-cross-estate-unification-lessons-apps-2026-08-08
     paths:
-      - index.html
-      - assets/mbm-platform.css
-      - assets/mbm-platform.js
-      - assets/mbm-theme.js
-      - assets/mbm-hub.css
-      - tools/verify_cross_estate_unification.py
-      - tools/verify_cross_estate_browser.mjs
-      - docs/MBM_CROSS_ESTATE_UNIFICATION.md
-      - .github/workflows/education-pages.yml
-      - .github/workflows/mbm-cross-estate-unification.yml
+      # BEGIN PIN1 DERIVED PATHS
+      - '.github/workflows/education-pages.yml'
+      - '.github/workflows/mbm-cross-estate-unification.yml'
+      - '.github/workflows/verify-lundyloop-professional-os.yml'
+      - 'apps.json'
+      - 'assets/mbm-hub.css'
+      - 'assets/mbm-platform.css'
+      - 'assets/mbm-platform.js'
+      - 'assets/mbm-theme.js'
+      - 'docs/MBM_CROSS_ESTATE_UNIFICATION.md'
+      - 'index.html'
+      - 'tools/lundyloop/test_live_bytes.py'
+      - 'tools/lundyloop/verify_live_bytes.py'
+      - 'tools/pin1/derive_triggers.py'
+      - 'tools/pin1/test_derive_triggers.py'
+      - 'tools/verify_cross_estate_browser.mjs'
+      - 'tools/verify_cross_estate_unification.py'
+      # END PIN1 DERIVED PATHS
   # Every trigger above is a path filter over files THIS repository owns. What
   # this workflow exists to catch is divergence from the canonical site platform,
   # and the canonical lives in another repository — so the change that matters
@@ -94,6 +110,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          python3 tools/pin1/derive_triggers.py --check
+          python3 tools/pin1/test_derive_triggers.py
           git fetch origin main
           python tools/verify_cross_estate_unification.py --base origin/main --canonical _reference/site --self-test
           python -m json.tool "$([ -f resources.json ] && echo resources.json || echo apps.json)" >/dev/null
