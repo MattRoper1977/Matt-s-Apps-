@@ -615,7 +615,8 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # to the admission census, without which the 23 Scratch projects in the GROW
 # Computing unit never reach the served tree. education-publication.yml is
 # unchanged between the two, so the gate itself still does not move.
-PUBLICATION_CALLER_SHA256 = "ccce374caae8c14c1712f890d85e237143705666f86bc84960fad2dd85d82e5a"
+# GC1 12 September: reviewed 810ae8f8 -> 3c2743fb registration-only carrier.
+PUBLICATION_CALLER_SHA256 = "2a478fb0aa2c4df2c244368e5f5b35b864912465aa4c581830e593e50058c8ac"
 # One reviewed caller digest per repository kind. detect_kind() reads the root
 # it is standing in, so this entry is only ever compared against the Apps
 # repository's own caller: the Lessons gate run and the Apps gate runs are the
