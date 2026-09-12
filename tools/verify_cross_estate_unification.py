@@ -616,7 +616,7 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # Computing unit never reach the served tree. education-publication.yml is
 # unchanged between the two, so the gate itself still does not move.
 # GC1 12 September: reviewed 810ae8f8 -> 3c2743fb registration-only carrier.
-PUBLICATION_CALLER_SHA256 = "2a478fb0aa2c4df2c244368e5f5b35b864912465aa4c581830e593e50058c8ac"
+PUBLICATION_CALLER_SHA256 = "5cfa6df685237dc5a3b85f32673da403bf180c13c4b0ea80ca7bbca7aa564683"
 # One reviewed caller digest per repository kind. detect_kind() reads the root
 # it is standing in, so this entry is only ever compared against the Apps
 # repository's own caller: the Lessons gate run and the Apps gate runs are the
