@@ -262,7 +262,7 @@ jobs:
         run: |
           set -euo pipefail
           MBM_NAVIGATION_MODE=education MBM_BASE_URL="$(cat /tmp/mbm-live-base)" MBM_CACHE_BUST="$GITHUB_SHA" node tools/verify_cross_estate_browser.mjs
-          node tools/sw2/check_tokens_inert.cjs --base "$(cat /tmp/mbm-live-base)" --output audit-output/sw2-token-inertness-live.json
+          node tools/sw2/check_tokens_inert.cjs --base "$(cat /tmp/mbm-live-base)" --published --output audit-output/sw2-token-inertness-live.json
 
       - name: Record production proof on the release PR
         env:
