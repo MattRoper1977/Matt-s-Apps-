@@ -15,12 +15,14 @@ on:
       - 'assets/mbm-platform.css'
       - 'assets/mbm-platform.js'
       - 'assets/mbm-theme.js'
+      - 'assets/mbm-tokens.css'
       - 'index.html'
       - 'tools/lundyloop/**'
       - 'tools/lundyloop/test_live_bytes.py'
       - 'tools/lundyloop/verify_live_bytes.py'
       - 'tools/pin1/derive_triggers.py'
       - 'tools/pin1/test_derive_triggers.py'
+      - 'tools/sw2/check_tokens_inert.cjs'
       - 'tools/verify_cross_estate_unification.py'
       # END PIN1 DERIVED PATHS
   push:
@@ -37,12 +39,14 @@ on:
       - 'assets/mbm-platform.css'
       - 'assets/mbm-platform.js'
       - 'assets/mbm-theme.js'
+      - 'assets/mbm-tokens.css'
       - 'index.html'
       - 'tools/lundyloop/**'
       - 'tools/lundyloop/test_live_bytes.py'
       - 'tools/lundyloop/verify_live_bytes.py'
       - 'tools/pin1/derive_triggers.py'
       - 'tools/pin1/test_derive_triggers.py'
+      - 'tools/sw2/check_tokens_inert.cjs'
       - 'tools/verify_cross_estate_unification.py'
       # END PIN1 DERIVED PATHS
   workflow_dispatch:
