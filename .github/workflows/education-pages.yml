@@ -12,6 +12,8 @@ jobs:
     # Pinned 2026-09-07 reviewed Glitch handoff and all-file admission publisher (Site PR #292); this workflow reads
     # this repository's current source commit and never edits source content.
     # SW2-T5R1: registry-only carrier; publisher code and companion source pins unchanged.
-    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@3aa4bda8c6b0397969992b7d8f0ec5034c6adc0f
+    # SW2 Part T candidate: scoped owner chrome; companion inputs and workflow logic unchanged.
+    # REVIEW ONLY: admission proposal and Site root assets must land before this pin is activated.
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@8f70dcb99d75c66c249a556c84bdc371018762f5
     with:
-      builder_ref: 3aa4bda8c6b0397969992b7d8f0ec5034c6adc0f
+      builder_ref: 8f70dcb99d75c66c249a556c84bdc371018762f5
