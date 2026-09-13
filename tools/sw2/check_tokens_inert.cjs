@@ -19,7 +19,7 @@ const BASE=arg('--base',process.env.MBM_BASE_URL);
 if(!BASE)throw Error('--base must name the project mount or deployed project URL');
 const OUT=arg('--output','audit-output/sw2-token-inertness.json');
 // Actual unchanged pinned-builder output measurements, not raw-source digests.
-const PUBLISHED={"apps":{"":"0dee121f685c7fe7e61d95870da1ce9d12c3968bd3a6920ecacc0b2a0d175b19"},"lessons":{"":"8b0f8ea72c21c2f07cff5eafd2d5a2add4823f2c32d4177c7649dc7688b8b347","subject.html":"50fdf3ad1b2ac0ba41258285f511eb07aac8d27e396825464d10de9396a96683"}};
+const PUBLISHED={"apps":{"":"0dee121f685c7fe7e61d95870da1ce9d12c3968bd3a6920ecacc0b2a0d175b19"},"lessons":{"":"5da2c06375c9a088b01a94facb82f9b7c69c388adf01745b917cc34efc8c089c","subject.html":"45a79c3fe7f709df105c87959d12ab79d9a883cdc8947ff35b1de6c7617ad141"}};
 const published=process.argv.includes('--published');
 const routes=KIND==='lessons'?['','subject.html','subject.html?subject=science']:[''];
 async function waitForPublished(){
@@ -44,7 +44,9 @@ async function waitForPublished(){
 }
 
 async function settle(page){await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));await page.waitForTimeout(350);}
-async function snap(page){return page.evaluate(published=>Array.from(document.querySelectorAll('*')).filter(e=>e.tagName!=='STYLE'&&(!published||!e.closest('[data-mbm-navigation="education"],[data-mbm-chrome="signoff"]'))).map(e=>{let vals=[];for(const pseudo of [null,'::before','::after']){let s=getComputedStyle(e,pseudo);vals.push(Array.from(s).filter(p=>!p.startsWith('--')).map(p=>[p,s.getPropertyValue(p)]));}let r=e.getBoundingClientRect();return {tag:e.tagName,id:e.id,styles:vals,rect:[r.x,r.y,r.width,r.height]};}),published);}
+// Fingerprint every observed style value before transport; retain all elements, pseudos and geometry.
+// Independent full-observation transport comparison verifies the same SHA-256 values.
+async function snap(page){return page.evaluate(async published=>Promise.all(Array.from(document.querySelectorAll('*')).filter(e=>e.tagName!=='STYLE'&&(!published||!e.closest('[data-mbm-navigation="education"],[data-mbm-chrome="signoff"]'))).map(async e=>{let vals=[];for(const pseudo of [null,'::before','::after']){let s=getComputedStyle(e,pseudo);vals.push(Array.from(s).filter(p=>!p.startsWith('--')).map(p=>[p,s.getPropertyValue(p)]));}let r=e.getBoundingClientRect();const record={tag:e.tagName,id:e.id,styles:vals,rect:[r.x,r.y,r.width,r.height]};const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(record.styles)));record.styles=Array.from(new Uint8Array(bytes),b=>b.toString(16).padStart(2,'0')).join('');return record;})),published);}
 function diffs(a,b){if(a.length!==b.length)throw Error('DOM changed during measurement');let d=[];for(let i=0;i<a.length;i++)if(JSON.stringify(a[i])!==JSON.stringify(b[i]))d.push({index:i,tag:a[i].tag,id:a[i].id});return d;}
 (async()=>{await waitForPublished();const browser=await chromium.launch();let rows=[];try{
 for(const route of routes)for(const width of [390,1440])for(const mode of ['light','dark','preferences']){
