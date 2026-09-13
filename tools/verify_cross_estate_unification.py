@@ -124,19 +124,26 @@ CATALOGUE_PINS = {
         "tools/sw2/check_tokens_inert.cjs": "70b44199250d15e145e23149d3157389f12a2acaec07a2c6063e976801f0426d",
         "assets/catalogue/lesson-order.json": "87cc6f6815efbb9fe2c27333b5860917566774f10f8cc49236a645958e7a6141",
         "tools/catalogue/build_lesson_order.py": "95032f6572a6b64fa518a7ff6fd1902854c9ef6f204841c553b5078c0afb8a9a",
-        "tools/ux2/hub_gates.mjs": "c740d936e18848e5fe54261526194eec72b65918cea5cfbc4af6883058ba67ff",
+        "tools/ux2/hub_gates.mjs": "e2a40f8f2a6db4e4558a6af56e76fcbf7a013c889e0fa9a0ea65d21bbf4e0c25",
         "index.html": "4789a3c93bc9d1f69bdcf881041cc47a72ded26263781020d53719623d494acc",
         "Science_Teesside/index.html": "47e85a28c6cb17663a051f38646126d0afea0e59d71942671c40553567424fd9",
         "Humanities_Teesside/index.html": "7594ce3f6bd34025e32f556d736d39fd218b409a36511ab57e779c4080c4cd86",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
+        "pack.html": "c05cde1b83de3da3a292d150e7c400782719d30aec6a130fb4df158786993b65",
+        "assets/catalogue/pack.js": "541abd7a493ad0731a32566d5fdb86fbd7d5e331e4533011ea12f7a3362cef92",
+        "assets/catalogue/pack.css": "3479e8b88fae19306a6480e553da0b459859fcb2de03c772c2a4b14eeca507e8",
+        "assets/catalogue/pack-notes.json": "c7c30351306a21f360190b202b98bf202fde02b8376a1a54886204e718850988",
+        "tools/sw2/pack_notes.py": "a81a187002a69bcecca28c9c3130f546e1aae279d5af92cf750a6f9fb04c8fe6",
+        "tools/sw2/stamp_pack_page.py": "ee37ba3739598535989353dd2ecd0225ad8f4ded0b9f3e6d83bbc0c2326bd4d8",
+        "tools/sw2/check_pack_page.cjs": "247cc695e3eb5f9a53c45da9f5744e378c3027bb15b0e89dbdad220398af18d6",
         "subject.html": "c0900167e0c8ab7e42920b5e17d341ef33b50e756eadbd293f7a485d8b6449f1",
-        "assets/catalogue/hub.js": "201698d3938b81155effb32ed7cbafa89b78724a512e87f079b7526a5b58a4c5",
+        "assets/catalogue/hub.js": "1481fb04eed0dbc46d16a105c921a5c5ad393dd2252f046d97c03d665f20458e",
         "assets/catalogue/hub.css": "26709016ce8b4e62e75c80194214a1884edc74a496322e40056ce1703ee02941",
         "data/calendar-spine.json": "d199474b13c9d340add2c87165396d83712b0f1c9f8bd03b7b12e8fdf6af0d61",
         "Humanities_Teesside/David_Cover_Autumn1_W3-W7/index.html": "4e25eb9ca8f9f93c720d88d945f3d6d79580f3362a88698fe7af75d146f01e96",
         "assets/catalogue/catalogue.css": "59abee137c41a8a015e42cf0b32d20b7f4e5fc8e3d236a1cd735322386bf8569",
         "assets/catalogue/catalogue.js": "a0fd3efc8356377effad7249be7222984ce92947a8143259148851dc399de5c7",
-        "assets/catalogue/lesson-navigation.js": "e16ccd86a1d29dbb2d1867fa8d33dac738e061545c61983e8adcb165b79c0bce",
+        "assets/catalogue/lesson-navigation.js": "fa6bdae6826950422dfb13a905a2a50c5c959bef50fb438f00b6170befbfaf8f",
         "assets/catalogue/science-shelf.css": "f664655e57c086abe35499f5dedf737eddaa0942e6629dd4a7fcf4e801536508",
         "assets/catalogue/science-shelf.js": "b47b998866401f136968a2e1e94cc5beb65be83fbd342f49ff5a811804792651",
         "assets/catalogue/terms-and-styles.json": "81b6416275d150673219442af9bae5887ebb190815d6652bdbbedb02b53ec00b",
@@ -624,7 +631,7 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # unchanged between the two, so the gate itself still does not move.
 # GC1 12 September: reviewed 810ae8f8 -> 3c2743fb registration-only carrier.
 # SW2-T5R1: consumer-specific registry-only carriers, with unchanged publisher code.
-PUBLICATION_CALLER_SHA256 = "e8039daa27a50790a3d9dae69fefe21359ccc48fda84601d591cb758eda2f9b5"
+PUBLICATION_CALLER_SHA256 = "d61ecd6282920f51ec4f4c19efa0439944f290d173dda49c852dba75cdf13250"
 # One reviewed caller digest per repository kind. detect_kind() reads the root
 # it is standing in, so this entry is only ever compared against the Apps
 # repository's own caller: the Lessons gate run and the Apps gate runs are the
