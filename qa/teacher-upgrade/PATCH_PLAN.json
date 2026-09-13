@@ -1,0 +1,56 @@
+{
+  "format": "made-by-matt-teacher-upgrade-plan",
+  "version": 1,
+  "sentinel": "matts-apps-teacher-workflow-2026-08-05",
+  "auditedRepository": "MattRoper1977/Matt-s-Apps-",
+  "auditedHead": "c69895423ecaaf4fa859bd6fef6bc717d2a94863",
+  "operations": {
+    "add": [
+      "Data_Manager_Studio.html",
+      "teacher-workflow.js",
+      "teacher-workflow.css",
+      "evidence-schema-v2.json",
+      "awarding-body-templates.json"
+    ],
+    "modify": [
+      "Evidence_Binder.html",
+      "Classroom_Toolkit.html",
+      "Seating_Studio.html",
+      "Rubric_Studio.html",
+      "Exit_Ticket.html",
+      "Writing_Frames.html",
+      "Quiz_Studio.html",
+      "Graph_Studio.html",
+      "Whiteboard.html",
+      "PDF_Studio.html",
+      "ChoreoStudio.html",
+      "apps.json",
+      "index.html",
+      "README.md",
+      "suite-health.html"
+    ],
+    "delete": []
+  },
+  "excluded": [
+    "Feelings_Checkin.html",
+    "Regulation_Station.html"
+  ],
+  "invariants": [
+    "All 34 audited source artefacts remain.",
+    "No unfamiliar existing file is overwritten.",
+    "Evidence Binder outcome reordering does not remap evidence.",
+    "A unit with linked Evidence Binder items cannot be deleted.",
+    "All cross-app records are drafts until staff review.",
+    "No data is uploaded automatically.",
+    "Feelings Check-in and Regulation Station receive no workflow bridge.",
+    "Suite Health fails an empty catalogue.",
+    "A second installer run changes zero files."
+  ],
+  "application": {
+    "defaultMode": "dry-run",
+    "backupBeforeWrite": true,
+    "atomicWrites": true,
+    "strictBaselineOption": true,
+    "exactDiffOption": true
+  }
+}

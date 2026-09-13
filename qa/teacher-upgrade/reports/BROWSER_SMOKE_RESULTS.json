@@ -1,0 +1,107 @@
+{
+  "format": "made-by-matt-teacher-upgrade-browser-smoke",
+  "generatedAt": "2026-08-06T10:26:03.270994+00:00",
+  "browserExecutable": "/opt/pw-browsers/chromium",
+  "summary": {
+    "pass": 19,
+    "fail": 0
+  },
+  "tests": [
+    {
+      "name": "Data Manager boots",
+      "status": "pass",
+      "detail": "dashboard rendered"
+    },
+    {
+      "name": "Dialog focus enters first field",
+      "status": "pass",
+      "detail": "focused element was 'cohortName'"
+    },
+    {
+      "name": "Dialog focus returns to trigger",
+      "status": "pass",
+      "detail": "focus returned to 'addCohortB'"
+    },
+    {
+      "name": "Bulk class import",
+      "status": "pass",
+      "detail": "two stable learner records shown"
+    },
+    {
+      "name": "Shared roster publication",
+      "status": "pass",
+      "detail": "published roster: ['Alex North', 'Sam Reed']"
+    },
+    {
+      "name": "UAS has no level (C5)",
+      "status": "pass",
+      "detail": "Level / size is disabled and empty while the AQA UAS profile is active"
+    },
+    {
+      "name": "Programme and criterion setup",
+      "status": "pass",
+      "detail": "two coded criteria rendered"
+    },
+    {
+      "name": "Evidence with hashed attachment",
+      "status": "pass",
+      "detail": "one evidence record saved with one attachment"
+    },
+    {
+      "name": "Coverage matrix",
+      "status": "pass",
+      "detail": "two learners by two criteria rendered"
+    },
+    {
+      "name": "Full backup integrity",
+      "status": "pass",
+      "detail": "backup contains 2 learners, 1 evidence record, attachment bytes and SHA-256"
+    },
+    {
+      "name": "44px visible controls",
+      "status": "pass",
+      "detail": "minimum visible button height 44.0px"
+    },
+    {
+      "name": "IndexedDB reload persistence",
+      "status": "pass",
+      "detail": "two learners remained after reload"
+    },
+    {
+      "name": "Classroom Toolkit roster adapter",
+      "status": "pass",
+      "detail": "picker/groups received ['Alex North', 'Sam Reed']"
+    },
+    {
+      "name": "Writing evidence hand-off",
+      "status": "pass",
+      "detail": "draft queued without an automatic assessment decision"
+    },
+    {
+      "name": "Wellbeing privacy exclusion",
+      "status": "pass",
+      "detail": "no teacher context or evidence launcher appears"
+    },
+    {
+      "name": "Suite Health v2",
+      "status": "pass",
+      "detail": "catalogue and five upgrade assets pass; external target is informational"
+    },
+    {
+      "name": "Fresh-context backup restore",
+      "status": "pass",
+      "detail": "learners, evidence metadata and attachment blob restored"
+    },
+    {
+      "name": "Mobile layout and targets",
+      "status": "pass",
+      "detail": "horizontal overflow 0px; minimum button 44.0px"
+    },
+    {
+      "name": "Browser console and network",
+      "status": "pass",
+      "detail": "no console errors, page errors or failed requests"
+    }
+  ],
+  "errors": []
+}
