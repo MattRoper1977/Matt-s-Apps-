@@ -130,8 +130,8 @@ CATALOGUE_PINS = {
         "Humanities_Teesside/index.html": "7594ce3f6bd34025e32f556d736d39fd218b409a36511ab57e779c4080c4cd86",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
         "subject.html": "c0900167e0c8ab7e42920b5e17d341ef33b50e756eadbd293f7a485d8b6449f1",
-        "assets/catalogue/hub.js": "e75971d6c5e957724054f5c6acb032a3400051b240063431b193e5c300b01e17",
-        "assets/catalogue/hub.css": "c2f52bd9c66ef534eed8df918e02faefd3bc214c688f9a581bad4e15609caf9b",
+        "assets/catalogue/hub.js": "201698d3938b81155effb32ed7cbafa89b78724a512e87f079b7526a5b58a4c5",
+        "assets/catalogue/hub.css": "26709016ce8b4e62e75c80194214a1884edc74a496322e40056ce1703ee02941",
         "data/calendar-spine.json": "d199474b13c9d340add2c87165396d83712b0f1c9f8bd03b7b12e8fdf6af0d61",
         "Humanities_Teesside/David_Cover_Autumn1_W3-W7/index.html": "4e25eb9ca8f9f93c720d88d945f3d6d79580f3362a88698fe7af75d146f01e96",
         "assets/catalogue/catalogue.css": "59abee137c41a8a015e42cf0b32d20b7f4e5fc8e3d236a1cd735322386bf8569",
@@ -624,7 +624,7 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # unchanged between the two, so the gate itself still does not move.
 # GC1 12 September: reviewed 810ae8f8 -> 3c2743fb registration-only carrier.
 # SW2-T5R1: consumer-specific registry-only carriers, with unchanged publisher code.
-PUBLICATION_CALLER_SHA256 = "05f5e7e14e65dacf80f8b2a08b8e9769c05536e85535153364802090440997c9"
+PUBLICATION_CALLER_SHA256 = "e8039daa27a50790a3d9dae69fefe21359ccc48fda84601d591cb758eda2f9b5"
 # One reviewed caller digest per repository kind. detect_kind() reads the root
 # it is standing in, so this entry is only ever compared against the Apps
 # repository's own caller: the Lessons gate run and the Apps gate runs are the
