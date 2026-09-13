@@ -1,0 +1,3 @@
+[PASS] apps cross-estate static contract
+LundyLoop CI controls: real green / planted byte red / restored green; unrelated paths red
+positive-control: PASS (1 detected error(s))

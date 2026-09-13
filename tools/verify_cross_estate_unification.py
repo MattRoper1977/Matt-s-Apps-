@@ -59,7 +59,7 @@ SENTINEL = "mbm-cross-estate-unification-lessons-apps-2026-08-08"
 #            after   had reached that copy, so the sync changed no metric there
 CANONICAL_HASHES = {
     # SW2-T5R1: reviewed inert vocabulary; no component styling changes.
-    "assets/mbm-tokens.css": "01fbb17686866b97e7591781e4a78f2e9d38fb5ba35ed8acf935ce2a199643dd",
+    "assets/mbm-tokens.css": "2e78ad7348ee7beaafda1f33ff5b112e7fd121654d7a9d39fc1ec681dee00019",
     "assets/mbm-platform.css": "b520cf36a9c87af618e03ea534b66c261e8fd05e70d8eb5634f323aee9310698",
     "assets/mbm-platform.js": "095a29e61f8d7d549a5b58dd1aa1dd74b885416ebb09291ddb218d90ea740c28",
     "assets/mbm-theme.js": "5d711139ee95f2a9814917c516ffe674fbd52fd0b42c8fd6e22a1efbc19f002b",
@@ -120,12 +120,12 @@ APPS_HUB_REVIEWED_WORDING_SHA256 = "696efb97549286f33b9514308bee48d82d3af654cf61
 CATALOGUE_PINS = {
     "visible_body_sha256": "bc1011a2b1241c790cb35b98d7581168b7f2376c7754aaa531bf34d4c7589ca4",
     "files": {
-        "tools/sw2/check_tokens_inert.cjs": "32206c27ab360f7272c4bfcfdc7464a0af7a416b7b676f306f9d2573aab0c6a4",
-        "index.html": "e2184fb0cfb6850572c6747810fa0ae87211ed107fed73facc3c55100b14c867",
+        "tools/sw2/check_tokens_inert.cjs": "226f1c7ac404fa250dc2db0d34f73474ffc8db97d50741f348808e47541895b0",
+        "index.html": "61dfe9a0694528faf210ea3be330bc07bbf46f2d34baf507c954313427c4d788",
         "Science_Teesside/index.html": "47e85a28c6cb17663a051f38646126d0afea0e59d71942671c40553567424fd9",
         "Humanities_Teesside/index.html": "7594ce3f6bd34025e32f556d736d39fd218b409a36511ab57e779c4080c4cd86",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
-        "subject.html": "945de02091c332965218847d64da6651baa6a93d35fa80a99503ed8bdd84138a",
+        "subject.html": "fdb06b5f8be3580606f642e221e63f3324c199ab5e08910adbabf6437f910631",
         "assets/catalogue/hub.js": "6054f0d89ee498df171cc8861e0a292f3154315a6462d895f130eaadbf7e71a6",
         "assets/catalogue/hub.css": "96192065b59e2d5113f92e03da3386c45e7425aa2443b79e8203914b587eeca9",
         "data/calendar-spine.json": "d199474b13c9d340add2c87165396d83712b0f1c9f8bd03b7b12e8fdf6af0d61",
@@ -620,7 +620,7 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # unchanged between the two, so the gate itself still does not move.
 # GC1 12 September: reviewed 810ae8f8 -> 3c2743fb registration-only carrier.
 # SW2-T5R1: consumer-specific registry-only carriers, with unchanged publisher code.
-PUBLICATION_CALLER_SHA256 = "7eed145576a043ab0dbfd78c77b6d609904f553dd9860a6ef57e9c8e4aa3a86b"
+PUBLICATION_CALLER_SHA256 = "9c63cf747982d5cef06d43ca64ae5987e2d16fa0441783f23e400b4cfb113e39"
 # One reviewed caller digest per repository kind. detect_kind() reads the root
 # it is standing in, so this entry is only ever compared against the Apps
 # repository's own caller: the Lessons gate run and the Apps gate runs are the
@@ -637,7 +637,7 @@ PUBLICATION_CALLER_SHA256 = "7eed145576a043ab0dbfd78c77b6d609904f553dd9860a6ef57
 # copies back in step is what made it fire.
 PUBLICATION_CALLER_SHA256_BY_KIND = {
     "lessons": PUBLICATION_CALLER_SHA256,
-    "apps": "7b4451623baafa223022a03e7b2572b65eccb861fb2cb7521b21e9bd19b34294",
+    "apps": "24a34907eced68e9c3f0a43c48890d72ff61134d8bb5881d411f843965bc8367",
 }
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
@@ -647,7 +647,7 @@ PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification
 # No standalone payload or arbitrary CI path is granted. Both gate copies match.
 LUNDYLOOP_CI_PINS = {
     # SW2-T5R1: the shared browser proof is also required at reviewed bytes.
-    "tools/sw2/check_tokens_inert.cjs": "32206c27ab360f7272c4bfcfdc7464a0af7a416b7b676f306f9d2573aab0c6a4",
+    "tools/sw2/check_tokens_inert.cjs": "226f1c7ac404fa250dc2db0d34f73474ffc8db97d50741f348808e47541895b0",
     ".github/workflows/verify-lundyloop-professional-os.yml": "7e6cf886ff1af45cc3bcf255ee6a688b75dbb4034fce20b609fe0188a63c11ce",
     "tools/lundyloop/verify_live_bytes.py": "a27f791633260e7e2d8ba7ca2abe5a35db105b9ccbf96d26205628dcc1e636ad",
     "tools/lundyloop/test_live_bytes.py": "972ca2ae06da44722bfd011fda03a361c6011c699f95bb6ce78bca95b71f2e77"
