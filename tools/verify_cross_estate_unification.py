@@ -118,16 +118,20 @@ APPS_HUB_REVIEWED_WORDING_SHA256 = "696efb97549286f33b9514308bee48d82d3af654cf61
 
 # BEGIN REVIEWED CATALOGUE PINS
 CATALOGUE_PINS = {
-    "visible_body_sha256": "bc1011a2b1241c790cb35b98d7581168b7f2376c7754aaa531bf34d4c7589ca4",
+    "visible_body_sha256": "9961e6f6c4627d644a364dedef7b37b1731cf8508e0ec85909f070a328bec187",
     "files": {
-        "tools/sw2/check_tokens_inert.cjs": "eb9e5dd0cd6779d16dd6f4bb1f88c41df87d7a8b7b88175b4767a6fa283b9d91",
-        "index.html": "61dfe9a0694528faf210ea3be330bc07bbf46f2d34baf507c954313427c4d788",
+        "tools/verify_lessons_chips.mjs": "f6561fb7633bb65689acc27381c205648d5ecc099465137adde3b24c706ad130",
+        "tools/sw2/check_tokens_inert.cjs": "c57e76d434b37897d08301243bae411a0f684183faa5b01c00a4f58b3ed0a8b4",
+        "assets/catalogue/lesson-order.json": "87cc6f6815efbb9fe2c27333b5860917566774f10f8cc49236a645958e7a6141",
+        "tools/catalogue/build_lesson_order.py": "95032f6572a6b64fa518a7ff6fd1902854c9ef6f204841c553b5078c0afb8a9a",
+        "tools/ux2/hub_gates.mjs": "c740d936e18848e5fe54261526194eec72b65918cea5cfbc4af6883058ba67ff",
+        "index.html": "4789a3c93bc9d1f69bdcf881041cc47a72ded26263781020d53719623d494acc",
         "Science_Teesside/index.html": "47e85a28c6cb17663a051f38646126d0afea0e59d71942671c40553567424fd9",
         "Humanities_Teesside/index.html": "7594ce3f6bd34025e32f556d736d39fd218b409a36511ab57e779c4080c4cd86",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
-        "subject.html": "fdb06b5f8be3580606f642e221e63f3324c199ab5e08910adbabf6437f910631",
-        "assets/catalogue/hub.js": "6054f0d89ee498df171cc8861e0a292f3154315a6462d895f130eaadbf7e71a6",
-        "assets/catalogue/hub.css": "96192065b59e2d5113f92e03da3386c45e7425aa2443b79e8203914b587eeca9",
+        "subject.html": "c0900167e0c8ab7e42920b5e17d341ef33b50e756eadbd293f7a485d8b6449f1",
+        "assets/catalogue/hub.js": "e75971d6c5e957724054f5c6acb032a3400051b240063431b193e5c300b01e17",
+        "assets/catalogue/hub.css": "c2f52bd9c66ef534eed8df918e02faefd3bc214c688f9a581bad4e15609caf9b",
         "data/calendar-spine.json": "d199474b13c9d340add2c87165396d83712b0f1c9f8bd03b7b12e8fdf6af0d61",
         "Humanities_Teesside/David_Cover_Autumn1_W3-W7/index.html": "4e25eb9ca8f9f93c720d88d945f3d6d79580f3362a88698fe7af75d146f01e96",
         "assets/catalogue/catalogue.css": "59abee137c41a8a015e42cf0b32d20b7f4e5fc8e3d236a1cd735322386bf8569",
@@ -142,7 +146,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/build_science_shelf.py": "a06ce779e4331661dadcdeb896b5d533374ca82bba812f605860c6fe53d11335",
         "tools/catalogue/build_humanities_shelf.py": "ef74f9eced59fd6ec33f22c02cf0d39d518ac6f2eb8873aaf21517859fb78662",
         "tools/catalogue/check_catalogue_static.py": "1f55f22846763ded7bd27fdc389b57d1cba3b1eb58c066c944dde9b6b70617df",
-        "tools/catalogue/check_catalogue_dom.cjs": "9afa5c7b5355940199f602fca443fb6436882426058cc7ac1cba5bd0a94ac257",
+        "tools/catalogue/check_catalogue_dom.cjs": "a9f2f34030acba6fdf05d01337e00aa1d330a793a44307cfdfbf7a6eff57a92f",
         "tools/catalogue/verify_education_navigation.cjs": "b0d9297a33fb9ea2494fecaa45e02ae6fcf6fa88e6a62ced35cf521fbb1851fd",
         "tools/catalogue/SHELF_SELECTION.json": "95def027287e7cc1eb1190bafa21733c9c0999286c15a231dc17dfe7a56331f4",
         "tools/catalogue/HUMANITIES_SELECTION.json": "5df3e69d4d9d3825225bcc80376b3fbebf61656df6e333f6b9a8aaded1893bf4",
@@ -620,7 +624,7 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # unchanged between the two, so the gate itself still does not move.
 # GC1 12 September: reviewed 810ae8f8 -> 3c2743fb registration-only carrier.
 # SW2-T5R1: consumer-specific registry-only carriers, with unchanged publisher code.
-PUBLICATION_CALLER_SHA256 = "de940c8c570c6166a852f63c6c387ad6c3cee636d0ab196e20cc8cd145c3c1ad"
+PUBLICATION_CALLER_SHA256 = "05f5e7e14e65dacf80f8b2a08b8e9769c05536e85535153364802090440997c9"
 # One reviewed caller digest per repository kind. detect_kind() reads the root
 # it is standing in, so this entry is only ever compared against the Apps
 # repository's own caller: the Lessons gate run and the Apps gate runs are the
@@ -647,7 +651,7 @@ PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification
 # No standalone payload or arbitrary CI path is granted. Both gate copies match.
 LUNDYLOOP_CI_PINS = {
     # SW2-T5R1: the shared browser proof is also required at reviewed bytes.
-    "tools/sw2/check_tokens_inert.cjs": "eb9e5dd0cd6779d16dd6f4bb1f88c41df87d7a8b7b88175b4767a6fa283b9d91",
+    "tools/sw2/check_tokens_inert.cjs": "c57e76d434b37897d08301243bae411a0f684183faa5b01c00a4f58b3ed0a8b4",
     ".github/workflows/verify-lundyloop-professional-os.yml": "7e6cf886ff1af45cc3bcf255ee6a688b75dbb4034fce20b609fe0188a63c11ce",
     "tools/lundyloop/verify_live_bytes.py": "a27f791633260e7e2d8ba7ca2abe5a35db105b9ccbf96d26205628dcc1e636ad",
     "tools/lundyloop/test_live_bytes.py": "972ca2ae06da44722bfd011fda03a361c6011c699f95bb6ce78bca95b71f2e77"
