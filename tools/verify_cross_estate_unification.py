@@ -620,7 +620,7 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # unchanged between the two, so the gate itself still does not move.
 # GC1 12 September: reviewed 810ae8f8 -> 3c2743fb registration-only carrier.
 # SW2-T5R1: consumer-specific registry-only carriers, with unchanged publisher code.
-PUBLICATION_CALLER_SHA256 = "7eed145576a043ab0dbfd78c77b6d609904f553dd9860a6ef57e9c8e4aa3a86b"
+PUBLICATION_CALLER_SHA256 = "9c63cf747982d5cef06d43ca64ae5987e2d16fa0441783f23e400b4cfb113e39"
 # One reviewed caller digest per repository kind. detect_kind() reads the root
 # it is standing in, so this entry is only ever compared against the Apps
 # repository's own caller: the Lessons gate run and the Apps gate runs are the
@@ -637,7 +637,7 @@ PUBLICATION_CALLER_SHA256 = "7eed145576a043ab0dbfd78c77b6d609904f553dd9860a6ef57
 # copies back in step is what made it fire.
 PUBLICATION_CALLER_SHA256_BY_KIND = {
     "lessons": PUBLICATION_CALLER_SHA256,
-    "apps": "7b4451623baafa223022a03e7b2572b65eccb861fb2cb7521b21e9bd19b34294",
+    "apps": "24a34907eced68e9c3f0a43c48890d72ff61134d8bb5881d411f843965bc8367",
 }
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
