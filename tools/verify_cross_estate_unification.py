@@ -121,7 +121,7 @@ CATALOGUE_PINS = {
     "visible_body_sha256": "9961e6f6c4627d644a364dedef7b37b1731cf8508e0ec85909f070a328bec187",
     "files": {
         "tools/verify_lessons_chips.mjs": "f6561fb7633bb65689acc27381c205648d5ecc099465137adde3b24c706ad130",
-        "tools/sw2/check_tokens_inert.cjs": "c57e76d434b37897d08301243bae411a0f684183faa5b01c00a4f58b3ed0a8b4",
+        "tools/sw2/check_tokens_inert.cjs": "70b44199250d15e145e23149d3157389f12a2acaec07a2c6063e976801f0426d",
         "assets/catalogue/lesson-order.json": "87cc6f6815efbb9fe2c27333b5860917566774f10f8cc49236a645958e7a6141",
         "tools/catalogue/build_lesson_order.py": "95032f6572a6b64fa518a7ff6fd1902854c9ef6f204841c553b5078c0afb8a9a",
         "tools/ux2/hub_gates.mjs": "c740d936e18848e5fe54261526194eec72b65918cea5cfbc4af6883058ba67ff",
@@ -651,7 +651,7 @@ PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification
 # No standalone payload or arbitrary CI path is granted. Both gate copies match.
 LUNDYLOOP_CI_PINS = {
     # SW2-T5R1: the shared browser proof is also required at reviewed bytes.
-    "tools/sw2/check_tokens_inert.cjs": "c57e76d434b37897d08301243bae411a0f684183faa5b01c00a4f58b3ed0a8b4",
+    "tools/sw2/check_tokens_inert.cjs": "70b44199250d15e145e23149d3157389f12a2acaec07a2c6063e976801f0426d",
     ".github/workflows/verify-lundyloop-professional-os.yml": "7e6cf886ff1af45cc3bcf255ee6a688b75dbb4034fce20b609fe0188a63c11ce",
     "tools/lundyloop/verify_live_bytes.py": "a27f791633260e7e2d8ba7ca2abe5a35db105b9ccbf96d26205628dcc1e636ad",
     "tools/lundyloop/test_live_bytes.py": "972ca2ae06da44722bfd011fda03a361c6011c699f95bb6ce78bca95b71f2e77"

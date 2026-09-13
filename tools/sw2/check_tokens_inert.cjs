@@ -44,7 +44,9 @@ async function waitForPublished(){
 }
 
 async function settle(page){await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));await page.waitForTimeout(350);}
-async function snap(page){return page.evaluate(published=>Array.from(document.querySelectorAll('*')).filter(e=>e.tagName!=='STYLE'&&(!published||!e.closest('[data-mbm-navigation="education"],[data-mbm-chrome="signoff"]'))).map(e=>{let vals=[];for(const pseudo of [null,'::before','::after']){let s=getComputedStyle(e,pseudo);vals.push(Array.from(s).filter(p=>!p.startsWith('--')).map(p=>[p,s.getPropertyValue(p)]));}let r=e.getBoundingClientRect();return {tag:e.tagName,id:e.id,styles:vals,rect:[r.x,r.y,r.width,r.height]};}),published);}
+// Fingerprint every observed style value before transport; retain all elements, pseudos and geometry.
+// Independent full-observation transport comparison verifies the same SHA-256 values.
+async function snap(page){return page.evaluate(async published=>Promise.all(Array.from(document.querySelectorAll('*')).filter(e=>e.tagName!=='STYLE'&&(!published||!e.closest('[data-mbm-navigation="education"],[data-mbm-chrome="signoff"]'))).map(async e=>{let vals=[];for(const pseudo of [null,'::before','::after']){let s=getComputedStyle(e,pseudo);vals.push(Array.from(s).filter(p=>!p.startsWith('--')).map(p=>[p,s.getPropertyValue(p)]));}let r=e.getBoundingClientRect();const record={tag:e.tagName,id:e.id,styles:vals,rect:[r.x,r.y,r.width,r.height]};const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(record.styles)));record.styles=Array.from(new Uint8Array(bytes),b=>b.toString(16).padStart(2,'0')).join('');return record;})),published);}
 function diffs(a,b){if(a.length!==b.length)throw Error('DOM changed during measurement');let d=[];for(let i=0;i<a.length;i++)if(JSON.stringify(a[i])!==JSON.stringify(b[i]))d.push({index:i,tag:a[i].tag,id:a[i].id});return d;}
 (async()=>{await waitForPublished();const browser=await chromium.launch();let rows=[];try{
 for(const route of routes)for(const width of [390,1440])for(const mode of ['light','dark','preferences']){
