@@ -620,7 +620,7 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # unchanged between the two, so the gate itself still does not move.
 # GC1 12 September: reviewed 810ae8f8 -> 3c2743fb registration-only carrier.
 # SW2-T5R1: consumer-specific registry-only carriers, with unchanged publisher code.
-PUBLICATION_CALLER_SHA256 = "9c63cf747982d5cef06d43ca64ae5987e2d16fa0441783f23e400b4cfb113e39"
+PUBLICATION_CALLER_SHA256 = "8aecf2119916437896a1c63ea0a1208a2abdb7664e11c125d5d85306562112bb"
 # One reviewed caller digest per repository kind. detect_kind() reads the root
 # it is standing in, so this entry is only ever compared against the Apps
 # repository's own caller: the Lessons gate run and the Apps gate runs are the
