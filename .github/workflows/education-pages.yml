@@ -13,7 +13,8 @@ jobs:
     # this repository's current source commit and never edits source content.
     # SW2-T5R1: registry-only carrier; publisher code and companion source pins unchanged.
     # SW2 Part T candidate: scoped owner chrome; companion inputs and workflow logic unchanged.
-    # Matt approved the exact admission retirements on 2026-09-13; release after Site root assets are verified.
-    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@faa58ad48cd65a8c2b19575b2df8d6ef0832a17e
+    # Part T completion approved 2026-09-13: current owner palette/chrome and exact rollback admissions.
+    # Companion inputs and workflow logic remain unchanged; release follows verified Site root assets.
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@9b1d3b43cc57cb714016f2248fc153ec7d63a066
     with:
-      builder_ref: faa58ad48cd65a8c2b19575b2df8d6ef0832a17e
+      builder_ref: 9b1d3b43cc57cb714016f2248fc153ec7d63a066

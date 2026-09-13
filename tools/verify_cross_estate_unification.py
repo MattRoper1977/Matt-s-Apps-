@@ -120,7 +120,7 @@ APPS_HUB_REVIEWED_WORDING_SHA256 = "696efb97549286f33b9514308bee48d82d3af654cf61
 CATALOGUE_PINS = {
     "visible_body_sha256": "bc1011a2b1241c790cb35b98d7581168b7f2376c7754aaa531bf34d4c7589ca4",
     "files": {
-        "tools/sw2/check_tokens_inert.cjs": "3037100f1f66000eee6e958bfdfe6611ff1c1645544aba9955345954a1d6683f",
+        "tools/sw2/check_tokens_inert.cjs": "eb9e5dd0cd6779d16dd6f4bb1f88c41df87d7a8b7b88175b4767a6fa283b9d91",
         "index.html": "61dfe9a0694528faf210ea3be330bc07bbf46f2d34baf507c954313427c4d788",
         "Science_Teesside/index.html": "47e85a28c6cb17663a051f38646126d0afea0e59d71942671c40553567424fd9",
         "Humanities_Teesside/index.html": "7594ce3f6bd34025e32f556d736d39fd218b409a36511ab57e779c4080c4cd86",
@@ -620,7 +620,7 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # unchanged between the two, so the gate itself still does not move.
 # GC1 12 September: reviewed 810ae8f8 -> 3c2743fb registration-only carrier.
 # SW2-T5R1: consumer-specific registry-only carriers, with unchanged publisher code.
-PUBLICATION_CALLER_SHA256 = "8aecf2119916437896a1c63ea0a1208a2abdb7664e11c125d5d85306562112bb"
+PUBLICATION_CALLER_SHA256 = "de940c8c570c6166a852f63c6c387ad6c3cee636d0ab196e20cc8cd145c3c1ad"
 # One reviewed caller digest per repository kind. detect_kind() reads the root
 # it is standing in, so this entry is only ever compared against the Apps
 # repository's own caller: the Lessons gate run and the Apps gate runs are the
@@ -637,7 +637,7 @@ PUBLICATION_CALLER_SHA256 = "8aecf2119916437896a1c63ea0a1208a2abdb7664e11c125d5d
 # copies back in step is what made it fire.
 PUBLICATION_CALLER_SHA256_BY_KIND = {
     "lessons": PUBLICATION_CALLER_SHA256,
-    "apps": "24a34907eced68e9c3f0a43c48890d72ff61134d8bb5881d411f843965bc8367",
+    "apps": "ea9290cbc8988eb8a5409e9426580d4d07656bdabb78c3822d5177bfeb9b52c4",
 }
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
@@ -647,7 +647,7 @@ PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification
 # No standalone payload or arbitrary CI path is granted. Both gate copies match.
 LUNDYLOOP_CI_PINS = {
     # SW2-T5R1: the shared browser proof is also required at reviewed bytes.
-    "tools/sw2/check_tokens_inert.cjs": "3037100f1f66000eee6e958bfdfe6611ff1c1645544aba9955345954a1d6683f",
+    "tools/sw2/check_tokens_inert.cjs": "eb9e5dd0cd6779d16dd6f4bb1f88c41df87d7a8b7b88175b4767a6fa283b9d91",
     ".github/workflows/verify-lundyloop-professional-os.yml": "7e6cf886ff1af45cc3bcf255ee6a688b75dbb4034fce20b609fe0188a63c11ce",
     "tools/lundyloop/verify_live_bytes.py": "a27f791633260e7e2d8ba7ca2abe5a35db105b9ccbf96d26205628dcc1e636ad",
     "tools/lundyloop/test_live_bytes.py": "972ca2ae06da44722bfd011fda03a361c6011c699f95bb6ce78bca95b71f2e77"
