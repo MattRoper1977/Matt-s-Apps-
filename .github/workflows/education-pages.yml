@@ -13,7 +13,7 @@ jobs:
     # this repository's current source commit and never edits source content.
     # SW2-T5R1: registry-only carrier; publisher code and companion source pins unchanged.
     # SW2 Part T candidate: scoped owner chrome; companion inputs and workflow logic unchanged.
-    # REVIEW ONLY: admission proposal and Site root assets must land before this pin is activated.
-    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@8f70dcb99d75c66c249a556c84bdc371018762f5
+    # Matt approved the exact admission retirements on 2026-09-13; release after Site root assets are verified.
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@faa58ad48cd65a8c2b19575b2df8d6ef0832a17e
     with:
-      builder_ref: 8f70dcb99d75c66c249a556c84bdc371018762f5
+      builder_ref: faa58ad48cd65a8c2b19575b2df8d6ef0832a17e

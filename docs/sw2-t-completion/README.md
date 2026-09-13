@@ -1,9 +1,5 @@
-# Part T consumer candidate — apps
+# Approved Part T apps consumer continuation
 
-REVIEW ONLY. The origin-root token link and canonical CSS bytes are prepared. No authored body wording, resource/app catalogue row, route identity or runtime is changed. The paired verifier moves only the reviewed token, source-page and browser-checker digests; its contracts and mutation controls remain.
+Matt approved the ten scoped admission retirements and provenance continuation on 13 September 2026. The caller now selects immutable builder faa58ad48cd65a8c2b19575b2df8d6ef0832a17e, whose tree changes from the previously reviewed 8f70dcb99d75c66c249a556c84bdc371018762f5 only in its approved admission records and an explanatory internal note. All other publisher code, companion inputs, workflow triggers, permissions, jobs and gates remain unchanged.
 
-The source browser comparison still measures every source element. In published mode, the existing marked shared navigation and signoff intentionally consume tokens, so the body-inertness comparison scopes only those exact components out. Its body mutation must still fire; the Site's publication gate measures all 32 computed tokens, the 31 chrome surfaces, contrast and real keyboard controls.
-
-The caller proposes immutable Site builder 8f70dcb99d75c66c249a556c84bdc371018762f5, based on 3aa4bda8c6b0397969992b7d8f0ec5034c6adc0f. Only the reusable-workflow reference and builder_ref advance; the workflow's events, jobs and permissions do not change. This builder's active registry is deliberately unmodified pending the explicit retirement decision, and the candidate must remain a draft. Site root assets must be released first.
-
-See the Site Part T admission proposal and release readback for the exact changed rows, preserved rollback revisions, Games approval dependency and excluded-build-input provenance defect. This is not SW2_T_OK.
+The existing built publication passes the unchanged admission validator. Completed source and body browser evidence in this directory remains valid: implementation bytes are unchanged. Release only after Site #357 deploys its root assets and passes source-bound verification. Existing holds and owner-managed Games promotion remain; no SW2_T_OK claim.
