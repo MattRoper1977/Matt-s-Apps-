@@ -120,25 +120,29 @@ APPS_HUB_REVIEWED_WORDING_SHA256 = "9e5a4ac6c1e9bfb04a1c0186a82fce96aa03565a02dc
 CATALOGUE_PINS = {
     "visible_body_sha256": "9961e6f6c4627d644a364dedef7b37b1731cf8508e0ec85909f070a328bec187",
     "files": {
+        "assets/catalogue/display-titles.json": "d5a545890a3f9ce116aa5fc0ceecb8f4917dd3d03621d03b5cd3a6fad0abd399",
+        "tools/catalogue/build_display_titles.py": "855f250e5a66dfc0857f83f246db9a72b0d6da7fa78278c1caa8c2529c64e149",
+        "tools/catalogue/check_display_titles.cjs": "a52a18208876902ea2052c9f2deb325c1717bcd4b474115e1c6e325ea769daf4",
+        "tools/catalogue/check_display_titles_browser.cjs": "b6cbbe9f899867d9a7a6d21acfad2119f1a4a8bef7553e72c8d19d4e29805b9d",
         "tools/verify_lessons_chips.mjs": "f6561fb7633bb65689acc27381c205648d5ecc099465137adde3b24c706ad130",
         "tools/sw2/check_tokens_inert.cjs": "70b44199250d15e145e23149d3157389f12a2acaec07a2c6063e976801f0426d",
         "assets/catalogue/lesson-order.json": "87cc6f6815efbb9fe2c27333b5860917566774f10f8cc49236a645958e7a6141",
         "tools/catalogue/build_lesson_order.py": "95032f6572a6b64fa518a7ff6fd1902854c9ef6f204841c553b5078c0afb8a9a",
-        "tools/ux2/hub_gates.mjs": "e2a40f8f2a6db4e4558a6af56e76fcbf7a013c889e0fa9a0ea65d21bbf4e0c25",
-        "index.html": "4789a3c93bc9d1f69bdcf881041cc47a72ded26263781020d53719623d494acc",
+        "tools/ux2/hub_gates.mjs": "80ae8def49c49e549c8a2e6b65d521cfdaebb2b7d05f650fa6d5e436f2b6586d",
+        "index.html": "389c3320b158e9bc472b4402d41d1d23e4bb2d78b54385884c0be6ca31f73309",
         "Science_Teesside/index.html": "47e85a28c6cb17663a051f38646126d0afea0e59d71942671c40553567424fd9",
         "Humanities_Teesside/index.html": "7594ce3f6bd34025e32f556d736d39fd218b409a36511ab57e779c4080c4cd86",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
         "pack.html": "c05cde1b83de3da3a292d150e7c400782719d30aec6a130fb4df158786993b65",
-        "assets/catalogue/pack.js": "541abd7a493ad0731a32566d5fdb86fbd7d5e331e4533011ea12f7a3362cef92",
-        "assets/catalogue/pack.css": "3479e8b88fae19306a6480e553da0b459859fcb2de03c772c2a4b14eeca507e8",
+        "assets/catalogue/pack.js": "acfd0f1b00dce1421fabd8a1870b55d4c54ffc1157b2efe8a01b354f385ccf4b",
+        "assets/catalogue/pack.css": "ba6c5c84bcff84c023f2f10ac345a159f48ea97b2e8eb542cb3e56435204d63a",
         "assets/catalogue/pack-notes.json": "c7c30351306a21f360190b202b98bf202fde02b8376a1a54886204e718850988",
         "tools/sw2/pack_notes.py": "a81a187002a69bcecca28c9c3130f546e1aae279d5af92cf750a6f9fb04c8fe6",
         "tools/sw2/stamp_pack_page.py": "ee37ba3739598535989353dd2ecd0225ad8f4ded0b9f3e6d83bbc0c2326bd4d8",
-        "tools/sw2/check_pack_page.cjs": "247cc695e3eb5f9a53c45da9f5744e378c3027bb15b0e89dbdad220398af18d6",
-        "subject.html": "c0900167e0c8ab7e42920b5e17d341ef33b50e756eadbd293f7a485d8b6449f1",
-        "assets/catalogue/hub.js": "1481fb04eed0dbc46d16a105c921a5c5ad393dd2252f046d97c03d665f20458e",
-        "assets/catalogue/hub.css": "26709016ce8b4e62e75c80194214a1884edc74a496322e40056ce1703ee02941",
+        "tools/sw2/check_pack_page.cjs": "fb093130e13b7e11e996f681f7845620b51e1a2802b6e7b80e8cf3eef92c5eff",
+        "subject.html": "e5515e9169c05d51252d0ae1a7c68c49df3011fba4b481d587f5425cc060af96",
+        "assets/catalogue/hub.js": "e57c6dc62ce1d188d74374e6fc11975bb0f073770e28745ec10c149eb9632ba2",
+        "assets/catalogue/hub.css": "603586d0668c39a2039891ab9f599cc234f65748a6794eee7fc65c334b5a23e5",
         "data/calendar-spine.json": "d199474b13c9d340add2c87165396d83712b0f1c9f8bd03b7b12e8fdf6af0d61",
         "Humanities_Teesside/David_Cover_Autumn1_W3-W7/index.html": "4e25eb9ca8f9f93c720d88d945f3d6d79580f3362a88698fe7af75d146f01e96",
         "assets/catalogue/catalogue.css": "59abee137c41a8a015e42cf0b32d20b7f4e5fc8e3d236a1cd735322386bf8569",
@@ -631,7 +635,7 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # unchanged between the two, so the gate itself still does not move.
 # GC1 12 September: reviewed 810ae8f8 -> 3c2743fb registration-only carrier.
 # SW2-T5R1: consumer-specific registry-only carriers, with unchanged publisher code.
-PUBLICATION_CALLER_SHA256 = "79cf12c745f95b613069d57a4d11a4685d7446da2b06fd7111e72722015a919a"
+PUBLICATION_CALLER_SHA256 = "93e65dd073e0df1cfd53b475b8fd71e65ab026ae7cc5a6c1a1014e504f9fcc65"
 # One reviewed caller digest per repository kind. detect_kind() reads the root
 # it is standing in, so this entry is only ever compared against the Apps
 # repository's own caller: the Lessons gate run and the Apps gate runs are the
