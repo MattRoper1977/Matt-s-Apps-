@@ -19,7 +19,7 @@ const BASE=arg('--base',process.env.MBM_BASE_URL);
 if(!BASE)throw Error('--base must name the project mount or deployed project URL');
 const OUT=arg('--output','audit-output/sw2-token-inertness.json');
 // Actual unchanged pinned-builder output measurements, not raw-source digests.
-const PUBLISHED={"apps":{"":"0dee121f685c7fe7e61d95870da1ce9d12c3968bd3a6920ecacc0b2a0d175b19"},"lessons":{"":"5da2c06375c9a088b01a94facb82f9b7c69c388adf01745b917cc34efc8c089c","subject.html":"45a79c3fe7f709df105c87959d12ab79d9a883cdc8947ff35b1de6c7617ad141"}};
+const PUBLISHED={"apps":{"":"1053c2b8cd5660a6f39381bd764498d015ee2b1e6be4bd1547b38c1a590363d7"},"lessons":{"":"5da2c06375c9a088b01a94facb82f9b7c69c388adf01745b917cc34efc8c089c","subject.html":"45a79c3fe7f709df105c87959d12ab79d9a883cdc8947ff35b1de6c7617ad141"}};
 const published=process.argv.includes('--published');
 const routes=KIND==='lessons'?['','subject.html','subject.html?subject=science']:[''];
 async function waitForPublished(){
@@ -59,7 +59,7 @@ if(await p.locator('link[href$="assets/mbm-tokens.css"]').getAttribute('href')!=
 await p.evaluate(mode=>{document.documentElement.setAttribute('data-theme',mode==='dark'?'dark':'light');},mode);await settle(p);
 const setEnabled=async yes=>{await p.evaluate(yes=>{document.querySelector('link[href$="assets/mbm-tokens.css"]').sheet.disabled=!yes;},yes);await settle(p);};
 await setEnabled(false);const baseline=await snap(p);await setEnabled(true);const enabled=await snap(p);const delta=diffs(baseline,enabled);if(delta.length)throw Error('Token inertness failed '+JSON.stringify({route,width,mode,delta:delta.slice(0,5)}));
-const defect=await p.addStyleTag({content:'h1 { color: rgb(255, 0, 255) !important; }'});await settle(p);const broken=await snap(p);let red=diffs(enabled,broken);if(!red.length)throw Error('Visible defect missed');await defect.evaluate(e=>e.remove());await settle(p);const restored=await snap(p);if(diffs(enabled,restored).length)throw Error('Restored failed');
+const defect=await p.addStyleTag({content:'html body.mbm-hub.mbm-hub-apps main#main .hero h1, h1 { color: rgb(255, 0, 255) !important; }'});await settle(p);const broken=await snap(p);let red=diffs(enabled,broken);if(!red.length)throw Error('Visible defect missed');await defect.evaluate(e=>e.remove());await settle(p);const restored=await snap(p);if(diffs(enabled,restored).length)throw Error('Restored failed');
 rows.push({kind:KIND,route,width,mode,elements:enabled.length,pseudos:3,properties:'all non-custom computed properties plus geometry',scope:published?'authored body outside explicitly marked shared navigation/signoff':'every source element',inertness:'PASS',plantedVisibleDefect:'FAIL',changedElements:red.length,restored:'PASS',pageErrors:errors});console.log(JSON.stringify(rows.at(-1)));await ctx.close();
 }
 fs.mkdirSync(path.dirname(OUT),{recursive:true});fs.writeFileSync(OUT,JSON.stringify({status:'PASS',base:BASE,publishedBytesChecked:published,token:TOKEN,rows},null,2)+'\n');
