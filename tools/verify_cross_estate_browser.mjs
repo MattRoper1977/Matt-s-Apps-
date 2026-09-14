@@ -2,6 +2,7 @@
    Browser matrix for one Lessons or Apps hub. */
 import { chromium } from 'playwright';
 import fs from 'node:fs';
+import crypto from 'node:crypto';
 import path from 'node:path';
 
 const base=(process.env.MBM_BASE_URL||process.argv[2]||'http://127.0.0.1:4173/').replace(/\/?$/,'/');
@@ -185,15 +186,25 @@ try{
           await page.locator('[data-clear-filters]').click();
           check((await page.locator('#search').inputValue())==='',`lessons: clear filters did not reset search`);
         }else{
+          // A PR proves the still-published rollback separately from its mounted candidate.
+          // After merge (push/live run), only the new hub is accepted.
+          const newHub=await page.locator('main[data-sw2-apps-hub]').count()===1;
+          if(!newHub){
+            check(educationNavigation&&process.env.GITHUB_EVENT_NAME==='pull_request','SW2 A candidate/production run requires the new hub');
+            const digest=crypto.createHash('sha256').update(await response.body()).digest('hex');
+            check(digest==='0dee121f685c7fe7e61d95870da1ce9d12c3968bd3a6920ecacc0b2a0d175b19','Pre-merge production must equal the exact reviewed rollback');
+          }
           // SW2 A: census every manifest-owned card, never a frozen count.
           const manifest=await (await page.request.get(new URL('apps.json',base).href)).json();
-          const expected=manifest.spaces.flatMap(s=>s.items.map(it=>({href:new URL(it.f,base).href,title:it.n,description:it.d||'',action:'Open '+it.n+' →'}))).sort((a,b)=>a.href.localeCompare(b.href));
+          const expected=manifest.spaces.flatMap(s=>s.items.map(it=>({href:new URL(it.f,base).href,title:it.n,description:it.d||'',action:newHub?'Open '+it.n+' →':'LAUNCH STUDIO →'}))).sort((a,b)=>a.href.localeCompare(b.href));
           const census=()=>page.locator('#groups .card').evaluateAll(es=>es.map(e=>({href:e.querySelector('a.open').href,title:e.querySelector('h3').textContent,description:e.querySelector('p').textContent,action:e.querySelector('a.open').textContent})).sort((a,b)=>a.href.localeCompare(b.href)));
           check(JSON.stringify(await census())===JSON.stringify(expected),'SW2 A: every tool href, title and description must equal its manifest');
+          if(newHub){
           check(await page.locator('h1').innerText()==='Apps & tools','SW2 A heading');
           check(await page.locator('#search').getAttribute('placeholder')==='Find a tool','SW2 A search placeholder');
           check(JSON.stringify(await page.locator('#chips button').allTextContents())===JSON.stringify(['All',...manifest.spaces.map(s=>s.cat)]),'SW2 A categories come from the manifest');
           check(await page.getByRole('link',{name:'Teacher homepage →',exact:true}).getAttribute('href')==='/for/teachers/','SW2 A teacher return');
+          }
           const original=await page.locator('#groups .card a.open').first().getAttribute('href');
           await page.locator('#groups .card a.open').first().evaluate(e=>e.setAttribute('href','missing-sw2-tool.html'));
           check(JSON.stringify(await census())!==JSON.stringify(expected),'SW2 A href defect must be rejected');
