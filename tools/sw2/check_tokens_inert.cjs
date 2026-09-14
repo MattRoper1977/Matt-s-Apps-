@@ -4,7 +4,9 @@
  * stylesheet is the baseline; no element is omitted because of load timing.
  * Published shared navigation and signoff now intentionally consume tokens; only
  * those exact marked components are excluded from the body-inertness comparison.
- * The source comparison still covers every element. Publication chrome has its
+ * SW2 A intentionally consumes the approved ink token in exactly its hub h1.
+ * That one heading keeps an explicit token-colour and invariant-geometry check;
+ * all remaining source/body elements retain the full inertness comparison. Publication chrome has its
  * own 31-surface token, contrast, keyboard and mutation checks in the Site gate.
  * Every case plants a visible body colour change, requires the comparator to fail,
  * removes it and requires the restored page to pass. No production bytes mutate.
@@ -19,7 +21,7 @@ const BASE=arg('--base',process.env.MBM_BASE_URL);
 if(!BASE)throw Error('--base must name the project mount or deployed project URL');
 const OUT=arg('--output','audit-output/sw2-token-inertness.json');
 // Actual unchanged pinned-builder output measurements, not raw-source digests.
-const PUBLISHED={"apps":{"":"0dee121f685c7fe7e61d95870da1ce9d12c3968bd3a6920ecacc0b2a0d175b19"},"lessons":{"":"5da2c06375c9a088b01a94facb82f9b7c69c388adf01745b917cc34efc8c089c","subject.html":"45a79c3fe7f709df105c87959d12ab79d9a883cdc8947ff35b1de6c7617ad141"}};
+const PUBLISHED={"apps":{"":"d235dab94b856c16268d0815901b89cddc9d6646c95e5ba4529303fb9e16c1c1"},"lessons":{"":"5da2c06375c9a088b01a94facb82f9b7c69c388adf01745b917cc34efc8c089c","subject.html":"45a79c3fe7f709df105c87959d12ab79d9a883cdc8947ff35b1de6c7617ad141"}};
 const published=process.argv.includes('--published');
 const routes=KIND==='lessons'?['','subject.html','subject.html?subject=science']:[''];
 async function waitForPublished(){
@@ -46,7 +48,7 @@ async function waitForPublished(){
 async function settle(page){await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));await page.waitForTimeout(350);}
 // Fingerprint every observed style value before transport; retain all elements, pseudos and geometry.
 // Independent full-observation transport comparison verifies the same SHA-256 values.
-async function snap(page){return page.evaluate(async published=>Promise.all(Array.from(document.querySelectorAll('*')).filter(e=>e.tagName!=='STYLE'&&(!published||!e.closest('[data-mbm-navigation="education"],[data-mbm-chrome="signoff"]'))).map(async e=>{let vals=[];for(const pseudo of [null,'::before','::after']){let s=getComputedStyle(e,pseudo);vals.push(Array.from(s).filter(p=>!p.startsWith('--')).map(p=>[p,s.getPropertyValue(p)]));}let r=e.getBoundingClientRect();const record={tag:e.tagName,id:e.id,styles:vals,rect:[r.x,r.y,r.width,r.height]};const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(record.styles)));record.styles=Array.from(new Uint8Array(bytes),b=>b.toString(16).padStart(2,'0')).join('');return record;})),published);}
+async function snap(page){return page.evaluate(async published=>Promise.all(Array.from(document.querySelectorAll('*')).filter(e=>e.tagName!=='STYLE'&&(!published||!e.closest('[data-mbm-navigation="education"],[data-mbm-chrome="signoff"]'))).map(async e=>{let vals=[];for(const pseudo of [null,'::before','::after']){let s=getComputedStyle(e,pseudo);vals.push(Array.from(s).filter(p=>!p.startsWith('--')).map(p=>[p,s.getPropertyValue(p)]));}let r=e.getBoundingClientRect();const record={tag:e.tagName,id:e.id,sw2Heading:e.matches('main[data-sw2-apps-hub] > .hero h1'),styles:vals,rect:[r.x,r.y,r.width,r.height]};const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(record.styles)));record.styles=Array.from(new Uint8Array(bytes),b=>b.toString(16).padStart(2,'0')).join('');return record;})),published);}
 function diffs(a,b){if(a.length!==b.length)throw Error('DOM changed during measurement');let d=[];for(let i=0;i<a.length;i++)if(JSON.stringify(a[i])!==JSON.stringify(b[i]))d.push({index:i,tag:a[i].tag,id:a[i].id});return d;}
 (async()=>{await waitForPublished();const browser=await chromium.launch();let rows=[];try{
 for(const route of routes)for(const width of [390,1440])for(const mode of ['light','dark','preferences']){
@@ -58,9 +60,19 @@ const count=await p.locator('link[href$="assets/mbm-tokens.css"]').count();if(co
 if(await p.locator('link[href$="assets/mbm-tokens.css"]').getAttribute('href')!=='/assets/mbm-tokens.css')throw Error('Expected origin-root token URL');
 await p.evaluate(mode=>{document.documentElement.setAttribute('data-theme',mode==='dark'?'dark':'light');},mode);await settle(p);
 const setEnabled=async yes=>{await p.evaluate(yes=>{document.querySelector('link[href$="assets/mbm-tokens.css"]').sheet.disabled=!yes;},yes);await settle(p);};
-await setEnabled(false);const baseline=await snap(p);await setEnabled(true);const enabled=await snap(p);const delta=diffs(baseline,enabled);if(delta.length)throw Error('Token inertness failed '+JSON.stringify({route,width,mode,delta:delta.slice(0,5)}));
-const defect=await p.addStyleTag({content:'h1 { color: rgb(255, 0, 255) !important; }'});await settle(p);const broken=await snap(p);let red=diffs(enabled,broken);if(!red.length)throw Error('Visible defect missed');await defect.evaluate(e=>e.remove());await settle(p);const restored=await snap(p);if(diffs(enabled,restored).length)throw Error('Restored failed');
-rows.push({kind:KIND,route,width,mode,elements:enabled.length,pseudos:3,properties:'all non-custom computed properties plus geometry',scope:published?'authored body outside explicitly marked shared navigation/signoff':'every source element',inertness:'PASS',plantedVisibleDefect:'FAIL',changedElements:red.length,restored:'PASS',pageErrors:errors});console.log(JSON.stringify(rows.at(-1)));await ctx.close();
+await setEnabled(false);const baseline=await snap(p);await setEnabled(true);const enabled=await snap(p);const delta=diffs(baseline,enabled);
+// A owns its redesigned hub heading; T's inertness remains on every other element.
+const heading=enabled.flatMap((r,i)=>r.sw2Heading?[i]:[]);
+if(KIND==='apps'){
+ if(heading.length!==1)throw Error('SW2 A heading scope is missing or ambiguous');
+ const index=heading[0];if(JSON.stringify(baseline[index].rect)!==JSON.stringify(enabled[index].rect))throw Error('Tokens changed the Apps heading geometry');
+ const ink=await p.locator('main[data-sw2-apps-hub] > .hero h1').evaluate(e=>({colour:getComputedStyle(e).color,token:getComputedStyle(e).getPropertyValue('--mbm-primary').trim()}));
+ const hex=ink.token.replace('#','');if(!/^[0-9a-f]{6}$/i.test(hex))throw Error('Unsupported approved heading ink');
+ const rgb='rgb('+[0,2,4].map(i=>parseInt(hex.slice(i,i+2),16)).join(', ')+')';if(ink.colour!==rgb)throw Error('Apps heading does not use the approved reading-theme ink: '+JSON.stringify(ink));
+}
+const unexpected=delta.filter(d=>!heading.includes(d.index));if(unexpected.length)throw Error('Token inertness failed '+JSON.stringify({route,width,mode,delta:unexpected.slice(0,5)}));
+const defect=await p.addStyleTag({content:'html body.mbm-hub.mbm-hub-apps main#main .hero h1, h1 { color: rgb(255, 0, 255) !important; }'});await settle(p);const broken=await snap(p);let red=diffs(enabled,broken);if(!red.length)throw Error('Visible defect missed');await defect.evaluate(e=>e.remove());await settle(p);const restored=await snap(p);if(diffs(enabled,restored).length)throw Error('Restored failed');
+rows.push({kind:KIND,route,width,mode,elements:enabled.length,pseudos:3,properties:'all non-custom computed properties plus geometry',scope:published?'authored body outside explicitly marked shared navigation/signoff':'every source element',inertness:'PASS',approvedTokenHeading:heading.length,plantedVisibleDefect:'FAIL',changedElements:red.length,restored:'PASS',pageErrors:errors});console.log(JSON.stringify(rows.at(-1)));await ctx.close();
 }
 fs.mkdirSync(path.dirname(OUT),{recursive:true});fs.writeFileSync(OUT,JSON.stringify({status:'PASS',base:BASE,publishedBytesChecked:published,token:TOKEN,rows},null,2)+'\n');
 }finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

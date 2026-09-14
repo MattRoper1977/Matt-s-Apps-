@@ -113,8 +113,8 @@ PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it wri
 # named byte set is checked, including additions, on every Lessons gate run.
 # Apps retains its original authored-wording comparison. This block is updated
 # in both gate copies by tools/catalogue/pin_catalogue_contract.py after review.
-# Apps Creator Hub wording after HC5 D2 (Ko-fi line removed), reviewed 2026-09-07.
-APPS_HUB_REVIEWED_WORDING_SHA256 = "696efb97549286f33b9514308bee48d82d3af654cf611e1f522d6362adcedc1e"
+# SW2 A hub wording explicitly approved by Matt, 2026-09-14; manifest/tool bytes stay pinned.
+APPS_HUB_REVIEWED_WORDING_SHA256 = "9e5a4ac6c1e9bfb04a1c0186a82fce96aa03565a02dc3f18ee1569fb4b5664bf"
 
 # BEGIN REVIEWED CATALOGUE PINS
 CATALOGUE_PINS = {
@@ -648,7 +648,7 @@ PUBLICATION_CALLER_SHA256 = "d61ecd6282920f51ec4f4c19efa0439944f290d173dda49c852
 # copies back in step is what made it fire.
 PUBLICATION_CALLER_SHA256_BY_KIND = {
     "lessons": PUBLICATION_CALLER_SHA256,
-    "apps": "ea9290cbc8988eb8a5409e9426580d4d07656bdabb78c3822d5177bfeb9b52c4",
+    "apps": "ec616998343861c991183b885e7513eb96b008b38b384fba6b4cad571fc84927",
 }
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
@@ -658,7 +658,7 @@ PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification
 # No standalone payload or arbitrary CI path is granted. Both gate copies match.
 LUNDYLOOP_CI_PINS = {
     # SW2-T5R1: the shared browser proof is also required at reviewed bytes.
-    "tools/sw2/check_tokens_inert.cjs": "70b44199250d15e145e23149d3157389f12a2acaec07a2c6063e976801f0426d",
+    "tools/sw2/check_tokens_inert.cjs": "f9ffaaab38cdf07d153c509e5503df4ace2487b6cc047aca4727d8fbc415fffe",
     ".github/workflows/verify-lundyloop-professional-os.yml": "7e6cf886ff1af45cc3bcf255ee6a688b75dbb4034fce20b609fe0188a63c11ce",
     "tools/lundyloop/verify_live_bytes.py": "a27f791633260e7e2d8ba7ca2abe5a35db105b9ccbf96d26205628dcc1e636ad",
     "tools/lundyloop/test_live_bytes.py": "972ca2ae06da44722bfd011fda03a361c6011c699f95bb6ce78bca95b71f2e77"

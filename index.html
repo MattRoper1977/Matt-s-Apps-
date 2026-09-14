@@ -1,8 +1,8 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="mbm-platform-version" content="mbm-cross-estate-unification-lessons-apps-2026-08-08">
-<title>The Creator Hub — Made by Matt</title>
-<meta name="description" content="Your offline creative workshop — design, educate and build with catalogue-driven single-file studios that run straight from the browser.">
+<title>Apps &amp; tools · Made by Matt</title>
+<meta name="description" content="Practical tools for teaching and learning.">
 <meta name="theme-color" content="#161D3D">
 <link rel="icon" href="https://madebymatt.uk/favicon.svg">
 <style>
@@ -184,6 +184,26 @@ html[data-theme="highlumen"] .header a,html[data-theme="highlumen"] .header stro
 </style></noscript>
 <script>try{var t=localStorage.getItem('mbm_reading_theme');if(t&&t!=='cream')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 <!-- mbm-chrome:tokens --><link rel="stylesheet" href="/assets/mbm-tokens.css"><!-- /mbm-chrome:tokens -->
+<style>
+/* SW2 A: the Apps catalogue front door. Tool payloads and manifest values are unchanged. */
+body.mbm-hub.mbm-hub-apps .hero{background:var(--mbm-bg,#f6f1e7);text-align:left;border-bottom:0}
+body.mbm-hub.mbm-hub-apps .hero-in{padding:2rem 1rem 1rem}
+body.mbm-hub.mbm-hub-apps .hero h1{color:var(--mbm-primary,#161d3d)!important;font-size:clamp(2rem,5vw,3.25rem);letter-spacing:-.035em}
+body.mbm-hub.mbm-hub-apps .hero .lead{margin:0;color:var(--mut,#454c6b)}
+body.mbm-hub.mbm-hub-apps .apps-breadcrumb{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;font-size:.85rem}
+body.mbm-hub.mbm-hub-apps .apps-breadcrumb a{display:inline-flex;align-items:center;min-width:44px;min-height:44px;color:inherit}
+body.mbm-hub.mbm-hub-apps .apps-total{margin-top:.65rem;color:var(--mut,#454c6b);font-size:.85rem}
+body.mbm-hub.mbm-hub-apps .chiprow{flex-wrap:wrap;overflow:visible}
+body.mbm-hub.mbm-hub-apps .card{padding:1.25rem;gap:.7rem}
+body.mbm-hub.mbm-hub-apps .card .open{font-size:.85rem;letter-spacing:0;border-radius:8px;text-transform:none;padding:.6rem .9rem}
+body.mbm-hub.mbm-hub-apps .card p{font-size:.92rem;flex:none;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+body.mbm-hub.mbm-hub-apps .apps-teaching{opacity:1;transform:none;max-width:var(--max,1180px);margin:2rem auto;padding:1.5rem;background:#e1ecdf;color:#263c32;border-radius:12px}
+body.mbm-hub.mbm-hub-apps .apps-teaching h2{color:#263c32!important;font-size:1.35rem}
+body.mbm-hub.mbm-hub-apps .apps-teaching p{margin:.4rem 0;color:#263c32}
+body.mbm-hub.mbm-hub-apps .apps-teaching a{display:inline-flex;align-items:center;min-height:44px;min-width:44px;font-weight:750;color:#263c32;text-underline-offset:.2em}
+@media(max-width:1212px){body.mbm-hub.mbm-hub-apps .apps-teaching{margin-inline:1rem}}
+@media(prefers-contrast:more){body.mbm-hub.mbm-hub-apps .apps-teaching{border:2px solid #263c32}}
+</style>
 </head><body class="mbm-hub mbm-hub-apps" data-mbm-estate="apps">
 <a class="skip" href="#main">Skip to content</a>
 <header class="header mbm-site-header" data-mbm-platform="mbm-cross-estate-unification-lessons-apps-2026-08-08"><div class="bar">
@@ -193,38 +213,21 @@ html[data-theme="highlumen"] .header a,html[data-theme="highlumen"] .header stro
 <nav class="nav mbm-site-nav" id="nav" aria-label="Site navigation"><div class="mbm-primary-links"><a href="/games/">Games</a><a href="/Lessons/">Lessons</a><a href="/Matt-s-Apps-/" aria-current="page">Apps</a><a href="/tools/">Tools</a><a href="/resources/">Resources</a></div><details class="mbm-nav-more"><summary>More</summary><div class="mbm-nav-panel"><a href="/stats/">Stats</a><a href="/members/">Members</a><a href="/#about">About</a><a href="/privacy/">Privacy</a></div></details><details class="mbm-theme-menu"><summary>Display</summary><div class="mbm-theme-panel" data-mbm-theme-slot></div></details></nav>
 </div></header>
 
-<main id="main">
+<main id="main" data-sw2-apps-hub>
 <section class="hero"><div class="hero-in">
-<p class="eyebrow">A Made by Matt collection</p>
-<h1>THE CREATOR <span>HUB</span></h1>
-<p class="lead">Your offline creative workshop. <span id="leadCount">Thirty-nine</span> single-file studios that run straight from the browser — design something, learn something, build something. Nothing installs, nothing uploads.</p>
+<nav class="apps-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true"> / </span><span>Apps &amp; tools</span></nav>
+<h1>Apps &amp; tools</h1>
+<p class="lead">Practical tools for teaching and learning.</p><p class="apps-total"><span id="leadCount">Thirty-nine</span> tools in the catalogue.</p>
 <span class="count" id="count" aria-live="polite" aria-atomic="true">Loading…</span>
-</div></section>
-
-<section class="trio" aria-label="What you can do here">
-<div class="t design"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 10 L26 44 M32 10 L38 44" stroke="#B96A14" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="10" r="4.5" fill="#E08A2E"/><path d="M23 48 A11 11 0 0 0 41 48" stroke="#B96A14" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
-<span class="tn">DESIGN</span><span class="td">Posters, paintings, photos and layouts — craft visuals with no boundaries.</span></div>
-<div class="t educate"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 16 Q22 12 32 16 L32 50 Q22 46 12 50 Z" fill="#B9E6CD" stroke="#2F6B4D" stroke-width="2.5"/><path d="M52 16 Q42 12 32 16 L32 50 Q42 46 52 50 Z" fill="#fff" stroke="#2F6B4D" stroke-width="2.5"/></svg>
-<span class="tn">EDUCATE</span><span class="td">Classroom tools, organisers and calm-corner support — teach and settle smart.</span></div>
-<div class="t buildc"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="26" cy="30" r="11" fill="none" stroke="#6d5cf5" stroke-width="4"/><circle cx="26" cy="30" r="3.5" fill="#6d5cf5"/><g stroke="#6d5cf5" stroke-width="4" stroke-linecap="round"><path d="M26 15 V10 M26 45 V50 M11 30 H6 M41 30 H46 M15.4 19.4 L11.9 15.9 M36.6 40.6 L40.1 44.1 M15.4 40.6 L11.9 44.1 M36.6 19.4 L40.1 15.9"/></g><circle cx="45" cy="45" r="7" fill="none" stroke="#8f83f8" stroke-width="3.5"/></svg>
-<span class="tn">BUILD</span><span class="td">Films, music, websites and block-code worlds — construct digital things, code-free.</span></div>
-</section>
-
-<section class="feature" aria-label="Featured studio"><div>
-<span class="fi" aria-hidden="true">🎬</span>
-<div><p class="fk">Featured studio</p>
-<h2>Animation Studio</h2>
-<p>Stop-motion films, frame by frame — onion-skinning, playback speed and export, all in the browser. Storyboard an idea in the morning, screen it by home time.</p>
-<a class="go" href="Animation_Studio.html">Open Animation Studio</a></div>
 </div></section>
 
 <div class="segrow rail" role="group" aria-label="Filter studios by audience"><span class="lbl">WHO IS IT FOR:</span><button class="seg" data-aud="" aria-pressed="true" aria-controls="groups">ALL</button><button class="seg" data-aud="t" aria-pressed="false" aria-controls="groups">🍎 TEACHER</button><button class="seg" data-aud="g" aria-pressed="false" aria-controls="groups">🤝 TA / SUPPORT</button><button class="seg" data-aud="p" aria-pressed="false" aria-controls="groups">👤 STUDENT</button></div>
 <div class="toolbar" role="search" aria-label="Filter the catalogue">
-<label>Search the studios<input id="search" type="search" placeholder="Try: poster, quiz, stop-motion…" autocomplete="off"></label>
+<label>Find a tool<input id="search" type="search" placeholder="Find a tool" autocomplete="off"></label>
 </div>
 <div class="chiprow rail" id="chips" aria-label="Browse by space"></div>
 <p class="status" id="status" aria-live="polite" aria-atomic="true"></p>
-<div id="groups"></div>
+<div id="groups"></div><section class="apps-teaching"><h2>Teaching today?</h2><p>Find your saved lessons and teaching packs.</p><a href="/for/teachers/">Teacher homepage →</a></section>
 </main>
 <aside class="sig"><div><span class="wave" aria-hidden="true">👋</span><p><b>From Matt</b> — I teach science and art in an alternative provision in the North East, and every file on this shelf started life in front of a real class. It’s all free and it stays that way. Spotted a bug or got an idea? <a href="mailto:contactmadebymatt@gmail.com">Tell me</a> — I read everything.</p></div></aside>
 
@@ -264,7 +267,7 @@ function card(it){
 return `<article class="card" style="--ac:${hexc(it.c)}">
 <div style="display:flex;justify-content:space-between;align-items:flex-start"><span class="ci" aria-hidden="true">${esc(it.i||"🧰")}</span>${it.new?'<span class="pill">NEW</span>':''}</div>
 <h3>${esc(it.n)}</h3><span class="aud aud-${audOf(it)}">${AUDL[audOf(it)]}</span><p>${esc(it.d||"")}</p>
-<a class="open" href="${esc(safeHref(it.f))}">LAUNCH STUDIO →</a></article>`}
+<a class="open" href="${esc(safeHref(it.f))}">Open ${esc(it.n)} →</a></article>`}
 function bridge(){return `<div class="bridge"><span class="stamp">FROM THE LESSON HUB · ARTS AWARD MAPPED ✓</span>
 <h3>Teesside Art Studio Suite — the full lesson programme</h3>
 <p>These studios make the work — the suite teaches it: a term of art lessons across BUILD (Explore), GROW (Bronze) and LAUNCH (Silver), each with three tiers and a print pack built in.</p>
@@ -296,7 +299,7 @@ setStatus(shown,total);
 }
 function chips(){
 const c=(label,val,on)=>`<button class="chip" data-cat="${esc(val)}" aria-pressed="${on?"true":"false"}" aria-controls="groups">${esc(label)}</button>`;
-$("#chips").innerHTML=c("All studios","",!CAT)+DATA.spaces.map(s=>c(`${s.cat} (${s.items.length})`,s.cat,CAT===s.cat)).join("");
+$("#chips").innerHTML=c("All","",!CAT)+DATA.spaces.map(s=>c(`${s.cat}`,s.cat,CAT===s.cat)).join("");
 }
 function clearFilters(){
   CAT="";Q="";AUD="";$("#search").value="";
