@@ -123,7 +123,7 @@ CATALOGUE_PINS = {
         "assets/catalogue/display-titles.json": "d5a545890a3f9ce116aa5fc0ceecb8f4917dd3d03621d03b5cd3a6fad0abd399",
         "tools/catalogue/build_display_titles.py": "855f250e5a66dfc0857f83f246db9a72b0d6da7fa78278c1caa8c2529c64e149",
         "tools/catalogue/check_display_titles.cjs": "a52a18208876902ea2052c9f2deb325c1717bcd4b474115e1c6e325ea769daf4",
-        "tools/catalogue/check_display_titles_browser.cjs": "b6cbbe9f899867d9a7a6d21acfad2119f1a4a8bef7553e72c8d19d4e29805b9d",
+        "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
         "tools/verify_lessons_chips.mjs": "f6561fb7633bb65689acc27381c205648d5ecc099465137adde3b24c706ad130",
         "tools/sw2/check_tokens_inert.cjs": "70b44199250d15e145e23149d3157389f12a2acaec07a2c6063e976801f0426d",
         "assets/catalogue/lesson-order.json": "87cc6f6815efbb9fe2c27333b5860917566774f10f8cc49236a645958e7a6141",
