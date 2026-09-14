@@ -185,6 +185,20 @@ try{
           await page.locator('[data-clear-filters]').click();
           check((await page.locator('#search').inputValue())==='',`lessons: clear filters did not reset search`);
         }else{
+          // SW2 A: census every manifest-owned card, never a frozen count.
+          const manifest=await (await page.request.get(new URL('apps.json',base).href)).json();
+          const expected=manifest.spaces.flatMap(s=>s.items.map(it=>({href:new URL(it.f,base).href,title:it.n,description:it.d||'',action:'Open '+it.n+' →'}))).sort((a,b)=>a.href.localeCompare(b.href));
+          const census=()=>page.locator('#groups .card').evaluateAll(es=>es.map(e=>({href:e.querySelector('a.open').href,title:e.querySelector('h3').textContent,description:e.querySelector('p').textContent,action:e.querySelector('a.open').textContent})).sort((a,b)=>a.href.localeCompare(b.href)));
+          check(JSON.stringify(await census())===JSON.stringify(expected),'SW2 A: every tool href, title and description must equal its manifest');
+          check(await page.locator('h1').innerText()==='Apps & tools','SW2 A heading');
+          check(await page.locator('#search').getAttribute('placeholder')==='Find a tool','SW2 A search placeholder');
+          check(JSON.stringify(await page.locator('#chips button').allTextContents())===JSON.stringify(['All',...manifest.spaces.map(s=>s.cat)]),'SW2 A categories come from the manifest');
+          check(await page.getByRole('link',{name:'Teacher homepage →',exact:true}).getAttribute('href')==='/for/teachers/','SW2 A teacher return');
+          const original=await page.locator('#groups .card a.open').first().getAttribute('href');
+          await page.locator('#groups .card a.open').first().evaluate(e=>e.setAttribute('href','missing-sw2-tool.html'));
+          check(JSON.stringify(await census())!==JSON.stringify(expected),'SW2 A href defect must be rejected');
+          await page.locator('#groups .card a.open').first().evaluate((e,href)=>e.setAttribute('href',href),original);
+          check(JSON.stringify(await census())===JSON.stringify(expected),'SW2 A restored tool census');
           const expectedLead=await manifestLeadWord();
           check(metrics.leadCount===expectedLead,`apps: manifest-derived lead count was '${metrics.leadCount}', apps.json derives '${expectedLead}'`);
           await page.locator('.seg[data-aud="t"]').click();

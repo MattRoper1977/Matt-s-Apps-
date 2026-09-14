@@ -15,6 +15,6 @@ jobs:
     # SW2 Part T candidate: scoped owner chrome; companion inputs and workflow logic unchanged.
     # Part T completion approved 2026-09-13: current owner palette/chrome and exact rollback admissions.
     # Companion inputs and workflow logic remain unchanged; release follows verified Site root assets.
-    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@9b1d3b43cc57cb714016f2248fc153ec7d63a066
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@297d2cea5bba2b8400dfefd8b26d4de7ee72aee1
     with:
-      builder_ref: 9b1d3b43cc57cb714016f2248fc153ec7d63a066
+      builder_ref: 297d2cea5bba2b8400dfefd8b26d4de7ee72aee1

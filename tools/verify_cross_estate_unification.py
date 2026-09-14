@@ -113,8 +113,8 @@ PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it wri
 # named byte set is checked, including additions, on every Lessons gate run.
 # Apps retains its original authored-wording comparison. This block is updated
 # in both gate copies by tools/catalogue/pin_catalogue_contract.py after review.
-# Apps Creator Hub wording after HC5 D2 (Ko-fi line removed), reviewed 2026-09-07.
-APPS_HUB_REVIEWED_WORDING_SHA256 = "696efb97549286f33b9514308bee48d82d3af654cf611e1f522d6362adcedc1e"
+# SW2 A hub wording explicitly approved by Matt, 2026-09-14; manifest/tool bytes stay pinned.
+APPS_HUB_REVIEWED_WORDING_SHA256 = "9e5a4ac6c1e9bfb04a1c0186a82fce96aa03565a02dc3f18ee1569fb4b5664bf"
 
 # BEGIN REVIEWED CATALOGUE PINS
 CATALOGUE_PINS = {
@@ -648,7 +648,7 @@ PUBLICATION_CALLER_SHA256 = "d61ecd6282920f51ec4f4c19efa0439944f290d173dda49c852
 # copies back in step is what made it fire.
 PUBLICATION_CALLER_SHA256_BY_KIND = {
     "lessons": PUBLICATION_CALLER_SHA256,
-    "apps": "ea9290cbc8988eb8a5409e9426580d4d07656bdabb78c3822d5177bfeb9b52c4",
+    "apps": "9955cf4501a3de221331625defe835668f25a92244a105ffa95bf12908b98a7b",
 }
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
