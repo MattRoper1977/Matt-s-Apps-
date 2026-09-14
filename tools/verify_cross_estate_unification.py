@@ -648,7 +648,7 @@ PUBLICATION_CALLER_SHA256 = "d61ecd6282920f51ec4f4c19efa0439944f290d173dda49c852
 # copies back in step is what made it fire.
 PUBLICATION_CALLER_SHA256_BY_KIND = {
     "lessons": PUBLICATION_CALLER_SHA256,
-    "apps": "48b9ada86b1ad06e91ab7a766679e9b48441ca2ff66b4b9ee6b021403a69e254",
+    "apps": "ec616998343861c991183b885e7513eb96b008b38b384fba6b4cad571fc84927",
 }
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
@@ -658,7 +658,7 @@ PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification
 # No standalone payload or arbitrary CI path is granted. Both gate copies match.
 LUNDYLOOP_CI_PINS = {
     # SW2-T5R1: the shared browser proof is also required at reviewed bytes.
-    "tools/sw2/check_tokens_inert.cjs": "6ac8a680c79da1ffe342db5a723c3e0d27174a0142ecaa5b8dbf88139ccc0768",
+    "tools/sw2/check_tokens_inert.cjs": "f9ffaaab38cdf07d153c509e5503df4ace2487b6cc047aca4727d8fbc415fffe",
     ".github/workflows/verify-lundyloop-professional-os.yml": "7e6cf886ff1af45cc3bcf255ee6a688b75dbb4034fce20b609fe0188a63c11ce",
     "tools/lundyloop/verify_live_bytes.py": "a27f791633260e7e2d8ba7ca2abe5a35db105b9ccbf96d26205628dcc1e636ad",
     "tools/lundyloop/test_live_bytes.py": "972ca2ae06da44722bfd011fda03a361c6011c699f95bb6ce78bca95b71f2e77"
