@@ -204,6 +204,7 @@ try{
           check(await page.locator('#search').getAttribute('placeholder')==='Find a tool','SW2 A search placeholder');
           check(JSON.stringify(await page.locator('#chips button').allTextContents())===JSON.stringify(['All',...manifest.spaces.map(s=>s.cat)]),'SW2 A categories come from the manifest');
           check(await page.getByRole('link',{name:'Teacher homepage →',exact:true}).getAttribute('href')==='/for/teachers/','SW2 A teacher return');
+          check(await page.locator('#groups .card p').evaluateAll(es=>es.filter(e=>e.getClientRects().length).every(e=>e.getBoundingClientRect().height<=parseFloat(getComputedStyle(e).lineHeight)+1)),'SW2 A descriptions stay on one visual line with full manifest text retained');
           }
           const original=await page.locator('#groups .card a.open').first().getAttribute('href');
           await page.locator('#groups .card a.open').first().evaluate(e=>e.setAttribute('href','missing-sw2-tool.html'));
