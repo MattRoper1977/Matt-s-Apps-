@@ -103,7 +103,7 @@ MANIFEST_PINS = {
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
-    "resources.json": "ec46f7d03ca53286b3983043878b648a71528e82a0c9b50b2b4d4c1bd355689b",
+    "resources.json": "80044df349d0ba6cf44c7b0b72b769f47125ae9e68030179368f4cac3d2746d6",
 }
 PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it writes both gate copies or neither)"
 
@@ -126,7 +126,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
         "tools/verify_lessons_chips.mjs": "f6561fb7633bb65689acc27381c205648d5ecc099465137adde3b24c706ad130",
         "tools/sw2/check_tokens_inert.cjs": "482642d3d85a649a5785eed5183dc385bc0c68e294f51cd192af2e7d96d3224e",
-        "assets/catalogue/lesson-order.json": "9d6994e8c78ae2f202023392f769c5b042d10000c9e84949d8dd53eec5242b5d",
+        "assets/catalogue/lesson-order.json": "a2da4adf59da72f8cf07c616b16ff8ae3654c2fce4fabef7651b52716d423e8b",
         "tools/catalogue/build_lesson_order.py": "95032f6572a6b64fa518a7ff6fd1902854c9ef6f204841c553b5078c0afb8a9a",
         "tools/ux2/hub_gates.mjs": "80ae8def49c49e549c8a2e6b65d521cfdaebb2b7d05f650fa6d5e436f2b6586d",
         "index.html": "389c3320b158e9bc472b4402d41d1d23e4bb2d78b54385884c0be6ca31f73309",
@@ -174,7 +174,7 @@ CATALOGUE_PINS = {
         ".github/workflows/watch-main.yml": "796f0aa8d9967fc301bdd47923bb47ad7055f7c5036fa44b2df8780ce31a016c",
         "tools/verify_v6fin_w7_r1_r7.py": "2be87c68256802e46131d9a4c70228e3d8635c51eb1789c01b94f2b316960dae",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
-        "_glv3/tools/verify_change_boundary.py": "0ce6a821ae2e38616d7112c0bd2e44466d5891ef4bc519124ad7fb498931dab5",
+        "_glv3/tools/verify_change_boundary.py": "77a41eacc411fccb5756119a937135a1e2b839837dc5788e5b8cb98c8e73821a",
         "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
         "_glv3/tools/chip_gate.mjs": "16cdd5c0ad3745c57340ed0ec6a208d221e4793bfc9b1cd9bc703a6c2613dd9a",
         "_glv3/tools/catalogue_membership.mjs": "4d7ab03e23ee0d3c3fc934f4f0a901afc61169754db099f4f5c24dd9cce058ec",
@@ -186,9 +186,9 @@ CATALOGUE_PINS = {
         "tools/humanities_resources/check_resources.py": "ec5383e3a34cbff999f190b0014a4a73e00a3a29e2714498f7620fd638dc2aa5",
         "tools/humanities_resources/resource.css": "1aed9aaca0d73a4b200c4e5d0977e73f4e906c747d7340c7a62f4197a8344bae",
         "tools/humanities_resources/resource.js": "ad40afed95490bfcce92dc062da46e1b27bcb96bdc80e37eabdfe02bf6ffc446",
-        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "4fbadac0ceb977912b9d4b2f851a4e974424c3873ab9ae2ca241b726e3dac02f",
+        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "09e1f478c6bd75729aa04ed8679671d25ec9daa6b3a1d45e97033bf4aa4a6a74",
         "tools/catalogue/TERM_REVIEW.json": "b0ed0d82fe21a222c75f6a38390b01defc0d5d958fac8e85421b7901ce6d201d",
-        "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "ba33f84bb2a26975bda5cd9e3cc52c151a3cd5d65edb6b095233209f24525b89",
+        "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "e868c5a976d38f8b6e43e3c515b8a5dd86214fc64d227f756e91085f878eac68",
         "primary/year5/science/autumn/forces/Lesson8_ExploreGravity.html": "20047720bf1d309055abdf232d341b6fd99b833631efa0bcbfb3dabed9671196",
         "primary/year5/science/autumn/forces/Y5_Forces_SoW_and_Plans.docx": "ca36cfd92f1c768ea66f0eb748d47e6227f67569f77b5472d0da13d03f92f2e6",
         "assets/catalogue/science-download-bindings.json": "efb435f7e0dc4c9083050f5bb3e348494838422fe7de6e809fbdf8f877d9b10d",
@@ -572,7 +572,7 @@ CATALOGUE_PINS = {
         "tools/science_teaching_packs/VISUAL_REFRESH_QA.json": "3ce5b90abaf89fc5a2a4085791bb16e09667545cf489a985c1c525bd7698fc80",
         ".github/workflows/science-teaching-packs.yml": "385c2cff9f8ba709070380d0f6dbd11af89b72f9b5e847e68bf4264287927c88",
         "tools/stale_evidence_sweep.mjs": "17813c59e3752fb9843374a302895d0d4710fb2c749d29af81a77873ff9d3677",
-        "Science_Teesside/Build/W8-W13_2026-27/SCI_B_W8A_Sugar_Labels_Explore.html": "fdf2d09803e19d11e8f82949efaeb8255893627841fd1a3f7860093350bbca1e",
+        "Science_Teesside/Build/W8-W13_2026-27/SCI_B_W8A_Sugar_Labels_Explore.html": "8594f15916211ff3de03bb928b2de3756bff0dbe8c52adabd3e4cccfda9d42a3",
         "Science_Teesside/Teaching_Packs/BUILD/lessons/W8A/BUILD_Science_Autumn1_W8A_Sugar_Evidence_Read_The_Label.pdf": "fc9ba726c94177000d872c28e3c7db3812c268d6552e936a316c38654a95a0dd",
         "Science_Teesside/Teaching_Packs/BUILD/lessons/W8A/BUILD_Science_Autumn1_W8A_Sugar_Evidence_Read_The_Label.pptx": "d93b814710bcf57ece951ba0aaf82ed41320247571ec48147e26a5423b3c07e3",
         "Science_Teesside/Teaching_Packs/BUILD/lessons/W8A/BUILD_Science_Autumn1_W8A_Sugar_Evidence_Read_The_Label_Pupil.docx": "be71bc9be6c6d9c23383ee35ec739df80830ad5e336e7095098deaf3003a6d64",
@@ -582,7 +582,7 @@ CATALOGUE_PINS = {
         "tools/downloads/offline_pack_browser.cjs": "017782ecf949ee7c3030c4f872c2c532e0178ccb03cc39c8c636acf257623a95",
         "tools/downloads/prepare_pack_browser.py": "9b5e9a0166822d8a12c6d628fccddfebf65aa0d349c7e4aaecea3aa6d074ceea",
         "tools/downloads/test_download_pack.py": "1fd8ed1c791ab7ac60227ea10929f5ff13966d151c807c15192427bdd9ba0f2e",
-        "tools/science_teaching_packs/check_build_sugar_browser.cjs": "9b5c91876c5e31b62cbba52cb980ad4f0616092a2dbcb489a48820017e579901",
+        "tools/science_teaching_packs/check_build_sugar_browser.cjs": "1c89ea763fdbeedba36bc497db6ef9bcdacf807ee74b01f008e6981b6c339c29",
         "tools/science_teaching_packs/check_build_sugar_pdfs.py": "62f8d1d1989be600374fdae1dbda9c7ebf407711cfb572123a3f9c31c4442a03"
     }
 }
@@ -606,7 +606,7 @@ CATALOGUE_SHELF_ROWS = 217
 # second set is empty and the allowance cannot launder a pre-existing value.
 CATALOGUE_ADDITIVE_TAG_KEYS = frozenset({"halfTerm", "unit"})
 CATALOGUE_ORIGINAL_KEYS_BEFORE_TAGS = frozenset()
-CATALOGUE_SHELF_ROWS_SHA256 = "b37b0c0e71302aacec8d9254d367c7ca0c92599f8f86b5cfb1a5ea365795d33e"
+CATALOGUE_SHELF_ROWS_SHA256 = "e60b37f32f1af7dd2cad00ed73eac9045865f1088437e6c4e98eeac31afa0298"
 
 # These named review records and review tools can change with their reviewed
 # transaction. Tools are not served assets; they are reviewed as executable
@@ -649,7 +649,7 @@ PUBLICATION_CALLER_PATH = ".github/workflows/education-pages.yml"
 # unchanged between the two, so the gate itself still does not move.
 # GC1 12 September: reviewed 810ae8f8 -> 3c2743fb registration-only carrier.
 # SW2-T5R1: consumer-specific registry-only carriers, with unchanged publisher code.
-PUBLICATION_CALLER_SHA256 = "a5d3e3fb98a56f4bb3bd20501715440f2221c22ae427671e25319d1a40a0b53e"
+PUBLICATION_CALLER_SHA256 = "59e595c347fffcd03edefc9840e5165ae7f56a410581b9555ceb1edbfa3ae425"
 # One reviewed caller digest per repository kind. detect_kind() reads the root
 # it is standing in, so this entry is only ever compared against the Apps
 # repository's own caller: the Lessons gate run and the Apps gate runs are the
