@@ -120,7 +120,7 @@ APPS_HUB_REVIEWED_WORDING_SHA256 = "9e5a4ac6c1e9bfb04a1c0186a82fce96aa03565a02dc
 CATALOGUE_PINS = {
     "visible_body_sha256": "9961e6f6c4627d644a364dedef7b37b1731cf8508e0ec85909f070a328bec187",
     "files": {
-        "assets/catalogue/display-titles.json": "d5a545890a3f9ce116aa5fc0ceecb8f4917dd3d03621d03b5cd3a6fad0abd399",
+        "assets/catalogue/display-titles.json": "504ca0a8d1ad406add8c7a7aca7ca6b9e95260d3a0d1c3091be56fcd28f2edef",
         "tools/catalogue/build_display_titles.py": "855f250e5a66dfc0857f83f246db9a72b0d6da7fa78278c1caa8c2529c64e149",
         "tools/catalogue/check_display_titles.cjs": "a52a18208876902ea2052c9f2deb325c1717bcd4b474115e1c6e325ea769daf4",
         "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
@@ -175,8 +175,9 @@ CATALOGUE_PINS = {
         "tools/verify_v6fin_w7_r1_r7.py": "2be87c68256802e46131d9a4c70228e3d8635c51eb1789c01b94f2b316960dae",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
         "_glv3/tools/verify_change_boundary.py": "0ce6a821ae2e38616d7112c0bd2e44466d5891ef4bc519124ad7fb498931dab5",
-        "_glv3/tools/browser_verify.mjs": "ec094d38eb6ebeda1525a35f4141dba5d99c685a6e939671afa39de632005dc7",
-        "_glv3/tools/chip_gate.mjs": "5011665dcdb1d4eed917e2500a825efc4539cebe7e30b493492a035ecca83479",
+        "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
+        "_glv3/tools/chip_gate.mjs": "16cdd5c0ad3745c57340ed0ec6a208d221e4793bfc9b1cd9bc703a6c2613dd9a",
+        "_glv3/tools/catalogue_membership.mjs": "4d7ab03e23ee0d3c3fc934f4f0a901afc61169754db099f4f5c24dd9cce058ec",
         "tools/humanities_resources/SOURCE_MANIFEST.json": "8b9c0bec517a7357fb210979712e62d465dfd9d2f2dd5f349dd2d398d9bf5cef",
         "tools/humanities_resources/DOWNLOAD_MANIFEST.json": "1d872aa4e9d01d7f10d26a0e8d182ddcb4513598413314f7c38d055318d39a2f",
         "tools/humanities_resources/CONTENT.json": "335ea55d7964d8095064e2c67c95fbd8d65e28b4d1ddf25f6e4ee812abd29b98",
