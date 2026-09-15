@@ -1,0 +1,175 @@
+{
+  "summary": {
+    "pass": 17,
+    "fail": 0
+  },
+  "results": [
+    {
+      "label": "Python compile tools/apply_teacher_upgrade.py",
+      "status": "pass",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-m",
+        "py_compile",
+        "/mnt/data/Matt-s-Apps-Teacher-Upgrade-Pack/tools/apply_teacher_upgrade.py"
+      ],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "Python compile tools/run_all_checks.py",
+      "status": "pass",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-m",
+        "py_compile",
+        "/mnt/data/Matt-s-Apps-Teacher-Upgrade-Pack/tools/run_all_checks.py"
+      ],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "Python compile tools/test_apply_teacher_upgrade.py",
+      "status": "pass",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-m",
+        "py_compile",
+        "/mnt/data/Matt-s-Apps-Teacher-Upgrade-Pack/tools/test_apply_teacher_upgrade.py"
+      ],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "Python compile tools/test_verify_teacher_upgrade.py",
+      "status": "pass",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-m",
+        "py_compile",
+        "/mnt/data/Matt-s-Apps-Teacher-Upgrade-Pack/tools/test_verify_teacher_upgrade.py"
+      ],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "Python compile tools/verify_teacher_upgrade.py",
+      "status": "pass",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-m",
+        "py_compile",
+        "/mnt/data/Matt-s-Apps-Teacher-Upgrade-Pack/tools/verify_teacher_upgrade.py"
+      ],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "Python compile tests/browser_smoke.py",
+      "status": "pass",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-m",
+        "py_compile",
+        "/mnt/data/Matt-s-Apps-Teacher-Upgrade-Pack/tests/browser_smoke.py"
+      ],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "JSON parse BASELINE_MANIFEST.json",
+      "status": "pass",
+      "command": [],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "JSON parse PATCH_PLAN.json",
+      "status": "pass",
+      "command": [],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "JSON parse proposed/awarding-body-templates.json",
+      "status": "pass",
+      "command": [],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "JSON parse proposed/evidence-schema-v2.json",
+      "status": "pass",
+      "command": [],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "JSON parse reports/AUDIT_EVIDENCE.json",
+      "status": "pass",
+      "command": [],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "JSON parse reports/BROWSER_SMOKE_RESULTS.json",
+      "status": "pass",
+      "command": [],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "Node syntax teacher-workflow.js",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "/mnt/data/Matt-s-Apps-Teacher-Upgrade-Pack/proposed/teacher-workflow.js"
+      ],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "Node syntax Data_Manager_Studio.html inline #1",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "/tmp/tmp2lnexmu1.js"
+      ],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "Node syntax suite-health-v2.html inline #1",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "/tmp/tmpzxvkwr4r.js"
+      ],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "Patcher contract",
+      "status": "pass",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/Matt-s-Apps-Teacher-Upgrade-Pack/tools/test_apply_teacher_upgrade.py"
+      ],
+      "stdout": "PASS: patcher dry-run, backup, no-delete, safety, conflict and idempotence contracts",
+      "stderr": ""
+    },
+    {
+      "label": "Verifier positive/negative controls",
+      "status": "pass",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/Matt-s-Apps-Teacher-Upgrade-Pack/tools/test_verify_teacher_upgrade.py"
+      ],
+      "stdout": "PASS: verifier accepts a valid synthetic upgrade and rejects a privacy-boundary violation",
+      "stderr": ""
+    }
+  ]
+}
