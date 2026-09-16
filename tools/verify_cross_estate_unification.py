@@ -618,7 +618,8 @@ CATALOGUE_PINS = {
         "Science_Teesside/Grow/v3_40min/SCI_G_W7A_The_Moon_Explore.html": "2b54a5399c6422873be70b5ab43ea271112f54ae1401d990705b19a2f75030b4",
         "Science_Teesside/Grow/v3_40min/SCI_G_W7B_The_Moon_Do.html": "85c9c9c7d4a12fa67fe6a098960aef0e880a3b7bf217667e39dad570bac11ebc",
         "Science_Teesside/Build/W8-W13_2026-27/SHA256SUMS.txt": "e00a7819a77039be3ab614ba92de09889748723aa9ad759f7a6bfe64c2e5fb28",
-        "data/chassis-census.json": "e5d0f3c93bfae0a47a498fc01a0315b1746433fa752b4ade04334b8a0bcdca40"
+        "data/chassis-census.json": "e5d0f3c93bfae0a47a498fc01a0315b1746433fa752b4ade04334b8a0bcdca40",
+        "tools/launch_resources/lesson_acceptance.py": "bbebaeb821f32c04eb1b2e01e819795ffa97cd851f33d7c22fec0b0505a9fe21"
     }
 }
 # END REVIEWED CATALOGUE PINS
@@ -729,7 +730,14 @@ PUBLICATION_CALLER_SHA256 = "4e1678265e6a4a4d7478112778ff8ef552d08003b67ac4f2cc2
 # gate copy predated UX2 A5 and so had no by-kind map to read; putting the two
 # copies back in step is what made it fire.
 PUBLICATION_CALLER_SHA256_BY_KIND = {
-    "lessons": PUBLICATION_CALLER_SHA256,
+# Advanced 2026-09-16 (D-1): this repository's own publisher pin moved to the Site
+# carrier f70f4973, which re-binds the homepage feature card to this repository's main
+# and mints the publication admission for the paths whose bytes had moved. The caller
+# file therefore changed, and this is its digest re-cut from those bytes. The "lessons"
+# entry is now its own literal rather than an alias of PUBLICATION_CALLER_SHA256, which
+# stays where UX2 A5 left it: the two kinds pin different files and had no business
+# sharing one constant.
+    "lessons": "597915266a4da01266532737c26375cb33026d975c40781504ef95ea8cdd4c5b",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
