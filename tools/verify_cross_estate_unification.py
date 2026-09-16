@@ -666,7 +666,7 @@ PUBLICATION_CALLER_SHA256 = "59e595c347fffcd03edefc9840e5165ae7f56a410581b9555ce
 # copies back in step is what made it fire.
 PUBLICATION_CALLER_SHA256_BY_KIND = {
     "lessons": PUBLICATION_CALLER_SHA256,
-    "apps": "5dffe934fcf8c2f7cc592f579b266e19611545237365041900eca6ad71cefc34",
+    "apps": "fa424547f5f7effdc284e87bdf72dd816efbeca59b2d79457f381c80d4c19fec",
 }
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
