@@ -16,6 +16,11 @@ jobs:
     # Part T completion approved 2026-09-13: current owner palette/chrome and exact rollback admissions.
     # Companion inputs and workflow logic remain unchanged; release follows verified Site root assets.
     # Section 26: same source pins; only this owner hub gets shared public links and SVG icons.
-    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@d7e2cba6f84f28e9ffd143bc55f99d3cc0c39c15
+    # Advanced 2026-09-16 (CX2 served-defect amendment D-2) d7e2cba6 -> 08d74766:
+    # This repository deploys its OWN education-apps tree, and it was still publishing the
+    # pre-EDU-D3 header: at d7e2cba6 none of the eight domain-split/sw2 navigation templates
+    # carries the Learn - Build - Explore tagline, and on the new carrier all eight do. Source
+    # pins and workflow logic are unchanged; only the builder moves.
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@08d74766de02b90e90e6138b7c20e66bb30aada4
     with:
-      builder_ref: d7e2cba6f84f28e9ffd143bc55f99d3cc0c39c15
+      builder_ref: 08d74766de02b90e90e6138b7c20e66bb30aada4
