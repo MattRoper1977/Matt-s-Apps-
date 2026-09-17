@@ -172,7 +172,7 @@ CATALOGUE_PINS = {
         "tools/ux2/s1m_published_input_proof.py": "95b82480a9fdbb607fcaf3077d1e58dc1e9a5eafd96581fdbec281c979de1d10",
         ".github/workflows/s1m-published-input-proof.yml": "fcc9f4c6b6a550873bda92346bb73e47d9ec0cfe95664a8eec66d0e7947dfb76",
         ".github/workflows/watch-main.yml": "59a20898874af37f5ec5314fa7fe175777a2504dc0e1020ddb3b2b46feeeb7cf",
-        "tools/verify_v6fin_w7_r1_r7.py": "2be87c68256802e46131d9a4c70228e3d8635c51eb1789c01b94f2b316960dae",
+        "tools/verify_v6fin_w7_r1_r7.py": "80c76c8c364b1509d856e3da05f1c735598bbe1142719f2c055ba3f286dc46a1",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
         "_glv3/tools/verify_change_boundary.py": "fed3dca194659cbbf95d169f8c5e5749c61b1a8cdc8bea711cf44530b5f0364d",
         "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
