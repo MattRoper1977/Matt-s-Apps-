@@ -173,7 +173,7 @@ CATALOGUE_PINS = {
         ".github/workflows/s1m-published-input-proof.yml": "fcc9f4c6b6a550873bda92346bb73e47d9ec0cfe95664a8eec66d0e7947dfb76",
         ".github/workflows/watch-main.yml": "9a468937b9eefbcdb010f9eed9a2b48f4111761202932fadad680cc3b477f3b6",
         "tools/verify_v6fin_w7_r1_r7.py": "f864bce7fa7f8482520dc41851bcb1e428de8529a10d6d0977645a4c9aed3865",
-        "_sx3/FENCE.json": "a22acbea0e3981979774cfa5c077124859e13dcdcd5cfdbf5ad5040a98265cbb",
+        "_sx3/FENCE.json": "36e0fd81b283dc41957acff27b906858522ab27eed3c04c6350d5050f230e913",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
         "_glv3/tools/verify_change_boundary.py": "fed3dca194659cbbf95d169f8c5e5749c61b1a8cdc8bea711cf44530b5f0364d",
         "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
@@ -1086,7 +1086,25 @@ def boundary_errors(changed: set[str], kind: str) -> list[str]:
     if kind == "lessons":
         allowed = allowed | set(CATALOGUE_PINS.get("files", {})) | CATALOGUE_RECORD_PATHS
     unexpected = sorted(changed - allowed)
-    return [f"standalone/offline boundary violated by changed files: {unexpected}"] if unexpected else []
+    if not unexpected:
+        return []
+    errors = [f"standalone/offline boundary violated by changed files: {unexpected}"]
+    # ORDER SX3-M5 §2: name the CAUSE, not just the symptom. A lesson deck that
+    # reaches this line has not been admitted, and "boundary violated" reads like
+    # the change is forbidden when what is missing is the admission. The estate
+    # admits a deck by naming it in CATALOGUE_PINS; tools/pin1/derive_triggers.py
+    # --write then materialises the matching trigger path, and PIN1 asserts the
+    # two sets are equal in both directions. This is the remedy, in one line,
+    # where the refusal is read.
+    decks = [rel for rel in unexpected
+             if rel.startswith("Science_Teesside/") and rel.endswith(".html")]
+    if decks:
+        errors.append(
+            "deck not admitted; add to the boundary set (CATALOGUE_PINS, via "
+            "tools/catalogue/pin_catalogue_contract.py) and to the trigger list "
+            "(tools/pin1/derive_triggers.py --write), which PIN1 then asserts as "
+            f"a pair: {decks}")
+    return errors
 
 
 def css_balanced(text: str) -> bool:
