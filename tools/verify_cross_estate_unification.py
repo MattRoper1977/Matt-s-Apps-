@@ -173,6 +173,7 @@ CATALOGUE_PINS = {
         ".github/workflows/s1m-published-input-proof.yml": "fcc9f4c6b6a550873bda92346bb73e47d9ec0cfe95664a8eec66d0e7947dfb76",
         ".github/workflows/watch-main.yml": "9a468937b9eefbcdb010f9eed9a2b48f4111761202932fadad680cc3b477f3b6",
         "tools/verify_v6fin_w7_r1_r7.py": "f864bce7fa7f8482520dc41851bcb1e428de8529a10d6d0977645a4c9aed3865",
+        "_sx3/FENCE.json": "36e0fd81b283dc41957acff27b906858522ab27eed3c04c6350d5050f230e913",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
         "_glv3/tools/verify_change_boundary.py": "fed3dca194659cbbf95d169f8c5e5749c61b1a8cdc8bea711cf44530b5f0364d",
         "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
@@ -981,6 +982,41 @@ def catalogue_errors(root: Path, kind: str, text: str) -> list[str]:
     return errors
 
 
+# SX3 FENCE. ORDER SX3-M4 §1(b). _sx3/FENCE.json names the decks whose proof
+# the #586 limb narrowing removed. The loss is latent: the limb only runs when a
+# deck's bytes drift from its recorded evidence sha256, and a drift on one of
+# these drops its week binding SILENTLY, because none of them is
+# style:recommended and so none raises. The fence holds until the fallback limb
+# lands. It is enforced here, against the pull request's own diff, because this
+# gate already runs on every pull request in both estates and already computes
+# that diff — no new workflow, no new trigger to forget.
+#
+# A missing FENCE.json is not an error: the Apps estate has none, and the fence
+# is retired by deleting the file once the fallback limb has landed.
+FENCE_PATH = "_sx3/FENCE.json"
+
+
+def fence_errors(root: Path, changed: set[str], kind: str) -> list[str]:
+    if kind != "lessons":
+        return []
+    source = root / FENCE_PATH
+    if not source.is_file():
+        return []
+    try:
+        fence = json.loads(source.read_text("utf-8"))
+    except (ValueError, OSError) as exc:
+        return [f"{FENCE_PATH} could not be read, so the fence cannot be honoured: {exc}"]
+    entries = fence.get("fenced")
+    if not isinstance(entries, list):
+        return [f"{FENCE_PATH} has no 'fenced' list; refusing to treat an unreadable fence as an empty one"]
+    fenced = {row.get("path") for row in entries if isinstance(row, dict) and row.get("path")}
+    if not fenced:
+        return [f"{FENCE_PATH} names no fenced path; refusing to treat an empty fence as no fence"]
+    hit = sorted(fenced & changed)
+    return [f"fenced deck modified before the fallback limb landed: {rel} "
+            f"(see {FENCE_PATH} and _sx3/STOP_L_limb_population.md)" for rel in hit]
+
+
 def publication_trigger_errors(root: Path) -> list[str]:
     workflow = root / PUBLICATION_GATE_WORKFLOW_PATH
     if not workflow.is_file():
@@ -1050,7 +1086,25 @@ def boundary_errors(changed: set[str], kind: str) -> list[str]:
     if kind == "lessons":
         allowed = allowed | set(CATALOGUE_PINS.get("files", {})) | CATALOGUE_RECORD_PATHS
     unexpected = sorted(changed - allowed)
-    return [f"standalone/offline boundary violated by changed files: {unexpected}"] if unexpected else []
+    if not unexpected:
+        return []
+    errors = [f"standalone/offline boundary violated by changed files: {unexpected}"]
+    # ORDER SX3-M5 §2: name the CAUSE, not just the symptom. A lesson deck that
+    # reaches this line has not been admitted, and "boundary violated" reads like
+    # the change is forbidden when what is missing is the admission. The estate
+    # admits a deck by naming it in CATALOGUE_PINS; tools/pin1/derive_triggers.py
+    # --write then materialises the matching trigger path, and PIN1 asserts the
+    # two sets are equal in both directions. This is the remedy, in one line,
+    # where the refusal is read.
+    decks = [rel for rel in unexpected
+             if rel.startswith("Science_Teesside/") and rel.endswith(".html")]
+    if decks:
+        errors.append(
+            "deck not admitted; add to the boundary set (CATALOGUE_PINS, via "
+            "tools/catalogue/pin_catalogue_contract.py) and to the trigger list "
+            "(tools/pin1/derive_triggers.py --write), which PIN1 then asserts as "
+            f"a pair: {decks}")
+    return errors
 
 
 def css_balanced(text: str) -> bool:
@@ -1304,6 +1358,7 @@ def run_checks(
         else:
             changed = {line.strip() for line in proc.stdout.splitlines() if line.strip()}
             errors.extend(boundary_errors(changed, kind))
+            errors.extend(fence_errors(root, changed, kind))
             for manifest in ("resources.json", "apps.json"):
                 if manifest in changed and manifest not in MANIFEST_PINS:
                     errors.append(f"source manifest unexpectedly changed: {manifest}")
@@ -1343,6 +1398,30 @@ def self_test(root: Path, kind: str, canonical: Path) -> None:
             if not boundary_errors({"LundyLoop_Professional_OS.html"}, kind):
                 raise RuntimeError("A standalone payload escaped the boundary")
             print("LundyLoop CI controls: real green / planted byte red / restored green; unrelated paths red")
+        if kind == "lessons":
+            # The fence must go red on a fenced path and stay quiet on anything
+            # else, and it must REFUSE rather than pass when the file it depends
+            # on is unreadable or empty. A fence that cannot go red is not a fence.
+            fence_file = root / FENCE_PATH
+            if fence_file.is_file():
+                fenced = json.loads(fence_file.read_text("utf-8"))["fenced"]
+                one = fenced[0]["path"]
+                if not fence_errors(root, {one}, "lessons"):
+                    raise RuntimeError("the fence let a fenced deck through: " + one)
+                if fence_errors(root, {"Science_Teesside/Build/does-not-exist.html"}, "lessons"):
+                    raise RuntimeError("the fence objected to an unfenced path")
+                if fence_errors(root, {one}, "apps"):
+                    raise RuntimeError("the fence fired on the apps estate, which has no fence")
+                with tempfile.TemporaryDirectory(prefix="mbm-fence-control-") as broken:
+                    empty = Path(broken)
+                    (empty / FENCE_PATH).parent.mkdir(parents=True, exist_ok=True)
+                    (empty / FENCE_PATH).write_text('{"fenced": []}', encoding="utf-8")
+                    if not fence_errors(empty, {one}, "lessons"):
+                        raise RuntimeError("an empty fence was treated as no fence")
+                    (empty / FENCE_PATH).write_text("not json", encoding="utf-8")
+                    if not fence_errors(empty, {one}, "lessons"):
+                        raise RuntimeError("an unreadable fence was treated as no fence")
+                print(f"SX3 fence controls: {len(fenced)} fenced path(s) red / unfenced path green / apps estate quiet / empty and unreadable fence red")
         index = fixture / "index.html"
         text = index.read_text("utf-8")
         index.write_text(text.replace('<a href="/Lessons/"', '<a href="/lessons/"', 1), "utf-8")
