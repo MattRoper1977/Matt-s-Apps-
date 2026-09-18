@@ -631,6 +631,7 @@ CATALOGUE_PINS = {
         "Science_Teesside/Grow/v3_40min/SCI_G_W7B_The_Moon_Do.html": "85c9c9c7d4a12fa67fe6a098960aef0e880a3b7bf217667e39dad570bac11ebc",
         "Science_Teesside/Build/W8-W13_2026-27/SHA256SUMS.txt": "e00a7819a77039be3ab614ba92de09889748723aa9ad759f7a6bfe64c2e5fb28",
         "data/chassis-census.json": "fd734ef05ca65d7d26c732cca71565d5b949385941471d292069c33b10ed7601",
+        "tools/downloads/definitions/launch-science-aut1-main.json": "d63aad66e4c5522cb34076584c64c30e1708ede39f0c9267aff5193c2844cdd5",
         "tools/launch_resources/lesson_acceptance.py": "bbebaeb821f32c04eb1b2e01e819795ffa97cd851f33d7c22fec0b0505a9fe21"
     }
 }
