@@ -103,7 +103,7 @@ MANIFEST_PINS = {
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
-    "resources.json": "c0aa743e746f82cc7b54681c0f030733fda5999b0636d7c5b13c1e2861460c6b",
+    "resources.json": "f695f5115746c959bf869b706a85db99c9b0f748854c908e5bbe851545fbb453",
 }
 PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it writes both gate copies or neither)"
 
@@ -120,13 +120,13 @@ APPS_HUB_REVIEWED_WORDING_SHA256 = "9e5a4ac6c1e9bfb04a1c0186a82fce96aa03565a02dc
 CATALOGUE_PINS = {
     "visible_body_sha256": "9961e6f6c4627d644a364dedef7b37b1731cf8508e0ec85909f070a328bec187",
     "files": {
-        "assets/catalogue/display-titles.json": "1875250dbd936603d092bc563e0d4f199e821c948327989b90da576c7fc97360",
+        "assets/catalogue/display-titles.json": "083a2e9914bb08e297a23c09b70ac2170ae0683a3334b8a3c469a152a17adb1e",
         "tools/catalogue/build_display_titles.py": "4256ab6b07420af4ef090e57d32b8f29fcae88d9075d64750e52f17947dbd8a1",
         "tools/catalogue/check_display_titles.cjs": "5d06689114a69124a2d7f59d644a85775756eadd2b470df01e066c2202df681b",
         "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
         "tools/verify_lessons_chips.mjs": "e417afd94ae4f3a450caab2edf4b6c41d14e4588f070d0ad822263e30a86cf39",
         "tools/sw2/check_tokens_inert.cjs": "482642d3d85a649a5785eed5183dc385bc0c68e294f51cd192af2e7d96d3224e",
-        "assets/catalogue/lesson-order.json": "5d3affc7a2d72eaf961eb7448e06e92c3009e36fc95cd99fc88be6c3b0a94a61",
+        "assets/catalogue/lesson-order.json": "67f25e5570ec328621c3668cf04b1dd3456385e6abe36438cd4a0c1486acd6db",
         "tools/catalogue/build_lesson_order.py": "8a09eec10f828d44c02397f3d7afe37548128143f6dbab22c90db8d74bc586a7",
         "tools/ux2/hub_gates.mjs": "80ae8def49c49e549c8a2e6b65d521cfdaebb2b7d05f650fa6d5e436f2b6586d",
         "index.html": "389c3320b158e9bc472b4402d41d1d23e4bb2d78b54385884c0be6ca31f73309",
@@ -151,7 +151,7 @@ CATALOGUE_PINS = {
         "assets/catalogue/science-shelf.css": "f664655e57c086abe35499f5dedf737eddaa0942e6629dd4a7fcf4e801536508",
         "assets/catalogue/science-shelf.js": "b47b998866401f136968a2e1e94cc5beb65be83fbd342f49ff5a811804792651",
         "assets/catalogue/terms-and-styles.json": "fbcc0ad022a7239a2fc0f0137716c1dc4d2156e13214944e7a0d55b01363ca24",
-        "assets/catalogue/science-shelf.json": "1d48dc37ce5ae12ea33b9319810a094dd86f527f38bf825af84da10b34e3af06",
+        "assets/catalogue/science-shelf.json": "6635ed14b4766125e4ae35596a6103ab7fe520763cf5e23f696b87c7f234a4c9",
         "assets/catalogue/humanities-shelf.json": "b2facaa50c6781f0fdf19fad5b3b170bfaef54546c030e951956ccf47223f8c0",
         "tools/catalogue/build_catalogue.py": "10a704418e67c6b9ec80bb911cfe267df7a12e8c4adbb6e878ca14c5cfb7c3b1",
         "tools/catalogue/build_science_shelf.py": "a06ce779e4331661dadcdeb896b5d533374ca82bba812f605860c6fe53d11335",
@@ -174,6 +174,18 @@ CATALOGUE_PINS = {
         ".github/workflows/watch-main.yml": "9a468937b9eefbcdb010f9eed9a2b48f4111761202932fadad680cc3b477f3b6",
         "tools/verify_v6fin_w7_r1_r7.py": "f864bce7fa7f8482520dc41851bcb1e428de8529a10d6d0977645a4c9aed3865",
         "_sx3/FENCE.json": "36e0fd81b283dc41957acff27b906858522ab27eed3c04c6350d5050f230e913",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W10L1_Growth_And_Differentiation_Introduce.html": "612b4544618d33ed880a52475c5a7c021fc4890b5a3a51f5989cd8748728f95d",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W10L2_Stem_Cells_And_Meristems_Explore.html": "74e34849485b933417b0298046660a4eaacadc4d9058dc217915e6c7c1f18f63",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W10L3_Growth_Stem_Cell_Data_Application_Do.html": "eaaa5d455e931849d295d149cd424283fc46e7b98ab0e27c2c028925295d890d",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W11L1_Stem_Cell_Evidence_Introduce.html": "36c05e98e31bc0d0e16bd79806ef4770cfa4b395bbd1e244b717bd33cf2b9dea",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W11L2_Benefit_Risk_Uncertainty_Explore.html": "e7aa28239965a78bbe79e39130a8c5838e9ff07f488c6d7cbd0deee766536b9f",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W11L3_Stem_Cell_Discuss_Do.html": "fc3f7a5ae735da56c852a2b189590f98c9ccfd71525affe09e947fa7846aecd1",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W12L1_DNA_Hierarchy_Introduce.html": "dccacba41fbff9df9c7d641949ce496508a510cf919cbd562fd9ccf994c32e2c",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W12L2_DNA_Structure_Explore.html": "a728f5544363b581c391ae4d1ba577f325eadc65bcec2ecba781bea17dcfdfa4",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W12L3_Fruit_DNA_Evidence_Do.html": "d1751c5bb73aed8daff1f09eb0cfcf73d7d3ee237f47fb052c487812bcce98fe",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W12_Zoom_into_genetic_information_Classic.html": "90e297a0cd6989c101ecc966499c58ad6f830ede7a8c278e20319d35df6380b0",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W13L1_Alleles_Genotype_Phenotype_Introduce.html": "f679964de4e8820e041b6b427ae2ae82910d8cdcc9dfef08dee0aca79ae759da",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W13L2_Punnett_Square_Explore.html": "da80ec932131c969c456ec35ff3514132901bbb51c2c002868308a220e71e79b",
         "Science_Teesside/Grow/W8-W13_2026-27/SCI_G_W10A_Solar_System_Research_Explore.html": "e10e97c2d792de2fad0ce454962e3a31ec608b43750bd71315b3bb1b0655981a",
         "Science_Teesside/Grow/W8-W13_2026-27/SCI_G_W10B_Solar_System_Presentation_Do.html": "18c99f9225f39ec3e6e4d5aecfc94ab8cf208fd2e398e2dfe12f7b2dfb2c31c6",
         "Science_Teesside/Grow/W8-W13_2026-27/SCI_G_W11A_Global_Warming_Explore.html": "82b34329f1faf788152bc22c9e1f9eb8fd8236f3116d07337b9dca62b1325ced",
@@ -188,7 +200,7 @@ CATALOGUE_PINS = {
         "Science_Teesside/Grow/W8-W13_2026-27/SCI_G_W9_Turn_Earth_explain_the_sky_Classic.html": "3efded0179e818a3e7c0a5d0692610acfb4b91b1d85bc937c4b79bdd79668851",
         "Science_Teesside/Build/W8-W13_2026-27/SCI_B_W12_Give_a_rock_a_job_Classic.html": "509f38056bd09e903c70b0426ac55ab7ff73f7da10261a97eec11d49d7b27d1c",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
-        "_glv3/tools/verify_change_boundary.py": "0dc1f25f632c1f9cd649b6e5f5b548173fe481ecc58428e7d3dde2c2ce02b96d",
+        "_glv3/tools/verify_change_boundary.py": "7dd239d72144ba381b7690a5c6693e77c41da938087e8e0d09d0532fa62a2016",
         "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
         "_glv3/tools/chip_gate.mjs": "16cdd5c0ad3745c57340ed0ec6a208d221e4793bfc9b1cd9bc703a6c2613dd9a",
         "_glv3/tools/catalogue_membership.mjs": "4d7ab03e23ee0d3c3fc934f4f0a901afc61169754db099f4f5c24dd9cce058ec",
@@ -200,7 +212,7 @@ CATALOGUE_PINS = {
         "tools/humanities_resources/check_resources.py": "ec5383e3a34cbff999f190b0014a4a73e00a3a29e2714498f7620fd638dc2aa5",
         "tools/humanities_resources/resource.css": "1aed9aaca0d73a4b200c4e5d0977e73f4e906c747d7340c7a62f4197a8344bae",
         "tools/humanities_resources/resource.js": "ad40afed95490bfcce92dc062da46e1b27bcb96bdc80e37eabdfe02bf6ffc446",
-        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "fda5e7421e7e711f1902f94cb3c6de306bbbeabf079e219a34ada1bf8a675782",
+        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "8e059c4b84437ea56a9a6aa349a3fb106da06c4b3730e221c8ee96f1775500db",
         "tools/catalogue/TERM_REVIEW.json": "b0ed0d82fe21a222c75f6a38390b01defc0d5d958fac8e85421b7901ce6d201d",
         "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "b13c25e76ffbb916cf997ee62a265a6ff0bf296c125b00458df42d87985aaba2",
         "primary/year5/science/autumn/forces/Lesson8_ExploreGravity.html": "20047720bf1d309055abdf232d341b6fd99b833631efa0bcbfb3dabed9671196",
@@ -632,7 +644,7 @@ CATALOGUE_PINS = {
         "Science_Teesside/Grow/v3_40min/SCI_G_W7A_The_Moon_Explore.html": "2b54a5399c6422873be70b5ab43ea271112f54ae1401d990705b19a2f75030b4",
         "Science_Teesside/Grow/v3_40min/SCI_G_W7B_The_Moon_Do.html": "85c9c9c7d4a12fa67fe6a098960aef0e880a3b7bf217667e39dad570bac11ebc",
         "Science_Teesside/Build/W8-W13_2026-27/SHA256SUMS.txt": "e00a7819a77039be3ab614ba92de09889748723aa9ad759f7a6bfe64c2e5fb28",
-        "data/chassis-census.json": "f65d2eab0037ddc90280e5d8f8fb9b2ad1c6b4c10a8d35da2cb497f7dc62cb22",
+        "data/chassis-census.json": "0d88524285761d56195261ef82c39638d760ce4ea870af68a39e9fea7cd1bd2a",
         "tools/launch_resources/lesson_acceptance.py": "bbebaeb821f32c04eb1b2e01e819795ffa97cd851f33d7c22fec0b0505a9fe21"
     }
 }
@@ -656,7 +668,7 @@ CATALOGUE_SHELF_ROWS = 219
 # second set is empty and the allowance cannot launder a pre-existing value.
 CATALOGUE_ADDITIVE_TAG_KEYS = frozenset({"halfTerm", "unit"})
 CATALOGUE_ORIGINAL_KEYS_BEFORE_TAGS = frozenset()
-CATALOGUE_SHELF_ROWS_SHA256 = "6f41b12359528c062f78c1797800b9a7ff14b15ec1ecbff8aefe8ba3c8f820c9"
+CATALOGUE_SHELF_ROWS_SHA256 = "ea27fe9ab792ea349c65436b54c08bc527eb28e66aa2b3876678fa646d12a2df"
 
 # These named review records and review tools can change with their reviewed
 # transaction. Tools are not served assets; they are reviewed as executable
@@ -751,7 +763,10 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # entry is now its own literal rather than an alias of PUBLICATION_CALLER_SHA256, which
 # stays where UX2 A5 left it: the two kinds pin different files and had no business
 # sharing one constant.
-    "lessons": "597915266a4da01266532737c26375cb33026d975c40781504ef95ea8cdd4c5b",
+# ORDER SX3-PUB: the publisher pin moves to Site be86b584, which mints the
+# admission for this release's 29 published paths. The caller file therefore
+# changed and this is its digest re-cut from those bytes.
+    "lessons": "48b20026dab7a2f3cd1a89d3e94ee5dc692e71f8cb632867d11c038b5f2c6000",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
