@@ -103,7 +103,7 @@ MANIFEST_PINS = {
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
-    "resources.json": "f695f5115746c959bf869b706a85db99c9b0f748854c908e5bbe851545fbb453",
+    "resources.json": "c85be00a151a504f7bf3177fda633c277c243d34c8fdd4703e86a07acce84319",
 }
 PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it writes both gate copies or neither)"
 
@@ -120,17 +120,17 @@ APPS_HUB_REVIEWED_WORDING_SHA256 = "9e5a4ac6c1e9bfb04a1c0186a82fce96aa03565a02dc
 CATALOGUE_PINS = {
     "visible_body_sha256": "9961e6f6c4627d644a364dedef7b37b1731cf8508e0ec85909f070a328bec187",
     "files": {
-        "assets/catalogue/display-titles.json": "083a2e9914bb08e297a23c09b70ac2170ae0683a3334b8a3c469a152a17adb1e",
+        "assets/catalogue/display-titles.json": "8e8aac1643221c5511b469cbf734838dd14fbd7bdd7e8cb2fc71e5227c0339bd",
         "tools/catalogue/build_display_titles.py": "4256ab6b07420af4ef090e57d32b8f29fcae88d9075d64750e52f17947dbd8a1",
         "tools/catalogue/check_display_titles.cjs": "5d06689114a69124a2d7f59d644a85775756eadd2b470df01e066c2202df681b",
         "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
         "tools/verify_lessons_chips.mjs": "e417afd94ae4f3a450caab2edf4b6c41d14e4588f070d0ad822263e30a86cf39",
         "tools/sw2/check_tokens_inert.cjs": "482642d3d85a649a5785eed5183dc385bc0c68e294f51cd192af2e7d96d3224e",
-        "assets/catalogue/lesson-order.json": "67f25e5570ec328621c3668cf04b1dd3456385e6abe36438cd4a0c1486acd6db",
+        "assets/catalogue/lesson-order.json": "28d06b25ed41a586c38704ce6aab3e067c82f90544311ebad70e085334d66688",
         "tools/catalogue/build_lesson_order.py": "8a09eec10f828d44c02397f3d7afe37548128143f6dbab22c90db8d74bc586a7",
         "tools/ux2/hub_gates.mjs": "80ae8def49c49e549c8a2e6b65d521cfdaebb2b7d05f650fa6d5e436f2b6586d",
         "index.html": "389c3320b158e9bc472b4402d41d1d23e4bb2d78b54385884c0be6ca31f73309",
-        "Science_Teesside/index.html": "5c5a7508c59da48999a979f03b43a8494fd4d0ad0a3d8fed46c959f532c20ff7",
+        "Science_Teesside/index.html": "3e0c54aa15453164890db38bb6cd2096db5c061f901beb643cdb9ea1316d830f",
         "Humanities_Teesside/index.html": "7594ce3f6bd34025e32f556d736d39fd218b409a36511ab57e779c4080c4cd86",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
         "pack.html": "c05cde1b83de3da3a292d150e7c400782719d30aec6a130fb4df158786993b65",
@@ -151,7 +151,7 @@ CATALOGUE_PINS = {
         "assets/catalogue/science-shelf.css": "f664655e57c086abe35499f5dedf737eddaa0942e6629dd4a7fcf4e801536508",
         "assets/catalogue/science-shelf.js": "b47b998866401f136968a2e1e94cc5beb65be83fbd342f49ff5a811804792651",
         "assets/catalogue/terms-and-styles.json": "fbcc0ad022a7239a2fc0f0137716c1dc4d2156e13214944e7a0d55b01363ca24",
-        "assets/catalogue/science-shelf.json": "6635ed14b4766125e4ae35596a6103ab7fe520763cf5e23f696b87c7f234a4c9",
+        "assets/catalogue/science-shelf.json": "4ee03d7827f1c2ef9d6af927b2451506d895e237ffa4f7b694b4bdb855a1170a",
         "assets/catalogue/humanities-shelf.json": "b2facaa50c6781f0fdf19fad5b3b170bfaef54546c030e951956ccf47223f8c0",
         "tools/catalogue/build_catalogue.py": "10a704418e67c6b9ec80bb911cfe267df7a12e8c4adbb6e878ca14c5cfb7c3b1",
         "tools/catalogue/build_science_shelf.py": "a06ce779e4331661dadcdeb896b5d533374ca82bba812f605860c6fe53d11335",
@@ -159,6 +159,8 @@ CATALOGUE_PINS = {
         "tools/catalogue/check_catalogue_static.py": "1f55f22846763ded7bd27fdc389b57d1cba3b1eb58c066c944dde9b6b70617df",
         "tools/catalogue/check_catalogue_dom.cjs": "4d18cc2f1fb330ee9f629a55296436b1a207758d51b6281b3b85ec8bfcf0c376",
         "tools/catalogue/verify_education_navigation.cjs": "b0d9297a33fb9ea2494fecaa45e02ae6fcf6fa88e6a62ced35cf521fbb1851fd",
+        "tools/catalogue/sync_shelf_card_titles.py": "f906e244fd8fd2e596e6e5e0a1fce9a53bee828eed0b74194eccf4860e45b7a0",
+        "tools/catalogue/restamp_evidence_sha256.py": "bbd736cb4da363732d5493b3dcd0919f3f22561a8612fb34a6f143270bb62b9d",
         "tools/catalogue/SHELF_SELECTION.json": "95def027287e7cc1eb1190bafa21733c9c0999286c15a231dc17dfe7a56331f4",
         "tools/catalogue/HUMANITIES_SELECTION.json": "5df3e69d4d9d3825225bcc80376b3fbebf61656df6e333f6b9a8aaded1893bf4",
         "tools/easter/science_original_browser.cjs": "aae28a4166d41546cbe5b0acd0866eeaf5e6f47cd5b1949fc48ecb2d4c79a1ec",
@@ -174,6 +176,17 @@ CATALOGUE_PINS = {
         ".github/workflows/watch-main.yml": "9a468937b9eefbcdb010f9eed9a2b48f4111761202932fadad680cc3b477f3b6",
         "tools/verify_v6fin_w7_r1_r7.py": "f864bce7fa7f8482520dc41851bcb1e428de8529a10d6d0977645a4c9aed3865",
         "_sx3/FENCE.json": "36e0fd81b283dc41957acff27b906858522ab27eed3c04c6350d5050f230e913",
+        "Science_Teesside/Launch/Autumn2_W7_2026-27/SCI_L_A2_W7L1_Topics_2_3_Assessment_Introduce.html": "5032cd225d7202573c556a371ca554889b9df3a43534757621474bbaf9653dbe",
+        "Science_Teesside/Launch/Autumn2_W7_2026-27/SCI_L_A2_W7L2_Topics_2_3_Assessment_Explore.html": "a6904e5055e43c1d7e61351f13602670c7ddf1d053b882c66a37f792823014f1",
+        "Science_Teesside/Launch/Autumn2_W7_2026-27/SCI_L_A2_W7L3_Topics_2_3_Assessment_Do.html": "938d8894fbb06368717264a59fc0b97830272770dc50caf9941d8d77470fd389",
+        "Science_Teesside/Launch/W14-W15_2026-27/SCI_L_W14L1_Genetic_Condition_Research_Introduce.html": "501a2e9d1d8b3af42ce872e0812a68f18a6103ebeea6395652c911ad80d7a999",
+        "Science_Teesside/Launch/W14-W15_2026-27/SCI_L_W14L2_Genetic_Condition_Source_Evidence_Explore.html": "b0b03f10e6991660d820582a520ca2698c9010916db66bf592243c9a64639b0e",
+        "Science_Teesside/Launch/W14-W15_2026-27/SCI_L_W14L3_Genetic_Condition_Presentation_Do.html": "46f816f7ea9a3101c874f07c000322a944a165cbff42ebf5f658bffc143727b8",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W13L3_Inheritance_Probability_Do.html": "a48127f498d131f0fafe9661fa47a788e2887cc96d3c7b275999ef712a85dd22",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W9L1_Cell_Cycle_Introduce.html": "72af021ab2aa1d8c7f6ea5573993623e85c9dd2aa2a31c26b19162a1ced6b3c6",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W9L2_Mitosis_Sequence_Explore.html": "c2e4a7aeffe0738949c7372e230f8107b37b6f82705a5a412f604514fabcbc50",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W9L3_Identical_Daughter_Cells_Do.html": "588a6fdeac00afa6976357ff06ae86b47d600df570eec5b7a5fdb4d6983b5c11",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W9_Copy_separate_divide_Classic.html": "649a152c0fd4a768496f55de23add747acb75dcad4e73a30bfe9453e0d6bcc8d",
         "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W10L1_Growth_And_Differentiation_Introduce.html": "612b4544618d33ed880a52475c5a7c021fc4890b5a3a51f5989cd8748728f95d",
         "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W10L2_Stem_Cells_And_Meristems_Explore.html": "74e34849485b933417b0298046660a4eaacadc4d9058dc217915e6c7c1f18f63",
         "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W10L3_Growth_Stem_Cell_Data_Application_Do.html": "eaaa5d455e931849d295d149cd424283fc46e7b98ab0e27c2c028925295d890d",
@@ -200,7 +213,7 @@ CATALOGUE_PINS = {
         "Science_Teesside/Grow/W8-W13_2026-27/SCI_G_W9_Turn_Earth_explain_the_sky_Classic.html": "3efded0179e818a3e7c0a5d0692610acfb4b91b1d85bc937c4b79bdd79668851",
         "Science_Teesside/Build/W8-W13_2026-27/SCI_B_W12_Give_a_rock_a_job_Classic.html": "509f38056bd09e903c70b0426ac55ab7ff73f7da10261a97eec11d49d7b27d1c",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
-        "_glv3/tools/verify_change_boundary.py": "7dd239d72144ba381b7690a5c6693e77c41da938087e8e0d09d0532fa62a2016",
+        "_glv3/tools/verify_change_boundary.py": "c0aaa97009d834c1c0cbfb2d4c6368355dcb2e2d89dea799fc53c35e2e96f44a",
         "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
         "_glv3/tools/chip_gate.mjs": "16cdd5c0ad3745c57340ed0ec6a208d221e4793bfc9b1cd9bc703a6c2613dd9a",
         "_glv3/tools/catalogue_membership.mjs": "4d7ab03e23ee0d3c3fc934f4f0a901afc61169754db099f4f5c24dd9cce058ec",
@@ -212,7 +225,7 @@ CATALOGUE_PINS = {
         "tools/humanities_resources/check_resources.py": "ec5383e3a34cbff999f190b0014a4a73e00a3a29e2714498f7620fd638dc2aa5",
         "tools/humanities_resources/resource.css": "1aed9aaca0d73a4b200c4e5d0977e73f4e906c747d7340c7a62f4197a8344bae",
         "tools/humanities_resources/resource.js": "ad40afed95490bfcce92dc062da46e1b27bcb96bdc80e37eabdfe02bf6ffc446",
-        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "8e059c4b84437ea56a9a6aa349a3fb106da06c4b3730e221c8ee96f1775500db",
+        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "e5af21441228a5a1e88dd10f1a44dbd2303081bb1fabf855350ff13e9fb86bdd",
         "tools/catalogue/TERM_REVIEW.json": "b0ed0d82fe21a222c75f6a38390b01defc0d5d958fac8e85421b7901ce6d201d",
         "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "b13c25e76ffbb916cf997ee62a265a6ff0bf296c125b00458df42d87985aaba2",
         "primary/year5/science/autumn/forces/Lesson8_ExploreGravity.html": "20047720bf1d309055abdf232d341b6fd99b833631efa0bcbfb3dabed9671196",
@@ -644,7 +657,8 @@ CATALOGUE_PINS = {
         "Science_Teesside/Grow/v3_40min/SCI_G_W7A_The_Moon_Explore.html": "2b54a5399c6422873be70b5ab43ea271112f54ae1401d990705b19a2f75030b4",
         "Science_Teesside/Grow/v3_40min/SCI_G_W7B_The_Moon_Do.html": "85c9c9c7d4a12fa67fe6a098960aef0e880a3b7bf217667e39dad570bac11ebc",
         "Science_Teesside/Build/W8-W13_2026-27/SHA256SUMS.txt": "e00a7819a77039be3ab614ba92de09889748723aa9ad759f7a6bfe64c2e5fb28",
-        "data/chassis-census.json": "0d88524285761d56195261ef82c39638d760ce4ea870af68a39e9fea7cd1bd2a",
+        "data/chassis-census.json": "c0ce60b67c570e42d1228e1071fdd123829ab7285e5667041589125b99b52e62",
+        "tools/downloads/definitions/launch-science-aut1-main.json": "d63aad66e4c5522cb34076584c64c30e1708ede39f0c9267aff5193c2844cdd5",
         "tools/launch_resources/lesson_acceptance.py": "bbebaeb821f32c04eb1b2e01e819795ffa97cd851f33d7c22fec0b0505a9fe21"
     }
 }
@@ -668,7 +682,7 @@ CATALOGUE_SHELF_ROWS = 219
 # second set is empty and the allowance cannot launder a pre-existing value.
 CATALOGUE_ADDITIVE_TAG_KEYS = frozenset({"halfTerm", "unit"})
 CATALOGUE_ORIGINAL_KEYS_BEFORE_TAGS = frozenset()
-CATALOGUE_SHELF_ROWS_SHA256 = "ea27fe9ab792ea349c65436b54c08bc527eb28e66aa2b3876678fa646d12a2df"
+CATALOGUE_SHELF_ROWS_SHA256 = "d6c16a6778f63e1eb149888887a3999e4005398a8230193f62bee42b0c1d64b9"
 
 # These named review records and review tools can change with their reviewed
 # transaction. Tools are not served assets; they are reviewed as executable
@@ -766,7 +780,13 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # ORDER SX3-PUB: the publisher pin moves to Site be86b584, which mints the
 # admission for this release's 29 published paths. The caller file therefore
 # changed and this is its digest re-cut from those bytes.
-    "lessons": "48b20026dab7a2f3cd1a89d3e94ee5dc692e71f8cb632867d11c038b5f2c6000",
+# ORDER SX3-PASSES: the publisher pin moves to Site main 0cd8f842, which carries the
+# 21 transition pairs for this release's published bytes, the re-frozen retained
+# registry baseline, and the builder-pin move that puts domain-split-verify on
+# the same Lessons state as this carrier. A CARRIER PIN MOVE under release-red
+# precedence. The caller file therefore changed and this is its digest re-cut
+# from those bytes -- derived with sha256sum, never transcribed.
+    "lessons": "2cba6232b2a71d97bad302a9d9300517ab6c5c0332f6425d86719859aaacb589",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
