@@ -779,7 +779,13 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # ORDER SX3-PUB: the publisher pin moves to Site be86b584, which mints the
 # admission for this release's 29 published paths. The caller file therefore
 # changed and this is its digest re-cut from those bytes.
-    "lessons": "48b20026dab7a2f3cd1a89d3e94ee5dc692e71f8cb632867d11c038b5f2c6000",
+# ORDER SX3-PASSES: the publisher pin moves to Site e3e15a22, which carries the
+# 21 transition pairs for this release's published bytes, the re-frozen retained
+# registry baseline, and the builder-pin move that puts domain-split-verify on
+# the same Lessons state as this carrier. A CARRIER PIN MOVE under release-red
+# precedence. The caller file therefore changed and this is its digest re-cut
+# from those bytes -- derived with sha256sum, never transcribed.
+    "lessons": "a69d2a559154c5bfda73a9c0da48fd565823a496ccf2f12211ed9ffd8e93e5a8",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
