@@ -103,7 +103,7 @@ MANIFEST_PINS = {
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
-    "resources.json": "c85be00a151a504f7bf3177fda633c277c243d34c8fdd4703e86a07acce84319",
+    "resources.json": "733772e93ae497830627af2c3a21fcbf743bb42b550d40bfb24959c8e221f9f1",
 }
 PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it writes both gate copies or neither)"
 
@@ -126,7 +126,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
         "tools/verify_lessons_chips.mjs": "e417afd94ae4f3a450caab2edf4b6c41d14e4588f070d0ad822263e30a86cf39",
         "tools/sw2/check_tokens_inert.cjs": "482642d3d85a649a5785eed5183dc385bc0c68e294f51cd192af2e7d96d3224e",
-        "assets/catalogue/lesson-order.json": "28d06b25ed41a586c38704ce6aab3e067c82f90544311ebad70e085334d66688",
+        "assets/catalogue/lesson-order.json": "6b9b075655d63ff10745589938bb12e9bb1ff25c0840068ddc3aaf79d7c73203",
         "tools/catalogue/build_lesson_order.py": "8a09eec10f828d44c02397f3d7afe37548128143f6dbab22c90db8d74bc586a7",
         "tools/ux2/hub_gates.mjs": "80ae8def49c49e549c8a2e6b65d521cfdaebb2b7d05f650fa6d5e436f2b6586d",
         "index.html": "389c3320b158e9bc472b4402d41d1d23e4bb2d78b54385884c0be6ca31f73309",
@@ -161,6 +161,9 @@ CATALOGUE_PINS = {
         "tools/catalogue/verify_education_navigation.cjs": "b0d9297a33fb9ea2494fecaa45e02ae6fcf6fa88e6a62ced35cf521fbb1851fd",
         "tools/catalogue/sync_shelf_card_titles.py": "f906e244fd8fd2e596e6e5e0a1fce9a53bee828eed0b74194eccf4860e45b7a0",
         "tools/catalogue/restamp_evidence_sha256.py": "bbd736cb4da363732d5493b3dcd0919f3f22561a8612fb34a6f143270bb62b9d",
+        "Science_Teesside/Build/START_HERE.html": "acac26140f5aeef22292e6ce3831fa61aaf5e62432cc3998b340918c8bfaee7f",
+        "Science_Teesside/Grow/START_HERE.html": "d2bec305dec3212215c6f599cad3925c571f9a34ca6e85268893c8ed142170dd",
+        "Science_Teesside/Launch/START_HERE.html": "10b46e7cf26e3aa4b7f1fb4758a039bcbec7000bc2ec8d30dfe3ce0e0b966353",
         "tools/catalogue/SHELF_SELECTION.json": "95def027287e7cc1eb1190bafa21733c9c0999286c15a231dc17dfe7a56331f4",
         "tools/catalogue/HUMANITIES_SELECTION.json": "5df3e69d4d9d3825225bcc80376b3fbebf61656df6e333f6b9a8aaded1893bf4",
         "tools/easter/science_original_browser.cjs": "aae28a4166d41546cbe5b0acd0866eeaf5e6f47cd5b1949fc48ecb2d4c79a1ec",
@@ -213,7 +216,7 @@ CATALOGUE_PINS = {
         "Science_Teesside/Grow/W8-W13_2026-27/SCI_G_W9_Turn_Earth_explain_the_sky_Classic.html": "3efded0179e818a3e7c0a5d0692610acfb4b91b1d85bc937c4b79bdd79668851",
         "Science_Teesside/Build/W8-W13_2026-27/SCI_B_W12_Give_a_rock_a_job_Classic.html": "509f38056bd09e903c70b0426ac55ab7ff73f7da10261a97eec11d49d7b27d1c",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
-        "_glv3/tools/verify_change_boundary.py": "c0aaa97009d834c1c0cbfb2d4c6368355dcb2e2d89dea799fc53c35e2e96f44a",
+        "_glv3/tools/verify_change_boundary.py": "1dad143df1850dbbe039e33fbfe0557c64d0b9c921f330957d8db23f042ad3be",
         "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
         "_glv3/tools/chip_gate.mjs": "16cdd5c0ad3745c57340ed0ec6a208d221e4793bfc9b1cd9bc703a6c2613dd9a",
         "_glv3/tools/catalogue_membership.mjs": "4d7ab03e23ee0d3c3fc934f4f0a901afc61169754db099f4f5c24dd9cce058ec",
@@ -225,7 +228,7 @@ CATALOGUE_PINS = {
         "tools/humanities_resources/check_resources.py": "ec5383e3a34cbff999f190b0014a4a73e00a3a29e2714498f7620fd638dc2aa5",
         "tools/humanities_resources/resource.css": "1aed9aaca0d73a4b200c4e5d0977e73f4e906c747d7340c7a62f4197a8344bae",
         "tools/humanities_resources/resource.js": "ad40afed95490bfcce92dc062da46e1b27bcb96bdc80e37eabdfe02bf6ffc446",
-        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "e5af21441228a5a1e88dd10f1a44dbd2303081bb1fabf855350ff13e9fb86bdd",
+        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "f96af96720495397ce173f9eca6f5980e46700979d16e6b1be2fafdd68f6003d",
         "tools/catalogue/TERM_REVIEW.json": "b0ed0d82fe21a222c75f6a38390b01defc0d5d958fac8e85421b7901ce6d201d",
         "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "b13c25e76ffbb916cf997ee62a265a6ff0bf296c125b00458df42d87985aaba2",
         "primary/year5/science/autumn/forces/Lesson8_ExploreGravity.html": "20047720bf1d309055abdf232d341b6fd99b833631efa0bcbfb3dabed9671196",
@@ -675,14 +678,14 @@ CATALOGUE_ORIGINAL_ROWS_SHA256 = "b8ffcb16f5fd2a413e8a0b06ad2d4b112f450364fa2943
 # digest below are re-cut by tools/catalogue/pin_catalogue_contract.py from
 # rows it has verified against that derivation; an edit to any appended row,
 # a removed pack row or an extra lesson row still reds here.
-CATALOGUE_SHELF_ROWS = 219
+CATALOGUE_SHELF_ROWS = 222
 # UX2 A1: keys that may be appended to an original row without moving its
 # digest (see catalogue_errors). Nothing else is additive. No original row
 # carried either key before the ruling (measured 2026-09-08: 0 of 734), so the
 # second set is empty and the allowance cannot launder a pre-existing value.
 CATALOGUE_ADDITIVE_TAG_KEYS = frozenset({"halfTerm", "unit"})
 CATALOGUE_ORIGINAL_KEYS_BEFORE_TAGS = frozenset()
-CATALOGUE_SHELF_ROWS_SHA256 = "d6c16a6778f63e1eb149888887a3999e4005398a8230193f62bee42b0c1d64b9"
+CATALOGUE_SHELF_ROWS_SHA256 = "0e6805d0866fd029aed17b9410785ce013d21c51b6d7a0fddfc972efbc9e98a5"
 
 # These named review records and review tools can change with their reviewed
 # transaction. Tools are not served assets; they are reviewed as executable
@@ -777,16 +780,13 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # entry is now its own literal rather than an alias of PUBLICATION_CALLER_SHA256, which
 # stays where UX2 A5 left it: the two kinds pin different files and had no business
 # sharing one constant.
-# ORDER SX3-PUB: the publisher pin moves to Site be86b584, which mints the
-# admission for this release's 29 published paths. The caller file therefore
-# changed and this is its digest re-cut from those bytes.
 # ORDER SX3-PASSES: the publisher pin moves to Site main 0cd8f842, which carries the
 # 21 transition pairs for this release's published bytes, the re-frozen retained
 # registry baseline, and the builder-pin move that puts domain-split-verify on
 # the same Lessons state as this carrier. A CARRIER PIN MOVE under release-red
 # precedence. The caller file therefore changed and this is its digest re-cut
 # from those bytes -- derived with sha256sum, never transcribed.
-    "lessons": "2cba6232b2a71d97bad302a9d9300517ab6c5c0332f6425d86719859aaacb589",
+    "lessons": "16448b9115440a55374db5e1a37cdad92322ea3d2dfd6873658c89f2223d0e28",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
