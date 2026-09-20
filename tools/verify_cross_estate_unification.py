@@ -935,7 +935,7 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # the same Lessons state as this carrier. A CARRIER PIN MOVE under release-red
 # precedence. The caller file therefore changed and this is its digest re-cut
 # from those bytes -- derived with sha256sum, never transcribed.
-    "lessons": "88b27bb6375ddd64555108984a8a927f9745bd1371f87ad96be4e7f11de60688",
+    "lessons": "886e994d0fd9639349821c0b65a3700b9b777b775eb196fd5ffcc033fc00742f",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
