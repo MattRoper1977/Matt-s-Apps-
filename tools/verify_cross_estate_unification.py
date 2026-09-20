@@ -125,7 +125,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/check_display_titles.cjs": "5d06689114a69124a2d7f59d644a85775756eadd2b470df01e066c2202df681b",
         "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
         "tools/verify_lessons_chips.mjs": "e417afd94ae4f3a450caab2edf4b6c41d14e4588f070d0ad822263e30a86cf39",
-        "tools/sw2/check_tokens_inert.cjs": "482642d3d85a649a5785eed5183dc385bc0c68e294f51cd192af2e7d96d3224e",
+        "tools/sw2/check_tokens_inert.cjs": "0feabd4ad86fd578ca85a69b491dd92ea133697c77f4385cd3a15ebc1810abf9",
         "assets/catalogue/lesson-order.json": "6b9b075655d63ff10745589938bb12e9bb1ff25c0840068ddc3aaf79d7c73203",
         "tools/catalogue/build_lesson_order.py": "8a09eec10f828d44c02397f3d7afe37548128143f6dbab22c90db8d74bc586a7",
         "tools/ux2/hub_gates.mjs": "80ae8def49c49e549c8a2e6b65d521cfdaebb2b7d05f650fa6d5e436f2b6586d",
@@ -800,7 +800,11 @@ PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification
 # No standalone payload or arbitrary CI path is granted. Both gate copies match.
 LUNDYLOOP_CI_PINS = {
     # SW2-T5R1: the shared browser proof is also required at reviewed bytes.
-    "tools/sw2/check_tokens_inert.cjs": "829f5d1acf2dd0733b95b9484e63cfb9d68cb5e6023b303163bb7266e4a4f9bf",
+    # Re-cut 2026-09-19 (SX3 PASS 6, STOP-P1 control): the PUBLISHED table on its line 24
+    # is now DERIVED from the Site admission registry by tools/sw2/pin_published_digests.py
+    # (lessons "" 5c4e3ced, subject.html 93a071a8, apps "" f15bc17d), so the reviewed bytes
+    # moved; digest taken from the edited file, never typed.
+    "tools/sw2/check_tokens_inert.cjs": "854df1c0c5549b4713aa18e286379fc21aad72939ded8b56d04b069a1a9c28da",
     ".github/workflows/verify-lundyloop-professional-os.yml": "7e6cf886ff1af45cc3bcf255ee6a688b75dbb4034fce20b609fe0188a63c11ce",
     "tools/lundyloop/verify_live_bytes.py": "a27f791633260e7e2d8ba7ca2abe5a35db105b9ccbf96d26205628dcc1e636ad",
     "tools/lundyloop/test_live_bytes.py": "972ca2ae06da44722bfd011fda03a361c6011c699f95bb6ce78bca95b71f2e77"
