@@ -160,7 +160,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/build_science_shelf.py": "062e30e917c415fb241c4c98fd86d682ca5f1bebe842696e03ff8e44c3840210",
         "tools/catalogue/build_humanities_shelf.py": "3ed6e289a2656ed5de228082012dd9e957d2d13b2fa77f5857b9dee22ae138a9",
         "tools/catalogue/check_catalogue_static.py": "a1685faf9716a780d609b2379275780c60266e09a2b42c2acc015268f45c9b3e",
-        "tools/catalogue/check_catalogue_dom.cjs": "4d18cc2f1fb330ee9f629a55296436b1a207758d51b6281b3b85ec8bfcf0c376",
+        "tools/catalogue/check_catalogue_dom.cjs": "4481a0cb254ab61a151acb7df530d6fc9b4c8264de01b4c411cee920d28d84d2",
         "tools/catalogue/verify_education_navigation.cjs": "b0d9297a33fb9ea2494fecaa45e02ae6fcf6fa88e6a62ced35cf521fbb1851fd",
         "tools/catalogue/sync_shelf_card_titles.py": "f906e244fd8fd2e596e6e5e0a1fce9a53bee828eed0b74194eccf4860e45b7a0",
         "tools/catalogue/HUMANITIES_STRAND.json": "0a9f184b3253c757ae376898358cd269ca2f1b2b26df8a845b4d0ffa45cfa7af",
