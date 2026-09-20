@@ -120,14 +120,16 @@ APPS_HUB_REVIEWED_WORDING_SHA256 = "9e5a4ac6c1e9bfb04a1c0186a82fce96aa03565a02dc
 CATALOGUE_PINS = {
     "visible_body_sha256": "9961e6f6c4627d644a364dedef7b37b1731cf8508e0ec85909f070a328bec187",
     "files": {
-        "_sownb/CALENDAR_SPINE.json": "ecae421cf46edb325bb7bda27719f7d41065f383ecf25f3360b62185d451a6dd",
+        "_sownb/CALENDAR_SPINE.json": "cd1cc2a6ed95877caa8826c155b605782ea696a8a801b3cf6489b2b0a8fe35f8",
+        "_sx3/SX3_PASSES_LEDGER.md": "719d568cf9cb0a9499dedc206aa0c7a3874f2d9d4e8d219e131c5be45420c231",
+        "tools/sx3/pre_ci_catalogue_sweep.sh": "9848b9e4e9ccab0bd8225d26d7ffa4683c59c249bff688f33c5d665671d9f818",
         "assets/catalogue/display-titles.json": "8e8aac1643221c5511b469cbf734838dd14fbd7bdd7e8cb2fc71e5227c0339bd",
         "tools/catalogue/build_display_titles.py": "4256ab6b07420af4ef090e57d32b8f29fcae88d9075d64750e52f17947dbd8a1",
         "tools/catalogue/check_display_titles.cjs": "5d06689114a69124a2d7f59d644a85775756eadd2b470df01e066c2202df681b",
         "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
         "tools/verify_lessons_chips.mjs": "e417afd94ae4f3a450caab2edf4b6c41d14e4588f070d0ad822263e30a86cf39",
         "tools/sw2/check_tokens_inert.cjs": "0feabd4ad86fd578ca85a69b491dd92ea133697c77f4385cd3a15ebc1810abf9",
-        "assets/catalogue/lesson-order.json": "6b9b075655d63ff10745589938bb12e9bb1ff25c0840068ddc3aaf79d7c73203",
+        "assets/catalogue/lesson-order.json": "25c707845f1f4bd0c83ee8b6e15a21f4758af862efd0b59078ac1ad4cdedf748",
         "tools/catalogue/build_lesson_order.py": "8a09eec10f828d44c02397f3d7afe37548128143f6dbab22c90db8d74bc586a7",
         "tools/ux2/hub_gates.mjs": "80ae8def49c49e549c8a2e6b65d521cfdaebb2b7d05f650fa6d5e436f2b6586d",
         "index.html": "389c3320b158e9bc472b4402d41d1d23e4bb2d78b54385884c0be6ca31f73309",
@@ -180,28 +182,28 @@ CATALOGUE_PINS = {
         ".github/workflows/watch-main.yml": "9a468937b9eefbcdb010f9eed9a2b48f4111761202932fadad680cc3b477f3b6",
         "tools/verify_v6fin_w7_r1_r7.py": "f864bce7fa7f8482520dc41851bcb1e428de8529a10d6d0977645a4c9aed3865",
         "_sx3/FENCE.json": "36e0fd81b283dc41957acff27b906858522ab27eed3c04c6350d5050f230e913",
-        "Science_Teesside/Launch/Autumn2_W7_2026-27/SCI_L_A2_W7L1_Topics_2_3_Assessment_Introduce.html": "5032cd225d7202573c556a371ca554889b9df3a43534757621474bbaf9653dbe",
-        "Science_Teesside/Launch/Autumn2_W7_2026-27/SCI_L_A2_W7L2_Topics_2_3_Assessment_Explore.html": "a6904e5055e43c1d7e61351f13602670c7ddf1d053b882c66a37f792823014f1",
-        "Science_Teesside/Launch/Autumn2_W7_2026-27/SCI_L_A2_W7L3_Topics_2_3_Assessment_Do.html": "938d8894fbb06368717264a59fc0b97830272770dc50caf9941d8d77470fd389",
-        "Science_Teesside/Launch/W14-W15_2026-27/SCI_L_W14L1_Genetic_Condition_Research_Introduce.html": "501a2e9d1d8b3af42ce872e0812a68f18a6103ebeea6395652c911ad80d7a999",
-        "Science_Teesside/Launch/W14-W15_2026-27/SCI_L_W14L2_Genetic_Condition_Source_Evidence_Explore.html": "b0b03f10e6991660d820582a520ca2698c9010916db66bf592243c9a64639b0e",
-        "Science_Teesside/Launch/W14-W15_2026-27/SCI_L_W14L3_Genetic_Condition_Presentation_Do.html": "46f816f7ea9a3101c874f07c000322a944a165cbff42ebf5f658bffc143727b8",
-        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W13L3_Inheritance_Probability_Do.html": "a48127f498d131f0fafe9661fa47a788e2887cc96d3c7b275999ef712a85dd22",
-        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W9L1_Cell_Cycle_Introduce.html": "72af021ab2aa1d8c7f6ea5573993623e85c9dd2aa2a31c26b19162a1ced6b3c6",
-        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W9L2_Mitosis_Sequence_Explore.html": "c2e4a7aeffe0738949c7372e230f8107b37b6f82705a5a412f604514fabcbc50",
-        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W9L3_Identical_Daughter_Cells_Do.html": "588a6fdeac00afa6976357ff06ae86b47d600df570eec5b7a5fdb4d6983b5c11",
+        "Science_Teesside/Launch/Autumn2_W7_2026-27/SCI_L_A2_W7L1_Topics_2_3_Assessment_Introduce.html": "2b6fedfe3044b25254d4e17fe0eb7c235e0ed176cb50ab9c7bdca3c3a3c53d1d",
+        "Science_Teesside/Launch/Autumn2_W7_2026-27/SCI_L_A2_W7L2_Topics_2_3_Assessment_Explore.html": "b8255a810f66250666744fd7793318d2bbabe0780a85f7ad8c97025337bc17c4",
+        "Science_Teesside/Launch/Autumn2_W7_2026-27/SCI_L_A2_W7L3_Topics_2_3_Assessment_Do.html": "553454b2d545e0f6d0ed15cc4038ed2108ea7329ca8a81b945597d04c039c88a",
+        "Science_Teesside/Launch/W14-W15_2026-27/SCI_L_W14L1_Genetic_Condition_Research_Introduce.html": "d9556b6fc52357fc4c354e6f354270ca9e8da55f283dbcdd7a57faef991cef96",
+        "Science_Teesside/Launch/W14-W15_2026-27/SCI_L_W14L2_Genetic_Condition_Source_Evidence_Explore.html": "08a47f06000f3a14ac38f6afb94b304b8f6dbf2f36b803f146639d1a7dae52f7",
+        "Science_Teesside/Launch/W14-W15_2026-27/SCI_L_W14L3_Genetic_Condition_Presentation_Do.html": "59fa8708f3fc2b1331a49a03b63465e2e2713af8c7d69091df356ec287970491",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W13L3_Inheritance_Probability_Do.html": "d0d4f47746946fd0cd332be94865e7282fdaf97fdd800f6646718cc35b6beb7a",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W9L1_Cell_Cycle_Introduce.html": "c0e2a3725ab889f9b0b51e5bad3c9056d1faf973f9f6353122947139e6084586",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W9L2_Mitosis_Sequence_Explore.html": "3439d5e6d06fba838ad695d732b08f86775bf6fbf0536812447ba0ed5ef8116d",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W9L3_Identical_Daughter_Cells_Do.html": "a40855bf2e4d520ad1ec45f8dd442635141cb459c802dc56f9c4198505d708fd",
         "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W9_Copy_separate_divide_Classic.html": "649a152c0fd4a768496f55de23add747acb75dcad4e73a30bfe9453e0d6bcc8d",
-        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W10L1_Growth_And_Differentiation_Introduce.html": "612b4544618d33ed880a52475c5a7c021fc4890b5a3a51f5989cd8748728f95d",
-        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W10L2_Stem_Cells_And_Meristems_Explore.html": "74e34849485b933417b0298046660a4eaacadc4d9058dc217915e6c7c1f18f63",
-        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W10L3_Growth_Stem_Cell_Data_Application_Do.html": "eaaa5d455e931849d295d149cd424283fc46e7b98ab0e27c2c028925295d890d",
-        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W11L1_Stem_Cell_Evidence_Introduce.html": "36c05e98e31bc0d0e16bd79806ef4770cfa4b395bbd1e244b717bd33cf2b9dea",
-        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W11L2_Benefit_Risk_Uncertainty_Explore.html": "e7aa28239965a78bbe79e39130a8c5838e9ff07f488c6d7cbd0deee766536b9f",
-        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W11L3_Stem_Cell_Discuss_Do.html": "fc3f7a5ae735da56c852a2b189590f98c9ccfd71525affe09e947fa7846aecd1",
-        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W12L1_DNA_Hierarchy_Introduce.html": "dccacba41fbff9df9c7d641949ce496508a510cf919cbd562fd9ccf994c32e2c",
-        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W12L2_DNA_Structure_Explore.html": "a728f5544363b581c391ae4d1ba577f325eadc65bcec2ecba781bea17dcfdfa4",
-        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W12L3_Fruit_DNA_Evidence_Do.html": "d1751c5bb73aed8daff1f09eb0cfcf73d7d3ee237f47fb052c487812bcce98fe",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W10L1_Growth_And_Differentiation_Introduce.html": "c5f7062f97517b87080578f7e9cc996320450a28414aafef722c5311abf74f02",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W10L2_Stem_Cells_And_Meristems_Explore.html": "386454dba2e88fee123ddbd39c3965c6af2f7c18248eb1f4c58665f0f2c56ea5",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W10L3_Growth_Stem_Cell_Data_Application_Do.html": "5f4fa6ce615bd0210601c6229f15e76b309e7d3e070aae67be703689114cfadd",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W11L1_Stem_Cell_Evidence_Introduce.html": "d080289046c68268eb64f388251adbb05109f0c7da2ffb1fa0d596d44f82f66d",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W11L2_Benefit_Risk_Uncertainty_Explore.html": "b4e898fa0e87db690fc1b95206df6fa5c95ff6827e267b8c96d10f377527ac9f",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W11L3_Stem_Cell_Discuss_Do.html": "ee3308dda387e77bcdec5a1d0bc150367858a906469885c9cdb21c466ec412b5",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W12L1_DNA_Hierarchy_Introduce.html": "84b9283cd2d65a80204ed899f89205572f290d6661fb7d62fe513f9c897a1873",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W12L2_DNA_Structure_Explore.html": "e84e681deafc43f233e582ae15adeccebe06feaa3b2bb2674d7e8e4089164517",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W12L3_Fruit_DNA_Evidence_Do.html": "0a3e7536dc9110d705e0cc58e70bc845c982b3a1f9431d0b01debac1247c03cc",
         "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W12_Zoom_into_genetic_information_Classic.html": "90e297a0cd6989c101ecc966499c58ad6f830ede7a8c278e20319d35df6380b0",
-        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W13L1_Alleles_Genotype_Phenotype_Introduce.html": "f679964de4e8820e041b6b427ae2ae82910d8cdcc9dfef08dee0aca79ae759da",
+        "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W13L1_Alleles_Genotype_Phenotype_Introduce.html": "fac4a58dbc596176adf28e246565c8bd46636a9121fb84be50e15ac8bd9c5e04",
         "Science_Teesside/Launch/W8-W13_2026-27/SCI_L_W13L2_Punnett_Square_Explore.html": "da80ec932131c969c456ec35ff3514132901bbb51c2c002868308a220e71e79b",
         "Science_Teesside/Grow/W8-W13_2026-27/SCI_G_W10A_Solar_System_Research_Explore.html": "e10e97c2d792de2fad0ce454962e3a31ec608b43750bd71315b3bb1b0655981a",
         "Science_Teesside/Grow/W8-W13_2026-27/SCI_G_W10B_Solar_System_Presentation_Do.html": "18c99f9225f39ec3e6e4d5aecfc94ab8cf208fd2e398e2dfe12f7b2dfb2c31c6",
@@ -217,7 +219,7 @@ CATALOGUE_PINS = {
         "Science_Teesside/Grow/W8-W13_2026-27/SCI_G_W9_Turn_Earth_explain_the_sky_Classic.html": "3efded0179e818a3e7c0a5d0692610acfb4b91b1d85bc937c4b79bdd79668851",
         "Science_Teesside/Build/W8-W13_2026-27/SCI_B_W12_Give_a_rock_a_job_Classic.html": "509f38056bd09e903c70b0426ac55ab7ff73f7da10261a97eec11d49d7b27d1c",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
-        "_glv3/tools/verify_change_boundary.py": "1dad143df1850dbbe039e33fbfe0557c64d0b9c921f330957d8db23f042ad3be",
+        "_glv3/tools/verify_change_boundary.py": "ac335533c68cb490d749621dc85157d456b001568b68e2565a526deafd086b09",
         "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
         "_glv3/tools/chip_gate.mjs": "16cdd5c0ad3745c57340ed0ec6a208d221e4793bfc9b1cd9bc703a6c2613dd9a",
         "_glv3/tools/catalogue_membership.mjs": "4d7ab03e23ee0d3c3fc934f4f0a901afc61169754db099f4f5c24dd9cce058ec",
@@ -229,7 +231,7 @@ CATALOGUE_PINS = {
         "tools/humanities_resources/check_resources.py": "ec5383e3a34cbff999f190b0014a4a73e00a3a29e2714498f7620fd638dc2aa5",
         "tools/humanities_resources/resource.css": "1aed9aaca0d73a4b200c4e5d0977e73f4e906c747d7340c7a62f4197a8344bae",
         "tools/humanities_resources/resource.js": "ad40afed95490bfcce92dc062da46e1b27bcb96bdc80e37eabdfe02bf6ffc446",
-        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "f96af96720495397ce173f9eca6f5980e46700979d16e6b1be2fafdd68f6003d",
+        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "ac7e9b55bd916e12d23e9a3d561b0383f5e759578bc19841dcf29f47aab4549b",
         "tools/catalogue/TERM_REVIEW.json": "b0ed0d82fe21a222c75f6a38390b01defc0d5d958fac8e85421b7901ce6d201d",
         "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "b13c25e76ffbb916cf997ee62a265a6ff0bf296c125b00458df42d87985aaba2",
         "primary/year5/science/autumn/forces/Lesson8_ExploreGravity.html": "20047720bf1d309055abdf232d341b6fd99b833631efa0bcbfb3dabed9671196",
@@ -427,6 +429,152 @@ CATALOGUE_PINS = {
         "tools/science_teaching_packs/GROW_QA.json": "a8cdaa361414a3700c463ea40e0a159029db3fb803024e50b0eb39d082c6f364",
         "tools/science_teaching_packs/build_hub.py": "db1a706f68c8b33cdbcfc4c6f197781fb5cde2f3fe53dc979eea5c5b592ade10",
         "tools/science_teaching_packs/check_packs.py": "01609d0d19e3e4a5de810725d68ac97fcfa0f8843d626dc5a7aaddca009aa578",
+        "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/Humanities_SOW_Alignment.xlsx": "537350c7f0ba110ea90edf5039826c1a2858c04c54ec006c550ff143c09dec69",
+        "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/Humanities_Scheme_of_Work_2026-27.docx": "b078d01fb53a9f5d828b7f64d9ddb9d1a36daa681e8829d2a6d811abca664d11",
+        "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/Humanities_Scheme_of_Work_2026-27.html": "ac8f8d0a4188d147097a491b0db59efef16feb0c0f6c4fa8e13144bb8a53f69f",
+        "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/ORDER_HUM-D5.md": "688b3f5dcc60f6c0cd9c68e2cb2cb7c756ab834e9956c4b20b37982f749c88d4",
+        "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/RE_SOW_Alignment.xlsx": "b1ce56c551520fb360ea06e68c59c1642556337474526c38fb539a36296c2aa8",
+        "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Autumn_2026.docx": "3c2fe9ef4e4cd27361d76c4bb07234d4fe5eed8be40bcdbf1d1133b4632dd9a7",
+        "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Autumn_2026.html": "5a1b523738c7a9e21c7ab2a713970423b5bc4343595432ee315bb5999932e992",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W01/BUILD_A1_W01_Captioned_Model.mp4": "8fa5f6ba3f6b7210d48a37277125eba44ff69843e7f6875177e6bc28eb6747bd",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W01/BUILD_A1_W01_Editable_Pack.docx": "ba4218c0c930bdad13c95b796c7279bc26f713d78a412349e5d47f6724cd5ecb",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W01/BUILD_A1_W01_Editable_Slides.pptx": "cfda24ab774a2a5c2a742afdef594663ce9a854aa8a12694fd0ff6db6326b987",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W01/BUILD_A1_W01_Knowledge_Organiser.html": "3e66b84d17cb11b3d7c7b315ef734d88c4edb94a94125e2707a16addbb2dc3db",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W01/BUILD_A1_W01_Knowledge_Organiser.pdf": "868102f22dd543cce610053626095a530320d26b88ea5e116e151cb3cef5dc28",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W01/BUILD_A1_W01_Lesson.html": "1192868212189362ad1850b7d3589c01457694f1c94e304a16245e09ae83ae83",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W01/BUILD_A1_W01_Pupil_Resources.pdf": "29a00cfb5f9bec7af9c6bc891cb7245207f3a35ab261e47005530c4094c4c2a8",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W01/BUILD_A1_W01_Teacher_Notes.pdf": "37cf73d652b204e486350e7b65081175c8f463a04b4818640e7eb2e165442269",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W02/BUILD_A1_W02_Captioned_Model.mp4": "77173af6f427694cde81390ea21a8f1dba343a229c807a44009c87f93e5766b8",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W02/BUILD_A1_W02_Editable_Pack.docx": "91b3470b41b0a61f596d8abcde9a16cb5c1ece605bbbc34da64992ccaef0965e",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W02/BUILD_A1_W02_Editable_Slides.pptx": "c6bd63b7fdbc4ce2f83cc6ba78cf7848eeec0de3909f72bdbf9d94594bcf182d",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W02/BUILD_A1_W02_Knowledge_Organiser.html": "3b38e793985423f62c24448edee7ac73d6f0a98f14b874e28c1725abd64445c2",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W02/BUILD_A1_W02_Knowledge_Organiser.pdf": "a630484d37fc1d0c28e81f0c25868b52327db50c9c6de1e76debda7e5ca116a4",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W02/BUILD_A1_W02_Lesson.html": "7412243f8449c42fa7027ca612b0af6c643d5fc0e9ca627b29495e597220c0e1",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W02/BUILD_A1_W02_Pupil_Resources.pdf": "3b4fe4f602a55759285a98f6f1e2d45d2d46f67215504ceb55a923d3bcbcfb32",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W02/BUILD_A1_W02_Teacher_Notes.pdf": "a82945dc967a871fc564d1672060dd0f281de51c41187b81117370894f662909",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W03/BUILD_A1_W03_Captioned_Model.mp4": "6799b383452024ffcf72332567d694ba979b6423141ce4b822aa3c3ea8ee63b2",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W03/BUILD_A1_W03_Editable_Pack.docx": "c2417f48f62cc82e1a455133168f31b4d8534a9b4f6a5066248943775b0d2eb7",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W03/BUILD_A1_W03_Editable_Slides.pptx": "de5a8a7af83b5c3010f41aad4d8d6216c572541e21cab8ba335d410e34081210",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W03/BUILD_A1_W03_Knowledge_Organiser.html": "ecbdf5a09d9680fb4a038d1be68d65646113642c37df6a9159eff7ece3ba69d4",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W03/BUILD_A1_W03_Knowledge_Organiser.pdf": "fb3a1002abc247a97de4ddebe31957e628da05dcacfc691a6c02b32e152c2ee3",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W03/BUILD_A1_W03_Lesson.html": "5e53738ef888c7600138cd1da2658aee40be5119076879e72c9c2017dca8ebe8",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W03/BUILD_A1_W03_Pupil_Resources.pdf": "c4e0b931a96350ea576d7558660347300103edd8f9470e8cbb8147abeb95bddd",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W03/BUILD_A1_W03_Teacher_Notes.pdf": "357c0c42f9bb9b1d7d3174b991adefea2bf7251e9d6c047e65fcead5e52a2e17",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W04/BUILD_A1_W04_Captioned_Model.mp4": "44ec3f4cf67a570d39f8dd10e0c221b60043c64e5ff9f8c703f73c899fa26c7f",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W04/BUILD_A1_W04_Editable_Pack.docx": "3cba20163d155b254250d5d04e561b7ab97ee1e0e62a7203ae03f74ec57fe07e",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W04/BUILD_A1_W04_Editable_Slides.pptx": "134e89022083818a9b01dcd3b117146b7c8fa955a4da049944abb00f9ab2a7c9",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W04/BUILD_A1_W04_Knowledge_Organiser.html": "66d4d4779b40c56879219034901ba86a72635c76beee76e4c207d3d57829cf2c",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W04/BUILD_A1_W04_Knowledge_Organiser.pdf": "482acde5fbfe07c7320ba7c797146a9e2df43835206a3109e52f1dc9d6f38aaa",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W04/BUILD_A1_W04_Lesson.html": "90e2c3a51ed1d8217d1ad40951bea2250a81902590b048889f336e2ea7848696",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W04/BUILD_A1_W04_Pupil_Resources.pdf": "06e25f3305baa497f8e390a15c8a774c9924ed6008692989c00f8c9f96d9a0c4",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W04/BUILD_A1_W04_Teacher_Notes.pdf": "e4679530a054a5c59f2ab9e4c69a8a7f4ec2150e0f859f61522278dc6dde0dbf",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W05/BUILD_A1_W05_Captioned_Model.mp4": "6e49af80f4a65eb96e7d44b3124a8623399746d06de9e553ba1d6ac1820964bd",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W05/BUILD_A1_W05_Editable_Pack.docx": "6e5062cfe442d1c1393305aeb97ca8cd9997b5b32a94cf53957cbb46b5f5d5de",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W05/BUILD_A1_W05_Editable_Slides.pptx": "2d7a311e7f7cc48154932ab3abc264be9c85a883784be06144c4815fad4e4eb4",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W05/BUILD_A1_W05_Knowledge_Organiser.html": "9302b4e790b814bfdb39beba6365b21fdbcb301326407c5233f90d0dfe792687",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W05/BUILD_A1_W05_Knowledge_Organiser.pdf": "711154c45a697db045eba0bdb1128dca890c14294c6fdde6f93c6ca2455a5781",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W05/BUILD_A1_W05_Lesson.html": "e8ff62a224f4b583679841208493a6b3d04b1dad3bf4a588b2b8ae619f6040be",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W05/BUILD_A1_W05_Pupil_Resources.pdf": "e1714a396234df106f1d9a60863782eca89f778fbc9f5a3c2a3fadf82412525d",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W05/BUILD_A1_W05_Teacher_Notes.pdf": "db8a527ee6733276cfa13be6707bdf7fd51683bbbb308316cc6a17bb85fc04f4",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W06/BUILD_A1_W06_Captioned_Model.mp4": "729b94fed48c24c1d5782de86f959d2c36b8a242607a28f6527c3e422f6b633d",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W06/BUILD_A1_W06_Editable_Pack.docx": "c3e667ea40e836ca2348167405f2cbe77573aa67c7ae278d1983284426451204",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W06/BUILD_A1_W06_Editable_Slides.pptx": "e3d9ced1eb206eaa6f4e4f3a140b94b892232398e6e36f8e8496a7a263da19c6",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W06/BUILD_A1_W06_Knowledge_Organiser.html": "5aa307e49336ebae2446d4090a28b87467f840aaa49bbe4c410dc280585cee1f",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W06/BUILD_A1_W06_Knowledge_Organiser.pdf": "5603b0397bad083b453bf7394d6684e27e7706f0591cd9fd0f1179252507456e",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W06/BUILD_A1_W06_Lesson.html": "39b08813df37c6012cac3c2b8818e9f5d5a08869f3a485617dfc5a77d936b5b8",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W06/BUILD_A1_W06_Pupil_Resources.pdf": "35c2f9bedd818e4cf1c8b84d9e4f0c51951dacf2e7de3a9c4b4186d381cb2091",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W06/BUILD_A1_W06_Teacher_Notes.pdf": "2e331beb3ad1e67d69e308c2df71ddce6ff3894e34a3a4933b80bd9e6b4f6473",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W07/BUILD_A1_W07_Captioned_Model.mp4": "f061462dea7135392eb4391312f9714d66c9a3198cabb7e5c321d3363df45309",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W07/BUILD_A1_W07_Editable_Pack.docx": "55a0f12a9595c1cf0612533bda9290b9031121ee2b11742c6354612730f6320a",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W07/BUILD_A1_W07_Editable_Slides.pptx": "5f24d03d2b3e0823255d066a643852e009ca98fc4f34f984844c97a4df3ffe41",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W07/BUILD_A1_W07_Knowledge_Organiser.html": "b3b5d61e5bacbb1669a0d2c2c6956a04874f162bb4d8ab94a236dcbcc15c099b",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W07/BUILD_A1_W07_Knowledge_Organiser.pdf": "db0bec4a5997afe173847d60aa5daccfa4814b2b61a7a6cbb5709bd980fe11a6",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W07/BUILD_A1_W07_Lesson.html": "27d00134171b8a54f668a86dd437a11fee024695919a98cbf8cebcb3b534cd3a",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W07/BUILD_A1_W07_Pupil_Resources.pdf": "7f429dd60fe3f4929451c3252ce4c4b93290269d3e65681297762c1e47b00fd6",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W07/BUILD_A1_W07_Teacher_Notes.pdf": "1528c4085a6a61470847fc7a9727ac41a322c6ce9638c39ac18326b0748dbf89",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/Editable_Visuals/READ_ME.txt": "c6db9ea733f5a67a6f32d702dc54963f97d3c8e430f310cdbacb47c5440d4e07",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/Editable_Visuals/arrival-change.svg": "c98d1fa61e8163d08305382a36516b63b3f3de65440e068ca491f92d8a169cc8",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/Editable_Visuals/arrival-community.svg": "1de816a4040c040a8ec5c392b32035528497217d1a9f98e312930ea02a765d68",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/Editable_Visuals/arrival-diversity.svg": "8c3b9c5a0600994a9352b2181952d9ab92c75b9e398e6845a97e1944cf18043a",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/Editable_Visuals/arrival-fairness.svg": "529e890159203a9483e9c044181e331554e27a9a65106cb78c3e644bbb75a8c4",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/Editable_Visuals/arrival-festival.svg": "1e1bb8c407d767b99f02cfb4e3cba2577938252c83e649639590d95875c01fca",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/Editable_Visuals/arrival-peace.svg": "792b8cd954eb3b23bae480d4db84519e5c5a2b506442c3772cb90416ad4a8ae7",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/Editable_Visuals/grid.svg": "be3436cb4c1b0fa7993e214c47407186a74ed353c4fe727069afaeee572d9bb8",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/Editable_Visuals/local.svg": "e666bc5070d66bbb2b564685a768421508764e67b28dcce67b6be40cf0ba5e2e",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/Editable_Visuals/objects.svg": "88aca060c6685e20fd47a6740f32c3012a15c48b12dc6bad91867ae040267eae",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/Editable_Visuals/phones.svg": "ff17e352efd169723a534fe0a4c6846d716604929b506bb8afd0ffda0724928a",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/Editable_Visuals/world-climate.svg": "c7eb4516343528f9851ab39a89c04abf8b26b260b85706314c567895ce2a7ad3",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/Editable_Visuals/world.svg": "26fc4e5b254e2611c6de7db61635e5da69beb764ff861655a1b7a682774079dc",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W01/GROW_A1_W01_Captioned_Model.mp4": "27e372fb76c393618ad50c7646297a5de2634cf380b46008aaee24e1e7329b5c",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W01/GROW_A1_W01_Editable_Pack.docx": "5ec25185c0ee34a51fed7578a22710382f729df4252044b243742d30b420f5a8",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W01/GROW_A1_W01_Editable_Slides.pptx": "d21c1563074ca9e572bc8cdf9ca2b6605a5bcfefbaf3365ecff395c37287ef41",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W01/GROW_A1_W01_Knowledge_Organiser.html": "40439b73feafd73e9fdb302f8c387a37943e6309a9061ac91a0e2819e0602668",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W01/GROW_A1_W01_Knowledge_Organiser.pdf": "1eed83e326a7e7ed83b9c1cbe4c4a937cef65184d5a23d95112f82e9ad1f0707",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W01/GROW_A1_W01_Lesson.html": "36dcb892dcf165e2e1b19d9c89f237bac0b27edb11226d57a12102d40762261a",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W01/GROW_A1_W01_Pupil_Resources.pdf": "0b022e28a1ba0ca0300d3e49200efe20f795d3e0deea37e1719d46329df27b38",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W01/GROW_A1_W01_Teacher_Notes.pdf": "b56e65d0d91b9f5a71e6ee4437ba9a55648e6de5207ab0cab245080c6b6fa1c8",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W02/GROW_A1_W02_Captioned_Model.mp4": "4e5fe08cdb62a84699773e85af089dbf0a82f20f09a695f3dba0dfc9e8f6d686",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W02/GROW_A1_W02_Editable_Pack.docx": "3f7bd38532af9728ef28cbd469dbb654490e19cfcd797557665a8557f915da7c",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W02/GROW_A1_W02_Editable_Slides.pptx": "718df0564cc04f829be3cf940f7c594d8e7653fde687acf6f4ad6649840a35b4",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W02/GROW_A1_W02_Knowledge_Organiser.html": "9a480ac49e3b70537513f25994506bd53109ffa3a1af2ef436d33f0634ce46e4",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W02/GROW_A1_W02_Knowledge_Organiser.pdf": "d12ec8182576ba80e6e8babf1d8f9294fcfad890030a1180bd585d13f9f034a7",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W02/GROW_A1_W02_Lesson.html": "f6fcd4c4a3f72ddc447d025e13b92c28a27bf038084783234268c67d7020dfe8",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W02/GROW_A1_W02_Pupil_Resources.pdf": "2b8d25a9b90bc688a30cee4a436fae9da5acadc6ea5be0e08208c17c61a34233",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W02/GROW_A1_W02_Teacher_Notes.pdf": "bc604fa8fdf64afc8d5171b5f6399052448ee019854c9a9c3f31499c09f82190",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W03/GROW_A1_W03_Captioned_Model.mp4": "a01cec3a4122abf6d5a1538c4a045c9edd705cc71fdc61792136d1a0cb7eb9cc",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W03/GROW_A1_W03_Editable_Pack.docx": "9698bd7c5259b45f52b91b0da0201ec42f68cdeef088e95ecd36d3df024709b5",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W03/GROW_A1_W03_Editable_Slides.pptx": "1004155fc1fe26181287f11b2d7256e54cf8c9146a9194dfe167d374998f980a",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W03/GROW_A1_W03_Knowledge_Organiser.html": "f0562ccdc634da0a73a0103d80cef7980f68cd2e03443630f23f2717e1a200ec",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W03/GROW_A1_W03_Knowledge_Organiser.pdf": "5bea657e4fc355189eab0117af54fa94667cf1fb285c902719ece4dfbb136c32",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W03/GROW_A1_W03_Lesson.html": "8ac77bdd965bad5c3f96ed166234891a77a2efb57a38eca2dccd4c33912ed399",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W03/GROW_A1_W03_Pupil_Resources.pdf": "74b89a85ae290c7a92aaa294b63cc11d95ad910104736514f0b5e1d0ed06e478",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W03/GROW_A1_W03_Teacher_Notes.pdf": "ca45b2898bbdbf042eb133888c55024f773f45d6ab8eac0776e3b9fd7f811853",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W04/GROW_A1_W04_Captioned_Model.mp4": "f8508413835f4f6b7da9560df5a34be4576fd28103321fa87dde8e02548f24b8",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W04/GROW_A1_W04_Editable_Pack.docx": "8e59d4a336e345822969c7d278507d0b87d82258f19a2f0e8d0cb69b245d2cc9",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W04/GROW_A1_W04_Editable_Slides.pptx": "f91ce4ef835e9d92a9568a4f461c4bf0488eb79c9eedd01530da603c731d3f9d",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W04/GROW_A1_W04_Knowledge_Organiser.html": "5e07a502976e39e47f86b48d32a83c578670c2da5f4096571d1931f97f03fd08",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W04/GROW_A1_W04_Knowledge_Organiser.pdf": "756a7d988c9b4557214e294ebfe609350faa3574b608b8e1acf54406a89cce60",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W04/GROW_A1_W04_Lesson.html": "77d20bda14edddbc47b9c6218ebfa7fa55a6c4917c934d8b45008a78100d2c13",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W04/GROW_A1_W04_Pupil_Resources.pdf": "dc0063c6a349deb1e5fdf7334212d3fbbc7599947f5c6df7cc5b5820c1f3aaf1",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W04/GROW_A1_W04_Teacher_Notes.pdf": "484edbedd4f36b652e9edbb678392653226c76dcf7ad33d8d6e2cb3fa782c617",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W05/GROW_A1_W05_Captioned_Model.mp4": "d7901902a1df8f0427406ef698a7fc00080139c11f866935cba3b323d8e2f4e7",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W05/GROW_A1_W05_Editable_Pack.docx": "43deca2b5d9cb14440ef2766e061f3e290ffc73771ba31e551afc5305a30f71f",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W05/GROW_A1_W05_Editable_Slides.pptx": "563437d8138ef940fd094ea27502eab86ec37223e5bfa418b79c806b1e6ac4b8",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W05/GROW_A1_W05_Knowledge_Organiser.html": "0048c8d0598c8eacdab502d66b52aea2d2e8ba8b9608ad020cb88e3c8047bea3",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W05/GROW_A1_W05_Knowledge_Organiser.pdf": "54c070b18901980996718efa64cf0a26a638cf68bc9008d58bedf76d805b4fe3",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W05/GROW_A1_W05_Lesson.html": "65358dad991b44d2b58a6b6578511e6f08ce4ea937fa1628023f210c58225e14",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W05/GROW_A1_W05_Pupil_Resources.pdf": "1629c9c31a3fdc5fb126a6f5b2d6a0a6503a358ae73ac5a426e978eb048eb0aa",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W05/GROW_A1_W05_Teacher_Notes.pdf": "ad9fc3e249146af8f50a2dd68680aa097b7e50be02f5aa62d036e01e467dd6dd",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W06/GROW_A1_W06_Captioned_Model.mp4": "48d1104447ee11372b61673d71ba3057d4495c125c0f9b54411f0e729fcec5f2",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W06/GROW_A1_W06_Editable_Pack.docx": "21eee128ab8ecc639e32f0d068c1cd5ebf532d11c80ed0a10aa1414e0cf76bbe",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W06/GROW_A1_W06_Editable_Slides.pptx": "eada084af4c4f1c5e337f1121487d10165a13802a2f4465f5d4c06978f722d92",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W06/GROW_A1_W06_Knowledge_Organiser.html": "3ca5600ac5639520240bb60edc07715d7157b132056173dc971d829cc629d52b",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W06/GROW_A1_W06_Knowledge_Organiser.pdf": "bed02b4dc5cc31134965d6ae14f33463ce27f98820789306f266333b726cf5d8",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W06/GROW_A1_W06_Lesson.html": "8cb0d5d70f526707e41d5960ce635d692e5eb067519231d3a59e4ae2d278beba",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W06/GROW_A1_W06_Pupil_Resources.pdf": "05a3df175825afcbee8c0d2b0b930f73202ed48cfa85e2cf446926879e890231",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W06/GROW_A1_W06_Teacher_Notes.pdf": "6cd6af07cc07ec35202709612498fd108441519f91fac5459294e7468c3dbfec",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W07/GROW_A1_W07_Captioned_Model.mp4": "1bca4e415328a017f3494bf4d4b7db779544b01173cc07e07562bd5d19b34464",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W07/GROW_A1_W07_Editable_Pack.docx": "55518db545be873b113a766f5f2184b3d75e8f092e2533d7c6e4c980c3c26965",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W07/GROW_A1_W07_Editable_Slides.pptx": "d852d22e6cc2788dca4d284b4bd31122cb60f1d6eccb382014746da0fb1add60",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W07/GROW_A1_W07_Knowledge_Organiser.html": "decc5a8f6a0710d77bf59a9f545e207a29caa1f87442af93b6299656c2d6787d",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W07/GROW_A1_W07_Knowledge_Organiser.pdf": "a15d9bc8ef7b7b8e3c144df48337926e3d3965b4a15d70d0055ef15777d41a17",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W07/GROW_A1_W07_Lesson.html": "7cff5a297697b90feb5c9596ed4ca7b96cae95a9001bf373c50df1fd16d5d523",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W07/GROW_A1_W07_Pupil_Resources.pdf": "95731f0c7778302038af6829e4f4f843fa33d9093fbd78cc09b1a24b6e316e7d",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/GROW/Autumn_1/W07/GROW_A1_W07_Teacher_Notes.pdf": "c0c7129f507d9ae462fdde108823ade704edb5d435c4c1919d408843647d1380",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/MANIFEST.json": "b693855bc779e604c9a2851cd2fb564cad071d4dce45eb6438350fa1c141aef1",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/READ_ME_FALLBACK.txt": "be8efb425b2248d5b755d816383d8854e0fed26d99b108bbf898b5f68d96695b",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_1_LAUNCH_Reviewed/SHA256SUMS.txt": "9f9e515d8f2eb725c27af7e6064c0bf317ac86e0278944cbc19394acc5ae75f0",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_2_BUILD_Reviewed/SHA256SUMS.txt": "b7a6bc6e2a2a92e17cc0f6f1a48bcdd45b98f70ffbd572300f3aefe060eacff2",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_2_GROW_Reviewed/SHA256SUMS.txt": "340c594f5b4340d257b5db6b0fc86d0822da04623ce275f564313bc72aa1ce3c",
+        "Humanities_Teesside/Teaching_Packs/HUM_Autumn_2_LAUNCH_Reviewed/SHA256SUMS.txt": "3c1f9b61b106d0d77d28999450e7fdc8375de0ecbfd51964fca25d20089bb5e3",
+        "Humanities_Teesside/Teaching_Packs/HUM_Spring_1_BUILD_GROW_Reviewed/SHA256SUMS.txt": "96587db7912c6d7a7248bafa8d21bb976b15a8eb0664711e8ed45b2062df7f91",
+        "Humanities_Teesside/Teaching_Packs/HUM_Spring_1_LAUNCH_Reviewed/SHA256SUMS.txt": "a4545d2ffa724f7c49a83d93ac62446b2b65cf150657ab6b3b45d4f846b51050",
+        "Humanities_Teesside/Teaching_Packs/HUM_Spring_2_BUILD_GROW_Reviewed/SHA256SUMS.txt": "01f5fa20dd3443c163bb5110e92a9ef65423296401b91d5dd5794382a1c86868",
+        "Humanities_Teesside/Teaching_Packs/HUM_Spring_2_LAUNCH_Reviewed/SHA256SUMS.txt": "1e780dcd5706ac2551fe8891ec14febac9d05c53febe8da9f8c142f41b7d1d08",
+        "Humanities_Teesside/Teaching_Packs/RE_Autumn_BUILD_Reviewed/SHA256SUMS.txt": "2e9a134f88dbddd5306114c2f8bec94c631afb870207461f9a1c06ece292fe00",
+        "Humanities_Teesside/Teaching_Packs/RE_Autumn_GROW_Reviewed/SHA256SUMS.txt": "5ae18b9063c67265a8d67a8b9461cd5c9deeb48f89c318893eca92b0006112e8",
+        "Humanities_Teesside/Teaching_Packs/RE_Autumn_LAUNCH_Reviewed/SHA256SUMS.txt": "b2de4b668a22d789c015d63198685a286364e89970ca8e7ce295bc95e94f1d2d",
+        ".github/workflows/cross-estate-on-content.yml": "1da236d50f2013b5d03e06d85d73018d56380936e2c490eacf17862c93b15364",
         "tools/humanities_resources/PUBLIC_LABEL_CHANGES.json": "6ff5c272460a5175a48b6cb98cc1c1a4f8eaccc42da4709ef7e2653c1f6a8179",
         "Humanities_Teesside/David_Cover_Autumn1_W3-W7/BH_W3.html": "3cb06cdadc3af0b852e54192a10203295be12c6139601e98e86c9496478a79f0",
         "Humanities_Teesside/David_Cover_Autumn1_W3-W7/BH_W4.html": "ad5f0adbe53b57189e3c9958ec5e79d3f9b91018e6fc85001140141284e5c387",
@@ -787,7 +935,7 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # the same Lessons state as this carrier. A CARRIER PIN MOVE under release-red
 # precedence. The caller file therefore changed and this is its digest re-cut
 # from those bytes -- derived with sha256sum, never transcribed.
-    "lessons": "16448b9115440a55374db5e1a37cdad92322ea3d2dfd6873658c89f2223d0e28",
+    "lessons": "88b27bb6375ddd64555108984a8a927f9745bd1371f87ad96be4e7f11de60688",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
@@ -984,6 +1132,92 @@ def normalized_visible_body(text: str, kind: str) -> str:
     return value
 
 
+# ORDER FINISH-2, manifest-pin ruling (2026-09-20). A pack-scale population cannot be
+# carried as exact per-file pins. PIN1 materialises one trigger path per pinned file,
+# and the HUM-D5 packs' 1750 pins took the derived workflow to 534,033 bytes -- which
+# GitHub would not load at all: three push runs ended instantly with zero jobs, no
+# pull_request run was ever created, and so this gate never ran on the pull request
+# that landed them. A gate that cannot start is not a gate. The packs are therefore
+# pinned by their own SHA256SUMS manifest.
+#
+# This function is what stops that being a loosening. Every member a pinned manifest
+# lists is digest-checked here on every run, exactly as an individual pin would have
+# been: the coverage is kept, only the indirection changes. The manifest's own bytes
+# are pinned in CATALOGUE_PINS and checked by the loop above, so a manifest edited to
+# admit a new file reds on the pin before the list it carries is ever honoured.
+#
+# Scope is exact and narrow: a pinned manifest is expanded only at
+# <CATALOGUE_PACK_MANIFEST_ROOT>/<one path segment>/SHA256SUMS.txt, the shape the
+# HUM-D5 packs land in. The Science pack manifests sit outside it and are untouched,
+# so no file that was never part of this ruling is newly judged here.
+CATALOGUE_PACK_MANIFEST_ROOT = "Humanities_Teesside/Teaching_Packs"
+CATALOGUE_PACK_MANIFEST_NAME = "SHA256SUMS.txt"
+
+
+def catalogue_pack_manifests(pins: dict) -> list[str]:
+    """The pinned pack manifests whose listed members this gate expands."""
+    root = CATALOGUE_PACK_MANIFEST_ROOT.split("/")
+    return [rel for rel in sorted(pins)
+            if rel.split("/")[:len(root)] == root
+            and len(rel.split("/")) == len(root) + 2
+            and rel.split("/")[-1] == CATALOGUE_PACK_MANIFEST_NAME]
+
+
+def catalogue_manifest_entries(root: Path, rel: str) -> tuple[dict[str, str], list[str]]:
+    """Parse one pinned pack manifest into {member path: reviewed digest}.
+
+    An unreadable, malformed or empty manifest returns an ERROR, never an empty
+    mapping. Treating it as "nothing to check" is precisely the silent gap this
+    indirection would otherwise open, and it is the same refusal fence_errors
+    makes for an unreadable fence.
+    """
+    try:
+        text = (root / rel).read_text("utf-8")
+    except (OSError, ValueError) as exc:
+        return {}, [f"reviewed pack manifest could not be read, so its members cannot be honoured: {rel} ({exc})"]
+    entries: dict[str, str] = {}
+    for number, line in enumerate(text.splitlines(), 1):
+        if not line.strip():
+            continue
+        checksum, separator, name = line.partition("  ")
+        name = name.strip()
+        if not separator or not re.fullmatch(r"[0-9a-f]{64}", checksum) or not name:
+            return {}, [f"reviewed pack manifest line {number} is not a sha256sum record: {rel}"]
+        if name.startswith("/") or ".." in name.split("/") or name in entries:
+            return {}, [f"reviewed pack manifest line {number} names an unusable or repeated member: {rel}"]
+        entries[name] = checksum
+    if not entries:
+        return {}, [f"reviewed pack manifest names no member; refusing to treat an empty manifest as no manifest: {rel}"]
+    return entries, []
+
+
+def catalogue_manifest_errors(root: Path, pins: dict) -> list[str]:
+    errors = []
+    for rel in catalogue_pack_manifests(pins):
+        base = rel[: -len(CATALOGUE_PACK_MANIFEST_NAME)]
+        entries, problems = catalogue_manifest_entries(root, rel)
+        errors.extend(problems)
+        for name, expected in entries.items():
+            member = base + name
+            path = root / member
+            if not path.is_file():
+                errors.append(f"reviewed pack manifest member is missing: {member}")
+            elif digest(path) != expected:
+                errors.append(f"reviewed pack manifest member bytes differ: {member}")
+    return errors
+
+
+def catalogue_manifest_member_paths(root: Path) -> list[str]:
+    """Every member path a pinned manifest admits, for the self-test fixture."""
+    pins = CATALOGUE_PINS.get("files", {})
+    members = []
+    for rel in catalogue_pack_manifests(pins):
+        base = rel[: -len(CATALOGUE_PACK_MANIFEST_NAME)]
+        entries, _ = catalogue_manifest_entries(root, rel)
+        members.extend(base + name for name in entries)
+    return members
+
+
 def catalogue_errors(root: Path, kind: str, text: str) -> list[str]:
     if kind != "lessons":
         return []
@@ -1032,6 +1266,7 @@ def catalogue_errors(root: Path, kind: str, text: str) -> list[str]:
             errors.append(f"invalid reviewed catalogue path: {rel}")
         elif not path.is_file() or digest(path) != expected:
             errors.append(f"reviewed catalogue bytes differ: {rel}")
+    errors.extend(catalogue_manifest_errors(root, pins))
     return errors
 
 
@@ -1428,7 +1663,7 @@ def self_test(root: Path, kind: str, canonical: Path) -> None:
     # catch that leg being broken, not only the local ones.
     with tempfile.TemporaryDirectory(prefix="mbm-cross-estate-positive-control-") as temp:
         fixture = Path(temp)
-        for rel in set(["index.html", "resources.json" if kind == "lessons" else "apps.json", PUBLICATION_CALLER_PATH, PUBLICATION_GATE_WORKFLOW_PATH, *CANONICAL_HASHES] + (list(CATALOGUE_PINS.get("files", {})) if kind == "lessons" else list(LUNDYLOOP_CI_PINS))):
+        for rel in set(["index.html", "resources.json" if kind == "lessons" else "apps.json", PUBLICATION_CALLER_PATH, PUBLICATION_GATE_WORKFLOW_PATH, *CANONICAL_HASHES] + (list(CATALOGUE_PINS.get("files", {})) + catalogue_manifest_member_paths(root) if kind == "lessons" else list(LUNDYLOOP_CI_PINS))):
             src = root / rel
             dst = fixture / rel
             dst.parent.mkdir(parents=True, exist_ok=True)
@@ -1475,6 +1710,52 @@ def self_test(root: Path, kind: str, canonical: Path) -> None:
                     if not fence_errors(empty, {one}, "lessons"):
                         raise RuntimeError("an unreadable fence was treated as no fence")
                 print(f"SX3 fence controls: {len(fenced)} fenced path(s) red / unfenced path green / apps estate quiet / empty and unreadable fence red")
+            # ORDER FINISH-2 manifest-pin ruling: 1605 pack members are admitted by
+            # their manifest rather than by 1605 individual pins, so the expansion
+            # must be PROVED able to go red on every way that can be abused. A
+            # manifest check that cannot go red is a 1605-file hole, and this control
+            # is the whole reason the indirection is not a loosening.
+            pins = CATALOGUE_PINS.get("files", {})
+            manifests = catalogue_pack_manifests(pins)
+            if manifests:
+                index_text = (fixture / "index.html").read_text("utf-8")
+                one = manifests[0]
+                base = one[: -len(CATALOGUE_PACK_MANIFEST_NAME)]
+                entries, problems = catalogue_manifest_entries(fixture, one)
+                if problems:
+                    raise RuntimeError("a pinned pack manifest did not parse in the fixture: " + "; ".join(problems))
+                member = base + sorted(entries)[0]
+                target = fixture / member
+                kept_member = target.read_bytes()
+                target.write_bytes(kept_member + b"\n<!-- planted unreviewed byte -->\n")
+                if not catalogue_manifest_errors(fixture, pins):
+                    raise RuntimeError("a manifest-listed pack member's byte drift was not detected: " + member)
+                target.unlink()
+                if not catalogue_manifest_errors(fixture, pins):
+                    raise RuntimeError("a missing manifest-listed pack member was not detected: " + member)
+                target.write_bytes(kept_member)
+                if catalogue_manifest_errors(fixture, pins):
+                    raise RuntimeError("the restored pack member did not pass")
+                manifest_file = fixture / one
+                kept_manifest = manifest_file.read_bytes()
+                manifest_file.write_bytes(kept_manifest + b"0" * 64 + b"  planted/unreviewed_addition.pptx\n")
+                if not catalogue_manifest_errors(fixture, pins):
+                    raise RuntimeError("a manifest enlarged to admit an unreviewed file was not caught by the expansion")
+                if ("reviewed catalogue bytes differ: " + one) not in catalogue_errors(fixture, "lessons", index_text):
+                    raise RuntimeError("a manifest enlarged to admit an unreviewed file was not caught by its own pin")
+                manifest_file.write_bytes(b"not a sha256sum manifest\n")
+                if not catalogue_manifest_errors(fixture, pins):
+                    raise RuntimeError("an unreadable manifest was treated as no manifest")
+                manifest_file.write_bytes(b"")
+                if not catalogue_manifest_errors(fixture, pins):
+                    raise RuntimeError("an empty manifest was treated as no manifest")
+                manifest_file.write_bytes(kept_manifest)
+                if catalogue_manifest_errors(fixture, pins):
+                    raise RuntimeError("the restored manifest did not pass")
+                listed = sum(len(catalogue_manifest_entries(fixture, rel)[0]) for rel in manifests)
+                print(f"pack manifest controls: {len(manifests)} pinned manifest(s) admitting {listed} member(s); "
+                      f"member drift red / member missing red / manifest enlargement red on BOTH the expansion and its pin / "
+                      f"unreadable manifest red / empty manifest red / restored green")
         index = fixture / "index.html"
         text = index.read_text("utf-8")
         index.write_text(text.replace('<a href="/Lessons/"', '<a href="/lessons/"', 1), "utf-8")
