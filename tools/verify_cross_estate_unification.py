@@ -120,6 +120,7 @@ APPS_HUB_REVIEWED_WORDING_SHA256 = "9e5a4ac6c1e9bfb04a1c0186a82fce96aa03565a02dc
 CATALOGUE_PINS = {
     "visible_body_sha256": "9961e6f6c4627d644a364dedef7b37b1731cf8508e0ec85909f070a328bec187",
     "files": {
+        "_sownb/CALENDAR_SPINE.json": "ecae421cf46edb325bb7bda27719f7d41065f383ecf25f3360b62185d451a6dd",
         "assets/catalogue/display-titles.json": "8e8aac1643221c5511b469cbf734838dd14fbd7bdd7e8cb2fc71e5227c0339bd",
         "tools/catalogue/build_display_titles.py": "4256ab6b07420af4ef090e57d32b8f29fcae88d9075d64750e52f17947dbd8a1",
         "tools/catalogue/check_display_titles.cjs": "5d06689114a69124a2d7f59d644a85775756eadd2b470df01e066c2202df681b",
