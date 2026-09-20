@@ -164,7 +164,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/verify_education_navigation.cjs": "b0d9297a33fb9ea2494fecaa45e02ae6fcf6fa88e6a62ced35cf521fbb1851fd",
         "tools/catalogue/sync_shelf_card_titles.py": "f906e244fd8fd2e596e6e5e0a1fce9a53bee828eed0b74194eccf4860e45b7a0",
         "tools/catalogue/HUMANITIES_STRAND.json": "0a9f184b3253c757ae376898358cd269ca2f1b2b26df8a845b4d0ffa45cfa7af",
-        "tools/catalogue/hub_sections.py": "cfbf33b76784f8257b9e622fa8af414aebe32474625b2cd68728b805f1671f3d",
+        "tools/catalogue/hub_sections.py": "696c3a956583d4872bb33ebf63bd499dd1db4fa8acec09948e677b3ed44253f3",
         "assets/catalogue/shelf-base.css": "951d6188059da3d2f20717ab7d82773b335d453d8c2d82f5b75f230229351e61",
         "tools/catalogue/restamp_evidence_sha256.py": "bbd736cb4da363732d5493b3dcd0919f3f22561a8612fb34a6f143270bb62b9d",
         "Science_Teesside/Build/START_HERE.html": "acac26140f5aeef22292e6ce3831fa61aaf5e62432cc3998b340918c8bfaee7f",
