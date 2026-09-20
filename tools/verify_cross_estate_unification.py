@@ -121,7 +121,7 @@ CATALOGUE_PINS = {
     "visible_body_sha256": "9961e6f6c4627d644a364dedef7b37b1731cf8508e0ec85909f070a328bec187",
     "files": {
         "_sownb/CALENDAR_SPINE.json": "cd1cc2a6ed95877caa8826c155b605782ea696a8a801b3cf6489b2b0a8fe35f8",
-        "_sx3/SX3_PASSES_LEDGER.md": "06694f813f5f84188be26cb5496e664b3bfbb78963cb52d6beaa23ff20350f7c",
+        "_sx3/SX3_PASSES_LEDGER.md": "2b6417d0a015aa58d6f12acbee677bebe218080f283b31e2647c81772ebeb26c",
         "tools/sx3/pre_ci_catalogue_sweep.sh": "9848b9e4e9ccab0bd8225d26d7ffa4683c59c249bff688f33c5d665671d9f818",
         "assets/catalogue/display-titles.json": "e8072487ca9d163089b83160ac5c57a8e94729c09d9fb0bb76632938a018bcb9",
         "tools/catalogue/build_display_titles.py": "4256ab6b07420af4ef090e57d32b8f29fcae88d9075d64750e52f17947dbd8a1",
@@ -129,8 +129,8 @@ CATALOGUE_PINS = {
         "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
         "tools/verify_lessons_chips.mjs": "e417afd94ae4f3a450caab2edf4b6c41d14e4588f070d0ad822263e30a86cf39",
         "tools/sw2/check_tokens_inert.cjs": "0feabd4ad86fd578ca85a69b491dd92ea133697c77f4385cd3a15ebc1810abf9",
-        "assets/catalogue/lesson-order.json": "8b9b41c738236bdf8fbaafb548f199e26fa5ab0956055b080086eb299603aa81",
-        "tools/catalogue/build_lesson_order.py": "8a09eec10f828d44c02397f3d7afe37548128143f6dbab22c90db8d74bc586a7",
+        "assets/catalogue/lesson-order.json": "9d6237d5aae76d213855a8a04aeb7af7871f24d977055c7155aee392e09430f5",
+        "tools/catalogue/build_lesson_order.py": "2caa4b97584b58330e3ca8e07754cc2877d687a1660688e321c50b730f89db54",
         "tools/ux2/hub_gates.mjs": "80ae8def49c49e549c8a2e6b65d521cfdaebb2b7d05f650fa6d5e436f2b6586d",
         "index.html": "389c3320b158e9bc472b4402d41d1d23e4bb2d78b54385884c0be6ca31f73309",
         "Science_Teesside/index.html": "065d524af2647cb18c861e8d9ef2d9d524cdaea777482f5b722d24e49a773977",
@@ -159,7 +159,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/build_catalogue.py": "10a704418e67c6b9ec80bb911cfe267df7a12e8c4adbb6e878ca14c5cfb7c3b1",
         "tools/catalogue/build_science_shelf.py": "062e30e917c415fb241c4c98fd86d682ca5f1bebe842696e03ff8e44c3840210",
         "tools/catalogue/build_humanities_shelf.py": "3ed6e289a2656ed5de228082012dd9e957d2d13b2fa77f5857b9dee22ae138a9",
-        "tools/catalogue/check_catalogue_static.py": "a1685faf9716a780d609b2379275780c60266e09a2b42c2acc015268f45c9b3e",
+        "tools/catalogue/check_catalogue_static.py": "eaea1b94c5f36b5f998529a5822866b00502af3dae6e7304b7040d85369354a3",
         "tools/catalogue/check_catalogue_dom.cjs": "4481a0cb254ab61a151acb7df530d6fc9b4c8264de01b4c411cee920d28d84d2",
         "tools/catalogue/verify_education_navigation.cjs": "b0d9297a33fb9ea2494fecaa45e02ae6fcf6fa88e6a62ced35cf521fbb1851fd",
         "tools/catalogue/sync_shelf_card_titles.py": "f906e244fd8fd2e596e6e5e0a1fce9a53bee828eed0b74194eccf4860e45b7a0",
@@ -167,7 +167,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/hub_sections.py": "696c3a956583d4872bb33ebf63bd499dd1db4fa8acec09948e677b3ed44253f3",
         "assets/catalogue/shelf-base.css": "951d6188059da3d2f20717ab7d82773b335d453d8c2d82f5b75f230229351e61",
         "assets/catalogue/humanities-hub-bindings.json": "edd1c2aca59ffb39409c1aaec8f861d2141c44e81978e9bd48dfa85be634e3dc",
-        "tools/catalogue/restamp_evidence_sha256.py": "bbd736cb4da363732d5493b3dcd0919f3f22561a8612fb34a6f143270bb62b9d",
+        "tools/catalogue/restamp_evidence_sha256.py": "611d3db56e0289b172bba1bd2794ca22f597a9300ff4f0321c45ff2c7bfca54e",
         "Science_Teesside/Build/START_HERE.html": "acac26140f5aeef22292e6ce3831fa61aaf5e62432cc3998b340918c8bfaee7f",
         "Science_Teesside/Grow/START_HERE.html": "d2bec305dec3212215c6f599cad3925c571f9a34ca6e85268893c8ed142170dd",
         "Science_Teesside/Launch/START_HERE.html": "10b46e7cf26e3aa4b7f1fb4758a039bcbec7000bc2ec8d30dfe3ce0e0b966353",
@@ -247,6 +247,8 @@ CATALOGUE_PINS = {
         "Humanities_Teesside/BUILD_W14-W20_2026-27/BUILD_HUM_W14_Festivals_Display_and_Reflection.html": "bf14c15092537d25d1b067d5cc32bba8b5ded673e2d8247b352b0431c8abbe59",
         "Humanities_Teesside/BUILD_W14-W20_2026-27/BUILD_HUM_W15_My_Week_Timeline_and_Caring_Stories.html": "97e71086dcda835b431f9cf94d545f802429faabbb0bd76d26a30987c70ae8fc",
         "_sx3/CHASSIS_CONTRACT.md": "7bcbd67432df1edcedcccacffbeae56b16ab933cea6dd6ada761a263781930d8",
+        "_hum/EVIDENCE_LIMB_CENSUS.md": "43870031ec3c0059fb03ed16180a40d630b2eec63a4fa29cbafd3ccee7415e4d",
+        "tools/hum/evidence_limb_census.py": "5d360d643641dd27784f5ef06c850ef20b424d112e6de1a98d1d5768c2ef69e4",
         "assets/catalogue/science-download-bindings.json": "efb435f7e0dc4c9083050f5bb3e348494838422fe7de6e809fbdf8f877d9b10d",
         "Science_Teesside/Teaching_Packs/BUILD/BUILD_Science_Autumn1_W3-W7_Teaching_Guide.docx": "c4fd055acdb11a2310fe820b6f473733835dc4789b9151cd3377ec4d251f2196",
         "Science_Teesside/Teaching_Packs/BUILD/BUILD_Science_Autumn1_W3-W7_Teaching_Guide.pdf": "a479821f2de450e28bd414625f8066768d2c72423bd5ff76046536bf8f7a5d7a",
@@ -946,7 +948,12 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # the same Lessons state as this carrier. A CARRIER PIN MOVE under release-red
 # precedence. The caller file therefore changed and this is its digest re-cut
 # from those bytes -- derived with sha256sum, never transcribed.
-    "lessons": "2ed68f5c6d5ec39a1ec22970bcf87090237d4b6e23fed09d73c0693e2e6e589c",
+# ORDER HUM-T batch 1 (STANDING RULE L33, 2026-09-20): the publisher pin moves to Site main
+# cac643be, which carries the eight transition pairs for the six transplanted BUILD decks,
+# the lesson order and the size table, and both L31 pin pairs at 3887f7ac / 327da98e. The
+# caller file therefore changed and this is its digest re-cut from those bytes -- derived
+# with sha256sum, never transcribed.
+    "lessons": "c13cf6e6a6854c67e0053b0649550171063256969733180e2559ae43ba3501d3",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
