@@ -948,7 +948,12 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # the same Lessons state as this carrier. A CARRIER PIN MOVE under release-red
 # precedence. The caller file therefore changed and this is its digest re-cut
 # from those bytes -- derived with sha256sum, never transcribed.
-    "lessons": "2ed68f5c6d5ec39a1ec22970bcf87090237d4b6e23fed09d73c0693e2e6e589c",
+# ORDER HUM-T batch 1 (STANDING RULE L33, 2026-09-20): the publisher pin moves to Site main
+# cac643be, which carries the eight transition pairs for the six transplanted BUILD decks,
+# the lesson order and the size table, and both L31 pin pairs at 3887f7ac / 327da98e. The
+# caller file therefore changed and this is its digest re-cut from those bytes -- derived
+# with sha256sum, never transcribed.
+    "lessons": "c13cf6e6a6854c67e0053b0649550171063256969733180e2559ae43ba3501d3",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
