@@ -121,7 +121,7 @@ CATALOGUE_PINS = {
     "visible_body_sha256": "9961e6f6c4627d644a364dedef7b37b1731cf8508e0ec85909f070a328bec187",
     "files": {
         "_sownb/CALENDAR_SPINE.json": "cd1cc2a6ed95877caa8826c155b605782ea696a8a801b3cf6489b2b0a8fe35f8",
-        "_sx3/SX3_PASSES_LEDGER.md": "5f0f9b07c8c2cec70c4153230dd684c61937f1570862a58b89b0045bd36a972b",
+        "_sx3/SX3_PASSES_LEDGER.md": "236772fb77e429aec288abc2c4ba84c7a7cab49282edcf4970284243bd659ee9",
         "tools/sx3/pre_ci_catalogue_sweep.sh": "9848b9e4e9ccab0bd8225d26d7ffa4683c59c249bff688f33c5d665671d9f818",
         "assets/catalogue/display-titles.json": "e8072487ca9d163089b83160ac5c57a8e94729c09d9fb0bb76632938a018bcb9",
         "tools/catalogue/build_display_titles.py": "4256ab6b07420af4ef090e57d32b8f29fcae88d9075d64750e52f17947dbd8a1",
@@ -956,7 +956,10 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # ORDER HUM-T batch 1, second window (STANDING RULE L33, 2026-09-20): the publisher pin moves to Site main a461a77a; the caller
 # file therefore changed and this is its digest re-cut from those bytes -- derived with
 # sha256sum, never transcribed.
-    "lessons": "4115530852d1cee42f43253dcb44b06df7b16d91d92aeb78b7a96d1fefe337af",
+# ORDER SCI-COMPLETE PASS A (STANDING RULE L33, 2026-09-20): the publisher pin moves to Site main 3cff4ba7; the caller
+# file therefore changed and this is its digest re-cut from those bytes -- derived with
+# sha256sum, never transcribed.
+    "lessons": "94483fa97df8b72aa8c9515c8a86262a0fa06135df84111547783d3f3e68af70",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
