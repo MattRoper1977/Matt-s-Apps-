@@ -1043,7 +1043,11 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # HUM-T batch 6b (STANDING RULE L33, 2026-09-20): the publisher pin moves to Site main f29214ed; the caller
 # file therefore changed and this is its digest re-cut from those bytes -- derived with
 # sha256sum, never transcribed.
-    "lessons": "6fb8a56c8a694deacc32eb0bb9adf4c27051aa46ac7df3f422c89b83b6fc1935",
+# ORDER SCI-COMPLETE PASS F: the publisher pin moves to Site main 9600846c, the re-cut
+# PASS F admission window (Site #426), which admits the rebuilt Science hub and the
+# registrations it links. The caller file therefore changed, and this is its digest re-cut
+# from those bytes -- computed, never typed.
+    "lessons": "40d0f3cb66c4f36328f30248885780ba8c35dfc5da5ac75b32414942c2d6989e",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
