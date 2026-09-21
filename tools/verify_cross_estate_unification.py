@@ -164,7 +164,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/verify_education_navigation.cjs": "b0d9297a33fb9ea2494fecaa45e02ae6fcf6fa88e6a62ced35cf521fbb1851fd",
         "tools/catalogue/sync_shelf_card_titles.py": "f906e244fd8fd2e596e6e5e0a1fce9a53bee828eed0b74194eccf4860e45b7a0",
         "tools/catalogue/HUMANITIES_STRAND.json": "0a9f184b3253c757ae376898358cd269ca2f1b2b26df8a845b4d0ffa45cfa7af",
-        "tools/catalogue/hub_sections.py": "696c3a956583d4872bb33ebf63bd499dd1db4fa8acec09948e677b3ed44253f3",
+        "tools/catalogue/hub_sections.py": "b780116352dbd9c98f9bcff5a28fdff9ce28c130a73fe157b2173c529930e612",
         "assets/catalogue/shelf-base.css": "951d6188059da3d2f20717ab7d82773b335d453d8c2d82f5b75f230229351e61",
         "assets/catalogue/humanities-hub-bindings.json": "edd1c2aca59ffb39409c1aaec8f861d2141c44e81978e9bd48dfa85be634e3dc",
         "tools/catalogue/restamp_evidence_sha256.py": "611d3db56e0289b172bba1bd2794ca22f597a9300ff4f0321c45ff2c7bfca54e",
