@@ -187,7 +187,7 @@ CATALOGUE_PINS = {
         ".github/workflows/watch-main.yml": "9a468937b9eefbcdb010f9eed9a2b48f4111761202932fadad680cc3b477f3b6",
         "tools/verify_v6fin_w7_r1_r7.py": "f864bce7fa7f8482520dc41851bcb1e428de8529a10d6d0977645a4c9aed3865",
         "_sx3/FENCE.json": "36e0fd81b283dc41957acff27b906858522ab27eed3c04c6350d5050f230e913",
-        "_passhumd5/CHECKS.md": "1a13c8cb3624ebcb152fc9a18124b7368d98e5f6b25e1cb96bddb8275d459334",
+        "_passhumd5/CHECKS.md": "17b0b85a95574454c7ef9f9564d2c48905108493e55aa44a92010425b36f3e4b",
         "_passhumd5/build_text_index.py": "6239cbfed4f5a6b239655de67bd20aa4bd377205806ab479a23578a85b5eacd0",
         "Science_Teesside/Launch/Autumn2_W7_2026-27/SCI_L_A2_W7L1_Topics_2_3_Assessment_Introduce.html": "2b6fedfe3044b25254d4e17fe0eb7c235e0ed176cb50ab9c7bdca3c3a3c53d1d",
         "Science_Teesside/Launch/Autumn2_W7_2026-27/SCI_L_A2_W7L2_Topics_2_3_Assessment_Explore.html": "b8255a810f66250666744fd7793318d2bbabe0780a85f7ad8c97025337bc17c4",
