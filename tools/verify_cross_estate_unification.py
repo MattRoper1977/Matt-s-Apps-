@@ -121,7 +121,7 @@ CATALOGUE_PINS = {
     "visible_body_sha256": "9961e6f6c4627d644a364dedef7b37b1731cf8508e0ec85909f070a328bec187",
     "files": {
         "_sownb/CALENDAR_SPINE.json": "cd1cc2a6ed95877caa8826c155b605782ea696a8a801b3cf6489b2b0a8fe35f8",
-        "_sx3/SX3_PASSES_LEDGER.md": "4a9093ee3d197f8ffd9c0bf61f883c1898055fc4cb232d1634b4303dd11ecf3b",
+        "_sx3/SX3_PASSES_LEDGER.md": "92585ac0bb7c9009deccedeb81b5acea32fa8eeadd060a8d5bd090f66b35af7f",
         "tools/sx3/pre_ci_catalogue_sweep.sh": "9848b9e4e9ccab0bd8225d26d7ffa4683c59c249bff688f33c5d665671d9f818",
         "assets/catalogue/display-titles.json": "e8072487ca9d163089b83160ac5c57a8e94729c09d9fb0bb76632938a018bcb9",
         "tools/catalogue/build_display_titles.py": "4256ab6b07420af4ef090e57d32b8f29fcae88d9075d64750e52f17947dbd8a1",
@@ -271,7 +271,7 @@ CATALOGUE_PINS = {
         "_hum/LOOP_CONTRACT.md": "c2574700e93b178c32138a27ba05c5496f3f8f83736154ab1c86b71f552bd08d",
         "tools/hum/loop_adapter.py": "cacb2d351762cb810f618cc8dafa5a751f894572b7b5f17aace4c72e3b63582e",
         "tools/hum/deck_dom.py": "51ec750c5fcd0c09303b9264b50b2b6f6bdd94f9db61440e723d8caed8582156",
-        "tools/hum/STAGE_IDENTITY_RULE.md": "716c8623bd0454d95836696e6f532f361d210e7ac342ded152d6e61ea40c08fb",
+        "tools/hum/STAGE_IDENTITY_RULE.md": "bf3c388ade33924c0a823455079e8d3be6dc3fe5ecb3077f40b96e83a256367e",
         "tools/hum/render_proof.cjs": "35aee6aa2d3b11367c310258160c7e01dabc41913e767968f88c27f6f8ec899a",
         "tools/hum/verify_loop.py": "733a989564695f0d7358a6353216238103b7e466c78b477d153c2383d7de7eee",
         "Humanities_Teesside/LAUNCH_W1-W8_2026-27/LAUNCH_HUM_W1_Belief_Identity_And_Belonging.html": "6dc9a434f33931eb5f38c65454feb5fb87588afaa0053f3a0c95c216a4c8fc4a",
