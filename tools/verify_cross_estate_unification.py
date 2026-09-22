@@ -121,7 +121,7 @@ CATALOGUE_PINS = {
     "visible_body_sha256": "9961e6f6c4627d644a364dedef7b37b1731cf8508e0ec85909f070a328bec187",
     "files": {
         "_sownb/CALENDAR_SPINE.json": "cd1cc2a6ed95877caa8826c155b605782ea696a8a801b3cf6489b2b0a8fe35f8",
-        "_sx3/SX3_PASSES_LEDGER.md": "7ca4e5edb2c71d484dcfda4b48d2f7a57b33d7928b7223502f20a1b7cefd4ae7",
+        "_sx3/SX3_PASSES_LEDGER.md": "5ea492a8cbc2d6f1108ceedeec6d0b80bc662467183f30e69850e7cfd2c0cc25",
         "tools/sx3/pre_ci_catalogue_sweep.sh": "9848b9e4e9ccab0bd8225d26d7ffa4683c59c249bff688f33c5d665671d9f818",
         "assets/catalogue/display-titles.json": "e8072487ca9d163089b83160ac5c57a8e94729c09d9fb0bb76632938a018bcb9",
         "tools/catalogue/build_display_titles.py": "4256ab6b07420af4ef090e57d32b8f29fcae88d9075d64750e52f17947dbd8a1",
@@ -133,7 +133,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/build_lesson_order.py": "2caa4b97584b58330e3ca8e07754cc2877d687a1660688e321c50b730f89db54",
         "tools/ux2/hub_gates.mjs": "80ae8def49c49e549c8a2e6b65d521cfdaebb2b7d05f650fa6d5e436f2b6586d",
         "index.html": "389c3320b158e9bc472b4402d41d1d23e4bb2d78b54385884c0be6ca31f73309",
-        "Science_Teesside/index.html": "c00b8195befd6558a02a824e08e3bfd98e66b3a967567b8476af8de7d51c6637",
+        "Science_Teesside/index.html": "c0cd3ab1d7ac404320a5a053a87f7c8286530844ed4480ba4695e573708f1e8b",
         "Humanities_Teesside/index.html": "e16e0723d5394fb75581d9acea6ef92f704b0819594877752c3fb4409569db69",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
         "pack.html": "c05cde1b83de3da3a292d150e7c400782719d30aec6a130fb4df158786993b65",
@@ -159,13 +159,14 @@ CATALOGUE_PINS = {
         "tools/catalogue/build_catalogue.py": "10a704418e67c6b9ec80bb911cfe267df7a12e8c4adbb6e878ca14c5cfb7c3b1",
         "tools/catalogue/build_science_shelf.py": "396b6aeb7cb3cabe037b7af27877ae7a090e5aa1bce284409e400549d5204c24",
         "tools/catalogue/build_humanities_shelf.py": "3ed6e289a2656ed5de228082012dd9e957d2d13b2fa77f5857b9dee22ae138a9",
-        "tools/catalogue/build_science_hub.py": "ce88245c010f0fc37e6c3cbbf5c4a59386cb7caa8dfff1926f6d343d0b84b4e0",
+        "tools/catalogue/build_science_hub.py": "0fdab24bf054eeaf564dee8ffe8bc59e8fd9a1909814c4547cfe2bd8c463e372",
+        "assets/catalogue/science-hub-bindings.json": "a2b3a6deefc19f20402daa05f25e3d172cfe807ae7058fd420ccaa8e9c7740eb",
         "tools/catalogue/check_catalogue_static.py": "eaea1b94c5f36b5f998529a5822866b00502af3dae6e7304b7040d85369354a3",
         "tools/catalogue/check_catalogue_dom.cjs": "039fb7977fbb92565ef108920cac59b199cf23bd5eb9f8c84dd0bc6ac4a87909",
         "tools/catalogue/verify_education_navigation.cjs": "b0d9297a33fb9ea2494fecaa45e02ae6fcf6fa88e6a62ced35cf521fbb1851fd",
         "tools/catalogue/sync_shelf_card_titles.py": "f906e244fd8fd2e596e6e5e0a1fce9a53bee828eed0b74194eccf4860e45b7a0",
         "tools/catalogue/HUMANITIES_STRAND.json": "4efdd16cb1ecf46dbfef5a749753b80910c57c7d6f765c5685ceb5d988fe14f3",
-        "tools/catalogue/hub_sections.py": "5a4307003cc33c692d8716125809b7d6866d26e21f1c2fd28ab91d2eeaa89fb3",
+        "tools/catalogue/hub_sections.py": "3b201e96e05a124d47c6b5b1063c0df25d2b5c5cf4505aad7494663c7e92a90e",
         "assets/catalogue/shelf-base.css": "951d6188059da3d2f20717ab7d82773b335d453d8c2d82f5b75f230229351e61",
         "assets/catalogue/humanities-hub-bindings.json": "17cd9136e53b76ef4f7d99f24d3baad7c522b8e63778e49304c806e02313566a",
         "tools/catalogue/restamp_evidence_sha256.py": "611d3db56e0289b172bba1bd2794ca22f597a9300ff4f0321c45ff2c7bfca54e",
@@ -1337,7 +1338,10 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # the squash merge of Site #431, so education-pages.yml changed again and so does its digest.
 # This is the second cut in one fold and it is the cost the standing rule exists to avoid:
 # bump the carrier ONCE, LAST, at a SHA that already admits every mover.
-    "lessons": "ac4f2e64d76e1cb5c765b9e782def0d96568c4dd936ddf01d634ae6841c8722c",
+# Re-cut 2026-09-22 (the Science hub's generation order, ruling on the S02 STOP): the carrier
+# moves to Site main bb283643, the squash merge of Site #433, bumped once and last. Digest
+# derived with sha256 over the edited file, never transcribed.
+    "lessons": "ba73217d07c265b9f5209d0612c57186c7880d441a52019c556494387cc9b3ce",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
