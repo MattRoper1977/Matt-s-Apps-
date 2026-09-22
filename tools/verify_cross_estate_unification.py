@@ -271,10 +271,10 @@ CATALOGUE_PINS = {
         "Humanities_Teesside/GROW_W1-W8_2026-27/GROW_Humanities_W5_Explore_Christmas_And_Christian_Belief.html": "e21ff0ff140cdff349c3e6f8dc5bc314be9e8d6be05d888cb8008382b5a85daf",
         "_hum/LOOP_CONTRACT.md": "c2574700e93b178c32138a27ba05c5496f3f8f83736154ab1c86b71f552bd08d",
         "tools/hum/loop_adapter.py": "cacb2d351762cb810f618cc8dafa5a751f894572b7b5f17aace4c72e3b63582e",
-        "tools/hum/deck_dom.py": "51ec750c5fcd0c09303b9264b50b2b6f6bdd94f9db61440e723d8caed8582156",
+        "tools/hum/deck_dom.py": "98cf5f472ef46d2b015779d61bc98b49190066018b2fca79b5e893b88bada4ab",
         "tools/hum/STAGE_IDENTITY_RULE.md": "abb33d09630db08bc3c914bca6a60e183b0bade4f5beb7ccf0c26c69da02b701",
         "tools/hum/render_proof.cjs": "35aee6aa2d3b11367c310258160c7e01dabc41913e767968f88c27f6f8ec899a",
-        "tools/hum/verify_loop.py": "cde4459e4bf82ed8744c0c4c82e3f85996a2856999af61f149b8e5124219ed86",
+        "tools/hum/verify_loop.py": "89bc68b346c025ea1e48825d0b4d19fe5366a3c9dbbb9d7f6dbed1cd66104c05",
         "tools/hum/fixtures/aut1_twelve_stage_v1_base.html": "ab9f6abd62ef33df3bad621267aec70a5ccad6f765de71d623e55f13f0a5e2c5",
         "Humanities_Teesside/LAUNCH_W1-W8_2026-27/LAUNCH_HUM_W1_Belief_Identity_And_Belonging.html": "6dc9a434f33931eb5f38c65454feb5fb87588afaa0053f3a0c95c216a4c8fc4a",
         "Humanities_Teesside/LAUNCH_W1-W8_2026-27/LAUNCH_HUM_W1_Migration_And_Identity_In_Modern_Britain.html": "b965d521d918cd24408059c8d940966c16c138f2a8c40fc51860e2f8d67ea9c3",
@@ -1163,7 +1163,8 @@ CATALOGUE_PINS = {
         "data/chassis-census.json": "c0ce60b67c570e42d1228e1071fdd123829ab7285e5667041589125b99b52e62",
         "tools/downloads/definitions/launch-science-aut1-main.json": "d63aad66e4c5522cb34076584c64c30e1708ede39f0c9267aff5193c2844cdd5",
         "tools/launch_resources/lesson_acceptance.py": "bbebaeb821f32c04eb1b2e01e819795ffa97cd851f33d7c22fec0b0505a9fe21",
-        "tools/easter/refresh_pack_checksums.py": "7248b8424c6435f3637a7e3414e38fbab9f67e6b2a0f6f34fc8a586dc4e9c126"
+        "tools/easter/refresh_pack_checksums.py": "7248b8424c6435f3637a7e3414e38fbab9f67e6b2a0f6f34fc8a586dc4e9c126",
+        "tools/sx3/split_arrival_stage.py": "995e325aa9e5a157232cc63fd242207ecd1c9906ec43774611b47bb53f2d4ab7"
     }
 }
 # END REVIEWED CATALOGUE PINS
