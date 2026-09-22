@@ -1319,7 +1319,7 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # PASS F admission window (Site #426), which admits the rebuilt Science hub and the
 # registrations it links. The caller file therefore changed, and this is its digest re-cut
 # from those bytes -- computed, never typed.
-    "lessons": "40d0f3cb66c4f36328f30248885780ba8c35dfc5da5ac75b32414942c2d6989e",
+    "lessons": "8d07252cc0fd99d8ae9203fc24f07cca72793360b033c02aa1592dc052f218de",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
