@@ -1332,7 +1332,11 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # digest cannot be computed until the Site SHA exists, which is only after the step-1 window
 # merges, so the Apps companion for a carrier-bearing fold cannot be a single PR opened up front:
 # it needs a second companion opened after step 1. Recorded so the next fold plans for it.
-    "lessons": "9a8918016139e7ac78a6517adc1691fba3f5f62a70459ca41418bfa9baa7f28b",
+# RE-CUT 2026-09-22 (STOP-RESP-4, route A): the carrier is re-bumped to Site main 0f931086,
+# the squash merge of Site #431, so education-pages.yml changed again and so does its digest.
+# This is the second cut in one fold and it is the cost the standing rule exists to avoid:
+# bump the carrier ONCE, LAST, at a SHA that already admits every mover.
+    "lessons": "86b88fd72ae48cad1271e5615f7e1a58826c870442bce22d7cce3c9c83742c45",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
