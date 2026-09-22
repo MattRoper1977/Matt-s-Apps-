@@ -1320,7 +1320,19 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # PASS F admission window (Site #426), which admits the rebuilt Science hub and the
 # registrations it links. The caller file therefore changed, and this is its digest re-cut
 # from those bytes -- computed, never typed.
-    "lessons": "fe261c02c467028b1aed47ef9423d1271bb1d5553e00068fcee258305f42ec41",
+# Summer 1 responsive re-delivery (STANDING RULE L33, the ruled pending-then-land fold,
+# STOP-RESP-2 step 2, 2026-09-22): the publisher pin moves to Site main aeb47509, the squash
+# merge of Site #430, which admits this release's 27 published paths as [main-today, pending]
+# transition pairs. The caller file therefore changed and this is its digest re-cut from those
+# bytes -- derived with sha256 over the edited file, never transcribed.
+#
+# NOTE ON ORDER, found by the pre-push battery rather than reasoned: this constant lives in the
+# gate copy that must stay byte-identical across Lessons and Apps (the G1 control), so an L33
+# carrier bump DRAGS THE GATE COPY -- and therefore the Apps companion -- along with it. The new
+# digest cannot be computed until the Site SHA exists, which is only after the step-1 window
+# merges, so the Apps companion for a carrier-bearing fold cannot be a single PR opened up front:
+# it needs a second companion opened after step 1. Recorded so the next fold plans for it.
+    "lessons": "9a8918016139e7ac78a6517adc1691fba3f5f62a70459ca41418bfa9baa7f28b",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
