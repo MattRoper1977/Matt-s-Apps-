@@ -1341,7 +1341,10 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-09-22 (the Science hub's generation order, ruling on the S02 STOP): the carrier
 # moves to Site main bb283643, the squash merge of Site #433, bumped once and last. Digest
 # derived with sha256 over the edited file, never transcribed.
-    "lessons": "ba73217d07c265b9f5209d0612c57186c7880d441a52019c556494387cc9b3ce",
+# Re-cut 2026-09-22 (the pure carrier closing the hub fold): the carrier moves to Site main
+# dd9831f3, the squash merge of Site #434 (the EQUAL window). Digest derived with sha256 over the
+# edited file, never transcribed.
+    "lessons": "916b253d82cbaf93c2148b24472e0267f6dc587016c3e3aca90c76a2b1cd71e5",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
