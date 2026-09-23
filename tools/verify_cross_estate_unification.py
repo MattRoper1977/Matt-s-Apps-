@@ -328,7 +328,7 @@ CATALOGUE_PINS = {
         "_sownb/vb/tools/classic_v2_contract_selftest.py": "1218f6479daa9ba5372747447f8080cbe3951dbc1d216eece2803fb34319d765",
         "_sownb/vb/tools/reshell_classic_v2_contract.py": "ebf77751927f961453f73607e700378729865e44342642cf80817c2a703856c1",
         "Humanities_Teesside/BUILD_W14-W20_2026-27/BUILD_HUM_W16_Then_And_Now_And_What_Is_Fair.html": "8513df51ec2501cbfe57d63892347c235cf101cfb6fe63eebf868079470b7dd5",
-        "tools/hum/admit_transaction.py": "341e8465216e80fc306f240fa30b16b834a1ca8fed8601e94c3005eb5be2d3c5",
+        "tools/hum/admit_transaction.py": "a4b19846c30a74b592dae7b6b940854338e54b21c90934e063b7fe77e4758598",
         "Humanities_Teesside/BUILD_W27-W39_2026-27/BUILD/Summer_1/W01/BUILD_SU1_W01_Knowledge_Organiser.html": "556d3d5d29e29c0f25f27d0892bb17c67ba9647e77551486586a0473a40d01d0",
         "Humanities_Teesside/BUILD_W27-W39_2026-27/BUILD/Summer_1/W01/BUILD_SU1_W01_Lesson.html": "d1454b741612358e4a10e134f1e1841362ac0d2b65d57f086ac7b91d5a202e79",
         "Humanities_Teesside/BUILD_W27-W39_2026-27/BUILD/Summer_1/W01/BUILD_SU1_W01_Pupil_Resources.html": "a17b507c6283060aebd135e10bf7ccc5e2b22cb2a3b152ba4b127dcb9a9cf94c",
