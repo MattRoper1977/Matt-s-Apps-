@@ -133,7 +133,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/build_lesson_order.py": "33b3296a460baf33261ee0b3dea1dce531bd485832e906a32509ca69fcb2a08c",
         "tools/ux2/hub_gates.mjs": "80ae8def49c49e549c8a2e6b65d521cfdaebb2b7d05f650fa6d5e436f2b6586d",
         "index.html": "389c3320b158e9bc472b4402d41d1d23e4bb2d78b54385884c0be6ca31f73309",
-        "Science_Teesside/index.html": "c0cd3ab1d7ac404320a5a053a87f7c8286530844ed4480ba4695e573708f1e8b",
+        "Science_Teesside/index.html": "99ce4aeec709b364f082597514ec4ae9a0336cabe78171533766050a0bf6a02b",
         "Humanities_Teesside/index.html": "e16e0723d5394fb75581d9acea6ef92f704b0819594877752c3fb4409569db69",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
         "pack.html": "c05cde1b83de3da3a292d150e7c400782719d30aec6a130fb4df158786993b65",
@@ -160,7 +160,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/build_science_shelf.py": "396b6aeb7cb3cabe037b7af27877ae7a090e5aa1bce284409e400549d5204c24",
         "tools/catalogue/build_humanities_shelf.py": "3ed6e289a2656ed5de228082012dd9e957d2d13b2fa77f5857b9dee22ae138a9",
         "tools/catalogue/build_science_hub.py": "0fdab24bf054eeaf564dee8ffe8bc59e8fd9a1909814c4547cfe2bd8c463e372",
-        "assets/catalogue/science-hub-bindings.json": "a2b3a6deefc19f20402daa05f25e3d172cfe807ae7058fd420ccaa8e9c7740eb",
+        "assets/catalogue/science-hub-bindings.json": "9361f2a3aa6c56a029408c4344d76ba4d7f0350b40fa65b13e9552514068f5f5",
         "tools/catalogue/check_catalogue_static.py": "483a88b1144f1f6e3458170f8cf1779191874026e31915e4cf844e2c3fa1c686",
         "tools/catalogue/check_catalogue_dom.cjs": "039fb7977fbb92565ef108920cac59b199cf23bd5eb9f8c84dd0bc6ac4a87909",
         "tools/catalogue/verify_education_navigation.cjs": "b0d9297a33fb9ea2494fecaa45e02ae6fcf6fa88e6a62ced35cf521fbb1851fd",
@@ -1355,7 +1355,10 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # c85c12c3, the squash merge of Site #436 (the window's second cut, after the adversarial review;
 # #435 admitted the first), bumped once and last. Digest derived with sha256 over the edited file,
 # never transcribed.
-    "lessons": "4fda3a0d491df85c23f85c58e94717e08565bcb9c1f198644730d3bc17dd07ca",
+# Re-cut 2026-09-23 (the Science hub follow-on, route C): the carrier moves to Site main 0fa71565,
+# the squash merge of Site #437 (the EQUAL window that also admits the hub's 3 pairs), bumped once
+# and last. Digest derived with sha256 over the edited file, never transcribed.
+    "lessons": "a2f328fd3f580fe7a8e1abe119d36fcd646aa2c3beab1a8a5d77bcee1cf6bb78",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
