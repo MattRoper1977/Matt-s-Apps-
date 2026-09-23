@@ -278,7 +278,7 @@ CATALOGUE_PINS = {
         "tools/hum/deck_dom.py": "98cf5f472ef46d2b015779d61bc98b49190066018b2fca79b5e893b88bada4ab",
         "tools/hum/STAGE_IDENTITY_RULE.md": "abb33d09630db08bc3c914bca6a60e183b0bade4f5beb7ccf0c26c69da02b701",
         "tools/hum/render_proof.cjs": "35aee6aa2d3b11367c310258160c7e01dabc41913e767968f88c27f6f8ec899a",
-        "tools/hum/verify_loop.py": "2d1f36fce91da2e46dafee7ebae88fc2e0c3a08da97bc942544f185a9edc4030",
+        "tools/hum/verify_loop.py": "a650a4efa830c7b9a7e58bd3245fa00463c42840e81a1a97d9a58f325117ae6e",
         "tools/hum/fixtures/aut1_twelve_stage_v1_base.html": "ab9f6abd62ef33df3bad621267aec70a5ccad6f765de71d623e55f13f0a5e2c5",
         "Humanities_Teesside/LAUNCH_W1-W8_2026-27/LAUNCH_HUM_W1_Belief_Identity_And_Belonging.html": "6dc9a434f33931eb5f38c65454feb5fb87588afaa0053f3a0c95c216a4c8fc4a",
         "Humanities_Teesside/LAUNCH_W1-W8_2026-27/LAUNCH_HUM_W1_Migration_And_Identity_In_Modern_Britain.html": "b965d521d918cd24408059c8d940966c16c138f2a8c40fc51860e2f8d67ea9c3",
