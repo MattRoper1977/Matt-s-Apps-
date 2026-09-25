@@ -133,7 +133,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/build_lesson_order.py": "33b3296a460baf33261ee0b3dea1dce531bd485832e906a32509ca69fcb2a08c",
         "tools/ux2/hub_gates.mjs": "80ae8def49c49e549c8a2e6b65d521cfdaebb2b7d05f650fa6d5e436f2b6586d",
         "index.html": "389c3320b158e9bc472b4402d41d1d23e4bb2d78b54385884c0be6ca31f73309",
-        "Science_Teesside/index.html": "d3fcb22b5431d6e4cde28a0c442c81a32161c1e891bae84a4b3d49c1c0aafd80",
+        "Science_Teesside/index.html": "d0696ae685db5aad208aa5fdf3077e291d7d131205a43801df98150fa7120625",
         "Humanities_Teesside/index.html": "e16e0723d5394fb75581d9acea6ef92f704b0819594877752c3fb4409569db69",
         "humanities_teesside.html": "1e2faab06cb4caf4a26f377200a55cbd380c7f3ceada74f666998b47611896b7",
         "pack.html": "c05cde1b83de3da3a292d150e7c400782719d30aec6a130fb4df158786993b65",
@@ -159,10 +159,10 @@ CATALOGUE_PINS = {
         "tools/catalogue/build_catalogue.py": "aa8259717f561286d489fb032bbd26f2d90d144f5bf2ed1fe64e12c116934ec7",
         "tools/catalogue/build_science_shelf.py": "396b6aeb7cb3cabe037b7af27877ae7a090e5aa1bce284409e400549d5204c24",
         "tools/catalogue/build_humanities_shelf.py": "3ed6e289a2656ed5de228082012dd9e957d2d13b2fa77f5857b9dee22ae138a9",
-        "tools/catalogue/build_science_hub.py": "0fdab24bf054eeaf564dee8ffe8bc59e8fd9a1909814c4547cfe2bd8c463e372",
+        "tools/catalogue/build_science_hub.py": "7ad2588f48d6956d1b7308be81a818f7a8c590ec4aa130d6eb9fe295d31d5ce1",
         "assets/catalogue/science-hub-bindings.json": "d82b124c566e1f13669a8bb6d1d226b9f3b20e21d7c8898c3dd154e490885384",
         "tools/catalogue/check_catalogue_static.py": "f22a38e55f3c3b8529087b96fe84bd73e617f4f5c6f2a8ebfcbe3535fe92e4f2",
-        "tools/catalogue/check_catalogue_dom.cjs": "0da8805d6abcdf72bc42c34b19c8ec0469c5f58d755bee36fbf92604bc51c873",
+        "tools/catalogue/check_catalogue_dom.cjs": "3d0bcabe81ecea83089c94fd6863f19ba00930a598a32a0871f24b47dd32e455",
         "tools/catalogue/verify_education_navigation.cjs": "b0d9297a33fb9ea2494fecaa45e02ae6fcf6fa88e6a62ced35cf521fbb1851fd",
         "tools/catalogue/sync_shelf_card_titles.py": "f906e244fd8fd2e596e6e5e0a1fce9a53bee828eed0b74194eccf4860e45b7a0",
         "tools/catalogue/HUMANITIES_STRAND.json": "4efdd16cb1ecf46dbfef5a749753b80910c57c7d6f765c5685ceb5d988fe14f3",
@@ -1405,7 +1405,16 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-09-23 (HUB1 v2, Autumn 2 hub badges): the carrier moves to Site main 7d310e1e,
 # the squash merge of Site #440 (the window admitting HUB1's 6 pairs), bumped once and last.
 # Digest derived with sha256 over the edited file, never transcribed.
-    "lessons": "d6df59bbc2a6330d465d23402c561f434e566c763f2f2805042a48ec13dd785b",
+# Re-cut 2026-09-23 (the pure carrier closing HUB1 v2's fold): the carrier moves to Site main
+# 9fd80be8, the squash merge of Site #442 (the EQUAL window). Digest derived with sha256 over the
+# edited file, never transcribed.
+# Re-cut 2026-09-25 (Q12, the Science hub stylesheet): the carrier moves to Site main 3e5e489d,
+# the squash merge of Site #444 (the window admitting Q12's 2 pairs), bumped once and last.
+# Digest derived with sha256 over the edited file, never transcribed.
+# Re-cut 2026-09-25 (the pure carrier closing Q12's fold): the carrier moves to Site main
+# be9441d7, the squash merge of Site #445 (the EQUAL window). Digest derived with sha256 over the
+# edited file, never transcribed.
+    "lessons": "222f5e7f66bd2747c29d4c7aca1329731854fc42913e071c1bb0763b2c8a6361",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
