@@ -129,7 +129,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
         "tools/verify_lessons_chips.mjs": "e417afd94ae4f3a450caab2edf4b6c41d14e4588f070d0ad822263e30a86cf39",
         "tools/sw2/check_tokens_inert.cjs": "0feabd4ad86fd578ca85a69b491dd92ea133697c77f4385cd3a15ebc1810abf9",
-        "assets/catalogue/lesson-order.json": "f59f09d2163a06ab24d763e697b6711b3e72e401d9d6888d2b32c7225bfeb949",
+        "assets/catalogue/lesson-order.json": "93e97cfe2c81a12d37f729065fcb759fb5b3451171d6fb9ff81d685cb9adadb9",
         "tools/catalogue/build_lesson_order.py": "33b3296a460baf33261ee0b3dea1dce531bd485832e906a32509ca69fcb2a08c",
         "tools/ux2/hub_gates.mjs": "80ae8def49c49e549c8a2e6b65d521cfdaebb2b7d05f650fa6d5e436f2b6586d",
         "index.html": "389c3320b158e9bc472b4402d41d1d23e4bb2d78b54385884c0be6ca31f73309",
@@ -247,7 +247,7 @@ CATALOGUE_PINS = {
         "tools/humanities_resources/check_resources.py": "ec5383e3a34cbff999f190b0014a4a73e00a3a29e2714498f7620fd638dc2aa5",
         "tools/humanities_resources/resource.css": "1aed9aaca0d73a4b200c4e5d0977e73f4e906c747d7340c7a62f4197a8344bae",
         "tools/humanities_resources/resource.js": "ad40afed95490bfcce92dc062da46e1b27bcb96bdc80e37eabdfe02bf6ffc446",
-        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "70cf6181c170b375f334e3f6f10994d8278f19aef9c383bc05aa25bfea67d5e4",
+        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "b09950085aea2aa7d5885a09f9960462fb92f1d9faceda7ecb356c44f5f4f055",
         "tools/catalogue/TERM_REVIEW.json": "b0ed0d82fe21a222c75f6a38390b01defc0d5d958fac8e85421b7901ce6d201d",
         "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "8a9b8161dd418e64cd90a49833f2d1fe88be217d90fbe7342be81a0546e04049",
         "primary/year5/science/autumn/forces/Lesson8_ExploreGravity.html": "20047720bf1d309055abdf232d341b6fd99b833631efa0bcbfb3dabed9671196",
@@ -743,6 +743,12 @@ CATALOGUE_PINS = {
         "Humanities_Teesside/Teaching_Packs/RE_Autumn_LAUNCH_Reviewed/LAUNCH/Autumn_2/W06/LAUNCH_RE_A2_W06_Lesson.html": "ae521ec05c1d2422b1fc850d34d291c528632c67b10f705eb2af97a7a48ce84f",
         "Humanities_Teesside/Teaching_Packs/RE_Autumn_LAUNCH_Reviewed/LAUNCH/Autumn_2/W07/LAUNCH_RE_A2_W07_Lesson.html": "79a92af856b83dd7961316d1f6a953b320c4689ed25d467e40128a89938c47a4",
         "Science_Teesside/Grow/W8-W13_2026-27/SHA256SUMS.txt": "3bd2c6ea90c2ee8071c6ae92ab8136be3541d05a16f4f94768431f819c5b152a",
+        "ASDAN/Consent_Aimee_La.html": "ea5cda64d44f7fd83ceeb8bc24e76a1f765d724a0a8b47cd9555345f4d19e78d",
+        "ASDAN/Consent_Aimee_P2.html": "5aec50eb3cf27ddef231aefb989afd56aca4db617c6b05c0b352e8fef10f4daf",
+        "5_6 Local Choice/Rivers/L1e_Final_Briefing.html": "08d9f10725c36db6cfd50955c6eb8687c8f46a5a9422b78e8c16076e000220b9",
+        "tools/liveteach/lt-pick.test.js": "2dc2ed2e3cd21c315f4dd3d7b9000cf6a4b05b299cba8941a5f64db138e76c98",
+        "LIVETEACH_LT1_CONTACT_SHEET.md": "364c10fc887179c0ae28bec0919146c64f4ba5960026b213d732263c047cf98c",
+        "LIVETEACH_RESIDUE.md": "5a18069638e4bbfb6a4da111f68e4ac3a17f5de4c8aead731d718f794d89e400",
         "assets/catalogue/science-download-bindings.json": "efb435f7e0dc4c9083050f5bb3e348494838422fe7de6e809fbdf8f877d9b10d",
         "Science_Teesside/Teaching_Packs/BUILD/BUILD_Science_Autumn1_W3-W7_Teaching_Guide.docx": "c4fd055acdb11a2310fe820b6f473733835dc4789b9151cd3377ec4d251f2196",
         "Science_Teesside/Teaching_Packs/BUILD/BUILD_Science_Autumn1_W3-W7_Teaching_Guide.pdf": "a479821f2de450e28bd414625f8066768d2c72423bd5ff76046536bf8f7a5d7a",
@@ -1836,7 +1842,10 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-10-05 (RE Week 8, the pure carrier): the carrier moves to Site main ebbc826c, the squash merge of
 # Site #456 (window W2: the five EQUAL pins onto Lessons #685 / Apps #193). Digest derived with sha256 over the
 # edited file, never transcribed.
-    "lessons": "c4043b1b3186215dc8ad541070b5625cc417049f3d167b93014942b6e96cda88",
+# Re-cut 2026-10-06 (the names fix, rulings fv-1 and fv-2): the carrier moves to Site main 2dcb869e, the squash merge of Site #457
+# (window W1: the 10 transition pairs), bumped once and last. Digest derived with sha256
+# over the edited file, never transcribed.
+    "lessons": "a8f29317860ddae45e5e040261ef9da7c657d11d1ac40dc5cab6ab6051fdd055",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
