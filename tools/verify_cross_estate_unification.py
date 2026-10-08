@@ -1845,11 +1845,16 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-10-06 (the names fix, rulings fv-1 and fv-2): the carrier moves to Site main 2dcb869e, the squash merge of Site #457
 # (window W1: the 10 transition pairs), bumped once and last. Digest derived with sha256
 # over the edited file, never transcribed.
-    "lessons": "a8f29317860ddae45e5e040261ef9da7c657d11d1ac40dc5cab6ab6051fdd055",
+# Re-cut 2026-10-08 (the names fix, the pure carrier): the carrier moves to Site main d250bfea, the squash merge of
+# Site #459 (window W2: the five EQUAL pins onto Lessons #688 / Apps #195). Digest derived with sha256 over the
+# edited file, never transcribed.
+    "lessons": "60484bf2d54648dbdbb7f0250c1ff5c6c778456b5f8823d63db55314c4f9bc27",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
-    "apps": "fa424547f5f7effdc284e87bdf72dd816efbeca59b2d79457f381c80d4c19fec",
+# Re-cut 2026-10-08 (the names fix, the pure carrier; fv-4): the Apps repository moves its own publisher pin to Site main d250bfea,
+# the squash merge of Site #459, so its caller file changed. Digest derived with sha256 over the edited file, never transcribed.
+    "apps": "d9524162279da3c0c77696331dabeb4f5cb13253b01b1243dbb7623b9e3204d6",
 }
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
