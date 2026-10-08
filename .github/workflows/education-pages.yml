@@ -21,6 +21,10 @@ jobs:
     # pre-EDU-D3 header: at d7e2cba6 none of the eight domain-split/sw2 navigation templates
     # carries the Learn - Build - Explore tagline, and on the new carrier all eight do. Source
     # pins and workflow logic are unchanged; only the builder moves.
-    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@08d74766de02b90e90e6138b7c20e66bb30aada4
+    # Moved 2026-10-08, with the PURE CARRIER that closes the names fix (rulings fv-2, fv-4 and fm-6; fv-4): the Apps publisher pin
+    # 08d74766 -> d250bfea5b15fbe215d3775dd7cd884de8350f4e, the squash merge of Site #459 -- window W2 (EQUAL), which
+    # discharged the five EQUAL pins onto Lessons main 033a33db (#688) and Apps main f998c185 (#195). SHA read with
+    # git rev-parse on the Site checkout, never typed.
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@d250bfea5b15fbe215d3775dd7cd884de8350f4e
     with:
-      builder_ref: 08d74766de02b90e90e6138b7c20e66bb30aada4
+      builder_ref: d250bfea5b15fbe215d3775dd7cd884de8350f4e
