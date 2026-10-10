@@ -128,7 +128,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/check_display_titles.cjs": "5d06689114a69124a2d7f59d644a85775756eadd2b470df01e066c2202df681b",
         "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
         "tools/verify_lessons_chips.mjs": "e417afd94ae4f3a450caab2edf4b6c41d14e4588f070d0ad822263e30a86cf39",
-        "tools/sw2/check_tokens_inert.cjs": "0feabd4ad86fd578ca85a69b491dd92ea133697c77f4385cd3a15ebc1810abf9",
+        "tools/sw2/check_tokens_inert.cjs": "736fa575f8967dafef892d6e4ed9df40bfaad327f7e23add06e78debc13ff80d",
         "assets/catalogue/lesson-order.json": "7d136680cc5396e5647d58bd98b9669ae19445d7d507f10be3e5fe121b14feb7",
         "tools/catalogue/build_lesson_order.py": "33b3296a460baf33261ee0b3dea1dce531bd485832e906a32509ca69fcb2a08c",
         "tools/ux2/hub_gates.mjs": "80ae8def49c49e549c8a2e6b65d521cfdaebb2b7d05f650fa6d5e436f2b6586d",
@@ -143,7 +143,7 @@ CATALOGUE_PINS = {
         "tools/sw2/pack_notes.py": "a81a187002a69bcecca28c9c3130f546e1aae279d5af92cf750a6f9fb04c8fe6",
         "tools/sw2/stamp_pack_page.py": "ee37ba3739598535989353dd2ecd0225ad8f4ded0b9f3e6d83bbc0c2326bd4d8",
         "tools/sw2/check_pack_page.cjs": "fb093130e13b7e11e996f681f7845620b51e1a2802b6e7b80e8cf3eef92c5eff",
-        "subject.html": "e5515e9169c05d51252d0ae1a7c68c49df3011fba4b481d587f5425cc060af96",
+        "subject.html": "68937980cb0096e21cc5deb7eeaba7500803d4d712fcfb95a5ee364371224f18",
         "assets/catalogue/hub.js": "588f4c2dee4aa5030901f6d260f5dd160aaf306d4634732e99d38046d334e652",
         "assets/catalogue/hub.css": "603586d0668c39a2039891ab9f599cc234f65748a6794eee7fc65c334b5a23e5",
         "data/calendar-spine.json": "d199474b13c9d340add2c87165396d83712b0f1c9f8bd03b7b12e8fdf6af0d61",
@@ -1898,7 +1898,10 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-10-09 (names-fix PR 9, the pure carrier): the carrier moves to Site main 47276941, the squash merge of
 # Site #462 (window W2: the five EQUAL pins onto Lessons #690 / Apps #198). Digest derived with sha256 over the
 # edited file, never transcribed.
-    "lessons": "dae193aab7b530a0c95a56857f2f0f4987c18daedc4145ab82f8c4fb5413560e",
+# Re-cut 2026-10-09 (the subject-hub noindex fix (jw-1), ruling ni): the carrier moves to Site main df664434, the squash merge of Site #465
+# (window W1: the 0 ARRIVING rows and 1 transition pairs), bumped once and last. Digest derived with sha256
+# over the edited file, never transcribed.
+    "lessons": "b4a2c192c1ab04f9b62a9fc343fa33cfaa71db295e88d7bf62f14a73a133ca4f",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
@@ -1918,7 +1921,7 @@ LUNDYLOOP_CI_PINS = {
     # is now DERIVED from the Site admission registry by tools/sw2/pin_published_digests.py
     # (lessons "" 5c4e3ced, subject.html 93a071a8, apps "" f15bc17d), so the reviewed bytes
     # moved; digest taken from the edited file, never typed.
-    "tools/sw2/check_tokens_inert.cjs": "854df1c0c5549b4713aa18e286379fc21aad72939ded8b56d04b069a1a9c28da",
+    "tools/sw2/check_tokens_inert.cjs": "c94361558f2a6e6696a493a476b07a7349d2877532138db28e60754d3750177e",
     ".github/workflows/verify-lundyloop-professional-os.yml": "7e6cf886ff1af45cc3bcf255ee6a688b75dbb4034fce20b609fe0188a63c11ce",
     "tools/lundyloop/verify_live_bytes.py": "a27f791633260e7e2d8ba7ca2abe5a35db105b9ccbf96d26205628dcc1e636ad",
     "tools/lundyloop/test_live_bytes.py": "972ca2ae06da44722bfd011fda03a361c6011c699f95bb6ce78bca95b71f2e77"
