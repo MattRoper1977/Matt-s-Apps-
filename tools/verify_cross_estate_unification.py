@@ -130,7 +130,7 @@ CATALOGUE_PINS = {
         "tools/verify_lessons_chips.mjs": "e417afd94ae4f3a450caab2edf4b6c41d14e4588f070d0ad822263e30a86cf39",
         "tools/sw2/check_tokens_inert.cjs": "736fa575f8967dafef892d6e4ed9df40bfaad327f7e23add06e78debc13ff80d",
         "assets/catalogue/lesson-order.json": "d996c103da22be3974944b649c96801f79dd063bbf28500c379c75bc68de4c6e",
-        "tools/catalogue/build_lesson_order.py": "33b3296a460baf33261ee0b3dea1dce531bd485832e906a32509ca69fcb2a08c",
+        "tools/catalogue/build_lesson_order.py": "35a4c54779b800ae8bd949154d0d19fddb190f49ec18e62efdd86d03313f6180",
         "tools/ux2/hub_gates.mjs": "80ae8def49c49e549c8a2e6b65d521cfdaebb2b7d05f650fa6d5e436f2b6586d",
         "index.html": "389c3320b158e9bc472b4402d41d1d23e4bb2d78b54385884c0be6ca31f73309",
         "Science_Teesside/index.html": "0abdf5ad7bc7f477e0b6a181a2a460735bf052eeb0736059e9a0f28797d00622",
