@@ -103,7 +103,7 @@ MANIFEST_PINS = {
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
-    "resources.json": "bce6bf3e98274775cb3fe21ce021fb4edcfcc6c8bde1211662b2e13af63affa6",
+    "resources.json": "a2d895081326ae131e89f4a7ca43694f107778d73359f1190ba2af58c4a19545",
 }
 PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it writes both gate copies or neither)"
 
@@ -129,12 +129,12 @@ CATALOGUE_PINS = {
         "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
         "tools/verify_lessons_chips.mjs": "e417afd94ae4f3a450caab2edf4b6c41d14e4588f070d0ad822263e30a86cf39",
         "tools/sw2/check_tokens_inert.cjs": "736fa575f8967dafef892d6e4ed9df40bfaad327f7e23add06e78debc13ff80d",
-        "assets/catalogue/lesson-order.json": "d996c103da22be3974944b649c96801f79dd063bbf28500c379c75bc68de4c6e",
+        "assets/catalogue/lesson-order.json": "ab42f0b5e9f293321b4ebd89ffe99da6196399c776174f06c6e2589a5bbbae15",
         "tools/catalogue/build_lesson_order.py": "35a4c54779b800ae8bd949154d0d19fddb190f49ec18e62efdd86d03313f6180",
         "tools/ux2/hub_gates.mjs": "80ae8def49c49e549c8a2e6b65d521cfdaebb2b7d05f650fa6d5e436f2b6586d",
         "index.html": "389c3320b158e9bc472b4402d41d1d23e4bb2d78b54385884c0be6ca31f73309",
         "Science_Teesside/index.html": "0abdf5ad7bc7f477e0b6a181a2a460735bf052eeb0736059e9a0f28797d00622",
-        "Humanities_Teesside/index.html": "365fae78413d9e1d3e8288ec68e837e1d5ab97579a7f2bd398ead069dce2609d",
+        "Humanities_Teesside/index.html": "e3466bacece99a8e5c6fa490964b68e5a4b3002a9a8c0196402acd290bdd4372",
         "humanities_teesside.html": "577740530e89ad174e6b2eb177fab2409ece9e142e4c68a91903b939f3721382",
         "pack.html": "c05cde1b83de3da3a292d150e7c400782719d30aec6a130fb4df158786993b65",
         "assets/catalogue/pack.js": "acfd0f1b00dce1421fabd8a1870b55d4c54ffc1157b2efe8a01b354f385ccf4b",
@@ -153,28 +153,28 @@ CATALOGUE_PINS = {
         "assets/catalogue/lesson-navigation.js": "fa6bdae6826950422dfb13a905a2a50c5c959bef50fb438f00b6170befbfaf8f",
         "assets/catalogue/science-shelf.css": "b2b1eb328662d841add139ccfff107f985f17373f1ee82b8762475663097ab60",
         "assets/catalogue/science-shelf.js": "a59fe0c988a5de7d614afc6a36d7dacf14c6e3fa92c732740442e4914d00f356",
-        "assets/catalogue/terms-and-styles.json": "51ca6d4c5fe188dcb667e76a8b5640b9ebc811bffa4f9be5bdb286969bf40f59",
+        "assets/catalogue/terms-and-styles.json": "c2f6237ae2520b4ce7bf937cdb5a2422d27d7a16aaa6306c2b2b41c11fdb8d4b",
         "assets/catalogue/science-shelf.json": "dd4ac10fc4e2e931a0c6bc1e20219135defa0f69b4cef1d8f72acb72f026a34c",
-        "assets/catalogue/humanities-shelf.json": "7514c50507b3d3723842363bcb01211e63791122d365591697501f1ee9103508",
+        "assets/catalogue/humanities-shelf.json": "d3ccba389513ab25a34ddb144e6f4c0c7b5e479cbf78f880a62f2a2447d1559b",
         "tools/catalogue/build_catalogue.py": "aa8259717f561286d489fb032bbd26f2d90d144f5bf2ed1fe64e12c116934ec7",
         "tools/catalogue/build_science_shelf.py": "396b6aeb7cb3cabe037b7af27877ae7a090e5aa1bce284409e400549d5204c24",
-        "tools/catalogue/build_humanities_shelf.py": "3ed6e289a2656ed5de228082012dd9e957d2d13b2fa77f5857b9dee22ae138a9",
+        "tools/catalogue/build_humanities_shelf.py": "eb3b062392110576fcbf0ebfeeb602e0197e82d9fd1b19c5b752f8084b14d244",
         "tools/catalogue/build_science_hub.py": "6982e3c6cb67c3a48dd075816b5e1ddb5597ab36b7e6961c509d3b353d6d71dc",
         "assets/catalogue/science-hub-bindings.json": "5c8908199cf279fb3c50d1b9e84dc413cc455ec27995bf0f9b35178315602c8b",
         "tools/catalogue/check_catalogue_static.py": "be992fedf091e50582c5e2f57f10a22f44b1ed975236b7ce7be2bbe870df6a83",
         "tools/catalogue/check_catalogue_dom.cjs": "077dd17ebc4dc0d2937ffdd2407c5110b107651d56c2d5c6e87800bd04690ac4",
         "tools/catalogue/verify_education_navigation.cjs": "b0d9297a33fb9ea2494fecaa45e02ae6fcf6fa88e6a62ced35cf521fbb1851fd",
         "tools/catalogue/sync_shelf_card_titles.py": "f906e244fd8fd2e596e6e5e0a1fce9a53bee828eed0b74194eccf4860e45b7a0",
-        "tools/catalogue/HUMANITIES_STRAND.json": "932118cc621b39d92f4badb44fce8cd73c95c044c3601de58fee6d478bd378b8",
+        "tools/catalogue/HUMANITIES_STRAND.json": "813214f79100663093e7b7ee4460b3e7b2eb80b0d4f7bd2ae71a1228ddb14b40",
         "tools/catalogue/hub_sections.py": "3b201e96e05a124d47c6b5b1063c0df25d2b5c5cf4505aad7494663c7e92a90e",
         "assets/catalogue/shelf-base.css": "951d6188059da3d2f20717ab7d82773b335d453d8c2d82f5b75f230229351e61",
-        "assets/catalogue/humanities-hub-bindings.json": "cdd5e6eef5db1ead5536b01a1fb0013c38707c4fc70e179e7f6f6b79dc7e5d01",
+        "assets/catalogue/humanities-hub-bindings.json": "19e742c87bd8a0635cf28a42814354a8f4d22efba55da70ab04415c914e3398a",
         "tools/catalogue/restamp_evidence_sha256.py": "614e54a27822b087319ca729f8e9f24a3cba41350f571fca9f7aa33ddc693f16",
         "Science_Teesside/Build/START_HERE.html": "acac26140f5aeef22292e6ce3831fa61aaf5e62432cc3998b340918c8bfaee7f",
         "Science_Teesside/Grow/START_HERE.html": "d2bec305dec3212215c6f599cad3925c571f9a34ca6e85268893c8ed142170dd",
         "Science_Teesside/Launch/START_HERE.html": "10b46e7cf26e3aa4b7f1fb4758a039bcbec7000bc2ec8d30dfe3ce0e0b966353",
         "tools/catalogue/SHELF_SELECTION.json": "fd7a9a795777d6c698ec203cffcbd9fbc6e8ed2ebb4f53a4d0dae763e6692ec2",
-        "tools/catalogue/HUMANITIES_SELECTION.json": "65d5e7a7b7b9d3232025c2410f71b0865e4f449b109f1d730de208e573d81f6c",
+        "tools/catalogue/HUMANITIES_SELECTION.json": "6b80f3a1e84b9d26cdde4c61dc612dfe0543d04fd175252e8ebef582329ce8ed",
         "tools/easter/science_original_browser.cjs": "aae28a4166d41546cbe5b0acd0866eeaf5e6f47cd5b1949fc48ecb2d4c79a1ec",
         "tools/science_pack/browser_checks.cjs": "058c9bc1f06c876f2994a23d467d83fced683c6355eb92d0ef43986d3e28d72d",
         "tools/prepare_served_publications.py": "acae94bb9c142e20479bc9e5e103b09af87ba84ba3b1dde7baaa86cdb0792629",
@@ -235,7 +235,7 @@ CATALOGUE_PINS = {
         "Science_Teesside/Grow/W8-W13_2026-27/SCI_G_W9_Turn_Earth_explain_the_sky_Classic.html": "178c695fe2dc166a80abfd26e41174e28ecfa39d4700db0870d7ee27bbffd6e8",
         "Science_Teesside/Build/W8-W13_2026-27/SCI_B_W12_Give_a_rock_a_job_Classic.html": "509f38056bd09e903c70b0426ac55ab7ff73f7da10261a97eec11d49d7b27d1c",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
-        "_glv3/tools/verify_change_boundary.py": "a4db56e62cd07713e1bdd5cd4eb5e942b5dac394ddbb4e3e8011b12f7c95f899",
+        "_glv3/tools/verify_change_boundary.py": "edbd1dbd215694ed7ccd0b368a88755aec75953c3d3dfe2aba925abd6a6dcdb7",
         "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
         "_glv3/tools/chip_gate.mjs": "16cdd5c0ad3745c57340ed0ec6a208d221e4793bfc9b1cd9bc703a6c2613dd9a",
         "_glv3/tools/catalogue_membership.mjs": "4d7ab03e23ee0d3c3fc934f4f0a901afc61169754db099f4f5c24dd9cce058ec",
@@ -247,7 +247,7 @@ CATALOGUE_PINS = {
         "tools/humanities_resources/check_resources.py": "ec5383e3a34cbff999f190b0014a4a73e00a3a29e2714498f7620fd638dc2aa5",
         "tools/humanities_resources/resource.css": "1aed9aaca0d73a4b200c4e5d0977e73f4e906c747d7340c7a62f4197a8344bae",
         "tools/humanities_resources/resource.js": "ad40afed95490bfcce92dc062da46e1b27bcb96bdc80e37eabdfe02bf6ffc446",
-        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "5346c9f9a24f6b1b05aed5cdb6414a3556c2a793614f1fef98586117a4b388a1",
+        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "3d759907c3d11a939e5cc9a95b9732fbe8d67e892418622c9f6cc852e252b5b1",
         "tools/catalogue/TERM_REVIEW.json": "b0ed0d82fe21a222c75f6a38390b01defc0d5d958fac8e85421b7901ce6d201d",
         "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "ce24355679f7541b2bf30c5d38397ed87aeb78e807e7b982c15ffc52466a7b8d",
         "primary/year5/science/autumn/forces/Lesson8_ExploreGravity.html": "20047720bf1d309055abdf232d341b6fd99b833631efa0bcbfb3dabed9671196",
@@ -675,7 +675,7 @@ CATALOGUE_PINS = {
         "Humanities_Teesside/Teaching_Packs/HUM_Spring_1_BUILD_GROW_Reviewed/GROW/Spring_1/W03/GROW_S1_W03_Lesson.html": "1a0c31b74fa1ceeaeebff8ea10141c202bd34ebf9aefc68a281290ac4d742df9",
         "Humanities_Teesside/Teaching_Packs/HUM_Spring_1_BUILD_GROW_Reviewed/GROW/Spring_1/W04/GROW_S1_W04_Lesson.html": "8b609a82bdcaeec34ed7e837af2466367450ff7ba4ce57e4b194b482cbe78458",
         "Humanities_Teesside/Teaching_Packs/HUM_Spring_1_BUILD_GROW_Reviewed/GROW/Spring_1/W05/GROW_S1_W05_Lesson.html": "dda4d977e4499d9d6bc98b7ba1c3eb8a9463a1744ff3a0a81d9782c337a30169",
-        "Humanities_Teesside/Teaching_Packs/HUM_Spring_1_BUILD_GROW_Reviewed/GROW/Spring_1/W06/GROW_S1_W06_Lesson.html": "6222620e123c87e00fe1004cd2594c070e26364be0666096c4bb7997ebc03cb3",
+        "Humanities_Teesside/Teaching_Packs/HUM_Spring_1_BUILD_GROW_Reviewed/GROW/Spring_1/W06/GROW_S1_W06_Lesson.html": "b604a07d48ab000ac36a1cd8ef0eb4b1f5da36ae85312ec86c1a06ec762565df",
         "Humanities_Teesside/Teaching_Packs/HUM_Spring_1_LAUNCH_Reviewed/LAUNCH/Spring_1/W01/LAUNCH_S1_W01_Lesson.html": "55b570e7070c1f9af8b570cd5fd5d4613c7135d1d6c1bdf8066416799da003b2",
         "Humanities_Teesside/Teaching_Packs/HUM_Spring_1_LAUNCH_Reviewed/LAUNCH/Spring_1/W02/LAUNCH_S1_W02_Lesson.html": "2578e4873ac34d541c8269174c1dd84b7e11e928240115a778d5b01719f39bdc",
         "Humanities_Teesside/Teaching_Packs/HUM_Spring_1_LAUNCH_Reviewed/LAUNCH/Spring_1/W03/LAUNCH_S1_W03_Lesson.html": "3300ac68f11af9cda9f161e02031f18c5737e0a06f453f29e2565ccca5c39c01",
@@ -1127,7 +1127,7 @@ CATALOGUE_PINS = {
         "Humanities_Teesside/Teaching_Packs/HUM_Autumn_2_BUILD_Reviewed/SHA256SUMS.txt": "e02a5e9c69a4f89c89db97f9cfc021f142ca391d7ea3ed063c597d9090c934db",
         "Humanities_Teesside/Teaching_Packs/HUM_Autumn_2_GROW_Reviewed/SHA256SUMS.txt": "3585f3c2b25a067ec757cdcc291a8c62971f5d6c3173f2dfb944de4525dd370c",
         "Humanities_Teesside/Teaching_Packs/HUM_Autumn_2_LAUNCH_Reviewed/SHA256SUMS.txt": "7e3db22481967e3bf3f28f72e33e57abc67f11e3777e60f447151e3bf9f36ee0",
-        "Humanities_Teesside/Teaching_Packs/HUM_Spring_1_BUILD_GROW_Reviewed/SHA256SUMS.txt": "8fc70d36d275598845d5754a1e0973befa82012b39630ebbed2140e40309e553",
+        "Humanities_Teesside/Teaching_Packs/HUM_Spring_1_BUILD_GROW_Reviewed/SHA256SUMS.txt": "3da4e8f9ee361f7bd9c56e4d0a2646e72f12d81b64f821359bddc0fabf8f7b07",
         "Humanities_Teesside/Teaching_Packs/HUM_Spring_1_LAUNCH_Reviewed/SHA256SUMS.txt": "bc16f31e639bf89b0c4bc14ae07439f5aacf0a646d7f4639a6d66e51bce86f9e",
         "Humanities_Teesside/Teaching_Packs/HUM_Spring_2_BUILD_GROW_Reviewed/SHA256SUMS.txt": "423cf78757820f83ea54bdb970d528649179a719d9fd75a3b059075dbaaeade0",
         "Humanities_Teesside/Teaching_Packs/HUM_Spring_2_LAUNCH_Reviewed/SHA256SUMS.txt": "50cb5d58839fc4942693a01850a137497a4361bb467a4ee3b658d86793ac74ca",
@@ -1714,14 +1714,14 @@ CATALOGUE_ORIGINAL_ROWS_SHA256 = "790209ca7d07540b62a9749981dd639cdf0df79a285e56
 # digest below are re-cut by tools/catalogue/pin_catalogue_contract.py from
 # rows it has verified against that derivation; an edit to any appended row,
 # a removed pack row or an extra lesson row still reds here.
-CATALOGUE_SHELF_ROWS = 271
+CATALOGUE_SHELF_ROWS = 286
 # UX2 A1: keys that may be appended to an original row without moving its
 # digest (see catalogue_errors). Nothing else is additive. No original row
 # carried either key before the ruling (measured 2026-09-08: 0 of 734), so the
 # second set is empty and the allowance cannot launder a pre-existing value.
 CATALOGUE_ADDITIVE_TAG_KEYS = frozenset({"halfTerm", "unit"})
 CATALOGUE_ORIGINAL_KEYS_BEFORE_TAGS = frozenset()
-CATALOGUE_SHELF_ROWS_SHA256 = "0b553bd9fb75c33a66fdf7c176eb80c13f25a98a161d15cf87571ae089c62d84"
+CATALOGUE_SHELF_ROWS_SHA256 = "29adac4d2d9c0c67ff7d62fb9f183340121a714223514c9beceaa8e4cb78462f"
 
 # These named review records and review tools can change with their reviewed
 # transaction. Tools are not served assets; they are reviewed as executable
@@ -2097,6 +2097,32 @@ ALLOWED_DIFF = {
     "Science_Teesside/Teaching_Packs/GROW/SHA256SUMS.txt",
     "Science_Teesside/Teaching_Packs/LAUNCH/SHA256SUMS.txt",
 }
+
+# rm-2 (13 Oct 2026; a red-first plan, local build): the ri-5 Group 1 scheme-source edits. These are
+# workbooks and their text dumps, not served files. Each path is admitted through the boundary only while its
+# bytes equal the sum below: no folder, no pattern, nothing else widened.
+SCHEME_SOURCE_EXACT_SHA256 = {
+    "_passpq/DECISIONS_YEAR2.md": "045146ae58357f4f92996be5d2f4a3c6e5293cffd19e1bd4d37e9064ea213461",   # rp-2 (a): Group 2 record line, not served
+    "_sownb/VB_STATE.json": "fd21c2f5a6affaf7b5f495af3b2e8831897493e361ed7de50ae57e5bb85eb01d",   # rp-2 (a): Group 2 record line, not served
+    "_sownb/vb/WRONG_BEFORE_RIGHT.md": "37adc9cf88a7f9832e8844e1f8681e9bfb76fb8866d6f53959a05add42b521bb",   # rp-2 (a): Group 2 record line, not served
+    "Build/_Archive_VersionA_LivingIndependently/BUILD_SOW_2026-27_vA_with_LivingIndependently.xlsx": "b5cee8c3413e0487c630331057deb1b16c03805084e113e96094a3d2cadc397f",
+    "_authoring/science_2026-27/_toolchain/scheme_references/BUILD_SOW.xlsx": "b5abd199abfa8c3de4608533fcef9e917a61b148419a102dfff6708302139cd0",
+    "_authoring/science_2026-27/_toolchain/scheme_references/GROW_SOW.xlsx": "41ff0a4a4211da89466f5634f58a5074b6f4be6c7036118aab1e0e9d3145d7b3",
+    "_authoring/science_2026-27/_toolchain/scheme_references/LAUNCH_SOW.xlsx": "b8063b7d6b3989f71375b5f2c3a62b9ebcd3be1bb1933706a009473c7b19ee02",
+    "_passla/inputs/LAUNCH KS4 - 2026-27.xlsx": "92ceefa450b770af738a1a65797047555c796e890c19cb54286662968fde90a9",
+    "_passsb/inputs/Build SOW 2026-2027.xlsx": "b5abd199abfa8c3de4608533fcef9e917a61b148419a102dfff6708302139cd0",
+    "_passsg/inputs/GROW SOW 2026-27.xlsx": "41ff0a4a4211da89466f5634f58a5074b6f4be6c7036118aab1e0e9d3145d7b3",
+    "_passsl/inputs/LAUNCH KS4 - 2026-27.xlsx": "b8063b7d6b3989f71375b5f2c3a62b9ebcd3be1bb1933706a009473c7b19ee02",
+    "_sca1/inputs/BUILD_SOW.txt": "6491c014baba83b6091686a4e40156b94443341265432786db41c7c67a52df42",
+    "_sca1/inputs/GROW_SOW.txt": "e034ba648284b16ac3388b6e0ea441e34072ac30ab7286780b243f41ef7f39c6",
+    "_sca1/inputs/LAUNCH_KS4.xlsx": "92ceefa450b770af738a1a65797047555c796e890c19cb54286662968fde90a9",
+    "_sca1/inputs/LAUNCH_SOW.txt": "5881aaaedc0fcb238ccac9549b79176fcac4a5cbdd7c610cd1e77b0ee3c85d1d",
+}
+
+
+def exact_byte_admitted(root: Path, changed: set[str]) -> set[str]:
+    return {rel for rel in changed if rel in SCHEME_SOURCE_EXACT_SHA256 and (root / rel).is_file()
+            and digest(root / rel) == SCHEME_SOURCE_EXACT_SHA256[rel]}
 
 
 def digest(path: Path) -> str:
@@ -2658,7 +2684,7 @@ def run_checks(
             errors.append(f"git diff failed: {proc.stderr.strip()}")
         else:
             changed = {line.strip() for line in proc.stdout.splitlines() if line.strip()}
-            errors.extend(boundary_errors(changed, kind))
+            errors.extend(boundary_errors(changed - exact_byte_admitted(root, changed), kind))   # rm-2
             errors.extend(fence_errors(root, changed, kind))
             for manifest in ("resources.json", "apps.json"):
                 if manifest in changed and manifest not in MANIFEST_PINS:
