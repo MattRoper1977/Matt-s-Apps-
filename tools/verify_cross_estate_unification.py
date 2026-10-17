@@ -134,7 +134,7 @@ CATALOGUE_PINS = {
         "tools/ux2/hub_gates.mjs": "80ae8def49c49e549c8a2e6b65d521cfdaebb2b7d05f650fa6d5e436f2b6586d",
         "index.html": "389c3320b158e9bc472b4402d41d1d23e4bb2d78b54385884c0be6ca31f73309",
         "Science_Teesside/index.html": "0abdf5ad7bc7f477e0b6a181a2a460735bf052eeb0736059e9a0f28797d00622",
-        "Humanities_Teesside/index.html": "e3466bacece99a8e5c6fa490964b68e5a4b3002a9a8c0196402acd290bdd4372",
+        "Humanities_Teesside/index.html": "7a565b57a995f043410199e32dc33bd2031b8ac160fce6ba9d2b181d3f1be956",
         "humanities_teesside.html": "577740530e89ad174e6b2eb177fab2409ece9e142e4c68a91903b939f3721382",
         "pack.html": "c05cde1b83de3da3a292d150e7c400782719d30aec6a130fb4df158786993b65",
         "assets/catalogue/pack.js": "acfd0f1b00dce1421fabd8a1870b55d4c54ffc1157b2efe8a01b354f385ccf4b",
@@ -158,7 +158,7 @@ CATALOGUE_PINS = {
         "assets/catalogue/humanities-shelf.json": "d3ccba389513ab25a34ddb144e6f4c0c7b5e479cbf78f880a62f2a2447d1559b",
         "tools/catalogue/build_catalogue.py": "aa8259717f561286d489fb032bbd26f2d90d144f5bf2ed1fe64e12c116934ec7",
         "tools/catalogue/build_science_shelf.py": "396b6aeb7cb3cabe037b7af27877ae7a090e5aa1bce284409e400549d5204c24",
-        "tools/catalogue/build_humanities_shelf.py": "eb3b062392110576fcbf0ebfeeb602e0197e82d9fd1b19c5b752f8084b14d244",
+        "tools/catalogue/build_humanities_shelf.py": "ff8dd30c01a6dc62185bcebe671760e5c57a15de3a82ba7d5786dc40685044b4",
         "tools/catalogue/build_science_hub.py": "6982e3c6cb67c3a48dd075816b5e1ddb5597ab36b7e6961c509d3b353d6d71dc",
         "assets/catalogue/science-hub-bindings.json": "5c8908199cf279fb3c50d1b9e84dc413cc455ec27995bf0f9b35178315602c8b",
         "tools/catalogue/check_catalogue_static.py": "be992fedf091e50582c5e2f57f10a22f44b1ed975236b7ce7be2bbe870df6a83",
@@ -168,7 +168,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/HUMANITIES_STRAND.json": "813214f79100663093e7b7ee4460b3e7b2eb80b0d4f7bd2ae71a1228ddb14b40",
         "tools/catalogue/hub_sections.py": "3b201e96e05a124d47c6b5b1063c0df25d2b5c5cf4505aad7494663c7e92a90e",
         "assets/catalogue/shelf-base.css": "951d6188059da3d2f20717ab7d82773b335d453d8c2d82f5b75f230229351e61",
-        "assets/catalogue/humanities-hub-bindings.json": "19e742c87bd8a0635cf28a42814354a8f4d22efba55da70ab04415c914e3398a",
+        "assets/catalogue/humanities-hub-bindings.json": "179139a8b05627d8ebfa78e15a86a4af1d785f7e75a5e4388c8604607ea196c3",
         "tools/catalogue/restamp_evidence_sha256.py": "614e54a27822b087319ca729f8e9f24a3cba41350f571fca9f7aa33ddc693f16",
         "Science_Teesside/Build/START_HERE.html": "acac26140f5aeef22292e6ce3831fa61aaf5e62432cc3998b340918c8bfaee7f",
         "Science_Teesside/Grow/START_HERE.html": "d2bec305dec3212215c6f599cad3925c571f9a34ca6e85268893c8ed142170dd",
@@ -1696,7 +1696,12 @@ CATALOGUE_PINS = {
         "Humanities_Teesside/Teaching_Packs/RE_Autumn_LAUNCH_Reviewed/LAUNCH/Autumn_1/W08/approved-mark.jpg": "f1095531d88d17f20c7464c62887703321a0872f108d3fb78a4afc0226dac2a7",
         "Humanities_Teesside/Teaching_Packs/RE_Autumn_BUILD_Reviewed/START_HERE.html": "4ea63a0c2de74e7d37f235b905229fd4e76702b6a058245b2fd8690b9f54b336",
         "Humanities_Teesside/Teaching_Packs/RE_Autumn_GROW_Reviewed/START_HERE.html": "9ec66e89f1b09782117ba72578ba205e37b196ee6dbcb0b0de2741f0cafd30bd",
-        "Humanities_Teesside/Teaching_Packs/RE_Autumn_LAUNCH_Reviewed/START_HERE.html": "d8688b954279d1d83d9b915a7b59610e6c0b32003681d7bf3ba8d6d36f7065f2"
+        "Humanities_Teesside/Teaching_Packs/RE_Autumn_LAUNCH_Reviewed/START_HERE.html": "d8688b954279d1d83d9b915a7b59610e6c0b32003681d7bf3ba8d6d36f7065f2",
+        "Humanities_Teesside/Teaching_Packs/RE_Spring_1_BUILD_Reviewed/SHA256SUMS.txt": "dfb40505261e40c0e5038d6722351ddd0450055c47b17a85a6b88d42714f584e",
+        "Humanities_Teesside/Teaching_Packs/RE_Spring_1_GROW_Reviewed/SHA256SUMS.txt": "80bb4cc4d430e3b110781c1870a6454f48cf2e56fe4c1759f038594d3ede2d8a",
+        "Humanities_Teesside/Teaching_Packs/RE_Spring_1_LAUNCH_Reviewed/SHA256SUMS.txt": "c4feb606541eff53b17a5e6d793f87d78c61d73caf6858944ffdb0db8d710d22",
+        "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Spring_1_2026.docx": "7bb5fe5fc1c72b12b472e9a3019f1b7bad7109f701698acf5a413587e99ff70c",
+        "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Spring_1_2026.html": "56943452b4251a77fe0ae565018bb47be65e6a5c8fa031baa5ba098fa7f5b94e"
     }
 }
 # END REVIEWED CATALOGUE PINS
