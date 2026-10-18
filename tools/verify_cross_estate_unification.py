@@ -158,7 +158,7 @@ CATALOGUE_PINS = {
         "assets/catalogue/humanities-shelf.json": "d3ccba389513ab25a34ddb144e6f4c0c7b5e479cbf78f880a62f2a2447d1559b",
         "tools/catalogue/build_catalogue.py": "aa8259717f561286d489fb032bbd26f2d90d144f5bf2ed1fe64e12c116934ec7",
         "tools/catalogue/build_science_shelf.py": "396b6aeb7cb3cabe037b7af27877ae7a090e5aa1bce284409e400549d5204c24",
-        "tools/catalogue/build_humanities_shelf.py": "ff8dd30c01a6dc62185bcebe671760e5c57a15de3a82ba7d5786dc40685044b4",
+        "tools/catalogue/build_humanities_shelf.py": "3ccaec58fef083173d37d295d564c99799304e796b8b2a2ecf0ccaa01454928e",
         "tools/catalogue/build_science_hub.py": "6982e3c6cb67c3a48dd075816b5e1ddb5597ab36b7e6961c509d3b353d6d71dc",
         "assets/catalogue/science-hub-bindings.json": "5c8908199cf279fb3c50d1b9e84dc413cc455ec27995bf0f9b35178315602c8b",
         "tools/catalogue/check_catalogue_static.py": "be992fedf091e50582c5e2f57f10a22f44b1ed975236b7ce7be2bbe870df6a83",
