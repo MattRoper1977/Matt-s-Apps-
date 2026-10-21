@@ -2135,6 +2135,10 @@ ALLOWED_DIFF = {
     "tools/rw1/cx2_lane_d.py",
     "tools/verify_lessons_chips.mjs",
     ".github/workflows/ux2-gates.yml",
+    # tp add.2: the UX2 census reporter and its controls follow ux2-gates.yml's proof
+    # outputs; a proof added there must be added to the census in the same change.
+    "tools/ux2/drift_census.py",
+    "tools/ux2/test_drift_census.py",
     "tools/ux2/hub_gates.mjs",
     "tools/ux2/unit_tags.py",
     # UX2 D3 added the companion-pack deriver and its placement manifest but did
