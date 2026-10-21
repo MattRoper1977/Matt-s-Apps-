@@ -103,7 +103,7 @@ MANIFEST_PINS = {
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
-    "resources.json": "5154c5e6bdffdad475efef3c8f257d4a6a1ceeaecd8afd7147d7136d92e2102f",
+    "resources.json": "a6e59a847f36f708f3c996f494e30e0add2a79788f9ebd081d00132144366f13",
 }
 PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it writes both gate copies or neither)"
 
@@ -136,12 +136,12 @@ CATALOGUE_PINS = {
         "Science_Teesside/index.html": "9e8cab4db078b157918625d69ba5ccd598e6d7a3c5034a6003d5a32f6582b1fd",
         "Humanities_Teesside/index.html": "7a565b57a995f043410199e32dc33bd2031b8ac160fce6ba9d2b181d3f1be956",
         "humanities_teesside.html": "577740530e89ad174e6b2eb177fab2409ece9e142e4c68a91903b939f3721382",
-        "pack.html": "c05cde1b83de3da3a292d150e7c400782719d30aec6a130fb4df158786993b65",
+        "pack.html": "42935782c353525d28b9263a90a8c48e4b5ca764226444edfa68d6f664862be1",
         "assets/catalogue/pack.js": "acfd0f1b00dce1421fabd8a1870b55d4c54ffc1157b2efe8a01b354f385ccf4b",
         "assets/catalogue/pack.css": "ba6c5c84bcff84c023f2f10ac345a159f48ea97b2e8eb542cb3e56435204d63a",
         "assets/catalogue/pack-notes.json": "c7c30351306a21f360190b202b98bf202fde02b8376a1a54886204e718850988",
         "tools/sw2/pack_notes.py": "a81a187002a69bcecca28c9c3130f546e1aae279d5af92cf750a6f9fb04c8fe6",
-        "tools/sw2/stamp_pack_page.py": "ee37ba3739598535989353dd2ecd0225ad8f4ded0b9f3e6d83bbc0c2326bd4d8",
+        "tools/sw2/stamp_pack_page.py": "7d751c25a0a00a1602388537df236c0f79dee6facd31be15fc6e7bce38512149",
         "tools/sw2/check_pack_page.cjs": "fb093130e13b7e11e996f681f7845620b51e1a2802b6e7b80e8cf3eef92c5eff",
         "subject.html": "68937980cb0096e21cc5deb7eeaba7500803d4d712fcfb95a5ee364371224f18",
         "assets/catalogue/hub.js": "588f4c2dee4aa5030901f6d260f5dd160aaf306d4634732e99d38046d334e652",
@@ -1777,7 +1777,7 @@ CATALOGUE_SHELF_ROWS = 293
 # second set is empty and the allowance cannot launder a pre-existing value.
 CATALOGUE_ADDITIVE_TAG_KEYS = frozenset({"halfTerm", "unit"})
 CATALOGUE_ORIGINAL_KEYS_BEFORE_TAGS = frozenset()
-CATALOGUE_SHELF_ROWS_SHA256 = "fe3c875cfd0ddc19a3aae73a43d06a9e028115f8191e8117c5f1f0ed370f983a"
+CATALOGUE_SHELF_ROWS_SHA256 = "bed39512ed4a53c82e644c9fa0b1ccfc361143eb5a4c4707416067eb90f868f0"
 
 # These named review records and review tools can change with their reviewed
 # transaction. Tools are not served assets; they are reviewed as executable
