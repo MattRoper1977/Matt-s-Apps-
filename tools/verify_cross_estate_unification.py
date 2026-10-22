@@ -128,7 +128,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/check_display_titles.cjs": "5d06689114a69124a2d7f59d644a85775756eadd2b470df01e066c2202df681b",
         "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
         "tools/verify_lessons_chips.mjs": "e417afd94ae4f3a450caab2edf4b6c41d14e4588f070d0ad822263e30a86cf39",
-        "tools/sw2/check_tokens_inert.cjs": "736fa575f8967dafef892d6e4ed9df40bfaad327f7e23add06e78debc13ff80d",
+        "tools/sw2/check_tokens_inert.cjs": "17aff718730d7c8e6e5e5e77fb9d8ebfd927a312df8fd26c008b56725690fdb4",
         "assets/catalogue/lesson-order.json": "6890f0e3a44d9c8d5b11b680415fe06360e547f5f5c0fd61bd7678b1c7f6ed63",
         "tools/catalogue/build_lesson_order.py": "35a4c54779b800ae8bd949154d0d19fddb190f49ec18e62efdd86d03313f6180",
         "tools/ux2/hub_gates.mjs": "80ae8def49c49e549c8a2e6b65d521cfdaebb2b7d05f650fa6d5e436f2b6586d",
@@ -2020,7 +2020,10 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # that file's digest on Apps main, re-cut from its bytes.
 # Re-cut 2026-10-08 (the names fix, the pure carrier; fv-4): the Apps repository moves its own publisher pin to Site main d250bfea,
 # the squash merge of Site #459, so its caller file changed. Digest derived with sha256 over the edited file, never transcribed.
-    "apps": "d9524162279da3c0c77696331dabeb4f5cb13253b01b1243dbb7623b9e3204d6",
+# Re-cut 2026-10-22 (ruling ty, ty-2, option A): the Apps repository moves its own publisher pin d250bfea -> cfc92e84,
+# the squash merge of Site #478 and the builder Lessons already publishes with, so its caller file changed. Digest
+# derived with sha256 over the edited file, never transcribed.
+    "apps": "041e3a27806eab5bd10b33bf15010c2ccd7271d0b270ba2b1c7f870c8312d00f",
 }
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
@@ -2034,7 +2037,10 @@ LUNDYLOOP_CI_PINS = {
     # is now DERIVED from the Site admission registry by tools/sw2/pin_published_digests.py
     # (lessons "" 5c4e3ced, subject.html 93a071a8, apps "" f15bc17d), so the reviewed bytes
     # moved; digest taken from the edited file, never typed.
-    "tools/sw2/check_tokens_inert.cjs": "c94361558f2a6e6696a493a476b07a7349d2877532138db28e60754d3750177e",
+    # Re-cut 2026-10-22 (ruling ty, ty-2, option A): PUBLISHED re-derived from the Site cfc92e84 registry, the one
+    # builder both estates now publish with (lessons "" d74addfa, subject.html b2a6f3cb, apps "" 53d82c52); digest
+    # taken from the edited file, never typed.
+    "tools/sw2/check_tokens_inert.cjs": "0ee056becb3381f4a07b98ef263a5f54a77362c29c87864240e5363b2be51549",
     ".github/workflows/verify-lundyloop-professional-os.yml": "db2f0404944884869d84349a68b80858f81af8dbfb7eb64ddec71151f7928256",
     "tools/lundyloop/verify_live_bytes.py": "a27f791633260e7e2d8ba7ca2abe5a35db105b9ccbf96d26205628dcc1e636ad",
     "tools/lundyloop/test_live_bytes.py": "972ca2ae06da44722bfd011fda03a361c6011c699f95bb6ce78bca95b71f2e77"
