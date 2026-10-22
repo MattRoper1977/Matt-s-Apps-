@@ -25,6 +25,10 @@ jobs:
     # 08d74766 -> d250bfea5b15fbe215d3775dd7cd884de8350f4e, the squash merge of Site #459 -- window W2 (EQUAL), which
     # discharged the five EQUAL pins onto Lessons main 033a33db (#688) and Apps main f998c185 (#195). SHA read with
     # git rev-parse on the Site checkout, never typed.
-    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@d250bfea5b15fbe215d3775dd7cd884de8350f4e
+    # Moved 2026-10-22 (ruling ty, ty-2, option A of the BF STOP): the Apps publisher pin d250bfea ->
+    # cfc92e845b109459c6f384603f254ecdd26b6035, the squash merge of Site #478 -- the builder Lessons already publishes with,
+    # so one builder and one admission registry cover both estates (the Apps index menu follows the adult-surfaces
+    # record: 0/0/1). SHA read with git rev-parse on the Site checkout, never typed.
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@cfc92e845b109459c6f384603f254ecdd26b6035
     with:
-      builder_ref: d250bfea5b15fbe215d3775dd7cd884de8350f4e
+      builder_ref: cfc92e845b109459c6f384603f254ecdd26b6035
