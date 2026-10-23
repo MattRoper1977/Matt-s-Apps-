@@ -173,7 +173,7 @@ CATALOGUE_PINS = {
         "Science_Teesside/Build/START_HERE.html": "acac26140f5aeef22292e6ce3831fa61aaf5e62432cc3998b340918c8bfaee7f",
         "Science_Teesside/Grow/START_HERE.html": "d2bec305dec3212215c6f599cad3925c571f9a34ca6e85268893c8ed142170dd",
         "Science_Teesside/Launch/START_HERE.html": "10b46e7cf26e3aa4b7f1fb4758a039bcbec7000bc2ec8d30dfe3ce0e0b966353",
-        "tools/catalogue/SHELF_SELECTION.json": "f5f5bd99f033d7c6c3ea2dbc1ca294a294cad58b25c7db22a983902e95466ba6",
+        "tools/catalogue/SHELF_SELECTION.json": "d5c21afba6ff55471d732c73cfdcf556a473fc37eeb91b146a3175d88d889929",
         "tools/catalogue/HUMANITIES_SELECTION.json": "6b80f3a1e84b9d26cdde4c61dc612dfe0543d04fd175252e8ebef582329ce8ed",
         "tools/easter/science_original_browser.cjs": "aae28a4166d41546cbe5b0acd0866eeaf5e6f47cd5b1949fc48ecb2d4c79a1ec",
         "tools/science_pack/browser_checks.cjs": "058c9bc1f06c876f2994a23d467d83fced683c6355eb92d0ef43986d3e28d72d",
@@ -1752,7 +1752,8 @@ CATALOGUE_PINS = {
         "Humanities_Teesside/Teaching_Packs/RE_Spring_1_GROW_Reviewed/SHA256SUMS.txt": "80bb4cc4d430e3b110781c1870a6454f48cf2e56fe4c1759f038594d3ede2d8a",
         "Humanities_Teesside/Teaching_Packs/RE_Spring_1_LAUNCH_Reviewed/SHA256SUMS.txt": "c4feb606541eff53b17a5e6d793f87d78c61d73caf6858944ffdb0db8d710d22",
         "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Spring_1_2026.docx": "7bb5fe5fc1c72b12b472e9a3019f1b7bad7109f701698acf5a413587e99ff70c",
-        "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Spring_1_2026.html": "56943452b4251a77fe0ae565018bb47be65e6a5c8fa031baa5ba098fa7f5b94e"
+        "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Spring_1_2026.html": "56943452b4251a77fe0ae565018bb47be65e6a5c8fa031baa5ba098fa7f5b94e",
+        "GROW_ASDAN/Community_Project/START_HERE.html": "3d2f210ce105996fccc1ca5ef071377407830c7aeddac7c4c63826bb3990ebc7"
     }
 }
 # END REVIEWED CATALOGUE PINS
@@ -2020,7 +2021,7 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-10-23 (uf, the two Assembly pages and decks, rulings uf, uh add.1, uf add.3): the carrier moves to Site main c6687cf6, the squash merge of Site #484
 # (window W1: 4 ARRIVING rows, 9 pairs; the usage fence for uf's flight), bumped once and last. Digest derived with sha256
 # over the edited file, never transcribed.
-    "lessons": "157e70249561cfdb3e024420f138a3bd5aa215f0017aafad1fb9e288ffae0f3e",
+    "lessons": "9011c68a7bc7eba2566fe157323a89af4d1aeaefa101482330998a70e5a401e6",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
