@@ -63,7 +63,7 @@ CANONICAL_HASHES = {
     "assets/mbm-platform.css": "b520cf36a9c87af618e03ea534b66c261e8fd05e70d8eb5634f323aee9310698",
     "assets/mbm-platform.js": "095a29e61f8d7d549a5b58dd1aa1dd74b885416ebb09291ddb218d90ea740c28",
     "assets/mbm-theme.js": "5d711139ee95f2a9814917c516ffe674fbd52fd0b42c8fd6e22a1efbc19f002b",
-    "assets/mbm-hub.css": "1643f51bcfe7f89923e908cf4f79b36a80d8bfa767779ab1c9cebe2e1a8b513c",
+    "assets/mbm-hub.css": "1643f51bcfe7f89923e908cf4f79b36a80d8bfa767779ab1c9cebe2e1a8b513c"
 }
 
 # assets/mbm-theme.js is not maintained here. It is generated from the site
@@ -103,7 +103,7 @@ MANIFEST_PINS = {
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
-    "resources.json": "4549b7b45be290de5e41697d50d41bd01e6ca62816924d4cf320661c10769c87",
+    "resources.json": "b41bbe7e262cc9c5596920a613a22e31022356f6e04cf0643969acc773548c02"
 }
 PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it writes both gate copies or neither)"
 
@@ -133,18 +133,18 @@ CATALOGUE_PINS = {
         "tools/catalogue/build_lesson_order.py": "35a4c54779b800ae8bd949154d0d19fddb190f49ec18e62efdd86d03313f6180",
         "tools/ux2/hub_gates.mjs": "3d3120df94b1789041370c4045fbcc983635af0b30a0705447f18371bed98944",
         "index.html": "389c3320b158e9bc472b4402d41d1d23e4bb2d78b54385884c0be6ca31f73309",
-        "Science_Teesside/index.html": "9e8cab4db078b157918625d69ba5ccd598e6d7a3c5034a6003d5a32f6582b1fd",
-        "Humanities_Teesside/index.html": "7a565b57a995f043410199e32dc33bd2031b8ac160fce6ba9d2b181d3f1be956",
+        "Science_Teesside/index.html": "d1a12841c30c305861f98dd1ba9b9fe7f9484aab74486c67d0b643fba5677950",
+        "Humanities_Teesside/index.html": "841834da4bc45dd7cb06d10b4c0c6b940d2d516034ca27de3ab2e3079cb17cc8",
         "humanities_teesside.html": "577740530e89ad174e6b2eb177fab2409ece9e142e4c68a91903b939f3721382",
         "pack.html": "42935782c353525d28b9263a90a8c48e4b5ca764226444edfa68d6f664862be1",
-        "assets/catalogue/pack.js": "a61408f6e14671c828cee75edcfdb8040a2da5210ffd17113ba2aaba1e978aa0",
+        "assets/catalogue/pack.js": "da66512500cd92e7c7b2a58141ce98c903676b972ea71ba0723984eff12be7c6",
         "assets/catalogue/pack.css": "ba6c5c84bcff84c023f2f10ac345a159f48ea97b2e8eb542cb3e56435204d63a",
         "assets/catalogue/pack-notes.json": "c7c30351306a21f360190b202b98bf202fde02b8376a1a54886204e718850988",
         "tools/sw2/pack_notes.py": "a81a187002a69bcecca28c9c3130f546e1aae279d5af92cf750a6f9fb04c8fe6",
         "tools/sw2/stamp_pack_page.py": "7d751c25a0a00a1602388537df236c0f79dee6facd31be15fc6e7bce38512149",
-        "tools/sw2/check_pack_page.cjs": "fb093130e13b7e11e996f681f7845620b51e1a2802b6e7b80e8cf3eef92c5eff",
+        "tools/sw2/check_pack_page.cjs": "89f6a087381c5a34342dc5738f67ad0a3d9f4bc8cfb684da451125617a606235",
         "subject.html": "68937980cb0096e21cc5deb7eeaba7500803d4d712fcfb95a5ee364371224f18",
-        "assets/catalogue/hub.js": "588f4c2dee4aa5030901f6d260f5dd160aaf306d4634732e99d38046d334e652",
+        "assets/catalogue/hub.js": "96e8fc4f644815cf3ebc63b79f807e54eb7f382cad917de317a6f267a9fb15fe",
         "assets/catalogue/hub.css": "603586d0668c39a2039891ab9f599cc234f65748a6794eee7fc65c334b5a23e5",
         "data/calendar-spine.json": "d199474b13c9d340add2c87165396d83712b0f1c9f8bd03b7b12e8fdf6af0d61",
         "Humanities_Teesside/David_Cover_Autumn1_W3-W7/index.html": "4e25eb9ca8f9f93c720d88d945f3d6d79580f3362a88698fe7af75d146f01e96",
@@ -159,8 +159,8 @@ CATALOGUE_PINS = {
         "tools/catalogue/build_catalogue.py": "4eff91f7ace9073a6612035c33e8556875d6165da83876ae5ec20a6ec11a15a8",
         "tools/catalogue/build_science_shelf.py": "396b6aeb7cb3cabe037b7af27877ae7a090e5aa1bce284409e400549d5204c24",
         "tools/catalogue/build_humanities_shelf.py": "3ccaec58fef083173d37d295d564c99799304e796b8b2a2ecf0ccaa01454928e",
-        "tools/catalogue/build_science_hub.py": "6982e3c6cb67c3a48dd075816b5e1ddb5597ab36b7e6961c509d3b353d6d71dc",
-        "assets/catalogue/science-hub-bindings.json": "5c8908199cf279fb3c50d1b9e84dc413cc455ec27995bf0f9b35178315602c8b",
+        "tools/catalogue/build_science_hub.py": "fce0bacba013f60f99657f94f0a8f4a5146e74e5bcdbcb1b95ddbbea40ca226a",
+        "assets/catalogue/science-hub-bindings.json": "360cc3da713df7308672cc1cb2bc096913f72d258ca57a3545034fc04f660588",
         "tools/catalogue/check_catalogue_static.py": "be992fedf091e50582c5e2f57f10a22f44b1ed975236b7ce7be2bbe870df6a83",
         "tools/catalogue/check_catalogue_dom.cjs": "077dd17ebc4dc0d2937ffdd2407c5110b107651d56c2d5c6e87800bd04690ac4",
         "tools/catalogue/verify_education_navigation.cjs": "b0d9297a33fb9ea2494fecaa45e02ae6fcf6fa88e6a62ced35cf521fbb1851fd",
@@ -168,7 +168,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/HUMANITIES_STRAND.json": "813214f79100663093e7b7ee4460b3e7b2eb80b0d4f7bd2ae71a1228ddb14b40",
         "tools/catalogue/hub_sections.py": "3b201e96e05a124d47c6b5b1063c0df25d2b5c5cf4505aad7494663c7e92a90e",
         "assets/catalogue/shelf-base.css": "951d6188059da3d2f20717ab7d82773b335d453d8c2d82f5b75f230229351e61",
-        "assets/catalogue/humanities-hub-bindings.json": "179139a8b05627d8ebfa78e15a86a4af1d785f7e75a5e4388c8604607ea196c3",
+        "assets/catalogue/humanities-hub-bindings.json": "19d995a56210ee3082cffc94641fde2bd3c3b51dbfa626a27a17f938e01044db",
         "tools/catalogue/restamp_evidence_sha256.py": "614e54a27822b087319ca729f8e9f24a3cba41350f571fca9f7aa33ddc693f16",
         "Science_Teesside/Build/START_HERE.html": "acac26140f5aeef22292e6ce3831fa61aaf5e62432cc3998b340918c8bfaee7f",
         "Science_Teesside/Grow/START_HERE.html": "d2bec305dec3212215c6f599cad3925c571f9a34ca6e85268893c8ed142170dd",
@@ -235,7 +235,7 @@ CATALOGUE_PINS = {
         "Science_Teesside/Grow/W8-W13_2026-27/SCI_G_W9_Turn_Earth_explain_the_sky_Classic.html": "178c695fe2dc166a80abfd26e41174e28ecfa39d4700db0870d7ee27bbffd6e8",
         "Science_Teesside/Build/W8-W13_2026-27/SCI_B_W12_Give_a_rock_a_job_Classic.html": "509f38056bd09e903c70b0426ac55ab7ff73f7da10261a97eec11d49d7b27d1c",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
-        "_glv3/tools/verify_change_boundary.py": "2d0e9c6a8fb1265db7d24322b929c3d333b211c1a7a0bdb7f3a29b805f4a6570",
+        "_glv3/tools/verify_change_boundary.py": "36ebf9435579bc9b5a3768c029dec372f8c4cc473b6759695aa053750112fc74",
         "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
         "_glv3/tools/chip_gate.mjs": "16cdd5c0ad3745c57340ed0ec6a208d221e4793bfc9b1cd9bc703a6c2613dd9a",
         "_glv3/tools/catalogue_membership.mjs": "4d7ab03e23ee0d3c3fc934f4f0a901afc61169754db099f4f5c24dd9cce058ec",
@@ -799,7 +799,7 @@ CATALOGUE_PINS = {
         "assets/catalogue/science-download-bindings.json": "efb435f7e0dc4c9083050f5bb3e348494838422fe7de6e809fbdf8f877d9b10d",
         "Science_Teesside/Teaching_Packs/BUILD/BUILD_Science_Autumn1_W3-W7_Teaching_Guide.docx": "c4fd055acdb11a2310fe820b6f473733835dc4789b9151cd3377ec4d251f2196",
         "Science_Teesside/Teaching_Packs/BUILD/BUILD_Science_Autumn1_W3-W7_Teaching_Guide.pdf": "a479821f2de450e28bd414625f8066768d2c72423bd5ff76046536bf8f7a5d7a",
-        "Science_Teesside/Teaching_Packs/BUILD/DOWNLOAD_INDEX.json": "8597bde197b2b816d2dd4186726ddf46a873f941e3aa7814d1d437aaa5733eb6",
+        "Science_Teesside/Teaching_Packs/BUILD/DOWNLOAD_INDEX.json": "c4c806fb64ab45e7af22e970829d2918c33f9b8b338decac64bcc6b9d537a556",
         "Science_Teesside/Teaching_Packs/BUILD/SOURCE_MANIFEST.json": "5cd6246f8f7238adaff58122c1615b3ac6e4ccf1c1604f31aab080fd91394a95",
         "Science_Teesside/Teaching_Packs/BUILD/START_HERE.txt": "7dc574750bc326685d64d0abbd25b632e9f8a724c7aa84f1123055c7f148ec7c",
         "Science_Teesside/Teaching_Packs/BUILD/assets/made-by-matt-approved.jpg": "f1095531d88d17f20c7464c62887703321a0872f108d3fb78a4afc0226dac2a7",
@@ -982,13 +982,13 @@ CATALOGUE_PINS = {
         "Science_Teesside/Teaching_Packs/GROW/lessons/W7B/GROW_Science_Autumn1_W7B_The_Moon_Teacher.docx": "1d026a3de59ada343c814e3ed895368d5aa9292244ca569a66ba7a53f3cf126c",
         "Science_Teesside/Teaching_Packs/GROW/lessons/W7B/GROW_Science_Autumn1_W7B_The_Moon_Teacher.pdf": "ff0c970316fa22f34c67fe22f8b0365b3bba423fef0aefb0e63cbc5a01070f19",
         "Science_Teesside/Teaching_Packs/GROW/lessons/W7B/START_HERE.txt": "10d6ba34be76c3a7d82a346e83a65c86612ecd95505e63fc797a091bed945ee6",
-        "Science_Teesside/Teaching_Packs/index.html": "4d9fc732a9b9d086b59881300a081a0f3fc2627bc8cd083b680fade75883caf8",
+        "Science_Teesside/Teaching_Packs/index.html": "3ac76ddfb036836302e9fc96b5cb8f7d17b73b41fa478343ccfd661d17745448",
         "Science_Teesside/Teaching_Packs/packs.css": "70ca73b323e5cabf05b1f5f9f8107694cfcecf4ddf8043f342049ee4c797ce59",
         "tools/science_teaching_packs/BUILD_QA.json": "d5ee55a25c15ca86dbd6324b417c70d672e1d0c19a1fa6462f35cc620927a2ff",
         "tools/science_teaching_packs/BUILD_SOURCE_PROVENANCE.json": "bd3093b818cd94ab74260f28f2c8ae08e77fbac307e8dcd0cf2a77540e299197",
         "tools/science_teaching_packs/GROW_QA.json": "a8cdaa361414a3700c463ea40e0a159029db3fb803024e50b0eb39d082c6f364",
         "tools/science_teaching_packs/build_hub.py": "db1a706f68c8b33cdbcfc4c6f197781fb5cde2f3fe53dc979eea5c5b592ade10",
-        "tools/science_teaching_packs/check_packs.py": "01609d0d19e3e4a5de810725d68ac97fcfa0f8843d626dc5a7aaddca009aa578",
+        "tools/science_teaching_packs/check_packs.py": "235aafc46f642ba125fb65a2fed803b7ff16ec29fa5352178837f72062707510",
         "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/Humanities_SOW_Alignment.xlsx": "537350c7f0ba110ea90edf5039826c1a2858c04c54ec006c550ff143c09dec69",
         "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/Humanities_Scheme_of_Work_2026-27.docx": "b078d01fb53a9f5d828b7f64d9ddb9d1a36daa681e8829d2a6d811abca664d11",
         "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/Humanities_Scheme_of_Work_2026-27.html": "ac8f8d0a4188d147097a491b0db59efef16feb0c0f6c4fa8e13144bb8a53f69f",
@@ -1162,13 +1162,10 @@ CATALOGUE_PINS = {
         "Humanities_Teesside/David_Cover_Autumn1_W3-W7/LH_W6.html": "6ea47b86c65a116d95ce2376b16dfd9fe773c6290fcded2efa072db19be0dd22",
         "Humanities_Teesside/David_Cover_Autumn1_W3-W7/LH_W7.html": "33ac63f9fbcf9c36d67658e87614f6e1e904de45aa3dc5128ab7fed94579f803",
         "Science_Teesside/Teaching_Packs/BUILD/SOURCE_MAPPING.json": "ff5ed25d7ed3bf20879dd2a63c1a8a68024c910556bedf764eb83be61d4ec8f1",
-        "Science_Teesside/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W3-W7_DOCX_Collection.zip": "e0221279cd94ce002da21846a57e59cf000fb321dca3b16d45634124e71cdb2f",
-        "Science_Teesside/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W3-W7_PDF_Collection.zip": "7455b42c68132edb14fcc021177d8b6f242eaaf54001ddf7f7e2488b76ae462f",
-        "Science_Teesside/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W3-W7_PPTX_Collection.zip": "315601d9afb5a05a21e82b7993b0973268f71637137d6578a7deadc5fd034fbc",
         "Science_Teesside/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W3-W7_DOCX_Collection.zip": "2482706e4f9c7e192287acfd02e7c09381597a1a9fc772c9d39fe630eba5a3aa",
         "Science_Teesside/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W3-W7_PDF_Collection.zip": "b3116412bb38368b96c0236e2b41902deb76e96461f1ca1c3fb134d878f842f0",
         "Science_Teesside/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W3-W7_PPTX_Collection.zip": "592f59c2ccae4f9531af5296eb30064c8fee92c44ba2b896db8038cf2a93dce8",
-        "Science_Teesside/Teaching_Packs/LAUNCH/DOWNLOAD_INDEX.json": "431b8d5b10c4b037d09553a5f6818681c4a2f56fbf7beed4dbcd687bdefe90fc",
+        "Science_Teesside/Teaching_Packs/LAUNCH/DOWNLOAD_INDEX.json": "698135d5cd1fa2c1984bd13706b6ffdbe63903a77c0876063cc793b9ce3ea88d",
         "Science_Teesside/Teaching_Packs/LAUNCH/Pupil_Worksheets.pdf": "40b4561e417afebf2cae6a5eae1ade45859a9dd462bf69e8dd4135c836d3f7bc",
         "Science_Teesside/Teaching_Packs/LAUNCH/SOURCE_MANIFEST.json": "3ec0db25c3deb4839106d59bb03361e05d103e7347a6f2939ff3f4cbb9de7655",
         "Science_Teesside/Teaching_Packs/LAUNCH/START_HERE.txt": "2b7b55ab005abea12229d54ef4f8f5389cd6c0714078284537844e62b69ac3e0",
@@ -1293,9 +1290,6 @@ CATALOGUE_PINS = {
         "Science_Teesside/Teaching_Packs/LAUNCH/Week_7/W7_Weekly_Plan.pdf": "4ec297f090a8d5983b03a7ca23b866ef0e166c0f603f0963fa7c7dab075dbc35",
         "Science_Teesside/Teaching_Packs/LAUNCH/Weekly_Plans.pdf": "5bfbdf746dd1b83c93ca12c9c5f10f5f8051be30ed4efc1344caa49cac578dc9",
         "Science_Teesside/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3-W7_Complete_Pack.zip": "a1194521ca6943909d8cb73c61dbf6d6bd5e1a5bd704d640ef7dd9f8b3df0e7e",
-        "Science_Teesside/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3-W7_DOCX_Collection.zip": "638527b335f4062db3da9d6172da4ec9993ea007d3e4dc8a507d122f2e358baa",
-        "Science_Teesside/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3-W7_PDF_Collection.zip": "8a0d4e26223491be1998e21fe25995bf50bd807d5ba3fce6eb73aa657b8771d7",
-        "Science_Teesside/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3-W7_PPTX_Collection.zip": "6d410f6066f65c30550717b1180bd2b7410767ee62e13406927d1b8d41107bc9",
         "Science_Teesside/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3L1_Lesson_Pack.zip": "a72792b9c2b10eb660850f17765b6b723f68ff8cc95e6be1f830ba64232803e3",
         "Science_Teesside/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3L2_Lesson_Pack.zip": "0e6d454ab2437aa39b8d1c8409c6300822d87df038fba3e168d1d51fb122f446",
         "Science_Teesside/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3L3_Lesson_Pack.zip": "2c10aca9832f12889edfd8923f80c8660596d67fe1e81b4ee40122f2c4ff66e4",
@@ -1319,9 +1313,9 @@ CATALOGUE_PINS = {
         "tools/science_teaching_packs/refresh_packs.py": "ce14bfa3c503bde2a5e0a8a07effbfe52d6c7262894cf062dcad358c473e7d47",
         "Science_Teesside/Teaching_Packs/GROW/Image_Credits.docx": "b7fe4b107695458bd8138170b0c98d14adddfe156871bd228db798790dbf3786",
         "Science_Teesside/Teaching_Packs/GROW/Image_Credits.pdf": "651dcd9f749c6cfb5ffccd73eb9ffb14a57f8ff8a8860f348969b34114396f86",
-        "tools/science_teaching_packs/check_hub_browser.cjs": "cf95cd468472495950f24a3dd0b1f4b9794f0a7df251ca7ab0c4e3098a276ad8",
+        "tools/science_teaching_packs/check_hub_browser.cjs": "807b62d6aa91fd62454149f5679cb5ba136f00fba9e6bb0832cd33a16281160b",
         "tools/science_teaching_packs/VISUAL_REFRESH_QA.json": "3ce5b90abaf89fc5a2a4085791bb16e09667545cf489a985c1c525bd7698fc80",
-        ".github/workflows/science-teaching-packs.yml": "385c2cff9f8ba709070380d0f6dbd11af89b72f9b5e847e68bf4264287927c88",
+        ".github/workflows/science-teaching-packs.yml": "dd4d32d2b4008ca78f271fd3421a0a0af27c1acbce2bcaef29c890c9eafbbcd5",
         "tools/stale_evidence_sweep.mjs": "17813c59e3752fb9843374a302895d0d4710fb2c749d29af81a77873ff9d3677",
         "Science_Teesside/Build/W8-W13_2026-27/SCI_B_W8A_Sugar_Labels_Explore.html": "74d17d4e0f6873f094691daa753539f8a351887160beea6a8a8d727bba864d2d",
         "Science_Teesside/Teaching_Packs/BUILD/lessons/W8A/BUILD_Science_Autumn1_W8A_Sugar_Evidence_Read_The_Label.pdf": "fc9ba726c94177000d872c28e3c7db3812c268d6552e936a316c38654a95a0dd",
@@ -1344,8 +1338,8 @@ CATALOGUE_PINS = {
         "tools/grow_resources/CONTENT.json": "8b51f89b02b50ddb2ff409bd0959c730b1d28f25a1ffdd264a21d3fba17c7677",
         "tools/grow_resources/BROWSER_TARGETS.json": "a223e070f70b979809c2bbc8325d505af3217bf633ecb3cec3bc63b954e876c4",
         "Science_Teesside/Launch/SCI_L_W4_L1_Diffusion.html": "563e0bddc7049afb1dfc7245b1810da5094c19bca8027a08bbaf4c26d5a0dc54",
-        "Science_Teesside/Teaching_Packs/LAUNCH/SHA256SUMS.txt": "cbb0aa2c07320596ce8118df19526c158e952a7c6b730fcd4492dc57b7052586",
-        "Science_Teesside/Teaching_Packs/BUILD/SHA256SUMS.txt": "316444eaaa55fd786c393a40443f511b450c0f04a5ba1f752cef125fd254be01",
+        "Science_Teesside/Teaching_Packs/LAUNCH/SHA256SUMS.txt": "ef47975ed5c670f2c3a001ed3b62e710e89307b605c5336f2b83b25b6ed7db0d",
+        "Science_Teesside/Teaching_Packs/BUILD/SHA256SUMS.txt": "e695362a8a6f539ffe87619afc3f9f6ae53cdf2734d5446c4a0f4f8114005e8f",
         "Science_Teesside/Build/W8-W13_2026-27/SCI_B_W8B_Autumn_Science_Checkpoint_Do.html": "7b27a0d82cd7df671c6a3b52b46d5d620ed678c332cdc58d1c649c3b29dacbac",
         "Science_Teesside/Grow/W8-W13_2026-27/SCI_G_W8A_Day_And_Night_Explore.html": "a5c6fb99587b2d9d715b116cfe7b0c706abe186bd386cc23b72f4fb2b5984493",
         "Science_Teesside/Grow/W8-W13_2026-27/SCI_G_W8B_Day_And_Night_Do.html": "32c49a121b8d9ed7f2af13c038117bdf4fbb0e9f23232f91a0015040843d6a00",
@@ -1753,7 +1747,30 @@ CATALOGUE_PINS = {
         "Humanities_Teesside/Teaching_Packs/RE_Spring_1_LAUNCH_Reviewed/SHA256SUMS.txt": "c4feb606541eff53b17a5e6d793f87d78c61d73caf6858944ffdb0db8d710d22",
         "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Spring_1_2026.docx": "7bb5fe5fc1c72b12b472e9a3019f1b7bad7109f701698acf5a413587e99ff70c",
         "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Spring_1_2026.html": "56943452b4251a77fe0ae565018bb47be65e6a5c8fa031baa5ba098fa7f5b94e",
-        "GROW_ASDAN/Community_Project/START_HERE.html": "3d2f210ce105996fccc1ca5ef071377407830c7aeddac7c4c63826bb3990ebc7"
+        "GROW_ASDAN/Community_Project/START_HERE.html": "3d2f210ce105996fccc1ca5ef071377407830c7aeddac7c4c63826bb3990ebc7",
+        "BUILD_ASDAN/FoodWise/Teaching_Packs/BUILD/SHA256SUMS.txt": "801425aa43631264b8e5288d7eabb3bff6f972c5e88263c57572ea97545633db",
+        "BUILD_ASDAN/FoodWise/Teaching_Packs/DOWNLOADS_MANIFEST.json": "a913269f3d35d03f3c67eed19500da122937655e4956ce5c3b90af87076f4b30",
+        "BUILD_ASDAN/FoodWise/Teaching_Packs/index.html": "43eb72c41a0789f3fd4a49d79e80e09eefd3220664b3810413df35ace5edd477",
+        "Careers/Teaching_Packs/BUILD/SHA256SUMS.txt": "97efdc2b08737bd672a93549964d641a5973130eab53c5cc872d1daf110bd138",
+        "Careers/Teaching_Packs/DOWNLOADS_MANIFEST.json": "5590c0d9996a17bba2bba981f68d45612dd5845b070417da4e3ea07610aac3a9",
+        "Careers/Teaching_Packs/GROW/SHA256SUMS.txt": "a0f67cdc5dd04ea632369655185a71d50f370c11a035a19044c3850806502650",
+        "Careers/Teaching_Packs/index.html": "d6ad6ed325541651f4c113013f17ee94b1cd477b9eb6d639dbe6ff966de858ee",
+        "DT_Textiles/Teaching_Packs/BUILD/SHA256SUMS.txt": "7be9ae481f7dbb9693afa7a600f7d7922d9bdc82e1d34db780272612e8c346fb",
+        "DT_Textiles/Teaching_Packs/DOWNLOADS_MANIFEST.json": "fc17200e5551a215a79b906e9cf55b31310b03836039b777fbb3b0aad55ca3b9",
+        "DT_Textiles/Teaching_Packs/GROW/SHA256SUMS.txt": "e4c41c8799701b85f1e605fe3730ab9dba8f0e44836e66bc7f322958193010e9",
+        "DT_Textiles/Teaching_Packs/index.html": "5e22afb2de650b7c1e248d9641b9cc3e3d8019fd3c81259af84c309076f90cf6",
+        "GROW_FoodWise/Teaching_Packs/DOWNLOADS_MANIFEST.json": "b4de1de95a6079bc61169c795177028d6f4a5c104a9fdc91db42ab4861488476",
+        "GROW_FoodWise/Teaching_Packs/GROW/SHA256SUMS.txt": "061d2fa95fbe65bbe567b00d21d45baa563a31ffd1ac66eccb414c2bdc80ffe9",
+        "GROW_FoodWise/Teaching_Packs/index.html": "af543da160d05358ee6d5898b645b8b3e62d1b162ad7c091f27689a56685802a",
+        "Humanities_Teesside/Teaching_Packs/DOWNLOADS_MANIFEST.json": "561ab713ef160db7f07b3a184b2a331231190006d0af9bf341cbc82cd2542da5",
+        "Humanities_Teesside/Teaching_Packs/index.html": "222c35ec5e79a6b24fb1b5d5567336794326d7264490961a5d98d0571f5cd335",
+        "Humanities_Teesside/Teaching_Packs/SHA256SUMS.txt": "d787ed9a4bad69caf29c60d894ce673df74120ab8b009c534c3f5cc6219b2759",
+        "ICT/Teaching_Packs/DOWNLOADS_MANIFEST.json": "6722f2ef668c5f16acd4b55f9bf67fee03aad6eab711224a3d239526f4bba7c2",
+        "ICT/Teaching_Packs/GROW/SHA256SUMS.txt": "02524211bea8d374f7d5cc54bc73498165ead4090909147759881f2a468e50ad",
+        "ICT/Teaching_Packs/index.html": "aec42a02665174c8d50a2a8dec9c5f74758b8b5477ec2af28fd007053c62e7f9",
+        "PSHE/Teaching_Packs/DOWNLOADS_MANIFEST.json": "617f2636e9ddee6d1a498e60f7ec21fb0cfe57c58585df12edcc070487a82bca",
+        "PSHE/Teaching_Packs/GROW/SHA256SUMS.txt": "98623695f0133b6c0b8ef089d5bcd982e30d7029f1477b1adac54e25bd840973",
+        "PSHE/Teaching_Packs/index.html": "cca42bc5e9d320c454195b098644d7f8e802c456996e46c478d44733d67a5d35"
     }
 }
 # END REVIEWED CATALOGUE PINS
@@ -1778,7 +1795,7 @@ CATALOGUE_SHELF_ROWS = 297
 # second set is empty and the allowance cannot launder a pre-existing value.
 CATALOGUE_ADDITIVE_TAG_KEYS = frozenset({"halfTerm", "unit"})
 CATALOGUE_ORIGINAL_KEYS_BEFORE_TAGS = frozenset()
-CATALOGUE_SHELF_ROWS_SHA256 = "ced025d3c88baaf0793f90cc102f6652fe62ea7b389db96fb9ca76f54f85d8b0"
+CATALOGUE_SHELF_ROWS_SHA256 = "41fe996ce3d0fecdbf26c6cd138c6cd6f55281b5b6887b6c874a09780e505942"
 
 # These named review records and review tools can change with their reviewed
 # transaction. Tools are not served assets; they are reviewed as executable
@@ -1793,7 +1810,7 @@ CATALOGUE_RECORD_PATHS = {
     "tools/catalogue/verify_catalogue_contract_controls.py",
     # UX2 A1 (2026-09-08): the record's schema travels with the record. It is
     # data, not a lesson payload; it is enforced by tools/ux2/check_catalogue_schema.py.
-    "resources.schema.json",
+    "resources.schema.json"
 }
 
 # The education publisher is executable release configuration, not a hub asset.
@@ -2021,7 +2038,7 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-10-23 (uf, the two Assembly pages and decks, rulings uf, uh add.1, uf add.3): the carrier moves to Site main c6687cf6, the squash merge of Site #484
 # (window W1: 4 ARRIVING rows, 9 pairs; the usage fence for uf's flight), bumped once and last. Digest derived with sha256
 # over the edited file, never transcribed.
-    "lessons": "9011c68a7bc7eba2566fe157323a89af4d1aeaefa101482330998a70e5a401e6",
+    "lessons": "29611d1821a3af29de036d696d379e9969cffad51e1453c763b3f7e1c1dff957",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
@@ -2030,7 +2047,7 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-10-22 (ruling ty, ty-2, option A): the Apps repository moves its own publisher pin d250bfea -> cfc92e84,
 # the squash merge of Site #478 and the builder Lessons already publishes with, so its caller file changed. Digest
 # derived with sha256 over the edited file, never transcribed.
-    "apps": "041e3a27806eab5bd10b33bf15010c2ccd7271d0b270ba2b1c7f870c8312d00f",
+    "apps": "041e3a27806eab5bd10b33bf15010c2ccd7271d0b270ba2b1c7f870c8312d00f"
 }
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
@@ -2084,6 +2101,50 @@ ALLOWED_DIFF = {
     # renamed to pin_manifests.py under Ruling 3; the old entry stays so the
     # rename's deletion remains legal in any historical diff span.
     "tools/pin_apps_manifest.py",
+    # RULING um, um add.1 (24 Oct 2026, reading (ii)): the 42 format collections a unit zip fully contains,
+    # removed from the publication. Their deletions are admitted by exact path; nothing else, no folder, no pattern.
+    "BUILD_ASDAN/FoodWise/Teaching_Packs/BUILD/downloads/BUILD_FoodWise_Autumn1_W1-W6_DOCX_Collection.zip",
+    "BUILD_ASDAN/FoodWise/Teaching_Packs/BUILD/downloads/BUILD_FoodWise_Autumn1_W1-W6_PDF_Collection.zip",
+    "BUILD_ASDAN/FoodWise/Teaching_Packs/BUILD/downloads/BUILD_FoodWise_Autumn1_W1-W6_PPTX_Collection.zip",
+    "Careers/Teaching_Packs/BUILD/downloads/BUILD_Careers_Autumn1_W1-W7_DOCX_Collection.zip",
+    "Careers/Teaching_Packs/BUILD/downloads/BUILD_Careers_Autumn1_W1-W7_PDF_Collection.zip",
+    "Careers/Teaching_Packs/BUILD/downloads/BUILD_Careers_Autumn1_W1-W7_PPTX_Collection.zip",
+    "Careers/Teaching_Packs/GROW/downloads/GROW_Careers_Autumn1_W1-W7_DOCX_Collection.zip",
+    "Careers/Teaching_Packs/GROW/downloads/GROW_Careers_Autumn1_W1-W7_PDF_Collection.zip",
+    "Careers/Teaching_Packs/GROW/downloads/GROW_Careers_Autumn1_W1-W7_PPTX_Collection.zip",
+    "DT_Textiles/Teaching_Packs/BUILD/downloads/BUILD_Textiles_Autumn1_W5-W7_DOCX_Collection.zip",
+    "DT_Textiles/Teaching_Packs/BUILD/downloads/BUILD_Textiles_Autumn1_W5-W7_PDF_Collection.zip",
+    "DT_Textiles/Teaching_Packs/BUILD/downloads/BUILD_Textiles_Autumn1_W5-W7_PPTX_Collection.zip",
+    "DT_Textiles/Teaching_Packs/GROW/downloads/GROW_Textiles_Autumn1_W5-W7_DOCX_Collection.zip",
+    "DT_Textiles/Teaching_Packs/GROW/downloads/GROW_Textiles_Autumn1_W5-W7_PDF_Collection.zip",
+    "DT_Textiles/Teaching_Packs/GROW/downloads/GROW_Textiles_Autumn1_W5-W7_PPTX_Collection.zip",
+    "GROW_FoodWise/Teaching_Packs/GROW/downloads/GROW_FoodWise_Autumn1_W1-W4_DOCX_Collection.zip",
+    "GROW_FoodWise/Teaching_Packs/GROW/downloads/GROW_FoodWise_Autumn1_W1-W4_PDF_Collection.zip",
+    "GROW_FoodWise/Teaching_Packs/GROW/downloads/GROW_FoodWise_Autumn1_W1-W4_PPTX_Collection.zip",
+    "Humanities_Teesside/Teaching_Packs/BUILD/downloads/BUILD_Humanities_Autumn1_W3-W7_DOCX_Collection.zip",
+    "Humanities_Teesside/Teaching_Packs/BUILD/downloads/BUILD_Humanities_Autumn1_W3-W7_PDF_Collection.zip",
+    "Humanities_Teesside/Teaching_Packs/BUILD/downloads/BUILD_Humanities_Autumn1_W3-W7_PPTX_Collection.zip",
+    "Humanities_Teesside/Teaching_Packs/GROW/downloads/GROW_Humanities_Autumn1_W3-W7_DOCX_Collection.zip",
+    "Humanities_Teesside/Teaching_Packs/GROW/downloads/GROW_Humanities_Autumn1_W3-W7_PDF_Collection.zip",
+    "Humanities_Teesside/Teaching_Packs/GROW/downloads/GROW_Humanities_Autumn1_W3-W7_PPTX_Collection.zip",
+    "Humanities_Teesside/Teaching_Packs/LAUNCH/downloads/LAUNCH_Humanities_Autumn1_W3-W7_DOCX_Collection.zip",
+    "Humanities_Teesside/Teaching_Packs/LAUNCH/downloads/LAUNCH_Humanities_Autumn1_W3-W7_PDF_Collection.zip",
+    "Humanities_Teesside/Teaching_Packs/LAUNCH/downloads/LAUNCH_Humanities_Autumn1_W3-W7_PPTX_Collection.zip",
+    "ICT/Teaching_Packs/GROW/downloads/GROW_ICT_Autumn1_W1-W7_DOCX_Collection.zip",
+    "ICT/Teaching_Packs/GROW/downloads/GROW_ICT_Autumn1_W1-W7_PDF_Collection.zip",
+    "ICT/Teaching_Packs/GROW/downloads/GROW_ICT_Autumn1_W1-W7_PPTX_Collection.zip",
+    "ICT/Teaching_Packs/GROW_Computing/downloads/GROW_Computing_W1-W8_DOCX_Collection.zip",
+    "ICT/Teaching_Packs/GROW_Computing/downloads/GROW_Computing_W1-W8_PDF_Collection.zip",
+    "ICT/Teaching_Packs/GROW_Computing/downloads/GROW_Computing_W1-W8_PPTX_Collection.zip",
+    "PSHE/Teaching_Packs/GROW/downloads/GROW_PSHE_All_About_Me_W1-W7_DOCX_Collection.zip",
+    "PSHE/Teaching_Packs/GROW/downloads/GROW_PSHE_All_About_Me_W1-W7_PDF_Collection.zip",
+    "PSHE/Teaching_Packs/GROW/downloads/GROW_PSHE_All_About_Me_W1-W7_PPTX_Collection.zip",
+    "Science_Teesside/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W3-W7_DOCX_Collection.zip",
+    "Science_Teesside/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W3-W7_PDF_Collection.zip",
+    "Science_Teesside/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W3-W7_PPTX_Collection.zip",
+    "Science_Teesside/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3-W7_DOCX_Collection.zip",
+    "Science_Teesside/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3-W7_PDF_Collection.zip",
+    "Science_Teesside/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3-W7_PPTX_Collection.zip",
     "tools/pin_manifests.py",
     # The pass ledger. It exists to change on every pass — a boundary that reds
     # on the ledger guarantees false failures on exactly the well-behaved passes
@@ -2180,7 +2241,7 @@ ALLOWED_DIFF = {
     "Humanities_Teesside/Teaching_Packs/SHA256SUMS.txt",
     "Science_Teesside/Teaching_Packs/BUILD/SHA256SUMS.txt",
     "Science_Teesside/Teaching_Packs/GROW/SHA256SUMS.txt",
-    "Science_Teesside/Teaching_Packs/LAUNCH/SHA256SUMS.txt",
+    "Science_Teesside/Teaching_Packs/LAUNCH/SHA256SUMS.txt"
 }
 
 # rm-2 (13 Oct 2026; a red-first plan, local build): the ri-5 Group 1 scheme-source edits. These are
@@ -2201,7 +2262,7 @@ SCHEME_SOURCE_EXACT_SHA256 = {
     "_sca1/inputs/BUILD_SOW.txt": "6491c014baba83b6091686a4e40156b94443341265432786db41c7c67a52df42",
     "_sca1/inputs/GROW_SOW.txt": "e034ba648284b16ac3388b6e0ea441e34072ac30ab7286780b243f41ef7f39c6",
     "_sca1/inputs/LAUNCH_KS4.xlsx": "92ceefa450b770af738a1a65797047555c796e890c19cb54286662968fde90a9",
-    "_sca1/inputs/LAUNCH_SOW.txt": "5881aaaedc0fcb238ccac9549b79176fcac4a5cbdd7c610cd1e77b0ee3c85d1d",
+    "_sca1/inputs/LAUNCH_SOW.txt": "5881aaaedc0fcb238ccac9549b79176fcac4a5cbdd7c610cd1e77b0ee3c85d1d"
 }
 
 
@@ -2655,7 +2716,7 @@ def run_checks(
     pairs = {
         "assets/mbm-platform.css": canonical / "assets/mbm-platform.css",
         "assets/mbm-platform.js": canonical / "assets/mbm-platform.js",
-        THEME_COPY: canonical / "theme.js",
+        THEME_COPY: canonical / "theme.js"
     }
     for local_rel, reference in pairs.items():
         if not reference.is_file():
