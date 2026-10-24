@@ -235,7 +235,7 @@ CATALOGUE_PINS = {
         "Science_Teesside/Grow/W8-W13_2026-27/SCI_G_W9_Turn_Earth_explain_the_sky_Classic.html": "178c695fe2dc166a80abfd26e41174e28ecfa39d4700db0870d7ee27bbffd6e8",
         "Science_Teesside/Build/W8-W13_2026-27/SCI_B_W12_Give_a_rock_a_job_Classic.html": "509f38056bd09e903c70b0426ac55ab7ff73f7da10261a97eec11d49d7b27d1c",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
-        "_glv3/tools/verify_change_boundary.py": "36ebf9435579bc9b5a3768c029dec372f8c4cc473b6759695aa053750112fc74",
+        "_glv3/tools/verify_change_boundary.py": "d87bc134dd4f393f00eaf782d777e0737de1e399ae628e9387a030e1379834e2",
         "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
         "_glv3/tools/chip_gate.mjs": "16cdd5c0ad3745c57340ed0ec6a208d221e4793bfc9b1cd9bc703a6c2613dd9a",
         "_glv3/tools/catalogue_membership.mjs": "4d7ab03e23ee0d3c3fc934f4f0a901afc61169754db099f4f5c24dd9cce058ec",
@@ -1747,7 +1747,7 @@ CATALOGUE_PINS = {
         "Humanities_Teesside/Teaching_Packs/RE_Spring_1_LAUNCH_Reviewed/SHA256SUMS.txt": "c4feb606541eff53b17a5e6d793f87d78c61d73caf6858944ffdb0db8d710d22",
         "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Spring_1_2026.docx": "7bb5fe5fc1c72b12b472e9a3019f1b7bad7109f701698acf5a413587e99ff70c",
         "Humanities_Teesside/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Spring_1_2026.html": "56943452b4251a77fe0ae565018bb47be65e6a5c8fa031baa5ba098fa7f5b94e",
-        "GROW_ASDAN/Community_Project/START_HERE.html": "3d2f210ce105996fccc1ca5ef071377407830c7aeddac7c4c63826bb3990ebc7",
+        "GROW_ASDAN/Community_Project/START_HERE.html": "76359b280163f3a7934111ca7bfe890247c4e31250b534fc54a1ff42ff3d9446",
         "BUILD_ASDAN/FoodWise/Teaching_Packs/BUILD/SHA256SUMS.txt": "801425aa43631264b8e5288d7eabb3bff6f972c5e88263c57572ea97545633db",
         "BUILD_ASDAN/FoodWise/Teaching_Packs/DOWNLOADS_MANIFEST.json": "a913269f3d35d03f3c67eed19500da122937655e4956ce5c3b90af87076f4b30",
         "BUILD_ASDAN/FoodWise/Teaching_Packs/index.html": "43eb72c41a0789f3fd4a49d79e80e09eefd3220664b3810413df35ace5edd477",
@@ -1770,7 +1770,8 @@ CATALOGUE_PINS = {
         "ICT/Teaching_Packs/index.html": "aec42a02665174c8d50a2a8dec9c5f74758b8b5477ec2af28fd007053c62e7f9",
         "PSHE/Teaching_Packs/DOWNLOADS_MANIFEST.json": "617f2636e9ddee6d1a498e60f7ec21fb0cfe57c58585df12edcc070487a82bca",
         "PSHE/Teaching_Packs/GROW/SHA256SUMS.txt": "98623695f0133b6c0b8ef089d5bcd982e30d7029f1477b1adac54e25bd840973",
-        "PSHE/Teaching_Packs/index.html": "cca42bc5e9d320c454195b098644d7f8e802c456996e46c478d44733d67a5d35"
+        "PSHE/Teaching_Packs/index.html": "cca42bc5e9d320c454195b098644d7f8e802c456996e46c478d44733d67a5d35",
+        "tools/verify_fixture_names.mjs": "75417d083048ca425535807d2352163936fc22d18831997b5c2ce05c8e3dbe49"
     }
 }
 # END REVIEWED CATALOGUE PINS
@@ -2038,7 +2039,7 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-10-23 (uf, the two Assembly pages and decks, rulings uf, uh add.1, uf add.3): the carrier moves to Site main c6687cf6, the squash merge of Site #484
 # (window W1: 4 ARRIVING rows, 9 pairs; the usage fence for uf's flight), bumped once and last. Digest derived with sha256
 # over the edited file, never transcribed.
-    "lessons": "29611d1821a3af29de036d696d379e9969cffad51e1453c763b3f7e1c1dff957",
+    "lessons": "637823bcdc09b502ff43af369834658fed6a7a6151a4d613c12dee710b9cc57d",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
