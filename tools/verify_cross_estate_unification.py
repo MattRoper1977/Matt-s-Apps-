@@ -128,7 +128,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/check_display_titles.cjs": "5d06689114a69124a2d7f59d644a85775756eadd2b470df01e066c2202df681b",
         "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
         "tools/verify_lessons_chips.mjs": "e417afd94ae4f3a450caab2edf4b6c41d14e4588f070d0ad822263e30a86cf39",
-        "tools/sw2/check_tokens_inert.cjs": "17aff718730d7c8e6e5e5e77fb9d8ebfd927a312df8fd26c008b56725690fdb4",
+        "tools/sw2/check_tokens_inert.cjs": "cf0a3c4eb313380cd60602857f20ee045f5b92aa0089ec2f0d673a2b53ed6f15",
         "assets/catalogue/lesson-order.json": "1874be539ef4c108ae8d1688b55619432b23d4c30ea7db2c86cb9936c6283762",
         "tools/catalogue/build_lesson_order.py": "35a4c54779b800ae8bd949154d0d19fddb190f49ec18e62efdd86d03313f6180",
         "tools/ux2/hub_gates.mjs": "3d3120df94b1789041370c4045fbcc983635af0b30a0705447f18371bed98944",
@@ -143,9 +143,9 @@ CATALOGUE_PINS = {
         "tools/sw2/pack_notes.py": "a81a187002a69bcecca28c9c3130f546e1aae279d5af92cf750a6f9fb04c8fe6",
         "tools/sw2/stamp_pack_page.py": "7d751c25a0a00a1602388537df236c0f79dee6facd31be15fc6e7bce38512149",
         "tools/sw2/check_pack_page.cjs": "89f6a087381c5a34342dc5738f67ad0a3d9f4bc8cfb684da451125617a606235",
-        "subject.html": "68937980cb0096e21cc5deb7eeaba7500803d4d712fcfb95a5ee364371224f18",
-        "assets/catalogue/hub.js": "96e8fc4f644815cf3ebc63b79f807e54eb7f382cad917de317a6f267a9fb15fe",
-        "assets/catalogue/hub.css": "603586d0668c39a2039891ab9f599cc234f65748a6794eee7fc65c334b5a23e5",
+        "subject.html": "d378bfb85ad8cd885a725e584316813a872c29a637a210b8893ed53c5d2dc034",
+        "assets/catalogue/hub.js": "82df325c80f2f8c4bac6d0cc374cd57f4e9ccbfdcfe2a143944622961e5f367a",
+        "assets/catalogue/hub.css": "77f9ce0f6defd2abe8bb59ee5d4c1ccbd6117579610a57f320b9b5949ac1ef59",
         "data/calendar-spine.json": "d199474b13c9d340add2c87165396d83712b0f1c9f8bd03b7b12e8fdf6af0d61",
         "Humanities_Teesside/David_Cover_Autumn1_W3-W7/index.html": "4e25eb9ca8f9f93c720d88d945f3d6d79580f3362a88698fe7af75d146f01e96",
         "assets/catalogue/catalogue.css": "59abee137c41a8a015e42cf0b32d20b7f4e5fc8e3d236a1cd735322386bf8569",
@@ -2042,7 +2042,7 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-10-23 (uf, the two Assembly pages and decks, rulings uf, uh add.1, uf add.3): the carrier moves to Site main c6687cf6, the squash merge of Site #484
 # (window W1: 4 ARRIVING rows, 9 pairs; the usage fence for uf's flight), bumped once and last. Digest derived with sha256
 # over the edited file, never transcribed.
-    "lessons": "6f4331a6e481c8a6eb9a80f96ea63fcca80f9646321ee077ba178a04cccdc414",
+    "lessons": "34f383362fafcf6dca29be1d6976cc045aeb7c494b86f682a9ff565a215da360",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
