@@ -1771,7 +1771,10 @@ CATALOGUE_PINS = {
         "PSHE/Teaching_Packs/DOWNLOADS_MANIFEST.json": "617f2636e9ddee6d1a498e60f7ec21fb0cfe57c58585df12edcc070487a82bca",
         "PSHE/Teaching_Packs/GROW/SHA256SUMS.txt": "98623695f0133b6c0b8ef089d5bcd982e30d7029f1477b1adac54e25bd840973",
         "PSHE/Teaching_Packs/index.html": "cca42bc5e9d320c454195b098644d7f8e802c456996e46c478d44733d67a5d35",
-        "tools/verify_fixture_names.mjs": "75417d083048ca425535807d2352163936fc22d18831997b5c2ce05c8e3dbe49"
+        "tools/verify_fixture_names.mjs": "75417d083048ca425535807d2352163936fc22d18831997b5c2ce05c8e3dbe49",
+        "GROW_ASDAN/Autumn2_W1-W6_2026-27/CHECKSUMS.sha256": "4188b5308601aa8f0dfc8d87cb002f7980385bbc153da064af4c6e3d10703150",
+        "GROW_ASDAN/Autumn2_W1-W6_2026-27/START_HERE.html": "51286f963e0b61a888bd1c43e4110349864d95e88e95418e0c5b4ff05efb7312",
+        "GROW_ASDAN/Autumn2_W1-W6_2026-27/index.html": "51286f963e0b61a888bd1c43e4110349864d95e88e95418e0c5b4ff05efb7312"
     }
 }
 # END REVIEWED CATALOGUE PINS
@@ -2039,7 +2042,7 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-10-23 (uf, the two Assembly pages and decks, rulings uf, uh add.1, uf add.3): the carrier moves to Site main c6687cf6, the squash merge of Site #484
 # (window W1: 4 ARRIVING rows, 9 pairs; the usage fence for uf's flight), bumped once and last. Digest derived with sha256
 # over the edited file, never transcribed.
-    "lessons": "637823bcdc09b502ff43af369834658fed6a7a6151a4d613c12dee710b9cc57d",
+    "lessons": "6f4331a6e481c8a6eb9a80f96ea63fcca80f9646321ee077ba178a04cccdc414",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
