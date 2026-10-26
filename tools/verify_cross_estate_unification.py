@@ -129,7 +129,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
         "tools/verify_lessons_chips.mjs": "e417afd94ae4f3a450caab2edf4b6c41d14e4588f070d0ad822263e30a86cf39",
         "tools/sw2/check_tokens_inert.cjs": "cf0a3c4eb313380cd60602857f20ee045f5b92aa0089ec2f0d673a2b53ed6f15",
-        "assets/catalogue/lesson-order.json": "4d62442b1a96d28e00c8e50e07525ef0e59665872964eb4545516a37552f384a",
+        "assets/catalogue/lesson-order.json": "40349c49b3f36b14d4af5eb8b66a4657ecfb1ecc332f23e04820d6a8c9dbf79c",
         "tools/catalogue/build_lesson_order.py": "35a4c54779b800ae8bd949154d0d19fddb190f49ec18e62efdd86d03313f6180",
         "tools/ux2/hub_gates.mjs": "3d3120df94b1789041370c4045fbcc983635af0b30a0705447f18371bed98944",
         "index.html": "bdca62dc5f92062c975287eb4be29314eab55dff7991bdba83c8e24840f805db",
@@ -235,7 +235,7 @@ CATALOGUE_PINS = {
         "Science/Grow/W8-W13_2026-27/SCI_G_W9_Turn_Earth_explain_the_sky_Classic.html": "178c695fe2dc166a80abfd26e41174e28ecfa39d4700db0870d7ee27bbffd6e8",
         "Science/Build/W8-W13_2026-27/SCI_B_W12_Give_a_rock_a_job_Classic.html": "509f38056bd09e903c70b0426ac55ab7ff73f7da10261a97eec11d49d7b27d1c",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
-        "_glv3/tools/verify_change_boundary.py": "1c6e6aa539036127719c25d4ae444251666db76cb4e90774a06f11fcbd9358f3",
+        "_glv3/tools/verify_change_boundary.py": "029fa9d044a050405bb2dd7f456d00ed18c614501d42efce3f92d62742a37f69",
         "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
         "_glv3/tools/chip_gate.mjs": "16cdd5c0ad3745c57340ed0ec6a208d221e4793bfc9b1cd9bc703a6c2613dd9a",
         "_glv3/tools/catalogue_membership.mjs": "4d7ab03e23ee0d3c3fc934f4f0a901afc61169754db099f4f5c24dd9cce058ec",
@@ -247,7 +247,7 @@ CATALOGUE_PINS = {
         "tools/humanities_resources/check_resources.py": "ec5383e3a34cbff999f190b0014a4a73e00a3a29e2714498f7620fd638dc2aa5",
         "tools/humanities_resources/resource.css": "1aed9aaca0d73a4b200c4e5d0977e73f4e906c747d7340c7a62f4197a8344bae",
         "tools/humanities_resources/resource.js": "ad40afed95490bfcce92dc062da46e1b27bcb96bdc80e37eabdfe02bf6ffc446",
-        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "a04a0c4d9d65d57a3f7b3e4fe6a8ad9c94ebc3281aa5dcac9d1ad86a423200ba",
+        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "95a6de461262f99ff44bc4a70583267567431a911f3fe7628357c763223f1359",
         "tools/catalogue/TERM_REVIEW.json": "19691de91df379d5fdcdc7a5efc00a844f1984532692cd504167860e34066d62",
         "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "fad73262b65e266242917df8d80012cc5951750d7af29ee5e4a5eb42cbe79913",
         "primary/year5/science/autumn/forces/Lesson8_ExploreGravity.html": "20047720bf1d309055abdf232d341b6fd99b833631efa0bcbfb3dabed9671196",
@@ -753,7 +753,7 @@ CATALOGUE_PINS = {
         "Build/README.txt": "84aa743004ececee3d3e9aedc295f0afc0f686124dd1b2f2f422b38c7b282a61",
         "Games/WorldCup_ThreeLions_Final.html": "ca6281bf6ac5e0d9eb1d7d10b14ceb75b38f07fece140a6523b24ea070f3f581",
         "Grow/README.txt": "9c2c46c4ebfb56c1ae99c7c20ee2bb73a623a3525c8f3daedf718599b7e7cfc6",
-        "HANDOVER.md": "a28d2fa3a2600a19a6dd1f4a746208f25dfcafb891e6434c6cde9d22de96c4c9",
+        "HANDOVER.md": "b2e4979f17db2ac9dcf2ed8eeb3461ffbdba19ad8713a40b33388132c18381ce",
         "Humanities/BUILD_Scheme_of_Work.html": "2c66d10240492b848d6242d261f1e7a9cdc1f8b756c718f27ad4fbdabce64a31",
         "Humanities/GROW_Scheme_of_Work.html": "f8de9c18ce88bc07a3eaec7bf73a2fd5917253053e4997e7e20a6fe7ce5a2dd7",
         "Humanities/LAUNCH_Scheme_of_Work.html": "4ce63bb630955552535e937ff08df51bd8f9acad9375d88eabff2a13ebc0b8b1",
@@ -792,33 +792,33 @@ CATALOGUE_PINS = {
         "Planning/BUILD/README.txt": "84aa743004ececee3d3e9aedc295f0afc0f686124dd1b2f2f422b38c7b282a61",
         "Planning/GROW/README.txt": "9c2c46c4ebfb56c1ae99c7c20ee2bb73a623a3525c8f3daedf718599b7e7cfc6",
         "Planning/LAUNCH/README.txt": "55f962061c660a001b8c1eba0a282b26c805498cb9a2106fb7d1e6bc3ffb391d",
-        "REBRAND.md": "d9bb834970f51cac52e915c53fff121ede62d220f1252ccc7417cfd8f5365623",
+        "REBRAND.md": "89826a88bcf37e85e1a4dc8b6a92101192407ae84f6d3cec6ab534b346b4d609",
         "Science/Build/v3_40min/BUILD_SCIENCE_PRACTICALS_MATRIX_PROGRESS_SCHOOLS.html": "88093148e8ac0154dd4128a89f31799fe0f0fd9e310c975849795f3b1d086129",
         "Science/Grow/v3_40min/GROW_SCIENCE_PRACTICALS_MATRIX_PROGRESS_SCHOOLS.html": "769af1a74ea5eab62223b50ccfa758e8d282bdb9f100eac0c56c7c221e51d3ea",
         "Science/Launch/v3_40min/LAUNCH_SCIENCE_PRACTICALS_MATRIX_PROGRESS_SCHOOLS.html": "90f5873faa1ed5f1c6c1d83af3a5c06ae41bb028588e066a4d86409c92f346f3",
         "assets/catalogue/science-download-bindings.json": "1e44e0fa5f772b4e65722520619ecd20f0771faad79c4db7aecc5d955bd3305d",
         "Science/Teaching_Packs/BUILD/BUILD_Science_Autumn1_W3-W7_Teaching_Guide.docx": "c4fd055acdb11a2310fe820b6f473733835dc4789b9151cd3377ec4d251f2196",
         "Science/Teaching_Packs/BUILD/BUILD_Science_Autumn1_W3-W7_Teaching_Guide.pdf": "a479821f2de450e28bd414625f8066768d2c72423bd5ff76046536bf8f7a5d7a",
-        "Science/Teaching_Packs/BUILD/DOWNLOAD_INDEX.json": "c4c806fb64ab45e7af22e970829d2918c33f9b8b338decac64bcc6b9d537a556",
+        "Science/Teaching_Packs/BUILD/DOWNLOAD_INDEX.json": "d5656956c366d611eceec99574a3643936e1b82a0b6ee6256fa130bb0621523e",
         "Science/Teaching_Packs/BUILD/SOURCE_MANIFEST.json": "d737b988e0d3aadfe577aea62cf53933eb8d7690dafd326a595162b7e33bd540",
         "Science/Teaching_Packs/BUILD/START_HERE.txt": "7dc574750bc326685d64d0abbd25b632e9f8a724c7aa84f1123055c7f148ec7c",
         "Science/Teaching_Packs/BUILD/assets/made-by-matt-approved.jpg": "f1095531d88d17f20c7464c62887703321a0872f108d3fb78a4afc0226dac2a7",
-        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W3-W7_Complete_Pack.zip": "e9d17beee1226ab799ad66a2b8c9d03240021b2f7d172c5da0f272f50e311001",
-        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W3A_Backbones_Lesson_Pack.zip": "37019741667b3523a5502fe61eff7edf47b995bbc4fe48a10f2b35dd8e1f3afa",
-        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W3B_Backbone_Evidence_Lesson_Pack.zip": "5926e1cc19928a3e13cfc9a8301ea9d6bce0db4c9cec2f1df8aa0aef1f9a3708",
-        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W3_Teaching_Pack.zip": "ebaea394ec38ced318cbe7316a48aa2b0c43c20b4c625b7ca6e501257ac4923a",
-        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W4A_Muscle_Pairs_Lesson_Pack.zip": "e01abf29890ee4e27d31139ed5da09856736cff16bd1d61d10d4af804c04060c",
-        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W4B_Muscle_Model_Lesson_Pack.zip": "880f1e3883f13ce72f9f661112cc28c140c4d519f733a83bdd214c621857353f",
-        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W4_Teaching_Pack.zip": "eb69505f3c10a06cb453df0a1bdb07d9f292b546307ba7bab60e1d91f5c32415",
-        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W5A_Body_Needs_Lesson_Pack.zip": "318568f22869fcbbed0c0aa451b2494b8c545c6e7e7af1dec4ec14c43b34cc18",
-        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W5B_Food_Jobs_Mission_Lesson_Pack.zip": "61fb1300c15bf6b4ebefd5d2c9a39d99831c89101790357174b01b7538f334ad",
-        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W5_Teaching_Pack.zip": "1165457c99cdda053d39cb4d4d3efb728c826d09cd2357f8acfe8b33481b2d51",
-        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W6A_Balanced_Plate_Lesson_Pack.zip": "f8ea6c9f6be32666c3a3f4027fbbf1b0782738b44d6d4a31b95ab49f161c376f",
-        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W6B_Model_Plate_Comparison_Lesson_Pack.zip": "efa0d4ddcfef59785f08be4f196de970f05578b0c3313dc4a9eda8ac25c7ead6",
-        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W6_Teaching_Pack.zip": "4a04b098cef12e0894fe46ffecc8b028e62b77f70d5f4f2981ace88121b50adb",
-        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W7A_Food_Sources_Lesson_Pack.zip": "ab1aa6fc0212bb4d2f99a93c051352073fe800a6fe84762522099cd78888ac03",
-        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W7B_Food_Chain_Investigation_Lesson_Pack.zip": "f47ea41f07b1e0fdfbeeb6bc71bcce7d10f62f17de1e0fa841d893e5649a2636",
-        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W7_Teaching_Pack.zip": "d797b0cbca7a8db1815305869004a2b1348ad2e47aa8b59f81f7b8cb2d33c765",
+        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W3-W7_Complete_Pack.zip": "1e66202c29445378b10feb01a5cfb00ce93c43e1fcc3bea9de601d85f6333cef",
+        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W3A_Backbones_Lesson_Pack.zip": "f196c85140c531a494a79795e374e15d4bc15121d1e3f3983a1f256ca56a73ce",
+        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W3B_Backbone_Evidence_Lesson_Pack.zip": "c4280ab8b6408a2c8ff2d13bdde1955841058fc987410d6c532a6db9583582d2",
+        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W3_Teaching_Pack.zip": "07e47f445e89ec22b2d8c6050b6b74b7f987732b2655f0d8db071e7e9124ffad",
+        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W4A_Muscle_Pairs_Lesson_Pack.zip": "d919d3383c97e43e00c542383b62bc9560a1d2f68e1cf5bc763df23361f71c6f",
+        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W4B_Muscle_Model_Lesson_Pack.zip": "ad0d2d1e18cca96811a3acdc708092c6b909d938d6596b4860eedb7d3074f7d3",
+        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W4_Teaching_Pack.zip": "02c91af4af1139ce14542c12fb13ee76bcb82fb7b1faad0db88c36a375d9ad7c",
+        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W5A_Body_Needs_Lesson_Pack.zip": "c4a130816b5d17546fe43566f4c2e91b979cbd01878a23adf6f005fe9dd32389",
+        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W5B_Food_Jobs_Mission_Lesson_Pack.zip": "9e3eabe0aa4866eb2213d0aa7d2165983e8afda85e379f6e2783cdc367a784ca",
+        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W5_Teaching_Pack.zip": "9e55e314b5c03e9f80c64a80b23aae7c200b964d838962783d02bc975e464a1e",
+        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W6A_Balanced_Plate_Lesson_Pack.zip": "ca62ad075c5614016e2cd3c352e63b0d04662474832c0c28c629f2a52b73942b",
+        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W6B_Model_Plate_Comparison_Lesson_Pack.zip": "fb9965490c8a5d44fd9e2a5423405740e1b9df25857f571a4eb4519194291643",
+        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W6_Teaching_Pack.zip": "60346b224bd796e8f9a6113605ee3a98494e789a6d28585bbdcb0513429fd8fa",
+        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W7A_Food_Sources_Lesson_Pack.zip": "53c8c7e375361c2c1e3ccb900017d6f5586a3d90fc5b3a14be517eb81aad419d",
+        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W7B_Food_Chain_Investigation_Lesson_Pack.zip": "04b0bbf1564ee434baa39236a5154b7db6f1867a837a2f806c20519064db4d6a",
+        "Science/Teaching_Packs/BUILD/downloads/BUILD_Science_Autumn1_W7_Teaching_Pack.zip": "5b9c1475cacc375538872ae480d5e071ed06faa2d0d34f58d38eda32dc3d1014",
         "Science/Teaching_Packs/BUILD/lessons/W3A/BUILD_Science_Autumn1_W3A_Backbones.pdf": "570c42fdaeef7d4c714e5b78bb49d970cfecee79414a1610b8d6db337d74d635",
         "Science/Teaching_Packs/BUILD/lessons/W3A/BUILD_Science_Autumn1_W3A_Backbones.pptx": "07e840c37da904610ea52fdd1ae0b6826aa0426d2778b82548fb4f006e63f320",
         "Science/Teaching_Packs/BUILD/lessons/W3A/BUILD_Science_Autumn1_W3A_Backbones_Pupil.docx": "58837cc18cfc2d44a1bc7b24be6fab2342d2dde54e6d6647ba082bcc553391da",
@@ -889,34 +889,34 @@ CATALOGUE_PINS = {
         "Science/Teaching_Packs/BUILD/resources/BUILD_Science_Autumn1_W6_Cards_and_Labels.pdf": "da0bbeac4c479fc4f20173691e236a67e7c936856f6b460332847810c6b4fb60",
         "Science/Teaching_Packs/BUILD/resources/BUILD_Science_Autumn1_W7_Cards_and_Labels.docx": "9bfdec7cd96599afba6e9421ad9d80fc7df9e07be01d5334c5b8a61319919aee",
         "Science/Teaching_Packs/BUILD/resources/BUILD_Science_Autumn1_W7_Cards_and_Labels.pdf": "68746df0bf740914b914ecf6d6c2a1b4b39252171e50621fa7a0c4aa4d1f141f",
-        "Science/Teaching_Packs/GROW/DOWNLOAD_INDEX.json": "f4838737eba7f6db77bf5d8741cdaf046a21d15159da70cbc550030824cddd63",
+        "Science/Teaching_Packs/GROW/DOWNLOAD_INDEX.json": "df85278ac30254d8fa806baaa5a6b19f2bb634a3b0a7023fe766c68d839aff9b",
         "Science/Teaching_Packs/GROW/SOURCE_MANIFEST.json": "e2d194b4151a345daca8b9fec8f67db961d88cde133e5b655eccc9644e6f906f",
         "Science/Teaching_Packs/GROW/START_HERE.pdf": "93a7e61be570fa6934e93973b1a4f4eb200df3da24f83b8ba45ec64ccbf80375",
         "Science/Teaching_Packs/GROW/START_HERE.txt": "856bddba97acc3d6389f09d99d3b0dc6224a4948b2be46c885bbaab7d9485c93",
         "Science/Teaching_Packs/GROW/assets/made-by-matt-approved.jpg": "f1095531d88d17f20c7464c62887703321a0872f108d3fb78a4afc0226dac2a7",
-        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W3A.zip": "2596818e45a67ea1b306f7c9287fa70795ab8142c6c93b9e63e1f99e1a4e5b22",
-        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W3B.zip": "4fedd9c4a162c3e712a327afd85554b19c55ad1f5b8cacea057b0fdecbb305ed",
-        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W4A.zip": "789bc7f2048bba2eeed5dce137c93b1d03cb15841e88b7d7caff3202fb920aa5",
-        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W4B.zip": "ae960df6ee5618ed8583c96399360734365285461cce3268cab20601ecf24750",
-        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W5A.zip": "a45c2101629bee39c6637e7ea571be93e2947d0faad017f6a1878bf4cd19e3c7",
-        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W5B.zip": "29d0aa2492db9d2dc9cfec2d73c1cb6fd8b00658202385f696c0703dc8d9fb03",
-        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W6A.zip": "662b93aaafc83b0fc7766e620f934aaa01ad4f7bb9e7d9500264581e316dc588",
-        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W6B.zip": "f394bfa9bd59fb66abf085b366bda1ba974835f74704aeba7db70cf249e20160",
-        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W7A.zip": "d65c89a82992eec3bec05f855f29688f5d97258884b5affba043e1fb105c580a",
-        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W7B.zip": "fa2e93d7e8832e5741390701bda0b9693a9868f68e3f442db15f8cc4c362691d",
-        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_Week3.zip": "5a8606a41a4b9e5a7accdf3ee730d727b709d92734f669d07a1e84324fa8035b",
-        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_Week4.zip": "df33780c2dea97c485158d026f8694051244d866663dde06ab8ac2ac14cd84e4",
-        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_Week5.zip": "fa2c5bd9f4f509b52d1d2510afc8ae25e3f9bbce55fc3fe9eda438882f3663a9",
-        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_Week6.zip": "6c0c4b0c76e3bf15c104748649c8d501e4ee3f669cf55fa280e3b73768aa6730",
-        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_Week7.zip": "3fd530bcedb10162514f9d37b785f447c24e8a0ba8c82b4ea94a578b54e33784",
-        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_Weeks3-7_Teaching_Pack.zip": "d8b6f0ce61e7925089aadbc66b63756316268c9c2934575ccdf18e74cb41e6ce",
+        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W3A.zip": "16bf28c4e0ed8d754db564cc147dec1ec84956e5b2a3453d78c8463d4bccf687",
+        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W3B.zip": "77174c720e049cb79b37caee6ba3c2bb0f26ff07c638f3d0184f5d026b09fe1b",
+        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W4A.zip": "3f5917a779d2119a9356b454b8cb3b4180e0e2a8a66d290fac91f7de3fc1ce4d",
+        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W4B.zip": "3a3d79d0d479dbca9c4380071625873e4553221afe21a0a4372d308c60300434",
+        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W5A.zip": "9434d3446815da5461d64c16d6d0b35c0d1066c3b971492a2aa29b9221333141",
+        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W5B.zip": "2e2e8d8c554dc47b1405ebb34b3c8d8b7da3b2a8e3118e9a67b7fcef7207ae5e",
+        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W6A.zip": "ac2856d0c00ddfee1d31fc1a3f3f31ff80e2161a7e0b7f706b19e53be42b7941",
+        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W6B.zip": "3c30ea234c4decde141a25979ce457f3b031addd887cb010daab12dca2b0ab30",
+        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W7A.zip": "6331ade7e38a9fa806ad1965b90e2c7d026a01b56cfd078e299f4b1e194629a9",
+        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W7B.zip": "fb9f571a0f5397ba61c5e9c661a61791647b95868b3d792a515eabbb23febe94",
+        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_Week3.zip": "6729dd874e434096bdbe5b7ab7b33db1ca5d9a95369f5b5c8dbcb4d4da94ecaf",
+        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_Week4.zip": "98300c761585df193224fed460aa91ac929b91c3edef7a64eeb61f11e3e968af",
+        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_Week5.zip": "3ff2075063455fe190397bb383c1d7dff3f17c6fc3a3b41f8d734bf206ffed39",
+        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_Week6.zip": "22d6c481304de88bed8a65e533cfe7a30f00d93b59edbdf107665eaa88dd68c1",
+        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_Week7.zip": "78ebc1a11f9967fad4fd2f1f468121e2ce7c43067069f01e361dd1d1bb85e712",
+        "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_Weeks3-7_Teaching_Pack.zip": "3be54e29329689533088a06d8b23c2bd52c0e745d01a7bfaeabc034fac96abb9",
         "Science/Teaching_Packs/GROW/lessons/W3A/GROW_Science_Autumn1_W3A_Friction.pdf": "0e57d93e45bf29236754a735e42f6d2ae923aa1a23c65ebe9ed19041347ced7d",
         "Science/Teaching_Packs/GROW/lessons/W3A/GROW_Science_Autumn1_W3A_Friction.pptx": "13dceb4a32f65165df9353349a69c87465e7f33b9f941036f8f714fd10a9f9da",
         "Science/Teaching_Packs/GROW/lessons/W3A/GROW_W3A_Friction_Pupil.docx": "9f8afdf8df90eb845d3ea352d36b9bd19dd192a6c040883fe70957eb8be487de",
         "Science/Teaching_Packs/GROW/lessons/W3A/GROW_W3A_Friction_Pupil.pdf": "856691efece9acaae40a529f949f3d26567345c8f658de9e26eab1bbbdc585cb",
         "Science/Teaching_Packs/GROW/lessons/W3A/GROW_W3A_Friction_Teacher.docx": "9da8a692bd1ad6b4a040e4b4a970275c90577cbaf73342492d1908148c5d8717",
         "Science/Teaching_Packs/GROW/lessons/W3A/GROW_W3A_Friction_Teacher.pdf": "08c926202671c6b2c25778d5d2dcf2f99a473dd704201f0ef9a58e3a359b18f9",
-        "Science/Teaching_Packs/GROW/lessons/W3A/START_HERE.txt": "20af530980c2838d2119ae1e4a6b3d21928f5c3cc16c85b464355217083b46c5",
+        "Science/Teaching_Packs/GROW/lessons/W3A/START_HERE.txt": "b5c46c92125be91cb86f64c5969ad8378ab3948b41a82e7be01e7378ccdfc81c",
         "Science/Teaching_Packs/GROW/lessons/W3B/GROW_Science_Autumn1_W3B_Friction_Test.pdf": "1ce1ba083eb62b521368b3c5863c098733ae7d677a1e7c0e641b8e0fd7681d3a",
         "Science/Teaching_Packs/GROW/lessons/W3B/GROW_Science_Autumn1_W3B_Friction_Test.pptx": "3049816d76009ebe3ad1b609e9ca22ec54c3abc82d3e8037b012386759ba278b",
         "Science/Teaching_Packs/GROW/lessons/W3B/GROW_Science_Autumn1_W3B_Friction_Test_Pupil.docx": "e4333309ef2e2dcf587385063c8e43eee56c3a285089b4f749580124d8c128ea",
@@ -924,28 +924,28 @@ CATALOGUE_PINS = {
         "Science/Teaching_Packs/GROW/lessons/W3B/GROW_Science_Autumn1_W3B_Friction_Test_Teacher.docx": "c0e2ae5adaff89fa05b28e389f7d422e0f638ca9edd33313da61d57d258732cb",
         "Science/Teaching_Packs/GROW/lessons/W3B/GROW_Science_Autumn1_W3B_Friction_Test_Teacher.pdf": "c9c7bf0a6dc4b4a69c1df89bf7fc3a2fdd73c57828ecb0619688611b52a61d5d",
         "Science/Teaching_Packs/GROW/lessons/W3B/GROW_W3B_Friction_Measurements.xlsx": "7ab6650a16051e655dde2f48928810cb2a825e07d4d0a028fea7cc25ee64b1d5",
-        "Science/Teaching_Packs/GROW/lessons/W3B/START_HERE.txt": "2d5f9809a1116d2d428bcfdfa41fbfd752c8b9c38e7715e2e004b603cbf68955",
+        "Science/Teaching_Packs/GROW/lessons/W3B/START_HERE.txt": "70a87773d7f0bc53b67cc1023263f2837ec473ceffc6ec1fc79b82823805c756",
         "Science/Teaching_Packs/GROW/lessons/W4A/GROW_Science_Autumn1_W4A_Mechanisms.pdf": "4af5fdcdc9e4d5c651545fbbde812762f924249d42a103d3e41ddfe49c120051",
         "Science/Teaching_Packs/GROW/lessons/W4A/GROW_Science_Autumn1_W4A_Mechanisms.pptx": "394e9a36b4e15708e43346e328c82f89ab3323d4de1df0cb0e2d9743a22d1044",
         "Science/Teaching_Packs/GROW/lessons/W4A/GROW_Science_Autumn1_W4A_Mechanisms_Pupil.docx": "4621245842054aa069124ff174f09c0eff8f8c56769d37c1acea9afe75f3045c",
         "Science/Teaching_Packs/GROW/lessons/W4A/GROW_Science_Autumn1_W4A_Mechanisms_Pupil.pdf": "1b2156236206deff8ec4f909faad3fd552c4caaa0a67cdc703cb900c6eedae08",
         "Science/Teaching_Packs/GROW/lessons/W4A/GROW_Science_Autumn1_W4A_Mechanisms_Teacher.docx": "d6324f71091db4971ca431f635995a5237638871b7a3a4a3455b75a9946425aa",
         "Science/Teaching_Packs/GROW/lessons/W4A/GROW_Science_Autumn1_W4A_Mechanisms_Teacher.pdf": "e7cfbdfcd17ce2734650cd91a04768a3da95156d6acd92bf6956040961d53366",
-        "Science/Teaching_Packs/GROW/lessons/W4A/START_HERE.txt": "18d76f19a516f6d689f4a5f016000f8a5b31215860a75d4baef105e3e8285a88",
+        "Science/Teaching_Packs/GROW/lessons/W4A/START_HERE.txt": "eb41429cf022ed25c1dfc3cf05d21787608cddc59982cc9d5aa2357135fc842a",
         "Science/Teaching_Packs/GROW/lessons/W4B/GROW_Science_Autumn1_W4B_Lever_Test.pdf": "a7ce2404efddea8e8e4adef88e7e5a54659cebcafc42805dc299370a06569e6c",
         "Science/Teaching_Packs/GROW/lessons/W4B/GROW_Science_Autumn1_W4B_Lever_Test.pptx": "435e8601d04da39509358516118a7240f1060425c0f4ed78a166566110ac9b35",
         "Science/Teaching_Packs/GROW/lessons/W4B/GROW_Science_Autumn1_W4B_Lever_Test_Pupil.docx": "11f958262f40611264f00fa24bbff2292cd214ed84b03204b398bd017a7802e8",
         "Science/Teaching_Packs/GROW/lessons/W4B/GROW_Science_Autumn1_W4B_Lever_Test_Pupil.pdf": "317ae814fd7d1968d2c23a865df8457e2e00838b68bbf32972de1f59ea650c71",
         "Science/Teaching_Packs/GROW/lessons/W4B/GROW_Science_Autumn1_W4B_Lever_Test_Teacher.docx": "ed27ebae53477ad516ec1580b8b0a67e6c81c2eed031ad5094a291b7a24c5835",
         "Science/Teaching_Packs/GROW/lessons/W4B/GROW_Science_Autumn1_W4B_Lever_Test_Teacher.pdf": "21bbcae5a4fb0667afcb6069ac59ed7c80e12ce15b174aa4de67000a8a8080fa",
-        "Science/Teaching_Packs/GROW/lessons/W4B/START_HERE.txt": "5e63e5dbc07a19a9b88bc66065e14cd690eefa5a69e1063d7fa9c30ae4156216",
+        "Science/Teaching_Packs/GROW/lessons/W4B/START_HERE.txt": "ec3da721d7bce358ce3458b77bbc5bc0c8ab01a305486e2c711d7919cb5daaa7",
         "Science/Teaching_Packs/GROW/lessons/W5A/GROW_Science_Autumn1_W5A_Fair_Test.pdf": "5057527cb48084fadd02863d9cab017e71818955efe11da514300c5d86743123",
         "Science/Teaching_Packs/GROW/lessons/W5A/GROW_Science_Autumn1_W5A_Fair_Test.pptx": "b9a829b1e5cd38fb891f687b2521de4da4e5e10d433610f614720b21ce14098e",
         "Science/Teaching_Packs/GROW/lessons/W5A/GROW_Science_Autumn1_W5A_Fair_Test_Pupil.docx": "b3a5a3a18ffeb6c72a53b1f23379efa730f8981795509239d072408fa44c99e1",
         "Science/Teaching_Packs/GROW/lessons/W5A/GROW_Science_Autumn1_W5A_Fair_Test_Pupil.pdf": "1e6e19a583143063af3d001a7039c89feaf8aa0bcd9553f8b0dd9e58218aa5e8",
         "Science/Teaching_Packs/GROW/lessons/W5A/GROW_Science_Autumn1_W5A_Fair_Test_Teacher.docx": "5ec3f179b213cba5730070d69c5a46b3d7a20c7bbe665c3049d1f3012e5fc1ec",
         "Science/Teaching_Packs/GROW/lessons/W5A/GROW_Science_Autumn1_W5A_Fair_Test_Teacher.pdf": "adbf06615291d03f65665098eb1aa6a21d7aef15a32dbd2742bd41640d6c3608",
-        "Science/Teaching_Packs/GROW/lessons/W5A/START_HERE.txt": "a0aedf6c0ea5c09e82fdb7c2070a959770fcdc513b4b235e05b263646471ffbd",
+        "Science/Teaching_Packs/GROW/lessons/W5A/START_HERE.txt": "a290efa290a30a831a30ef59dd7fd7826ff7d8906de67c3698caf19619681ccf",
         "Science/Teaching_Packs/GROW/lessons/W5B/GROW_Science_Autumn1_W5B_Fair_Test_Practical.pdf": "3782fa567cc5c389de3801cc57a6c46a425e158fed71cb554507537229b833cd",
         "Science/Teaching_Packs/GROW/lessons/W5B/GROW_Science_Autumn1_W5B_Fair_Test_Practical.pptx": "946c83f16a9f5357f5d13241039c48a0869c1406a198daac348f8a1e07392ed9",
         "Science/Teaching_Packs/GROW/lessons/W5B/GROW_Science_Autumn1_W5B_Fair_Test_Practical_Pupil.docx": "6569a9920bd4597d4fc41fe10709451062fca39f5419c0eb030ebd0be5d85b00",
@@ -953,35 +953,35 @@ CATALOGUE_PINS = {
         "Science/Teaching_Packs/GROW/lessons/W5B/GROW_Science_Autumn1_W5B_Fair_Test_Practical_Teacher.docx": "88bdee24e177ae31505cbfe467083f11dc114c0e3b55c3b200a26fe944839e00",
         "Science/Teaching_Packs/GROW/lessons/W5B/GROW_Science_Autumn1_W5B_Fair_Test_Practical_Teacher.pdf": "891c8c64d24767bf85c66c956d9bb85842688424c3ea71eb967e1e6e3207afe2",
         "Science/Teaching_Packs/GROW/lessons/W5B/GROW_W5B_Fair_Test_Measurements.xlsx": "746d64a30be2304c439fb5af7ef79b25dbe8f69d51c8de3c12cd22b8f2ac2104",
-        "Science/Teaching_Packs/GROW/lessons/W5B/START_HERE.txt": "c0637f8bed7305e27eec66faaf2acb836fdd8538873ade5e5df12ec936447da6",
+        "Science/Teaching_Packs/GROW/lessons/W5B/START_HERE.txt": "d667aaa4d4c65214655f7f9744b7b8b240d5a5d39539300c35aa5f4abcf65ed1",
         "Science/Teaching_Packs/GROW/lessons/W6A/GROW_Science_Autumn1_W6A_Earth_And_Planets.pdf": "31be861dc9629f03f58665c7e2455c4bb3e1bcf4c0eb954dced62cd6d89608ed",
         "Science/Teaching_Packs/GROW/lessons/W6A/GROW_Science_Autumn1_W6A_Earth_And_Planets.pptx": "1fabda3827fa43febb7fc3836619f5dbb7847deee60736c0c72dbc9047d30982",
         "Science/Teaching_Packs/GROW/lessons/W6A/GROW_Science_Autumn1_W6A_Earth_And_Planets_Pupil.docx": "91bcbcbfbfdfa3039f205b9c08f7583fb126c5bd0953a5968921e1ed5eec681a",
         "Science/Teaching_Packs/GROW/lessons/W6A/GROW_Science_Autumn1_W6A_Earth_And_Planets_Pupil.pdf": "08f14322ca35b6da824b798ef777f1e82a17b8c44ab032ce6da19c87fb12a60b",
         "Science/Teaching_Packs/GROW/lessons/W6A/GROW_Science_Autumn1_W6A_Earth_And_Planets_Teacher.docx": "8568d4650f1adeeb8524c86799e49e2172e39dc282f80304471ba81a2f731c05",
         "Science/Teaching_Packs/GROW/lessons/W6A/GROW_Science_Autumn1_W6A_Earth_And_Planets_Teacher.pdf": "1e1a3882a6716e9933f81a5ec94dea92fe8e0f06384080b3c8fe324287cba086",
-        "Science/Teaching_Packs/GROW/lessons/W6A/START_HERE.txt": "0f4957f9e3557aeea4dff7398859071ad067d986b92be94b47c113ab19d6b8da",
+        "Science/Teaching_Packs/GROW/lessons/W6A/START_HERE.txt": "922b972648e167684acd8d528e0842294ef89a61478b74b65d74ce22c25e15bd",
         "Science/Teaching_Packs/GROW/lessons/W6B/GROW_Science_Autumn1_W6B_Earth_And_Planets.pdf": "82649adfce0d1fbf07b3d5ab00719ae0936812fc8b485e66ea58ff47108c46f9",
         "Science/Teaching_Packs/GROW/lessons/W6B/GROW_Science_Autumn1_W6B_Earth_And_Planets.pptx": "90435b48ab9baa82bd2a3b266e963c2710bedfe79f88671deb2989a859be6602",
         "Science/Teaching_Packs/GROW/lessons/W6B/GROW_Science_Autumn1_W6B_Earth_And_Planets_Pupil.docx": "35785f5169326bc4115abea9934d254ff990e7ccaf3b104bb2469bcf8945a16e",
         "Science/Teaching_Packs/GROW/lessons/W6B/GROW_Science_Autumn1_W6B_Earth_And_Planets_Pupil.pdf": "a2bad2d15b930cce103dc59e5e65b15f63b34afecf3c8d54a8358c28126c6940",
         "Science/Teaching_Packs/GROW/lessons/W6B/GROW_Science_Autumn1_W6B_Earth_And_Planets_Teacher.docx": "d29f02f60a8ac61014113416c8c1042520f3b1a6815476f12b830bb72eff6f56",
         "Science/Teaching_Packs/GROW/lessons/W6B/GROW_Science_Autumn1_W6B_Earth_And_Planets_Teacher.pdf": "318cf84513b3ef6daa97918782dc2ec845cc0f4a5905c315e65a4a92bf9eaf08",
-        "Science/Teaching_Packs/GROW/lessons/W6B/START_HERE.txt": "52a15ebb33e2a8155d40872986bc847e3528a9fafc69ecf9908cfbfc3940da34",
+        "Science/Teaching_Packs/GROW/lessons/W6B/START_HERE.txt": "488a26039677af53ef3d8435dd412e98406a807d10534a7725d2261d06869d23",
         "Science/Teaching_Packs/GROW/lessons/W7A/GROW_Science_Autumn1_W7A_The_Moon.pdf": "c7cbef511bb242f2155b64c64ed8557724d128a469b21671bcdf2b2ca014a176",
         "Science/Teaching_Packs/GROW/lessons/W7A/GROW_Science_Autumn1_W7A_The_Moon.pptx": "430e539a95c7c53ee57159ef43f3fd3c88fa175ebd58a5a7b32693314ee5c2a0",
         "Science/Teaching_Packs/GROW/lessons/W7A/GROW_Science_Autumn1_W7A_The_Moon_Pupil.docx": "d4565fa4adf2bd77cc2288652e0d43e15c066a3501bc7a454edd02eafbe137b2",
         "Science/Teaching_Packs/GROW/lessons/W7A/GROW_Science_Autumn1_W7A_The_Moon_Pupil.pdf": "bff2ab37b1c04a2afdb9d86f5a17822d3fa63727e76aa3d563e77d2bdcd8ebad",
         "Science/Teaching_Packs/GROW/lessons/W7A/GROW_Science_Autumn1_W7A_The_Moon_Teacher.docx": "bc036875e5bd9e9ecb6e2f1f52d9dc0adc42f486d6bf04d246d02aa78dfbd763",
         "Science/Teaching_Packs/GROW/lessons/W7A/GROW_Science_Autumn1_W7A_The_Moon_Teacher.pdf": "64f052a34a5849381178f8a22dce9d865afb2b2602a0f805004e75149b450cc5",
-        "Science/Teaching_Packs/GROW/lessons/W7A/START_HERE.txt": "dc128d60d5d4529e4c3045e09e882140a98603cf1af608de58aae2de3f825c2e",
+        "Science/Teaching_Packs/GROW/lessons/W7A/START_HERE.txt": "447de6ad4347b097a16c09d40df429a4908e381b6ed9c36084c2e1cbdf6916a6",
         "Science/Teaching_Packs/GROW/lessons/W7B/GROW_Science_Autumn1_W7B_The_Moon.pdf": "8a8946342e27252e71994094866df85a98eb52b18c2cc315c48737f7b0c6844f",
         "Science/Teaching_Packs/GROW/lessons/W7B/GROW_Science_Autumn1_W7B_The_Moon.pptx": "cda721e5dd3c1799c89b8e00b79fe548759b144998b8f9ad2a8c244956ff0acf",
         "Science/Teaching_Packs/GROW/lessons/W7B/GROW_Science_Autumn1_W7B_The_Moon_Pupil.docx": "8920525bc2020b7a8d6a2e3f935eb77415f8903f55f1a2f7636c49bd8fead9ee",
         "Science/Teaching_Packs/GROW/lessons/W7B/GROW_Science_Autumn1_W7B_The_Moon_Pupil.pdf": "f11ce921052aa19e98af6741988dae84482cb5cc87caa15cb6d06740db7ba6a4",
         "Science/Teaching_Packs/GROW/lessons/W7B/GROW_Science_Autumn1_W7B_The_Moon_Teacher.docx": "1d026a3de59ada343c814e3ed895368d5aa9292244ca569a66ba7a53f3cf126c",
         "Science/Teaching_Packs/GROW/lessons/W7B/GROW_Science_Autumn1_W7B_The_Moon_Teacher.pdf": "ff0c970316fa22f34c67fe22f8b0365b3bba423fef0aefb0e63cbc5a01070f19",
-        "Science/Teaching_Packs/GROW/lessons/W7B/START_HERE.txt": "f339a2a25b91452e30c5a1b27eedb16046e6df28f486cbd16107c9987861444e",
+        "Science/Teaching_Packs/GROW/lessons/W7B/START_HERE.txt": "10d6ba34be76c3a7d82a346e83a65c86612ecd95505e63fc797a091bed945ee6",
         "Science/Teaching_Packs/index.html": "7cd0206831e3cb49209eb97471344a04220efb527914f27532deb20be93e8ce8",
         "Science/Teaching_Packs/packs.css": "70ca73b323e5cabf05b1f5f9f8107694cfcecf4ddf8043f342049ee4c797ce59",
         "tools/science_teaching_packs/BUILD_QA.json": "d5ee55a25c15ca86dbd6324b417c70d672e1d0c19a1fa6462f35cc620927a2ff",
@@ -992,7 +992,7 @@ CATALOGUE_PINS = {
         "Humanities/Teaching_Packs/HUM_00_SoW_and_Order/Humanities_SOW_Alignment.xlsx": "537350c7f0ba110ea90edf5039826c1a2858c04c54ec006c550ff143c09dec69",
         "Humanities/Teaching_Packs/HUM_00_SoW_and_Order/Humanities_Scheme_of_Work_2026-27.docx": "b078d01fb53a9f5d828b7f64d9ddb9d1a36daa681e8829d2a6d811abca664d11",
         "Humanities/Teaching_Packs/HUM_00_SoW_and_Order/Humanities_Scheme_of_Work_2026-27.html": "ac8f8d0a4188d147097a491b0db59efef16feb0c0f6c4fa8e13144bb8a53f69f",
-        "Humanities/Teaching_Packs/HUM_00_SoW_and_Order/ORDER_HUM-D5.md": "0da8b9990dda0e07770f6ae73ecae118efb259250d8e929271d329aa339f1218",
+        "Humanities/Teaching_Packs/HUM_00_SoW_and_Order/ORDER_HUM-D5.md": "688b3f5dcc60f6c0cd9c68e2cb2cb7c756ab834e9956c4b20b37982f749c88d4",
         "Humanities/Teaching_Packs/HUM_00_SoW_and_Order/RE_SOW_Alignment.xlsx": "b1ce56c551520fb360ea06e68c59c1642556337474526c38fb539a36296c2aa8",
         "Humanities/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Autumn_2026.docx": "3c2fe9ef4e4cd27361d76c4bb07234d4fe5eed8be40bcdbf1d1133b4632dd9a7",
         "Humanities/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Autumn_2026.html": "5a1b523738c7a9e21c7ab2a713970423b5bc4343595432ee315bb5999932e992",
@@ -1165,7 +1165,7 @@ CATALOGUE_PINS = {
         "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W3-W7_DOCX_Collection.zip": "2482706e4f9c7e192287acfd02e7c09381597a1a9fc772c9d39fe630eba5a3aa",
         "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W3-W7_PDF_Collection.zip": "b3116412bb38368b96c0236e2b41902deb76e96461f1ca1c3fb134d878f842f0",
         "Science/Teaching_Packs/GROW/downloads/GROW_Science_Autumn1_W3-W7_PPTX_Collection.zip": "592f59c2ccae4f9531af5296eb30064c8fee92c44ba2b896db8038cf2a93dce8",
-        "Science/Teaching_Packs/LAUNCH/DOWNLOAD_INDEX.json": "698135d5cd1fa2c1984bd13706b6ffdbe63903a77c0876063cc793b9ce3ea88d",
+        "Science/Teaching_Packs/LAUNCH/DOWNLOAD_INDEX.json": "e2907a8f829cde9c8ab4b8f012cd49ce89daac86ee09b2b3554da07bb0aa4d89",
         "Science/Teaching_Packs/LAUNCH/Pupil_Worksheets.pdf": "40b4561e417afebf2cae6a5eae1ade45859a9dd462bf69e8dd4135c836d3f7bc",
         "Science/Teaching_Packs/LAUNCH/SOURCE_MANIFEST.json": "3bbd898b418638248906d177138ec8bf0232753814f07a837ee50b6b08f3b9a5",
         "Science/Teaching_Packs/LAUNCH/START_HERE.txt": "2b7b55ab005abea12229d54ef4f8f5389cd6c0714078284537844e62b69ac3e0",
@@ -1289,27 +1289,27 @@ CATALOGUE_PINS = {
         "Science/Teaching_Packs/LAUNCH/Week_7/W7_Weekly_Plan.docx": "499928095b9cd9aaba5f0b09a40d101ea40f98d41b574ca0f1fc410a50688605",
         "Science/Teaching_Packs/LAUNCH/Week_7/W7_Weekly_Plan.pdf": "4ec297f090a8d5983b03a7ca23b866ef0e166c0f603f0963fa7c7dab075dbc35",
         "Science/Teaching_Packs/LAUNCH/Weekly_Plans.pdf": "5bfbdf746dd1b83c93ca12c9c5f10f5f8051be30ed4efc1344caa49cac578dc9",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3-W7_Complete_Pack.zip": "a1194521ca6943909d8cb73c61dbf6d6bd5e1a5bd704d640ef7dd9f8b3df0e7e",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3L1_Lesson_Pack.zip": "a72792b9c2b10eb660850f17765b6b723f68ff8cc95e6be1f830ba64232803e3",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3L2_Lesson_Pack.zip": "0e6d454ab2437aa39b8d1c8409c6300822d87df038fba3e168d1d51fb122f446",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3L3_Lesson_Pack.zip": "2c10aca9832f12889edfd8923f80c8660596d67fe1e81b4ee40122f2c4ff66e4",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3_Teaching_Pack.zip": "8e6c80015fc3c45585ebb7add1cb99dfeed48c4daccd05dc0d96486719e97abb",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W4L1_Lesson_Pack.zip": "5f0985a04ccfdbcbaebc6d31773a04caa55ea9ba8b3b7caefd6c01f4929f5d76",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W4L2_Lesson_Pack.zip": "a426dc9b51d4345db06a6ec9681bee9a51591950416b4d4c823715eaf2515ec7",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W4L3_Lesson_Pack.zip": "74caa4b61be0c043de6312d0a9abbb688356c8826073f7793cab82a70cbde62a",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W4_Teaching_Pack.zip": "eb29b571f83605f35ca8f287acbd30498e595c86a99e69a0c7101dd804f8ca6d",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W5L1_Lesson_Pack.zip": "ae830ca4d6d07af91c80e406416665014dcecc86c9e27d5c8ffcade94d3522aa",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W5L2_Lesson_Pack.zip": "ac6a50b5f79420d90545cc07b43eddb1caa0085f7eea966f958de80b2523f0da",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W5L3_Lesson_Pack.zip": "4f632511bc0565ae70452d117ec6181b1bff401607464293af1ac17ba9cae014",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W5_Teaching_Pack.zip": "798f62805181e146d2e65bd19cb2a497154745d948b1fa1168b614def7b9d8ae",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W6L1_Lesson_Pack.zip": "5590e2f273994a9f3003d80dbe41f0e18e1b6a186767ce514a2806f3345ca26b",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W6L2_Lesson_Pack.zip": "a1d47be6ae8f026788ca6106b63aa03242561f7ca4e0b19f91e7cab2af510648",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W6L3_Lesson_Pack.zip": "87bc34837a81123d3b992d1b366ad00236ac0d4e23fe2da0f434e79aafa814fc",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W6_Teaching_Pack.zip": "e86f79ae921379d4e91418f520be95fa45daf94eb4f60b00502f786c82451128",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W7L1_Lesson_Pack.zip": "338c05412e504ac6a1c1ca9e7f31e93a00ca3b7bc163b4f9a2da497d12749908",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W7L2_Lesson_Pack.zip": "64f412f903d741cdee73025a8f0c852ee68efb8fad6de7a04ad54a9b69479f66",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W7L3_Lesson_Pack.zip": "b5c3cd9041ad61a754d0f8896d52e1c2bf580f1ca60c876aa845798e16bfdc3e",
-        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W7_Teaching_Pack.zip": "509df11b11bca9e59f8a74a53bc149edf64caa02110074b6d1f654ca3dae74fb",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3-W7_Complete_Pack.zip": "2c4e45a5cb2dfeddab2eab0894250a9bb23e11f8558a7a1b41181ab861de6829",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3L1_Lesson_Pack.zip": "2635ad9fcb128c7e100f3f0270c72394809dc2a4e6d5a1a484ef09b7fd50be4f",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3L2_Lesson_Pack.zip": "51b8d2a4e8e79ffc71eea2aa0073ee7c7d8ed738a88963f6da8730e8b01b2efa",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3L3_Lesson_Pack.zip": "ff7a9c6d7175db2be41b96bb5df27ec9dfce144ea7fda1f9e2eb998bec89b997",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W3_Teaching_Pack.zip": "33d73973583e1a66e28610c7081801a697f562889d91e330290105de06d97df7",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W4L1_Lesson_Pack.zip": "681efca90ccd4fe7143578e9771c905f0f90cf2e7688c6ac5ff0ad94014e24bf",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W4L2_Lesson_Pack.zip": "66f6e1a5c82175bcbeb6c103dda4b166067ddedefe75a48c1c9e729ee04244f2",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W4L3_Lesson_Pack.zip": "af858882f4eb585529e7a96934c5d874c52d6564e3cf6c6ca3023d6c484abf53",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W4_Teaching_Pack.zip": "f83dfca777feae79489aeb521135864304f62d1ff38bc4978659af316e7d00c5",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W5L1_Lesson_Pack.zip": "f9d699fed947c921f5fe17cf5a858b7b7de3436ef6f7ec3a88fcd0b0b8b3569f",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W5L2_Lesson_Pack.zip": "88f02bb5be1377604ac31ca5249925790f74fa255ac4c3ccc9cdfd76f945fd12",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W5L3_Lesson_Pack.zip": "1a9dcea48a1aac5e576148f0d908e2f2a5823f1e1747860019a0c8f20750f3a5",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W5_Teaching_Pack.zip": "339d9b737ef1b0023fe12803e83bd4d41c196afccc0c52344f6b83fca8f4a1b7",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W6L1_Lesson_Pack.zip": "0f62f3d193e36443328ccf553b15bba3f0e75ddc8f76b2a72f8333035d317fcc",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W6L2_Lesson_Pack.zip": "58a424aacd37371cfe42911a82d08e36c674aa36b700811961648a43d2c13de9",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W6L3_Lesson_Pack.zip": "71dc842201fd627ae1766ede91dba65acf183514291fbafcc49cf3717f06aa93",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W6_Teaching_Pack.zip": "dd36acf680333cc56b54bf6dafba51c6eb00a85801a6333cb9c6613c5702ba12",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W7L1_Lesson_Pack.zip": "db6a470dc5e60cf36f75bff48167943f4e5421a681927ce424928db27ad822ed",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W7L2_Lesson_Pack.zip": "164e9da79876bc77853614b679b45597894b8c25802b67fe8dfda02ff781e98f",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W7L3_Lesson_Pack.zip": "28327f9ecf4367a3153a16d04e496433645c16a59bc55f46d2646f7ba9f9d985",
+        "Science/Teaching_Packs/LAUNCH/downloads/LAUNCH_Science_Autumn1_W7_Teaching_Pack.zip": "0f97ddebf0447024b936ed8c5b2053afcd8578911f64e1a2e1c560d2c3db1ad6",
         "tools/science_teaching_packs/refresh_packs.py": "09e86848edaf07d4064a2c0232e9078b6e33223b9c7d1b7b5c226e8dc4fbf29f",
         "Science/Teaching_Packs/GROW/Image_Credits.docx": "b7fe4b107695458bd8138170b0c98d14adddfe156871bd228db798790dbf3786",
         "Science/Teaching_Packs/GROW/Image_Credits.pdf": "651dcd9f749c6cfb5ffccd73eb9ffb14a57f8ff8a8860f348969b34114396f86",
@@ -1333,13 +1333,13 @@ CATALOGUE_PINS = {
         "Science/Grow/SCI_G_W3_Friction.html": "508f1967b6481671dafb149d7177b620b194074312cee0dbdd30553c166b634a",
         "Science/Grow/resources/GS_W3A.html": "e5bfaf2bc70912aeb59fe9a2eb1032d86c7a473a1059ba782fee1be7b3513dc1",
         "Science/Grow/resources/GS_W3B.html": "fb6580bfd1e02d82627d60e1c2e08c3a34b227d0cbe760545502a8e51ab91208",
-        "Science/Teaching_Packs/GROW/SHA256SUMS.txt": "25b86a31b6b8fdfd3fc895d389e915ad6c820352ce6a157a16bdb9b9a9dc180e",
+        "Science/Teaching_Packs/GROW/SHA256SUMS.txt": "de59e3ca70b403b69b625ae07603d69e1d557bfaa6f50a798d59f9ebb77f754a",
         "tools/easter/SCIENCE_ORIGINAL_TARGETS.json": "b5ca128e0ca53030256299a6877dffa781b63e5c1f2034722b75ae2ab806e204",
         "tools/grow_resources/CONTENT.json": "d8e39cef0051046bee5f1044e0cf2e412b3b4ebf8480361d6ddf298b667a6903",
         "tools/grow_resources/BROWSER_TARGETS.json": "288490cad98b1ce7d3f4b8f357c086220f1ef070c846189716c18b8a7122bd0c",
         "Science/Launch/SCI_L_W4_L1_Diffusion.html": "563e0bddc7049afb1dfc7245b1810da5094c19bca8027a08bbaf4c26d5a0dc54",
-        "Science/Teaching_Packs/LAUNCH/SHA256SUMS.txt": "e6f32db3227fc791cfaaececa2c991ba373b6d35ff728687ece8918f5c33351c",
-        "Science/Teaching_Packs/BUILD/SHA256SUMS.txt": "9f658daf43de303b19f852f99f0f238849014ba1162687df46c6f99c0a635362",
+        "Science/Teaching_Packs/LAUNCH/SHA256SUMS.txt": "7ac03b10baef29ab9e82ab18fab775e22c7fcaf079c201ad818493902b40abc3",
+        "Science/Teaching_Packs/BUILD/SHA256SUMS.txt": "4f26737e16194546a95f093cf1f566cc723bdce80822caf03cc7503abfe289b7",
         "Science/Build/W8-W13_2026-27/SCI_B_W8B_Autumn_Science_Checkpoint_Do.html": "7b27a0d82cd7df671c6a3b52b46d5d620ed678c332cdc58d1c649c3b29dacbac",
         "Science/Grow/W8-W13_2026-27/SCI_G_W8A_Day_And_Night_Explore.html": "a5c6fb99587b2d9d715b116cfe7b0c706abe186bd386cc23b72f4fb2b5984493",
         "Science/Grow/W8-W13_2026-27/SCI_G_W8B_Day_And_Night_Do.html": "32c49a121b8d9ed7f2af13c038117bdf4fbb0e9f23232f91a0015040843d6a00",
@@ -2475,6 +2475,60 @@ def catalogue_errors(root: Path, kind: str, text: str) -> list[str]:
 # is retired by deleting the file once the fallback limb has landed.
 FENCE_PATH = "_sx3/FENCE.json"
 
+# RULING vz-4 (M1): the one rename map, every old path -> the new path it moved to. A move whose
+# bytes are identical at the new path counts as unchanged; a moved file whose bytes changed is a
+# change of its NEW path and meets the boundary and the fence like any other. The map is bound by
+# its digest (a map whose bytes differ is refused, never read) and admits nothing by itself. A
+# repository without the file (the Apps copy of this gate) has no moves to resolve.
+RENAME_MAP_PATH = "tools/catalogue/M1_RENAME_MAP.json"
+RENAME_MAP_SHA256 = "ed7cd837b227b033713779824f5e1d50fc5d3b1d69e4724877f740867d2ba565"
+
+
+def rename_map(root: Path) -> dict[str, str]:
+    path = root / RENAME_MAP_PATH
+    if not path.is_file():
+        return {}
+    data = path.read_bytes()
+    if hashlib.sha256(data).hexdigest() != RENAME_MAP_SHA256:
+        raise ValueError(f"unreviewed rename map: {RENAME_MAP_PATH}")
+    return json.loads(data)["pairs"]
+
+
+def _tree_entries(root: Path, ref: str, paths: list[str]) -> dict[str, str]:
+    found: dict[str, str] = {}
+    paths = sorted(set(paths))
+    for at in range(0, len(paths), 1000):
+        raw = subprocess.run(["git", "ls-tree", "-z", ref, "--", *paths[at:at + 1000]],
+                             cwd=root, capture_output=True, check=True).stdout.decode("utf-8")
+        for record in raw.split("\0"):
+            if record:
+                fields, rel = record.split("\t", 1)
+                mode, _kind, blob = fields.split()
+                found[rel] = f"{mode} {blob}"
+    return found
+
+
+def changed_paths(root: Path, base_ref: str, rows: list[tuple[str, str]]) -> set[str]:
+    """M and D rows of a --no-renames diff, with each move the rename map names resolved: the old
+    path's deletion leaves the set, and the new path joins it only if its bytes differ."""
+    changed = {rel for status, rel in rows if status in ("M", "D")}
+    backwards = {new: old for old, new in rename_map(root).items()}
+    added = [rel for status, rel in rows if status == "A" and rel in backwards]
+    if not added:
+        return changed
+    merge_base = subprocess.run(["git", "merge-base", base_ref, "HEAD"], cwd=root,
+                                capture_output=True, text=True, check=True).stdout.strip()
+    olds = [backwards[rel] for rel in added]
+    before = _tree_entries(root, merge_base, olds)
+    head = _tree_entries(root, "HEAD", olds + added)
+    for rel in added:
+        old = backwards[rel]
+        if old in before and old not in head and old in changed:
+            changed.discard(old)
+            if before[old] != head.get(rel):
+                changed.add(rel)
+    return changed
+
 
 def fence_errors(root: Path, changed: set[str], kind: str) -> list[str]:
     if kind != "lessons":
@@ -2828,7 +2882,9 @@ def run_checks(
             # additions as violations meant every new studio, tool and dotfile had to
             # be hand-added to ALLOWED_DIFF forever. Proven both ways: modifying or
             # deleting an existing studio still reddens this check.
-            ["git", "diff", "--name-only", "--diff-filter=MRD", f"{base_ref}...HEAD"],
+            # RULING vz-4: --no-renames, so a move is its deletion and its addition, and the
+            # rename map (changed_paths) resolves each one it names; nothing else is resolved.
+            ["git", "diff", "--name-status", "-z", "--no-renames", "--diff-filter=AMD", f"{base_ref}...HEAD"],
             cwd=root,
             text=True,
             capture_output=True,
@@ -2836,7 +2892,10 @@ def run_checks(
         if proc.returncode:
             errors.append(f"git diff failed: {proc.stderr.strip()}")
         else:
-            changed = {line.strip() for line in proc.stdout.splitlines() if line.strip()}
+            fields = proc.stdout.split("\0")
+            if fields and fields[-1] == "":
+                fields.pop()
+            changed = changed_paths(root, base_ref, list(zip(fields[::2], fields[1::2])))
             errors.extend(boundary_errors(changed - exact_byte_admitted(root, changed), kind))   # rm-2
             errors.extend(fence_errors(root, changed, kind))
             for manifest in ("resources.json", "apps.json"):
