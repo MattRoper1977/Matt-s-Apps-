@@ -103,7 +103,7 @@ MANIFEST_PINS = {
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
-    "resources.json": "476eeda19acd57c872a75fa154f0c08fef46a62be3c6221dae1899e94bea01f0"
+    "resources.json": "7b144252b0de8e456df14f4470964471389f3a50b97e4624f748bd8c6e8eb6fd"
 }
 PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it writes both gate copies or neither)"
 
@@ -133,9 +133,9 @@ CATALOGUE_PINS = {
         "tools/catalogue/build_lesson_order.py": "35a4c54779b800ae8bd949154d0d19fddb190f49ec18e62efdd86d03313f6180",
         "tools/ux2/hub_gates.mjs": "3d3120df94b1789041370c4045fbcc983635af0b30a0705447f18371bed98944",
         "index.html": "bdca62dc5f92062c975287eb4be29314eab55dff7991bdba83c8e24840f805db",
-        "Science/index.html": "19b58c99b1cfe3ccbed5a4154ca09a2feb94aa81ee8f2690aa2fa493ada97815",
+        "Science/index.html": "959076d8cdf2946be5abb23d5bba9589da0f0b5172402b3beb5d1fe9185f213f",
         "Humanities/index.html": "3a259413d5ae49e77be383222e1ad8cbdf1a9099bc3a681442faee0ec877944c",
-        "humanities.html": "f0f0daa6ac437c93fa1e4078804bba02d064b5e8e82242b74a45b1f22ddf6bb3",
+        "humanities.html": "648bcf2c8f5f325e85f67c755047eb7533ea272b2c824f2dd49392ef3c2e9f8f",
         "pack.html": "42935782c353525d28b9263a90a8c48e4b5ca764226444edfa68d6f664862be1",
         "assets/catalogue/pack.js": "da66512500cd92e7c7b2a58141ce98c903676b972ea71ba0723984eff12be7c6",
         "assets/catalogue/pack.css": "ba6c5c84bcff84c023f2f10ac345a159f48ea97b2e8eb542cb3e56435204d63a",
@@ -235,7 +235,7 @@ CATALOGUE_PINS = {
         "Science/Grow/W8-W13_2026-27/SCI_G_W9_Turn_Earth_explain_the_sky_Classic.html": "178c695fe2dc166a80abfd26e41174e28ecfa39d4700db0870d7ee27bbffd6e8",
         "Science/Build/W8-W13_2026-27/SCI_B_W12_Give_a_rock_a_job_Classic.html": "509f38056bd09e903c70b0426ac55ab7ff73f7da10261a97eec11d49d7b27d1c",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
-        "_glv3/tools/verify_change_boundary.py": "029fa9d044a050405bb2dd7f456d00ed18c614501d42efce3f92d62742a37f69",
+        "_glv3/tools/verify_change_boundary.py": "11ca938e2f335a68a86ccf4ae5743828193bb1acd233fbae7eafaa6c0f444f44",
         "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
         "_glv3/tools/chip_gate.mjs": "16cdd5c0ad3745c57340ed0ec6a208d221e4793bfc9b1cd9bc703a6c2613dd9a",
         "_glv3/tools/catalogue_membership.mjs": "4d7ab03e23ee0d3c3fc934f4f0a901afc61169754db099f4f5c24dd9cce058ec",
@@ -1707,7 +1707,7 @@ CATALOGUE_PINS = {
         "Science/Launch/W17-W26_2026-27/SCI_L_W24_Photosynthesis_The_Light_Lab.html": "804b18765c1b10fcbfd4f6136891b863852e40c4651c297e5d25ab311066089b",
         "Science/Launch/W17-W26_2026-27/SCI_L_W25_Plant_Transport_Follow_The_Water_And_Sugar.html": "6b12ed852e131a63bd7b13fb1aa07535dbd942b4d849b4bb2b54cf97a5289e55",
         "Science/Launch/W17-W26_2026-27/SCI_L_W26_Greenhouse_Challenge_Grow_More_With_A_Water_Budget.html": "f65c036a80029e775b40e1de07e3d86fde36571658abc499a8809a95d2d91a2b",
-        "art.html": "552394a39f5c4ae257d695f328834ece79c800fa30a640e29edc7a637ad2338d",
+        "art.html": "16cd4dbd1c8c537f038cca1885ac60fe2ccadb6e4c69f3e9eced5fd5154c4b83",
         "tools/downloads/SOURCE_PLACEMENT.json": "a9265b003dfa20989fdf6954974adca57383171551c579212ace61ad32433fdf",
         "Humanities/Teaching_Packs/RE_Autumn_BUILD_Reviewed/BUILD/Autumn_1/W08/BUILD_RE_A1_W08_Captioned_Model.mp4": "3ab4e04878f4f32431990301f4efcd6d13622f00b4c8d8614a55ccd7d5da6f5f",
         "Humanities/Teaching_Packs/RE_Autumn_BUILD_Reviewed/BUILD/Autumn_1/W08/BUILD_RE_A1_W08_Knowledge_Organiser.html": "a66d638003a6a58250154c3744099d04780e20051c7e5455e3c3a98144bb1391",
@@ -1777,7 +1777,47 @@ CATALOGUE_PINS = {
         "GROW_ASDAN/Autumn2_W1-W6_2026-27/index.html": "43a69f41d4a311147dfe89cb34b675f69890a60185219a2b53fbbef31aac1067",
         "Art/Build/START_HERE.html": "f91d80fabadb1f467442f71fc5020077a1ceacebd5670d1678c6a215026d7793",
         "LAUNCH_ASDAN/W7-W12_2026-27/SHA256SUMS.txt": "32e625f6e4c69c13fbdd5752d86fab557b75959ecb8f0544f0f171ce778d5136",
-        "LAUNCH_ASDAN/W7-W12_2026-27/START_HERE.html": "56cdafdd341719e691040a47b09d5d984cc713a1da1b8cd8e3329c693a433dd4"
+        "LAUNCH_ASDAN/W7-W12_2026-27/START_HERE.html": "56cdafdd341719e691040a47b09d5d984cc713a1da1b8cd8e3329c693a433dd4",
+        "Art/BUILD_W1-W8_2026-27/BUILD_Art_W11_Light_on_a_dark_page_Classic.html": "e7e3c79ed96158752a9075dcca87263cb6a669afeebcbca99ebf8b7da3c13b47",
+        "Art/BUILD_W1-W8_2026-27/BUILD_Art_W1_Explore_Drawing_Colour_And_Technique_To_Show.html": "4766f87e2c5ea4d876dbda34240f952e22003881fe3d7a28e0a55edd8cda9dc1",
+        "Art/GROW_W1-W8_2026-27/GROW_Art_W11_Design_a_light_festival_panel_Classic.html": "8258aebbaf88ec8be6a0eba07972b437421a8e7760e4b93aca9260ec57aef5f8",
+        "Art/tools/assert_estate.py": "dde499e2e8e9ce8d4e3fa9df7cc7bd4184fb746f4e823e1e568c5dd96e0ab175",
+        "Art/tools/assert_print.js": "f383ae89df4c894a374efe56c0358d08f4fe037eab520c0f753e9cd50337e1b6",
+        "Art/visual-learning/art-visual-learning.css": "d6d0b23cae7b46467fef98fe04a191ac47f787446cf8097913ae5e637cad8a5b",
+        "Art/visual-learning/art-visual-payloads.js": "11467c292aca0a85085226ee905ad2bc076d1f4f4c14b30708792cb29d52e1bb",
+        "BUILD_Estate_v3/Art/index.html": "4a415b437a73b2918034c66318ed4d4fbd7955d6a5342663278c3f12d0d9ae3c",
+        "BUILD_Estate_v3/Art/manifest-v3.json": "5be2b169246563d3186e832df20edc076c2cbfccf0ccd99f824f9543b7c1db27",
+        "BUILD_Estate_v3/Humanities/index.html": "c44ecaa8f371de403454c2b4145ddb5317186743ca202577f4d535990b57684d",
+        "BUILD_Estate_v3/index.html": "302893d70d13f5ed91521614e9bc5f156f3a1fa32a93c32fce0d3cb465de3d1f",
+        "Humanities/BUILD_W14-W20_2026-27/BUILD_HUM_W12_A_celebration_in_order_Classic.html": "fb1d424e90bda897a0d774b0341f1145c5a82b62a0a205bc9a7bce9a1f8b4b82",
+        "Humanities/BUILD_W14-W20_2026-27/BUILD_HUM_W14_A_fair_chance_to_join_in_Classic.html": "9d9a17320bf574af802f8a96efa4c8e76ced26a3d1bc70c77c369bf1b6847fe1",
+        "Humanities/GROW_W9-W14_2026-27/GROW_HUM_W12_Festival_lights_across_places_Classic.html": "4804785bddf3540d80f4df666a2241b010fe0619c8640976a8222c0ddf9e63fc",
+        "Humanities/GROW_W9-W14_2026-27/GROW_HUM_W13_Compare_celebrations_with_care_Classic.html": "d846a22e2f5d9f3196907d5b172728e31a53795bb71997811bbe22330a93e82e",
+        "Humanities/GROW_W9-W14_2026-27/SHA256SUMS.txt": "7f75f0e7f0884660f2d65ba3b767aa30e80b02730fefb3f9d16b1acd8a95de12",
+        "Humanities/GROW_W9-W14_2026-27/START_HERE_GROW_HUMANITIES_W9-W14.html": "c68486b618a6df5156204232bbddcd49284e3e9c5cb053b1dd719b5c4a5c09ef",
+        "Humanities/GROW_W9-W14_2026-27/manifest-v3.1.json": "c018845904d7dd76fb7a0946f70f086b6a6f75fe47d9a1464cc3510182fed2fa",
+        "Humanities/LAUNCH_W9-W14_2026-27/LAUNCH_HUM_W11_A_growing_town_an_urbanising_region_Classic.html": "fdedaed03f95cf543abdd9d4c025569ce7b3bac52a16f1a17ae85ce733554faa",
+        "Humanities/Teaching_Packs/BUILD/SHA256SUMS.txt": "e107c1706170a7738de0739d470903df52d934b8c9d2c14ec1f53429b1956d32",
+        "Humanities/Teaching_Packs/BUILD/Teacher_Notes.html": "5db3a99e71dd2a39143292323ec6d165adda320ade20bdb38b0cfe763aa13677",
+        "Humanities/Teaching_Packs/GROW/SHA256SUMS.txt": "1ac37fbc8fadb9b05291818c678702cfb8eeead2998469c3b5baba8210af254e",
+        "Humanities/Teaching_Packs/GROW/Teacher_Notes.html": "0b37060f6c8637f4a35d79dd46159a22d5f52b9114688825be6c3d3fbceab85f",
+        "Humanities/Teaching_Packs/LAUNCH/SHA256SUMS.txt": "4071aac6fd69fb4326d35aaf70a0acbaccdb95ca308a04269a100669de4e76be",
+        "Humanities/Teaching_Packs/LAUNCH/Teacher_Notes.html": "05784e354a243b76859c4ebfa7f6a9b0d0b81d89a62f477e0609a6ca665b8063",
+        "Humanities/Teaching_Packs/web-slides.html": "b58ebc98e92d6b9f32afee63db8b3a1d0f3006cbabcfe2df115ee2c299238d6c",
+        "Launch/Slideshows/LAUNCH_ART_W8_Complete_The_Review.html": "cac083b1fa61722545dd14c4597aa3dcf236b5ed05eb8416d4276b71501406e8",
+        "Science/Build/W8-W13_2026-27/SCI_B_W11A_Rock_Permeability_Explore.html": "b308d3ed71d4cca2c7828fd406e50d43d3b5244e56ca58478976f336baecf114",
+        "Science/Build/W8-W13_2026-27/SCI_B_W13_Where_did_this_material_come_from_Classic.html": "aade409713fad37b7e3e03297654f6702f45ace803b605c8720b368bc09d063f",
+        "Science/Build/v3_40min/manifest-v3.json": "574f45f03d752bb7559494a9033947efce666cf37287c4ffb3db178b9e95a6d4",
+        "Science/Grow/v3_40min/SCI_G_W3A_Friction_Explore.html": "f4fc7562eee11ae418568007232622da88eaf56721d93b4563ae53fed791d0a2",
+        "Science/Launch/v3_40min/manifest-v3.json": "0db2f244f5160808d7e63365aa2ce82f30b9b9ff425aab357d6089c2b12287ce",
+        "Science/Teaching_Packs/BUILD/Teacher_Notes.html": "e56665beb68e8ac8dca6d39f817d785b97c63620d6e24f7c68eea0abaabcd215",
+        "Science/Teaching_Packs/GROW/Teacher_Notes.html": "06da774069ab702c62cf35aaf954dc6e5707ff95803c1fc871fc275d4fb8c84d",
+        "Science/launch-engine/inject.js": "5bd8266463b277052ca7e9b8a2844c064b1213b04e424bca767e8ac336b52395",
+        "Science/launch-engine/test/gate-shape.js": "b9e17c97c0f0a19efb0068595e46de4b62f6f1e2ac2bf0ba06d4ec505732b970",
+        "Science/launch-engine/test/health.js": "cc599709a0e2c3c6c517331f99b9f43a4dc3a29d4dc0e3c67cd1c017159dc9d4",
+        "Science/launch-engine/test/print-pack.js": "b3bc74a66cb7057dad9d5f3face9ec24028978e5b85ca0bd5d883709e529fc99",
+        "Science/visual-learning/science-visual-learning.css": "94cff82726164d7b1ef7315868ff8cb51eae0bf83bcf5590c838f509ee4e1a93",
+        "Science/visual-learning/science-visual-payloads.js": "a719bd4c06102994e1014e7067bd79b69f2cfa72068e8d5fb1f984ff8b3d0292"
     }
 }
 # END REVIEWED CATALOGUE PINS
@@ -1802,7 +1842,7 @@ CATALOGUE_SHELF_ROWS = 297
 # second set is empty and the allowance cannot launder a pre-existing value.
 CATALOGUE_ADDITIVE_TAG_KEYS = frozenset({"halfTerm", "unit"})
 CATALOGUE_ORIGINAL_KEYS_BEFORE_TAGS = frozenset()
-CATALOGUE_SHELF_ROWS_SHA256 = "be66ab1e951aa88a5c68f239eb535f23793e197e8262bc413fd3618a29b4967c"
+CATALOGUE_SHELF_ROWS_SHA256 = "f1b73c4d8dbc0a376b0463252db20c36ee24a3105265c3b104fe05896b3188ba"
 
 # These named review records and review tools can change with their reviewed
 # transaction. Tools are not served assets; they are reviewed as executable
@@ -2273,9 +2313,161 @@ SCHEME_SOURCE_EXACT_SHA256 = {
 }
 
 
+# RULING wa-2 (c) (26 Oct 2026): M1, the subject-folder rename. The files M1 edits in place (outside the moved folders)
+# whose new bytes are the rename map applied to their previous bytes (with M1's digest re-pins), each admitted by its exact
+# reviewed digest -- the same rule as SCHEME_SOURCE_EXACT_SHA256, no folder, no pattern. Generated from the new digests
+# of those files; the proof that each reproduces is in the readback. Any other byte in any of them reds as before.
+M1_RENAME_EXACT_SHA256 = {
+    ".github/workflows/arts-award-legacy-reader.yml": "e3d51ce4f48196d5de1d567b5f521edcb6c16fec54ebf6007fafada07a723894",
+    ".github/workflows/arts-award-reader.yml": "73fba96fa95fe427f490594011231376fe4df8b9cdb842721930cb4dffdc114e",
+    ".github/workflows/glv3-production-byte-check.yml": "b0de87ca9bc68553b14a05c2f8c0ece512acc75ee1066d77aee6be3ea8f25f0e",
+    "BUILD_Estate_v3/index.html": "302893d70d13f5ed91521614e9bc5f156f3a1fa32a93c32fce0d3cb465de3d1f",
+    "GROW_Estate_v3/index.html": "e39e4acf6cf1b85b03cb444dc30380a88174ae9f302132b38da305e6decb148f",
+    "LAUNCH_Estate_v3/index.html": "a1beccc6e45ac8484d2be9d56815fdec7cb3db99b9ed6599f52351df38b36255",
+    "Launch/Slideshows/LAUNCH_ART_W8_Complete_The_Review.html": "cac083b1fa61722545dd14c4597aa3dcf236b5ed05eb8416d4276b71501406e8",
+    "LundyLoop/tools/print_pack_audit.py": "a2297e2db4a0c91b4dcb5f54bc9254f28e7b5962442e806fe55cc6de30db26b0",
+    "Teaching_Packs/LANDING_MANIFEST.json": "60db3016994171e92ee00e8ed76eaf39d4724f9b5322fbdab2ad64ba6f357078",
+    "Teaching_Packs/index.html": "358d350e6bfd5bfd64d1e08745c3af0aafb73f2b4e1d09360b40085d45d5d461",
+    "_glv3/COUNT_RECONCILIATION.json": "db359403e422d260bde5ad4800f31238ef72ef692de226dde937fc5c04b668ea",
+    "_glv3/GATES_STATIC.json": "3dbfcc8a6b3ee1584e40151b7092b6562f5e52d5129ba43eb57195167e3b502f",
+    "_glv3/INPUT_INTEGRITY.json": "9356996b209ea80db820a892afc2babf4499fa52f4dd2794439661306abe3020",
+    "_glv3/PROTECTED_TREES.json": "114d7124f86fd35bd04327777bbf2687c8d3c0c9a338ca77a84e393272d64286",
+    "_sownb/vb/tools/attribution_control.py": "6583d41561555b64a1d01e92cf7b5c71ba52a50a1442eb60c664b8e2393708ab",
+    "_sownb/vb/tools/cell_coverage.py": "255d6df5e9524aeb44ad186f2fb3ba46d4ed037d04a9a1e698d7f5a83409e17a",
+    "_sownb/vb/tools/g18_v2_family_floor.py": "c368d6600e44a782c6499273664f7802282660554d3d72fa5eed701556937ea0",
+    "_sownb/vb/tools/g29_plan_binding.py": "6cce40c3b0812e145209459b7d2228ebfc8131f80c966552ddbd7ee1ed966264",
+    "build-anim/inject.py": "5aff881a7a3b874eede704128e44d20f2bb70105e21b74bf4cd042aedd2cbfa9",
+    "checksums/SC3R2_BUILD_A1_W08/SHA256SUMS": "035dbbcec311aa22818ff362f7a72a74e58a9f4e2338ce98cb5d56a083fb0015",
+    "checksums/SC3R2_GROW_A1_W08/SHA256SUMS": "771bcbae1b106f7621ab2d2e04540b208845fc587906afa939592b45fc8d1de9",
+    "checksums/SC3R2_LAUNCH_A1_W08/SHA256SUMS": "6af50dd7e73bf6c53fbfd274384227f4491c7109bc6be6a956703123ffe922ab",
+    "grow-anim/inject.py": "9e4713ce537b37692593e5c9a185e8a5f17f24e45782a768b1e39bbe6e256b0c",
+    "grow-anim/wire_lessons.py": "f047f8e88fad8b22219a8bd005a1aa19c3d43bb835abf0dcd76d605669845720",
+    "quality/LESSON_AUDIT_SCHEMA.json": "e8488124a719d0f8aa535fdfbbfbc1cb1b7ff2ace86d83090bb9494da2816406",
+    "quality/LUNDY_HUMANITIES_SPECIMEN_MANIFEST.json": "9e4576581922d9a1673657175eb13a4089de73b369a194ec6466a35548c04b3a",
+    "quality/QUALIFICATION_CLAIMS_REGISTRY.json": "94e863e707b5b0c1b434a6dd4d19f9a37738bc6ae6770ae6eda96e46c566e1f0",
+    "review/estate-exec/validate_estate_exec.py": "7024b5dce23969ef3b809fefbedd8bfa2eb75ad3ec3614a9ab5939d59d4a4599",
+    "tools/artsaward/BRONZE_ACTIVITY_TARGETS.json": "7b9b2d2ecb2a686db77d190ed18fe4cd6a7772ea2f6fe84c8a6cb4a831c665c3",
+    "tools/artsaward/BRONZE_DONORS.json": "ed5db7ffec5ddafa8d1d8575a96392ea6e6824c494c724155f1dd60b8b86f21b",
+    "tools/artsaward/BRONZE_TARGETS.json": "f6582503d52952a49a98d8d0dcef8f795f467428be24ebd728ee07e37b7bfcbd",
+    "tools/artsaward/EXPLORE_ACTIVITY_TARGETS.json": "3f217eea5e576d71270a9892f4d077449d870e1ccd8c3f0c83b877b8253da6b6",
+    "tools/artsaward/EXPLORE_DONORS.json": "b92450611a4af8a2e15156a12ae199fdaee2469123c5cbf6ae625e0dc5396234",
+    "tools/artsaward/EXPLORE_TARGETS.json": "51445d99ee7c52a10c4d2f1788f216a07a8fb5755107a3217c325e2256ce1d8f",
+    "tools/artsaward/SILVER_ACTIVITY_TARGETS.json": "7ad6ca91eef5092ba375056c5413391e5b8f08dcbc490567733175a4cb53280e",
+    "tools/artsaward/SILVER_DONORS.json": "e155f4e35d2d63c9fce2d05bebaa711fc87d12de93ed3ad5495ea1fdd24622a1",
+    "tools/artsaward/SILVER_TARGETS.json": "d42052c0da3faa5c415c6a6a5996b380881a145b5d9e4c36efce606e5a4ab097",
+    "tools/artsaward/legacy_slot_adapter_selftest.cjs": "7b00b6819b6093d1528f1a4c8e6d2b9f1f10ccceec079c5b073018091285df1a",
+    "tools/artsaward/legacy_slot_browser.cjs": "b75f066f982bc8887a47f1a8caadb8fd00d76390e66c68edb20ff103134d7d2c",
+    "tools/artsaward/venue_classify.py": "c4e7a6ae50635e0832674640df3f008e33369d4f747dca67f1ba1c70a367ff1c",
+    "tools/build_resources/W8A_ACCEPTANCE.json": "9475262a4e6389a5145f4c7f2af7c70e1d561eacd7160d56941726a2f70a7dde",
+    "tools/build_resources/admit_sx3_release.py": "2d7c7309e81b1f7bddc82c03d5720116e2eac23a49626716d11b660f98e01515",
+    "tools/build_resources/admit_w8a_chassis.py": "69ec305cb48ff64f232be7ee67dbd9bef8be789271d22a8b0e78bd97805d7c2c",
+    "tools/build_resources/author_w8a_chassis.py": "88a3cefc8e7a6930d65afbe22d818008c9838347681622e7fe16c381e410acf4",
+    "tools/build_staff_pack.py": "2e7d2063e10018004aad5c4439584377ef8316d5c48ba52d8280cf9c6a0d1cae",
+    "tools/catalogue/PUBLICATION_ARCHIVE.json": "3e72e2f344e4d9abbc1e78240246bbbfb857b790c6ec1edabfc57b5840e6860a",
+    "tools/catalogue/prepare_dy4_bind.py": "1dc4bccf7d53f042beaa6d42af638e25a6a17e121c309660ae1b1afcc19e273d",
+    "tools/catalogue/test_build_catalogue_merge.py": "a059308af1159a27fcd66c88b3fd164122d918f82b3eb63ae22402ba9a5f7285",
+    "tools/chassis_census.py": "6f32664de6cc0ed489b1298c552cd98c2b9adc5ec22467c48655af1cd55c932f",
+    "tools/cx2_r10_estate_sweep.py": "2f61e24d93ff0d73383f0baa3c1b61e6bb30ecb9162fb97027901d8b480d9569",
+    "tools/donors/ART_DONOR_v1/GROW_chassis.html": "2f24f54692fb7ab70799fc611eeaffb4b690f36031c40aba72e3f990493c8244",
+    "tools/donors/ART_DONOR_v1/README.md": "5d0a13d1998c28f488cf36ddc54a33749c171ed235a5cf84806bbd3e7e5af5e6",
+    "tools/downloads/definitions/bronze-arts-award-main.json": "0012f6ec4689b7d1157777ebe4c85084cfd8d867cbc0d4e20c2cd052373e66b6",
+    "tools/downloads/definitions/build-science-aut1-main.json": "43ff4716dca29a734f54e77c8d1f889d250ae954a57ae8ffeaa116e9df081c88",
+    "tools/downloads/definitions/build-science-aut2-main.json": "1114bdea6165202760e83e859dfa6ea57f636a717bb7c3daf8d9d34bfd4d4120",
+    "tools/downloads/definitions/build-science-spr1-main.json": "d7a8866f53df4be8a26f47f1c869f6dcd70a0ab858606c0ce53c5e929b4c39d4",
+    "tools/downloads/definitions/explore-arts-award-main.json": "0e38be04758decb564219c75d8a790228a89b59337c9c9efa52f387d9329d4ee",
+    "tools/downloads/definitions/grow-science-aut1-main.json": "8f78d60e707a29a798bbca2cbd08cdfe59454cf5f3921e2346bee64d6353647b",
+    "tools/downloads/definitions/grow-science-aut2-main.json": "f3bdc04b72895c032a24db6ea22caea65995c6c8b77bbfa84c85d441bac28552",
+    "tools/downloads/definitions/grow-science-spr1-main.json": "2ee78a7886548383cd1d6836ad96883b3a7ae36f4752d4c3dab50db92a93efa0",
+    "tools/downloads/definitions/launch-science-aut2-main.json": "4631fd2952e7e2165e15730de55db4ebddee6612230c6cffe0c205dd299a0398",
+    "tools/downloads/definitions/launch-science-spr1-main.json": "1373c1fe6b5e847e27d38a11f913066ce6b192e96eaf1aab2d4ee6fc34153db8",
+    "tools/downloads/definitions/silver-arts-award-main.json": "46d88cb7b4676dfec884a5016cf7e34485ecfeb51006faabc1d88a48082ac4e6",
+    "tools/downloads/test_science_offline_pack.py": "0880a4cd3c298489e65a5d357806ddcfa7f36127d3c69b8103744019cd9564d7",
+    "tools/downloads/verify_definitions.py": "c8e9c2e4b8b4d8cc2fa0605f645d95d72d6223d5ba7c69d1d52db015cb4a2443",
+    "tools/easter/BATCH3_DONORS.json": "9cd370ae1d160870c008721b2342fe7638aaa19307863bd2ac6ac0f7bfe769ce",
+    "tools/easter/BATCH3_TARGETS.json": "5fed7ba3d275f158d34322d348dc6fc9ff0e58357003e62382037ae31a12c107",
+    "tools/easter/BATCH4_DONORS.json": "e7ecd9d778d662d474708a4b27ee002c9137424563ec06f90ffb32280c33d164",
+    "tools/easter/BATCH4_TARGETS.json": "28f973153b4d4583d6cd03281b3997c5a89effa5b95c6cf66d8aeff39fe88cac",
+    "tools/easter/CLASSROOM_LIGHTER_TARGETS.json": "abc8df5f4eae80145c26f44276be9a223a7b1a007d189f90975bc2cfbe735a10",
+    "tools/easter/CLASSROOM_TARGETS.json": "231b7994474c4553bddc58af54bb8f94624c48fbc1dd539e201fc126b06f6968",
+    "tools/easter/EASTER_TARGETS.json": "3f67b567c4d8cd103bc183ac78afcea998a385e2a4e56e5903e2755b4408b89a",
+    "tools/easter/GREEN_REFERENCE_DECKS.json": "9bca2e3db355e469df24498bd0543a93826fa180e29b3b8b3d0b440bcef90062",
+    "tools/easter/award_browser_fixture.py": "a0980d43cf3e3db7be0478d8c78d1cd26343c0c8964328c4635e1e2cbf2dd29b",
+    "tools/easter/build_batch_targets.py": "265958d5d8e9379cdafbee8b7120de614a5bd04d8186a717cc1605c9b82cf1bd",
+    "tools/easter/build_from_specs.py": "462542d256dbfe617565b7bb416fc10e805e853398f8306a9d301e4088a8df82",
+    "tools/easter/chrome_flip_list.py": "121ff7ec92c357532968b0b5359ca4ed4fdacc204c4f7686d6ebc56bea30e605",
+    "tools/easter/dedupe_sweep.py": "2eedc923cb58920e444775d63fa05055359ad5d9013a989593192d71176d86a9",
+    "tools/easter/manifest_sequence.py": "172503d7d5eb10a24eeca2ad7fda539b9921ffb11203e8b8b4e5a440ab1de877",
+    "tools/easter/pick_art_donor.py": "089d04a5882f8161541e89eb6bc531971a1aa1c658c11acf9014e254216cf098",
+    "tools/fieldops/README.md": "403825ff409337675d95ccde06fb5c022aeab1cee7fadb98ee21606605387460",
+    "tools/fieldops/build.mjs": "216f493a1307b497ca75a0b1c7734bc3f18de572c2348676f83e3b08f533fe7c",
+    "tools/fieldops/controls.mjs": "705af245197977fb47338155ad190942884fc6aceb9a914a77e0d7fe8f0ecab3",
+    "tools/fieldops/split_transport.mjs": "3d818e13bd672bc294fa354bfe04ce0f502f90b2d9b8ce669b0bc126d25cbefe",
+    "tools/fieldops/staging/00_BUILD_FieldOps_Teacher_Studio.html": "407439c9c76fcd87064b2e9ed1c31bd6d0d295dd89f4740062d263512720d3aa",
+    "tools/fixtures/pr124/workflows/glv3-production-byte-check.yml": "b0de87ca9bc68553b14a05c2f8c0ece512acc75ee1066d77aee6be3ea8f25f0e",
+    "tools/fixtures/pr124/workflows/glv3-verify.yml": "c9e59c8ae624c8a997b3bd9b3782afdcfbf73806969a6f6ebab66cd8d67bc983",
+    "tools/grow_resources/arrival_checks.py": "bd8362be676e8fc7ce1dcc8e23af7c89ff67fe3ee3e2935565fe692ec166daf9",
+    "tools/grow_resources/author_w3_feedback.py": "c94409a281b5c03c1c97ae03e5350ac747bd6e56d37859facd76af556aa4ace3",
+    "tools/grow_resources/author_w3_slides.py": "4fceea67e275f6f1672fb968f4a30e57d76c47f68a445767527e4deae6540c25",
+    "tools/grow_resources/author_w3a_arrival.py": "2738c0404563e2326a7502dee27be2aa5fae2d1c775dc49ec5d877ba0f98ab5a",
+    "tools/grow_resources/author_w3a_organiser_exit.py": "cc8060cafea0014d7d1a55ad810c61ebd1da81d40cbb268ca9d1992fe5f7d854",
+    "tools/grow_resources/browser_checks.cjs": "cc210c3e3c42c1a3c0427e01e34bc5bb1fb9635e6d2f147160f5ea375e5dc715",
+    "tools/grow_resources/build_resources.py": "859e7401228a8d98b89f2ff0b0caee465b7ad4234f6650fa03fbaa5705d2d3e2",
+    "tools/grow_resources/check_resources.py": "c471de9f2d24e4421c13102210d8c4a9a7e0d533e475ef532f442d3634731b1f",
+    "tools/grow_resources/feedback_checks.py": "aefee5e30756327e49e5eefcba1a91090d4301ef36ebbc5b30f2d5a5a74bd5cf",
+    "tools/grow_resources/focus_checks.cjs": "75d08c268252d1782daa5708ac63cec74e769754adb7d1a40de5c3a18727f7ce",
+    "tools/grow_resources/friction_acceptance.py": "f9d71e35e83a16e0292f0f3ff6f769a5128b8952eff3d9e3075c02fb932ba6fb",
+    "tools/grow_resources/organiser_exit_checks.py": "bfed534d64285302de29f3f4e841a15de7c34b48c0b8d124e0d9a05a86d1cd0a",
+    "tools/grow_resources/refresh_w3_pack_records.py": "1f010687251fd64d4070992e7157e77de6c648b412999a42c9c639566a2d97df",
+    "tools/hum/DLG1_PAIRS.json": "dd4c854af722e969c4261e748942a20f8f4db8ade44649538df0b0e16f8a1618",
+    "tools/hum/arrival_week_exceptions.json": "ad0e1a8fea71ecccfb3707cefa423af4d027c02cd0602a4c4f6d67339aad3e87",
+    "tools/hum/check_arrival_surfaces.py": "3aa54c8ab3946d2c078eca0073bb9a9369325d5f968e2e7e347e23b1e1431c34",
+    "tools/hum/check_carrier_pure.py": "ca86a43031c4bfec0e559759d020ec5ef9029b56b16310cbe0fe57d381500ba6",
+    "tools/hum/check_dialog_audience.cjs": "f9fa4688772bb012a73d614a4799aa36667aca2d9562fbcd7cc030bf3f10018c",
+    "tools/hum/check_lesson_floor.cjs": "bed2465f7b63d06ef522103b2eb3fe923570e06379e76e3e68e2cb4573e41019",
+    "tools/hum/dialog_audience_exceptions.json": "66986cf0f627b6dc78094cbbef889e396ced511a1a11edaa14fffd074a0856e0",
+    "tools/hum/fix_dialog_audience.py": "ebe88f05eb8cc8ee4ff7214e720e33ac1c4f2bdfcdc1d8f05876b7a868222f36",
+    "tools/hum/lesson_floor_known_red.json": "2a3795e23fbd1d77bcd313ef2b60555ac1a716328ecc269625faf387ac12014f",
+    "tools/humanities_resources/STATIC_CHECK_RESULTS.json": "d8512ae1801218656d880ae9cc2d54603633f074d1d5ad8dde52c35f95b5fae0",
+    "tools/humanities_resources/browser_checks.cjs": "3cd28955bac641364275700c1021dd901691b14ed66dc2a678a79b2787ea677f",
+    "tools/launch_resources/W4L1_ACCEPTANCE.json": "f76b26e3cccb5926665c0ad43cfc9de43434b12ce2fd2d35afb98dbad437fe0e",
+    "tools/launch_resources/author_w4l1.py": "a4c97b467aa101320099ffb00605ab5e71d8c2895a6e4c8c8f79a494e0de9b9f",
+    "tools/launch_resources/author_w4l1_natives.py": "62dd0ef2244c9833cbc63e1a865878ea854b3b4f194710f408c12641cd417a38",
+    "tools/lf1/check_admission_move.py": "b3751f7b034ea3e677ba7e3851b1b799d98986bdb4e828e9a632f44a801b59e2",
+    "tools/relabel_public.py": "c81e059367a92c4cd30559853aeec35e53c9a4c7ceed31dd249b21cf82df0b9d",
+    "tools/rw1/clear_home_link.py": "4481025a3caa09ee04ac9b8adea6d228cff3f0cbcd285b643829366ada06924b",
+    "tools/rw1/dock_guide.py": "90a29d9f5497d46c79b061cd7f9287cae4694da6f7005c62b775b4a4f5fc1610",
+    "tools/rw1/edits/W8B_plain_language.json": "5f3fa6d7b60ce5fcee2e0c8a222b4d7fa96d96265b3628ddaa6e60602e209dbd",
+    "tools/rw1/parity.py": "392a6c5c53903384efee998f7257cdef200adf957bfbff83f7f57d4ff92adecc",
+    "tools/rw1/pathways.py": "5bdc3d505903925c1d4abd7cd89a0ea3150e237e287183b7e79ef8bfa4796889",
+    "tools/rw1/restore_lesson_config.py": "61f6b614a4bb22b15e85be538704eee6aa7585e9a88de38818b93d9b96f7f7e5",
+    "tools/rx3_land.py": "92751ac6fb8885ac5f67dd3333f8dc3f894d2951d087a9727a86596f48032c17",
+    "tools/sci/select_manifest_decks.py": "94e410bf7039c2cfe3e8ef10c1fa55d788cffb2c11a91e987844f1c9b9721d7d",
+    "tools/science_pack/RESOURCE_CONTENT.json": "499da104f87c775b6de314d78477decba79baf41cbcf8ae6ea60637c66c35c70",
+    "tools/science_pack/check_resource_dom.cjs": "ea837caafd3e6ddc1e966d7e731272f314c129a69999bf747b3e8c946150640c",
+    "tools/science_pack/model_fixtures.json": "0c1f9689780131efc3bc2c251176a36ba1aad206b2eb594034c0a21784719667",
+    "tools/science_pack/rebuild_resources.py": "ca3d4f06c2bb929ca2432d633450be6ae06a2bc1566bf3c235e57c8e92e46c6f",
+    "tools/science_teaching_packs/cx2_s3_offline_edition.py": "6bba82926beb47bc49f6dd8acd06b3753762880a48de1f25460caa22b987ad4a",
+    "tools/science_teaching_packs/test_source_binding.py": "f076213cfe8f8dfeaccef780a746191d86412f29380be232696e67442eb4abbc",
+    "tools/stage_b_announcer.py": "41c95d4a3dcccb871d9edc0d9e0f023bb8930dec14e0c1ad6b9d383322bd3f6b",
+    "tools/sx3/admit_landing_decks.py": "2ec9498f93c74079c007f31c76ec3dd6a0b82f15c3faaf6172b5a8252f3c0d54",
+    "tools/sx3/align_shelf_titles.py": "826fe78ab4781d3d49418c7a97f844695539c43190f6122bae5a351ef8615dce",
+    "tools/sx3/check_landing_titles.py": "446ca22a7adf531211bc346aea29029593e5141c699185582d12d65951409e55",
+    "tools/sx3/test_admit_landing_decks.py": "536d68a8292e096a02aea30131f7e555b7591eff0f21748c8ef7d10e5e2278a7",
+    "tools/ux2/add_edu_q1_companions.py": "b176374b6be6b49575e6daf42b720cc40e2df7642cf683f639ebb3bea09c5d63",
+    "tools/ux2/lesson-outcome-baseline.json": "6590bec9c3ad848e87f8fd1237abb140d0e566e33bedfece69391a980c29ff7f",
+    "tools/ux2/place_companion_packs.py": "3b6396a5397b6eceaa42885986f9fb7b5acc37d653ff7c2e1c6e31a25c9379bc",
+    "tools/verify_fieldops_served.mjs": "af04a4099c6bb89d7787b8057f80a4aa842495b90da18b357e5b5b977344b0d7"
+}
+# RULING wa-3 (26 Oct 2026): the BUILD D&T community hub, title and heading only (the word dropped), by exact digest.
+WA3_EXACT_SHA256 = {
+    "build_dt_upcycling.html": "3091a2e84328bef46aa9ecb532dbb5f64e46bd037037ed8f7daee5a41037d876"
+}
+
+
 def exact_byte_admitted(root: Path, changed: set[str]) -> set[str]:
-    return {rel for rel in changed if rel in SCHEME_SOURCE_EXACT_SHA256 and (root / rel).is_file()
-            and digest(root / rel) == SCHEME_SOURCE_EXACT_SHA256[rel]}
+    exact = {**SCHEME_SOURCE_EXACT_SHA256, **M1_RENAME_EXACT_SHA256, **WA3_EXACT_SHA256}
+    return {rel for rel in changed if rel in exact and (root / rel).is_file()
+            and digest(root / rel) == exact[rel]}
 
 
 def digest(path: Path) -> str:
@@ -2481,7 +2673,7 @@ FENCE_PATH = "_sx3/FENCE.json"
 # its digest (a map whose bytes differ is refused, never read) and admits nothing by itself. A
 # repository without the file (the Apps copy of this gate) has no moves to resolve.
 RENAME_MAP_PATH = "tools/catalogue/M1_RENAME_MAP.json"
-RENAME_MAP_SHA256 = "ed7cd837b227b033713779824f5e1d50fc5d3b1d69e4724877f740867d2ba565"
+RENAME_MAP_SHA256 = "c7b2c270072c06e8975a89efafbec315cdab3d254635a99e95b282ff249deaba"
 
 
 def rename_map(root: Path) -> dict[str, str]:
@@ -2491,7 +2683,9 @@ def rename_map(root: Path) -> dict[str, str]:
     data = path.read_bytes()
     if hashlib.sha256(data).hexdigest() != RENAME_MAP_SHA256:
         raise ValueError(f"unreviewed rename map: {RENAME_MAP_PATH}")
-    return json.loads(data)["pairs"]
+    declared = json.loads(data)
+    # historicalPairs: deleted before the move, read by old path only (never a move: no new path holds them).
+    return {**declared.get("historicalPairs", {}), **declared["pairs"]}
 
 
 def _tree_entries(root: Path, ref: str, paths: list[str]) -> dict[str, str]:
