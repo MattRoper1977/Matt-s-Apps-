@@ -135,7 +135,7 @@ CATALOGUE_PINS = {
         "index.html": "bdca62dc5f92062c975287eb4be29314eab55dff7991bdba83c8e24840f805db",
         "Science/index.html": "959076d8cdf2946be5abb23d5bba9589da0f0b5172402b3beb5d1fe9185f213f",
         "Humanities/index.html": "3a259413d5ae49e77be383222e1ad8cbdf1a9099bc3a681442faee0ec877944c",
-        "humanities.html": "648bcf2c8f5f325e85f67c755047eb7533ea272b2c824f2dd49392ef3c2e9f8f",
+        "humanities.html": "e6260e205216c2e9c19fca3edd07bcdf6716349e8b9dd8e78c6005d0ead73391",
         "pack.html": "42935782c353525d28b9263a90a8c48e4b5ca764226444edfa68d6f664862be1",
         "assets/catalogue/pack.js": "da66512500cd92e7c7b2a58141ce98c903676b972ea71ba0723984eff12be7c6",
         "assets/catalogue/pack.css": "ba6c5c84bcff84c023f2f10ac345a159f48ea97b2e8eb542cb3e56435204d63a",
@@ -235,7 +235,7 @@ CATALOGUE_PINS = {
         "Science/Grow/W8-W13_2026-27/SCI_G_W9_Turn_Earth_explain_the_sky_Classic.html": "178c695fe2dc166a80abfd26e41174e28ecfa39d4700db0870d7ee27bbffd6e8",
         "Science/Build/W8-W13_2026-27/SCI_B_W12_Give_a_rock_a_job_Classic.html": "509f38056bd09e903c70b0426ac55ab7ff73f7da10261a97eec11d49d7b27d1c",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
-        "_glv3/tools/verify_change_boundary.py": "11ca938e2f335a68a86ccf4ae5743828193bb1acd233fbae7eafaa6c0f444f44",
+        "_glv3/tools/verify_change_boundary.py": "d4c243b23b2aa1a321cd0ca9c3b54f569bfeb7d170139781b711516ec8661880",
         "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
         "_glv3/tools/chip_gate.mjs": "16cdd5c0ad3745c57340ed0ec6a208d221e4793bfc9b1cd9bc703a6c2613dd9a",
         "_glv3/tools/catalogue_membership.mjs": "4d7ab03e23ee0d3c3fc934f4f0a901afc61169754db099f4f5c24dd9cce058ec",
@@ -1707,7 +1707,7 @@ CATALOGUE_PINS = {
         "Science/Launch/W17-W26_2026-27/SCI_L_W24_Photosynthesis_The_Light_Lab.html": "804b18765c1b10fcbfd4f6136891b863852e40c4651c297e5d25ab311066089b",
         "Science/Launch/W17-W26_2026-27/SCI_L_W25_Plant_Transport_Follow_The_Water_And_Sugar.html": "6b12ed852e131a63bd7b13fb1aa07535dbd942b4d849b4bb2b54cf97a5289e55",
         "Science/Launch/W17-W26_2026-27/SCI_L_W26_Greenhouse_Challenge_Grow_More_With_A_Water_Budget.html": "f65c036a80029e775b40e1de07e3d86fde36571658abc499a8809a95d2d91a2b",
-        "art.html": "16cd4dbd1c8c537f038cca1885ac60fe2ccadb6e4c69f3e9eced5fd5154c4b83",
+        "art.html": "066d4bdd3107ae7105d2930352b48e8b848f53a402874e3ed432ac7eb0db41bf",
         "tools/downloads/SOURCE_PLACEMENT.json": "a9265b003dfa20989fdf6954974adca57383171551c579212ace61ad32433fdf",
         "Humanities/Teaching_Packs/RE_Autumn_BUILD_Reviewed/BUILD/Autumn_1/W08/BUILD_RE_A1_W08_Captioned_Model.mp4": "3ab4e04878f4f32431990301f4efcd6d13622f00b4c8d8614a55ccd7d5da6f5f",
         "Humanities/Teaching_Packs/RE_Autumn_BUILD_Reviewed/BUILD/Autumn_1/W08/BUILD_RE_A1_W08_Knowledge_Organiser.html": "a66d638003a6a58250154c3744099d04780e20051c7e5455e3c3a98144bb1391",
@@ -2458,6 +2458,12 @@ M1_RENAME_EXACT_SHA256 = {
     "tools/ux2/place_companion_packs.py": "3b6396a5397b6eceaa42885986f9fb7b5acc37d653ff7c2e1c6e31a25c9379bc",
     "tools/verify_fieldops_served.mjs": "af04a4099c6bb89d7787b8057f80a4aa842495b90da18b357e5b5b977344b0d7"
 }
+# RULING wb-1 (26 Oct 2026): the two Art manifests of the GROW and LAUNCH v3 trees, moved by M1 outside the protected
+# trees and rewritten by the rename map only (each reproduces byte for byte), by exact digest.
+WB1_MOVED_EXACT_SHA256 = {
+    "GROW_Estate_v3/Art/manifest-v3.json": "8f376fd9fbf6d808481ad49098c452d0eb97cf3af3a0fa73cfcf7fc8307a6af9",
+    "LAUNCH_Estate_v3/Art/manifest-v3.json": "e76aa2a810ba4a958028096b9b80f25090feb0f97347f7acf55e70636244512d"
+}
 # RULING wa-3 (26 Oct 2026): the BUILD D&T community hub, title and heading only (the word dropped), by exact digest.
 WA3_EXACT_SHA256 = {
     "build_dt_upcycling.html": "3091a2e84328bef46aa9ecb532dbb5f64e46bd037037ed8f7daee5a41037d876"
@@ -2465,7 +2471,7 @@ WA3_EXACT_SHA256 = {
 
 
 def exact_byte_admitted(root: Path, changed: set[str]) -> set[str]:
-    exact = {**SCHEME_SOURCE_EXACT_SHA256, **M1_RENAME_EXACT_SHA256, **WA3_EXACT_SHA256}
+    exact = {**SCHEME_SOURCE_EXACT_SHA256, **M1_RENAME_EXACT_SHA256, **WB1_MOVED_EXACT_SHA256, **WA3_EXACT_SHA256}
     return {rel for rel in changed if rel in exact and (root / rel).is_file()
             and digest(root / rel) == exact[rel]}
 
@@ -2684,8 +2690,9 @@ def rename_map(root: Path) -> dict[str, str]:
     if hashlib.sha256(data).hexdigest() != RENAME_MAP_SHA256:
         raise ValueError(f"unreviewed rename map: {RENAME_MAP_PATH}")
     declared = json.loads(data)
-    # historicalPairs: deleted before the move, read by old path only (never a move: no new path holds them).
-    return {**declared.get("historicalPairs", {}), **declared["pairs"]}
+    # RULING wb-5: the moves are "pairs" only; "historicalPairs" (deleted before the move) are history and this gate,
+    # which resolves moves and nothing else, never reads them.
+    return dict(declared["pairs"])
 
 
 def _tree_entries(root: Path, ref: str, paths: list[str]) -> dict[str, str]:
@@ -2724,6 +2731,22 @@ def changed_paths(root: Path, base_ref: str, rows: list[tuple[str, str]]) -> set
     return changed
 
 
+# RULING wb-2 (26 Oct 2026): the one M1 replacement transaction (the change-boundary verifier declares it), bound here by
+# the same digest. A file whose bytes differ is refused, never read; a repository without it (Apps) has none.
+M1_TRANSACTION_PATH = "_glv3/M1_REPLACEMENT_TRANSACTION.json"
+M1_TRANSACTION_SHA256 = "a758969bf6288606973ce56bc0082b8e0982f3fef50c3305d4a0457547712131"
+
+
+def m1_transaction_after(root: Path) -> dict[str, str]:
+    path = root / M1_TRANSACTION_PATH
+    if not path.is_file():
+        return {}
+    data = path.read_bytes()
+    if hashlib.sha256(data).hexdigest() != M1_TRANSACTION_SHA256:
+        raise ValueError(f"unreviewed M1 replacement transaction: {M1_TRANSACTION_PATH}")
+    return {rel: row["afterSha256"] for rel, row in json.loads(data)["files"].items()}
+
+
 def fence_errors(root: Path, changed: set[str], kind: str) -> list[str]:
     if kind != "lessons":
         return []
@@ -2741,6 +2764,13 @@ def fence_errors(root: Path, changed: set[str], kind: str) -> list[str]:
     if not fenced:
         return [f"{FENCE_PATH} names no fenced path; refusing to treat an empty fence as no fence"]
     hit = sorted(fenced & changed)
+    # RULING wb-2 (26 Oct 2026): a fenced deck whose bytes are exactly its M1 transaction after-digest (the rename map
+    # rewrite, declared in M1_TRANSACTION_PATH) is accepted; every other change to a fenced deck is refused as before.
+    try:
+        after = m1_transaction_after(root)
+    except (ValueError, OSError) as exc:
+        return [str(exc)]
+    hit = [rel for rel in hit if not (rel in after and (root / rel).is_file() and digest(root / rel) == after[rel])]
     return [f"fenced deck modified before the fallback limb landed: {rel} "
             f"(see {FENCE_PATH} and _sx3/STOP_L_limb_population.md)" for rel in hit]
 
@@ -3138,7 +3168,9 @@ def self_test(root: Path, kind: str, canonical: Path) -> None:
             fence_file = root / FENCE_PATH
             if fence_file.is_file():
                 fenced = json.loads(fence_file.read_text("utf-8"))["fenced"]
-                one = fenced[0]["path"]
+                admitted = m1_transaction_after(root)
+                # The red control uses a fenced deck the M1 transaction does not admit at its current bytes (wb-2).
+                one = next(row["path"] for row in fenced if row["path"] not in admitted)
                 if not fence_errors(root, {one}, "lessons"):
                     raise RuntimeError("the fence let a fenced deck through: " + one)
                 if fence_errors(root, {"Science/Build/does-not-exist.html"}, "lessons"):
@@ -3154,7 +3186,29 @@ def self_test(root: Path, kind: str, canonical: Path) -> None:
                     (empty / FENCE_PATH).write_text("not json", encoding="utf-8")
                     if not fence_errors(empty, {one}, "lessons"):
                         raise RuntimeError("an unreadable fence was treated as no fence")
-                print(f"SX3 fence controls: {len(fenced)} fenced path(s) red / unfenced path green / apps estate quiet / empty and unreadable fence red")
+                # RULING wb-2: a fenced deck at exactly its transaction after-digest is accepted; one changed byte is refused.
+                taken = [row["path"] for row in fenced if row["path"] in admitted]
+                for rel in taken:
+                    if fence_errors(root, {rel}, "lessons"):
+                        raise RuntimeError("the fence refused a fenced deck at its M1 transaction bytes: " + rel)
+                    with tempfile.TemporaryDirectory(prefix="mbm-fence-m1-") as scratch:
+                        fence_fixture = Path(scratch)
+                        for copy in (FENCE_PATH, M1_TRANSACTION_PATH, rel):
+                            (fence_fixture / copy).parent.mkdir(parents=True, exist_ok=True)
+                            shutil.copyfile(root / copy, fence_fixture / copy)
+                        if fence_errors(fence_fixture, {rel}, "lessons"):
+                            raise RuntimeError("the fence refused the transaction bytes in a fence_fixture: " + rel)
+                        data = bytearray((fence_fixture / rel).read_bytes())
+                        data[len(data) // 2] ^= 0x01
+                        (fence_fixture / rel).write_bytes(bytes(data))
+                        if not fence_errors(fence_fixture, {rel}, "lessons"):
+                            raise RuntimeError("the fence let a one-byte change to a fenced deck through: " + rel)
+                # RULING wb-5: a historical pair of the rename map cannot admit a move here.
+                declared = json.loads((root / RENAME_MAP_PATH).read_bytes()) if (root / RENAME_MAP_PATH).is_file() else {}
+                for old, new in declared.get("historicalPairs", {}).items():
+                    if changed_paths(root, "HEAD", [("D", old), ("A", new)]) != {old}:
+                        raise RuntimeError("a historical rename pair was resolved as a move: " + new)
+                print(f"SX3 fence controls: {len(fenced)} fenced path(s) red / unfenced path green / apps estate quiet / empty and unreadable fence red / {len(taken)} at M1 transaction bytes green, one byte off red")
             # ORDER FINISH-2 manifest-pin ruling: 1605 pack members are admitted by
             # their manifest rather than by 1605 individual pins, so the expansion
             # must be PROVED able to go red on every way that can be abused. A
