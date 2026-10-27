@@ -235,7 +235,7 @@ CATALOGUE_PINS = {
         "Science/Grow/W8-W13_2026-27/SCI_G_W9_Turn_Earth_explain_the_sky_Classic.html": "178c695fe2dc166a80abfd26e41174e28ecfa39d4700db0870d7ee27bbffd6e8",
         "Science/Build/W8-W13_2026-27/SCI_B_W12_Give_a_rock_a_job_Classic.html": "509f38056bd09e903c70b0426ac55ab7ff73f7da10261a97eec11d49d7b27d1c",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
-        "_glv3/tools/verify_change_boundary.py": "d4c243b23b2aa1a321cd0ca9c3b54f569bfeb7d170139781b711516ec8661880",
+        "_glv3/tools/verify_change_boundary.py": "137df3f25734cc0d07be90a3989a19b3e395fda3ec8f11ae0f0c5848e4f3f337",
         "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
         "_glv3/tools/chip_gate.mjs": "16cdd5c0ad3745c57340ed0ec6a208d221e4793bfc9b1cd9bc703a6c2613dd9a",
         "_glv3/tools/catalogue_membership.mjs": "4d7ab03e23ee0d3c3fc934f4f0a901afc61169754db099f4f5c24dd9cce058ec",
@@ -278,7 +278,7 @@ CATALOGUE_PINS = {
         "tools/hum/deck_dom.py": "98cf5f472ef46d2b015779d61bc98b49190066018b2fca79b5e893b88bada4ab",
         "tools/hum/STAGE_IDENTITY_RULE.md": "19a8e7883ee47e9d5a4c39effbf912e906d6c91454e3ec67ef182801b8382a51",
         "tools/hum/render_proof.cjs": "35aee6aa2d3b11367c310258160c7e01dabc41913e767968f88c27f6f8ec899a",
-        "tools/hum/verify_loop.py": "d9d40aaf6933a24335808f2d054c0633f71c1c83e68a029df84e581c8412aab9",
+        "tools/hum/verify_loop.py": "83b87724d4d9ca22ea55513f99e0df8d7f5dfded247b242a4c3be56693e77dac",
         "tools/hum/fixtures/aut1_twelve_stage_v1_base.html": "ab9f6abd62ef33df3bad621267aec70a5ccad6f765de71d623e55f13f0a5e2c5",
         "Humanities/LAUNCH_W1-W8_2026-27/LAUNCH_HUM_W1_Belief_Identity_And_Belonging.html": "6dc9a434f33931eb5f38c65454feb5fb87588afaa0053f3a0c95c216a4c8fc4a",
         "Humanities/LAUNCH_W1-W8_2026-27/LAUNCH_HUM_W1_Migration_And_Identity_In_Modern_Britain.html": "b965d521d918cd24408059c8d940966c16c138f2a8c40fc51860e2f8d67ea9c3",
@@ -325,7 +325,7 @@ CATALOGUE_PINS = {
         "Humanities/BUILD_W1-W8_2026-27/BUILD_Humanities_W7_Share_A_Special_To_Me_Object_With.html": "be33baa63d4523febdbd0c4f6826efe272b68958c3be44b560a349b0ebd05266",
         "_sownb/vb/evidence/a2r/classic_v2_fixture_minutes.json": "110b377332e73395c6f2f2505674e25d71f329c77f2d00cefda6d0c4c9166c63",
         "_sownb/vb/evidence/a2r/fixtures/classic_v2_v1_base.html": "c9ec2ea5fcd7a7b1c370b4e7680a0580a4f69b33b6e6a7023b648988924dfece",
-        "_sownb/vb/tools/classic_v2_contract_selftest.py": "9506813ed995d9943859b895599e1fc350a81906ad5d9dfa9e22c3e9fdb271b9",
+        "_sownb/vb/tools/classic_v2_contract_selftest.py": "1a571a20066abf020bbbba9ec7a6b99a28c627f04cc3165687ac87eae91c979c",
         "_sownb/vb/tools/reshell_classic_v2_contract.py": "ebf77751927f961453f73607e700378729865e44342642cf80817c2a703856c1",
         "Humanities/BUILD_W14-W20_2026-27/BUILD_HUM_W16_Then_And_Now_And_What_Is_Fair.html": "8513df51ec2501cbfe57d63892347c235cf101cfb6fe63eebf868079470b7dd5",
         "tools/hum/admit_transaction.py": "af6d1bece8f0219c316d2f13ca79573a1c9d2a7be299511ba95396bd1fc769e2",
@@ -1325,7 +1325,7 @@ CATALOGUE_PINS = {
         "Science/Teaching_Packs/BUILD/lessons/W8A/BUILD_Science_Autumn1_W8A_Sugar_Evidence_Read_The_Label_Teacher.docx": "7932493b683f1ac4ab7fbaabef8f55ec13e0db311dc63334788dc88e9fc5d099",
         "Science/Teaching_Packs/BUILD/lessons/W8A/BUILD_Science_Autumn1_W8A_Sugar_Evidence_Read_The_Label_Teacher.pdf": "8c9984c7683196b03a8acdf90764d7136f390f4fb0e28211077eb4184311f5a5",
         "tools/downloads/offline_pack_browser.cjs": "017782ecf949ee7c3030c4f872c2c532e0178ccb03cc39c8c636acf257623a95",
-        "tools/downloads/prepare_pack_browser.py": "07b1510a183e0d758a03f9d97291f238161fe2befe1c9f6f18f5d409b186ea06",
+        "tools/downloads/prepare_pack_browser.py": "24446fbd47fa0a8b4de2ae1f79185206ecc042ccc72dfcdec8076c3bc38e9ada",
         "tools/downloads/test_download_pack.py": "b2e56c6cc68ff4c35f4a0d74bf1abbfbd711b6b3a2f1959319715dea8ee6700d",
         "tools/science_teaching_packs/check_build_sugar_browser.cjs": "f0b3b44a025131f16d2085f26ca7a2d9d19e2dbb58a6d692d309a49f3d3a1f2c",
         "tools/science_teaching_packs/check_build_sugar_pdfs.py": "62f8d1d1989be600374fdae1dbda9c7ebf407711cfb572123a3f9c31c4442a03",
@@ -1784,7 +1784,7 @@ CATALOGUE_PINS = {
         "Art/tools/assert_estate.py": "dde499e2e8e9ce8d4e3fa9df7cc7bd4184fb746f4e823e1e568c5dd96e0ab175",
         "Art/tools/assert_print.js": "f383ae89df4c894a374efe56c0358d08f4fe037eab520c0f753e9cd50337e1b6",
         "Art/visual-learning/art-visual-learning.css": "d6d0b23cae7b46467fef98fe04a191ac47f787446cf8097913ae5e637cad8a5b",
-        "Art/visual-learning/art-visual-payloads.js": "11467c292aca0a85085226ee905ad2bc076d1f4f4c14b30708792cb29d52e1bb",
+        "Art/visual-learning/art-visual-payloads.js": "451b58aba7e17c09372195cf70f484b708c9faa8893cd4c252e882f0a53e894d",
         "BUILD_Estate_v3/Art/index.html": "4a415b437a73b2918034c66318ed4d4fbd7955d6a5342663278c3f12d0d9ae3c",
         "BUILD_Estate_v3/Art/manifest-v3.json": "5be2b169246563d3186e832df20edc076c2cbfccf0ccd99f824f9543b7c1db27",
         "BUILD_Estate_v3/Humanities/index.html": "c44ecaa8f371de403454c2b4145ddb5317186743ca202577f4d535990b57684d",
@@ -1817,7 +1817,7 @@ CATALOGUE_PINS = {
         "Science/launch-engine/test/health.js": "cc599709a0e2c3c6c517331f99b9f43a4dc3a29d4dc0e3c67cd1c017159dc9d4",
         "Science/launch-engine/test/print-pack.js": "b3bc74a66cb7057dad9d5f3face9ec24028978e5b85ca0bd5d883709e529fc99",
         "Science/visual-learning/science-visual-learning.css": "94cff82726164d7b1ef7315868ff8cb51eae0bf83bcf5590c838f509ee4e1a93",
-        "Science/visual-learning/science-visual-payloads.js": "a719bd4c06102994e1014e7067bd79b69f2cfa72068e8d5fb1f984ff8b3d0292"
+        "Science/visual-learning/science-visual-payloads.js": "3f607c6cab15c006a5ac5d74821e01f0edd60c2e081fa1bcaad531ff765a16a0"
     }
 }
 # END REVIEWED CATALOGUE PINS
@@ -2318,7 +2318,7 @@ SCHEME_SOURCE_EXACT_SHA256 = {
 # reviewed digest -- the same rule as SCHEME_SOURCE_EXACT_SHA256, no folder, no pattern. Generated from the new digests
 # of those files; the proof that each reproduces is in the readback. Any other byte in any of them reds as before.
 M1_RENAME_EXACT_SHA256 = {
-    ".github/workflows/arts-award-legacy-reader.yml": "e3d51ce4f48196d5de1d567b5f521edcb6c16fec54ebf6007fafada07a723894",
+    ".github/workflows/arts-award-legacy-reader.yml": "7a913da583eb3af9ade0a5f0e434611f911da34c45f093a0169794ad1c9a6a7a",
     ".github/workflows/arts-award-reader.yml": "73fba96fa95fe427f490594011231376fe4df8b9cdb842721930cb4dffdc114e",
     ".github/workflows/glv3-production-byte-check.yml": "b0de87ca9bc68553b14a05c2f8c0ece512acc75ee1066d77aee6be3ea8f25f0e",
     "BUILD_Estate_v3/index.html": "302893d70d13f5ed91521614e9bc5f156f3a1fa32a93c32fce0d3cb465de3d1f",
@@ -2331,7 +2331,10 @@ M1_RENAME_EXACT_SHA256 = {
     "_glv3/COUNT_RECONCILIATION.json": "db359403e422d260bde5ad4800f31238ef72ef692de226dde937fc5c04b668ea",
     "_glv3/GATES_STATIC.json": "3dbfcc8a6b3ee1584e40151b7092b6562f5e52d5129ba43eb57195167e3b502f",
     "_glv3/INPUT_INTEGRITY.json": "9356996b209ea80db820a892afc2babf4499fa52f4dd2794439661306abe3020",
-    "_glv3/PROTECTED_TREES.json": "114d7124f86fd35bd04327777bbf2687c8d3c0c9a338ca77a84e393272d64286",
+    "_glv3/PROTECTED_TREES.json": "88b091c791c5de41df74cb1176fff94a8508b83428ecfa00d7a1e9ffcdc05fef",
+    "_glv3/run_manifest.json": "f56b52d992d6fd0ade237e4758e930512e741f7041dabc0cf33475f7e0d47fed",
+    "_sownb/feb/tools/g18_content_floor.py": "7ba0fa91a6462a3603387bff57023ddb813e75f5fda0cb995c04b702776e3718",
+    "_sownb/feb/tools/g18_measurement.py": "37d79bb3d0b3fab60abaca58b1da099b867cfe08f1f70b22a50a469d2c5758f5",
     "_sownb/vb/tools/attribution_control.py": "6583d41561555b64a1d01e92cf7b5c71ba52a50a1442eb60c664b8e2393708ab",
     "_sownb/vb/tools/cell_coverage.py": "255d6df5e9524aeb44ad186f2fb3ba46d4ed037d04a9a1e698d7f5a83409e17a",
     "_sownb/vb/tools/g18_v2_family_floor.py": "c368d6600e44a782c6499273664f7802282660554d3d72fa5eed701556937ea0",
@@ -2734,7 +2737,7 @@ def changed_paths(root: Path, base_ref: str, rows: list[tuple[str, str]]) -> set
 # RULING wb-2 (26 Oct 2026): the one M1 replacement transaction (the change-boundary verifier declares it), bound here by
 # the same digest. A file whose bytes differ is refused, never read; a repository without it (Apps) has none.
 M1_TRANSACTION_PATH = "_glv3/M1_REPLACEMENT_TRANSACTION.json"
-M1_TRANSACTION_SHA256 = "a758969bf6288606973ce56bc0082b8e0982f3fef50c3305d4a0457547712131"
+M1_TRANSACTION_SHA256 = "c508f9b3471df8462761136d198f332349a71f756b76709e5afa5545ea0b2268"
 
 
 def m1_transaction_after(root: Path) -> dict[str, str]:
