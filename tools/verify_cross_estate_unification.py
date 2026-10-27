@@ -103,7 +103,7 @@ MANIFEST_PINS = {
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
-    "resources.json": "7b144252b0de8e456df14f4470964471389f3a50b97e4624f748bd8c6e8eb6fd"
+    "resources.json": "ca25c55d3c6ed2b594ead3901c0510b6d394c370ee4bee6110244b43a35dd324"
 }
 PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it writes both gate copies or neither)"
 
@@ -133,7 +133,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/build_lesson_order.py": "35a4c54779b800ae8bd949154d0d19fddb190f49ec18e62efdd86d03313f6180",
         "tools/ux2/hub_gates.mjs": "3d3120df94b1789041370c4045fbcc983635af0b30a0705447f18371bed98944",
         "index.html": "bdca62dc5f92062c975287eb4be29314eab55dff7991bdba83c8e24840f805db",
-        "Science/index.html": "959076d8cdf2946be5abb23d5bba9589da0f0b5172402b3beb5d1fe9185f213f",
+        "Science/index.html": "7355385f9b0b94bfdcae0059d3544947f3e97361b44b4df8c0204f058bbca038",
         "Humanities/index.html": "3a259413d5ae49e77be383222e1ad8cbdf1a9099bc3a681442faee0ec877944c",
         "humanities.html": "e6260e205216c2e9c19fca3edd07bcdf6716349e8b9dd8e78c6005d0ead73391",
         "pack.html": "42935782c353525d28b9263a90a8c48e4b5ca764226444edfa68d6f664862be1",
@@ -235,7 +235,7 @@ CATALOGUE_PINS = {
         "Science/Grow/W8-W13_2026-27/SCI_G_W9_Turn_Earth_explain_the_sky_Classic.html": "178c695fe2dc166a80abfd26e41174e28ecfa39d4700db0870d7ee27bbffd6e8",
         "Science/Build/W8-W13_2026-27/SCI_B_W12_Give_a_rock_a_job_Classic.html": "509f38056bd09e903c70b0426ac55ab7ff73f7da10261a97eec11d49d7b27d1c",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
-        "_glv3/tools/verify_change_boundary.py": "137df3f25734cc0d07be90a3989a19b3e395fda3ec8f11ae0f0c5848e4f3f337",
+        "_glv3/tools/verify_change_boundary.py": "7c44c4ef658012335e537eeafa21cdbb6c72d26e332096f2fa71d74d9f45bb7b",
         "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
         "_glv3/tools/chip_gate.mjs": "16cdd5c0ad3745c57340ed0ec6a208d221e4793bfc9b1cd9bc703a6c2613dd9a",
         "_glv3/tools/catalogue_membership.mjs": "4d7ab03e23ee0d3c3fc934f4f0a901afc61169754db099f4f5c24dd9cce058ec",
@@ -1842,7 +1842,7 @@ CATALOGUE_SHELF_ROWS = 297
 # second set is empty and the allowance cannot launder a pre-existing value.
 CATALOGUE_ADDITIVE_TAG_KEYS = frozenset({"halfTerm", "unit"})
 CATALOGUE_ORIGINAL_KEYS_BEFORE_TAGS = frozenset()
-CATALOGUE_SHELF_ROWS_SHA256 = "f1b73c4d8dbc0a376b0463252db20c36ee24a3105265c3b104fe05896b3188ba"
+CATALOGUE_SHELF_ROWS_SHA256 = "7e8540107aa62a34b9fc6ec189d1c703da187ec9088fd0e5ab5b6aa32e6b2376"
 
 # These named review records and review tools can change with their reviewed
 # transaction. Tools are not served assets; they are reviewed as executable
@@ -2366,7 +2366,7 @@ M1_RENAME_EXACT_SHA256 = {
     "tools/build_resources/admit_w8a_chassis.py": "69ec305cb48ff64f232be7ee67dbd9bef8be789271d22a8b0e78bd97805d7c2c",
     "tools/build_resources/author_w8a_chassis.py": "88a3cefc8e7a6930d65afbe22d818008c9838347681622e7fe16c381e410acf4",
     "tools/build_staff_pack.py": "2e7d2063e10018004aad5c4439584377ef8316d5c48ba52d8280cf9c6a0d1cae",
-    "tools/catalogue/PUBLICATION_ARCHIVE.json": "3e72e2f344e4d9abbc1e78240246bbbfb857b790c6ec1edabfc57b5840e6860a",
+    "tools/catalogue/PUBLICATION_ARCHIVE.json": "54f917e15f56f3988fed321e5696bc61ecaa234123599e539abf3863f909a729",
     "tools/catalogue/prepare_dy4_bind.py": "1dc4bccf7d53f042beaa6d42af638e25a6a17e121c309660ae1b1afcc19e273d",
     "tools/catalogue/test_build_catalogue_merge.py": "a059308af1159a27fcd66c88b3fd164122d918f82b3eb63ae22402ba9a5f7285",
     "tools/chassis_census.py": "6f32664de6cc0ed489b1298c552cd98c2b9adc5ec22467c48655af1cd55c932f",
@@ -2391,7 +2391,7 @@ M1_RENAME_EXACT_SHA256 = {
     "tools/easter/BATCH4_DONORS.json": "e7ecd9d778d662d474708a4b27ee002c9137424563ec06f90ffb32280c33d164",
     "tools/easter/BATCH4_TARGETS.json": "28f973153b4d4583d6cd03281b3997c5a89effa5b95c6cf66d8aeff39fe88cac",
     "tools/easter/CLASSROOM_LIGHTER_TARGETS.json": "abc8df5f4eae80145c26f44276be9a223a7b1a007d189f90975bc2cfbe735a10",
-    "tools/easter/CLASSROOM_TARGETS.json": "231b7994474c4553bddc58af54bb8f94624c48fbc1dd539e201fc126b06f6968",
+    "tools/easter/CLASSROOM_TARGETS.json": "891ae955f3b06229427a6e1041c463a027032b93f7881865c85747ec4f82c526",
     "tools/easter/EASTER_TARGETS.json": "3f67b567c4d8cd103bc183ac78afcea998a385e2a4e56e5903e2755b4408b89a",
     "tools/easter/GREEN_REFERENCE_DECKS.json": "9bca2e3db355e469df24498bd0543a93826fa180e29b3b8b3d0b440bcef90062",
     "tools/easter/award_browser_fixture.py": "a0980d43cf3e3db7be0478d8c78d1cd26343c0c8964328c4635e1e2cbf2dd29b",
@@ -2682,7 +2682,7 @@ FENCE_PATH = "_sx3/FENCE.json"
 # its digest (a map whose bytes differ is refused, never read) and admits nothing by itself. A
 # repository without the file (the Apps copy of this gate) has no moves to resolve.
 RENAME_MAP_PATH = "tools/catalogue/M1_RENAME_MAP.json"
-RENAME_MAP_SHA256 = "c7b2c270072c06e8975a89efafbec315cdab3d254635a99e95b282ff249deaba"
+RENAME_MAP_SHA256 = "a815038114ff60fb7400d24a880a0a39ce7e678f483c9bd510346a63a6a83ce1"
 
 
 def rename_map(root: Path) -> dict[str, str]:
