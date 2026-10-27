@@ -1326,7 +1326,7 @@ CATALOGUE_PINS = {
         "Science/Teaching_Packs/BUILD/lessons/W8A/BUILD_Science_Autumn1_W8A_Sugar_Evidence_Read_The_Label_Teacher.pdf": "8c9984c7683196b03a8acdf90764d7136f390f4fb0e28211077eb4184311f5a5",
         "tools/downloads/offline_pack_browser.cjs": "017782ecf949ee7c3030c4f872c2c532e0178ccb03cc39c8c636acf257623a95",
         "tools/downloads/prepare_pack_browser.py": "24446fbd47fa0a8b4de2ae1f79185206ecc042ccc72dfcdec8076c3bc38e9ada",
-        "tools/downloads/test_download_pack.py": "b2e56c6cc68ff4c35f4a0d74bf1abbfbd711b6b3a2f1959319715dea8ee6700d",
+        "tools/downloads/test_download_pack.py": "cd5ec2a980f5cd305f4e33d18d4297bd1e75f8b9674f55e10c6f4d37a466ce6e",
         "tools/science_teaching_packs/check_build_sugar_browser.cjs": "f0b3b44a025131f16d2085f26ca7a2d9d19e2dbb58a6d692d309a49f3d3a1f2c",
         "tools/science_teaching_packs/check_build_sugar_pdfs.py": "62f8d1d1989be600374fdae1dbda9c7ebf407711cfb572123a3f9c31c4442a03",
         "Science/Teaching_Packs/web-slides.html": "f31f09d03f5d8c417af1745b38309fa537afb8bb4c6a08f387db3349d9e1cba2",
