@@ -1818,8 +1818,8 @@ CATALOGUE_PINS = {
         "Science/launch-engine/test/print-pack.js": "b3bc74a66cb7057dad9d5f3face9ec24028978e5b85ca0bd5d883709e529fc99",
         "Science/visual-learning/science-visual-learning.css": "94cff82726164d7b1ef7315868ff8cb51eae0bf83bcf5590c838f509ee4e1a93",
         "Science/visual-learning/science-visual-payloads.js": "3f607c6cab15c006a5ac5d74821e01f0edd60c2e081fa1bcaad531ff765a16a0",
-        "BUILD_ASDAN/Autumn2_W1-W6_2026-27/SHA256SUMS.txt": "6d070a8df204e105490e30e6e9016d1dd41cc961bdac58233bc434af20c9b8d3",
-        "BUILD_ASDAN/Autumn2_W1-W6_2026-27/START_HERE_BUILD_ASDAN_AUT2.html": "2347c9535c45aaacd967d0409d3a3a3fbd93bc5ccb6fd8eb2ed8a04b5eb416ef"
+        "BUILD_ASDAN/Autumn2_W1-W6_2026-27/SHA256SUMS.txt": "211b71462d1e9d0907f7ee6adf1d00c49622ed814fb03eb1c15713e1a3c11a06",
+        "BUILD_ASDAN/Autumn2_W1-W6_2026-27/START_HERE_BUILD_ASDAN_AUT2.html": "a319d8f005c7185e5aace0adfa34ceebb9212623bb73719850cbad46deffe7a8"
     }
 }
 # END REVIEWED CATALOGUE PINS
@@ -2087,7 +2087,7 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-10-23 (uf, the two Assembly pages and decks, rulings uf, uh add.1, uf add.3): the carrier moves to Site main c6687cf6, the squash merge of Site #484
 # (window W1: 4 ARRIVING rows, 9 pairs; the usage fence for uf's flight), bumped once and last. Digest derived with sha256
 # over the edited file, never transcribed.
-    "lessons": "6a64f09b08b2796d411521727d28a658edde99ccde8bc314d8c863d2b6d611bc",
+    "lessons": "4bbc7af77882fae973f20961273ea2653370e247173b515ea85991152749f3b1",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
