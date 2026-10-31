@@ -2480,9 +2480,9 @@ WA3_EXACT_SHA256 = {
 
 # RULING yq-1 (30 Oct 2026): the Maker splash re-stamp of the six Play-served Lessons routes (the generated region
 # only, from the Site generator at the splash PR head) and the v6fin workflow whose pins follow that head, by exact
-# digest; nothing else widened.
+# digest; nothing else widened. RULING yu-2 (31 Oct 2026): the v6fin digest follows its runner pin (ubuntu-24.04).
 SPLASH_RESTAMP_EXACT_SHA256 = {
-    ".github/workflows/v6fin-w7-r1-r7.yml": "bf3e716888c7c9939a477870f961a5887fec81cfb11227824e67d2277c8fdadc",
+    ".github/workflows/v6fin-w7-r1-r7.yml": "1c2fe85fec5507897b5ccf77add5d02f78ef3af7c7e35c4b39264723ce14d6a8",
     "2 Physics 10/current_rush.html": "e1ff45336bb91dd7d95d00c47fff9795821f53946934398eb759bf57d94c9b80",
     "5 Intervention 10/InterventionA_Battle_Arena (1).html": "b88a0f9e4c8a40f8f2a7dd1190be77ddfd2b827dde33d99784a39c3bf6ffc8a0",
     "5 Intervention 10/InterventionB_Escape_Room.html": "dff40a1715d981f48c7cd588cdd214ae800c84be9630a663d4ddb418afd14c1a",
