@@ -199,6 +199,14 @@ input[type=text],textarea,select{font-family:inherit;font-size:15px;border:2px s
     <button id="bakB" class="big gold">💾 Backup binder (.zip)</button>
     <button id="restB" class="big">📂 Restore from backup</button>
    </div>
+   <div class="acts" style="margin-top:10px">
+    <button type="button" id="wipeDeviceB" class="warn">Delete all data on this device</button>
+   </div>
+   <div class="acts hidden" id="wipeDeviceBar" style="margin-top:8px">
+    <span class="note" style="color:#b91c1c;font-weight:700">Delete all units, pupils and evidence photos from this browser?</span>
+    <button type="button" id="wipeDeviceYes" class="warn">Confirm delete all data</button>
+    <button type="button" id="wipeDeviceNo">Cancel</button>
+   </div>
    <div class="note" id="storeNote">Everything lives in this browser on this device. Back up weekly and after big capture sessions — the .zip holds every photo and tag and restores the lot.</div>
   </div>
  </div>
@@ -473,6 +481,7 @@ function canvasJpeg(c){
 /* ===================== IndexedDB ===================== */
 var DBP=null;
 function db(){
+ if(window.name==="mbm_wiped_evbinder")window.name="";
  if(DBP)return DBP;
  DBP=new Promise(function(res){
   try{
@@ -980,12 +989,29 @@ function init(){
  $("bakB").onclick=doBackup;
  $("restB").onclick=function(){$("zipFile").click();};
  $("zipFile").addEventListener("change",function(){if(this.files.length)doRestore(this.files[0]);this.value="";});
+ $("wipeDeviceB").onclick=function(){$("wipeDeviceBar").classList.remove("hidden");$("wipeDeviceYes").focus();};
+ $("wipeDeviceNo").onclick=function(){$("wipeDeviceBar").classList.add("hidden");$("wipeDeviceB").focus();};
+ $("wipeDeviceYes").onclick=async function(){
+  URLS.forEach(function(u){URL.revokeObjectURL(u);});URLS.clear();
+  PEND.forEach(function(p){if(p.thumbUrl)URL.revokeObjectURL(p.thumbUrl);});PEND=[];
+  META={units:[],pupils:[],teacher:"",school:""};ITEMS=[];
+  try{localStorage.clear();}catch(e){}
+  try{sessionStorage.clear();}catch(e){}
+  try{if(window.caches&&typeof caches.keys==="function"){var ks=await caches.keys();await Promise.all(ks.map(function(k){return caches.delete(k);}));}}catch(e){}
+  if(DBP){try{var d=await DBP;if(d)d.close();}catch(e){}DBP=null;}
+  var dbs=new Set(["evbinder"]);
+  try{if(indexedDB.databases){var list=await indexedDB.databases();list.forEach(function(x){if(x&&x.name)dbs.add(x.name);});}}catch(e){}
+  for(var n of dbs){await new Promise(function(r){try{var rq=indexedDB.deleteDatabase(n);rq.onsuccess=rq.onerror=rq.onblocked=function(){r();};}catch(e){r();}});}
+  window.name="mbm_wiped_evbinder";
+  location.reload();
+ };
  $("evClose").onclick=closeEv;
  $("evSaveB").onclick=saveEv;
  $("evDelB").onclick=delEv;
  $("helpB").onclick=function(){$("helpModal").classList.add("open");};
  $("helpClose").onclick=function(){$("helpModal").classList.remove("open");};
  ["evModal","helpModal"].forEach(function(id){$(id).addEventListener("click",function(e){if(e.target===this){if(id==="evModal")closeEv();else this.classList.remove("open");}});});
+ if(window.name==="mbm_wiped_evbinder"){renderSetup();renderTagCard();return;}
  /* load persisted data */
  metaLoad().then(function(m){
   if(m)META=m;
