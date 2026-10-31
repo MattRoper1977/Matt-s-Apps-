@@ -1,0 +1,43 @@
+name: Teacher upgrade contract
+
+# Manual only. This workflow is deliberately NOT wired to push or pull_request:
+# it is an on-demand regression harness for the retained QA pack, not a gate on
+# everyday commits. Run it from the Actions tab when the teacher workflow layer,
+# Data Manager Studio or the QA pack itself is touched.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Run contract and browser checks
+        working-directory: qa/teacher-upgrade
+        run: python tools/run_all_checks.py --browser
+      - name: Verify applied checkout
+        run: python qa/teacher-upgrade/tools/verify_teacher_upgrade.py .
+      - name: Upload measured reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: teacher-upgrade-reports
+          path: |
+            qa/teacher-upgrade/reports/*.json
+            qa/teacher-upgrade/reports/*.png
+          if-no-files-found: warn
