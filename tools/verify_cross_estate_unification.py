@@ -129,7 +129,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
         "tools/verify_lessons_chips.mjs": "e417afd94ae4f3a450caab2edf4b6c41d14e4588f070d0ad822263e30a86cf39",
         "tools/sw2/check_tokens_inert.cjs": "33823bd953868f19cff4b1427550245fb12d46406df22572456c5a358b6e2707",
-        "assets/catalogue/lesson-order.json": "40349c49b3f36b14d4af5eb8b66a4657ecfb1ecc332f23e04820d6a8c9dbf79c",
+        "assets/catalogue/lesson-order.json": "1b673c53a0ecba3ba8bc6eb08e133e65fefa017d9bb20eaa626f9822eb6f9927",
         "tools/catalogue/build_lesson_order.py": "35a4c54779b800ae8bd949154d0d19fddb190f49ec18e62efdd86d03313f6180",
         "tools/ux2/hub_gates.mjs": "3d3120df94b1789041370c4045fbcc983635af0b30a0705447f18371bed98944",
         "index.html": "bdca62dc5f92062c975287eb4be29314eab55dff7991bdba83c8e24840f805db",
@@ -247,7 +247,7 @@ CATALOGUE_PINS = {
         "tools/humanities_resources/check_resources.py": "ec5383e3a34cbff999f190b0014a4a73e00a3a29e2714498f7620fd638dc2aa5",
         "tools/humanities_resources/resource.css": "1aed9aaca0d73a4b200c4e5d0977e73f4e906c747d7340c7a62f4197a8344bae",
         "tools/humanities_resources/resource.js": "ad40afed95490bfcce92dc062da46e1b27bcb96bdc80e37eabdfe02bf6ffc446",
-        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "95a6de461262f99ff44bc4a70583267567431a911f3fe7628357c763223f1359",
+        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "f7a86bdfc928c2a86bd5820939d0457ed726e9f99f052e957a8c4f809088374a",
         "tools/catalogue/TERM_REVIEW.json": "19691de91df379d5fdcdc7a5efc00a844f1984532692cd504167860e34066d62",
         "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "fad73262b65e266242917df8d80012cc5951750d7af29ee5e4a5eb42cbe79913",
         "primary/year5/science/autumn/forces/Lesson8_ExploreGravity.html": "20047720bf1d309055abdf232d341b6fd99b833631efa0bcbfb3dabed9671196",
@@ -781,7 +781,7 @@ CATALOGUE_PINS = {
         "LundyLoop/4_send_and_pupils/Pupil_Feedback_OnePagers.html": "0637643812d9b63bf4c25939d8c4516255d33ef6dae78a821328752a5a523b67",
         "LundyLoop/4_send_and_pupils/SEND_Overlay.html": "2916475db946e788fa65bba3a5f2f5b291dd749309ad26787f84e14c37149f71",
         "LundyLoop/5_staff_training/INSET_Twilight_25min.html": "3a31ce1783b035f1fee14105561291d7322dcca06899425db31b73c09c233f86",
-        "LundyLoop/5_staff_training/R_Gate_Calibration_Game.html": "e4a730dc50ee1cb55881b51fc9ffc894a65fb4e77d94b7b233c5a0f81e879e26",
+        "LundyLoop/5_staff_training/R_Gate_Calibration_Game.html": "c179e90ee52bca217c473a1d752237e792a57818b750b71c5840832a5e421586",
         "LundyLoop/5_staff_training/TA_Card_Lundy_Loop_Progress.html": "562923adf14c2bee395d735e87097487038cbede4b37552ed11f92402caa3f61",
         "LundyLoop/5_staff_training/calibration_examples.html": "b7e32613bc33befac9128e11fafd1377c58fc5ca7c81ec77fe76f3d5bb649251",
         "LundyLoop/5_staff_training/five_minute_briefing.html": "a645118122686cc1e1a1aac3ce259abdd87bdb7aa6f7dda5efbbaa53607169be",
@@ -2087,7 +2087,10 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-10-23 (uf, the two Assembly pages and decks, rulings uf, uh add.1, uf add.3): the carrier moves to Site main c6687cf6, the squash merge of Site #484
 # (window W1: 4 ARRIVING rows, 9 pairs; the usage fence for uf's flight), bumped once and last. Digest derived with sha256
 # over the edited file, never transcribed.
-    "lessons": "4bbc7af77882fae973f20961273ea2653370e247173b515ea85991152749f3b1",
+# Re-cut 2026-10-30 (the Maker splash Lessons chain, rulings yp-3, yq-2, yq-4): the carrier moves to the head of the Site splash
+# admission PR, PROVISIONAL until that PR's squash merge, when it is re-cut once more. Digest derived with sha256 over the edited
+# file, never transcribed.
+    "lessons": "8c945925aac46ed8bcca020c5afbb9f86d2247e54a500d5d7253e2832aebc1ea",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
@@ -2475,8 +2478,23 @@ WA3_EXACT_SHA256 = {
 }
 
 
+# RULING yq-1 (30 Oct 2026): the Maker splash re-stamp of the six Play-served Lessons routes (the generated region
+# only, from the Site generator at the splash PR head) and the v6fin workflow whose pins follow that head, by exact
+# digest; nothing else widened. RULING yu-2 (31 Oct 2026): the v6fin digest follows its runner pin (ubuntu-24.04).
+SPLASH_RESTAMP_EXACT_SHA256 = {
+    ".github/workflows/v6fin-w7-r1-r7.yml": "1c2fe85fec5507897b5ccf77add5d02f78ef3af7c7e35c4b39264723ce14d6a8",
+    "2 Physics 10/current_rush.html": "e1ff45336bb91dd7d95d00c47fff9795821f53946934398eb759bf57d94c9b80",
+    "5 Intervention 10/InterventionA_Battle_Arena (1).html": "b88a0f9e4c8a40f8f2a7dd1190be77ddfd2b827dde33d99784a39c3bf6ffc8a0",
+    "5 Intervention 10/InterventionB_Escape_Room.html": "dff40a1715d981f48c7cd588cdd214ae800c84be9630a663d4ddb418afd14c1a",
+    "5 Intervention 10/L8a_Powerhouse_Arena_TeamQuiz.html": "a3f0bb213abfedc2380e2cf7f94e6547ccb90ee303308765e70f5a9f4abd1ef8",
+    "5 Intervention 10/Lesson_VIR_Pupil_App.html": "d856b5dceafd9419fc19877f8b5d9674e57059a950eeefe2890341b3695ccfad",
+    "Summer Term Fun/Kids_vs_Staff_Studio_Game_Show_v8_Autopilot.html": "4cb52560f2e072c7effe6588d27c1d2965cf0aee32822a3dbc29a23ed45236cb"
+}
+
+
 def exact_byte_admitted(root: Path, changed: set[str]) -> set[str]:
-    exact = {**SCHEME_SOURCE_EXACT_SHA256, **M1_RENAME_EXACT_SHA256, **WB1_MOVED_EXACT_SHA256, **WA3_EXACT_SHA256}
+    exact = {**SCHEME_SOURCE_EXACT_SHA256, **M1_RENAME_EXACT_SHA256, **WB1_MOVED_EXACT_SHA256, **WA3_EXACT_SHA256,
+             **SPLASH_RESTAMP_EXACT_SHA256}
     return {rel for rel in changed if rel in exact and (root / rel).is_file()
             and digest(root / rel) == exact[rel]}
 
