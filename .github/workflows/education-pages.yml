@@ -29,6 +29,9 @@ jobs:
     # cfc92e845b109459c6f384603f254ecdd26b6035, the squash merge of Site #478 -- the builder Lessons already publishes with,
     # so one builder and one admission registry cover both estates (the Apps index menu follows the adult-surfaces
     # record: 0/0/1). SHA read with git rev-parse on the Site checkout, never typed.
-    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@cfc92e845b109459c6f384603f254ecdd26b6035
+    # Moved 2026-11-01, the carrier of Merge Letters A1-A6 (LD28 standing step): the Apps publisher pin cfc92e84 ->
+    # e25aa76a2e1411f85239d310222bc868d2a0c665, the squash merge of Site #533 (following #525, #529, #528, #531, #527, #532) -- advances
+    # the Apps builder pin to match Lessons so one builder and one admission registry cover both estates. SHA read with git rev-parse, never typed.
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@e25aa76a2e1411f85239d310222bc868d2a0c665
     with:
-      builder_ref: cfc92e845b109459c6f384603f254ecdd26b6035
+      builder_ref: e25aa76a2e1411f85239d310222bc868d2a0c665

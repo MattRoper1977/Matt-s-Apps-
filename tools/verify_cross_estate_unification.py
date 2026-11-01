@@ -128,7 +128,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/check_display_titles.cjs": "5d06689114a69124a2d7f59d644a85775756eadd2b470df01e066c2202df681b",
         "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
         "tools/verify_lessons_chips.mjs": "e417afd94ae4f3a450caab2edf4b6c41d14e4588f070d0ad822263e30a86cf39",
-        "tools/sw2/check_tokens_inert.cjs": "33823bd953868f19cff4b1427550245fb12d46406df22572456c5a358b6e2707",
+        "tools/sw2/check_tokens_inert.cjs": "30e997c71a97df341093958790c290f2be4a17a386bb9a8820c5b52a0d514bfa",
         "assets/catalogue/lesson-order.json": "40349c49b3f36b14d4af5eb8b66a4657ecfb1ecc332f23e04820d6a8c9dbf79c",
         "tools/catalogue/build_lesson_order.py": "35a4c54779b800ae8bd949154d0d19fddb190f49ec18e62efdd86d03313f6180",
         "tools/ux2/hub_gates.mjs": "3d3120df94b1789041370c4045fbcc983635af0b30a0705447f18371bed98944",
@@ -143,9 +143,9 @@ CATALOGUE_PINS = {
         "tools/sw2/pack_notes.py": "a81a187002a69bcecca28c9c3130f546e1aae279d5af92cf750a6f9fb04c8fe6",
         "tools/sw2/stamp_pack_page.py": "7d751c25a0a00a1602388537df236c0f79dee6facd31be15fc6e7bce38512149",
         "tools/sw2/check_pack_page.cjs": "89f6a087381c5a34342dc5738f67ad0a3d9f4bc8cfb684da451125617a606235",
-        "subject.html": "d378bfb85ad8cd885a725e584316813a872c29a637a210b8893ed53c5d2dc034",
-        "assets/catalogue/hub.js": "42174b11bc00109778d1529c9425e18c51140572a543137ff9d7c846e67dfdc3",
-        "assets/catalogue/hub.css": "77f9ce0f6defd2abe8bb59ee5d4c1ccbd6117579610a57f320b9b5949ac1ef59",
+        "subject.html": "68516fcba874a3751b8825455c57de185ac5a90fb0d77eb99becfea23d808ff9",
+        "assets/catalogue/hub.js": "c8b4d0c04678ae527a339ce6ad1b7f4db58b4d5d16d110e2ad94c8fe7d47f9ac",
+        "assets/catalogue/hub.css": "4bbfa8cb449ee9e022fe70df48b4d15cf1faab7e81bb09e8f6985a65a91fded6",
         "data/calendar-spine.json": "d199474b13c9d340add2c87165396d83712b0f1c9f8bd03b7b12e8fdf6af0d61",
         "Humanities/David_Cover_Autumn1_W3-W7/index.html": "4e25eb9ca8f9f93c720d88d945f3d6d79580f3362a88698fe7af75d146f01e96",
         "assets/catalogue/catalogue.css": "59abee137c41a8a015e42cf0b32d20b7f4e5fc8e3d236a1cd735322386bf8569",
@@ -2087,7 +2087,8 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-10-23 (uf, the two Assembly pages and decks, rulings uf, uh add.1, uf add.3): the carrier moves to Site main c6687cf6, the squash merge of Site #484
 # (window W1: 4 ARRIVING rows, 9 pairs; the usage fence for uf's flight), bumped once and last. Digest derived with sha256
 # over the edited file, never transcribed.
-    "lessons": "4bbc7af77882fae973f20961273ea2653370e247173b515ea85991152749f3b1",
+# Re-cut 2026-11-01 (Merge Letters A1-A6, LD28 standing step): the carrier moves to Site main e25aa76a, the squash merge of Site #533.
+    "lessons": "11bf4b1f7f2526acc7cfe081481fc17d8459b8ee6eb626801a4b654b97615634",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
@@ -2096,7 +2097,9 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-10-22 (ruling ty, ty-2, option A): the Apps repository moves its own publisher pin d250bfea -> cfc92e84,
 # the squash merge of Site #478 and the builder Lessons already publishes with, so its caller file changed. Digest
 # derived with sha256 over the edited file, never transcribed.
-    "apps": "041e3a27806eab5bd10b33bf15010c2ccd7271d0b270ba2b1c7f870c8312d00f"
+# Re-cut 2026-11-01 (Merge Letters A1-A6, LD28 standing step): the Apps repository moves its own publisher pin cfc92e84 -> e25aa76a,
+# the squash merge of Site #533. Digest derived with sha256 over the edited file, never transcribed.
+    "apps": "7823f26e59b1e4d8059aff5eafa7cf9691a0de6f9c49dc664c85c960da71b02c"
 }
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
@@ -2113,7 +2116,7 @@ LUNDYLOOP_CI_PINS = {
     # Re-cut 2026-10-22 (ruling ty, ty-2, option A): PUBLISHED re-derived from the Site cfc92e84 registry, the one
     # builder both estates now publish with (lessons "" d74addfa, subject.html b2a6f3cb, apps "" 53d82c52); digest
     # taken from the edited file, never typed.
-    "tools/sw2/check_tokens_inert.cjs": "0ee056becb3381f4a07b98ef263a5f54a77362c29c87864240e5363b2be51549",
+    "tools/sw2/check_tokens_inert.cjs": "2cbb482b66a72cbba628fba80b8fbdd431553356c95a66d36614fa35189d6434",
     ".github/workflows/verify-lundyloop-professional-os.yml": "db2f0404944884869d84349a68b80858f81af8dbfb7eb64ddec71151f7928256",
     "tools/lundyloop/verify_live_bytes.py": "a27f791633260e7e2d8ba7ca2abe5a35db105b9ccbf96d26205628dcc1e636ad",
     "tools/lundyloop/test_live_bytes.py": "972ca2ae06da44722bfd011fda03a361c6011c699f95bb6ce78bca95b71f2e77"
