@@ -2087,7 +2087,8 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-10-23 (uf, the two Assembly pages and decks, rulings uf, uh add.1, uf add.3): the carrier moves to Site main c6687cf6, the squash merge of Site #484
 # (window W1: 4 ARRIVING rows, 9 pairs; the usage fence for uf's flight), bumped once and last. Digest derived with sha256
 # over the edited file, never transcribed.
-    "lessons": "4bbc7af77882fae973f20961273ea2653370e247173b515ea85991152749f3b1",
+# Re-cut 2026-11-01 (Merge Letters A1-A6, LD28 standing step): the carrier moves to Site main e25aa76a, the squash merge of Site #533.
+    "lessons": "11bf4b1f7f2526acc7cfe081481fc17d8459b8ee6eb626801a4b654b97615634",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
@@ -2096,7 +2097,9 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-10-22 (ruling ty, ty-2, option A): the Apps repository moves its own publisher pin d250bfea -> cfc92e84,
 # the squash merge of Site #478 and the builder Lessons already publishes with, so its caller file changed. Digest
 # derived with sha256 over the edited file, never transcribed.
-    "apps": "041e3a27806eab5bd10b33bf15010c2ccd7271d0b270ba2b1c7f870c8312d00f"
+# Re-cut 2026-11-01 (Merge Letters A1-A6, LD28 standing step): the Apps repository moves its own publisher pin cfc92e84 -> e25aa76a,
+# the squash merge of Site #533. Digest derived with sha256 over the edited file, never transcribed.
+    "apps": "7823f26e59b1e4d8059aff5eafa7cf9691a0de6f9c49dc664c85c960da71b02c"
 }
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
