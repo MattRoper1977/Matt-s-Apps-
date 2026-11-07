@@ -103,7 +103,7 @@ MANIFEST_PINS = {
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
-    "resources.json": "fc5ef8d29224f1f9535d04859beb90a6238aa48c54f4f4fdc8bcfb4479e52fa5"
+    "resources.json": "812cfdc42da91315186ddaaf4e3ce115058c3878b13d79aae6c9d668c1f5876c"
 }
 PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it writes both gate copies or neither)"
 
@@ -129,7 +129,7 @@ CATALOGUE_PINS = {
         "tools/catalogue/check_display_titles_browser.cjs": "5662cdb93c7796ead4fb9bb69ce94ac65fe1e29e103f00c65bd07a4d5129a7cd",
         "tools/verify_lessons_chips.mjs": "e417afd94ae4f3a450caab2edf4b6c41d14e4588f070d0ad822263e30a86cf39",
         "tools/sw2/check_tokens_inert.cjs": "30e997c71a97df341093958790c290f2be4a17a386bb9a8820c5b52a0d514bfa",
-        "assets/catalogue/lesson-order.json": "dbca76eb0f8b4b60c79b02ba7727d78c4313dfb3a41872406f79bad5fbee170f",
+        "assets/catalogue/lesson-order.json": "edeb4afabf7886e752627c5f2510481b50338cd6065b076c071f5ba28b8c71ec",
         "tools/catalogue/build_lesson_order.py": "35a4c54779b800ae8bd949154d0d19fddb190f49ec18e62efdd86d03313f6180",
         "tools/ux2/hub_gates.mjs": "3d3120df94b1789041370c4045fbcc983635af0b30a0705447f18371bed98944",
         "index.html": "bdca62dc5f92062c975287eb4be29314eab55dff7991bdba83c8e24840f805db",
@@ -153,7 +153,7 @@ CATALOGUE_PINS = {
         "assets/catalogue/lesson-navigation.js": "42e579bbef3940c24ca4360319290820305a777330b8bff79152b2cb6aa077e3",
         "assets/catalogue/science-shelf.css": "b2b1eb328662d841add139ccfff107f985f17373f1ee82b8762475663097ab60",
         "assets/catalogue/science-shelf.js": "a59fe0c988a5de7d614afc6a36d7dacf14c6e3fa92c732740442e4914d00f356",
-        "assets/catalogue/terms-and-styles.json": "3e4a721a4dd70c04ae7046c01ba168b816b8f5ee8d4fbe27ada8058b8d804a38",
+        "assets/catalogue/terms-and-styles.json": "86e171979b25c6dcb1516e7433a2cca59cfe8aaefc18abf25f37587215fec257",
         "assets/catalogue/science-shelf.json": "6bfcac8579a72f8413e158b49460a8b853f284b8dc64bd4da4442c37e92edadf",
         "assets/catalogue/humanities-shelf.json": "3f6a3583f3658b79a544aeef27a778a283069e4842d763cb95728a703669d9a7",
         "tools/catalogue/build_catalogue.py": "4eff91f7ace9073a6612035c33e8556875d6165da83876ae5ec20a6ec11a15a8",
@@ -247,7 +247,7 @@ CATALOGUE_PINS = {
         "tools/humanities_resources/check_resources.py": "ec5383e3a34cbff999f190b0014a4a73e00a3a29e2714498f7620fd638dc2aa5",
         "tools/humanities_resources/resource.css": "1aed9aaca0d73a4b200c4e5d0977e73f4e906c747d7340c7a62f4197a8344bae",
         "tools/humanities_resources/resource.js": "ad40afed95490bfcce92dc062da46e1b27bcb96bdc80e37eabdfe02bf6ffc446",
-        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "02844207cf9de3e439ceb7baabe247d9000144cc6c46362b1df5f2ee7ad83d2c",
+        "tools/catalogue/TERM_AND_STYLE_EVIDENCE.json": "3e924b0c434c3c25340a720568607a0be0a26ab30cdd93ac976859d717cabaac",
         "tools/catalogue/TERM_REVIEW.json": "9395de4c2803a7bc2a679cf0659c9df3c41c01e5ac60c0a2d39249414bc12de8",
         "tools/catalogue/SCIENCE_WEEK_BINDINGS.json": "9fa98ad78b0bd3c3f3ee15f88a7b2fd40eea810e6c9fb65ee93b3c5192888071",
         "primary/year5/science/autumn/forces/Lesson8_ExploreGravity.html": "20047720bf1d309055abdf232d341b6fd99b833631efa0bcbfb3dabed9671196",
@@ -751,7 +751,7 @@ CATALOGUE_PINS = {
         "LIVETEACH_RESIDUE.md": "5a18069638e4bbfb6a4da111f68e4ac3a17f5de4c8aead731d718f794d89e400",
         "404.html": "e899e06d5908fd29dbf3a1011f8e7e7c5c46b216a73a19835c4197b6431c58cc",
         "Build/README.txt": "84aa743004ececee3d3e9aedc295f0afc0f686124dd1b2f2f422b38c7b282a61",
-        "Games/WorldCup_ThreeLions_Final.html": "ca6281bf6ac5e0d9eb1d7d10b14ceb75b38f07fece140a6523b24ea070f3f581",
+        "Games/Cup_Final.html": "ba96143c03cde6a4b6c0e54b7e0b478877fde1070ef03051c7965c5dc6d1aa68",
         "Grow/README.txt": "9c2c46c4ebfb56c1ae99c7c20ee2bb73a623a3525c8f3daedf718599b7e7cfc6",
         "HANDOVER.md": "b2e4979f17db2ac9dcf2ed8eeb3461ffbdba19ad8713a40b33388132c18381ce",
         "Humanities/BUILD_Scheme_of_Work.html": "2c66d10240492b848d6242d261f1e7a9cdc1f8b756c718f27ad4fbdabce64a31",
@@ -2117,7 +2117,17 @@ CATALOGUE_PINS = {
         "Science/Launch/Autumn_2_2026-27/SCI_LAUNCH_A2_W06/SHA256SUMS.txt": "1ae3805c80be3385c4ee26557738280fedeb7dec19c92fa824169ec0e344fd7e",
         "Science/Launch/Autumn_2_2026-27/SCI_LAUNCH_A2_W07/SHA256SUMS.txt": "a93030ccf4007c432cdac237ce9a693ce851507017863695f7dc5ca69653a647",
         "Vocational/Build/Autumn_2_2026-27/SHA256SUMS.txt": "2643ae91aa146e131a03d38eb89b4f452b0fbd169440b9ee501f75428e2647b2",
-        "Vocational/Launch/Autumn_2_2026-27/SHA256SUMS.txt": "ed3a712eb6d8e82e342421a4504da23359a1e0a9479591493d80c4ce9d8e0fc4"
+        "Vocational/Launch/Autumn_2_2026-27/SHA256SUMS.txt": "ed3a712eb6d8e82e342421a4504da23359a1e0a9479591493d80c4ce9d8e0fc4",
+        "Games/WorldCup_ThreeLions_Final.html": "59db6f0836e8742f340809e4ad9c3356945dbacf576fb574ef48f6965539171e",
+        "Games/WorldCup_v3_MatchDirector.html": "3bb61364be4958141b6037eeb5836eb35977b3c3df2224b140db43a03fa30599",
+        "Games/WorldCup_v5_Showdown.html": "83dd41c8867ddf24781b3c8a090ac238139199ea1d3955cfa891f87e55ccda5a",
+        "Games/voxelcraft.html": "fa31992db8bf3d3a77a23740e2554d880b960146fcc3d594bee2714e04ba6a76",
+        "Games/Match_Director.html": "cf114ae9313c06c4b555fcfff4a49e2fc919dafbbde5a1c34f9474889ca28f74",
+        "Games/Cup_Showdown.html": "07796c9e918a214234cee74fdddc15449097f881a7816b144f874b730570bed0",
+        "Games/Block_Builder.html": "6241089e5c0f2071faa3729323edad42183144943468a8c8e0a67bad563fc409",
+        "5_6 Local Choice/index.html": "5fd8687fe8f818e28405120b1e633bfaedfa6c2a3652a1238dbaa42def833c00",
+        "tools/verify_games_offline_runtime.mjs": "0a728df9507068bb93ca4e0fccf7ac481b317e8f6ea67ee4216b3ca501349cb6",
+        "tools/verify_playable.mjs": "92be84f1cae169a53a688c6322e02202d226b2f1c6c6661cf24c8549fed95f9e"
     }
 }
 # END REVIEWED CATALOGUE PINS
@@ -2128,7 +2138,7 @@ CATALOGUE_PINS = {
 # Ruling qp-2 (A-wide, os-4, 11 Oct 2026): the original rows are 734 plus the 21 reviewed rows the A19/A24
 # catalogue refresh interleaves (additive: with them taken out, the 734 are in their reviewed order, unedited).
 CATALOGUE_ORIGINAL_ROWS = 755
-CATALOGUE_ORIGINAL_ROWS_SHA256 = "d4714b20bc0de0732d1dd33e449280b8b42fd0a033b830c7b169b7f538430717"
+CATALOGUE_ORIGINAL_ROWS_SHA256 = "431354c16974f70317db728a2f5de209ec4fc54762fc1ec0da57242ceb2efea7"
 # The appended rows are the 49 reviewed hub rows followed, since UX2 D3
 # (2026-09-08), by the companion-pack entries DERIVED from
 # data/companion-packs.json by tools/ux2/companion_catalogue.py. The count and
