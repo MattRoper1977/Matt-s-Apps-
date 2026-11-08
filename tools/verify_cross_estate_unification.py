@@ -235,7 +235,7 @@ CATALOGUE_PINS = {
         "Science/Grow/W8-W13_2026-27/SCI_G_W9_Turn_Earth_explain_the_sky_Classic.html": "178c695fe2dc166a80abfd26e41174e28ecfa39d4700db0870d7ee27bbffd6e8",
         "Science/Build/W8-W13_2026-27/SCI_B_W12_Give_a_rock_a_job_Classic.html": "509f38056bd09e903c70b0426ac55ab7ff73f7da10261a97eec11d49d7b27d1c",
         ".github/workflows/glv3-verify.yml": "4bf27ca7471a21359e35d1bc7277c5fa0adeb5f31a47c769f192165796037088",
-        "_glv3/tools/verify_change_boundary.py": "a198447513d431cf88416211736c20be720d0189722a6901ec02592a1f549d3a",
+        "_glv3/tools/verify_change_boundary.py": "720fc90defb12858d832296e3425c87d61bdd430cf58a22142ed1402061c67d6",
         "_glv3/tools/browser_verify.mjs": "737ad30f297e061407161743f017614179cc6c56f1c9a3904bbe7c98df38c888",
         "_glv3/tools/chip_gate.mjs": "16cdd5c0ad3745c57340ed0ec6a208d221e4793bfc9b1cd9bc703a6c2613dd9a",
         "_glv3/tools/catalogue_membership.mjs": "4d7ab03e23ee0d3c3fc934f4f0a901afc61169754db099f4f5c24dd9cce058ec",
@@ -995,7 +995,7 @@ CATALOGUE_PINS = {
         "Humanities/Teaching_Packs/HUM_00_SoW_and_Order/ORDER_HUM-D5.md": "688b3f5dcc60f6c0cd9c68e2cb2cb7c756ab834e9956c4b20b37982f749c88d4",
         "Humanities/Teaching_Packs/HUM_00_SoW_and_Order/RE_SOW_Alignment.xlsx": "b1ce56c551520fb360ea06e68c59c1642556337474526c38fb539a36296c2aa8",
         "Humanities/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Autumn_2026.docx": "3c2fe9ef4e4cd27361d76c4bb07234d4fe5eed8be40bcdbf1d1133b4632dd9a7",
-        "Humanities/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Autumn_2026.html": "db14cd57b5e5e776595439a8fce0a90f1b2794d7a0cab517b9826ebb94edbaea",
+        "Humanities/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Autumn_2026.html": "774b57b7f0bd57b7382a9f30da10d4d77b93953ff91d79d64548dd6a0fb906d9",
         "Humanities/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W01/BUILD_A1_W01_Captioned_Model.mp4": "8fa5f6ba3f6b7210d48a37277125eba44ff69843e7f6875177e6bc28eb6747bd",
         "Humanities/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W01/BUILD_A1_W01_Editable_Pack.docx": "ba4218c0c930bdad13c95b796c7279bc26f713d78a412349e5d47f6724cd5ecb",
         "Humanities/Teaching_Packs/HUM_Autumn_1_BUILD_GROW_Fallback/BUILD/Autumn_1/W01/BUILD_A1_W01_Editable_Slides.pptx": "cfda24ab774a2a5c2a742afdef594663ce9a854aa8a12694fd0ff6db6326b987",
@@ -1557,7 +1557,7 @@ CATALOGUE_PINS = {
         "Humanities/Teaching_Packs/RE_Spring_1_GROW_Reviewed/SHA256SUMS.txt": "80bb4cc4d430e3b110781c1870a6454f48cf2e56fe4c1759f038594d3ede2d8a",
         "Humanities/Teaching_Packs/RE_Spring_1_LAUNCH_Reviewed/SHA256SUMS.txt": "c4feb606541eff53b17a5e6d793f87d78c61d73caf6858944ffdb0db8d710d22",
         "Humanities/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Spring_1_2026.docx": "7bb5fe5fc1c72b12b472e9a3019f1b7bad7109f701698acf5a413587e99ff70c",
-        "Humanities/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Spring_1_2026.html": "f001f1d7baa5f0d3338287c02e1877f16b616b5f3f181121be6917d8ab7afedc",
+        "Humanities/Teaching_Packs/HUM_00_SoW_and_Order/RE_Scheme_of_Work_Spring_1_2026.html": "ee4e98a047de8ae7eadd7de1e254ef83ea811e0fb4c95dd313b683c5e9906e7d",
         "GROW_ASDAN/Community_Project/START_HERE.html": "1ca02932fbeafb09930d3dd68ea03248d39e58b4aa0b00cd18632c452c6c5801",
         "BUILD_ASDAN/FoodWise/Teaching_Packs/BUILD/SHA256SUMS.txt": "801425aa43631264b8e5288d7eabb3bff6f972c5e88263c57572ea97545633db",
         "BUILD_ASDAN/FoodWise/Teaching_Packs/DOWNLOADS_MANIFEST.json": "a913269f3d35d03f3c67eed19500da122937655e4956ce5c3b90af87076f4b30",
@@ -3331,7 +3331,9 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-11-08 (owner pin edit on the Autumn 1 AAA lesson branch): the carrier moves to Site main 1b215d2d, the merge of Site #616 (admission of the files Lessons #822 adds and changes). Re-cut from the caller bytes.
 # Re-cut 2026-11-08 (owner pin edit cc40d39c on the Science Autumn 1 list-fix branch): the carrier moves to Site main 0ac6944b, the merge of Site #617 (admission of the list fix: subject.html, terms-and-styles.json, the 15 unlisted SUMMIT pages).
 # Re-cut 2026-11-08 (owner pin edit b91dcad6 on the Week 2 QR-page branch): the carrier moves to Site main 5d40754c, the merge of Site #619 (admission of the Week 2 QR-page edits); the caller digest is re-cut from those bytes.
-    "lessons": "dfc8ecadd461abb9c76e480851134eff493f6d0b0abf6918ba468fecafc80582",
+# Re-cut 2026-11-08 (owner pin edit on this branch): the carrier moves to Site main 85b7bb5c, the merge of Site #621 (registry baseline for the Autumn 2 landing and the scheme-of-work label admission, after Site #620 admitted the Autumn 2 pages); the caller digest is re-cut from the owner's committed bytes (both pin lines moved, one trailing blank line).
+# Pre-cut 2026-11-08 (owner pin edit on this branch): the carrier moves to Site 4288540e, the head of Site #622 (the publisher build job timeout raised from 15 to 30 minutes, the only change on top of Site main 85b7bb5c); the Autumn 2 publication run was cancelled twice by the 15-minute limit while its admission proof was passing. Pre-cut for both pin lines moved and nothing else changed; re-cut from the owner's committed bytes if they differ.
+    "lessons": "7a7167cfb533961cfe2ad4e677378393abcda9fc1de7b6916b521289046a91ad",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
