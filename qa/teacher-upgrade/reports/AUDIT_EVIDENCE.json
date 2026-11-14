@@ -1,0 +1,93 @@
+{
+  "format": "made-by-matt-apps-teacher-audit-evidence",
+  "version": 1,
+  "auditedAt": "2026-08-05",
+  "repository": {
+    "name": "MattRoper1977/Matt-s-Apps-",
+    "branch": "main",
+    "head": "c69895423ecaaf4fa859bd6fef6bc717d2a94863",
+    "writesMade": false
+  },
+  "measured": {
+    "trackedArtefacts": 34,
+    "htmlPages": 30,
+    "localAppPages": 27,
+    "catalogueEntries": 30,
+    "catalogueLocalTargets": 27,
+    "catalogueExternalTargets": 3,
+    "localStorageWriters": 23,
+    "indexedDBWriters": 3
+  },
+  "sourceFindings": [
+    {
+      "id": "evidence-outcome-positional-identity",
+      "severity": "high",
+      "file": "Evidence_Binder.html",
+      "finding": "Outcome IDs are preserved by array position, so reordering unchanged lines can change the wording associated with evidence-linked IDs.",
+      "proposedControl": "Preserve IDs by normalised wording, same-position fallback for deliberate edits, reject duplicates and block removal of linked IDs."
+    },
+    {
+      "id": "evidence-unit-orphaning",
+      "severity": "high",
+      "file": "Evidence_Binder.html",
+      "finding": "Deleting a unit with linked evidence leaves the evidence stored but removes its unit context.",
+      "proposedControl": "Block deletion while linked evidence exists."
+    },
+    {
+      "id": "independent-rosters",
+      "severity": "medium",
+      "files": ["Classroom_Toolkit.html", "Seating_Studio.html", "Rubric_Studio.html"],
+      "finding": "Each app maintains an independent name list without a shared stable learner ID.",
+      "proposedControl": "Versioned shared roster with stable IDs and explicit adapters."
+    },
+    {
+      "id": "rubric-evidence-disconnect",
+      "severity": "medium",
+      "file": "Rubric_Studio.html",
+      "finding": "Rubric marks and feedback cannot be queued as a structured review draft in the evidence workflow.",
+      "proposedControl": "Assessment-decision hand-off with not-assessed default and staff review."
+    },
+    {
+      "id": "hub-count-drift",
+      "severity": "low",
+      "files": ["index.html", "README.md", "apps.json"],
+      "finding": "Manual claims of 28 and 23 tools do not match the 30-entry catalogue.",
+      "proposedControl": "Remove manual counts from prose and derive display totals from apps.json."
+    },
+    {
+      "id": "suite-health-retired-parser",
+      "severity": "high",
+      "file": "suite-health.html",
+      "finding": "The checker searches index.html for retired inline f:\"...\" records after the catalogue moved to apps.json.",
+      "proposedControl": "Read apps.json directly and fail an empty catalogue."
+    }
+  ],
+  "officialSourcesChecked": [
+    {
+      "framework": "AQA Unit Award Scheme",
+      "urls": [
+        "https://www.aqa.org.uk/programmes/unit-award-scheme/about",
+        "https://www.aqa.org.uk/programmes/unit-award-scheme/certification"
+      ]
+    },
+    {
+      "framework": "ASDAN Short Courses",
+      "urls": [
+        "https://www.asdan.org.uk/courses/expressive-arts-short-course/",
+        "https://www.asdan.org.uk/living-independently-short-course/"
+      ]
+    },
+    {
+      "framework": "ASDAN Personal Effectiveness Qualifications",
+      "urls": [
+        "https://www.asdan.org.uk/news/personal-effectiveness-qualifications-launch-updates-training-and-free-resources/"
+      ]
+    },
+    {
+      "framework": "Arts Award",
+      "urls": [
+        "https://www.artsaward.org.uk/accessandinclusion"
+      ]
+    }
+  ]
+}
