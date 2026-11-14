@@ -3696,7 +3696,8 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # Re-cut 2026-11-08 (owner pin edit on this branch): the carrier moves to Site main 85b7bb5c, the merge of Site #621 (registry baseline for the Autumn 2 landing and the scheme-of-work label admission, after Site #620 admitted the Autumn 2 pages); the caller digest is re-cut from the owner's committed bytes (both pin lines moved, one trailing blank line).
 # Pre-cut 2026-11-08 (owner pin edit on this branch): the carrier moves to Site 4288540e, the head of Site #622 (the publisher build job timeout raised from 15 to 30 minutes, the only change on top of Site main 85b7bb5c); the Autumn 2 publication run was cancelled twice by the 15-minute limit while its admission proof was passing. Pre-cut for both pin lines moved and nothing else changed; re-cut from the owner's committed bytes if they differ.
 # Pre-cut 2026-11-09 (owner pin edit on this branch): the carrier moves to Site main 54c5c443, the merge of Site #623 (admission of the Tutor Time Autumn 2 landing, the pathway relabel and the plain catalogue labels, with the registry fence re-frozen) on top of Site #622 (the 30-minute publisher build job). The digest is cut from the caller with its two 4288540e lines (uses@ and builder_ref) replaced by 54c5c443 and nothing else changed.
-    "lessons": "6ff3fe6d72cab5cfc7d3d29208b6098574d5c6e868f1c54ac33efd972331e30c",
+# Re-cut 2026-11-14 (pin edit on this branch, made at the owner's word): the carrier moves to Site main 2f12d3cf, the merge of Site #642 (security hardening and transition admission pairs); no other line of the caller file changes.
+    "lessons": "ea24130aaf7128d83a323f5e1075198181f011af084176acbadaa3bb1b953ecf",
 # Advanced 2026-09-16 (served-defect amendment D-2): the Apps repository moved its own
 # publisher pin to the Site carrier that carries EDU-D3, so its caller file changed. This is
 # that file's digest on Apps main, re-cut from its bytes.
@@ -3707,7 +3708,8 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # derived with sha256 over the edited file, never transcribed.
 # Re-cut 2026-11-01 (Merge Letters A1-A6, LD28 standing step): the Apps repository moves its own publisher pin cfc92e84 -> e25aa76a,
 # the squash merge of Site #533. Digest derived with sha256 over the edited file, never transcribed.
-    "apps": "7823f26e59b1e4d8059aff5eafa7cf9691a0de6f9c49dc664c85c960da71b02c"
+# Re-cut 2026-11-14: the Apps repository moves its own publisher pin e25aa76a -> 2f12d3cf, the merge of Site #642. Digest derived with sha256 over the edited file, never transcribed.
+    "apps": "6ef08c5936808292fd1f44eed33e21ba2f7176bf6d06866f1fe7bfafab225914"
 }
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
