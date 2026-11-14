@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <link rel="icon" href="data:,">
 <meta name="theme-color" content="#07111f">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <title>ORBIT//VECTOR v4 — Stealth Science Diagnostic — Made by Matt</title>
 <style>
   :root{
@@ -2134,7 +2135,7 @@ return {QRCode:req('./index'),ErrorLevel:req('./QRErrorCorrectLevel')};})();
   function applyLowStim(on,announce=false){state.settings.lowStim=!!on;document.body.classList.toggle('low-stim',!!on);$('#focusBtn').setAttribute('aria-pressed',String(!!on));synth.setLowStim(!!on);if(on){uncertaintyFan=null;$('#uncertaintyHud').textContent='UNCERTAINTY QUIET'}else requestUncertaintyFan();drawScene(currentPath);if(announce)toast(on?'Low-stimulus high-focus mode on':'Full visual mode restored');save()}
   function setEcosystemPaused(paused){ecosystemPaused=!!paused;document.body.classList.toggle('ecosystem-paused',ecosystemPaused);if(ecosystemPaused)narrator.cancel();applyLocks();updateRuntimeUI();toast(ecosystemPaused?'Deck paused all simulations':'Deck resumed simulations')}
   function respondToMessage(event,type,payload={}){try{event.source?.postMessage({type,app:APP_ID,version:APP_VERSION,...payload},event.origin&&event.origin!=='null'?event.origin:'*')}catch{}}
-  window.addEventListener('message',event=>{const d=event.data||{};if(typeof d!=='object')return;if(d.type==='mbm-set-theme'){applyTheme(d.theme||'dark');respondToMessage(event,'mbm-theme-applied',{theme:d.theme||'dark',requestId:d.requestId})}else if(d.type==='mbm-pause-all'){setEcosystemPaused(d.paused!==false);respondToMessage(event,'mbm-pause-applied',{paused:ecosystemPaused,requestId:d.requestId})}else if(d.type==='mbm-set-focus'){applyLowStim(d.enabled!==false);respondToMessage(event,'mbm-focus-applied',{enabled:state.settings.lowStim,requestId:d.requestId})}else if(d.type==='mbm-export-all'){save();respondToMessage(event,'mbm-export-response',{requestId:d.requestId,payload:exportPayload()})}});
+  window.addEventListener('message',event=>{if(window.parent!==window?event.source!==window.parent:event.source!==window)return;const d=event.data||{};if(typeof d!=='object')return;if(d.type==='mbm-set-theme'){applyTheme(d.theme||'dark');respondToMessage(event,'mbm-theme-applied',{theme:d.theme||'dark',requestId:d.requestId})}else if(d.type==='mbm-pause-all'){setEcosystemPaused(d.paused!==false);respondToMessage(event,'mbm-pause-applied',{paused:ecosystemPaused,requestId:d.requestId})}else if(d.type==='mbm-set-focus'){applyLowStim(d.enabled!==false);respondToMessage(event,'mbm-focus-applied',{enabled:state.settings.lowStim,requestId:d.requestId})}else if(d.type==='mbm-export-all'){save();respondToMessage(event,'mbm-export-response',{requestId:d.requestId,payload:exportPayload()})}});
   function erase(){
     if(!confirm('Erase all ORBIT//VECTOR progress and local play observations from this browser?'))return;
     localStorage.removeItem(STORAGE_KEY);state=initialState();location.reload();
