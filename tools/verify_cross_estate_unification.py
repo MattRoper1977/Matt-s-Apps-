@@ -113,8 +113,8 @@ PIN_COMMAND = "python3 tools/pin_manifests.py   (from either checkout — it wri
 # named byte set is checked, including additions, on every Lessons gate run.
 # Apps retains its original authored-wording comparison. This block is updated
 # in both gate copies by tools/catalogue/pin_catalogue_contract.py after review.
-# SW2 A hub wording explicitly approved by Matt, 2026-09-14; manifest/tool bytes stay pinned.
-APPS_HUB_REVIEWED_WORDING_SHA256 = "9e5a4ac6c1e9bfb04a1c0186a82fce96aa03565a02dc3f18ee1569fb4b5664bf"
+# SW2 A hub wording explicitly approved by Matt, 2026-09-14; manifest/tool bytes stay pinned. Names flight N1 (2026-11-21, ruling thread): only the place leaves the maker line and footer.
+APPS_HUB_REVIEWED_WORDING_SHA256 = "a199b801acd0b9ec09a2c42309f857d02cc3e253e79b6a496f8256ac80d2f8b7"
 
 # BEGIN REVIEWED CATALOGUE PINS
 CATALOGUE_PINS = {
