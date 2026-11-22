@@ -33,6 +33,8 @@ jobs:
     # e25aa76a2e1411f85239d310222bc868d2a0c665, the squash merge of Site #533 (following #525, #529, #528, #531, #527, #532) -- advances
     # the Apps builder pin to match Lessons so one builder and one admission registry cover both estates. SHA read with git rev-parse, never typed.
     # Moved 2026-11-14: the Apps publisher pin e25aa76a -> 2f12d3cfd02fa29ad4a698f43cc5916e3ab7574d, the merge of Site #642 (security hardening and transition admission pairs for Lessons #854 and Apps #243). SHA read with git rev-parse, never typed.
-    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@2f12d3cfd02fa29ad4a698f43cc5916e3ab7574d
+    # Moved 2026-11-22 (names flight N1-Apps, ruling thread): the Apps publisher pin 2f12d3cf -> 0ca70533d2dfd9f0bec3f20cfd7da75772ce3e66, the merge of Site #733,
+    # which admits the Apps front page this flight changes; measured with the served digest census, it moves no other Apps-tree row. SHA read with git rev-parse, never typed.
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@0ca70533d2dfd9f0bec3f20cfd7da75772ce3e66
     with:
-      builder_ref: 2f12d3cfd02fa29ad4a698f43cc5916e3ab7574d
+      builder_ref: 0ca70533d2dfd9f0bec3f20cfd7da75772ce3e66

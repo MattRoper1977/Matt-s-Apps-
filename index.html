@@ -229,11 +229,11 @@ body.mbm-hub.mbm-hub-apps .apps-teaching a{display:inline-flex;align-items:cente
 <p class="status" id="status" aria-live="polite" aria-atomic="true"></p>
 <div id="groups"></div><section class="apps-teaching"><h2>Teaching today?</h2><p>Find your saved lessons and teaching packs.</p><a href="/for/teachers/">Teacher homepage →</a></section>
 </main>
-<aside class="sig"><div><span class="wave" aria-hidden="true">👋</span><p><b>From Matt</b> — I teach science and art in an alternative provision in the North East, and every file on this shelf started life in front of a real class. It’s all free and it stays that way. Spotted a bug or got an idea? <a href="mailto:contactmadebymatt@gmail.com">Tell me</a> — I read everything.</p></div></aside>
+<aside class="sig"><div><span class="wave" aria-hidden="true">👋</span><p><b>From Matt</b> — I teach science and art in an alternative provision, and every file on this shelf started life in front of a real class. It’s all free and it stays that way. Spotted a bug or got an idea? <a href="mailto:contactmadebymatt@gmail.com">Tell me</a> — I read everything.</p></div></aside>
 
 <footer class="footer"><div class="bar"><svg class="mono" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="none" stroke="#B9E6CD" stroke-width="3.4"/><g transform="translate(0 2)"><path d="M28 71 L28 37 L50 59 L72 37 L72 71" fill="none" stroke="#E8E2D4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 22.5 L51.48 28.52 L57.5 30 L51.48 31.48 L50 37.5 L48.52 31.48 L42.5 30 L48.52 28.52 Z" fill="#F2A24A"/></g></svg>
 <div><p>Made by Matt · Learn • Build • Explore</p>
-<small>Single-file · offline-first · hand-built in Teesside</small></div>
+<small>Single-file · offline-first · hand-built</small></div>
 </div>
 <p class="mbm-contact" style="text-align:center;font-size:.85rem;opacity:.85;margin:16px auto 10px;max-width:90%">Questions, ideas or bug reports — <a href="mailto:contactmadebymatt@gmail.com" style="color:inherit;font-weight:600">contactmadebymatt@gmail.com</a></p>
 </footer>
@@ -250,17 +250,17 @@ function numberWord(n){
   const one=["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"];
   const ten=["","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"];
   if(Number.isInteger(n)&&n>=0&&n<20)return one[n];
-  if(Number.isInteger(n)&&n<100){const t=Math.floor(n/10),u=n%10;return ten[t]+(u?"-"+one[u].toLowerCase():"");}
+  if(Number.isInteger(n)&&n<100){const t=Math.floor(n/10),u=n % 10;return ten[t]+(u?"-"+one[u].toLowerCase():"");}
   return String(n);
 }
 let DATA=null,CAT="",Q="";
 const SPEC="Teacher tools";
-const AUDMAP={"BUILD v4 FieldOps · Teacher Studio":"t","Data Manager Studio":"t","UAS Register":"t","ASDAN Register":"t","Evidence Binder":"t","Classroom Toolkit":"t","Seating Plan Studio":"t","Rubric & Feedback Studio":"t","Exit Ticket & Quick Marks":"t","ChoreoStudio":"t","LundyLoop Professional OS":"t","Teesside Cross-Curricular Maker Lab PRO":"t",
+const AUDMAP={"BUILD v4 FieldOps · Teacher Studio":"t","Data Manager Studio":"t","UAS Register":"t","ASDAN Register":"t","Evidence Binder":"t","Classroom Toolkit":"t","Seating Plan Studio":"t","Rubric & Feedback Studio":"t","Exit Ticket & Quick Marks":"t","ChoreoStudio":"t","LundyLoop Professional OS":"t","Cross-Curricular Maker Lab PRO":"t",
 "Now / Next Board":"g","Feelings Check-in":"g","Regulation Station":"g",
 "PDF Studio":"s",
 "MBM Science Portfolio Hub":"t"};
 const AUDL={t:"🍎 Teacher Admin",g:"🤝 Guided / Co-Op",p:"👤 Pupil Independent",s:"⭐ Anyone"};
-function audOf(it){return AUDMAP[it.n]||"p"}
+function audOf(it){const n=String(it.n||"");if(AUDMAP[n])return AUDMAP[n];const k=Object.keys(AUDMAP).find(k=>n.endsWith(" "+k));return k?AUDMAP[k]:"p"}
 let AUD="";
 function hexc(c){return (typeof c==="string"&&/^#[0-9A-Fa-f]{3,8}$/.test(c))?c:"#161D3D33"}
 function card(it){
@@ -269,9 +269,9 @@ return `<article class="card" style="--ac:${hexc(it.c)}">
 <h3>${esc(it.n)}</h3><span class="aud aud-${audOf(it)}">${AUDL[audOf(it)]}</span><p>${esc(it.d||"")}</p>
 <a class="open" href="${esc(safeHref(it.f))}">Open ${esc(it.n)} →</a></article>`}
 function bridge(){return `<div class="bridge"><span class="stamp">FROM THE LESSON HUB · ARTS AWARD MAPPED ✓</span>
-<h3>Teesside Art Studio Suite — the full lesson programme</h3>
+<h3>Art Studio Suite — the full lesson programme</h3>
 <p>These studios make the work — the suite teaches it: a term of art lessons across BUILD (Explore), GROW (Bronze) and LAUNCH (Silver), each with three tiers and a print pack built in.</p>
-<div class="acts"><a href="https://madebymatt.uk/resources/?subject=Art%20%C2%B7%20Teesside%20Studio%20Suite">Browse the suite →</a><a href="https://madebymatt.uk/Lessons/">Lesson Hub →</a></div></div>`}
+<div class="acts"><a href="https://madebymatt.uk/resources/?subject=art-studio">Browse the suite →</a><a href="https://madebymatt.uk/Lessons/">Lesson Hub →</a></div></div>`}
 function matches(it){const a=audOf(it);return (!Q||[it.n,it.d].join(" ").toLowerCase().includes(Q))&&(!AUD||a===AUD||(AUD==="p"&&a==="s"))}
 function setStatus(shown,total){
   const el=$("#status");el.replaceChildren();
