@@ -3710,7 +3710,7 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # the squash merge of Site #533. Digest derived with sha256 over the edited file, never transcribed.
 # Re-cut 2026-11-14: the Apps repository moves its own publisher pin e25aa76a -> 2f12d3cf, the merge of Site #642. Digest derived with sha256 over the edited file, never transcribed.
 # Re-cut 2026-11-22 (names flight N1-Apps, ruling thread): the Apps repository moves its own publisher pin 2f12d3cf -> 0ca70533, the merge of Site #733. Digest derived with sha256 over the edited file, never transcribed.
-    "apps": "eb0b7f36236562e01aa4d57f3c7ca2a96dbf8e75b8e9ecb03841e2302f9cb017"
+    "apps": "086d3ae4017257589697f0f23e55a5acea4247d00fa29e580c6905e05acebb3c"
 }
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 
