@@ -37,6 +37,8 @@ jobs:
     # which admits the Apps front page this flight changes; measured with the served digest census, it moves no other Apps-tree row. SHA read with git rev-parse, never typed.
     # Moved 2026-11-23 (education no-games copy, ruling thread, owner's word 10:07Z): the Apps publisher pin 0ca70533 ->
     # 63ae0fa016c8cbe8ae9ee34ff77eb6f357a858ac, the merge of Site #750 (no Play row in the menu; education-apps/index.html re-admitted).
-    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@63ae0fa016c8cbe8ae9ee34ff77eb6f357a858ac
+    # Moved 2026-11-24 (sixth lesson swap carrier move, ruling thread): the Apps publisher pin 63ae0fa0 ->
+    # 2ab15141918b55a07ffc84352e24679e24ae50d8, the merge of Site #777 (the Site's Lessons carrier and Apps pins moved to the mains). SHA read with git rev-parse, never typed.
+    uses: MattRoper1977/mattroper1977.github.io/.github/workflows/education-publication.yml@2ab15141918b55a07ffc84352e24679e24ae50d8
     with:
-      builder_ref: 63ae0fa016c8cbe8ae9ee34ff77eb6f357a858ac
+      builder_ref: 2ab15141918b55a07ffc84352e24679e24ae50d8
