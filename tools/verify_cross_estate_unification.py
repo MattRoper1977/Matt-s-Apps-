@@ -3727,7 +3727,11 @@ LUNDYLOOP_CI_PINS = {
     # Re-cut 2026-10-22 (ruling ty, ty-2, option A): PUBLISHED re-derived from the Site cfc92e84 registry, the one
     # builder both estates now publish with (lessons "" d74addfa, subject.html b2a6f3cb, apps "" 53d82c52); digest
     # taken from the edited file, never typed.
-    "tools/sw2/check_tokens_inert.cjs": "2cbb482b66a72cbba628fba80b8fbdd431553356c95a66d36614fa35189d6434",
+    # Re-cut 2026-11-24 (ruling thread, after flight 76): PUBLISHED re-derived by tools/sw2/pin_published_digests.py --write from the
+    # Site bfe2e1cf admission registry (lessons "" 1612c51d, subject.html 50cff51a, apps "" dc2cb381), each equal to the live page
+    # measured the same hour; the live-proof job had been red on every Apps push since 23 Nov. Digest taken from the edited file,
+    # never typed.
+    "tools/sw2/check_tokens_inert.cjs": "4e52b917e475ff4de2bca91ace010e437f3d1738c86610367dfb4867bbfa90af",
     ".github/workflows/verify-lundyloop-professional-os.yml": "db2f0404944884869d84349a68b80858f81af8dbfb7eb64ddec71151f7928256",
     "tools/lundyloop/verify_live_bytes.py": "a27f791633260e7e2d8ba7ca2abe5a35db105b9ccbf96d26205628dcc1e636ad",
     "tools/lundyloop/test_live_bytes.py": "972ca2ae06da44722bfd011fda03a361c6011c699f95bb6ce78bca95b71f2e77"
