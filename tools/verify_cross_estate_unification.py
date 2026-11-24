@@ -99,7 +99,7 @@ MORE_ROUTES = ["/stats/", "/members/", "/#about", "/privacy/"]
 #
 # resources.json keeps the blanket rule. Only apps.json was ruled on.
 MANIFEST_PINS = {
-    "apps.json": "e29b71652efd467467f0a3f58f61763c6d2247f1bd180580cb6d36e9ae3dbc58",
+    "apps.json": "cdd7516c4b02f343ab86b2297b29f6bf0e25db5af07b1c07d5e387614bf97b57",
     # Ruled onto the pin 2026-08-12 (Ruling 3): the deck install is a
     # resources.json edit, and the blanket rule forbade it the same way it
     # once forbade studio adds. Same pattern, same tool, same commit rule.
@@ -3710,7 +3710,7 @@ PUBLICATION_CALLER_SHA256_BY_KIND = {
 # the squash merge of Site #533. Digest derived with sha256 over the edited file, never transcribed.
 # Re-cut 2026-11-14: the Apps repository moves its own publisher pin e25aa76a -> 2f12d3cf, the merge of Site #642. Digest derived with sha256 over the edited file, never transcribed.
 # Re-cut 2026-11-22 (names flight N1-Apps, ruling thread): the Apps repository moves its own publisher pin 2f12d3cf -> 0ca70533, the merge of Site #733. Digest derived with sha256 over the edited file, never transcribed.
-    "apps": "11304a497a1f6e951284848e96c90f2c0fe3b46094befceddbc693dfaac15649"
+    "apps": "a45cb563082a264192de486c9f0fdd82f8d15776a2537e5eb816b5c4aff02ba5"
 }
 PUBLICATION_GATE_WORKFLOW_PATH = ".github/workflows/mbm-cross-estate-unification.yml"
 

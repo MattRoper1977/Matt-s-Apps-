@@ -7,7 +7,7 @@
       "items": [
         {
           "f": "Teesside_Maker_Lab_PRO/index.html",
-          "n": "Teesside Cross-Curricular Maker Lab PRO",
+          "n": "Cross-Curricular Maker Lab PRO",
           "d": "Eight specialist maker studios (Art × D&T × Humanities) with a shared learner Maker Passport, Teacher Studio Director and Portfolio Moderation Hub. Commission → predict → make → test → revise → explain, evidence local to the device.",
           "i": "◆",
           "c": "#22B8CF",
@@ -16,7 +16,7 @@
         {
           "f": "FieldOps_Teacher_Studio.html",
           "n": "BASE v4 FieldOps · Teacher Studio",
-          "d": "Forge a 40-min science mission, launch it into a Teesside lab, verify the evidence capsule it returns",
+          "d": "Forge a 40-min science mission, launch it into a field lab, verify the evidence capsule it returns",
           "i": "🛠",
           "c": "#38bdf8"
         },
@@ -38,18 +38,18 @@
         },
         {
           "f": "https://madebymatt.uk/uas/",
-          "n": "UAS Register",
-          "d": "AQA Unit Award Scheme without the paperwork — date-stamp outcomes, file photo evidence, export one email-ready PDF",
+          "n": "Unit Awards Register",
+          "d": "Unit awards without the paperwork — date-stamp outcomes, file photo evidence, export one email-ready PDF",
           "i": "📋",
           "c": "#F2A24A",
           "new": true
         },
         {
-          "n": "ASDAN Register",
+          "n": "Course Credits Register",
           "i": "🗂️",
           "c": "#F2A24A",
           "f": "https://madebymatt.uk/asdan/",
-          "d": "PEQ & Short Courses tracking — the register itself lives on the main site."
+          "d": "Course credits and short courses tracking — the register itself lives on the main site."
         },
         {
           "f": "Evidence_Binder.html",
@@ -284,7 +284,7 @@
         {
           "f": "https://madebymatt.uk/voxel/",
           "n": "Voxel Frontier",
-          "d": "Minecraft-style voxel sandbox — mine, build & explore an endless block world. Runs offline in the browser.",
+          "d": "A block-building sandbox — mine, build & explore an endless block world. Runs offline in the browser.",
           "i": "⛏️",
           "c": "#5fae42",
           "new": true
